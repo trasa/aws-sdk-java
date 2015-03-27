@@ -1475,11 +1475,16 @@ public class DynamoDBMapper {
     public List<FailedBatch> batchWrite(List<? extends Object> objectsToWrite, List<? extends Object> objectsToDelete, DynamoDBMapperConfig config) {
         config = mergeConfig(config);
 
-        List<FailedBatch> totalFailedBatches = new LinkedList<FailedBatch>();
-
         BatchWriteRequests batchWriteRequests = createBatchWriteRequests(objectsToWrite, objectsToDelete, config);
-        HashMap<String, List<WriteRequest>> requestItems = batchWriteRequests.requestItems;
 
+        return writeBatchRequests(batchWriteRequests);
+    }
+
+
+    public List<FailedBatch> writeBatchRequests(BatchWriteRequests batchWriteRequests) {
+        Map<String, List<WriteRequest>> requestItems = batchWriteRequests.requestItems;
+
+        List<FailedBatch> totalFailedBatches = new LinkedList<FailedBatch>();
 
         // Break into chunks of 25 items and make service requests to DynamoDB
         while ( !requestItems.isEmpty() ) {
@@ -1526,8 +1531,6 @@ public class DynamoDBMapper {
             }
         }
 
-
-
         // Once the entire batch is processed, update assigned keys in memory
         for ( ValueUpdate update : batchWriteRequests.inMemoryUpdates ) {
             update.apply();
@@ -1536,13 +1539,29 @@ public class DynamoDBMapper {
         return totalFailedBatches;
     }
 
+
     public static class BatchWriteRequests {
-        public HashMap<String, List<WriteRequest>> requestItems;
+        public Map<String, List<WriteRequest>> requestItems;
         public List<ValueUpdate> inMemoryUpdates;
 
-        public BatchWriteRequests(HashMap<String, List<WriteRequest>> requestItems, List<ValueUpdate> inMemoryUpdates) {
+        public BatchWriteRequests(Map<String, List<WriteRequest>> requestItems) {
+            this(requestItems, new ArrayList<ValueUpdate>());
+        }
+
+        public BatchWriteRequests(Map<String, List<WriteRequest>> requestItems, List<ValueUpdate> inMemoryUpdates) {
             this.requestItems = requestItems;
             this.inMemoryUpdates = inMemoryUpdates;
+        }
+
+        public void add(BatchWriteRequests requests) {
+            for(Entry<String, List<WriteRequest>> entry : requests.requestItems.entrySet()) {
+                if (requestItems.containsKey(entry.getKey())) {
+                    // add to existing list
+                    requestItems.get(entry.getKey()).addAll(entry.getValue());
+                } else {
+                    requestItems.put(entry.getKey(), entry.getValue());
+                }
+            }
         }
     }
 
