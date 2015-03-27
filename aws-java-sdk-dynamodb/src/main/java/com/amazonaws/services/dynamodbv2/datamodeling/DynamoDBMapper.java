@@ -1482,7 +1482,7 @@ public class DynamoDBMapper {
 
 
     public List<FailedBatch> writeBatchRequests(BatchWriteRequests batchWriteRequests) {
-        HashMap<String, List<WriteRequest>> requestItems = batchWriteRequests.requestItems;
+        Map<String, List<WriteRequest>> requestItems = batchWriteRequests.requestItems;
 
         List<FailedBatch> totalFailedBatches = new LinkedList<FailedBatch>();
 
@@ -1541,10 +1541,14 @@ public class DynamoDBMapper {
 
 
     public static class BatchWriteRequests {
-        public HashMap<String, List<WriteRequest>> requestItems;
+        public Map<String, List<WriteRequest>> requestItems;
         public List<ValueUpdate> inMemoryUpdates;
 
-        public BatchWriteRequests(HashMap<String, List<WriteRequest>> requestItems, List<ValueUpdate> inMemoryUpdates) {
+        public BatchWriteRequests(Map<String, List<WriteRequest>> requestItems) {
+            this(requestItems, new ArrayList<ValueUpdate>());
+        }
+
+        public BatchWriteRequests(Map<String, List<WriteRequest>> requestItems, List<ValueUpdate> inMemoryUpdates) {
             this.requestItems = requestItems;
             this.inMemoryUpdates = inMemoryUpdates;
         }
