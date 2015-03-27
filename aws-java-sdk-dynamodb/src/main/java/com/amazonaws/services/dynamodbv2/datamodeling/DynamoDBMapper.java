@@ -1475,11 +1475,16 @@ public class DynamoDBMapper {
     public List<FailedBatch> batchWrite(List<? extends Object> objectsToWrite, List<? extends Object> objectsToDelete, DynamoDBMapperConfig config) {
         config = mergeConfig(config);
 
-        List<FailedBatch> totalFailedBatches = new LinkedList<FailedBatch>();
-
         BatchWriteRequests batchWriteRequests = createBatchWriteRequests(objectsToWrite, objectsToDelete, config);
+
+        return writeBatchRequests(batchWriteRequests);
+    }
+
+
+    public List<FailedBatch> writeBatchRequests(BatchWriteRequests batchWriteRequests) {
         HashMap<String, List<WriteRequest>> requestItems = batchWriteRequests.requestItems;
 
+        List<FailedBatch> totalFailedBatches = new LinkedList<FailedBatch>();
 
         // Break into chunks of 25 items and make service requests to DynamoDB
         while ( !requestItems.isEmpty() ) {
@@ -1526,8 +1531,6 @@ public class DynamoDBMapper {
             }
         }
 
-
-
         // Once the entire batch is processed, update assigned keys in memory
         for ( ValueUpdate update : batchWriteRequests.inMemoryUpdates ) {
             update.apply();
@@ -1535,6 +1538,7 @@ public class DynamoDBMapper {
 
         return totalFailedBatches;
     }
+
 
     public static class BatchWriteRequests {
         public HashMap<String, List<WriteRequest>> requestItems;
