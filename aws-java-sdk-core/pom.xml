@@ -12,7 +12,7 @@
     <parent>
         <groupId>com.amazonaws</groupId>
         <artifactId>aws-java-sdk-pom</artifactId>
-        <version>1.9.23-batchmapper</version>
+        <version>1.9.23.1-batchmapper</version>
     </parent>
 
     <dependencies>
