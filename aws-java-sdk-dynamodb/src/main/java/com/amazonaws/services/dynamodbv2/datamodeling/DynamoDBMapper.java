@@ -1552,6 +1552,17 @@ public class DynamoDBMapper {
             this.requestItems = requestItems;
             this.inMemoryUpdates = inMemoryUpdates;
         }
+
+        public void add(BatchWriteRequests requests) {
+            for(Entry<String, List<WriteRequest>> entry : requests.requestItems.entrySet()) {
+                if (requestItems.containsKey(entry.getKey())) {
+                    // add to existing list
+                    requestItems.get(entry.getKey()).addAll(entry.getValue());
+                } else {
+                    requestItems.put(entry.getKey(), entry.getValue());
+                }
+            }
+        }
     }
 
     public BatchWriteRequests createBatchWriteRequests(List<?> objectsToWrite, List<?> objectsToDelete, DynamoDBMapperConfig config) {
