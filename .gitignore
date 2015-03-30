@@ -3,3 +3,4 @@ target/
 .idea/
 *.swp
 pom.xml.versionsBackup
+dependency-reduced-pom.xml
