@@ -5,7 +5,7 @@
   <artifactId>aws-java-sdk-pom</artifactId>
   <packaging>pom</packaging>
   <name>AWS SDK for Java</name>
-  <version>1.10.20</version>
+  <version>1.10.20.multiBatch</version>
   <description>The Amazon Web Services SDK for Java provides Java APIs
     for building software on AWS' cost-effective, scalable, and reliable
     infrastructure products. The AWS Java SDK allows developers to code
@@ -190,4 +190,18 @@
         </build>
       </profile>
     </profiles>
+
+    
+    <distributionManagement>
+      <repository>
+        <id>deployment</id>
+        <name>Internal Releases</name>
+        <url>http://gluw-nexus-1.glu.com/content/repositories/releases/</url>
+      </repository>
+      <snapshotRepository>
+        <id>deployment</id>
+        <name>Internal Releases</name>
+        <url>http://gluw-nexus-1.glu.com/content/repositories/snapshots/</url>
+      </snapshotRepository>
+    </distributionManagement>
 </project>
