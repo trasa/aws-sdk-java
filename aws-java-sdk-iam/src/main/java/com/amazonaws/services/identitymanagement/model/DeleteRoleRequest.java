@@ -27,7 +27,7 @@ import com.amazonaws.AmazonWebServiceRequest;
  * .
  * </p>
  * <p>
- * <b>IMPORTANT:</b> Make sure you do not have any Amazon EC2 instances
+ * <b>IMPORTANT:</b>Make sure you do not have any Amazon EC2 instances
  * running with the role you are about to delete. Deleting a role or
  * instance profile that is associated with a running instance will break
  * any applications running on the instance.
@@ -42,7 +42,7 @@ public class DeleteRoleRequest extends AmazonWebServiceRequest implements Serial
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>1 - 64<br/>
-     * <b>Pattern: </b>[\w+=,.@-]*<br/>
+     * <b>Pattern: </b>[\w+=,.@-]+<br/>
      */
     private String roleName;
 
@@ -51,7 +51,7 @@ public class DeleteRoleRequest extends AmazonWebServiceRequest implements Serial
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>1 - 64<br/>
-     * <b>Pattern: </b>[\w+=,.@-]*<br/>
+     * <b>Pattern: </b>[\w+=,.@-]+<br/>
      *
      * @return The name of the role to delete.
      */
@@ -64,7 +64,7 @@ public class DeleteRoleRequest extends AmazonWebServiceRequest implements Serial
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>1 - 64<br/>
-     * <b>Pattern: </b>[\w+=,.@-]*<br/>
+     * <b>Pattern: </b>[\w+=,.@-]+<br/>
      *
      * @param roleName The name of the role to delete.
      */
@@ -79,7 +79,7 @@ public class DeleteRoleRequest extends AmazonWebServiceRequest implements Serial
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>1 - 64<br/>
-     * <b>Pattern: </b>[\w+=,.@-]*<br/>
+     * <b>Pattern: </b>[\w+=,.@-]+<br/>
      *
      * @param roleName The name of the role to delete.
      *

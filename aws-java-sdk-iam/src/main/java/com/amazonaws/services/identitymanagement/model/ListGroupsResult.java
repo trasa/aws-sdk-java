@@ -29,21 +29,24 @@ public class ListGroupsResult implements Serializable, Cloneable {
     private com.amazonaws.internal.ListWithAutoConstructFlag<Group> groups;
 
     /**
-     * A flag that indicates whether there are more groups to list. If your
+     * A flag that indicates whether there are more items to return. If your
      * results were truncated, you can make a subsequent pagination request
      * using the <code>Marker</code> request parameter to retrieve more
-     * groups in the list.
+     * items. Note that IAM might return fewer than the <code>MaxItems</code>
+     * number of results even when there are more results available. We
+     * recommend that you check <code>IsTruncated</code> after every call to
+     * ensure that you receive all of your results.
      */
     private Boolean isTruncated;
 
     /**
-     * If <code>IsTruncated</code> is <code>true</code>, this element is
+     * When <code>IsTruncated</code> is <code>true</code>, this element is
      * present and contains the value to use for the <code>Marker</code>
      * parameter in a subsequent pagination request.
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>1 - 320<br/>
-     * <b>Pattern: </b>[&#92;u0020-&#92;u00FF]*<br/>
+     * <b>Pattern: </b>[&#92;u0020-&#92;u00FF]+<br/>
      */
     private String marker;
 
@@ -77,6 +80,11 @@ public class ListGroupsResult implements Serializable, Cloneable {
     
     /**
      * A list of groups.
+     * <p>
+     * <b>NOTE:</b> This method appends the values to the existing list (if
+     * any). Use {@link #setGroups(java.util.Collection)} or {@link
+     * #withGroups(java.util.Collection)} if you want to override the
+     * existing values.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *
@@ -116,47 +124,65 @@ public class ListGroupsResult implements Serializable, Cloneable {
     }
 
     /**
-     * A flag that indicates whether there are more groups to list. If your
+     * A flag that indicates whether there are more items to return. If your
      * results were truncated, you can make a subsequent pagination request
      * using the <code>Marker</code> request parameter to retrieve more
-     * groups in the list.
+     * items. Note that IAM might return fewer than the <code>MaxItems</code>
+     * number of results even when there are more results available. We
+     * recommend that you check <code>IsTruncated</code> after every call to
+     * ensure that you receive all of your results.
      *
-     * @return A flag that indicates whether there are more groups to list. If your
+     * @return A flag that indicates whether there are more items to return. If your
      *         results were truncated, you can make a subsequent pagination request
      *         using the <code>Marker</code> request parameter to retrieve more
-     *         groups in the list.
+     *         items. Note that IAM might return fewer than the <code>MaxItems</code>
+     *         number of results even when there are more results available. We
+     *         recommend that you check <code>IsTruncated</code> after every call to
+     *         ensure that you receive all of your results.
      */
     public Boolean isTruncated() {
         return isTruncated;
     }
     
     /**
-     * A flag that indicates whether there are more groups to list. If your
+     * A flag that indicates whether there are more items to return. If your
      * results were truncated, you can make a subsequent pagination request
      * using the <code>Marker</code> request parameter to retrieve more
-     * groups in the list.
+     * items. Note that IAM might return fewer than the <code>MaxItems</code>
+     * number of results even when there are more results available. We
+     * recommend that you check <code>IsTruncated</code> after every call to
+     * ensure that you receive all of your results.
      *
-     * @param isTruncated A flag that indicates whether there are more groups to list. If your
+     * @param isTruncated A flag that indicates whether there are more items to return. If your
      *         results were truncated, you can make a subsequent pagination request
      *         using the <code>Marker</code> request parameter to retrieve more
-     *         groups in the list.
+     *         items. Note that IAM might return fewer than the <code>MaxItems</code>
+     *         number of results even when there are more results available. We
+     *         recommend that you check <code>IsTruncated</code> after every call to
+     *         ensure that you receive all of your results.
      */
     public void setIsTruncated(Boolean isTruncated) {
         this.isTruncated = isTruncated;
     }
     
     /**
-     * A flag that indicates whether there are more groups to list. If your
+     * A flag that indicates whether there are more items to return. If your
      * results were truncated, you can make a subsequent pagination request
      * using the <code>Marker</code> request parameter to retrieve more
-     * groups in the list.
+     * items. Note that IAM might return fewer than the <code>MaxItems</code>
+     * number of results even when there are more results available. We
+     * recommend that you check <code>IsTruncated</code> after every call to
+     * ensure that you receive all of your results.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *
-     * @param isTruncated A flag that indicates whether there are more groups to list. If your
+     * @param isTruncated A flag that indicates whether there are more items to return. If your
      *         results were truncated, you can make a subsequent pagination request
      *         using the <code>Marker</code> request parameter to retrieve more
-     *         groups in the list.
+     *         items. Note that IAM might return fewer than the <code>MaxItems</code>
+     *         number of results even when there are more results available. We
+     *         recommend that you check <code>IsTruncated</code> after every call to
+     *         ensure that you receive all of your results.
      *
      * @return A reference to this updated object so that method calls can be chained
      *         together.
@@ -167,30 +193,36 @@ public class ListGroupsResult implements Serializable, Cloneable {
     }
 
     /**
-     * A flag that indicates whether there are more groups to list. If your
+     * A flag that indicates whether there are more items to return. If your
      * results were truncated, you can make a subsequent pagination request
      * using the <code>Marker</code> request parameter to retrieve more
-     * groups in the list.
+     * items. Note that IAM might return fewer than the <code>MaxItems</code>
+     * number of results even when there are more results available. We
+     * recommend that you check <code>IsTruncated</code> after every call to
+     * ensure that you receive all of your results.
      *
-     * @return A flag that indicates whether there are more groups to list. If your
+     * @return A flag that indicates whether there are more items to return. If your
      *         results were truncated, you can make a subsequent pagination request
      *         using the <code>Marker</code> request parameter to retrieve more
-     *         groups in the list.
+     *         items. Note that IAM might return fewer than the <code>MaxItems</code>
+     *         number of results even when there are more results available. We
+     *         recommend that you check <code>IsTruncated</code> after every call to
+     *         ensure that you receive all of your results.
      */
     public Boolean getIsTruncated() {
         return isTruncated;
     }
 
     /**
-     * If <code>IsTruncated</code> is <code>true</code>, this element is
+     * When <code>IsTruncated</code> is <code>true</code>, this element is
      * present and contains the value to use for the <code>Marker</code>
      * parameter in a subsequent pagination request.
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>1 - 320<br/>
-     * <b>Pattern: </b>[&#92;u0020-&#92;u00FF]*<br/>
+     * <b>Pattern: </b>[&#92;u0020-&#92;u00FF]+<br/>
      *
-     * @return If <code>IsTruncated</code> is <code>true</code>, this element is
+     * @return When <code>IsTruncated</code> is <code>true</code>, this element is
      *         present and contains the value to use for the <code>Marker</code>
      *         parameter in a subsequent pagination request.
      */
@@ -199,15 +231,15 @@ public class ListGroupsResult implements Serializable, Cloneable {
     }
     
     /**
-     * If <code>IsTruncated</code> is <code>true</code>, this element is
+     * When <code>IsTruncated</code> is <code>true</code>, this element is
      * present and contains the value to use for the <code>Marker</code>
      * parameter in a subsequent pagination request.
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>1 - 320<br/>
-     * <b>Pattern: </b>[&#92;u0020-&#92;u00FF]*<br/>
+     * <b>Pattern: </b>[&#92;u0020-&#92;u00FF]+<br/>
      *
-     * @param marker If <code>IsTruncated</code> is <code>true</code>, this element is
+     * @param marker When <code>IsTruncated</code> is <code>true</code>, this element is
      *         present and contains the value to use for the <code>Marker</code>
      *         parameter in a subsequent pagination request.
      */
@@ -216,7 +248,7 @@ public class ListGroupsResult implements Serializable, Cloneable {
     }
     
     /**
-     * If <code>IsTruncated</code> is <code>true</code>, this element is
+     * When <code>IsTruncated</code> is <code>true</code>, this element is
      * present and contains the value to use for the <code>Marker</code>
      * parameter in a subsequent pagination request.
      * <p>
@@ -224,9 +256,9 @@ public class ListGroupsResult implements Serializable, Cloneable {
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>1 - 320<br/>
-     * <b>Pattern: </b>[&#92;u0020-&#92;u00FF]*<br/>
+     * <b>Pattern: </b>[&#92;u0020-&#92;u00FF]+<br/>
      *
-     * @param marker If <code>IsTruncated</code> is <code>true</code>, this element is
+     * @param marker When <code>IsTruncated</code> is <code>true</code>, this element is
      *         present and contains the value to use for the <code>Marker</code>
      *         parameter in a subsequent pagination request.
      *

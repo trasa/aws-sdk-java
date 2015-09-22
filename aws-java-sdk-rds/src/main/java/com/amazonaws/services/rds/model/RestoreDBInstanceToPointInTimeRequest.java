@@ -23,10 +23,14 @@ import com.amazonaws.AmazonWebServiceRequest;
  * <p>
  * Restores a DB instance to an arbitrary point-in-time. Users can
  * restore to any point in time before the LatestRestorableTime for up to
- * BackupRetentionPeriod days. The target database is created from the
- * source database with the same configuration as the original database
- * except that the DB instance is created with the default DB security
- * group.
+ * BackupRetentionPeriod days. The target database is created with the
+ * most of original configuration, but in a system chosen availability
+ * zone with the default security group, the default subnet group, and
+ * the default DB parameter group. By default, the new DB instance is
+ * created as a single-AZ deployment except when the instance is a SQL
+ * Server instance that has an option group that is associated with
+ * mirroring; in this case, the instance becomes a mirrored deployment
+ * and not a single-AZ deployment.
  * </p>
  *
  * @see com.amazonaws.services.rds.AmazonRDS#restoreDBInstanceToPointInTime(RestoreDBInstanceToPointInTimeRequest)
@@ -53,10 +57,10 @@ public class RestoreDBInstanceToPointInTimeRequest extends AmazonWebServiceReque
 
     /**
      * The date and time to restore from. <p>Valid Values: Value must be a
-     * UTC time <p>Constraints: <ul> <li>Must be before the latest restorable
-     * time for the DB instance</li> <li>Cannot be specified if
-     * UseLatestRestorableTime parameter is true</li> </ul> <p>Example:
-     * <code>2009-09-07T23:45:00Z</code>
+     * time in Universal Coordinated Time (UTC) format <p>Constraints: <ul>
+     * <li>Must be before the latest restorable time for the DB instance</li>
+     * <li>Cannot be specified if UseLatestRestorableTime parameter is
+     * true</li> </ul> <p>Example: <code>2009-09-07T23:45:00Z</code>
      */
     private java.util.Date restoreTime;
 
@@ -114,8 +118,8 @@ public class RestoreDBInstanceToPointInTimeRequest extends AmazonWebServiceReque
      * specifies an internal instance with a DNS name that resolves to a
      * private IP address. <p> Default: The default behavior varies depending
      * on whether a VPC has been requested or not. The following list shows
-     * the default behavior in each case. <ul> <li><b>Default
-     * VPC:</b>true</li> <li><b>VPC:</b>false</li> </ul> <p> If no DB subnet
+     * the default behavior in each case. <ul> <li> <b>Default
+     * VPC:</b>true</li> <li> <b>VPC:</b>false</li> </ul> <p> If no DB subnet
      * group has been specified as part of the request and the
      * PubliclyAccessible value has not been set, the DB instance will be
      * publicly accessible. If a specific DB subnet group has been specified
@@ -158,8 +162,8 @@ public class RestoreDBInstanceToPointInTimeRequest extends AmazonWebServiceReque
     /**
      * The amount of Provisioned IOPS (input/output operations per second) to
      * be initially allocated for the DB instance. <p> Constraints: Must be
-     * an integer greater than 1000. <p><b>SQL Server</b> <p>Setting the IOPS
-     * value for the SQL Server database engine is not supported.
+     * an integer greater than 1000. <p> <b>SQL Server</b> <p>Setting the
+     * IOPS value for the SQL Server database engine is not supported.
      */
     private Integer iops;
 
@@ -343,16 +347,16 @@ public class RestoreDBInstanceToPointInTimeRequest extends AmazonWebServiceReque
 
     /**
      * The date and time to restore from. <p>Valid Values: Value must be a
-     * UTC time <p>Constraints: <ul> <li>Must be before the latest restorable
-     * time for the DB instance</li> <li>Cannot be specified if
-     * UseLatestRestorableTime parameter is true</li> </ul> <p>Example:
-     * <code>2009-09-07T23:45:00Z</code>
+     * time in Universal Coordinated Time (UTC) format <p>Constraints: <ul>
+     * <li>Must be before the latest restorable time for the DB instance</li>
+     * <li>Cannot be specified if UseLatestRestorableTime parameter is
+     * true</li> </ul> <p>Example: <code>2009-09-07T23:45:00Z</code>
      *
      * @return The date and time to restore from. <p>Valid Values: Value must be a
-     *         UTC time <p>Constraints: <ul> <li>Must be before the latest restorable
-     *         time for the DB instance</li> <li>Cannot be specified if
-     *         UseLatestRestorableTime parameter is true</li> </ul> <p>Example:
-     *         <code>2009-09-07T23:45:00Z</code>
+     *         time in Universal Coordinated Time (UTC) format <p>Constraints: <ul>
+     *         <li>Must be before the latest restorable time for the DB instance</li>
+     *         <li>Cannot be specified if UseLatestRestorableTime parameter is
+     *         true</li> </ul> <p>Example: <code>2009-09-07T23:45:00Z</code>
      */
     public java.util.Date getRestoreTime() {
         return restoreTime;
@@ -360,16 +364,16 @@ public class RestoreDBInstanceToPointInTimeRequest extends AmazonWebServiceReque
     
     /**
      * The date and time to restore from. <p>Valid Values: Value must be a
-     * UTC time <p>Constraints: <ul> <li>Must be before the latest restorable
-     * time for the DB instance</li> <li>Cannot be specified if
-     * UseLatestRestorableTime parameter is true</li> </ul> <p>Example:
-     * <code>2009-09-07T23:45:00Z</code>
+     * time in Universal Coordinated Time (UTC) format <p>Constraints: <ul>
+     * <li>Must be before the latest restorable time for the DB instance</li>
+     * <li>Cannot be specified if UseLatestRestorableTime parameter is
+     * true</li> </ul> <p>Example: <code>2009-09-07T23:45:00Z</code>
      *
      * @param restoreTime The date and time to restore from. <p>Valid Values: Value must be a
-     *         UTC time <p>Constraints: <ul> <li>Must be before the latest restorable
-     *         time for the DB instance</li> <li>Cannot be specified if
-     *         UseLatestRestorableTime parameter is true</li> </ul> <p>Example:
-     *         <code>2009-09-07T23:45:00Z</code>
+     *         time in Universal Coordinated Time (UTC) format <p>Constraints: <ul>
+     *         <li>Must be before the latest restorable time for the DB instance</li>
+     *         <li>Cannot be specified if UseLatestRestorableTime parameter is
+     *         true</li> </ul> <p>Example: <code>2009-09-07T23:45:00Z</code>
      */
     public void setRestoreTime(java.util.Date restoreTime) {
         this.restoreTime = restoreTime;
@@ -377,18 +381,18 @@ public class RestoreDBInstanceToPointInTimeRequest extends AmazonWebServiceReque
     
     /**
      * The date and time to restore from. <p>Valid Values: Value must be a
-     * UTC time <p>Constraints: <ul> <li>Must be before the latest restorable
-     * time for the DB instance</li> <li>Cannot be specified if
-     * UseLatestRestorableTime parameter is true</li> </ul> <p>Example:
-     * <code>2009-09-07T23:45:00Z</code>
+     * time in Universal Coordinated Time (UTC) format <p>Constraints: <ul>
+     * <li>Must be before the latest restorable time for the DB instance</li>
+     * <li>Cannot be specified if UseLatestRestorableTime parameter is
+     * true</li> </ul> <p>Example: <code>2009-09-07T23:45:00Z</code>
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *
      * @param restoreTime The date and time to restore from. <p>Valid Values: Value must be a
-     *         UTC time <p>Constraints: <ul> <li>Must be before the latest restorable
-     *         time for the DB instance</li> <li>Cannot be specified if
-     *         UseLatestRestorableTime parameter is true</li> </ul> <p>Example:
-     *         <code>2009-09-07T23:45:00Z</code>
+     *         time in Universal Coordinated Time (UTC) format <p>Constraints: <ul>
+     *         <li>Must be before the latest restorable time for the DB instance</li>
+     *         <li>Cannot be specified if UseLatestRestorableTime parameter is
+     *         true</li> </ul> <p>Example: <code>2009-09-07T23:45:00Z</code>
      *
      * @return A reference to this updated object so that method calls can be chained
      *         together.
@@ -733,8 +737,8 @@ public class RestoreDBInstanceToPointInTimeRequest extends AmazonWebServiceReque
      * specifies an internal instance with a DNS name that resolves to a
      * private IP address. <p> Default: The default behavior varies depending
      * on whether a VPC has been requested or not. The following list shows
-     * the default behavior in each case. <ul> <li><b>Default
-     * VPC:</b>true</li> <li><b>VPC:</b>false</li> </ul> <p> If no DB subnet
+     * the default behavior in each case. <ul> <li> <b>Default
+     * VPC:</b>true</li> <li> <b>VPC:</b>false</li> </ul> <p> If no DB subnet
      * group has been specified as part of the request and the
      * PubliclyAccessible value has not been set, the DB instance will be
      * publicly accessible. If a specific DB subnet group has been specified
@@ -747,8 +751,8 @@ public class RestoreDBInstanceToPointInTimeRequest extends AmazonWebServiceReque
      *         specifies an internal instance with a DNS name that resolves to a
      *         private IP address. <p> Default: The default behavior varies depending
      *         on whether a VPC has been requested or not. The following list shows
-     *         the default behavior in each case. <ul> <li><b>Default
-     *         VPC:</b>true</li> <li><b>VPC:</b>false</li> </ul> <p> If no DB subnet
+     *         the default behavior in each case. <ul> <li> <b>Default
+     *         VPC:</b>true</li> <li> <b>VPC:</b>false</li> </ul> <p> If no DB subnet
      *         group has been specified as part of the request and the
      *         PubliclyAccessible value has not been set, the DB instance will be
      *         publicly accessible. If a specific DB subnet group has been specified
@@ -766,8 +770,8 @@ public class RestoreDBInstanceToPointInTimeRequest extends AmazonWebServiceReque
      * specifies an internal instance with a DNS name that resolves to a
      * private IP address. <p> Default: The default behavior varies depending
      * on whether a VPC has been requested or not. The following list shows
-     * the default behavior in each case. <ul> <li><b>Default
-     * VPC:</b>true</li> <li><b>VPC:</b>false</li> </ul> <p> If no DB subnet
+     * the default behavior in each case. <ul> <li> <b>Default
+     * VPC:</b>true</li> <li> <b>VPC:</b>false</li> </ul> <p> If no DB subnet
      * group has been specified as part of the request and the
      * PubliclyAccessible value has not been set, the DB instance will be
      * publicly accessible. If a specific DB subnet group has been specified
@@ -780,8 +784,8 @@ public class RestoreDBInstanceToPointInTimeRequest extends AmazonWebServiceReque
      *         specifies an internal instance with a DNS name that resolves to a
      *         private IP address. <p> Default: The default behavior varies depending
      *         on whether a VPC has been requested or not. The following list shows
-     *         the default behavior in each case. <ul> <li><b>Default
-     *         VPC:</b>true</li> <li><b>VPC:</b>false</li> </ul> <p> If no DB subnet
+     *         the default behavior in each case. <ul> <li> <b>Default
+     *         VPC:</b>true</li> <li> <b>VPC:</b>false</li> </ul> <p> If no DB subnet
      *         group has been specified as part of the request and the
      *         PubliclyAccessible value has not been set, the DB instance will be
      *         publicly accessible. If a specific DB subnet group has been specified
@@ -799,8 +803,8 @@ public class RestoreDBInstanceToPointInTimeRequest extends AmazonWebServiceReque
      * specifies an internal instance with a DNS name that resolves to a
      * private IP address. <p> Default: The default behavior varies depending
      * on whether a VPC has been requested or not. The following list shows
-     * the default behavior in each case. <ul> <li><b>Default
-     * VPC:</b>true</li> <li><b>VPC:</b>false</li> </ul> <p> If no DB subnet
+     * the default behavior in each case. <ul> <li> <b>Default
+     * VPC:</b>true</li> <li> <b>VPC:</b>false</li> </ul> <p> If no DB subnet
      * group has been specified as part of the request and the
      * PubliclyAccessible value has not been set, the DB instance will be
      * publicly accessible. If a specific DB subnet group has been specified
@@ -815,8 +819,8 @@ public class RestoreDBInstanceToPointInTimeRequest extends AmazonWebServiceReque
      *         specifies an internal instance with a DNS name that resolves to a
      *         private IP address. <p> Default: The default behavior varies depending
      *         on whether a VPC has been requested or not. The following list shows
-     *         the default behavior in each case. <ul> <li><b>Default
-     *         VPC:</b>true</li> <li><b>VPC:</b>false</li> </ul> <p> If no DB subnet
+     *         the default behavior in each case. <ul> <li> <b>Default
+     *         VPC:</b>true</li> <li> <b>VPC:</b>false</li> </ul> <p> If no DB subnet
      *         group has been specified as part of the request and the
      *         PubliclyAccessible value has not been set, the DB instance will be
      *         publicly accessible. If a specific DB subnet group has been specified
@@ -838,8 +842,8 @@ public class RestoreDBInstanceToPointInTimeRequest extends AmazonWebServiceReque
      * specifies an internal instance with a DNS name that resolves to a
      * private IP address. <p> Default: The default behavior varies depending
      * on whether a VPC has been requested or not. The following list shows
-     * the default behavior in each case. <ul> <li><b>Default
-     * VPC:</b>true</li> <li><b>VPC:</b>false</li> </ul> <p> If no DB subnet
+     * the default behavior in each case. <ul> <li> <b>Default
+     * VPC:</b>true</li> <li> <b>VPC:</b>false</li> </ul> <p> If no DB subnet
      * group has been specified as part of the request and the
      * PubliclyAccessible value has not been set, the DB instance will be
      * publicly accessible. If a specific DB subnet group has been specified
@@ -852,8 +856,8 @@ public class RestoreDBInstanceToPointInTimeRequest extends AmazonWebServiceReque
      *         specifies an internal instance with a DNS name that resolves to a
      *         private IP address. <p> Default: The default behavior varies depending
      *         on whether a VPC has been requested or not. The following list shows
-     *         the default behavior in each case. <ul> <li><b>Default
-     *         VPC:</b>true</li> <li><b>VPC:</b>false</li> </ul> <p> If no DB subnet
+     *         the default behavior in each case. <ul> <li> <b>Default
+     *         VPC:</b>true</li> <li> <b>VPC:</b>false</li> </ul> <p> If no DB subnet
      *         group has been specified as part of the request and the
      *         PubliclyAccessible value has not been set, the DB instance will be
      *         publicly accessible. If a specific DB subnet group has been specified
@@ -1076,13 +1080,13 @@ public class RestoreDBInstanceToPointInTimeRequest extends AmazonWebServiceReque
     /**
      * The amount of Provisioned IOPS (input/output operations per second) to
      * be initially allocated for the DB instance. <p> Constraints: Must be
-     * an integer greater than 1000. <p><b>SQL Server</b> <p>Setting the IOPS
-     * value for the SQL Server database engine is not supported.
+     * an integer greater than 1000. <p> <b>SQL Server</b> <p>Setting the
+     * IOPS value for the SQL Server database engine is not supported.
      *
      * @return The amount of Provisioned IOPS (input/output operations per second) to
      *         be initially allocated for the DB instance. <p> Constraints: Must be
-     *         an integer greater than 1000. <p><b>SQL Server</b> <p>Setting the IOPS
-     *         value for the SQL Server database engine is not supported.
+     *         an integer greater than 1000. <p> <b>SQL Server</b> <p>Setting the
+     *         IOPS value for the SQL Server database engine is not supported.
      */
     public Integer getIops() {
         return iops;
@@ -1091,13 +1095,13 @@ public class RestoreDBInstanceToPointInTimeRequest extends AmazonWebServiceReque
     /**
      * The amount of Provisioned IOPS (input/output operations per second) to
      * be initially allocated for the DB instance. <p> Constraints: Must be
-     * an integer greater than 1000. <p><b>SQL Server</b> <p>Setting the IOPS
-     * value for the SQL Server database engine is not supported.
+     * an integer greater than 1000. <p> <b>SQL Server</b> <p>Setting the
+     * IOPS value for the SQL Server database engine is not supported.
      *
      * @param iops The amount of Provisioned IOPS (input/output operations per second) to
      *         be initially allocated for the DB instance. <p> Constraints: Must be
-     *         an integer greater than 1000. <p><b>SQL Server</b> <p>Setting the IOPS
-     *         value for the SQL Server database engine is not supported.
+     *         an integer greater than 1000. <p> <b>SQL Server</b> <p>Setting the
+     *         IOPS value for the SQL Server database engine is not supported.
      */
     public void setIops(Integer iops) {
         this.iops = iops;
@@ -1106,15 +1110,15 @@ public class RestoreDBInstanceToPointInTimeRequest extends AmazonWebServiceReque
     /**
      * The amount of Provisioned IOPS (input/output operations per second) to
      * be initially allocated for the DB instance. <p> Constraints: Must be
-     * an integer greater than 1000. <p><b>SQL Server</b> <p>Setting the IOPS
-     * value for the SQL Server database engine is not supported.
+     * an integer greater than 1000. <p> <b>SQL Server</b> <p>Setting the
+     * IOPS value for the SQL Server database engine is not supported.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *
      * @param iops The amount of Provisioned IOPS (input/output operations per second) to
      *         be initially allocated for the DB instance. <p> Constraints: Must be
-     *         an integer greater than 1000. <p><b>SQL Server</b> <p>Setting the IOPS
-     *         value for the SQL Server database engine is not supported.
+     *         an integer greater than 1000. <p> <b>SQL Server</b> <p>Setting the
+     *         IOPS value for the SQL Server database engine is not supported.
      *
      * @return A reference to this updated object so that method calls can be chained
      *         together.
@@ -1211,6 +1215,11 @@ public class RestoreDBInstanceToPointInTimeRequest extends AmazonWebServiceReque
     
     /**
      * A list of tags.
+     * <p>
+     * <b>NOTE:</b> This method appends the values to the existing list (if
+     * any). Use {@link #setTags(java.util.Collection)} or {@link
+     * #withTags(java.util.Collection)} if you want to override the existing
+     * values.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *

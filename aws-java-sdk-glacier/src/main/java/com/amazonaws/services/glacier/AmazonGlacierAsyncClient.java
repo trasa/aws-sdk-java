@@ -92,7 +92,7 @@ public class AmazonGlacierAsyncClient extends AmazonGlacierClient
     /**
      * Executor service for executing asynchronous requests.
      */
-    private ExecutorService executorService;
+    private final ExecutorService executorService;
 
     private static final int DEFAULT_THREAD_POOL_SIZE = 50;
 
@@ -568,167 +568,19 @@ public class AmazonGlacierAsyncClient extends AmazonGlacierClient
     
     /**
      * <p>
-     * This operation lists the parts of an archive that have been uploaded
-     * in a specific multipart upload. You can make this request at any time
-     * during an in-progress multipart upload before you complete the upload
-     * (see CompleteMultipartUpload. List Parts returns an error for
-     * completed uploads. The list returned in the List Parts response is
-     * sorted by part range.
-     * </p>
-     * <p>
-     * The List Parts operation supports pagination. By default, this
-     * operation returns up to 1,000 uploaded parts in the response. You
-     * should always check the response for a <code>marker</code> at which to
-     * continue the list; if there are no more items the <code>marker</code>
-     * is <code>null</code> . To return a list of parts that begins at a
-     * specific part, set the <code>marker</code> request parameter to the
-     * value you obtained from a previous List Parts request. You can also
-     * limit the number of parts returned in the response by specifying the
-     * <code>limit</code> parameter in the request.
-     * </p>
-     * <p>
-     * An AWS account has full permission to perform all operations
-     * (actions). However, AWS Identity and Access Management (IAM) users
-     * don't have any permissions by default. You must grant them explicit
-     * permission to perform specific actions. For more information, see
-     * <a href="http://docs.aws.amazon.com/amazonglacier/latest/dev/using-iam-with-amazon-glacier.html"> Access Control Using AWS Identity and Access Management (IAM) </a>
+     * This operation retrieves the <code>access-policy</code> subresource
+     * set on the vault; for more information on setting this subresource,
+     * see
+     * <a href="http://docs.aws.amazon.com/amazonglacier/latest/dev/api-SetVaultAccessPolicy.html"> Set Vault Access Policy (PUT access-policy) </a> . If there is no access policy set on the vault, the operation returns a <code>404 Not found</code> error. For more information about vault access policies, see <a href="http://docs.aws.amazon.com/amazonglacier/latest/dev/vault-access-policy.html"> Amazon Glacier Access Control with Vault Access Policies </a>
      * .
      * </p>
-     * <p>
-     * For conceptual information and the underlying REST API, go to
-     * <a href="http://docs.aws.amazon.com/amazonglacier/latest/dev/working-with-archives.html"> Working with Archives in Amazon Glacier </a> and <a href="http://docs.aws.amazon.com/amazonglacier/latest/dev/api-multipart-list-parts.html"> List Parts </a>
-     * in the <i>Amazon Glacier Developer Guide</i> .
-     * </p>
      *
-     * @param listPartsRequest Container for the necessary parameters to
-     *           execute the ListParts operation on AmazonGlacier.
-     * 
-     * @return A Java Future object containing the response from the
-     *         ListParts service method, as returned by AmazonGlacier.
-     * 
-     *
-     * @throws AmazonClientException
-     *             If any internal errors are encountered inside the client while
-     *             attempting to make the request or handle the response.  For example
-     *             if a network connection is not available.
-     * @throws AmazonServiceException
-     *             If an error response is returned by AmazonGlacier indicating
-     *             either a problem with the data in the request, or a server side issue.
-     */
-    public Future<ListPartsResult> listPartsAsync(final ListPartsRequest listPartsRequest) 
-            throws AmazonServiceException, AmazonClientException {
-        return executorService.submit(new Callable<ListPartsResult>() {
-            public ListPartsResult call() throws Exception {
-                return listParts(listPartsRequest);
-        }
-    });
-    }
-
-    /**
-     * <p>
-     * This operation lists the parts of an archive that have been uploaded
-     * in a specific multipart upload. You can make this request at any time
-     * during an in-progress multipart upload before you complete the upload
-     * (see CompleteMultipartUpload. List Parts returns an error for
-     * completed uploads. The list returned in the List Parts response is
-     * sorted by part range.
-     * </p>
-     * <p>
-     * The List Parts operation supports pagination. By default, this
-     * operation returns up to 1,000 uploaded parts in the response. You
-     * should always check the response for a <code>marker</code> at which to
-     * continue the list; if there are no more items the <code>marker</code>
-     * is <code>null</code> . To return a list of parts that begins at a
-     * specific part, set the <code>marker</code> request parameter to the
-     * value you obtained from a previous List Parts request. You can also
-     * limit the number of parts returned in the response by specifying the
-     * <code>limit</code> parameter in the request.
-     * </p>
-     * <p>
-     * An AWS account has full permission to perform all operations
-     * (actions). However, AWS Identity and Access Management (IAM) users
-     * don't have any permissions by default. You must grant them explicit
-     * permission to perform specific actions. For more information, see
-     * <a href="http://docs.aws.amazon.com/amazonglacier/latest/dev/using-iam-with-amazon-glacier.html"> Access Control Using AWS Identity and Access Management (IAM) </a>
-     * .
-     * </p>
-     * <p>
-     * For conceptual information and the underlying REST API, go to
-     * <a href="http://docs.aws.amazon.com/amazonglacier/latest/dev/working-with-archives.html"> Working with Archives in Amazon Glacier </a> and <a href="http://docs.aws.amazon.com/amazonglacier/latest/dev/api-multipart-list-parts.html"> List Parts </a>
-     * in the <i>Amazon Glacier Developer Guide</i> .
-     * </p>
-     *
-     * @param listPartsRequest Container for the necessary parameters to
-     *           execute the ListParts operation on AmazonGlacier.
-     * @param asyncHandler Asynchronous callback handler for events in the
-     *           life-cycle of the request. Users could provide the implementation of
-     *           the four callback methods in this interface to process the operation
-     *           result or handle the exception.
-     * 
-     * @return A Java Future object containing the response from the
-     *         ListParts service method, as returned by AmazonGlacier.
-     * 
-     *
-     * @throws AmazonClientException
-     *             If any internal errors are encountered inside the client while
-     *             attempting to make the request or handle the response.  For example
-     *             if a network connection is not available.
-     * @throws AmazonServiceException
-     *             If an error response is returned by AmazonGlacier indicating
-     *             either a problem with the data in the request, or a server side issue.
-     */
-    public Future<ListPartsResult> listPartsAsync(
-            final ListPartsRequest listPartsRequest,
-            final AsyncHandler<ListPartsRequest, ListPartsResult> asyncHandler)
-                    throws AmazonServiceException, AmazonClientException {
-        return executorService.submit(new Callable<ListPartsResult>() {
-            public ListPartsResult call() throws Exception {
-              ListPartsResult result;
-                try {
-                result = listParts(listPartsRequest);
-              } catch (Exception ex) {
-                  asyncHandler.onError(ex);
-            throw ex;
-              }
-              asyncHandler.onSuccess(listPartsRequest, result);
-                 return result;
-        }
-    });
-    }
-    
-    /**
-     * <p>
-     * This operation retrieves the <code>notification-configuration</code>
-     * subresource of the specified vault.
-     * </p>
-     * <p>
-     * For information about setting a notification configuration on a
-     * vault, see SetVaultNotifications. If a notification configuration for
-     * a vault is not set, the operation returns a <code>404 Not Found</code>
-     * error. For more information about vault notifications, see
-     * <a href="http://docs.aws.amazon.com/amazonglacier/latest/dev/configuring-notifications.html"> Configuring Vault Notifications in Amazon Glacier </a>
-     * .
-     * </p>
-     * <p>
-     * An AWS account has full permission to perform all operations
-     * (actions). However, AWS Identity and Access Management (IAM) users
-     * don't have any permissions by default. You must grant them explicit
-     * permission to perform specific actions. For more information, see
-     * <a href="http://docs.aws.amazon.com/amazonglacier/latest/dev/using-iam-with-amazon-glacier.html"> Access Control Using AWS Identity and Access Management (IAM) </a>
-     * .
-     * </p>
-     * <p>
-     * For conceptual information and underlying REST API, go to
-     * <a href="http://docs.aws.amazon.com/amazonglacier/latest/dev/configuring-notifications.html"> Configuring Vault Notifications in Amazon Glacier </a> and <a href="http://docs.aws.amazon.com/amazonglacier/latest/dev/api-vault-notifications-get.html"> Get Vault Notification Configuration </a>
-     * in the <i>Amazon Glacier Developer Guide</i> .
-     * </p>
-     *
-     * @param getVaultNotificationsRequest Container for the necessary
-     *           parameters to execute the GetVaultNotifications operation on
+     * @param getVaultAccessPolicyRequest Container for the necessary
+     *           parameters to execute the GetVaultAccessPolicy operation on
      *           AmazonGlacier.
      * 
      * @return A Java Future object containing the response from the
-     *         GetVaultNotifications service method, as returned by AmazonGlacier.
+     *         GetVaultAccessPolicy service method, as returned by AmazonGlacier.
      * 
      *
      * @throws AmazonClientException
@@ -739,44 +591,26 @@ public class AmazonGlacierAsyncClient extends AmazonGlacierClient
      *             If an error response is returned by AmazonGlacier indicating
      *             either a problem with the data in the request, or a server side issue.
      */
-    public Future<GetVaultNotificationsResult> getVaultNotificationsAsync(final GetVaultNotificationsRequest getVaultNotificationsRequest) 
+    public Future<GetVaultAccessPolicyResult> getVaultAccessPolicyAsync(final GetVaultAccessPolicyRequest getVaultAccessPolicyRequest) 
             throws AmazonServiceException, AmazonClientException {
-        return executorService.submit(new Callable<GetVaultNotificationsResult>() {
-            public GetVaultNotificationsResult call() throws Exception {
-                return getVaultNotifications(getVaultNotificationsRequest);
+        return executorService.submit(new Callable<GetVaultAccessPolicyResult>() {
+            public GetVaultAccessPolicyResult call() throws Exception {
+                return getVaultAccessPolicy(getVaultAccessPolicyRequest);
         }
     });
     }
 
     /**
      * <p>
-     * This operation retrieves the <code>notification-configuration</code>
-     * subresource of the specified vault.
-     * </p>
-     * <p>
-     * For information about setting a notification configuration on a
-     * vault, see SetVaultNotifications. If a notification configuration for
-     * a vault is not set, the operation returns a <code>404 Not Found</code>
-     * error. For more information about vault notifications, see
-     * <a href="http://docs.aws.amazon.com/amazonglacier/latest/dev/configuring-notifications.html"> Configuring Vault Notifications in Amazon Glacier </a>
+     * This operation retrieves the <code>access-policy</code> subresource
+     * set on the vault; for more information on setting this subresource,
+     * see
+     * <a href="http://docs.aws.amazon.com/amazonglacier/latest/dev/api-SetVaultAccessPolicy.html"> Set Vault Access Policy (PUT access-policy) </a> . If there is no access policy set on the vault, the operation returns a <code>404 Not found</code> error. For more information about vault access policies, see <a href="http://docs.aws.amazon.com/amazonglacier/latest/dev/vault-access-policy.html"> Amazon Glacier Access Control with Vault Access Policies </a>
      * .
-     * </p>
-     * <p>
-     * An AWS account has full permission to perform all operations
-     * (actions). However, AWS Identity and Access Management (IAM) users
-     * don't have any permissions by default. You must grant them explicit
-     * permission to perform specific actions. For more information, see
-     * <a href="http://docs.aws.amazon.com/amazonglacier/latest/dev/using-iam-with-amazon-glacier.html"> Access Control Using AWS Identity and Access Management (IAM) </a>
-     * .
-     * </p>
-     * <p>
-     * For conceptual information and underlying REST API, go to
-     * <a href="http://docs.aws.amazon.com/amazonglacier/latest/dev/configuring-notifications.html"> Configuring Vault Notifications in Amazon Glacier </a> and <a href="http://docs.aws.amazon.com/amazonglacier/latest/dev/api-vault-notifications-get.html"> Get Vault Notification Configuration </a>
-     * in the <i>Amazon Glacier Developer Guide</i> .
      * </p>
      *
-     * @param getVaultNotificationsRequest Container for the necessary
-     *           parameters to execute the GetVaultNotifications operation on
+     * @param getVaultAccessPolicyRequest Container for the necessary
+     *           parameters to execute the GetVaultAccessPolicy operation on
      *           AmazonGlacier.
      * @param asyncHandler Asynchronous callback handler for events in the
      *           life-cycle of the request. Users could provide the implementation of
@@ -784,7 +618,7 @@ public class AmazonGlacierAsyncClient extends AmazonGlacierClient
      *           result or handle the exception.
      * 
      * @return A Java Future object containing the response from the
-     *         GetVaultNotifications service method, as returned by AmazonGlacier.
+     *         GetVaultAccessPolicy service method, as returned by AmazonGlacier.
      * 
      *
      * @throws AmazonClientException
@@ -795,200 +629,20 @@ public class AmazonGlacierAsyncClient extends AmazonGlacierClient
      *             If an error response is returned by AmazonGlacier indicating
      *             either a problem with the data in the request, or a server side issue.
      */
-    public Future<GetVaultNotificationsResult> getVaultNotificationsAsync(
-            final GetVaultNotificationsRequest getVaultNotificationsRequest,
-            final AsyncHandler<GetVaultNotificationsRequest, GetVaultNotificationsResult> asyncHandler)
+    public Future<GetVaultAccessPolicyResult> getVaultAccessPolicyAsync(
+            final GetVaultAccessPolicyRequest getVaultAccessPolicyRequest,
+            final AsyncHandler<GetVaultAccessPolicyRequest, GetVaultAccessPolicyResult> asyncHandler)
                     throws AmazonServiceException, AmazonClientException {
-        return executorService.submit(new Callable<GetVaultNotificationsResult>() {
-            public GetVaultNotificationsResult call() throws Exception {
-              GetVaultNotificationsResult result;
+        return executorService.submit(new Callable<GetVaultAccessPolicyResult>() {
+            public GetVaultAccessPolicyResult call() throws Exception {
+              GetVaultAccessPolicyResult result;
                 try {
-                result = getVaultNotifications(getVaultNotificationsRequest);
+                result = getVaultAccessPolicy(getVaultAccessPolicyRequest);
               } catch (Exception ex) {
                   asyncHandler.onError(ex);
             throw ex;
               }
-              asyncHandler.onSuccess(getVaultNotificationsRequest, result);
-                 return result;
-        }
-    });
-    }
-    
-    /**
-     * <p>
-     * This operation lists jobs for a vault, including jobs that are
-     * in-progress and jobs that have recently finished.
-     * </p>
-     * <p>
-     * <b>NOTE:</b> Amazon Glacier retains recently completed jobs for a
-     * period before deleting them; however, it eventually removes completed
-     * jobs. The output of completed jobs can be retrieved. Retaining
-     * completed jobs for a period of time after they have completed enables
-     * you to get a job output in the event you miss the job completion
-     * notification or your first attempt to download it fails. For example,
-     * suppose you start an archive retrieval job to download an archive.
-     * After the job completes, you start to download the archive but
-     * encounter a network error. In this scenario, you can retry and
-     * download the archive while the job exists.
-     * </p>
-     * <p>
-     * To retrieve an archive or retrieve a vault inventory from Amazon
-     * Glacier, you first initiate a job, and after the job completes, you
-     * download the data. For an archive retrieval, the output is the archive
-     * data, and for an inventory retrieval, it is the inventory list. The
-     * List Job operation returns a list of these jobs sorted by job
-     * initiation time.
-     * </p>
-     * <p>
-     * This List Jobs operation supports pagination. By default, this
-     * operation returns up to 1,000 jobs in the response. You should always
-     * check the response for a <code>marker</code> at which to continue the
-     * list; if there are no more items the <code>marker</code> is
-     * <code>null</code> . To return a list of jobs that begins at a specific
-     * job, set the <code>marker</code> request parameter to the value you
-     * obtained from a previous List Jobs request. You can also limit the
-     * number of jobs returned in the response by specifying the
-     * <code>limit</code> parameter in the request.
-     * </p>
-     * <p>
-     * Additionally, you can filter the jobs list returned by specifying an
-     * optional <code>statuscode</code> (InProgress, Succeeded, or Failed)
-     * and <code>completed</code> (true, false) parameter. The
-     * <code>statuscode</code> allows you to specify that only jobs that
-     * match a specified status are returned. The <code>completed</code>
-     * parameter allows you to specify that only jobs in a specific
-     * completion state are returned.
-     * </p>
-     * <p>
-     * An AWS account has full permission to perform all operations
-     * (actions). However, AWS Identity and Access Management (IAM) users
-     * don't have any permissions by default. You must grant them explicit
-     * permission to perform specific actions. For more information, see
-     * <a href="http://docs.aws.amazon.com/amazonglacier/latest/dev/using-iam-with-amazon-glacier.html"> Access Control Using AWS Identity and Access Management (IAM) </a>
-     * .
-     * </p>
-     * <p>
-     * For the underlying REST API, go to
-     * <a href="http://docs.aws.amazon.com/amazonglacier/latest/dev/api-jobs-get.html"> List Jobs </a>
-     * 
-     * </p>
-     *
-     * @param listJobsRequest Container for the necessary parameters to
-     *           execute the ListJobs operation on AmazonGlacier.
-     * 
-     * @return A Java Future object containing the response from the ListJobs
-     *         service method, as returned by AmazonGlacier.
-     * 
-     *
-     * @throws AmazonClientException
-     *             If any internal errors are encountered inside the client while
-     *             attempting to make the request or handle the response.  For example
-     *             if a network connection is not available.
-     * @throws AmazonServiceException
-     *             If an error response is returned by AmazonGlacier indicating
-     *             either a problem with the data in the request, or a server side issue.
-     */
-    public Future<ListJobsResult> listJobsAsync(final ListJobsRequest listJobsRequest) 
-            throws AmazonServiceException, AmazonClientException {
-        return executorService.submit(new Callable<ListJobsResult>() {
-            public ListJobsResult call() throws Exception {
-                return listJobs(listJobsRequest);
-        }
-    });
-    }
-
-    /**
-     * <p>
-     * This operation lists jobs for a vault, including jobs that are
-     * in-progress and jobs that have recently finished.
-     * </p>
-     * <p>
-     * <b>NOTE:</b> Amazon Glacier retains recently completed jobs for a
-     * period before deleting them; however, it eventually removes completed
-     * jobs. The output of completed jobs can be retrieved. Retaining
-     * completed jobs for a period of time after they have completed enables
-     * you to get a job output in the event you miss the job completion
-     * notification or your first attempt to download it fails. For example,
-     * suppose you start an archive retrieval job to download an archive.
-     * After the job completes, you start to download the archive but
-     * encounter a network error. In this scenario, you can retry and
-     * download the archive while the job exists.
-     * </p>
-     * <p>
-     * To retrieve an archive or retrieve a vault inventory from Amazon
-     * Glacier, you first initiate a job, and after the job completes, you
-     * download the data. For an archive retrieval, the output is the archive
-     * data, and for an inventory retrieval, it is the inventory list. The
-     * List Job operation returns a list of these jobs sorted by job
-     * initiation time.
-     * </p>
-     * <p>
-     * This List Jobs operation supports pagination. By default, this
-     * operation returns up to 1,000 jobs in the response. You should always
-     * check the response for a <code>marker</code> at which to continue the
-     * list; if there are no more items the <code>marker</code> is
-     * <code>null</code> . To return a list of jobs that begins at a specific
-     * job, set the <code>marker</code> request parameter to the value you
-     * obtained from a previous List Jobs request. You can also limit the
-     * number of jobs returned in the response by specifying the
-     * <code>limit</code> parameter in the request.
-     * </p>
-     * <p>
-     * Additionally, you can filter the jobs list returned by specifying an
-     * optional <code>statuscode</code> (InProgress, Succeeded, or Failed)
-     * and <code>completed</code> (true, false) parameter. The
-     * <code>statuscode</code> allows you to specify that only jobs that
-     * match a specified status are returned. The <code>completed</code>
-     * parameter allows you to specify that only jobs in a specific
-     * completion state are returned.
-     * </p>
-     * <p>
-     * An AWS account has full permission to perform all operations
-     * (actions). However, AWS Identity and Access Management (IAM) users
-     * don't have any permissions by default. You must grant them explicit
-     * permission to perform specific actions. For more information, see
-     * <a href="http://docs.aws.amazon.com/amazonglacier/latest/dev/using-iam-with-amazon-glacier.html"> Access Control Using AWS Identity and Access Management (IAM) </a>
-     * .
-     * </p>
-     * <p>
-     * For the underlying REST API, go to
-     * <a href="http://docs.aws.amazon.com/amazonglacier/latest/dev/api-jobs-get.html"> List Jobs </a>
-     * 
-     * </p>
-     *
-     * @param listJobsRequest Container for the necessary parameters to
-     *           execute the ListJobs operation on AmazonGlacier.
-     * @param asyncHandler Asynchronous callback handler for events in the
-     *           life-cycle of the request. Users could provide the implementation of
-     *           the four callback methods in this interface to process the operation
-     *           result or handle the exception.
-     * 
-     * @return A Java Future object containing the response from the ListJobs
-     *         service method, as returned by AmazonGlacier.
-     * 
-     *
-     * @throws AmazonClientException
-     *             If any internal errors are encountered inside the client while
-     *             attempting to make the request or handle the response.  For example
-     *             if a network connection is not available.
-     * @throws AmazonServiceException
-     *             If an error response is returned by AmazonGlacier indicating
-     *             either a problem with the data in the request, or a server side issue.
-     */
-    public Future<ListJobsResult> listJobsAsync(
-            final ListJobsRequest listJobsRequest,
-            final AsyncHandler<ListJobsRequest, ListJobsResult> asyncHandler)
-                    throws AmazonServiceException, AmazonClientException {
-        return executorService.submit(new Callable<ListJobsResult>() {
-            public ListJobsResult call() throws Exception {
-              ListJobsResult result;
-                try {
-                result = listJobs(listJobsRequest);
-              } catch (Exception ex) {
-                  asyncHandler.onError(ex);
-            throw ex;
-              }
-              asyncHandler.onSuccess(listJobsRequest, result);
+              asyncHandler.onSuccess(getVaultAccessPolicyRequest, result);
                  return result;
         }
     });
@@ -1137,6 +791,182 @@ public class AmazonGlacierAsyncClient extends AmazonGlacierClient
             throw ex;
               }
               asyncHandler.onSuccess(createVaultRequest, result);
+                 return result;
+        }
+    });
+    }
+    
+    /**
+     * <p>
+     * This operation initiates the vault locking process by doing the
+     * following:
+     * <ul>
+     * <li> <p>
+     * Installing a vault lock policy on the specified vault.
+     * </p>
+     * </li>
+     * <li> <p>
+     * Setting the lock state of vault lock to <code>InProgress</code> .
+     * </p>
+     * </li>
+     * <li> <p>
+     * Returning a lock ID, which is used to complete the vault locking
+     * process.
+     * </p>
+     * </li>
+     * 
+     * </ul>
+     * 
+     * </p>
+     * <p>
+     * You can set one vault lock policy for each vault and this policy can
+     * be up to 20 KB in size. For more information about vault lock
+     * policies, see
+     * <a href="http://docs.aws.amazon.com/amazonglacier/latest/dev/vault-lock-policy.html"> Amazon Glacier Access Control with Vault Lock Policies </a>
+     * .
+     * </p>
+     * <p>
+     * You must complete the vault locking process within 24 hours after the
+     * vault lock enters the <code>InProgress</code> state. After the 24 hour
+     * window ends, the lock ID expires, the vault automatically exits the
+     * <code>InProgress</code> state, and the vault lock policy is removed
+     * from the vault. You call CompleteVaultLock to complete the vault
+     * locking process by setting the state of the vault lock to
+     * <code>Locked</code> .
+     * </p>
+     * <p>
+     * After a vault lock is in the <code>Locked</code> state, you cannot
+     * initiate a new vault lock for the vault.
+     * </p>
+     * <p>
+     * You can abort the vault locking process by calling AbortVaultLock.
+     * You can get the state of the vault lock by calling GetVaultLock. For
+     * more information about the vault locking process,
+     * <a href="http://docs.aws.amazon.com/amazonglacier/latest/dev/vault-lock.html"> Amazon Glacier Vault Lock </a>
+     * .
+     * </p>
+     * <p>
+     * If this operation is called when the vault lock is in the
+     * <code>InProgress</code> state, the operation returns an
+     * <code>AccessDeniedException</code> error. When the vault lock is in
+     * the <code>InProgress</code> state you must call AbortVaultLock before
+     * you can initiate a new vault lock policy.
+     * </p>
+     *
+     * @param initiateVaultLockRequest Container for the necessary parameters
+     *           to execute the InitiateVaultLock operation on AmazonGlacier.
+     * 
+     * @return A Java Future object containing the response from the
+     *         InitiateVaultLock service method, as returned by AmazonGlacier.
+     * 
+     *
+     * @throws AmazonClientException
+     *             If any internal errors are encountered inside the client while
+     *             attempting to make the request or handle the response.  For example
+     *             if a network connection is not available.
+     * @throws AmazonServiceException
+     *             If an error response is returned by AmazonGlacier indicating
+     *             either a problem with the data in the request, or a server side issue.
+     */
+    public Future<InitiateVaultLockResult> initiateVaultLockAsync(final InitiateVaultLockRequest initiateVaultLockRequest) 
+            throws AmazonServiceException, AmazonClientException {
+        return executorService.submit(new Callable<InitiateVaultLockResult>() {
+            public InitiateVaultLockResult call() throws Exception {
+                return initiateVaultLock(initiateVaultLockRequest);
+        }
+    });
+    }
+
+    /**
+     * <p>
+     * This operation initiates the vault locking process by doing the
+     * following:
+     * <ul>
+     * <li> <p>
+     * Installing a vault lock policy on the specified vault.
+     * </p>
+     * </li>
+     * <li> <p>
+     * Setting the lock state of vault lock to <code>InProgress</code> .
+     * </p>
+     * </li>
+     * <li> <p>
+     * Returning a lock ID, which is used to complete the vault locking
+     * process.
+     * </p>
+     * </li>
+     * 
+     * </ul>
+     * 
+     * </p>
+     * <p>
+     * You can set one vault lock policy for each vault and this policy can
+     * be up to 20 KB in size. For more information about vault lock
+     * policies, see
+     * <a href="http://docs.aws.amazon.com/amazonglacier/latest/dev/vault-lock-policy.html"> Amazon Glacier Access Control with Vault Lock Policies </a>
+     * .
+     * </p>
+     * <p>
+     * You must complete the vault locking process within 24 hours after the
+     * vault lock enters the <code>InProgress</code> state. After the 24 hour
+     * window ends, the lock ID expires, the vault automatically exits the
+     * <code>InProgress</code> state, and the vault lock policy is removed
+     * from the vault. You call CompleteVaultLock to complete the vault
+     * locking process by setting the state of the vault lock to
+     * <code>Locked</code> .
+     * </p>
+     * <p>
+     * After a vault lock is in the <code>Locked</code> state, you cannot
+     * initiate a new vault lock for the vault.
+     * </p>
+     * <p>
+     * You can abort the vault locking process by calling AbortVaultLock.
+     * You can get the state of the vault lock by calling GetVaultLock. For
+     * more information about the vault locking process,
+     * <a href="http://docs.aws.amazon.com/amazonglacier/latest/dev/vault-lock.html"> Amazon Glacier Vault Lock </a>
+     * .
+     * </p>
+     * <p>
+     * If this operation is called when the vault lock is in the
+     * <code>InProgress</code> state, the operation returns an
+     * <code>AccessDeniedException</code> error. When the vault lock is in
+     * the <code>InProgress</code> state you must call AbortVaultLock before
+     * you can initiate a new vault lock policy.
+     * </p>
+     *
+     * @param initiateVaultLockRequest Container for the necessary parameters
+     *           to execute the InitiateVaultLock operation on AmazonGlacier.
+     * @param asyncHandler Asynchronous callback handler for events in the
+     *           life-cycle of the request. Users could provide the implementation of
+     *           the four callback methods in this interface to process the operation
+     *           result or handle the exception.
+     * 
+     * @return A Java Future object containing the response from the
+     *         InitiateVaultLock service method, as returned by AmazonGlacier.
+     * 
+     *
+     * @throws AmazonClientException
+     *             If any internal errors are encountered inside the client while
+     *             attempting to make the request or handle the response.  For example
+     *             if a network connection is not available.
+     * @throws AmazonServiceException
+     *             If an error response is returned by AmazonGlacier indicating
+     *             either a problem with the data in the request, or a server side issue.
+     */
+    public Future<InitiateVaultLockResult> initiateVaultLockAsync(
+            final InitiateVaultLockRequest initiateVaultLockRequest,
+            final AsyncHandler<InitiateVaultLockRequest, InitiateVaultLockResult> asyncHandler)
+                    throws AmazonServiceException, AmazonClientException {
+        return executorService.submit(new Callable<InitiateVaultLockResult>() {
+            public InitiateVaultLockResult call() throws Exception {
+              InitiateVaultLockResult result;
+                try {
+                result = initiateVaultLock(initiateVaultLockRequest);
+              } catch (Exception ex) {
+                  asyncHandler.onError(ex);
+            throw ex;
+              }
+              asyncHandler.onSuccess(initiateVaultLockRequest, result);
                  return result;
         }
     });
@@ -1295,446 +1125,6 @@ public class AmazonGlacierAsyncClient extends AmazonGlacierClient
             throw ex;
               }
               asyncHandler.onSuccess(initiateMultipartUploadRequest, result);
-                 return result;
-        }
-    });
-    }
-    
-    /**
-     * <p>
-     * This operation aborts a multipart upload identified by the upload ID.
-     * </p>
-     * <p>
-     * After the Abort Multipart Upload request succeeds, you cannot upload
-     * any more parts to the multipart upload or complete the multipart
-     * upload. Aborting a completed upload fails. However, aborting an
-     * already-aborted upload will succeed, for a short time. For more
-     * information about uploading a part and completing a multipart upload,
-     * see UploadMultipartPart and CompleteMultipartUpload.
-     * </p>
-     * <p>
-     * This operation is idempotent.
-     * </p>
-     * <p>
-     * An AWS account has full permission to perform all operations
-     * (actions). However, AWS Identity and Access Management (IAM) users
-     * don't have any permissions by default. You must grant them explicit
-     * permission to perform specific actions. For more information, see
-     * <a href="http://docs.aws.amazon.com/amazonglacier/latest/dev/using-iam-with-amazon-glacier.html"> Access Control Using AWS Identity and Access Management (IAM) </a>
-     * .
-     * </p>
-     * <p>
-     * For conceptual information and underlying REST API, go to
-     * <a href="http://docs.aws.amazon.com/amazonglacier/latest/dev/working-with-archives.html"> Working with Archives in Amazon Glacier </a> and <a href="http://docs.aws.amazon.com/amazonglacier/latest/dev/api-multipart-abort-upload.html"> Abort Multipart Upload </a>
-     * in the <i>Amazon Glacier Developer Guide</i> .
-     * </p>
-     *
-     * @param abortMultipartUploadRequest Container for the necessary
-     *           parameters to execute the AbortMultipartUpload operation on
-     *           AmazonGlacier.
-     * 
-     * @return A Java Future object containing the response from the
-     *         AbortMultipartUpload service method, as returned by AmazonGlacier.
-     * 
-     *
-     * @throws AmazonClientException
-     *             If any internal errors are encountered inside the client while
-     *             attempting to make the request or handle the response.  For example
-     *             if a network connection is not available.
-     * @throws AmazonServiceException
-     *             If an error response is returned by AmazonGlacier indicating
-     *             either a problem with the data in the request, or a server side issue.
-     */
-    public Future<Void> abortMultipartUploadAsync(final AbortMultipartUploadRequest abortMultipartUploadRequest) 
-            throws AmazonServiceException, AmazonClientException {
-        return executorService.submit(new Callable<Void>() {
-            public Void call() throws Exception {
-                abortMultipartUpload(abortMultipartUploadRequest);
-                return null;
-        }
-    });
-    }
-
-    /**
-     * <p>
-     * This operation aborts a multipart upload identified by the upload ID.
-     * </p>
-     * <p>
-     * After the Abort Multipart Upload request succeeds, you cannot upload
-     * any more parts to the multipart upload or complete the multipart
-     * upload. Aborting a completed upload fails. However, aborting an
-     * already-aborted upload will succeed, for a short time. For more
-     * information about uploading a part and completing a multipart upload,
-     * see UploadMultipartPart and CompleteMultipartUpload.
-     * </p>
-     * <p>
-     * This operation is idempotent.
-     * </p>
-     * <p>
-     * An AWS account has full permission to perform all operations
-     * (actions). However, AWS Identity and Access Management (IAM) users
-     * don't have any permissions by default. You must grant them explicit
-     * permission to perform specific actions. For more information, see
-     * <a href="http://docs.aws.amazon.com/amazonglacier/latest/dev/using-iam-with-amazon-glacier.html"> Access Control Using AWS Identity and Access Management (IAM) </a>
-     * .
-     * </p>
-     * <p>
-     * For conceptual information and underlying REST API, go to
-     * <a href="http://docs.aws.amazon.com/amazonglacier/latest/dev/working-with-archives.html"> Working with Archives in Amazon Glacier </a> and <a href="http://docs.aws.amazon.com/amazonglacier/latest/dev/api-multipart-abort-upload.html"> Abort Multipart Upload </a>
-     * in the <i>Amazon Glacier Developer Guide</i> .
-     * </p>
-     *
-     * @param abortMultipartUploadRequest Container for the necessary
-     *           parameters to execute the AbortMultipartUpload operation on
-     *           AmazonGlacier.
-     * @param asyncHandler Asynchronous callback handler for events in the
-     *           life-cycle of the request. Users could provide the implementation of
-     *           the four callback methods in this interface to process the operation
-     *           result or handle the exception.
-     * 
-     * @return A Java Future object containing the response from the
-     *         AbortMultipartUpload service method, as returned by AmazonGlacier.
-     * 
-     *
-     * @throws AmazonClientException
-     *             If any internal errors are encountered inside the client while
-     *             attempting to make the request or handle the response.  For example
-     *             if a network connection is not available.
-     * @throws AmazonServiceException
-     *             If an error response is returned by AmazonGlacier indicating
-     *             either a problem with the data in the request, or a server side issue.
-     */
-    public Future<Void> abortMultipartUploadAsync(
-            final AbortMultipartUploadRequest abortMultipartUploadRequest,
-            final AsyncHandler<AbortMultipartUploadRequest, Void> asyncHandler)
-                    throws AmazonServiceException, AmazonClientException {
-        return executorService.submit(new Callable<Void>() {
-            public Void call() throws Exception {
-              try {
-                abortMultipartUpload(abortMultipartUploadRequest);
-              } catch (Exception ex) {
-                  asyncHandler.onError(ex);
-            throw ex;
-              }
-              asyncHandler.onSuccess(abortMultipartUploadRequest, null);
-                 return null;
-        }
-    });
-    }
-    
-    /**
-     * <p>
-     * This operation deletes an archive from a vault. Subsequent requests
-     * to initiate a retrieval of this archive will fail. Archive retrievals
-     * that are in progress for this archive ID may or may not succeed
-     * according to the following scenarios:
-     * </p>
-     * 
-     * <ul>
-     * <li>If the archive retrieval job is actively preparing the data for
-     * download when Amazon Glacier receives the delete archive request, the
-     * archival retrieval operation might fail. </li>
-     * <li>If the archive retrieval job has successfully prepared the
-     * archive for download when Amazon Glacier receives the delete archive
-     * request, you will be able to download the output. </li>
-     * 
-     * </ul>
-     * <p>
-     * This operation is idempotent. Attempting to delete an already-deleted
-     * archive does not result in an error.
-     * </p>
-     * <p>
-     * An AWS account has full permission to perform all operations
-     * (actions). However, AWS Identity and Access Management (IAM) users
-     * don't have any permissions by default. You must grant them explicit
-     * permission to perform specific actions. For more information, see
-     * <a href="http://docs.aws.amazon.com/amazonglacier/latest/dev/using-iam-with-amazon-glacier.html"> Access Control Using AWS Identity and Access Management (IAM) </a>
-     * .
-     * </p>
-     * <p>
-     * For conceptual information and underlying REST API, go to
-     * <a href="http://docs.aws.amazon.com/amazonglacier/latest/dev/deleting-an-archive.html"> Deleting an Archive in Amazon Glacier </a> and <a href="http://docs.aws.amazon.com/amazonglacier/latest/dev/api-archive-delete.html"> Delete Archive </a>
-     * in the <i>Amazon Glacier Developer Guide</i> .
-     * </p>
-     *
-     * @param deleteArchiveRequest Container for the necessary parameters to
-     *           execute the DeleteArchive operation on AmazonGlacier.
-     * 
-     * @return A Java Future object containing the response from the
-     *         DeleteArchive service method, as returned by AmazonGlacier.
-     * 
-     *
-     * @throws AmazonClientException
-     *             If any internal errors are encountered inside the client while
-     *             attempting to make the request or handle the response.  For example
-     *             if a network connection is not available.
-     * @throws AmazonServiceException
-     *             If an error response is returned by AmazonGlacier indicating
-     *             either a problem with the data in the request, or a server side issue.
-     */
-    public Future<Void> deleteArchiveAsync(final DeleteArchiveRequest deleteArchiveRequest) 
-            throws AmazonServiceException, AmazonClientException {
-        return executorService.submit(new Callable<Void>() {
-            public Void call() throws Exception {
-                deleteArchive(deleteArchiveRequest);
-                return null;
-        }
-    });
-    }
-
-    /**
-     * <p>
-     * This operation deletes an archive from a vault. Subsequent requests
-     * to initiate a retrieval of this archive will fail. Archive retrievals
-     * that are in progress for this archive ID may or may not succeed
-     * according to the following scenarios:
-     * </p>
-     * 
-     * <ul>
-     * <li>If the archive retrieval job is actively preparing the data for
-     * download when Amazon Glacier receives the delete archive request, the
-     * archival retrieval operation might fail. </li>
-     * <li>If the archive retrieval job has successfully prepared the
-     * archive for download when Amazon Glacier receives the delete archive
-     * request, you will be able to download the output. </li>
-     * 
-     * </ul>
-     * <p>
-     * This operation is idempotent. Attempting to delete an already-deleted
-     * archive does not result in an error.
-     * </p>
-     * <p>
-     * An AWS account has full permission to perform all operations
-     * (actions). However, AWS Identity and Access Management (IAM) users
-     * don't have any permissions by default. You must grant them explicit
-     * permission to perform specific actions. For more information, see
-     * <a href="http://docs.aws.amazon.com/amazonglacier/latest/dev/using-iam-with-amazon-glacier.html"> Access Control Using AWS Identity and Access Management (IAM) </a>
-     * .
-     * </p>
-     * <p>
-     * For conceptual information and underlying REST API, go to
-     * <a href="http://docs.aws.amazon.com/amazonglacier/latest/dev/deleting-an-archive.html"> Deleting an Archive in Amazon Glacier </a> and <a href="http://docs.aws.amazon.com/amazonglacier/latest/dev/api-archive-delete.html"> Delete Archive </a>
-     * in the <i>Amazon Glacier Developer Guide</i> .
-     * </p>
-     *
-     * @param deleteArchiveRequest Container for the necessary parameters to
-     *           execute the DeleteArchive operation on AmazonGlacier.
-     * @param asyncHandler Asynchronous callback handler for events in the
-     *           life-cycle of the request. Users could provide the implementation of
-     *           the four callback methods in this interface to process the operation
-     *           result or handle the exception.
-     * 
-     * @return A Java Future object containing the response from the
-     *         DeleteArchive service method, as returned by AmazonGlacier.
-     * 
-     *
-     * @throws AmazonClientException
-     *             If any internal errors are encountered inside the client while
-     *             attempting to make the request or handle the response.  For example
-     *             if a network connection is not available.
-     * @throws AmazonServiceException
-     *             If an error response is returned by AmazonGlacier indicating
-     *             either a problem with the data in the request, or a server side issue.
-     */
-    public Future<Void> deleteArchiveAsync(
-            final DeleteArchiveRequest deleteArchiveRequest,
-            final AsyncHandler<DeleteArchiveRequest, Void> asyncHandler)
-                    throws AmazonServiceException, AmazonClientException {
-        return executorService.submit(new Callable<Void>() {
-            public Void call() throws Exception {
-              try {
-                deleteArchive(deleteArchiveRequest);
-              } catch (Exception ex) {
-                  asyncHandler.onError(ex);
-            throw ex;
-              }
-              asyncHandler.onSuccess(deleteArchiveRequest, null);
-                 return null;
-        }
-    });
-    }
-    
-    /**
-     * <p>
-     * This operation downloads the output of the job you initiated using
-     * InitiateJob. Depending on the job type you specified when you
-     * initiated the job, the output will be either the content of an archive
-     * or a vault inventory.
-     * </p>
-     * <p>
-     * A job ID will not expire for at least 24 hours after Amazon Glacier
-     * completes the job. That is, you can download the job output within the
-     * 24 hours period after Amazon Glacier completes the job.
-     * </p>
-     * <p>
-     * If the job output is large, then you can use the <code>Range</code>
-     * request header to retrieve a portion of the output. This allows you to
-     * download the entire output in smaller chunks of bytes. For example,
-     * suppose you have 1 GB of job output you want to download and you
-     * decide to download 128 MB chunks of data at a time, which is a total
-     * of eight Get Job Output requests. You use the following process to
-     * download the job output:
-     * </p>
-     * <ol> <li> <p>
-     * Download a 128 MB chunk of output by specifying the appropriate byte
-     * range using the <code>Range</code> header.
-     * </p>
-     * </li>
-     * <li> <p>
-     * Along with the data, the response includes a SHA256 tree hash of the
-     * payload. You compute the checksum of the payload on the client and
-     * compare it with the checksum you received in the response to ensure
-     * you received all the expected data.
-     * </p>
-     * </li>
-     * <li> <p>
-     * Repeat steps 1 and 2 for all the eight 128 MB chunks of output data,
-     * each time specifying the appropriate byte range.
-     * </p>
-     * </li>
-     * <li> <p>
-     * After downloading all the parts of the job output, you have a list of
-     * eight checksum values. Compute the tree hash of these values to find
-     * the checksum of the entire output. Using the DescribeJob API, obtain
-     * job information of the job that provided you the output. The response
-     * includes the checksum of the entire archive stored in Amazon Glacier.
-     * You compare this value with the checksum you computed to ensure you
-     * have downloaded the entire archive content with no errors.
-     * </p>
-     * </li>
-     * </ol> <p>
-     * An AWS account has full permission to perform all operations
-     * (actions). However, AWS Identity and Access Management (IAM) users
-     * don't have any permissions by default. You must grant them explicit
-     * permission to perform specific actions. For more information, see
-     * <a href="http://docs.aws.amazon.com/amazonglacier/latest/dev/using-iam-with-amazon-glacier.html"> Access Control Using AWS Identity and Access Management (IAM) </a>
-     * .
-     * </p>
-     * <p>
-     * For conceptual information and the underlying REST API, go to
-     * <a href="http://docs.aws.amazon.com/amazonglacier/latest/dev/vault-inventory.html"> Downloading a Vault Inventory </a> , <a href="http://docs.aws.amazon.com/amazonglacier/latest/dev/downloading-an-archive.html"> Downloading an Archive </a> , and <a href="http://docs.aws.amazon.com/amazonglacier/latest/dev/api-job-output-get.html"> Get Job Output </a>
-     * 
-     * </p>
-     *
-     * @param getJobOutputRequest Container for the necessary parameters to
-     *           execute the GetJobOutput operation on AmazonGlacier.
-     * 
-     * @return A Java Future object containing the response from the
-     *         GetJobOutput service method, as returned by AmazonGlacier.
-     * 
-     *
-     * @throws AmazonClientException
-     *             If any internal errors are encountered inside the client while
-     *             attempting to make the request or handle the response.  For example
-     *             if a network connection is not available.
-     * @throws AmazonServiceException
-     *             If an error response is returned by AmazonGlacier indicating
-     *             either a problem with the data in the request, or a server side issue.
-     */
-    public Future<GetJobOutputResult> getJobOutputAsync(final GetJobOutputRequest getJobOutputRequest) 
-            throws AmazonServiceException, AmazonClientException {
-        return executorService.submit(new Callable<GetJobOutputResult>() {
-            public GetJobOutputResult call() throws Exception {
-                return getJobOutput(getJobOutputRequest);
-        }
-    });
-    }
-
-    /**
-     * <p>
-     * This operation downloads the output of the job you initiated using
-     * InitiateJob. Depending on the job type you specified when you
-     * initiated the job, the output will be either the content of an archive
-     * or a vault inventory.
-     * </p>
-     * <p>
-     * A job ID will not expire for at least 24 hours after Amazon Glacier
-     * completes the job. That is, you can download the job output within the
-     * 24 hours period after Amazon Glacier completes the job.
-     * </p>
-     * <p>
-     * If the job output is large, then you can use the <code>Range</code>
-     * request header to retrieve a portion of the output. This allows you to
-     * download the entire output in smaller chunks of bytes. For example,
-     * suppose you have 1 GB of job output you want to download and you
-     * decide to download 128 MB chunks of data at a time, which is a total
-     * of eight Get Job Output requests. You use the following process to
-     * download the job output:
-     * </p>
-     * <ol> <li> <p>
-     * Download a 128 MB chunk of output by specifying the appropriate byte
-     * range using the <code>Range</code> header.
-     * </p>
-     * </li>
-     * <li> <p>
-     * Along with the data, the response includes a SHA256 tree hash of the
-     * payload. You compute the checksum of the payload on the client and
-     * compare it with the checksum you received in the response to ensure
-     * you received all the expected data.
-     * </p>
-     * </li>
-     * <li> <p>
-     * Repeat steps 1 and 2 for all the eight 128 MB chunks of output data,
-     * each time specifying the appropriate byte range.
-     * </p>
-     * </li>
-     * <li> <p>
-     * After downloading all the parts of the job output, you have a list of
-     * eight checksum values. Compute the tree hash of these values to find
-     * the checksum of the entire output. Using the DescribeJob API, obtain
-     * job information of the job that provided you the output. The response
-     * includes the checksum of the entire archive stored in Amazon Glacier.
-     * You compare this value with the checksum you computed to ensure you
-     * have downloaded the entire archive content with no errors.
-     * </p>
-     * </li>
-     * </ol> <p>
-     * An AWS account has full permission to perform all operations
-     * (actions). However, AWS Identity and Access Management (IAM) users
-     * don't have any permissions by default. You must grant them explicit
-     * permission to perform specific actions. For more information, see
-     * <a href="http://docs.aws.amazon.com/amazonglacier/latest/dev/using-iam-with-amazon-glacier.html"> Access Control Using AWS Identity and Access Management (IAM) </a>
-     * .
-     * </p>
-     * <p>
-     * For conceptual information and the underlying REST API, go to
-     * <a href="http://docs.aws.amazon.com/amazonglacier/latest/dev/vault-inventory.html"> Downloading a Vault Inventory </a> , <a href="http://docs.aws.amazon.com/amazonglacier/latest/dev/downloading-an-archive.html"> Downloading an Archive </a> , and <a href="http://docs.aws.amazon.com/amazonglacier/latest/dev/api-job-output-get.html"> Get Job Output </a>
-     * 
-     * </p>
-     *
-     * @param getJobOutputRequest Container for the necessary parameters to
-     *           execute the GetJobOutput operation on AmazonGlacier.
-     * @param asyncHandler Asynchronous callback handler for events in the
-     *           life-cycle of the request. Users could provide the implementation of
-     *           the four callback methods in this interface to process the operation
-     *           result or handle the exception.
-     * 
-     * @return A Java Future object containing the response from the
-     *         GetJobOutput service method, as returned by AmazonGlacier.
-     * 
-     *
-     * @throws AmazonClientException
-     *             If any internal errors are encountered inside the client while
-     *             attempting to make the request or handle the response.  For example
-     *             if a network connection is not available.
-     * @throws AmazonServiceException
-     *             If an error response is returned by AmazonGlacier indicating
-     *             either a problem with the data in the request, or a server side issue.
-     */
-    public Future<GetJobOutputResult> getJobOutputAsync(
-            final GetJobOutputRequest getJobOutputRequest,
-            final AsyncHandler<GetJobOutputRequest, GetJobOutputResult> asyncHandler)
-                    throws AmazonServiceException, AmazonClientException {
-        return executorService.submit(new Callable<GetJobOutputResult>() {
-            public GetJobOutputResult call() throws Exception {
-              GetJobOutputResult result;
-                try {
-                result = getJobOutput(getJobOutputRequest);
-              } catch (Exception ex) {
-                  asyncHandler.onError(ex);
-            throw ex;
-              }
-              asyncHandler.onSuccess(getJobOutputRequest, result);
                  return result;
         }
     });
@@ -2138,6 +1528,270 @@ public class AmazonGlacierAsyncClient extends AmazonGlacierClient
     
     /**
      * <p>
+     * This operation aborts the vault locking process if the vault lock is
+     * not in the <code>Locked</code> state. If the vault lock is in the
+     * <code>Locked</code> state when this operation is requested, the
+     * operation returns an <code>AccessDeniedException</code> error.
+     * Aborting the vault locking process removes the vault lock policy from
+     * the specified vault.
+     * </p>
+     * <p>
+     * A vault lock is put into the <code>InProgress</code> state by calling
+     * InitiateVaultLock. A vault lock is put into the <code>Locked</code>
+     * state by calling CompleteVaultLock. You can get the state of a vault
+     * lock by calling GetVaultLock. For more information about the vault
+     * locking process, see
+     * <a href="http://docs.aws.amazon.com/amazonglacier/latest/dev/vault-lock.html"> Amazon Glacier Vault Lock </a> . For more information about vault lock policies, see <a href="http://docs.aws.amazon.com/amazonglacier/latest/dev/vault-lock-policy.html"> Amazon Glacier Access Control with Vault Lock Policies </a>
+     * .
+     * </p>
+     * <p>
+     * This operation is idempotent. You can successfully invoke this
+     * operation multiple times, if the vault lock is in the
+     * <code>InProgress</code> state or if there is no policy associated with
+     * the vault.
+     * </p>
+     *
+     * @param abortVaultLockRequest Container for the necessary parameters to
+     *           execute the AbortVaultLock operation on AmazonGlacier.
+     * 
+     * @return A Java Future object containing the response from the
+     *         AbortVaultLock service method, as returned by AmazonGlacier.
+     * 
+     *
+     * @throws AmazonClientException
+     *             If any internal errors are encountered inside the client while
+     *             attempting to make the request or handle the response.  For example
+     *             if a network connection is not available.
+     * @throws AmazonServiceException
+     *             If an error response is returned by AmazonGlacier indicating
+     *             either a problem with the data in the request, or a server side issue.
+     */
+    public Future<Void> abortVaultLockAsync(final AbortVaultLockRequest abortVaultLockRequest) 
+            throws AmazonServiceException, AmazonClientException {
+        return executorService.submit(new Callable<Void>() {
+            public Void call() throws Exception {
+                abortVaultLock(abortVaultLockRequest);
+                return null;
+        }
+    });
+    }
+
+    /**
+     * <p>
+     * This operation aborts the vault locking process if the vault lock is
+     * not in the <code>Locked</code> state. If the vault lock is in the
+     * <code>Locked</code> state when this operation is requested, the
+     * operation returns an <code>AccessDeniedException</code> error.
+     * Aborting the vault locking process removes the vault lock policy from
+     * the specified vault.
+     * </p>
+     * <p>
+     * A vault lock is put into the <code>InProgress</code> state by calling
+     * InitiateVaultLock. A vault lock is put into the <code>Locked</code>
+     * state by calling CompleteVaultLock. You can get the state of a vault
+     * lock by calling GetVaultLock. For more information about the vault
+     * locking process, see
+     * <a href="http://docs.aws.amazon.com/amazonglacier/latest/dev/vault-lock.html"> Amazon Glacier Vault Lock </a> . For more information about vault lock policies, see <a href="http://docs.aws.amazon.com/amazonglacier/latest/dev/vault-lock-policy.html"> Amazon Glacier Access Control with Vault Lock Policies </a>
+     * .
+     * </p>
+     * <p>
+     * This operation is idempotent. You can successfully invoke this
+     * operation multiple times, if the vault lock is in the
+     * <code>InProgress</code> state or if there is no policy associated with
+     * the vault.
+     * </p>
+     *
+     * @param abortVaultLockRequest Container for the necessary parameters to
+     *           execute the AbortVaultLock operation on AmazonGlacier.
+     * @param asyncHandler Asynchronous callback handler for events in the
+     *           life-cycle of the request. Users could provide the implementation of
+     *           the four callback methods in this interface to process the operation
+     *           result or handle the exception.
+     * 
+     * @return A Java Future object containing the response from the
+     *         AbortVaultLock service method, as returned by AmazonGlacier.
+     * 
+     *
+     * @throws AmazonClientException
+     *             If any internal errors are encountered inside the client while
+     *             attempting to make the request or handle the response.  For example
+     *             if a network connection is not available.
+     * @throws AmazonServiceException
+     *             If an error response is returned by AmazonGlacier indicating
+     *             either a problem with the data in the request, or a server side issue.
+     */
+    public Future<Void> abortVaultLockAsync(
+            final AbortVaultLockRequest abortVaultLockRequest,
+            final AsyncHandler<AbortVaultLockRequest, Void> asyncHandler)
+                    throws AmazonServiceException, AmazonClientException {
+        return executorService.submit(new Callable<Void>() {
+            public Void call() throws Exception {
+              try {
+                abortVaultLock(abortVaultLockRequest);
+              } catch (Exception ex) {
+                  asyncHandler.onError(ex);
+            throw ex;
+              }
+              asyncHandler.onSuccess(abortVaultLockRequest, null);
+                 return null;
+        }
+    });
+    }
+    
+    /**
+     * <p>
+     * This operation retrieves the following attributes from the
+     * <code>lock-policy</code> subresource set on the specified vault:
+     * <ul>
+     * <li> <p>
+     * The vault lock policy set on the vault.
+     * </p>
+     * </li>
+     * <li> <p>
+     * The state of the vault lock, which is either <code>InProgess</code>
+     * or <code>Locked</code> .
+     * </p>
+     * </li>
+     * <li> <p>
+     * When the lock ID expires. The lock ID is used to complete the vault
+     * locking process.
+     * </p>
+     * </li>
+     * <li> <p>
+     * When the vault lock was initiated and put into the
+     * <code>InProgress</code> state.
+     * </p>
+     * </li>
+     * 
+     * </ul>
+     * 
+     * </p>
+     * <p>
+     * A vault lock is put into the <code>InProgress</code> state by calling
+     * InitiateVaultLock. A vault lock is put into the <code>Locked</code>
+     * state by calling CompleteVaultLock. You can abort the vault locking
+     * process by calling AbortVaultLock. For more information about the
+     * vault locking process,
+     * <a href="http://docs.aws.amazon.com/amazonglacier/latest/dev/vault-lock.html"> Amazon Glacier Vault Lock </a>
+     * .
+     * </p>
+     * <p>
+     * If there is no vault lock policy set on the vault, the operation
+     * returns a <code>404 Not found</code> error. For more information about
+     * vault lock policies,
+     * <a href="http://docs.aws.amazon.com/amazonglacier/latest/dev/vault-lock-policy.html"> Amazon Glacier Access Control with Vault Lock Policies </a>
+     * .
+     * </p>
+     *
+     * @param getVaultLockRequest Container for the necessary parameters to
+     *           execute the GetVaultLock operation on AmazonGlacier.
+     * 
+     * @return A Java Future object containing the response from the
+     *         GetVaultLock service method, as returned by AmazonGlacier.
+     * 
+     *
+     * @throws AmazonClientException
+     *             If any internal errors are encountered inside the client while
+     *             attempting to make the request or handle the response.  For example
+     *             if a network connection is not available.
+     * @throws AmazonServiceException
+     *             If an error response is returned by AmazonGlacier indicating
+     *             either a problem with the data in the request, or a server side issue.
+     */
+    public Future<GetVaultLockResult> getVaultLockAsync(final GetVaultLockRequest getVaultLockRequest) 
+            throws AmazonServiceException, AmazonClientException {
+        return executorService.submit(new Callable<GetVaultLockResult>() {
+            public GetVaultLockResult call() throws Exception {
+                return getVaultLock(getVaultLockRequest);
+        }
+    });
+    }
+
+    /**
+     * <p>
+     * This operation retrieves the following attributes from the
+     * <code>lock-policy</code> subresource set on the specified vault:
+     * <ul>
+     * <li> <p>
+     * The vault lock policy set on the vault.
+     * </p>
+     * </li>
+     * <li> <p>
+     * The state of the vault lock, which is either <code>InProgess</code>
+     * or <code>Locked</code> .
+     * </p>
+     * </li>
+     * <li> <p>
+     * When the lock ID expires. The lock ID is used to complete the vault
+     * locking process.
+     * </p>
+     * </li>
+     * <li> <p>
+     * When the vault lock was initiated and put into the
+     * <code>InProgress</code> state.
+     * </p>
+     * </li>
+     * 
+     * </ul>
+     * 
+     * </p>
+     * <p>
+     * A vault lock is put into the <code>InProgress</code> state by calling
+     * InitiateVaultLock. A vault lock is put into the <code>Locked</code>
+     * state by calling CompleteVaultLock. You can abort the vault locking
+     * process by calling AbortVaultLock. For more information about the
+     * vault locking process,
+     * <a href="http://docs.aws.amazon.com/amazonglacier/latest/dev/vault-lock.html"> Amazon Glacier Vault Lock </a>
+     * .
+     * </p>
+     * <p>
+     * If there is no vault lock policy set on the vault, the operation
+     * returns a <code>404 Not found</code> error. For more information about
+     * vault lock policies,
+     * <a href="http://docs.aws.amazon.com/amazonglacier/latest/dev/vault-lock-policy.html"> Amazon Glacier Access Control with Vault Lock Policies </a>
+     * .
+     * </p>
+     *
+     * @param getVaultLockRequest Container for the necessary parameters to
+     *           execute the GetVaultLock operation on AmazonGlacier.
+     * @param asyncHandler Asynchronous callback handler for events in the
+     *           life-cycle of the request. Users could provide the implementation of
+     *           the four callback methods in this interface to process the operation
+     *           result or handle the exception.
+     * 
+     * @return A Java Future object containing the response from the
+     *         GetVaultLock service method, as returned by AmazonGlacier.
+     * 
+     *
+     * @throws AmazonClientException
+     *             If any internal errors are encountered inside the client while
+     *             attempting to make the request or handle the response.  For example
+     *             if a network connection is not available.
+     * @throws AmazonServiceException
+     *             If an error response is returned by AmazonGlacier indicating
+     *             either a problem with the data in the request, or a server side issue.
+     */
+    public Future<GetVaultLockResult> getVaultLockAsync(
+            final GetVaultLockRequest getVaultLockRequest,
+            final AsyncHandler<GetVaultLockRequest, GetVaultLockResult> asyncHandler)
+                    throws AmazonServiceException, AmazonClientException {
+        return executorService.submit(new Callable<GetVaultLockResult>() {
+            public GetVaultLockResult call() throws Exception {
+              GetVaultLockResult result;
+                try {
+                result = getVaultLock(getVaultLockRequest);
+              } catch (Exception ex) {
+                  asyncHandler.onError(ex);
+            throw ex;
+              }
+              asyncHandler.onSuccess(getVaultLockRequest, result);
+                 return result;
+        }
+    });
+    }
+    
+    /**
+     * <p>
      * This operation adds an archive to a vault. This is a synchronous
      * operation, and for a successful upload, your data is durably
      * persisted. Amazon Glacier returns the archive ID in the
@@ -2458,6 +2112,1464 @@ public class AmazonGlacierAsyncClient extends AmazonGlacierClient
     
     /**
      * <p>
+     * This operation returns information about a vault, including the
+     * vault's Amazon Resource Name (ARN), the date the vault was created,
+     * the number of archives it contains, and the total size of all the
+     * archives in the vault. The number of archives and their total size are
+     * as of the last inventory generation. This means that if you add or
+     * remove an archive from a vault, and then immediately use Describe
+     * Vault, the change in contents will not be immediately reflected. If
+     * you want to retrieve the latest inventory of the vault, use
+     * InitiateJob. Amazon Glacier generates vault inventories approximately
+     * daily. For more information, see
+     * <a href="http://docs.aws.amazon.com/amazonglacier/latest/dev/vault-inventory.html"> Downloading a Vault Inventory in Amazon Glacier </a>
+     * .
+     * </p>
+     * <p>
+     * An AWS account has full permission to perform all operations
+     * (actions). However, AWS Identity and Access Management (IAM) users
+     * don't have any permissions by default. You must grant them explicit
+     * permission to perform specific actions. For more information, see
+     * <a href="http://docs.aws.amazon.com/amazonglacier/latest/dev/using-iam-with-amazon-glacier.html"> Access Control Using AWS Identity and Access Management (IAM) </a>
+     * .
+     * </p>
+     * <p>
+     * For conceptual information and underlying REST API, go to
+     * <a href="http://docs.aws.amazon.com/amazonglacier/latest/dev/retrieving-vault-info.html"> Retrieving Vault Metadata in Amazon Glacier </a> and <a href="http://docs.aws.amazon.com/amazonglacier/latest/dev/api-vault-get.html"> Describe Vault </a>
+     * in the <i>Amazon Glacier Developer Guide</i> .
+     * </p>
+     *
+     * @param describeVaultRequest Container for the necessary parameters to
+     *           execute the DescribeVault operation on AmazonGlacier.
+     * 
+     * @return A Java Future object containing the response from the
+     *         DescribeVault service method, as returned by AmazonGlacier.
+     * 
+     *
+     * @throws AmazonClientException
+     *             If any internal errors are encountered inside the client while
+     *             attempting to make the request or handle the response.  For example
+     *             if a network connection is not available.
+     * @throws AmazonServiceException
+     *             If an error response is returned by AmazonGlacier indicating
+     *             either a problem with the data in the request, or a server side issue.
+     */
+    public Future<DescribeVaultResult> describeVaultAsync(final DescribeVaultRequest describeVaultRequest) 
+            throws AmazonServiceException, AmazonClientException {
+        return executorService.submit(new Callable<DescribeVaultResult>() {
+            public DescribeVaultResult call() throws Exception {
+                return describeVault(describeVaultRequest);
+        }
+    });
+    }
+
+    /**
+     * <p>
+     * This operation returns information about a vault, including the
+     * vault's Amazon Resource Name (ARN), the date the vault was created,
+     * the number of archives it contains, and the total size of all the
+     * archives in the vault. The number of archives and their total size are
+     * as of the last inventory generation. This means that if you add or
+     * remove an archive from a vault, and then immediately use Describe
+     * Vault, the change in contents will not be immediately reflected. If
+     * you want to retrieve the latest inventory of the vault, use
+     * InitiateJob. Amazon Glacier generates vault inventories approximately
+     * daily. For more information, see
+     * <a href="http://docs.aws.amazon.com/amazonglacier/latest/dev/vault-inventory.html"> Downloading a Vault Inventory in Amazon Glacier </a>
+     * .
+     * </p>
+     * <p>
+     * An AWS account has full permission to perform all operations
+     * (actions). However, AWS Identity and Access Management (IAM) users
+     * don't have any permissions by default. You must grant them explicit
+     * permission to perform specific actions. For more information, see
+     * <a href="http://docs.aws.amazon.com/amazonglacier/latest/dev/using-iam-with-amazon-glacier.html"> Access Control Using AWS Identity and Access Management (IAM) </a>
+     * .
+     * </p>
+     * <p>
+     * For conceptual information and underlying REST API, go to
+     * <a href="http://docs.aws.amazon.com/amazonglacier/latest/dev/retrieving-vault-info.html"> Retrieving Vault Metadata in Amazon Glacier </a> and <a href="http://docs.aws.amazon.com/amazonglacier/latest/dev/api-vault-get.html"> Describe Vault </a>
+     * in the <i>Amazon Glacier Developer Guide</i> .
+     * </p>
+     *
+     * @param describeVaultRequest Container for the necessary parameters to
+     *           execute the DescribeVault operation on AmazonGlacier.
+     * @param asyncHandler Asynchronous callback handler for events in the
+     *           life-cycle of the request. Users could provide the implementation of
+     *           the four callback methods in this interface to process the operation
+     *           result or handle the exception.
+     * 
+     * @return A Java Future object containing the response from the
+     *         DescribeVault service method, as returned by AmazonGlacier.
+     * 
+     *
+     * @throws AmazonClientException
+     *             If any internal errors are encountered inside the client while
+     *             attempting to make the request or handle the response.  For example
+     *             if a network connection is not available.
+     * @throws AmazonServiceException
+     *             If an error response is returned by AmazonGlacier indicating
+     *             either a problem with the data in the request, or a server side issue.
+     */
+    public Future<DescribeVaultResult> describeVaultAsync(
+            final DescribeVaultRequest describeVaultRequest,
+            final AsyncHandler<DescribeVaultRequest, DescribeVaultResult> asyncHandler)
+                    throws AmazonServiceException, AmazonClientException {
+        return executorService.submit(new Callable<DescribeVaultResult>() {
+            public DescribeVaultResult call() throws Exception {
+              DescribeVaultResult result;
+                try {
+                result = describeVault(describeVaultRequest);
+              } catch (Exception ex) {
+                  asyncHandler.onError(ex);
+            throw ex;
+              }
+              asyncHandler.onSuccess(describeVaultRequest, result);
+                 return result;
+        }
+    });
+    }
+    
+    /**
+     * <p>
+     * This operation deletes the notification configuration set for a
+     * vault. The operation is eventually consistent; that is, it might take
+     * some time for Amazon Glacier to completely disable the notifications
+     * and you might still receive some notifications for a short time after
+     * you send the delete request.
+     * </p>
+     * <p>
+     * An AWS account has full permission to perform all operations
+     * (actions). However, AWS Identity and Access Management (IAM) users
+     * don't have any permissions by default. You must grant them explicit
+     * permission to perform specific actions. For more information, see
+     * <a href="http://docs.aws.amazon.com/latest/dev/using-iam-with-amazon-glacier.html"> Access Control Using AWS Identity and Access Management (IAM) </a>
+     * .
+     * </p>
+     * <p>
+     * For conceptual information and underlying REST API, go to
+     * <a href="http://docs.aws.amazon.com/amazonglacier/latest/dev/configuring-notifications.html"> Configuring Vault Notifications in Amazon Glacier </a> and <a href="http://docs.aws.amazon.com/amazonglacier/latest/dev/api-vault-notifications-delete.html"> Delete Vault Notification Configuration </a>
+     * in the Amazon Glacier Developer Guide.
+     * </p>
+     *
+     * @param deleteVaultNotificationsRequest Container for the necessary
+     *           parameters to execute the DeleteVaultNotifications operation on
+     *           AmazonGlacier.
+     * 
+     * @return A Java Future object containing the response from the
+     *         DeleteVaultNotifications service method, as returned by AmazonGlacier.
+     * 
+     *
+     * @throws AmazonClientException
+     *             If any internal errors are encountered inside the client while
+     *             attempting to make the request or handle the response.  For example
+     *             if a network connection is not available.
+     * @throws AmazonServiceException
+     *             If an error response is returned by AmazonGlacier indicating
+     *             either a problem with the data in the request, or a server side issue.
+     */
+    public Future<Void> deleteVaultNotificationsAsync(final DeleteVaultNotificationsRequest deleteVaultNotificationsRequest) 
+            throws AmazonServiceException, AmazonClientException {
+        return executorService.submit(new Callable<Void>() {
+            public Void call() throws Exception {
+                deleteVaultNotifications(deleteVaultNotificationsRequest);
+                return null;
+        }
+    });
+    }
+
+    /**
+     * <p>
+     * This operation deletes the notification configuration set for a
+     * vault. The operation is eventually consistent; that is, it might take
+     * some time for Amazon Glacier to completely disable the notifications
+     * and you might still receive some notifications for a short time after
+     * you send the delete request.
+     * </p>
+     * <p>
+     * An AWS account has full permission to perform all operations
+     * (actions). However, AWS Identity and Access Management (IAM) users
+     * don't have any permissions by default. You must grant them explicit
+     * permission to perform specific actions. For more information, see
+     * <a href="http://docs.aws.amazon.com/latest/dev/using-iam-with-amazon-glacier.html"> Access Control Using AWS Identity and Access Management (IAM) </a>
+     * .
+     * </p>
+     * <p>
+     * For conceptual information and underlying REST API, go to
+     * <a href="http://docs.aws.amazon.com/amazonglacier/latest/dev/configuring-notifications.html"> Configuring Vault Notifications in Amazon Glacier </a> and <a href="http://docs.aws.amazon.com/amazonglacier/latest/dev/api-vault-notifications-delete.html"> Delete Vault Notification Configuration </a>
+     * in the Amazon Glacier Developer Guide.
+     * </p>
+     *
+     * @param deleteVaultNotificationsRequest Container for the necessary
+     *           parameters to execute the DeleteVaultNotifications operation on
+     *           AmazonGlacier.
+     * @param asyncHandler Asynchronous callback handler for events in the
+     *           life-cycle of the request. Users could provide the implementation of
+     *           the four callback methods in this interface to process the operation
+     *           result or handle the exception.
+     * 
+     * @return A Java Future object containing the response from the
+     *         DeleteVaultNotifications service method, as returned by AmazonGlacier.
+     * 
+     *
+     * @throws AmazonClientException
+     *             If any internal errors are encountered inside the client while
+     *             attempting to make the request or handle the response.  For example
+     *             if a network connection is not available.
+     * @throws AmazonServiceException
+     *             If an error response is returned by AmazonGlacier indicating
+     *             either a problem with the data in the request, or a server side issue.
+     */
+    public Future<Void> deleteVaultNotificationsAsync(
+            final DeleteVaultNotificationsRequest deleteVaultNotificationsRequest,
+            final AsyncHandler<DeleteVaultNotificationsRequest, Void> asyncHandler)
+                    throws AmazonServiceException, AmazonClientException {
+        return executorService.submit(new Callable<Void>() {
+            public Void call() throws Exception {
+              try {
+                deleteVaultNotifications(deleteVaultNotificationsRequest);
+              } catch (Exception ex) {
+                  asyncHandler.onError(ex);
+            throw ex;
+              }
+              asyncHandler.onSuccess(deleteVaultNotificationsRequest, null);
+                 return null;
+        }
+    });
+    }
+    
+    /**
+     * <p>
+     * This operation adds the specified tags to a vault. Each tag is
+     * composed of a key and a value. Each vault can have up to 10 tags. If
+     * your request would cause the tag limit for the vault to be exceeded,
+     * the operation throws the <code>LimitExceededException</code> error. If
+     * a tag already exists on the vault under a specified key, the existing
+     * key value will be overwritten. For more information about tags, see
+     * <a href="http://docs.aws.amazon.com/amazonglacier/latest/dev/tagging.html"> Tagging Amazon Glacier Resources </a>
+     * .
+     * </p>
+     *
+     * @param addTagsToVaultRequest Container for the necessary parameters to
+     *           execute the AddTagsToVault operation on AmazonGlacier.
+     * 
+     * @return A Java Future object containing the response from the
+     *         AddTagsToVault service method, as returned by AmazonGlacier.
+     * 
+     *
+     * @throws AmazonClientException
+     *             If any internal errors are encountered inside the client while
+     *             attempting to make the request or handle the response.  For example
+     *             if a network connection is not available.
+     * @throws AmazonServiceException
+     *             If an error response is returned by AmazonGlacier indicating
+     *             either a problem with the data in the request, or a server side issue.
+     */
+    public Future<Void> addTagsToVaultAsync(final AddTagsToVaultRequest addTagsToVaultRequest) 
+            throws AmazonServiceException, AmazonClientException {
+        return executorService.submit(new Callable<Void>() {
+            public Void call() throws Exception {
+                addTagsToVault(addTagsToVaultRequest);
+                return null;
+        }
+    });
+    }
+
+    /**
+     * <p>
+     * This operation adds the specified tags to a vault. Each tag is
+     * composed of a key and a value. Each vault can have up to 10 tags. If
+     * your request would cause the tag limit for the vault to be exceeded,
+     * the operation throws the <code>LimitExceededException</code> error. If
+     * a tag already exists on the vault under a specified key, the existing
+     * key value will be overwritten. For more information about tags, see
+     * <a href="http://docs.aws.amazon.com/amazonglacier/latest/dev/tagging.html"> Tagging Amazon Glacier Resources </a>
+     * .
+     * </p>
+     *
+     * @param addTagsToVaultRequest Container for the necessary parameters to
+     *           execute the AddTagsToVault operation on AmazonGlacier.
+     * @param asyncHandler Asynchronous callback handler for events in the
+     *           life-cycle of the request. Users could provide the implementation of
+     *           the four callback methods in this interface to process the operation
+     *           result or handle the exception.
+     * 
+     * @return A Java Future object containing the response from the
+     *         AddTagsToVault service method, as returned by AmazonGlacier.
+     * 
+     *
+     * @throws AmazonClientException
+     *             If any internal errors are encountered inside the client while
+     *             attempting to make the request or handle the response.  For example
+     *             if a network connection is not available.
+     * @throws AmazonServiceException
+     *             If an error response is returned by AmazonGlacier indicating
+     *             either a problem with the data in the request, or a server side issue.
+     */
+    public Future<Void> addTagsToVaultAsync(
+            final AddTagsToVaultRequest addTagsToVaultRequest,
+            final AsyncHandler<AddTagsToVaultRequest, Void> asyncHandler)
+                    throws AmazonServiceException, AmazonClientException {
+        return executorService.submit(new Callable<Void>() {
+            public Void call() throws Exception {
+              try {
+                addTagsToVault(addTagsToVaultRequest);
+              } catch (Exception ex) {
+                  asyncHandler.onError(ex);
+            throw ex;
+              }
+              asyncHandler.onSuccess(addTagsToVaultRequest, null);
+                 return null;
+        }
+    });
+    }
+    
+    /**
+     * <p>
+     * This operation returns the current data retrieval policy for the
+     * account and region specified in the GET request. For more information
+     * about data retrieval policies, see
+     * <a href="http://docs.aws.amazon.com/amazonglacier/latest/dev/data-retrieval-policy.html"> Amazon Glacier Data Retrieval Policies </a>
+     * .
+     * </p>
+     *
+     * @param getDataRetrievalPolicyRequest Container for the necessary
+     *           parameters to execute the GetDataRetrievalPolicy operation on
+     *           AmazonGlacier.
+     * 
+     * @return A Java Future object containing the response from the
+     *         GetDataRetrievalPolicy service method, as returned by AmazonGlacier.
+     * 
+     *
+     * @throws AmazonClientException
+     *             If any internal errors are encountered inside the client while
+     *             attempting to make the request or handle the response.  For example
+     *             if a network connection is not available.
+     * @throws AmazonServiceException
+     *             If an error response is returned by AmazonGlacier indicating
+     *             either a problem with the data in the request, or a server side issue.
+     */
+    public Future<GetDataRetrievalPolicyResult> getDataRetrievalPolicyAsync(final GetDataRetrievalPolicyRequest getDataRetrievalPolicyRequest) 
+            throws AmazonServiceException, AmazonClientException {
+        return executorService.submit(new Callable<GetDataRetrievalPolicyResult>() {
+            public GetDataRetrievalPolicyResult call() throws Exception {
+                return getDataRetrievalPolicy(getDataRetrievalPolicyRequest);
+        }
+    });
+    }
+
+    /**
+     * <p>
+     * This operation returns the current data retrieval policy for the
+     * account and region specified in the GET request. For more information
+     * about data retrieval policies, see
+     * <a href="http://docs.aws.amazon.com/amazonglacier/latest/dev/data-retrieval-policy.html"> Amazon Glacier Data Retrieval Policies </a>
+     * .
+     * </p>
+     *
+     * @param getDataRetrievalPolicyRequest Container for the necessary
+     *           parameters to execute the GetDataRetrievalPolicy operation on
+     *           AmazonGlacier.
+     * @param asyncHandler Asynchronous callback handler for events in the
+     *           life-cycle of the request. Users could provide the implementation of
+     *           the four callback methods in this interface to process the operation
+     *           result or handle the exception.
+     * 
+     * @return A Java Future object containing the response from the
+     *         GetDataRetrievalPolicy service method, as returned by AmazonGlacier.
+     * 
+     *
+     * @throws AmazonClientException
+     *             If any internal errors are encountered inside the client while
+     *             attempting to make the request or handle the response.  For example
+     *             if a network connection is not available.
+     * @throws AmazonServiceException
+     *             If an error response is returned by AmazonGlacier indicating
+     *             either a problem with the data in the request, or a server side issue.
+     */
+    public Future<GetDataRetrievalPolicyResult> getDataRetrievalPolicyAsync(
+            final GetDataRetrievalPolicyRequest getDataRetrievalPolicyRequest,
+            final AsyncHandler<GetDataRetrievalPolicyRequest, GetDataRetrievalPolicyResult> asyncHandler)
+                    throws AmazonServiceException, AmazonClientException {
+        return executorService.submit(new Callable<GetDataRetrievalPolicyResult>() {
+            public GetDataRetrievalPolicyResult call() throws Exception {
+              GetDataRetrievalPolicyResult result;
+                try {
+                result = getDataRetrievalPolicy(getDataRetrievalPolicyRequest);
+              } catch (Exception ex) {
+                  asyncHandler.onError(ex);
+            throw ex;
+              }
+              asyncHandler.onSuccess(getDataRetrievalPolicyRequest, result);
+                 return result;
+        }
+    });
+    }
+    
+    /**
+     * <p>
+     * This operation lists all the tags attached to a vault. The operation
+     * returns an empty map if there are no tags. For more information about
+     * tags, see
+     * <a href="http://docs.aws.amazon.com/amazonglacier/latest/dev/tagging.html"> Tagging Amazon Glacier Resources </a>
+     * .
+     * </p>
+     *
+     * @param listTagsForVaultRequest Container for the necessary parameters
+     *           to execute the ListTagsForVault operation on AmazonGlacier.
+     * 
+     * @return A Java Future object containing the response from the
+     *         ListTagsForVault service method, as returned by AmazonGlacier.
+     * 
+     *
+     * @throws AmazonClientException
+     *             If any internal errors are encountered inside the client while
+     *             attempting to make the request or handle the response.  For example
+     *             if a network connection is not available.
+     * @throws AmazonServiceException
+     *             If an error response is returned by AmazonGlacier indicating
+     *             either a problem with the data in the request, or a server side issue.
+     */
+    public Future<ListTagsForVaultResult> listTagsForVaultAsync(final ListTagsForVaultRequest listTagsForVaultRequest) 
+            throws AmazonServiceException, AmazonClientException {
+        return executorService.submit(new Callable<ListTagsForVaultResult>() {
+            public ListTagsForVaultResult call() throws Exception {
+                return listTagsForVault(listTagsForVaultRequest);
+        }
+    });
+    }
+
+    /**
+     * <p>
+     * This operation lists all the tags attached to a vault. The operation
+     * returns an empty map if there are no tags. For more information about
+     * tags, see
+     * <a href="http://docs.aws.amazon.com/amazonglacier/latest/dev/tagging.html"> Tagging Amazon Glacier Resources </a>
+     * .
+     * </p>
+     *
+     * @param listTagsForVaultRequest Container for the necessary parameters
+     *           to execute the ListTagsForVault operation on AmazonGlacier.
+     * @param asyncHandler Asynchronous callback handler for events in the
+     *           life-cycle of the request. Users could provide the implementation of
+     *           the four callback methods in this interface to process the operation
+     *           result or handle the exception.
+     * 
+     * @return A Java Future object containing the response from the
+     *         ListTagsForVault service method, as returned by AmazonGlacier.
+     * 
+     *
+     * @throws AmazonClientException
+     *             If any internal errors are encountered inside the client while
+     *             attempting to make the request or handle the response.  For example
+     *             if a network connection is not available.
+     * @throws AmazonServiceException
+     *             If an error response is returned by AmazonGlacier indicating
+     *             either a problem with the data in the request, or a server side issue.
+     */
+    public Future<ListTagsForVaultResult> listTagsForVaultAsync(
+            final ListTagsForVaultRequest listTagsForVaultRequest,
+            final AsyncHandler<ListTagsForVaultRequest, ListTagsForVaultResult> asyncHandler)
+                    throws AmazonServiceException, AmazonClientException {
+        return executorService.submit(new Callable<ListTagsForVaultResult>() {
+            public ListTagsForVaultResult call() throws Exception {
+              ListTagsForVaultResult result;
+                try {
+                result = listTagsForVault(listTagsForVaultRequest);
+              } catch (Exception ex) {
+                  asyncHandler.onError(ex);
+            throw ex;
+              }
+              asyncHandler.onSuccess(listTagsForVaultRequest, result);
+                 return result;
+        }
+    });
+    }
+    
+    /**
+     * <p>
+     * This operation retrieves the <code>notification-configuration</code>
+     * subresource of the specified vault.
+     * </p>
+     * <p>
+     * For information about setting a notification configuration on a
+     * vault, see SetVaultNotifications. If a notification configuration for
+     * a vault is not set, the operation returns a <code>404 Not Found</code>
+     * error. For more information about vault notifications, see
+     * <a href="http://docs.aws.amazon.com/amazonglacier/latest/dev/configuring-notifications.html"> Configuring Vault Notifications in Amazon Glacier </a>
+     * .
+     * </p>
+     * <p>
+     * An AWS account has full permission to perform all operations
+     * (actions). However, AWS Identity and Access Management (IAM) users
+     * don't have any permissions by default. You must grant them explicit
+     * permission to perform specific actions. For more information, see
+     * <a href="http://docs.aws.amazon.com/amazonglacier/latest/dev/using-iam-with-amazon-glacier.html"> Access Control Using AWS Identity and Access Management (IAM) </a>
+     * .
+     * </p>
+     * <p>
+     * For conceptual information and underlying REST API, go to
+     * <a href="http://docs.aws.amazon.com/amazonglacier/latest/dev/configuring-notifications.html"> Configuring Vault Notifications in Amazon Glacier </a> and <a href="http://docs.aws.amazon.com/amazonglacier/latest/dev/api-vault-notifications-get.html"> Get Vault Notification Configuration </a>
+     * in the <i>Amazon Glacier Developer Guide</i> .
+     * </p>
+     *
+     * @param getVaultNotificationsRequest Container for the necessary
+     *           parameters to execute the GetVaultNotifications operation on
+     *           AmazonGlacier.
+     * 
+     * @return A Java Future object containing the response from the
+     *         GetVaultNotifications service method, as returned by AmazonGlacier.
+     * 
+     *
+     * @throws AmazonClientException
+     *             If any internal errors are encountered inside the client while
+     *             attempting to make the request or handle the response.  For example
+     *             if a network connection is not available.
+     * @throws AmazonServiceException
+     *             If an error response is returned by AmazonGlacier indicating
+     *             either a problem with the data in the request, or a server side issue.
+     */
+    public Future<GetVaultNotificationsResult> getVaultNotificationsAsync(final GetVaultNotificationsRequest getVaultNotificationsRequest) 
+            throws AmazonServiceException, AmazonClientException {
+        return executorService.submit(new Callable<GetVaultNotificationsResult>() {
+            public GetVaultNotificationsResult call() throws Exception {
+                return getVaultNotifications(getVaultNotificationsRequest);
+        }
+    });
+    }
+
+    /**
+     * <p>
+     * This operation retrieves the <code>notification-configuration</code>
+     * subresource of the specified vault.
+     * </p>
+     * <p>
+     * For information about setting a notification configuration on a
+     * vault, see SetVaultNotifications. If a notification configuration for
+     * a vault is not set, the operation returns a <code>404 Not Found</code>
+     * error. For more information about vault notifications, see
+     * <a href="http://docs.aws.amazon.com/amazonglacier/latest/dev/configuring-notifications.html"> Configuring Vault Notifications in Amazon Glacier </a>
+     * .
+     * </p>
+     * <p>
+     * An AWS account has full permission to perform all operations
+     * (actions). However, AWS Identity and Access Management (IAM) users
+     * don't have any permissions by default. You must grant them explicit
+     * permission to perform specific actions. For more information, see
+     * <a href="http://docs.aws.amazon.com/amazonglacier/latest/dev/using-iam-with-amazon-glacier.html"> Access Control Using AWS Identity and Access Management (IAM) </a>
+     * .
+     * </p>
+     * <p>
+     * For conceptual information and underlying REST API, go to
+     * <a href="http://docs.aws.amazon.com/amazonglacier/latest/dev/configuring-notifications.html"> Configuring Vault Notifications in Amazon Glacier </a> and <a href="http://docs.aws.amazon.com/amazonglacier/latest/dev/api-vault-notifications-get.html"> Get Vault Notification Configuration </a>
+     * in the <i>Amazon Glacier Developer Guide</i> .
+     * </p>
+     *
+     * @param getVaultNotificationsRequest Container for the necessary
+     *           parameters to execute the GetVaultNotifications operation on
+     *           AmazonGlacier.
+     * @param asyncHandler Asynchronous callback handler for events in the
+     *           life-cycle of the request. Users could provide the implementation of
+     *           the four callback methods in this interface to process the operation
+     *           result or handle the exception.
+     * 
+     * @return A Java Future object containing the response from the
+     *         GetVaultNotifications service method, as returned by AmazonGlacier.
+     * 
+     *
+     * @throws AmazonClientException
+     *             If any internal errors are encountered inside the client while
+     *             attempting to make the request or handle the response.  For example
+     *             if a network connection is not available.
+     * @throws AmazonServiceException
+     *             If an error response is returned by AmazonGlacier indicating
+     *             either a problem with the data in the request, or a server side issue.
+     */
+    public Future<GetVaultNotificationsResult> getVaultNotificationsAsync(
+            final GetVaultNotificationsRequest getVaultNotificationsRequest,
+            final AsyncHandler<GetVaultNotificationsRequest, GetVaultNotificationsResult> asyncHandler)
+                    throws AmazonServiceException, AmazonClientException {
+        return executorService.submit(new Callable<GetVaultNotificationsResult>() {
+            public GetVaultNotificationsResult call() throws Exception {
+              GetVaultNotificationsResult result;
+                try {
+                result = getVaultNotifications(getVaultNotificationsRequest);
+              } catch (Exception ex) {
+                  asyncHandler.onError(ex);
+            throw ex;
+              }
+              asyncHandler.onSuccess(getVaultNotificationsRequest, result);
+                 return result;
+        }
+    });
+    }
+    
+    /**
+     * <p>
+     * This operation lists the parts of an archive that have been uploaded
+     * in a specific multipart upload. You can make this request at any time
+     * during an in-progress multipart upload before you complete the upload
+     * (see CompleteMultipartUpload. List Parts returns an error for
+     * completed uploads. The list returned in the List Parts response is
+     * sorted by part range.
+     * </p>
+     * <p>
+     * The List Parts operation supports pagination. By default, this
+     * operation returns up to 1,000 uploaded parts in the response. You
+     * should always check the response for a <code>marker</code> at which to
+     * continue the list; if there are no more items the <code>marker</code>
+     * is <code>null</code> . To return a list of parts that begins at a
+     * specific part, set the <code>marker</code> request parameter to the
+     * value you obtained from a previous List Parts request. You can also
+     * limit the number of parts returned in the response by specifying the
+     * <code>limit</code> parameter in the request.
+     * </p>
+     * <p>
+     * An AWS account has full permission to perform all operations
+     * (actions). However, AWS Identity and Access Management (IAM) users
+     * don't have any permissions by default. You must grant them explicit
+     * permission to perform specific actions. For more information, see
+     * <a href="http://docs.aws.amazon.com/amazonglacier/latest/dev/using-iam-with-amazon-glacier.html"> Access Control Using AWS Identity and Access Management (IAM) </a>
+     * .
+     * </p>
+     * <p>
+     * For conceptual information and the underlying REST API, go to
+     * <a href="http://docs.aws.amazon.com/amazonglacier/latest/dev/working-with-archives.html"> Working with Archives in Amazon Glacier </a> and <a href="http://docs.aws.amazon.com/amazonglacier/latest/dev/api-multipart-list-parts.html"> List Parts </a>
+     * in the <i>Amazon Glacier Developer Guide</i> .
+     * </p>
+     *
+     * @param listPartsRequest Container for the necessary parameters to
+     *           execute the ListParts operation on AmazonGlacier.
+     * 
+     * @return A Java Future object containing the response from the
+     *         ListParts service method, as returned by AmazonGlacier.
+     * 
+     *
+     * @throws AmazonClientException
+     *             If any internal errors are encountered inside the client while
+     *             attempting to make the request or handle the response.  For example
+     *             if a network connection is not available.
+     * @throws AmazonServiceException
+     *             If an error response is returned by AmazonGlacier indicating
+     *             either a problem with the data in the request, or a server side issue.
+     */
+    public Future<ListPartsResult> listPartsAsync(final ListPartsRequest listPartsRequest) 
+            throws AmazonServiceException, AmazonClientException {
+        return executorService.submit(new Callable<ListPartsResult>() {
+            public ListPartsResult call() throws Exception {
+                return listParts(listPartsRequest);
+        }
+    });
+    }
+
+    /**
+     * <p>
+     * This operation lists the parts of an archive that have been uploaded
+     * in a specific multipart upload. You can make this request at any time
+     * during an in-progress multipart upload before you complete the upload
+     * (see CompleteMultipartUpload. List Parts returns an error for
+     * completed uploads. The list returned in the List Parts response is
+     * sorted by part range.
+     * </p>
+     * <p>
+     * The List Parts operation supports pagination. By default, this
+     * operation returns up to 1,000 uploaded parts in the response. You
+     * should always check the response for a <code>marker</code> at which to
+     * continue the list; if there are no more items the <code>marker</code>
+     * is <code>null</code> . To return a list of parts that begins at a
+     * specific part, set the <code>marker</code> request parameter to the
+     * value you obtained from a previous List Parts request. You can also
+     * limit the number of parts returned in the response by specifying the
+     * <code>limit</code> parameter in the request.
+     * </p>
+     * <p>
+     * An AWS account has full permission to perform all operations
+     * (actions). However, AWS Identity and Access Management (IAM) users
+     * don't have any permissions by default. You must grant them explicit
+     * permission to perform specific actions. For more information, see
+     * <a href="http://docs.aws.amazon.com/amazonglacier/latest/dev/using-iam-with-amazon-glacier.html"> Access Control Using AWS Identity and Access Management (IAM) </a>
+     * .
+     * </p>
+     * <p>
+     * For conceptual information and the underlying REST API, go to
+     * <a href="http://docs.aws.amazon.com/amazonglacier/latest/dev/working-with-archives.html"> Working with Archives in Amazon Glacier </a> and <a href="http://docs.aws.amazon.com/amazonglacier/latest/dev/api-multipart-list-parts.html"> List Parts </a>
+     * in the <i>Amazon Glacier Developer Guide</i> .
+     * </p>
+     *
+     * @param listPartsRequest Container for the necessary parameters to
+     *           execute the ListParts operation on AmazonGlacier.
+     * @param asyncHandler Asynchronous callback handler for events in the
+     *           life-cycle of the request. Users could provide the implementation of
+     *           the four callback methods in this interface to process the operation
+     *           result or handle the exception.
+     * 
+     * @return A Java Future object containing the response from the
+     *         ListParts service method, as returned by AmazonGlacier.
+     * 
+     *
+     * @throws AmazonClientException
+     *             If any internal errors are encountered inside the client while
+     *             attempting to make the request or handle the response.  For example
+     *             if a network connection is not available.
+     * @throws AmazonServiceException
+     *             If an error response is returned by AmazonGlacier indicating
+     *             either a problem with the data in the request, or a server side issue.
+     */
+    public Future<ListPartsResult> listPartsAsync(
+            final ListPartsRequest listPartsRequest,
+            final AsyncHandler<ListPartsRequest, ListPartsResult> asyncHandler)
+                    throws AmazonServiceException, AmazonClientException {
+        return executorService.submit(new Callable<ListPartsResult>() {
+            public ListPartsResult call() throws Exception {
+              ListPartsResult result;
+                try {
+                result = listParts(listPartsRequest);
+              } catch (Exception ex) {
+                  asyncHandler.onError(ex);
+            throw ex;
+              }
+              asyncHandler.onSuccess(listPartsRequest, result);
+                 return result;
+        }
+    });
+    }
+    
+    /**
+     * <p>
+     * This operation lists jobs for a vault, including jobs that are
+     * in-progress and jobs that have recently finished.
+     * </p>
+     * <p>
+     * <b>NOTE:</b> Amazon Glacier retains recently completed jobs for a
+     * period before deleting them; however, it eventually removes completed
+     * jobs. The output of completed jobs can be retrieved. Retaining
+     * completed jobs for a period of time after they have completed enables
+     * you to get a job output in the event you miss the job completion
+     * notification or your first attempt to download it fails. For example,
+     * suppose you start an archive retrieval job to download an archive.
+     * After the job completes, you start to download the archive but
+     * encounter a network error. In this scenario, you can retry and
+     * download the archive while the job exists.
+     * </p>
+     * <p>
+     * To retrieve an archive or retrieve a vault inventory from Amazon
+     * Glacier, you first initiate a job, and after the job completes, you
+     * download the data. For an archive retrieval, the output is the archive
+     * data, and for an inventory retrieval, it is the inventory list. The
+     * List Job operation returns a list of these jobs sorted by job
+     * initiation time.
+     * </p>
+     * <p>
+     * This List Jobs operation supports pagination. By default, this
+     * operation returns up to 1,000 jobs in the response. You should always
+     * check the response for a <code>marker</code> at which to continue the
+     * list; if there are no more items the <code>marker</code> is
+     * <code>null</code> . To return a list of jobs that begins at a specific
+     * job, set the <code>marker</code> request parameter to the value you
+     * obtained from a previous List Jobs request. You can also limit the
+     * number of jobs returned in the response by specifying the
+     * <code>limit</code> parameter in the request.
+     * </p>
+     * <p>
+     * Additionally, you can filter the jobs list returned by specifying an
+     * optional <code>statuscode</code> (InProgress, Succeeded, or Failed)
+     * and <code>completed</code> (true, false) parameter. The
+     * <code>statuscode</code> allows you to specify that only jobs that
+     * match a specified status are returned. The <code>completed</code>
+     * parameter allows you to specify that only jobs in a specific
+     * completion state are returned.
+     * </p>
+     * <p>
+     * An AWS account has full permission to perform all operations
+     * (actions). However, AWS Identity and Access Management (IAM) users
+     * don't have any permissions by default. You must grant them explicit
+     * permission to perform specific actions. For more information, see
+     * <a href="http://docs.aws.amazon.com/amazonglacier/latest/dev/using-iam-with-amazon-glacier.html"> Access Control Using AWS Identity and Access Management (IAM) </a>
+     * .
+     * </p>
+     * <p>
+     * For the underlying REST API, go to
+     * <a href="http://docs.aws.amazon.com/amazonglacier/latest/dev/api-jobs-get.html"> List Jobs </a>
+     * 
+     * </p>
+     *
+     * @param listJobsRequest Container for the necessary parameters to
+     *           execute the ListJobs operation on AmazonGlacier.
+     * 
+     * @return A Java Future object containing the response from the ListJobs
+     *         service method, as returned by AmazonGlacier.
+     * 
+     *
+     * @throws AmazonClientException
+     *             If any internal errors are encountered inside the client while
+     *             attempting to make the request or handle the response.  For example
+     *             if a network connection is not available.
+     * @throws AmazonServiceException
+     *             If an error response is returned by AmazonGlacier indicating
+     *             either a problem with the data in the request, or a server side issue.
+     */
+    public Future<ListJobsResult> listJobsAsync(final ListJobsRequest listJobsRequest) 
+            throws AmazonServiceException, AmazonClientException {
+        return executorService.submit(new Callable<ListJobsResult>() {
+            public ListJobsResult call() throws Exception {
+                return listJobs(listJobsRequest);
+        }
+    });
+    }
+
+    /**
+     * <p>
+     * This operation lists jobs for a vault, including jobs that are
+     * in-progress and jobs that have recently finished.
+     * </p>
+     * <p>
+     * <b>NOTE:</b> Amazon Glacier retains recently completed jobs for a
+     * period before deleting them; however, it eventually removes completed
+     * jobs. The output of completed jobs can be retrieved. Retaining
+     * completed jobs for a period of time after they have completed enables
+     * you to get a job output in the event you miss the job completion
+     * notification or your first attempt to download it fails. For example,
+     * suppose you start an archive retrieval job to download an archive.
+     * After the job completes, you start to download the archive but
+     * encounter a network error. In this scenario, you can retry and
+     * download the archive while the job exists.
+     * </p>
+     * <p>
+     * To retrieve an archive or retrieve a vault inventory from Amazon
+     * Glacier, you first initiate a job, and after the job completes, you
+     * download the data. For an archive retrieval, the output is the archive
+     * data, and for an inventory retrieval, it is the inventory list. The
+     * List Job operation returns a list of these jobs sorted by job
+     * initiation time.
+     * </p>
+     * <p>
+     * This List Jobs operation supports pagination. By default, this
+     * operation returns up to 1,000 jobs in the response. You should always
+     * check the response for a <code>marker</code> at which to continue the
+     * list; if there are no more items the <code>marker</code> is
+     * <code>null</code> . To return a list of jobs that begins at a specific
+     * job, set the <code>marker</code> request parameter to the value you
+     * obtained from a previous List Jobs request. You can also limit the
+     * number of jobs returned in the response by specifying the
+     * <code>limit</code> parameter in the request.
+     * </p>
+     * <p>
+     * Additionally, you can filter the jobs list returned by specifying an
+     * optional <code>statuscode</code> (InProgress, Succeeded, or Failed)
+     * and <code>completed</code> (true, false) parameter. The
+     * <code>statuscode</code> allows you to specify that only jobs that
+     * match a specified status are returned. The <code>completed</code>
+     * parameter allows you to specify that only jobs in a specific
+     * completion state are returned.
+     * </p>
+     * <p>
+     * An AWS account has full permission to perform all operations
+     * (actions). However, AWS Identity and Access Management (IAM) users
+     * don't have any permissions by default. You must grant them explicit
+     * permission to perform specific actions. For more information, see
+     * <a href="http://docs.aws.amazon.com/amazonglacier/latest/dev/using-iam-with-amazon-glacier.html"> Access Control Using AWS Identity and Access Management (IAM) </a>
+     * .
+     * </p>
+     * <p>
+     * For the underlying REST API, go to
+     * <a href="http://docs.aws.amazon.com/amazonglacier/latest/dev/api-jobs-get.html"> List Jobs </a>
+     * 
+     * </p>
+     *
+     * @param listJobsRequest Container for the necessary parameters to
+     *           execute the ListJobs operation on AmazonGlacier.
+     * @param asyncHandler Asynchronous callback handler for events in the
+     *           life-cycle of the request. Users could provide the implementation of
+     *           the four callback methods in this interface to process the operation
+     *           result or handle the exception.
+     * 
+     * @return A Java Future object containing the response from the ListJobs
+     *         service method, as returned by AmazonGlacier.
+     * 
+     *
+     * @throws AmazonClientException
+     *             If any internal errors are encountered inside the client while
+     *             attempting to make the request or handle the response.  For example
+     *             if a network connection is not available.
+     * @throws AmazonServiceException
+     *             If an error response is returned by AmazonGlacier indicating
+     *             either a problem with the data in the request, or a server side issue.
+     */
+    public Future<ListJobsResult> listJobsAsync(
+            final ListJobsRequest listJobsRequest,
+            final AsyncHandler<ListJobsRequest, ListJobsResult> asyncHandler)
+                    throws AmazonServiceException, AmazonClientException {
+        return executorService.submit(new Callable<ListJobsResult>() {
+            public ListJobsResult call() throws Exception {
+              ListJobsResult result;
+                try {
+                result = listJobs(listJobsRequest);
+              } catch (Exception ex) {
+                  asyncHandler.onError(ex);
+            throw ex;
+              }
+              asyncHandler.onSuccess(listJobsRequest, result);
+                 return result;
+        }
+    });
+    }
+    
+    /**
+     * <p>
+     * This operation aborts a multipart upload identified by the upload ID.
+     * </p>
+     * <p>
+     * After the Abort Multipart Upload request succeeds, you cannot upload
+     * any more parts to the multipart upload or complete the multipart
+     * upload. Aborting a completed upload fails. However, aborting an
+     * already-aborted upload will succeed, for a short time. For more
+     * information about uploading a part and completing a multipart upload,
+     * see UploadMultipartPart and CompleteMultipartUpload.
+     * </p>
+     * <p>
+     * This operation is idempotent.
+     * </p>
+     * <p>
+     * An AWS account has full permission to perform all operations
+     * (actions). However, AWS Identity and Access Management (IAM) users
+     * don't have any permissions by default. You must grant them explicit
+     * permission to perform specific actions. For more information, see
+     * <a href="http://docs.aws.amazon.com/amazonglacier/latest/dev/using-iam-with-amazon-glacier.html"> Access Control Using AWS Identity and Access Management (IAM) </a>
+     * .
+     * </p>
+     * <p>
+     * For conceptual information and underlying REST API, go to
+     * <a href="http://docs.aws.amazon.com/amazonglacier/latest/dev/working-with-archives.html"> Working with Archives in Amazon Glacier </a> and <a href="http://docs.aws.amazon.com/amazonglacier/latest/dev/api-multipart-abort-upload.html"> Abort Multipart Upload </a>
+     * in the <i>Amazon Glacier Developer Guide</i> .
+     * </p>
+     *
+     * @param abortMultipartUploadRequest Container for the necessary
+     *           parameters to execute the AbortMultipartUpload operation on
+     *           AmazonGlacier.
+     * 
+     * @return A Java Future object containing the response from the
+     *         AbortMultipartUpload service method, as returned by AmazonGlacier.
+     * 
+     *
+     * @throws AmazonClientException
+     *             If any internal errors are encountered inside the client while
+     *             attempting to make the request or handle the response.  For example
+     *             if a network connection is not available.
+     * @throws AmazonServiceException
+     *             If an error response is returned by AmazonGlacier indicating
+     *             either a problem with the data in the request, or a server side issue.
+     */
+    public Future<Void> abortMultipartUploadAsync(final AbortMultipartUploadRequest abortMultipartUploadRequest) 
+            throws AmazonServiceException, AmazonClientException {
+        return executorService.submit(new Callable<Void>() {
+            public Void call() throws Exception {
+                abortMultipartUpload(abortMultipartUploadRequest);
+                return null;
+        }
+    });
+    }
+
+    /**
+     * <p>
+     * This operation aborts a multipart upload identified by the upload ID.
+     * </p>
+     * <p>
+     * After the Abort Multipart Upload request succeeds, you cannot upload
+     * any more parts to the multipart upload or complete the multipart
+     * upload. Aborting a completed upload fails. However, aborting an
+     * already-aborted upload will succeed, for a short time. For more
+     * information about uploading a part and completing a multipart upload,
+     * see UploadMultipartPart and CompleteMultipartUpload.
+     * </p>
+     * <p>
+     * This operation is idempotent.
+     * </p>
+     * <p>
+     * An AWS account has full permission to perform all operations
+     * (actions). However, AWS Identity and Access Management (IAM) users
+     * don't have any permissions by default. You must grant them explicit
+     * permission to perform specific actions. For more information, see
+     * <a href="http://docs.aws.amazon.com/amazonglacier/latest/dev/using-iam-with-amazon-glacier.html"> Access Control Using AWS Identity and Access Management (IAM) </a>
+     * .
+     * </p>
+     * <p>
+     * For conceptual information and underlying REST API, go to
+     * <a href="http://docs.aws.amazon.com/amazonglacier/latest/dev/working-with-archives.html"> Working with Archives in Amazon Glacier </a> and <a href="http://docs.aws.amazon.com/amazonglacier/latest/dev/api-multipart-abort-upload.html"> Abort Multipart Upload </a>
+     * in the <i>Amazon Glacier Developer Guide</i> .
+     * </p>
+     *
+     * @param abortMultipartUploadRequest Container for the necessary
+     *           parameters to execute the AbortMultipartUpload operation on
+     *           AmazonGlacier.
+     * @param asyncHandler Asynchronous callback handler for events in the
+     *           life-cycle of the request. Users could provide the implementation of
+     *           the four callback methods in this interface to process the operation
+     *           result or handle the exception.
+     * 
+     * @return A Java Future object containing the response from the
+     *         AbortMultipartUpload service method, as returned by AmazonGlacier.
+     * 
+     *
+     * @throws AmazonClientException
+     *             If any internal errors are encountered inside the client while
+     *             attempting to make the request or handle the response.  For example
+     *             if a network connection is not available.
+     * @throws AmazonServiceException
+     *             If an error response is returned by AmazonGlacier indicating
+     *             either a problem with the data in the request, or a server side issue.
+     */
+    public Future<Void> abortMultipartUploadAsync(
+            final AbortMultipartUploadRequest abortMultipartUploadRequest,
+            final AsyncHandler<AbortMultipartUploadRequest, Void> asyncHandler)
+                    throws AmazonServiceException, AmazonClientException {
+        return executorService.submit(new Callable<Void>() {
+            public Void call() throws Exception {
+              try {
+                abortMultipartUpload(abortMultipartUploadRequest);
+              } catch (Exception ex) {
+                  asyncHandler.onError(ex);
+            throw ex;
+              }
+              asyncHandler.onSuccess(abortMultipartUploadRequest, null);
+                 return null;
+        }
+    });
+    }
+    
+    /**
+     * <p>
+     * This operation completes the vault locking process by transitioning
+     * the vault lock from the <code>InProgress</code> state to the
+     * <code>Locked</code> state, which causes the vault lock policy to
+     * become unchangeable. A vault lock is put into the
+     * <code>InProgress</code> state by calling InitiateVaultLock. You can
+     * obtain the state of the vault lock by calling GetVaultLock. For more
+     * information about the vault locking process,
+     * <a href="http://docs.aws.amazon.com/amazonglacier/latest/dev/vault-lock.html"> Amazon Glacier Vault Lock </a>
+     * .
+     * </p>
+     * <p>
+     * This operation is idempotent. This request is always successful if
+     * the vault lock is in the <code>Locked</code> state and the provided
+     * lock ID matches the lock ID originally used to lock the vault.
+     * </p>
+     * <p>
+     * If an invalid lock ID is passed in the request when the vault lock is
+     * in the <code>Locked</code> state, the operation returns an
+     * <code>AccessDeniedException</code> error. If an invalid lock ID is
+     * passed in the request when the vault lock is in the
+     * <code>InProgress</code> state, the operation throws an
+     * <code>InvalidParameter</code> error.
+     * </p>
+     *
+     * @param completeVaultLockRequest Container for the necessary parameters
+     *           to execute the CompleteVaultLock operation on AmazonGlacier.
+     * 
+     * @return A Java Future object containing the response from the
+     *         CompleteVaultLock service method, as returned by AmazonGlacier.
+     * 
+     *
+     * @throws AmazonClientException
+     *             If any internal errors are encountered inside the client while
+     *             attempting to make the request or handle the response.  For example
+     *             if a network connection is not available.
+     * @throws AmazonServiceException
+     *             If an error response is returned by AmazonGlacier indicating
+     *             either a problem with the data in the request, or a server side issue.
+     */
+    public Future<Void> completeVaultLockAsync(final CompleteVaultLockRequest completeVaultLockRequest) 
+            throws AmazonServiceException, AmazonClientException {
+        return executorService.submit(new Callable<Void>() {
+            public Void call() throws Exception {
+                completeVaultLock(completeVaultLockRequest);
+                return null;
+        }
+    });
+    }
+
+    /**
+     * <p>
+     * This operation completes the vault locking process by transitioning
+     * the vault lock from the <code>InProgress</code> state to the
+     * <code>Locked</code> state, which causes the vault lock policy to
+     * become unchangeable. A vault lock is put into the
+     * <code>InProgress</code> state by calling InitiateVaultLock. You can
+     * obtain the state of the vault lock by calling GetVaultLock. For more
+     * information about the vault locking process,
+     * <a href="http://docs.aws.amazon.com/amazonglacier/latest/dev/vault-lock.html"> Amazon Glacier Vault Lock </a>
+     * .
+     * </p>
+     * <p>
+     * This operation is idempotent. This request is always successful if
+     * the vault lock is in the <code>Locked</code> state and the provided
+     * lock ID matches the lock ID originally used to lock the vault.
+     * </p>
+     * <p>
+     * If an invalid lock ID is passed in the request when the vault lock is
+     * in the <code>Locked</code> state, the operation returns an
+     * <code>AccessDeniedException</code> error. If an invalid lock ID is
+     * passed in the request when the vault lock is in the
+     * <code>InProgress</code> state, the operation throws an
+     * <code>InvalidParameter</code> error.
+     * </p>
+     *
+     * @param completeVaultLockRequest Container for the necessary parameters
+     *           to execute the CompleteVaultLock operation on AmazonGlacier.
+     * @param asyncHandler Asynchronous callback handler for events in the
+     *           life-cycle of the request. Users could provide the implementation of
+     *           the four callback methods in this interface to process the operation
+     *           result or handle the exception.
+     * 
+     * @return A Java Future object containing the response from the
+     *         CompleteVaultLock service method, as returned by AmazonGlacier.
+     * 
+     *
+     * @throws AmazonClientException
+     *             If any internal errors are encountered inside the client while
+     *             attempting to make the request or handle the response.  For example
+     *             if a network connection is not available.
+     * @throws AmazonServiceException
+     *             If an error response is returned by AmazonGlacier indicating
+     *             either a problem with the data in the request, or a server side issue.
+     */
+    public Future<Void> completeVaultLockAsync(
+            final CompleteVaultLockRequest completeVaultLockRequest,
+            final AsyncHandler<CompleteVaultLockRequest, Void> asyncHandler)
+                    throws AmazonServiceException, AmazonClientException {
+        return executorService.submit(new Callable<Void>() {
+            public Void call() throws Exception {
+              try {
+                completeVaultLock(completeVaultLockRequest);
+              } catch (Exception ex) {
+                  asyncHandler.onError(ex);
+            throw ex;
+              }
+              asyncHandler.onSuccess(completeVaultLockRequest, null);
+                 return null;
+        }
+    });
+    }
+    
+    /**
+     * <p>
+     * This operation deletes an archive from a vault. Subsequent requests
+     * to initiate a retrieval of this archive will fail. Archive retrievals
+     * that are in progress for this archive ID may or may not succeed
+     * according to the following scenarios:
+     * </p>
+     * 
+     * <ul>
+     * <li>If the archive retrieval job is actively preparing the data for
+     * download when Amazon Glacier receives the delete archive request, the
+     * archival retrieval operation might fail. </li>
+     * <li>If the archive retrieval job has successfully prepared the
+     * archive for download when Amazon Glacier receives the delete archive
+     * request, you will be able to download the output. </li>
+     * 
+     * </ul>
+     * <p>
+     * This operation is idempotent. Attempting to delete an already-deleted
+     * archive does not result in an error.
+     * </p>
+     * <p>
+     * An AWS account has full permission to perform all operations
+     * (actions). However, AWS Identity and Access Management (IAM) users
+     * don't have any permissions by default. You must grant them explicit
+     * permission to perform specific actions. For more information, see
+     * <a href="http://docs.aws.amazon.com/amazonglacier/latest/dev/using-iam-with-amazon-glacier.html"> Access Control Using AWS Identity and Access Management (IAM) </a>
+     * .
+     * </p>
+     * <p>
+     * For conceptual information and underlying REST API, go to
+     * <a href="http://docs.aws.amazon.com/amazonglacier/latest/dev/deleting-an-archive.html"> Deleting an Archive in Amazon Glacier </a> and <a href="http://docs.aws.amazon.com/amazonglacier/latest/dev/api-archive-delete.html"> Delete Archive </a>
+     * in the <i>Amazon Glacier Developer Guide</i> .
+     * </p>
+     *
+     * @param deleteArchiveRequest Container for the necessary parameters to
+     *           execute the DeleteArchive operation on AmazonGlacier.
+     * 
+     * @return A Java Future object containing the response from the
+     *         DeleteArchive service method, as returned by AmazonGlacier.
+     * 
+     *
+     * @throws AmazonClientException
+     *             If any internal errors are encountered inside the client while
+     *             attempting to make the request or handle the response.  For example
+     *             if a network connection is not available.
+     * @throws AmazonServiceException
+     *             If an error response is returned by AmazonGlacier indicating
+     *             either a problem with the data in the request, or a server side issue.
+     */
+    public Future<Void> deleteArchiveAsync(final DeleteArchiveRequest deleteArchiveRequest) 
+            throws AmazonServiceException, AmazonClientException {
+        return executorService.submit(new Callable<Void>() {
+            public Void call() throws Exception {
+                deleteArchive(deleteArchiveRequest);
+                return null;
+        }
+    });
+    }
+
+    /**
+     * <p>
+     * This operation deletes an archive from a vault. Subsequent requests
+     * to initiate a retrieval of this archive will fail. Archive retrievals
+     * that are in progress for this archive ID may or may not succeed
+     * according to the following scenarios:
+     * </p>
+     * 
+     * <ul>
+     * <li>If the archive retrieval job is actively preparing the data for
+     * download when Amazon Glacier receives the delete archive request, the
+     * archival retrieval operation might fail. </li>
+     * <li>If the archive retrieval job has successfully prepared the
+     * archive for download when Amazon Glacier receives the delete archive
+     * request, you will be able to download the output. </li>
+     * 
+     * </ul>
+     * <p>
+     * This operation is idempotent. Attempting to delete an already-deleted
+     * archive does not result in an error.
+     * </p>
+     * <p>
+     * An AWS account has full permission to perform all operations
+     * (actions). However, AWS Identity and Access Management (IAM) users
+     * don't have any permissions by default. You must grant them explicit
+     * permission to perform specific actions. For more information, see
+     * <a href="http://docs.aws.amazon.com/amazonglacier/latest/dev/using-iam-with-amazon-glacier.html"> Access Control Using AWS Identity and Access Management (IAM) </a>
+     * .
+     * </p>
+     * <p>
+     * For conceptual information and underlying REST API, go to
+     * <a href="http://docs.aws.amazon.com/amazonglacier/latest/dev/deleting-an-archive.html"> Deleting an Archive in Amazon Glacier </a> and <a href="http://docs.aws.amazon.com/amazonglacier/latest/dev/api-archive-delete.html"> Delete Archive </a>
+     * in the <i>Amazon Glacier Developer Guide</i> .
+     * </p>
+     *
+     * @param deleteArchiveRequest Container for the necessary parameters to
+     *           execute the DeleteArchive operation on AmazonGlacier.
+     * @param asyncHandler Asynchronous callback handler for events in the
+     *           life-cycle of the request. Users could provide the implementation of
+     *           the four callback methods in this interface to process the operation
+     *           result or handle the exception.
+     * 
+     * @return A Java Future object containing the response from the
+     *         DeleteArchive service method, as returned by AmazonGlacier.
+     * 
+     *
+     * @throws AmazonClientException
+     *             If any internal errors are encountered inside the client while
+     *             attempting to make the request or handle the response.  For example
+     *             if a network connection is not available.
+     * @throws AmazonServiceException
+     *             If an error response is returned by AmazonGlacier indicating
+     *             either a problem with the data in the request, or a server side issue.
+     */
+    public Future<Void> deleteArchiveAsync(
+            final DeleteArchiveRequest deleteArchiveRequest,
+            final AsyncHandler<DeleteArchiveRequest, Void> asyncHandler)
+                    throws AmazonServiceException, AmazonClientException {
+        return executorService.submit(new Callable<Void>() {
+            public Void call() throws Exception {
+              try {
+                deleteArchive(deleteArchiveRequest);
+              } catch (Exception ex) {
+                  asyncHandler.onError(ex);
+            throw ex;
+              }
+              asyncHandler.onSuccess(deleteArchiveRequest, null);
+                 return null;
+        }
+    });
+    }
+    
+    /**
+     * <p>
+     * This operation downloads the output of the job you initiated using
+     * InitiateJob. Depending on the job type you specified when you
+     * initiated the job, the output will be either the content of an archive
+     * or a vault inventory.
+     * </p>
+     * <p>
+     * A job ID will not expire for at least 24 hours after Amazon Glacier
+     * completes the job. That is, you can download the job output within the
+     * 24 hours period after Amazon Glacier completes the job.
+     * </p>
+     * <p>
+     * If the job output is large, then you can use the <code>Range</code>
+     * request header to retrieve a portion of the output. This allows you to
+     * download the entire output in smaller chunks of bytes. For example,
+     * suppose you have 1 GB of job output you want to download and you
+     * decide to download 128 MB chunks of data at a time, which is a total
+     * of eight Get Job Output requests. You use the following process to
+     * download the job output:
+     * </p>
+     * <ol> <li> <p>
+     * Download a 128 MB chunk of output by specifying the appropriate byte
+     * range using the <code>Range</code> header.
+     * </p>
+     * </li>
+     * <li> <p>
+     * Along with the data, the response includes a SHA256 tree hash of the
+     * payload. You compute the checksum of the payload on the client and
+     * compare it with the checksum you received in the response to ensure
+     * you received all the expected data.
+     * </p>
+     * </li>
+     * <li> <p>
+     * Repeat steps 1 and 2 for all the eight 128 MB chunks of output data,
+     * each time specifying the appropriate byte range.
+     * </p>
+     * </li>
+     * <li> <p>
+     * After downloading all the parts of the job output, you have a list of
+     * eight checksum values. Compute the tree hash of these values to find
+     * the checksum of the entire output. Using the DescribeJob API, obtain
+     * job information of the job that provided you the output. The response
+     * includes the checksum of the entire archive stored in Amazon Glacier.
+     * You compare this value with the checksum you computed to ensure you
+     * have downloaded the entire archive content with no errors.
+     * </p>
+     * </li>
+     * </ol> <p>
+     * An AWS account has full permission to perform all operations
+     * (actions). However, AWS Identity and Access Management (IAM) users
+     * don't have any permissions by default. You must grant them explicit
+     * permission to perform specific actions. For more information, see
+     * <a href="http://docs.aws.amazon.com/amazonglacier/latest/dev/using-iam-with-amazon-glacier.html"> Access Control Using AWS Identity and Access Management (IAM) </a>
+     * .
+     * </p>
+     * <p>
+     * For conceptual information and the underlying REST API, go to
+     * <a href="http://docs.aws.amazon.com/amazonglacier/latest/dev/vault-inventory.html"> Downloading a Vault Inventory </a> , <a href="http://docs.aws.amazon.com/amazonglacier/latest/dev/downloading-an-archive.html"> Downloading an Archive </a> , and <a href="http://docs.aws.amazon.com/amazonglacier/latest/dev/api-job-output-get.html"> Get Job Output </a>
+     * 
+     * </p>
+     *
+     * @param getJobOutputRequest Container for the necessary parameters to
+     *           execute the GetJobOutput operation on AmazonGlacier.
+     * 
+     * @return A Java Future object containing the response from the
+     *         GetJobOutput service method, as returned by AmazonGlacier.
+     * 
+     *
+     * @throws AmazonClientException
+     *             If any internal errors are encountered inside the client while
+     *             attempting to make the request or handle the response.  For example
+     *             if a network connection is not available.
+     * @throws AmazonServiceException
+     *             If an error response is returned by AmazonGlacier indicating
+     *             either a problem with the data in the request, or a server side issue.
+     */
+    public Future<GetJobOutputResult> getJobOutputAsync(final GetJobOutputRequest getJobOutputRequest) 
+            throws AmazonServiceException, AmazonClientException {
+        return executorService.submit(new Callable<GetJobOutputResult>() {
+            public GetJobOutputResult call() throws Exception {
+                return getJobOutput(getJobOutputRequest);
+        }
+    });
+    }
+
+    /**
+     * <p>
+     * This operation downloads the output of the job you initiated using
+     * InitiateJob. Depending on the job type you specified when you
+     * initiated the job, the output will be either the content of an archive
+     * or a vault inventory.
+     * </p>
+     * <p>
+     * A job ID will not expire for at least 24 hours after Amazon Glacier
+     * completes the job. That is, you can download the job output within the
+     * 24 hours period after Amazon Glacier completes the job.
+     * </p>
+     * <p>
+     * If the job output is large, then you can use the <code>Range</code>
+     * request header to retrieve a portion of the output. This allows you to
+     * download the entire output in smaller chunks of bytes. For example,
+     * suppose you have 1 GB of job output you want to download and you
+     * decide to download 128 MB chunks of data at a time, which is a total
+     * of eight Get Job Output requests. You use the following process to
+     * download the job output:
+     * </p>
+     * <ol> <li> <p>
+     * Download a 128 MB chunk of output by specifying the appropriate byte
+     * range using the <code>Range</code> header.
+     * </p>
+     * </li>
+     * <li> <p>
+     * Along with the data, the response includes a SHA256 tree hash of the
+     * payload. You compute the checksum of the payload on the client and
+     * compare it with the checksum you received in the response to ensure
+     * you received all the expected data.
+     * </p>
+     * </li>
+     * <li> <p>
+     * Repeat steps 1 and 2 for all the eight 128 MB chunks of output data,
+     * each time specifying the appropriate byte range.
+     * </p>
+     * </li>
+     * <li> <p>
+     * After downloading all the parts of the job output, you have a list of
+     * eight checksum values. Compute the tree hash of these values to find
+     * the checksum of the entire output. Using the DescribeJob API, obtain
+     * job information of the job that provided you the output. The response
+     * includes the checksum of the entire archive stored in Amazon Glacier.
+     * You compare this value with the checksum you computed to ensure you
+     * have downloaded the entire archive content with no errors.
+     * </p>
+     * </li>
+     * </ol> <p>
+     * An AWS account has full permission to perform all operations
+     * (actions). However, AWS Identity and Access Management (IAM) users
+     * don't have any permissions by default. You must grant them explicit
+     * permission to perform specific actions. For more information, see
+     * <a href="http://docs.aws.amazon.com/amazonglacier/latest/dev/using-iam-with-amazon-glacier.html"> Access Control Using AWS Identity and Access Management (IAM) </a>
+     * .
+     * </p>
+     * <p>
+     * For conceptual information and the underlying REST API, go to
+     * <a href="http://docs.aws.amazon.com/amazonglacier/latest/dev/vault-inventory.html"> Downloading a Vault Inventory </a> , <a href="http://docs.aws.amazon.com/amazonglacier/latest/dev/downloading-an-archive.html"> Downloading an Archive </a> , and <a href="http://docs.aws.amazon.com/amazonglacier/latest/dev/api-job-output-get.html"> Get Job Output </a>
+     * 
+     * </p>
+     *
+     * @param getJobOutputRequest Container for the necessary parameters to
+     *           execute the GetJobOutput operation on AmazonGlacier.
+     * @param asyncHandler Asynchronous callback handler for events in the
+     *           life-cycle of the request. Users could provide the implementation of
+     *           the four callback methods in this interface to process the operation
+     *           result or handle the exception.
+     * 
+     * @return A Java Future object containing the response from the
+     *         GetJobOutput service method, as returned by AmazonGlacier.
+     * 
+     *
+     * @throws AmazonClientException
+     *             If any internal errors are encountered inside the client while
+     *             attempting to make the request or handle the response.  For example
+     *             if a network connection is not available.
+     * @throws AmazonServiceException
+     *             If an error response is returned by AmazonGlacier indicating
+     *             either a problem with the data in the request, or a server side issue.
+     */
+    public Future<GetJobOutputResult> getJobOutputAsync(
+            final GetJobOutputRequest getJobOutputRequest,
+            final AsyncHandler<GetJobOutputRequest, GetJobOutputResult> asyncHandler)
+                    throws AmazonServiceException, AmazonClientException {
+        return executorService.submit(new Callable<GetJobOutputResult>() {
+            public GetJobOutputResult call() throws Exception {
+              GetJobOutputResult result;
+                try {
+                result = getJobOutput(getJobOutputRequest);
+              } catch (Exception ex) {
+                  asyncHandler.onError(ex);
+            throw ex;
+              }
+              asyncHandler.onSuccess(getJobOutputRequest, result);
+                 return result;
+        }
+    });
+    }
+    
+    /**
+     * <p>
      * You call this operation to inform Amazon Glacier that all the archive
      * parts have been uploaded and that Amazon Glacier can now assemble the
      * archive from the uploaded parts. After assembling and saving the
@@ -2630,6 +3742,102 @@ public class AmazonGlacierAsyncClient extends AmazonGlacierClient
               }
               asyncHandler.onSuccess(completeMultipartUploadRequest, result);
                  return result;
+        }
+    });
+    }
+    
+    /**
+     * <p>
+     * This operation deletes the access policy associated with the
+     * specified vault. The operation is eventually consistent; that is, it
+     * might take some time for Amazon Glacier to completely remove the
+     * access policy, and you might still see the effect of the policy for a
+     * short time after you send the delete request.
+     * </p>
+     * <p>
+     * This operation is idempotent. You can invoke delete multiple times,
+     * even if there is no policy associated with the vault. For more
+     * information about vault access policies, see
+     * <a href="http://docs.aws.amazon.com/amazonglacier/latest/dev/vault-access-policy.html"> Amazon Glacier Access Control with Vault Access Policies </a>
+     * .
+     * </p>
+     *
+     * @param deleteVaultAccessPolicyRequest Container for the necessary
+     *           parameters to execute the DeleteVaultAccessPolicy operation on
+     *           AmazonGlacier.
+     * 
+     * @return A Java Future object containing the response from the
+     *         DeleteVaultAccessPolicy service method, as returned by AmazonGlacier.
+     * 
+     *
+     * @throws AmazonClientException
+     *             If any internal errors are encountered inside the client while
+     *             attempting to make the request or handle the response.  For example
+     *             if a network connection is not available.
+     * @throws AmazonServiceException
+     *             If an error response is returned by AmazonGlacier indicating
+     *             either a problem with the data in the request, or a server side issue.
+     */
+    public Future<Void> deleteVaultAccessPolicyAsync(final DeleteVaultAccessPolicyRequest deleteVaultAccessPolicyRequest) 
+            throws AmazonServiceException, AmazonClientException {
+        return executorService.submit(new Callable<Void>() {
+            public Void call() throws Exception {
+                deleteVaultAccessPolicy(deleteVaultAccessPolicyRequest);
+                return null;
+        }
+    });
+    }
+
+    /**
+     * <p>
+     * This operation deletes the access policy associated with the
+     * specified vault. The operation is eventually consistent; that is, it
+     * might take some time for Amazon Glacier to completely remove the
+     * access policy, and you might still see the effect of the policy for a
+     * short time after you send the delete request.
+     * </p>
+     * <p>
+     * This operation is idempotent. You can invoke delete multiple times,
+     * even if there is no policy associated with the vault. For more
+     * information about vault access policies, see
+     * <a href="http://docs.aws.amazon.com/amazonglacier/latest/dev/vault-access-policy.html"> Amazon Glacier Access Control with Vault Access Policies </a>
+     * .
+     * </p>
+     *
+     * @param deleteVaultAccessPolicyRequest Container for the necessary
+     *           parameters to execute the DeleteVaultAccessPolicy operation on
+     *           AmazonGlacier.
+     * @param asyncHandler Asynchronous callback handler for events in the
+     *           life-cycle of the request. Users could provide the implementation of
+     *           the four callback methods in this interface to process the operation
+     *           result or handle the exception.
+     * 
+     * @return A Java Future object containing the response from the
+     *         DeleteVaultAccessPolicy service method, as returned by AmazonGlacier.
+     * 
+     *
+     * @throws AmazonClientException
+     *             If any internal errors are encountered inside the client while
+     *             attempting to make the request or handle the response.  For example
+     *             if a network connection is not available.
+     * @throws AmazonServiceException
+     *             If an error response is returned by AmazonGlacier indicating
+     *             either a problem with the data in the request, or a server side issue.
+     */
+    public Future<Void> deleteVaultAccessPolicyAsync(
+            final DeleteVaultAccessPolicyRequest deleteVaultAccessPolicyRequest,
+            final AsyncHandler<DeleteVaultAccessPolicyRequest, Void> asyncHandler)
+                    throws AmazonServiceException, AmazonClientException {
+        return executorService.submit(new Callable<Void>() {
+            public Void call() throws Exception {
+              try {
+                deleteVaultAccessPolicy(deleteVaultAccessPolicyRequest);
+              } catch (Exception ex) {
+                  asyncHandler.onError(ex);
+            throw ex;
+              }
+              asyncHandler.onSuccess(deleteVaultAccessPolicyRequest, null);
+                 return null;
         }
     });
     }
@@ -2828,152 +4036,19 @@ public class AmazonGlacierAsyncClient extends AmazonGlacierClient
     
     /**
      * <p>
-     * This operation returns information about a vault, including the
-     * vault's Amazon Resource Name (ARN), the date the vault was created,
-     * the number of archives it contains, and the total size of all the
-     * archives in the vault. The number of archives and their total size are
-     * as of the last inventory generation. This means that if you add or
-     * remove an archive from a vault, and then immediately use Describe
-     * Vault, the change in contents will not be immediately reflected. If
-     * you want to retrieve the latest inventory of the vault, use
-     * InitiateJob. Amazon Glacier generates vault inventories approximately
-     * daily. For more information, see
-     * <a href="http://docs.aws.amazon.com/amazonglacier/latest/dev/vault-inventory.html"> Downloading a Vault Inventory in Amazon Glacier </a>
-     * .
-     * </p>
-     * <p>
-     * An AWS account has full permission to perform all operations
-     * (actions). However, AWS Identity and Access Management (IAM) users
-     * don't have any permissions by default. You must grant them explicit
-     * permission to perform specific actions. For more information, see
-     * <a href="http://docs.aws.amazon.com/amazonglacier/latest/dev/using-iam-with-amazon-glacier.html"> Access Control Using AWS Identity and Access Management (IAM) </a>
-     * .
-     * </p>
-     * <p>
-     * For conceptual information and underlying REST API, go to
-     * <a href="http://docs.aws.amazon.com/amazonglacier/latest/dev/retrieving-vault-info.html"> Retrieving Vault Metadata in Amazon Glacier </a> and <a href="http://docs.aws.amazon.com/amazonglacier/latest/dev/api-vault-get.html"> Describe Vault </a>
-     * in the <i>Amazon Glacier Developer Guide</i> .
+     * This operation removes one or more tags from the set of tags attached
+     * to a vault. For more information about tags, see
+     * <a href="http://docs.aws.amazon.com/amazonglacier/latest/dev/tagging.html"> Tagging Amazon Glacier Resources </a>
+     * . This operation is idempotent. The operation will be successful,
+     * even if there are no tags attached to the vault.
      * </p>
      *
-     * @param describeVaultRequest Container for the necessary parameters to
-     *           execute the DescribeVault operation on AmazonGlacier.
-     * 
-     * @return A Java Future object containing the response from the
-     *         DescribeVault service method, as returned by AmazonGlacier.
-     * 
-     *
-     * @throws AmazonClientException
-     *             If any internal errors are encountered inside the client while
-     *             attempting to make the request or handle the response.  For example
-     *             if a network connection is not available.
-     * @throws AmazonServiceException
-     *             If an error response is returned by AmazonGlacier indicating
-     *             either a problem with the data in the request, or a server side issue.
-     */
-    public Future<DescribeVaultResult> describeVaultAsync(final DescribeVaultRequest describeVaultRequest) 
-            throws AmazonServiceException, AmazonClientException {
-        return executorService.submit(new Callable<DescribeVaultResult>() {
-            public DescribeVaultResult call() throws Exception {
-                return describeVault(describeVaultRequest);
-        }
-    });
-    }
-
-    /**
-     * <p>
-     * This operation returns information about a vault, including the
-     * vault's Amazon Resource Name (ARN), the date the vault was created,
-     * the number of archives it contains, and the total size of all the
-     * archives in the vault. The number of archives and their total size are
-     * as of the last inventory generation. This means that if you add or
-     * remove an archive from a vault, and then immediately use Describe
-     * Vault, the change in contents will not be immediately reflected. If
-     * you want to retrieve the latest inventory of the vault, use
-     * InitiateJob. Amazon Glacier generates vault inventories approximately
-     * daily. For more information, see
-     * <a href="http://docs.aws.amazon.com/amazonglacier/latest/dev/vault-inventory.html"> Downloading a Vault Inventory in Amazon Glacier </a>
-     * .
-     * </p>
-     * <p>
-     * An AWS account has full permission to perform all operations
-     * (actions). However, AWS Identity and Access Management (IAM) users
-     * don't have any permissions by default. You must grant them explicit
-     * permission to perform specific actions. For more information, see
-     * <a href="http://docs.aws.amazon.com/amazonglacier/latest/dev/using-iam-with-amazon-glacier.html"> Access Control Using AWS Identity and Access Management (IAM) </a>
-     * .
-     * </p>
-     * <p>
-     * For conceptual information and underlying REST API, go to
-     * <a href="http://docs.aws.amazon.com/amazonglacier/latest/dev/retrieving-vault-info.html"> Retrieving Vault Metadata in Amazon Glacier </a> and <a href="http://docs.aws.amazon.com/amazonglacier/latest/dev/api-vault-get.html"> Describe Vault </a>
-     * in the <i>Amazon Glacier Developer Guide</i> .
-     * </p>
-     *
-     * @param describeVaultRequest Container for the necessary parameters to
-     *           execute the DescribeVault operation on AmazonGlacier.
-     * @param asyncHandler Asynchronous callback handler for events in the
-     *           life-cycle of the request. Users could provide the implementation of
-     *           the four callback methods in this interface to process the operation
-     *           result or handle the exception.
-     * 
-     * @return A Java Future object containing the response from the
-     *         DescribeVault service method, as returned by AmazonGlacier.
-     * 
-     *
-     * @throws AmazonClientException
-     *             If any internal errors are encountered inside the client while
-     *             attempting to make the request or handle the response.  For example
-     *             if a network connection is not available.
-     * @throws AmazonServiceException
-     *             If an error response is returned by AmazonGlacier indicating
-     *             either a problem with the data in the request, or a server side issue.
-     */
-    public Future<DescribeVaultResult> describeVaultAsync(
-            final DescribeVaultRequest describeVaultRequest,
-            final AsyncHandler<DescribeVaultRequest, DescribeVaultResult> asyncHandler)
-                    throws AmazonServiceException, AmazonClientException {
-        return executorService.submit(new Callable<DescribeVaultResult>() {
-            public DescribeVaultResult call() throws Exception {
-              DescribeVaultResult result;
-                try {
-                result = describeVault(describeVaultRequest);
-              } catch (Exception ex) {
-                  asyncHandler.onError(ex);
-            throw ex;
-              }
-              asyncHandler.onSuccess(describeVaultRequest, result);
-                 return result;
-        }
-    });
-    }
-    
-    /**
-     * <p>
-     * This operation deletes the notification configuration set for a
-     * vault. The operation is eventually consistent;that is, it might take
-     * some time for Amazon Glacier to completely disable the notifications
-     * and you might still receive some notifications for a short time after
-     * you send the delete request.
-     * </p>
-     * <p>
-     * An AWS account has full permission to perform all operations
-     * (actions). However, AWS Identity and Access Management (IAM) users
-     * don't have any permissions by default. You must grant them explicit
-     * permission to perform specific actions. For more information, see
-     * <a href="http://docs.aws.amazon.com/latest/dev/using-iam-with-amazon-glacier.html"> Access Control Using AWS Identity and Access Management (IAM) </a>
-     * .
-     * </p>
-     * <p>
-     * For conceptual information and underlying REST API, go to
-     * <a href="http://docs.aws.amazon.com/amazonglacier/latest/dev/configuring-notifications.html"> Configuring Vault Notifications in Amazon Glacier </a> and <a href="http://docs.aws.amazon.com/amazonglacier/latest/dev/api-vault-notifications-delete.html"> Delete Vault Notification Configuration </a>
-     * in the Amazon Glacier Developer Guide.
-     * </p>
-     *
-     * @param deleteVaultNotificationsRequest Container for the necessary
-     *           parameters to execute the DeleteVaultNotifications operation on
+     * @param removeTagsFromVaultRequest Container for the necessary
+     *           parameters to execute the RemoveTagsFromVault operation on
      *           AmazonGlacier.
      * 
      * @return A Java Future object containing the response from the
-     *         DeleteVaultNotifications service method, as returned by AmazonGlacier.
+     *         RemoveTagsFromVault service method, as returned by AmazonGlacier.
      * 
      *
      * @throws AmazonClientException
@@ -2984,11 +4059,11 @@ public class AmazonGlacierAsyncClient extends AmazonGlacierClient
      *             If an error response is returned by AmazonGlacier indicating
      *             either a problem with the data in the request, or a server side issue.
      */
-    public Future<Void> deleteVaultNotificationsAsync(final DeleteVaultNotificationsRequest deleteVaultNotificationsRequest) 
+    public Future<Void> removeTagsFromVaultAsync(final RemoveTagsFromVaultRequest removeTagsFromVaultRequest) 
             throws AmazonServiceException, AmazonClientException {
         return executorService.submit(new Callable<Void>() {
             public Void call() throws Exception {
-                deleteVaultNotifications(deleteVaultNotificationsRequest);
+                removeTagsFromVault(removeTagsFromVaultRequest);
                 return null;
         }
     });
@@ -2996,28 +4071,15 @@ public class AmazonGlacierAsyncClient extends AmazonGlacierClient
 
     /**
      * <p>
-     * This operation deletes the notification configuration set for a
-     * vault. The operation is eventually consistent;that is, it might take
-     * some time for Amazon Glacier to completely disable the notifications
-     * and you might still receive some notifications for a short time after
-     * you send the delete request.
-     * </p>
-     * <p>
-     * An AWS account has full permission to perform all operations
-     * (actions). However, AWS Identity and Access Management (IAM) users
-     * don't have any permissions by default. You must grant them explicit
-     * permission to perform specific actions. For more information, see
-     * <a href="http://docs.aws.amazon.com/latest/dev/using-iam-with-amazon-glacier.html"> Access Control Using AWS Identity and Access Management (IAM) </a>
-     * .
-     * </p>
-     * <p>
-     * For conceptual information and underlying REST API, go to
-     * <a href="http://docs.aws.amazon.com/amazonglacier/latest/dev/configuring-notifications.html"> Configuring Vault Notifications in Amazon Glacier </a> and <a href="http://docs.aws.amazon.com/amazonglacier/latest/dev/api-vault-notifications-delete.html"> Delete Vault Notification Configuration </a>
-     * in the Amazon Glacier Developer Guide.
+     * This operation removes one or more tags from the set of tags attached
+     * to a vault. For more information about tags, see
+     * <a href="http://docs.aws.amazon.com/amazonglacier/latest/dev/tagging.html"> Tagging Amazon Glacier Resources </a>
+     * . This operation is idempotent. The operation will be successful,
+     * even if there are no tags attached to the vault.
      * </p>
      *
-     * @param deleteVaultNotificationsRequest Container for the necessary
-     *           parameters to execute the DeleteVaultNotifications operation on
+     * @param removeTagsFromVaultRequest Container for the necessary
+     *           parameters to execute the RemoveTagsFromVault operation on
      *           AmazonGlacier.
      * @param asyncHandler Asynchronous callback handler for events in the
      *           life-cycle of the request. Users could provide the implementation of
@@ -3025,7 +4087,7 @@ public class AmazonGlacierAsyncClient extends AmazonGlacierClient
      *           result or handle the exception.
      * 
      * @return A Java Future object containing the response from the
-     *         DeleteVaultNotifications service method, as returned by AmazonGlacier.
+     *         RemoveTagsFromVault service method, as returned by AmazonGlacier.
      * 
      *
      * @throws AmazonClientException
@@ -3036,19 +4098,19 @@ public class AmazonGlacierAsyncClient extends AmazonGlacierClient
      *             If an error response is returned by AmazonGlacier indicating
      *             either a problem with the data in the request, or a server side issue.
      */
-    public Future<Void> deleteVaultNotificationsAsync(
-            final DeleteVaultNotificationsRequest deleteVaultNotificationsRequest,
-            final AsyncHandler<DeleteVaultNotificationsRequest, Void> asyncHandler)
+    public Future<Void> removeTagsFromVaultAsync(
+            final RemoveTagsFromVaultRequest removeTagsFromVaultRequest,
+            final AsyncHandler<RemoveTagsFromVaultRequest, Void> asyncHandler)
                     throws AmazonServiceException, AmazonClientException {
         return executorService.submit(new Callable<Void>() {
             public Void call() throws Exception {
               try {
-                deleteVaultNotifications(deleteVaultNotificationsRequest);
+                removeTagsFromVault(removeTagsFromVaultRequest);
               } catch (Exception ex) {
                   asyncHandler.onError(ex);
             throw ex;
               }
-              asyncHandler.onSuccess(deleteVaultNotificationsRequest, null);
+              asyncHandler.onSuccess(removeTagsFromVaultRequest, null);
                  return null;
         }
     });
@@ -3416,19 +4478,23 @@ public class AmazonGlacierAsyncClient extends AmazonGlacierClient
     
     /**
      * <p>
-     * This operation returns the current data retrieval policy for the
-     * account and region specified in the GET request. For more information
-     * about data retrieval policies, see
-     * <a href="http://docs.aws.amazon.com/amazonglacier/latest/dev/data-retrieval-policy.html"> Amazon Glacier Data Retrieval Policies </a>
+     * This operation configures an access policy for a vault and will
+     * overwrite an existing policy. To configure a vault access policy, send
+     * a PUT request to the <code>access-policy</code> subresource of the
+     * vault. An access policy is specific to a vault and is also called a
+     * vault subresource. You can set one access policy per vault and the
+     * policy can be up to 20 KB in size. For more information about vault
+     * access policies, see
+     * <a href="http://docs.aws.amazon.com/amazonglacier/latest/dev/vault-access-policy.html"> Amazon Glacier Access Control with Vault Access Policies </a>
      * .
      * </p>
      *
-     * @param getDataRetrievalPolicyRequest Container for the necessary
-     *           parameters to execute the GetDataRetrievalPolicy operation on
+     * @param setVaultAccessPolicyRequest Container for the necessary
+     *           parameters to execute the SetVaultAccessPolicy operation on
      *           AmazonGlacier.
      * 
      * @return A Java Future object containing the response from the
-     *         GetDataRetrievalPolicy service method, as returned by AmazonGlacier.
+     *         SetVaultAccessPolicy service method, as returned by AmazonGlacier.
      * 
      *
      * @throws AmazonClientException
@@ -3439,26 +4505,31 @@ public class AmazonGlacierAsyncClient extends AmazonGlacierClient
      *             If an error response is returned by AmazonGlacier indicating
      *             either a problem with the data in the request, or a server side issue.
      */
-    public Future<GetDataRetrievalPolicyResult> getDataRetrievalPolicyAsync(final GetDataRetrievalPolicyRequest getDataRetrievalPolicyRequest) 
+    public Future<Void> setVaultAccessPolicyAsync(final SetVaultAccessPolicyRequest setVaultAccessPolicyRequest) 
             throws AmazonServiceException, AmazonClientException {
-        return executorService.submit(new Callable<GetDataRetrievalPolicyResult>() {
-            public GetDataRetrievalPolicyResult call() throws Exception {
-                return getDataRetrievalPolicy(getDataRetrievalPolicyRequest);
+        return executorService.submit(new Callable<Void>() {
+            public Void call() throws Exception {
+                setVaultAccessPolicy(setVaultAccessPolicyRequest);
+                return null;
         }
     });
     }
 
     /**
      * <p>
-     * This operation returns the current data retrieval policy for the
-     * account and region specified in the GET request. For more information
-     * about data retrieval policies, see
-     * <a href="http://docs.aws.amazon.com/amazonglacier/latest/dev/data-retrieval-policy.html"> Amazon Glacier Data Retrieval Policies </a>
+     * This operation configures an access policy for a vault and will
+     * overwrite an existing policy. To configure a vault access policy, send
+     * a PUT request to the <code>access-policy</code> subresource of the
+     * vault. An access policy is specific to a vault and is also called a
+     * vault subresource. You can set one access policy per vault and the
+     * policy can be up to 20 KB in size. For more information about vault
+     * access policies, see
+     * <a href="http://docs.aws.amazon.com/amazonglacier/latest/dev/vault-access-policy.html"> Amazon Glacier Access Control with Vault Access Policies </a>
      * .
      * </p>
      *
-     * @param getDataRetrievalPolicyRequest Container for the necessary
-     *           parameters to execute the GetDataRetrievalPolicy operation on
+     * @param setVaultAccessPolicyRequest Container for the necessary
+     *           parameters to execute the SetVaultAccessPolicy operation on
      *           AmazonGlacier.
      * @param asyncHandler Asynchronous callback handler for events in the
      *           life-cycle of the request. Users could provide the implementation of
@@ -3466,7 +4537,7 @@ public class AmazonGlacierAsyncClient extends AmazonGlacierClient
      *           result or handle the exception.
      * 
      * @return A Java Future object containing the response from the
-     *         GetDataRetrievalPolicy service method, as returned by AmazonGlacier.
+     *         SetVaultAccessPolicy service method, as returned by AmazonGlacier.
      * 
      *
      * @throws AmazonClientException
@@ -3477,21 +4548,20 @@ public class AmazonGlacierAsyncClient extends AmazonGlacierClient
      *             If an error response is returned by AmazonGlacier indicating
      *             either a problem with the data in the request, or a server side issue.
      */
-    public Future<GetDataRetrievalPolicyResult> getDataRetrievalPolicyAsync(
-            final GetDataRetrievalPolicyRequest getDataRetrievalPolicyRequest,
-            final AsyncHandler<GetDataRetrievalPolicyRequest, GetDataRetrievalPolicyResult> asyncHandler)
+    public Future<Void> setVaultAccessPolicyAsync(
+            final SetVaultAccessPolicyRequest setVaultAccessPolicyRequest,
+            final AsyncHandler<SetVaultAccessPolicyRequest, Void> asyncHandler)
                     throws AmazonServiceException, AmazonClientException {
-        return executorService.submit(new Callable<GetDataRetrievalPolicyResult>() {
-            public GetDataRetrievalPolicyResult call() throws Exception {
-              GetDataRetrievalPolicyResult result;
-                try {
-                result = getDataRetrievalPolicy(getDataRetrievalPolicyRequest);
+        return executorService.submit(new Callable<Void>() {
+            public Void call() throws Exception {
+              try {
+                setVaultAccessPolicy(setVaultAccessPolicyRequest);
               } catch (Exception ex) {
                   asyncHandler.onError(ex);
             throw ex;
               }
-              asyncHandler.onSuccess(getDataRetrievalPolicyRequest, result);
-                 return result;
+              asyncHandler.onSuccess(setVaultAccessPolicyRequest, null);
+                 return null;
         }
     });
     }

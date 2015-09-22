@@ -31,19 +31,20 @@ import com.amazonaws.services.ec2.model.transform.TerminateInstancesRequestMarsh
  * approximately one hour).
  * </p>
  * <p>
- * By default, Amazon EC2 deletes all Amazon EBS volumes that were
- * attached when the instance launched. Volumes attached after instance
- * launch continue running.
+ * By default, Amazon EC2 deletes all EBS volumes that were attached when
+ * the instance launched. Volumes attached after instance launch continue
+ * running.
  * </p>
  * <p>
  * You can stop, start, and terminate EBS-backed instances. You can only
  * terminate instance store-backed instances. What happens to an instance
  * differs if you stop it or terminate it. For example, when you stop an
  * instance, the root device and any other devices attached to the
- * instance persist. When you terminate an instance, the root device and
- * any other devices attached during the instance launch are
- * automatically deleted. For more information about the differences
- * between stopping and terminating instances, see
+ * instance persist. When you terminate an instance, any attached EBS
+ * volumes with the <code>DeleteOnTermination</code> block device mapping
+ * parameter set to <code>true</code> are automatically deleted. For more
+ * information about the differences between stopping and terminating
+ * instances, see
  * <a href="http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-instance-lifecycle.html"> Instance Lifecycle </a>
  * in the <i>Amazon Elastic Compute Cloud User Guide</i> .
  * </p>
@@ -109,6 +110,11 @@ public class TerminateInstancesRequest extends AmazonWebServiceRequest implement
     
     /**
      * One or more instance IDs.
+     * <p>
+     * <b>NOTE:</b> This method appends the values to the existing list (if
+     * any). Use {@link #setInstanceIds(java.util.Collection)} or {@link
+     * #withInstanceIds(java.util.Collection)} if you want to override the
+     * existing values.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *

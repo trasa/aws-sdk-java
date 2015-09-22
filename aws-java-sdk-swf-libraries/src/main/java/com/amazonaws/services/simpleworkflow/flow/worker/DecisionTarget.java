@@ -1,5 +1,5 @@
 /*
- * Copyright 2012 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2012-2015 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License.
@@ -16,6 +16,7 @@ package com.amazonaws.services.simpleworkflow.flow.worker;
 
 enum DecisionTarget {
     ACTIVITY,
+    LAMBDA_FUNCTION,
     EXTERNAL_WORKFLOW,
     SIGNAL,
     TIMER,

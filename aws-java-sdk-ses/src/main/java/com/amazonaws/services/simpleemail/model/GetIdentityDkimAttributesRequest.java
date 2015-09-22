@@ -42,7 +42,8 @@ import com.amazonaws.AmazonWebServiceRequest;
  * 
  * </ul>
  * <p>
- * This action is throttled at one request per second.
+ * This action is throttled at one request per second and can only get
+ * DKIM attributes for up to 100 identities at a time.
  * </p>
  * <p>
  * For more information about creating DNS records using DKIM tokens, go
@@ -96,6 +97,11 @@ public class GetIdentityDkimAttributesRequest extends AmazonWebServiceRequest im
     /**
      * A list of one or more verified identities - email addresses, domains,
      * or both.
+     * <p>
+     * <b>NOTE:</b> This method appends the values to the existing list (if
+     * any). Use {@link #setIdentities(java.util.Collection)} or {@link
+     * #withIdentities(java.util.Collection)} if you want to override the
+     * existing values.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *

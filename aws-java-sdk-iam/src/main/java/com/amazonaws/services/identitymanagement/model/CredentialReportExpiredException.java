@@ -18,12 +18,12 @@ import com.amazonaws.AmazonServiceException;
 
 /**
  * <p>
- * The request was rejected because the most recent credential report
- * has expired. To generate a new credential report, use
+ * The request was rejected because the most recent credential report has
+ * expired. To generate a new credential report, use
  * GenerateCredentialReport. For more information about credential report
  * expiration, see
  * <a href="http://docs.aws.amazon.com/IAM/latest/UserGuide/credential-reports.html"> Getting Credential Reports </a>
- * in the <i>Using IAM</i> guide.
+ * in the <i>IAM User Guide</i> .
  * </p>
  */        
 public class CredentialReportExpiredException extends AmazonServiceException {

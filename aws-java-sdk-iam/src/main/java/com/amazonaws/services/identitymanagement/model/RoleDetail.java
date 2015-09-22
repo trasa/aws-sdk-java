@@ -44,7 +44,7 @@ public class RoleDetail implements Serializable, Cloneable {
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>1 - 64<br/>
-     * <b>Pattern: </b>[\w+=,.@-]*<br/>
+     * <b>Pattern: </b>[\w+=,.@-]+<br/>
      */
     private String roleName;
 
@@ -56,7 +56,7 @@ public class RoleDetail implements Serializable, Cloneable {
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>16 - 32<br/>
-     * <b>Pattern: </b>[\w]*<br/>
+     * <b>Pattern: </b>[\w]+<br/>
      */
     private String roleId;
 
@@ -79,9 +79,7 @@ public class RoleDetail implements Serializable, Cloneable {
     private java.util.Date createDate;
 
     /**
-     * The trust policy that grants permission to assume the role. <p> The
-     * returned policy is URL-encoded according to <a
-     * href="http://www.faqs.org/rfcs/rfc3986.html">RFC 3986</a>.
+     * The trust policy that grants permission to assume the role.
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>1 - 131072<br/>
@@ -168,7 +166,7 @@ public class RoleDetail implements Serializable, Cloneable {
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>1 - 64<br/>
-     * <b>Pattern: </b>[\w+=,.@-]*<br/>
+     * <b>Pattern: </b>[\w+=,.@-]+<br/>
      *
      * @return The friendly name that identifies the role.
      */
@@ -181,7 +179,7 @@ public class RoleDetail implements Serializable, Cloneable {
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>1 - 64<br/>
-     * <b>Pattern: </b>[\w+=,.@-]*<br/>
+     * <b>Pattern: </b>[\w+=,.@-]+<br/>
      *
      * @param roleName The friendly name that identifies the role.
      */
@@ -196,7 +194,7 @@ public class RoleDetail implements Serializable, Cloneable {
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>1 - 64<br/>
-     * <b>Pattern: </b>[\w+=,.@-]*<br/>
+     * <b>Pattern: </b>[\w+=,.@-]+<br/>
      *
      * @param roleName The friendly name that identifies the role.
      *
@@ -216,7 +214,7 @@ public class RoleDetail implements Serializable, Cloneable {
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>16 - 32<br/>
-     * <b>Pattern: </b>[\w]*<br/>
+     * <b>Pattern: </b>[\w]+<br/>
      *
      * @return The stable and unique string identifying the role. For more
      *         information about IDs, see <a
@@ -235,7 +233,7 @@ public class RoleDetail implements Serializable, Cloneable {
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>16 - 32<br/>
-     * <b>Pattern: </b>[\w]*<br/>
+     * <b>Pattern: </b>[\w]+<br/>
      *
      * @param roleId The stable and unique string identifying the role. For more
      *         information about IDs, see <a
@@ -256,7 +254,7 @@ public class RoleDetail implements Serializable, Cloneable {
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>16 - 32<br/>
-     * <b>Pattern: </b>[\w]*<br/>
+     * <b>Pattern: </b>[\w]+<br/>
      *
      * @param roleId The stable and unique string identifying the role. For more
      *         information about IDs, see <a
@@ -377,43 +375,33 @@ public class RoleDetail implements Serializable, Cloneable {
     }
 
     /**
-     * The trust policy that grants permission to assume the role. <p> The
-     * returned policy is URL-encoded according to <a
-     * href="http://www.faqs.org/rfcs/rfc3986.html">RFC 3986</a>.
+     * The trust policy that grants permission to assume the role.
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>1 - 131072<br/>
      * <b>Pattern: </b>[&#92;u0009&#92;u000A&#92;u000D&#92;u0020-&#92;u00FF]+<br/>
      *
-     * @return The trust policy that grants permission to assume the role. <p> The
-     *         returned policy is URL-encoded according to <a
-     *         href="http://www.faqs.org/rfcs/rfc3986.html">RFC 3986</a>.
+     * @return The trust policy that grants permission to assume the role.
      */
     public String getAssumeRolePolicyDocument() {
         return assumeRolePolicyDocument;
     }
     
     /**
-     * The trust policy that grants permission to assume the role. <p> The
-     * returned policy is URL-encoded according to <a
-     * href="http://www.faqs.org/rfcs/rfc3986.html">RFC 3986</a>.
+     * The trust policy that grants permission to assume the role.
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>1 - 131072<br/>
      * <b>Pattern: </b>[&#92;u0009&#92;u000A&#92;u000D&#92;u0020-&#92;u00FF]+<br/>
      *
-     * @param assumeRolePolicyDocument The trust policy that grants permission to assume the role. <p> The
-     *         returned policy is URL-encoded according to <a
-     *         href="http://www.faqs.org/rfcs/rfc3986.html">RFC 3986</a>.
+     * @param assumeRolePolicyDocument The trust policy that grants permission to assume the role.
      */
     public void setAssumeRolePolicyDocument(String assumeRolePolicyDocument) {
         this.assumeRolePolicyDocument = assumeRolePolicyDocument;
     }
     
     /**
-     * The trust policy that grants permission to assume the role. <p> The
-     * returned policy is URL-encoded according to <a
-     * href="http://www.faqs.org/rfcs/rfc3986.html">RFC 3986</a>.
+     * The trust policy that grants permission to assume the role.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      * <p>
@@ -421,9 +409,7 @@ public class RoleDetail implements Serializable, Cloneable {
      * <b>Length: </b>1 - 131072<br/>
      * <b>Pattern: </b>[&#92;u0009&#92;u000A&#92;u000D&#92;u0020-&#92;u00FF]+<br/>
      *
-     * @param assumeRolePolicyDocument The trust policy that grants permission to assume the role. <p> The
-     *         returned policy is URL-encoded according to <a
-     *         href="http://www.faqs.org/rfcs/rfc3986.html">RFC 3986</a>.
+     * @param assumeRolePolicyDocument The trust policy that grants permission to assume the role.
      *
      * @return A reference to this updated object so that method calls can be chained
      *         together.
@@ -463,6 +449,11 @@ public class RoleDetail implements Serializable, Cloneable {
     
     /**
      * Contains a list of instance profiles.
+     * <p>
+     * <b>NOTE:</b> This method appends the values to the existing list (if
+     * any). Use {@link #setInstanceProfileList(java.util.Collection)} or
+     * {@link #withInstanceProfileList(java.util.Collection)} if you want to
+     * override the existing values.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *
@@ -536,6 +527,11 @@ public class RoleDetail implements Serializable, Cloneable {
     /**
      * A list of inline policies embedded in the role. These policies are the
      * role's access (permissions) policies.
+     * <p>
+     * <b>NOTE:</b> This method appends the values to the existing list (if
+     * any). Use {@link #setRolePolicyList(java.util.Collection)} or {@link
+     * #withRolePolicyList(java.util.Collection)} if you want to override the
+     * existing values.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *
@@ -612,6 +608,11 @@ public class RoleDetail implements Serializable, Cloneable {
     /**
      * A list of managed policies attached to the role. These policies are
      * the role's access (permissions) policies.
+     * <p>
+     * <b>NOTE:</b> This method appends the values to the existing list (if
+     * any). Use {@link #setAttachedManagedPolicies(java.util.Collection)} or
+     * {@link #withAttachedManagedPolicies(java.util.Collection)} if you want
+     * to override the existing values.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *

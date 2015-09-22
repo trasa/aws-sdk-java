@@ -30,7 +30,7 @@ import com.amazonaws.services.securitytoken.model.Credentials;
  * Service to assume a Role and create temporary, short-lived sessions to use
  * for authentication.
  */
-public class STSAssumeRoleSessionCredentialsProvider implements AWSCredentialsProvider {
+public class STSAssumeRoleSessionCredentialsProvider implements AWSSessionCredentialsProvider {
 
     /** Default duration for started sessions. */
     public static final int DEFAULT_DURATION_SECONDS = 900;
@@ -55,6 +55,9 @@ public class STSAssumeRoleSessionCredentialsProvider implements AWSCredentialsPr
     
     /** An external Id parameter for the assumed role session */
     private String roleExternalId;
+    
+    /** The Duration for assume role sessions. */
+    private int roleSessionDurationSeconds;
 
     /**
      * Constructs a new STSAssumeRoleSessionCredentialsProvider, which makes a
@@ -187,6 +190,12 @@ public class STSAssumeRoleSessionCredentialsProvider implements AWSCredentialsPr
         //roleExternalId may be null
         this.roleExternalId = builder.roleExternalId;
         
+        //Assume Role Session duration may not be provided, in which case we fall back to default value of 15min
+        if(builder.roleSessionDurationSeconds != 0) {
+            this.roleSessionDurationSeconds = builder.roleSessionDurationSeconds;
+        } else {
+            this.roleSessionDurationSeconds = DEFAULT_DURATION_SECONDS;
+        }
         AWSCredentialsProvider longLivedCredentialsProvider = null;
         if (builder.longLivedCredentials != null) {
             longLivedCredentialsProvider = new StaticCredentialsProvider(builder.longLivedCredentials);
@@ -234,7 +243,7 @@ public class STSAssumeRoleSessionCredentialsProvider implements AWSCredentialsPr
 
     
     @Override
-    public AWSCredentials getCredentials() {
+    public AWSSessionCredentials getCredentials() {
         if (needsNewSession()) {
             startSession();
         }
@@ -254,7 +263,7 @@ public class STSAssumeRoleSessionCredentialsProvider implements AWSCredentialsPr
      */
     private void startSession() {
         AssumeRoleRequest assumeRoleRequest = new AssumeRoleRequest()
-            .withRoleArn(roleArn).withDurationSeconds(DEFAULT_DURATION_SECONDS)
+            .withRoleArn(roleArn).withDurationSeconds(roleSessionDurationSeconds)
             .withRoleSessionName(roleSessionName);
         if (roleExternalId != null) {
             assumeRoleRequest = assumeRoleRequest.withExternalId(roleExternalId);
@@ -296,6 +305,7 @@ public class STSAssumeRoleSessionCredentialsProvider implements AWSCredentialsPr
         private final String roleSessionName;
         private String roleExternalId;
         private String serviceEndpoint;
+        private int roleSessionDurationSeconds;
         
         /**
          * 
@@ -355,6 +365,21 @@ public class STSAssumeRoleSessionCredentialsProvider implements AWSCredentialsPr
             this.roleExternalId = roleExternalId;
             return this;
         }
+        
+        /**
+         * Set the roleSessionDurationSeconds that is used when creating a new assumed role session.
+         * 
+         * @param roleSessionDurationSeconds The duration for which we want to have an assumed role session 
+         *        to be active.
+         * @return the itself for chained calls
+         */
+        public Builder withRoleSessionDurationSeconds(int roleSessionDurationSeconds) {
+            if(roleSessionDurationSeconds < 900 || roleSessionDurationSeconds > 3600) {
+            	throw new IllegalArgumentException("Assume Role session duration should be in the range of 15min - 1Hr");
+            }
+            this.roleSessionDurationSeconds = roleSessionDurationSeconds;
+            return this;
+        }
 
        /**
         * Sets the AWS Security Token Service (STS) endpoint where session
@@ -380,6 +405,6 @@ public class STSAssumeRoleSessionCredentialsProvider implements AWSCredentialsPr
         public STSAssumeRoleSessionCredentialsProvider build() {
             return new STSAssumeRoleSessionCredentialsProvider(this);
         }
-    }
+	}
 
 }

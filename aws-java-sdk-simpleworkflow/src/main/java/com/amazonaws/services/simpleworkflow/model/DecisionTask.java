@@ -35,7 +35,7 @@ public class DecisionTask implements Serializable, Cloneable {
     private String taskToken;
 
     /**
-     * The id of the <code>DecisionTaskStarted</code> event recorded in the
+     * The ID of the <code>DecisionTaskStarted</code> event recorded in the
      * history.
      */
     private Long startedEventId;
@@ -71,7 +71,7 @@ public class DecisionTask implements Serializable, Cloneable {
     private String nextPageToken;
 
     /**
-     * The id of the DecisionTaskStarted event of the previous decision task
+     * The ID of the DecisionTaskStarted event of the previous decision task
      * of this workflow execution that was processed by the decider. This can
      * be used to determine the events in the history new since the last
      * decision task received by the decider.
@@ -133,10 +133,10 @@ public class DecisionTask implements Serializable, Cloneable {
     }
 
     /**
-     * The id of the <code>DecisionTaskStarted</code> event recorded in the
+     * The ID of the <code>DecisionTaskStarted</code> event recorded in the
      * history.
      *
-     * @return The id of the <code>DecisionTaskStarted</code> event recorded in the
+     * @return The ID of the <code>DecisionTaskStarted</code> event recorded in the
      *         history.
      */
     public Long getStartedEventId() {
@@ -144,10 +144,10 @@ public class DecisionTask implements Serializable, Cloneable {
     }
     
     /**
-     * The id of the <code>DecisionTaskStarted</code> event recorded in the
+     * The ID of the <code>DecisionTaskStarted</code> event recorded in the
      * history.
      *
-     * @param startedEventId The id of the <code>DecisionTaskStarted</code> event recorded in the
+     * @param startedEventId The ID of the <code>DecisionTaskStarted</code> event recorded in the
      *         history.
      */
     public void setStartedEventId(Long startedEventId) {
@@ -155,12 +155,12 @@ public class DecisionTask implements Serializable, Cloneable {
     }
     
     /**
-     * The id of the <code>DecisionTaskStarted</code> event recorded in the
+     * The ID of the <code>DecisionTaskStarted</code> event recorded in the
      * history.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *
-     * @param startedEventId The id of the <code>DecisionTaskStarted</code> event recorded in the
+     * @param startedEventId The ID of the <code>DecisionTaskStarted</code> event recorded in the
      *         history.
      *
      * @return A reference to this updated object so that method calls can be chained
@@ -275,6 +275,11 @@ public class DecisionTask implements Serializable, Cloneable {
      * A paginated list of history events of the workflow execution. The
      * decider uses this during the processing of the decision task.
      * <p>
+     * <b>NOTE:</b> This method appends the values to the existing list (if
+     * any). Use {@link #setEvents(java.util.Collection)} or {@link
+     * #withEvents(java.util.Collection)} if you want to override the
+     * existing values.
+     * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *
      * @param events A paginated list of history events of the workflow execution. The
@@ -388,12 +393,12 @@ public class DecisionTask implements Serializable, Cloneable {
     }
 
     /**
-     * The id of the DecisionTaskStarted event of the previous decision task
+     * The ID of the DecisionTaskStarted event of the previous decision task
      * of this workflow execution that was processed by the decider. This can
      * be used to determine the events in the history new since the last
      * decision task received by the decider.
      *
-     * @return The id of the DecisionTaskStarted event of the previous decision task
+     * @return The ID of the DecisionTaskStarted event of the previous decision task
      *         of this workflow execution that was processed by the decider. This can
      *         be used to determine the events in the history new since the last
      *         decision task received by the decider.
@@ -403,12 +408,12 @@ public class DecisionTask implements Serializable, Cloneable {
     }
     
     /**
-     * The id of the DecisionTaskStarted event of the previous decision task
+     * The ID of the DecisionTaskStarted event of the previous decision task
      * of this workflow execution that was processed by the decider. This can
      * be used to determine the events in the history new since the last
      * decision task received by the decider.
      *
-     * @param previousStartedEventId The id of the DecisionTaskStarted event of the previous decision task
+     * @param previousStartedEventId The ID of the DecisionTaskStarted event of the previous decision task
      *         of this workflow execution that was processed by the decider. This can
      *         be used to determine the events in the history new since the last
      *         decision task received by the decider.
@@ -418,14 +423,14 @@ public class DecisionTask implements Serializable, Cloneable {
     }
     
     /**
-     * The id of the DecisionTaskStarted event of the previous decision task
+     * The ID of the DecisionTaskStarted event of the previous decision task
      * of this workflow execution that was processed by the decider. This can
      * be used to determine the events in the history new since the last
      * decision task received by the decider.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *
-     * @param previousStartedEventId The id of the DecisionTaskStarted event of the previous decision task
+     * @param previousStartedEventId The ID of the DecisionTaskStarted event of the previous decision task
      *         of this workflow execution that was processed by the decider. This can
      *         be used to determine the events in the history new since the last
      *         decision task received by the decider.

@@ -65,7 +65,7 @@ public class ModifyDBParameterGroupRequest extends AmazonWebServiceRequest imple
      * An array of parameter names, values, and the apply method for the
      * parameter update. At least one parameter name, value, and apply method
      * must be supplied; subsequent arguments are optional. A maximum of 20
-     * parameters may be modified in a single request. <p>Valid Values (for
+     * parameters can be modified in a single request. <p>Valid Values (for
      * the application method): <code>immediate | pending-reboot</code>
      * <note>You can use the immediate value with dynamic parameters only.
      * You can use the pending-reboot value for both dynamic and static
@@ -93,7 +93,7 @@ public class ModifyDBParameterGroupRequest extends AmazonWebServiceRequest imple
      * @param parameters An array of parameter names, values, and the apply
      * method for the parameter update. At least one parameter name, value,
      * and apply method must be supplied; subsequent arguments are optional.
-     * A maximum of 20 parameters may be modified in a single request.
+     * A maximum of 20 parameters can be modified in a single request.
      * <p>Valid Values (for the application method): <code>immediate |
      * pending-reboot</code> <note>You can use the immediate value with
      * dynamic parameters only. You can use the pending-reboot value for both
@@ -166,7 +166,7 @@ public class ModifyDBParameterGroupRequest extends AmazonWebServiceRequest imple
      * An array of parameter names, values, and the apply method for the
      * parameter update. At least one parameter name, value, and apply method
      * must be supplied; subsequent arguments are optional. A maximum of 20
-     * parameters may be modified in a single request. <p>Valid Values (for
+     * parameters can be modified in a single request. <p>Valid Values (for
      * the application method): <code>immediate | pending-reboot</code>
      * <note>You can use the immediate value with dynamic parameters only.
      * You can use the pending-reboot value for both dynamic and static
@@ -176,7 +176,7 @@ public class ModifyDBParameterGroupRequest extends AmazonWebServiceRequest imple
      * @return An array of parameter names, values, and the apply method for the
      *         parameter update. At least one parameter name, value, and apply method
      *         must be supplied; subsequent arguments are optional. A maximum of 20
-     *         parameters may be modified in a single request. <p>Valid Values (for
+     *         parameters can be modified in a single request. <p>Valid Values (for
      *         the application method): <code>immediate | pending-reboot</code>
      *         <note>You can use the immediate value with dynamic parameters only.
      *         You can use the pending-reboot value for both dynamic and static
@@ -195,7 +195,7 @@ public class ModifyDBParameterGroupRequest extends AmazonWebServiceRequest imple
      * An array of parameter names, values, and the apply method for the
      * parameter update. At least one parameter name, value, and apply method
      * must be supplied; subsequent arguments are optional. A maximum of 20
-     * parameters may be modified in a single request. <p>Valid Values (for
+     * parameters can be modified in a single request. <p>Valid Values (for
      * the application method): <code>immediate | pending-reboot</code>
      * <note>You can use the immediate value with dynamic parameters only.
      * You can use the pending-reboot value for both dynamic and static
@@ -205,7 +205,7 @@ public class ModifyDBParameterGroupRequest extends AmazonWebServiceRequest imple
      * @param parameters An array of parameter names, values, and the apply method for the
      *         parameter update. At least one parameter name, value, and apply method
      *         must be supplied; subsequent arguments are optional. A maximum of 20
-     *         parameters may be modified in a single request. <p>Valid Values (for
+     *         parameters can be modified in a single request. <p>Valid Values (for
      *         the application method): <code>immediate | pending-reboot</code>
      *         <note>You can use the immediate value with dynamic parameters only.
      *         You can use the pending-reboot value for both dynamic and static
@@ -226,19 +226,24 @@ public class ModifyDBParameterGroupRequest extends AmazonWebServiceRequest imple
      * An array of parameter names, values, and the apply method for the
      * parameter update. At least one parameter name, value, and apply method
      * must be supplied; subsequent arguments are optional. A maximum of 20
-     * parameters may be modified in a single request. <p>Valid Values (for
+     * parameters can be modified in a single request. <p>Valid Values (for
      * the application method): <code>immediate | pending-reboot</code>
      * <note>You can use the immediate value with dynamic parameters only.
      * You can use the pending-reboot value for both dynamic and static
      * parameters, and changes are applied when you reboot the DB instance
      * without failover. </note>
      * <p>
+     * <b>NOTE:</b> This method appends the values to the existing list (if
+     * any). Use {@link #setParameters(java.util.Collection)} or {@link
+     * #withParameters(java.util.Collection)} if you want to override the
+     * existing values.
+     * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *
      * @param parameters An array of parameter names, values, and the apply method for the
      *         parameter update. At least one parameter name, value, and apply method
      *         must be supplied; subsequent arguments are optional. A maximum of 20
-     *         parameters may be modified in a single request. <p>Valid Values (for
+     *         parameters can be modified in a single request. <p>Valid Values (for
      *         the application method): <code>immediate | pending-reboot</code>
      *         <note>You can use the immediate value with dynamic parameters only.
      *         You can use the pending-reboot value for both dynamic and static
@@ -260,7 +265,7 @@ public class ModifyDBParameterGroupRequest extends AmazonWebServiceRequest imple
      * An array of parameter names, values, and the apply method for the
      * parameter update. At least one parameter name, value, and apply method
      * must be supplied; subsequent arguments are optional. A maximum of 20
-     * parameters may be modified in a single request. <p>Valid Values (for
+     * parameters can be modified in a single request. <p>Valid Values (for
      * the application method): <code>immediate | pending-reboot</code>
      * <note>You can use the immediate value with dynamic parameters only.
      * You can use the pending-reboot value for both dynamic and static
@@ -272,7 +277,7 @@ public class ModifyDBParameterGroupRequest extends AmazonWebServiceRequest imple
      * @param parameters An array of parameter names, values, and the apply method for the
      *         parameter update. At least one parameter name, value, and apply method
      *         must be supplied; subsequent arguments are optional. A maximum of 20
-     *         parameters may be modified in a single request. <p>Valid Values (for
+     *         parameters can be modified in a single request. <p>Valid Values (for
      *         the application method): <code>immediate | pending-reboot</code>
      *         <note>You can use the immediate value with dynamic parameters only.
      *         You can use the pending-reboot value for both dynamic and static

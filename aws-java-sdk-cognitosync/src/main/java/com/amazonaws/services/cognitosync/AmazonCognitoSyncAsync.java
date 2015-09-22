@@ -59,9 +59,23 @@ public interface AmazonCognitoSyncAsync extends AmazonCognitoSync {
      * and user.
      * </p>
      * <p>
-     * <code>UpdateRecords</code> can only be called with temporary user
-     * credentials provided by Cognito Identity. You cannot make this API
-     * call with developer credentials.
+     * The sync count in the record patch is your last known sync count for
+     * that record. The server will reject an UpdateRecords request with a
+     * ResourceConflictException if you try to patch a record with a new
+     * value but a stale sync count.
+     * </p>
+     * <p>
+     * For example, if the sync count on the server is 5 for a key called
+     * highScore and you try and submit a new highScore with sync count of 4,
+     * the request will be rejected. To obtain the current sync count for a
+     * record, call ListRecords. On a successful update of the record, the
+     * response returns the new sync count for that record. You should
+     * present that sync count the next time you try to update that same
+     * record. When the record does not exist, specify the sync count as 0.
+     * </p>
+     * <p>
+     * This API can be called with temporary user credentials provided by
+     * Cognito Identity or with developer credentials.
      * </p>
      *
      * @param updateRecordsRequest Container for the necessary parameters to
@@ -88,9 +102,23 @@ public interface AmazonCognitoSyncAsync extends AmazonCognitoSync {
      * and user.
      * </p>
      * <p>
-     * <code>UpdateRecords</code> can only be called with temporary user
-     * credentials provided by Cognito Identity. You cannot make this API
-     * call with developer credentials.
+     * The sync count in the record patch is your last known sync count for
+     * that record. The server will reject an UpdateRecords request with a
+     * ResourceConflictException if you try to patch a record with a new
+     * value but a stale sync count.
+     * </p>
+     * <p>
+     * For example, if the sync count on the server is 5 for a key called
+     * highScore and you try and submit a new highScore with sync count of 4,
+     * the request will be rejected. To obtain the current sync count for a
+     * record, call ListRecords. On a successful update of the record, the
+     * response returns the new sync count for that record. You should
+     * present that sync count the next time you try to update that same
+     * record. When the record does not exist, specify the sync count as 0.
+     * </p>
+     * <p>
+     * This API can be called with temporary user credentials provided by
+     * Cognito Identity or with developer credentials.
      * </p>
      *
      * @param updateRecordsRequest Container for the necessary parameters to
@@ -118,13 +146,142 @@ public interface AmazonCognitoSyncAsync extends AmazonCognitoSync {
 
     /**
      * <p>
+     * Sets the AWS Lambda function for a given event type for an identity
+     * pool. This request only updates the key/value pair specified. Other
+     * key/values pairs are not updated. To remove a key value pair, pass a
+     * empty value for the particular key.
+     * </p>
+     * <p>
+     * This API can only be called with developer credentials. You cannot
+     * call this API with the temporary user credentials provided by Cognito
+     * Identity.
+     * </p>
+     *
+     * @param setCognitoEventsRequest Container for the necessary parameters
+     *           to execute the SetCognitoEvents operation on AmazonCognitoSync.
+     * 
+     * @return A Java Future object containing the response from the
+     *         SetCognitoEvents service method, as returned by AmazonCognitoSync.
+     * 
+     *
+     * @throws AmazonClientException
+     *             If any internal errors are encountered inside the client while
+     *             attempting to make the request or handle the response.  For example
+     *             if a network connection is not available.
+     * @throws AmazonServiceException
+     *             If an error response is returned by AmazonCognitoSync indicating
+     *             either a problem with the data in the request, or a server side issue.
+     */
+    public Future<Void> setCognitoEventsAsync(SetCognitoEventsRequest setCognitoEventsRequest) 
+            throws AmazonServiceException, AmazonClientException;
+
+    /**
+     * <p>
+     * Sets the AWS Lambda function for a given event type for an identity
+     * pool. This request only updates the key/value pair specified. Other
+     * key/values pairs are not updated. To remove a key value pair, pass a
+     * empty value for the particular key.
+     * </p>
+     * <p>
+     * This API can only be called with developer credentials. You cannot
+     * call this API with the temporary user credentials provided by Cognito
+     * Identity.
+     * </p>
+     *
+     * @param setCognitoEventsRequest Container for the necessary parameters
+     *           to execute the SetCognitoEvents operation on AmazonCognitoSync.
+     * @param asyncHandler Asynchronous callback handler for events in the
+     *           life-cycle of the request. Users could provide the implementation of
+     *           the four callback methods in this interface to process the operation
+     *           result or handle the exception.
+     * 
+     * @return A Java Future object containing the response from the
+     *         SetCognitoEvents service method, as returned by AmazonCognitoSync.
+     * 
+     *
+     * @throws AmazonClientException
+     *             If any internal errors are encountered inside the client while
+     *             attempting to make the request or handle the response.  For example
+     *             if a network connection is not available.
+     * @throws AmazonServiceException
+     *             If an error response is returned by AmazonCognitoSync indicating
+     *             either a problem with the data in the request, or a server side issue.
+     */
+    public Future<Void> setCognitoEventsAsync(SetCognitoEventsRequest setCognitoEventsRequest,
+            AsyncHandler<SetCognitoEventsRequest, Void> asyncHandler)
+                    throws AmazonServiceException, AmazonClientException;
+
+    /**
+     * <p>
+     * Gets the events and the corresponding Lambda functions associated
+     * with an identity pool.
+     * </p>
+     * <p>
+     * This API can only be called with developer credentials. You cannot
+     * call this API with the temporary user credentials provided by Cognito
+     * Identity.
+     * </p>
+     *
+     * @param getCognitoEventsRequest Container for the necessary parameters
+     *           to execute the GetCognitoEvents operation on AmazonCognitoSync.
+     * 
+     * @return A Java Future object containing the response from the
+     *         GetCognitoEvents service method, as returned by AmazonCognitoSync.
+     * 
+     *
+     * @throws AmazonClientException
+     *             If any internal errors are encountered inside the client while
+     *             attempting to make the request or handle the response.  For example
+     *             if a network connection is not available.
+     * @throws AmazonServiceException
+     *             If an error response is returned by AmazonCognitoSync indicating
+     *             either a problem with the data in the request, or a server side issue.
+     */
+    public Future<GetCognitoEventsResult> getCognitoEventsAsync(GetCognitoEventsRequest getCognitoEventsRequest) 
+            throws AmazonServiceException, AmazonClientException;
+
+    /**
+     * <p>
+     * Gets the events and the corresponding Lambda functions associated
+     * with an identity pool.
+     * </p>
+     * <p>
+     * This API can only be called with developer credentials. You cannot
+     * call this API with the temporary user credentials provided by Cognito
+     * Identity.
+     * </p>
+     *
+     * @param getCognitoEventsRequest Container for the necessary parameters
+     *           to execute the GetCognitoEvents operation on AmazonCognitoSync.
+     * @param asyncHandler Asynchronous callback handler for events in the
+     *           life-cycle of the request. Users could provide the implementation of
+     *           the four callback methods in this interface to process the operation
+     *           result or handle the exception.
+     * 
+     * @return A Java Future object containing the response from the
+     *         GetCognitoEvents service method, as returned by AmazonCognitoSync.
+     * 
+     *
+     * @throws AmazonClientException
+     *             If any internal errors are encountered inside the client while
+     *             attempting to make the request or handle the response.  For example
+     *             if a network connection is not available.
+     * @throws AmazonServiceException
+     *             If an error response is returned by AmazonCognitoSync indicating
+     *             either a problem with the data in the request, or a server side issue.
+     */
+    public Future<GetCognitoEventsResult> getCognitoEventsAsync(GetCognitoEventsRequest getCognitoEventsRequest,
+            AsyncHandler<GetCognitoEventsRequest, GetCognitoEventsResult> asyncHandler)
+                    throws AmazonServiceException, AmazonClientException;
+
+    /**
+     * <p>
      * Gets usage information for an identity, including number of datasets
      * and data usage.
      * </p>
      * <p>
-     * <code>DescribeIdentityUsage</code> can be called with temporary user
-     * credentials provided by Cognito Identity or with developer
-     * credentials.
+     * This API can be called with temporary user credentials provided by
+     * Cognito Identity or with developer credentials.
      * </p>
      *
      * @param describeIdentityUsageRequest Container for the necessary
@@ -153,9 +310,8 @@ public interface AmazonCognitoSyncAsync extends AmazonCognitoSync {
      * and data usage.
      * </p>
      * <p>
-     * <code>DescribeIdentityUsage</code> can be called with temporary user
-     * credentials provided by Cognito Identity or with developer
-     * credentials.
+     * This API can be called with temporary user credentials provided by
+     * Cognito Identity or with developer credentials.
      * </p>
      *
      * @param describeIdentityUsageRequest Container for the necessary
@@ -188,6 +344,10 @@ public interface AmazonCognitoSyncAsync extends AmazonCognitoSync {
      * Unsubscribes from receiving notifications when a dataset is modified
      * by another device.
      * </p>
+     * <p>
+     * This API can only be called with temporary credentials provided by
+     * Cognito Identity. You cannot call this API with developer credentials.
+     * </p>
      *
      * @param unsubscribeFromDatasetRequest Container for the necessary
      *           parameters to execute the UnsubscribeFromDataset operation on
@@ -213,6 +373,10 @@ public interface AmazonCognitoSyncAsync extends AmazonCognitoSync {
      * <p>
      * Unsubscribes from receiving notifications when a dataset is modified
      * by another device.
+     * </p>
+     * <p>
+     * This API can only be called with temporary credentials provided by
+     * Cognito Identity. You cannot call this API with developer credentials.
      * </p>
      *
      * @param unsubscribeFromDatasetRequest Container for the necessary
@@ -244,6 +408,11 @@ public interface AmazonCognitoSyncAsync extends AmazonCognitoSync {
      * <p>
      * Sets the necessary configuration for push sync.
      * </p>
+     * <p>
+     * This API can only be called with developer credentials. You cannot
+     * call this API with the temporary user credentials provided by Cognito
+     * Identity.
+     * </p>
      *
      * @param setIdentityPoolConfigurationRequest Container for the necessary
      *           parameters to execute the SetIdentityPoolConfiguration operation on
@@ -268,6 +437,11 @@ public interface AmazonCognitoSyncAsync extends AmazonCognitoSync {
     /**
      * <p>
      * Sets the necessary configuration for push sync.
+     * </p>
+     * <p>
+     * This API can only be called with developer credentials. You cannot
+     * call this API with the temporary user credentials provided by Cognito
+     * Identity.
      * </p>
      *
      * @param setIdentityPoolConfigurationRequest Container for the necessary
@@ -299,6 +473,11 @@ public interface AmazonCognitoSyncAsync extends AmazonCognitoSync {
      * <p>
      * Gets the configuration settings of an identity pool.
      * </p>
+     * <p>
+     * This API can only be called with developer credentials. You cannot
+     * call this API with the temporary user credentials provided by Cognito
+     * Identity.
+     * </p>
      *
      * @param getIdentityPoolConfigurationRequest Container for the necessary
      *           parameters to execute the GetIdentityPoolConfiguration operation on
@@ -323,6 +502,11 @@ public interface AmazonCognitoSyncAsync extends AmazonCognitoSync {
     /**
      * <p>
      * Gets the configuration settings of an identity pool.
+     * </p>
+     * <p>
+     * This API can only be called with developer credentials. You cannot
+     * call this API with the temporary user credentials provided by Cognito
+     * Identity.
      * </p>
      *
      * @param getIdentityPoolConfigurationRequest Container for the necessary
@@ -355,6 +539,10 @@ public interface AmazonCognitoSyncAsync extends AmazonCognitoSync {
      * Subscribes to receive notifications when a dataset is modified by
      * another device.
      * </p>
+     * <p>
+     * This API can only be called with temporary credentials provided by
+     * Cognito Identity. You cannot call this API with developer credentials.
+     * </p>
      *
      * @param subscribeToDatasetRequest Container for the necessary
      *           parameters to execute the SubscribeToDataset operation on
@@ -379,6 +567,10 @@ public interface AmazonCognitoSyncAsync extends AmazonCognitoSync {
      * <p>
      * Subscribes to receive notifications when a dataset is modified by
      * another device.
+     * </p>
+     * <p>
+     * This API can only be called with temporary credentials provided by
+     * Cognito Identity. You cannot call this API with developer credentials.
      * </p>
      *
      * @param subscribeToDatasetRequest Container for the necessary
@@ -411,9 +603,9 @@ public interface AmazonCognitoSyncAsync extends AmazonCognitoSync {
      * identity pool.
      * </p>
      * <p>
-     * <code>DescribeIdentityPoolUsage</code> can only be called with
-     * developer credentials. You cannot make this API call with the
-     * temporary user credentials provided by Cognito Identity.
+     * This API can only be called with developer credentials. You cannot
+     * call this API with the temporary user credentials provided by Cognito
+     * Identity.
      * </p>
      *
      * @param describeIdentityPoolUsageRequest Container for the necessary
@@ -442,9 +634,9 @@ public interface AmazonCognitoSyncAsync extends AmazonCognitoSync {
      * identity pool.
      * </p>
      * <p>
-     * <code>DescribeIdentityPoolUsage</code> can only be called with
-     * developer credentials. You cannot make this API call with the
-     * temporary user credentials provided by Cognito Identity.
+     * This API can only be called with developer credentials. You cannot
+     * call this API with the temporary user credentials provided by Cognito
+     * Identity.
      * </p>
      *
      * @param describeIdentityPoolUsageRequest Container for the necessary
@@ -479,10 +671,9 @@ public interface AmazonCognitoSyncAsync extends AmazonCognitoSync {
      * to make this API call need to have access to the identity data.
      * </p>
      * <p>
-     * <code>ListDatasets</code> can be called with temporary user
-     * credentials provided by Cognito Identity or with developer
-     * credentials. You should use the Cognito Identity credentials to make
-     * this API call.
+     * ListDatasets can be called with temporary user credentials provided
+     * by Cognito Identity or with developer credentials. You should use the
+     * Cognito Identity credentials to make this API call.
      * </p>
      *
      * @param listDatasetsRequest Container for the necessary parameters to
@@ -510,10 +701,9 @@ public interface AmazonCognitoSyncAsync extends AmazonCognitoSync {
      * to make this API call need to have access to the identity data.
      * </p>
      * <p>
-     * <code>ListDatasets</code> can be called with temporary user
-     * credentials provided by Cognito Identity or with developer
-     * credentials. You should use the Cognito Identity credentials to make
-     * this API call.
+     * ListDatasets can be called with temporary user credentials provided
+     * by Cognito Identity or with developer credentials. You should use the
+     * Cognito Identity credentials to make this API call.
      * </p>
      *
      * @param listDatasetsRequest Container for the necessary parameters to
@@ -544,9 +734,9 @@ public interface AmazonCognitoSyncAsync extends AmazonCognitoSync {
      * Gets a list of identity pools registered with Cognito.
      * </p>
      * <p>
-     * <code>ListIdentityPoolUsage</code> can only be called with developer
-     * credentials. You cannot make this API call with the temporary user
-     * credentials provided by Cognito Identity.
+     * ListIdentityPoolUsage can only be called with developer credentials.
+     * You cannot make this API call with the temporary user credentials
+     * provided by Cognito Identity.
      * </p>
      *
      * @param listIdentityPoolUsageRequest Container for the necessary
@@ -574,9 +764,9 @@ public interface AmazonCognitoSyncAsync extends AmazonCognitoSync {
      * Gets a list of identity pools registered with Cognito.
      * </p>
      * <p>
-     * <code>ListIdentityPoolUsage</code> can only be called with developer
-     * credentials. You cannot make this API call with the temporary user
-     * credentials provided by Cognito Identity.
+     * ListIdentityPoolUsage can only be called with developer credentials.
+     * You cannot make this API call with the temporary user credentials
+     * provided by Cognito Identity.
      * </p>
      *
      * @param listIdentityPoolUsageRequest Container for the necessary
@@ -612,10 +802,9 @@ public interface AmazonCognitoSyncAsync extends AmazonCognitoSync {
      * to make this API call need to have access to the identity data.
      * </p>
      * <p>
-     * <code>ListRecords</code> can be called with temporary user
-     * credentials provided by Cognito Identity or with developer
-     * credentials. You should use Cognito Identity credentials to make this
-     * API call.
+     * ListRecords can be called with temporary user credentials provided by
+     * Cognito Identity or with developer credentials. You should use Cognito
+     * Identity credentials to make this API call.
      * </p>
      *
      * @param listRecordsRequest Container for the necessary parameters to
@@ -644,10 +833,9 @@ public interface AmazonCognitoSyncAsync extends AmazonCognitoSync {
      * to make this API call need to have access to the identity data.
      * </p>
      * <p>
-     * <code>ListRecords</code> can be called with temporary user
-     * credentials provided by Cognito Identity or with developer
-     * credentials. You should use Cognito Identity credentials to make this
-     * API call.
+     * ListRecords can be called with temporary user credentials provided by
+     * Cognito Identity or with developer credentials. You should use Cognito
+     * Identity credentials to make this API call.
      * </p>
      *
      * @param listRecordsRequest Container for the necessary parameters to
@@ -678,6 +866,11 @@ public interface AmazonCognitoSyncAsync extends AmazonCognitoSync {
      * Get the status of the last BulkPublish operation for an identity
      * pool.
      * </p>
+     * <p>
+     * This API can only be called with developer credentials. You cannot
+     * call this API with the temporary user credentials provided by Cognito
+     * Identity.
+     * </p>
      *
      * @param getBulkPublishDetailsRequest Container for the necessary
      *           parameters to execute the GetBulkPublishDetails operation on
@@ -703,6 +896,11 @@ public interface AmazonCognitoSyncAsync extends AmazonCognitoSync {
      * <p>
      * Get the status of the last BulkPublish operation for an identity
      * pool.
+     * </p>
+     * <p>
+     * This API can only be called with developer credentials. You cannot
+     * call this API with the temporary user credentials provided by Cognito
+     * Identity.
      * </p>
      *
      * @param getBulkPublishDetailsRequest Container for the necessary
@@ -738,6 +936,11 @@ public interface AmazonCognitoSyncAsync extends AmazonCognitoSync {
      * customers can see the status of the request via the
      * GetBulkPublishDetails operation.
      * </p>
+     * <p>
+     * This API can only be called with developer credentials. You cannot
+     * call this API with the temporary user credentials provided by Cognito
+     * Identity.
+     * </p>
      *
      * @param bulkPublishRequest Container for the necessary parameters to
      *           execute the BulkPublish operation on AmazonCognitoSync.
@@ -764,6 +967,11 @@ public interface AmazonCognitoSyncAsync extends AmazonCognitoSync {
      * bulk publish per 24 hours. Bulk publish is an asynchronous request,
      * customers can see the status of the request via the
      * GetBulkPublishDetails operation.
+     * </p>
+     * <p>
+     * This API can only be called with developer credentials. You cannot
+     * call this API with the temporary user credentials provided by Cognito
+     * Identity.
      * </p>
      *
      * @param bulkPublishRequest Container for the necessary parameters to
@@ -797,10 +1005,9 @@ public interface AmazonCognitoSyncAsync extends AmazonCognitoSync {
      * to the identity data.
      * </p>
      * <p>
-     * <code>DescribeDataset</code> can be called with temporary user
-     * credentials provided by Cognito Identity or with developer
-     * credentials. You should use Cognito Identity credentials to make this
-     * API call.
+     * This API can be called with temporary user credentials provided by
+     * Cognito Identity or with developer credentials. You should use Cognito
+     * Identity credentials to make this API call.
      * </p>
      *
      * @param describeDatasetRequest Container for the necessary parameters
@@ -829,10 +1036,9 @@ public interface AmazonCognitoSyncAsync extends AmazonCognitoSync {
      * to the identity data.
      * </p>
      * <p>
-     * <code>DescribeDataset</code> can be called with temporary user
-     * credentials provided by Cognito Identity or with developer
-     * credentials. You should use Cognito Identity credentials to make this
-     * API call.
+     * This API can be called with temporary user credentials provided by
+     * Cognito Identity or with developer credentials. You should use Cognito
+     * Identity credentials to make this API call.
      * </p>
      *
      * @param describeDatasetRequest Container for the necessary parameters
@@ -864,12 +1070,11 @@ public interface AmazonCognitoSyncAsync extends AmazonCognitoSync {
      * permanently, and the action can't be undone. Datasets that this
      * dataset was merged with will no longer report the merge. Any
      * subsequent operation on this dataset will result in a
-     * <code>ResourceNotFoundException</code> .
+     * ResourceNotFoundException.
      * </p>
      * <p>
-     * <code>DeleteDataset</code> can be called with temporary user
-     * credentials provided by Cognito Identity or with developer
-     * credentials.
+     * This API can be called with temporary user credentials provided by
+     * Cognito Identity or with developer credentials.
      * </p>
      *
      * @param deleteDatasetRequest Container for the necessary parameters to
@@ -896,12 +1101,11 @@ public interface AmazonCognitoSyncAsync extends AmazonCognitoSync {
      * permanently, and the action can't be undone. Datasets that this
      * dataset was merged with will no longer report the merge. Any
      * subsequent operation on this dataset will result in a
-     * <code>ResourceNotFoundException</code> .
+     * ResourceNotFoundException.
      * </p>
      * <p>
-     * <code>DeleteDataset</code> can be called with temporary user
-     * credentials provided by Cognito Identity or with developer
-     * credentials.
+     * This API can be called with temporary user credentials provided by
+     * Cognito Identity or with developer credentials.
      * </p>
      *
      * @param deleteDatasetRequest Container for the necessary parameters to
@@ -931,6 +1135,10 @@ public interface AmazonCognitoSyncAsync extends AmazonCognitoSync {
      * <p>
      * Registers a device to receive push sync notifications.
      * </p>
+     * <p>
+     * This API can only be called with temporary credentials provided by
+     * Cognito Identity. You cannot call this API with developer credentials.
+     * </p>
      *
      * @param registerDeviceRequest Container for the necessary parameters to
      *           execute the RegisterDevice operation on AmazonCognitoSync.
@@ -953,6 +1161,10 @@ public interface AmazonCognitoSyncAsync extends AmazonCognitoSync {
     /**
      * <p>
      * Registers a device to receive push sync notifications.
+     * </p>
+     * <p>
+     * This API can only be called with temporary credentials provided by
+     * Cognito Identity. You cannot call this API with developer credentials.
      * </p>
      *
      * @param registerDeviceRequest Container for the necessary parameters to

@@ -34,7 +34,7 @@ import com.amazonaws.AmazonWebServiceRequest;
  * Reserved Instances.
  * </p>
  * <p>
- * To sell your Reserved Instances, you must first register as a Seller
+ * To sell your Reserved Instances, you must first register as a seller
  * in the Reserved Instance Marketplace. After completing the
  * registration process, you can create a Reserved Instance Marketplace
  * listing of some or all of your Reserved Instances, and specify the
@@ -46,7 +46,7 @@ import com.amazonaws.AmazonWebServiceRequest;
  * <p>
  * For more information, see
  * <a href="http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ri-market-general.html"> Reserved Instance Marketplace </a>
- * in the <i>Amazon Elastic Compute Cloud User Guide for Linux</i> .
+ * in the <i>Amazon Elastic Compute Cloud User Guide</i> .
  * </p>
  *
  * @see com.amazonaws.services.ec2.AmazonEC2#createReservedInstancesListing(CreateReservedInstancesListingRequest)
@@ -200,6 +200,11 @@ public class CreateReservedInstancesListingRequest extends AmazonWebServiceReque
     /**
      * A list specifying the price of the Reserved Instance for each month
      * remaining in the Reserved Instance term.
+     * <p>
+     * <b>NOTE:</b> This method appends the values to the existing list (if
+     * any). Use {@link #setPriceSchedules(java.util.Collection)} or {@link
+     * #withPriceSchedules(java.util.Collection)} if you want to override the
+     * existing values.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *

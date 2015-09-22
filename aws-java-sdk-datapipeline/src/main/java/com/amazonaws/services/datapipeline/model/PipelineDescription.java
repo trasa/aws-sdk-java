@@ -34,7 +34,7 @@ public class PipelineDescription implements Serializable, Cloneable {
     private String pipelineId;
 
     /**
-     * Name of the pipeline.
+     * The name of the pipeline.
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>1 - 1024<br/>
@@ -121,33 +121,33 @@ public class PipelineDescription implements Serializable, Cloneable {
     }
 
     /**
-     * Name of the pipeline.
+     * The name of the pipeline.
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>1 - 1024<br/>
      * <b>Pattern: </b>[&#92;u0020-&#92;uD7FF&#92;uE000-&#92;uFFFD&#92;uD800&#92;uDC00-&#92;uDBFF&#92;uDFFF\r\n\t]*<br/>
      *
-     * @return Name of the pipeline.
+     * @return The name of the pipeline.
      */
     public String getName() {
         return name;
     }
     
     /**
-     * Name of the pipeline.
+     * The name of the pipeline.
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>1 - 1024<br/>
      * <b>Pattern: </b>[&#92;u0020-&#92;uD7FF&#92;uE000-&#92;uFFFD&#92;uD800&#92;uDC00-&#92;uDBFF&#92;uDFFF\r\n\t]*<br/>
      *
-     * @param name Name of the pipeline.
+     * @param name The name of the pipeline.
      */
     public void setName(String name) {
         this.name = name;
     }
     
     /**
-     * Name of the pipeline.
+     * The name of the pipeline.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      * <p>
@@ -155,7 +155,7 @@ public class PipelineDescription implements Serializable, Cloneable {
      * <b>Length: </b>1 - 1024<br/>
      * <b>Pattern: </b>[&#92;u0020-&#92;uD7FF&#92;uE000-&#92;uFFFD&#92;uD800&#92;uDC00-&#92;uDBFF&#92;uDFFF\r\n\t]*<br/>
      *
-     * @param name Name of the pipeline.
+     * @param name The name of the pipeline.
      *
      * @return A reference to this updated object so that method calls can be chained
      *         together.
@@ -200,6 +200,11 @@ public class PipelineDescription implements Serializable, Cloneable {
     /**
      * A list of read-only fields that contain metadata about the pipeline:
      * @userId, @accountId, and @pipelineState.
+     * <p>
+     * <b>NOTE:</b> This method appends the values to the existing list (if
+     * any). Use {@link #setFields(java.util.Collection)} or {@link
+     * #withFields(java.util.Collection)} if you want to override the
+     * existing values.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *
@@ -342,6 +347,11 @@ public class PipelineDescription implements Serializable, Cloneable {
      * href="http://docs.aws.amazon.com/datapipeline/latest/DeveloperGuide/dp-control-access.html">Controlling
      * User Access to Pipelines</a> in the <i>AWS Data Pipeline Developer
      * Guide</i>.
+     * <p>
+     * <b>NOTE:</b> This method appends the values to the existing list (if
+     * any). Use {@link #setTags(java.util.Collection)} or {@link
+     * #withTags(java.util.Collection)} if you want to override the existing
+     * values.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      * <p>

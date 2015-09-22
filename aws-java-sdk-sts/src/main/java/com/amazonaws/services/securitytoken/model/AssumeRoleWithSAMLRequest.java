@@ -34,8 +34,8 @@ import com.amazonaws.AmazonWebServiceRequest;
  * calls to AWS services. The credentials are valid for the duration that
  * you specified when calling <code>AssumeRoleWithSAML</code> , which can
  * be up to 3600 seconds (1 hour) or until the time specified in the SAML
- * authentication response's <code>NotOnOrAfter</code> value, whichever
- * is shorter.
+ * authentication response's <code>SessionNotOnOrAfter</code> value,
+ * whichever is shorter.
  * </p>
  * <p>
  * <b>NOTE:</b>The maximum duration for a session is 1 hour, and the
@@ -79,7 +79,7 @@ import com.amazonaws.AmazonWebServiceRequest;
  * <ul>
  * <li>
  * <a href="http://docs.aws.amazon.com/STS/latest/UsingSTS/CreatingSAML.html"> Creating Temporary Security Credentials for SAML Federation </a>
- * in <i>Using Temporary Security Credentials</i> . </li>
+ * . </li>
  * <li>
  * <a href="http://docs.aws.amazon.com/IAM/latest/UserGuide/idp-managing-identityproviders.html"> SAML Providers </a>
  * in <i>Using IAM</i> . </li>
@@ -145,8 +145,11 @@ public class AssumeRoleWithSAMLRequest extends AmazonWebServiceRequest implement
      * that is being assumed. For more information, see <a
      * href="http://docs.aws.amazon.com/STS/latest/UsingSTS/permissions-assume-role.html">Permissions
      * for AssumeRoleWithSAML</a> in <i>Using Temporary Security
-     * Credentials</i>. <note>The policy must be 2048 bytes or shorter, and
-     * its packed size must be less than 450 bytes.</note>
+     * Credentials</i>. <note>The policy plain text must be 2048 bytes or
+     * shorter. However, an internal conversion compresses it into a packed
+     * binary format with a separate limit. The PackedPolicySize response
+     * element indicates by percentage how close to the upper size limit the
+     * policy is, with 100% equaling the maximum allowed size. </note>
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>1 - 2048<br/>
@@ -158,10 +161,11 @@ public class AssumeRoleWithSAMLRequest extends AmazonWebServiceRequest implement
      * The duration, in seconds, of the role session. The value can range
      * from 900 seconds (15 minutes) to 3600 seconds (1 hour). By default,
      * the value is set to 3600 seconds. An expiration can also be specified
-     * in the SAML authentication response's <code>NotOnOrAfter</code> value.
-     * The actual expiration time is whichever value is shorter. <note>The
-     * maximum duration for a session is 1 hour, and the minimum duration is
-     * 15 minutes, even if values outside this range are specified. </note>
+     * in the SAML authentication response's <code>SessionNotOnOrAfter</code>
+     * value. The actual expiration time is whichever value is shorter.
+     * <note>The maximum duration for a session is 1 hour, and the minimum
+     * duration is 15 minutes, even if values outside this range are
+     * specified. </note>
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Range: </b>900 - 129600<br/>
@@ -336,8 +340,11 @@ public class AssumeRoleWithSAMLRequest extends AmazonWebServiceRequest implement
      * that is being assumed. For more information, see <a
      * href="http://docs.aws.amazon.com/STS/latest/UsingSTS/permissions-assume-role.html">Permissions
      * for AssumeRoleWithSAML</a> in <i>Using Temporary Security
-     * Credentials</i>. <note>The policy must be 2048 bytes or shorter, and
-     * its packed size must be less than 450 bytes.</note>
+     * Credentials</i>. <note>The policy plain text must be 2048 bytes or
+     * shorter. However, an internal conversion compresses it into a packed
+     * binary format with a separate limit. The PackedPolicySize response
+     * element indicates by percentage how close to the upper size limit the
+     * policy is, with 100% equaling the maximum allowed size. </note>
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>1 - 2048<br/>
@@ -354,8 +361,11 @@ public class AssumeRoleWithSAMLRequest extends AmazonWebServiceRequest implement
      *         that is being assumed. For more information, see <a
      *         href="http://docs.aws.amazon.com/STS/latest/UsingSTS/permissions-assume-role.html">Permissions
      *         for AssumeRoleWithSAML</a> in <i>Using Temporary Security
-     *         Credentials</i>. <note>The policy must be 2048 bytes or shorter, and
-     *         its packed size must be less than 450 bytes.</note>
+     *         Credentials</i>. <note>The policy plain text must be 2048 bytes or
+     *         shorter. However, an internal conversion compresses it into a packed
+     *         binary format with a separate limit. The PackedPolicySize response
+     *         element indicates by percentage how close to the upper size limit the
+     *         policy is, with 100% equaling the maximum allowed size. </note>
      */
     public String getPolicy() {
         return policy;
@@ -373,8 +383,11 @@ public class AssumeRoleWithSAMLRequest extends AmazonWebServiceRequest implement
      * that is being assumed. For more information, see <a
      * href="http://docs.aws.amazon.com/STS/latest/UsingSTS/permissions-assume-role.html">Permissions
      * for AssumeRoleWithSAML</a> in <i>Using Temporary Security
-     * Credentials</i>. <note>The policy must be 2048 bytes or shorter, and
-     * its packed size must be less than 450 bytes.</note>
+     * Credentials</i>. <note>The policy plain text must be 2048 bytes or
+     * shorter. However, an internal conversion compresses it into a packed
+     * binary format with a separate limit. The PackedPolicySize response
+     * element indicates by percentage how close to the upper size limit the
+     * policy is, with 100% equaling the maximum allowed size. </note>
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>1 - 2048<br/>
@@ -391,8 +404,11 @@ public class AssumeRoleWithSAMLRequest extends AmazonWebServiceRequest implement
      *         that is being assumed. For more information, see <a
      *         href="http://docs.aws.amazon.com/STS/latest/UsingSTS/permissions-assume-role.html">Permissions
      *         for AssumeRoleWithSAML</a> in <i>Using Temporary Security
-     *         Credentials</i>. <note>The policy must be 2048 bytes or shorter, and
-     *         its packed size must be less than 450 bytes.</note>
+     *         Credentials</i>. <note>The policy plain text must be 2048 bytes or
+     *         shorter. However, an internal conversion compresses it into a packed
+     *         binary format with a separate limit. The PackedPolicySize response
+     *         element indicates by percentage how close to the upper size limit the
+     *         policy is, with 100% equaling the maximum allowed size. </note>
      */
     public void setPolicy(String policy) {
         this.policy = policy;
@@ -410,8 +426,11 @@ public class AssumeRoleWithSAMLRequest extends AmazonWebServiceRequest implement
      * that is being assumed. For more information, see <a
      * href="http://docs.aws.amazon.com/STS/latest/UsingSTS/permissions-assume-role.html">Permissions
      * for AssumeRoleWithSAML</a> in <i>Using Temporary Security
-     * Credentials</i>. <note>The policy must be 2048 bytes or shorter, and
-     * its packed size must be less than 450 bytes.</note>
+     * Credentials</i>. <note>The policy plain text must be 2048 bytes or
+     * shorter. However, an internal conversion compresses it into a packed
+     * binary format with a separate limit. The PackedPolicySize response
+     * element indicates by percentage how close to the upper size limit the
+     * policy is, with 100% equaling the maximum allowed size. </note>
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      * <p>
@@ -430,8 +449,11 @@ public class AssumeRoleWithSAMLRequest extends AmazonWebServiceRequest implement
      *         that is being assumed. For more information, see <a
      *         href="http://docs.aws.amazon.com/STS/latest/UsingSTS/permissions-assume-role.html">Permissions
      *         for AssumeRoleWithSAML</a> in <i>Using Temporary Security
-     *         Credentials</i>. <note>The policy must be 2048 bytes or shorter, and
-     *         its packed size must be less than 450 bytes.</note>
+     *         Credentials</i>. <note>The policy plain text must be 2048 bytes or
+     *         shorter. However, an internal conversion compresses it into a packed
+     *         binary format with a separate limit. The PackedPolicySize response
+     *         element indicates by percentage how close to the upper size limit the
+     *         policy is, with 100% equaling the maximum allowed size. </note>
      *
      * @return A reference to this updated object so that method calls can be chained
      *         together.
@@ -445,10 +467,11 @@ public class AssumeRoleWithSAMLRequest extends AmazonWebServiceRequest implement
      * The duration, in seconds, of the role session. The value can range
      * from 900 seconds (15 minutes) to 3600 seconds (1 hour). By default,
      * the value is set to 3600 seconds. An expiration can also be specified
-     * in the SAML authentication response's <code>NotOnOrAfter</code> value.
-     * The actual expiration time is whichever value is shorter. <note>The
-     * maximum duration for a session is 1 hour, and the minimum duration is
-     * 15 minutes, even if values outside this range are specified. </note>
+     * in the SAML authentication response's <code>SessionNotOnOrAfter</code>
+     * value. The actual expiration time is whichever value is shorter.
+     * <note>The maximum duration for a session is 1 hour, and the minimum
+     * duration is 15 minutes, even if values outside this range are
+     * specified. </note>
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Range: </b>900 - 129600<br/>
@@ -456,10 +479,11 @@ public class AssumeRoleWithSAMLRequest extends AmazonWebServiceRequest implement
      * @return The duration, in seconds, of the role session. The value can range
      *         from 900 seconds (15 minutes) to 3600 seconds (1 hour). By default,
      *         the value is set to 3600 seconds. An expiration can also be specified
-     *         in the SAML authentication response's <code>NotOnOrAfter</code> value.
-     *         The actual expiration time is whichever value is shorter. <note>The
-     *         maximum duration for a session is 1 hour, and the minimum duration is
-     *         15 minutes, even if values outside this range are specified. </note>
+     *         in the SAML authentication response's <code>SessionNotOnOrAfter</code>
+     *         value. The actual expiration time is whichever value is shorter.
+     *         <note>The maximum duration for a session is 1 hour, and the minimum
+     *         duration is 15 minutes, even if values outside this range are
+     *         specified. </note>
      */
     public Integer getDurationSeconds() {
         return durationSeconds;
@@ -469,10 +493,11 @@ public class AssumeRoleWithSAMLRequest extends AmazonWebServiceRequest implement
      * The duration, in seconds, of the role session. The value can range
      * from 900 seconds (15 minutes) to 3600 seconds (1 hour). By default,
      * the value is set to 3600 seconds. An expiration can also be specified
-     * in the SAML authentication response's <code>NotOnOrAfter</code> value.
-     * The actual expiration time is whichever value is shorter. <note>The
-     * maximum duration for a session is 1 hour, and the minimum duration is
-     * 15 minutes, even if values outside this range are specified. </note>
+     * in the SAML authentication response's <code>SessionNotOnOrAfter</code>
+     * value. The actual expiration time is whichever value is shorter.
+     * <note>The maximum duration for a session is 1 hour, and the minimum
+     * duration is 15 minutes, even if values outside this range are
+     * specified. </note>
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Range: </b>900 - 129600<br/>
@@ -480,10 +505,11 @@ public class AssumeRoleWithSAMLRequest extends AmazonWebServiceRequest implement
      * @param durationSeconds The duration, in seconds, of the role session. The value can range
      *         from 900 seconds (15 minutes) to 3600 seconds (1 hour). By default,
      *         the value is set to 3600 seconds. An expiration can also be specified
-     *         in the SAML authentication response's <code>NotOnOrAfter</code> value.
-     *         The actual expiration time is whichever value is shorter. <note>The
-     *         maximum duration for a session is 1 hour, and the minimum duration is
-     *         15 minutes, even if values outside this range are specified. </note>
+     *         in the SAML authentication response's <code>SessionNotOnOrAfter</code>
+     *         value. The actual expiration time is whichever value is shorter.
+     *         <note>The maximum duration for a session is 1 hour, and the minimum
+     *         duration is 15 minutes, even if values outside this range are
+     *         specified. </note>
      */
     public void setDurationSeconds(Integer durationSeconds) {
         this.durationSeconds = durationSeconds;
@@ -493,10 +519,11 @@ public class AssumeRoleWithSAMLRequest extends AmazonWebServiceRequest implement
      * The duration, in seconds, of the role session. The value can range
      * from 900 seconds (15 minutes) to 3600 seconds (1 hour). By default,
      * the value is set to 3600 seconds. An expiration can also be specified
-     * in the SAML authentication response's <code>NotOnOrAfter</code> value.
-     * The actual expiration time is whichever value is shorter. <note>The
-     * maximum duration for a session is 1 hour, and the minimum duration is
-     * 15 minutes, even if values outside this range are specified. </note>
+     * in the SAML authentication response's <code>SessionNotOnOrAfter</code>
+     * value. The actual expiration time is whichever value is shorter.
+     * <note>The maximum duration for a session is 1 hour, and the minimum
+     * duration is 15 minutes, even if values outside this range are
+     * specified. </note>
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      * <p>
@@ -506,10 +533,11 @@ public class AssumeRoleWithSAMLRequest extends AmazonWebServiceRequest implement
      * @param durationSeconds The duration, in seconds, of the role session. The value can range
      *         from 900 seconds (15 minutes) to 3600 seconds (1 hour). By default,
      *         the value is set to 3600 seconds. An expiration can also be specified
-     *         in the SAML authentication response's <code>NotOnOrAfter</code> value.
-     *         The actual expiration time is whichever value is shorter. <note>The
-     *         maximum duration for a session is 1 hour, and the minimum duration is
-     *         15 minutes, even if values outside this range are specified. </note>
+     *         in the SAML authentication response's <code>SessionNotOnOrAfter</code>
+     *         value. The actual expiration time is whichever value is shorter.
+     *         <note>The maximum duration for a session is 1 hour, and the minimum
+     *         duration is 15 minutes, even if values outside this range are
+     *         specified. </note>
      *
      * @return A reference to this updated object so that method calls can be chained
      *         together.

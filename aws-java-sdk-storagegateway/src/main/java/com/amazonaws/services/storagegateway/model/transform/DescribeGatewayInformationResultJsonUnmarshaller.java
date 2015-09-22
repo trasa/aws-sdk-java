@@ -53,6 +53,10 @@ public class DescribeGatewayInformationResultJsonUnmarshaller implements Unmarsh
                     context.nextToken();
                     describeGatewayInformationResult.setGatewayId(StringJsonUnmarshaller.getInstance().unmarshall(context));
                 }
+                if (context.testExpression("GatewayName", targetDepth)) {
+                    context.nextToken();
+                    describeGatewayInformationResult.setGatewayName(StringJsonUnmarshaller.getInstance().unmarshall(context));
+                }
                 if (context.testExpression("GatewayTimezone", targetDepth)) {
                     context.nextToken();
                     describeGatewayInformationResult.setGatewayTimezone(StringJsonUnmarshaller.getInstance().unmarshall(context));
@@ -72,6 +76,10 @@ public class DescribeGatewayInformationResultJsonUnmarshaller implements Unmarsh
                 if (context.testExpression("NextUpdateAvailabilityDate", targetDepth)) {
                     context.nextToken();
                     describeGatewayInformationResult.setNextUpdateAvailabilityDate(StringJsonUnmarshaller.getInstance().unmarshall(context));
+                }
+                if (context.testExpression("LastSoftwareUpdate", targetDepth)) {
+                    context.nextToken();
+                    describeGatewayInformationResult.setLastSoftwareUpdate(StringJsonUnmarshaller.getInstance().unmarshall(context));
                 }
             } else if (token == END_ARRAY || token == END_OBJECT) {
                 if (context.getLastParsedParentElement() == null || context.getLastParsedParentElement().equals(currentParentElement)) {

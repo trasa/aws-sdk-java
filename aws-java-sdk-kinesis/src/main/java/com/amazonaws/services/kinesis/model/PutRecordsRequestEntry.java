@@ -25,11 +25,12 @@ public class PutRecordsRequestEntry implements Serializable, Cloneable {
 
     /**
      * The data blob to put into the record, which is base64-encoded when the
-     * blob is serialized. The maximum size of the data blob (the payload
-     * before base64-encoding) is 50 kilobytes (KB)
+     * blob is serialized. When the data blob (the payload before
+     * base64-encoding) is added to the partition key size, the total size
+     * must not exceed the maximum record size (1 MB).
      * <p>
      * <b>Constraints:</b><br/>
-     * <b>Length: </b>0 - 51200<br/>
+     * <b>Length: </b>0 - 1048576<br/>
      */
     private java.nio.ByteBuffer data;
 
@@ -45,12 +46,13 @@ public class PutRecordsRequestEntry implements Serializable, Cloneable {
     /**
      * Determines which shard in the stream the data record is assigned to.
      * Partition keys are Unicode strings with a maximum length limit of 256
-     * bytes. Amazon Kinesis uses the partition key as input to a hash
-     * function that maps the partition key and associated data to a specific
-     * shard. Specifically, an MD5 hash function is used to map partition
-     * keys to 128-bit integer values and to map associated data records to
-     * shards. As a result of this hashing mechanism, all data records with
-     * the same partition key map to the same shard within the stream.
+     * characters for each key. Amazon Kinesis uses the partition key as
+     * input to a hash function that maps the partition key and associated
+     * data to a specific shard. Specifically, an MD5 hash function is used
+     * to map partition keys to 128-bit integer values and to map associated
+     * data records to shards. As a result of this hashing mechanism, all
+     * data records with the same partition key map to the same shard within
+     * the stream.
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>1 - 256<br/>
@@ -59,15 +61,17 @@ public class PutRecordsRequestEntry implements Serializable, Cloneable {
 
     /**
      * The data blob to put into the record, which is base64-encoded when the
-     * blob is serialized. The maximum size of the data blob (the payload
-     * before base64-encoding) is 50 kilobytes (KB)
+     * blob is serialized. When the data blob (the payload before
+     * base64-encoding) is added to the partition key size, the total size
+     * must not exceed the maximum record size (1 MB).
      * <p>
      * <b>Constraints:</b><br/>
-     * <b>Length: </b>0 - 51200<br/>
+     * <b>Length: </b>0 - 1048576<br/>
      *
      * @return The data blob to put into the record, which is base64-encoded when the
-     *         blob is serialized. The maximum size of the data blob (the payload
-     *         before base64-encoding) is 50 kilobytes (KB)
+     *         blob is serialized. When the data blob (the payload before
+     *         base64-encoding) is added to the partition key size, the total size
+     *         must not exceed the maximum record size (1 MB).
      */
     public java.nio.ByteBuffer getData() {
         return data;
@@ -75,15 +79,17 @@ public class PutRecordsRequestEntry implements Serializable, Cloneable {
     
     /**
      * The data blob to put into the record, which is base64-encoded when the
-     * blob is serialized. The maximum size of the data blob (the payload
-     * before base64-encoding) is 50 kilobytes (KB)
+     * blob is serialized. When the data blob (the payload before
+     * base64-encoding) is added to the partition key size, the total size
+     * must not exceed the maximum record size (1 MB).
      * <p>
      * <b>Constraints:</b><br/>
-     * <b>Length: </b>0 - 51200<br/>
+     * <b>Length: </b>0 - 1048576<br/>
      *
      * @param data The data blob to put into the record, which is base64-encoded when the
-     *         blob is serialized. The maximum size of the data blob (the payload
-     *         before base64-encoding) is 50 kilobytes (KB)
+     *         blob is serialized. When the data blob (the payload before
+     *         base64-encoding) is added to the partition key size, the total size
+     *         must not exceed the maximum record size (1 MB).
      */
     public void setData(java.nio.ByteBuffer data) {
         this.data = data;
@@ -91,17 +97,19 @@ public class PutRecordsRequestEntry implements Serializable, Cloneable {
     
     /**
      * The data blob to put into the record, which is base64-encoded when the
-     * blob is serialized. The maximum size of the data blob (the payload
-     * before base64-encoding) is 50 kilobytes (KB)
+     * blob is serialized. When the data blob (the payload before
+     * base64-encoding) is added to the partition key size, the total size
+     * must not exceed the maximum record size (1 MB).
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      * <p>
      * <b>Constraints:</b><br/>
-     * <b>Length: </b>0 - 51200<br/>
+     * <b>Length: </b>0 - 1048576<br/>
      *
      * @param data The data blob to put into the record, which is base64-encoded when the
-     *         blob is serialized. The maximum size of the data blob (the payload
-     *         before base64-encoding) is 50 kilobytes (KB)
+     *         blob is serialized. When the data blob (the payload before
+     *         base64-encoding) is added to the partition key size, the total size
+     *         must not exceed the maximum record size (1 MB).
      *
      * @return A reference to this updated object so that method calls can be chained
      *         together.
@@ -162,24 +170,26 @@ public class PutRecordsRequestEntry implements Serializable, Cloneable {
     /**
      * Determines which shard in the stream the data record is assigned to.
      * Partition keys are Unicode strings with a maximum length limit of 256
-     * bytes. Amazon Kinesis uses the partition key as input to a hash
-     * function that maps the partition key and associated data to a specific
-     * shard. Specifically, an MD5 hash function is used to map partition
-     * keys to 128-bit integer values and to map associated data records to
-     * shards. As a result of this hashing mechanism, all data records with
-     * the same partition key map to the same shard within the stream.
+     * characters for each key. Amazon Kinesis uses the partition key as
+     * input to a hash function that maps the partition key and associated
+     * data to a specific shard. Specifically, an MD5 hash function is used
+     * to map partition keys to 128-bit integer values and to map associated
+     * data records to shards. As a result of this hashing mechanism, all
+     * data records with the same partition key map to the same shard within
+     * the stream.
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>1 - 256<br/>
      *
      * @return Determines which shard in the stream the data record is assigned to.
      *         Partition keys are Unicode strings with a maximum length limit of 256
-     *         bytes. Amazon Kinesis uses the partition key as input to a hash
-     *         function that maps the partition key and associated data to a specific
-     *         shard. Specifically, an MD5 hash function is used to map partition
-     *         keys to 128-bit integer values and to map associated data records to
-     *         shards. As a result of this hashing mechanism, all data records with
-     *         the same partition key map to the same shard within the stream.
+     *         characters for each key. Amazon Kinesis uses the partition key as
+     *         input to a hash function that maps the partition key and associated
+     *         data to a specific shard. Specifically, an MD5 hash function is used
+     *         to map partition keys to 128-bit integer values and to map associated
+     *         data records to shards. As a result of this hashing mechanism, all
+     *         data records with the same partition key map to the same shard within
+     *         the stream.
      */
     public String getPartitionKey() {
         return partitionKey;
@@ -188,24 +198,26 @@ public class PutRecordsRequestEntry implements Serializable, Cloneable {
     /**
      * Determines which shard in the stream the data record is assigned to.
      * Partition keys are Unicode strings with a maximum length limit of 256
-     * bytes. Amazon Kinesis uses the partition key as input to a hash
-     * function that maps the partition key and associated data to a specific
-     * shard. Specifically, an MD5 hash function is used to map partition
-     * keys to 128-bit integer values and to map associated data records to
-     * shards. As a result of this hashing mechanism, all data records with
-     * the same partition key map to the same shard within the stream.
+     * characters for each key. Amazon Kinesis uses the partition key as
+     * input to a hash function that maps the partition key and associated
+     * data to a specific shard. Specifically, an MD5 hash function is used
+     * to map partition keys to 128-bit integer values and to map associated
+     * data records to shards. As a result of this hashing mechanism, all
+     * data records with the same partition key map to the same shard within
+     * the stream.
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>1 - 256<br/>
      *
      * @param partitionKey Determines which shard in the stream the data record is assigned to.
      *         Partition keys are Unicode strings with a maximum length limit of 256
-     *         bytes. Amazon Kinesis uses the partition key as input to a hash
-     *         function that maps the partition key and associated data to a specific
-     *         shard. Specifically, an MD5 hash function is used to map partition
-     *         keys to 128-bit integer values and to map associated data records to
-     *         shards. As a result of this hashing mechanism, all data records with
-     *         the same partition key map to the same shard within the stream.
+     *         characters for each key. Amazon Kinesis uses the partition key as
+     *         input to a hash function that maps the partition key and associated
+     *         data to a specific shard. Specifically, an MD5 hash function is used
+     *         to map partition keys to 128-bit integer values and to map associated
+     *         data records to shards. As a result of this hashing mechanism, all
+     *         data records with the same partition key map to the same shard within
+     *         the stream.
      */
     public void setPartitionKey(String partitionKey) {
         this.partitionKey = partitionKey;
@@ -214,12 +226,13 @@ public class PutRecordsRequestEntry implements Serializable, Cloneable {
     /**
      * Determines which shard in the stream the data record is assigned to.
      * Partition keys are Unicode strings with a maximum length limit of 256
-     * bytes. Amazon Kinesis uses the partition key as input to a hash
-     * function that maps the partition key and associated data to a specific
-     * shard. Specifically, an MD5 hash function is used to map partition
-     * keys to 128-bit integer values and to map associated data records to
-     * shards. As a result of this hashing mechanism, all data records with
-     * the same partition key map to the same shard within the stream.
+     * characters for each key. Amazon Kinesis uses the partition key as
+     * input to a hash function that maps the partition key and associated
+     * data to a specific shard. Specifically, an MD5 hash function is used
+     * to map partition keys to 128-bit integer values and to map associated
+     * data records to shards. As a result of this hashing mechanism, all
+     * data records with the same partition key map to the same shard within
+     * the stream.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      * <p>
@@ -228,12 +241,13 @@ public class PutRecordsRequestEntry implements Serializable, Cloneable {
      *
      * @param partitionKey Determines which shard in the stream the data record is assigned to.
      *         Partition keys are Unicode strings with a maximum length limit of 256
-     *         bytes. Amazon Kinesis uses the partition key as input to a hash
-     *         function that maps the partition key and associated data to a specific
-     *         shard. Specifically, an MD5 hash function is used to map partition
-     *         keys to 128-bit integer values and to map associated data records to
-     *         shards. As a result of this hashing mechanism, all data records with
-     *         the same partition key map to the same shard within the stream.
+     *         characters for each key. Amazon Kinesis uses the partition key as
+     *         input to a hash function that maps the partition key and associated
+     *         data to a specific shard. Specifically, an MD5 hash function is used
+     *         to map partition keys to 128-bit integer values and to map associated
+     *         data records to shards. As a result of this hashing mechanism, all
+     *         data records with the same partition key map to the same shard within
+     *         the stream.
      *
      * @return A reference to this updated object so that method calls can be chained
      *         together.

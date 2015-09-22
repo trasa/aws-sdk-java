@@ -30,7 +30,8 @@ public class GetResourceConfigHistoryResult implements Serializable, Cloneable {
     private com.amazonaws.internal.ListWithAutoConstructFlag<ConfigurationItem> configurationItems;
 
     /**
-     * A token used for pagination of results.
+     * The string that you use in a subsequent request to get the next page
+     * of results in a paginated response.
      */
     private String nextToken;
 
@@ -69,6 +70,11 @@ public class GetResourceConfigHistoryResult implements Serializable, Cloneable {
     /**
      * A list that contains the configuration history of one or more
      * resources.
+     * <p>
+     * <b>NOTE:</b> This method appends the values to the existing list (if
+     * any). Use {@link #setConfigurationItems(java.util.Collection)} or
+     * {@link #withConfigurationItems(java.util.Collection)} if you want to
+     * override the existing values.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *
@@ -111,29 +117,35 @@ public class GetResourceConfigHistoryResult implements Serializable, Cloneable {
     }
 
     /**
-     * A token used for pagination of results.
+     * The string that you use in a subsequent request to get the next page
+     * of results in a paginated response.
      *
-     * @return A token used for pagination of results.
+     * @return The string that you use in a subsequent request to get the next page
+     *         of results in a paginated response.
      */
     public String getNextToken() {
         return nextToken;
     }
     
     /**
-     * A token used for pagination of results.
+     * The string that you use in a subsequent request to get the next page
+     * of results in a paginated response.
      *
-     * @param nextToken A token used for pagination of results.
+     * @param nextToken The string that you use in a subsequent request to get the next page
+     *         of results in a paginated response.
      */
     public void setNextToken(String nextToken) {
         this.nextToken = nextToken;
     }
     
     /**
-     * A token used for pagination of results.
+     * The string that you use in a subsequent request to get the next page
+     * of results in a paginated response.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *
-     * @param nextToken A token used for pagination of results.
+     * @param nextToken The string that you use in a subsequent request to get the next page
+     *         of results in a paginated response.
      *
      * @return A reference to this updated object so that method calls can be chained
      *         together.

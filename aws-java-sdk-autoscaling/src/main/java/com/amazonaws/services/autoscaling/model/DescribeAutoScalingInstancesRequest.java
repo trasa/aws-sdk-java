@@ -24,13 +24,6 @@ import com.amazonaws.AmazonWebServiceRequest;
  * Describes one or more Auto Scaling instances. If a list is not
  * provided, the call describes all instances.
  * </p>
- * <p>
- * You can describe up to a maximum of 50 instances with a single call.
- * By default, a call returns up to 20 instances. If there are more items
- * to return, the call returns a token. To get the next set of items,
- * repeat the call with the returned token in the <code>NextToken</code>
- * parameter.
- * </p>
  *
  * @see com.amazonaws.services.autoscaling.AmazonAutoScaling#describeAutoScalingInstances(DescribeAutoScalingInstancesRequest)
  */
@@ -97,6 +90,11 @@ public class DescribeAutoScalingInstancesRequest extends AmazonWebServiceRequest
      * One or more Auto Scaling instances to describe, up to 50 instances. If
      * you omit this parameter, all Auto Scaling instances are described. If
      * you specify an ID that does not exist, it is ignored with no error.
+     * <p>
+     * <b>NOTE:</b> This method appends the values to the existing list (if
+     * any). Use {@link #setInstanceIds(java.util.Collection)} or {@link
+     * #withInstanceIds(java.util.Collection)} if you want to override the
+     * existing values.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *

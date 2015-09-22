@@ -1,5 +1,5 @@
 /*
- * Copyright 2012 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2012-2015 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License.
@@ -102,7 +102,13 @@ class WorkfowContextImpl implements WorkflowContext {
         WorkflowExecutionStartedEventAttributes attributes = getWorkflowStartedEventAttributes();
         return attributes.getTaskList().getName();
     }
-    
+
+    @Override
+    public String getLambdaRole() {
+        WorkflowExecutionStartedEventAttributes attributes = getWorkflowStartedEventAttributes();
+        return attributes.getLambdaRole();
+    }
+
     private WorkflowExecutionStartedEventAttributes getWorkflowStartedEventAttributes() {
         HistoryEvent firstHistoryEvent = decisionTask.getEvents().get(0);
         WorkflowExecutionStartedEventAttributes attributes = firstHistoryEvent.getWorkflowExecutionStartedEventAttributes();

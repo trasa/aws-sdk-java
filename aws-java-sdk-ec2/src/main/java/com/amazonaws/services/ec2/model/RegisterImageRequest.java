@@ -36,10 +36,22 @@ import com.amazonaws.services.ec2.model.transform.RegisterImageRequestMarshaller
  * </p>
  * <p>
  * You can also use <code>RegisterImage</code> to create an Amazon
- * EBS-backed AMI from a snapshot of a root device volume. For more
+ * EBS-backed Linux AMI from a snapshot of a root device volume. For more
  * information, see
  * <a href="http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/Using_LaunchingInstanceFromSnapshot.html"> Launching an Instance from a Snapshot </a>
  * in the <i>Amazon Elastic Compute Cloud User Guide</i> .
+ * </p>
+ * <p>
+ * <b>IMPORTANT:</b> Some Linux distributions, such as Red Hat Enterprise
+ * Linux (RHEL) and SUSE Linux Enterprise Server (SLES), use the EC2
+ * billingProduct code associated with an AMI to verify subscription
+ * status for package updates. Creating an AMI from an EBS snapshot does
+ * not maintain this billing code, and subsequent instances launched from
+ * such an AMI will not be able to connect to package update
+ * infrastructure. Similarly, although you can create a Windows AMI from
+ * a snapshot, you can't successfully launch an instance from the AMI. To
+ * create Windows AMIs or to create AMIs for Linux operating systems that
+ * must retain AMI billing codes to work properly, see CreateImage.
  * </p>
  * <p>
  * If needed, you can deregister an AMI at any time. Any modifications
@@ -96,7 +108,7 @@ public class RegisterImageRequest extends AmazonWebServiceRequest implements Ser
 
     /**
      * The name of the root device (for example, <code>/dev/sda1</code>, or
-     * <code>xvda</code>).
+     * <code>/dev/xvda</code>).
      */
     private String rootDeviceName;
 
@@ -424,10 +436,10 @@ public class RegisterImageRequest extends AmazonWebServiceRequest implements Ser
 
     /**
      * The name of the root device (for example, <code>/dev/sda1</code>, or
-     * <code>xvda</code>).
+     * <code>/dev/xvda</code>).
      *
      * @return The name of the root device (for example, <code>/dev/sda1</code>, or
-     *         <code>xvda</code>).
+     *         <code>/dev/xvda</code>).
      */
     public String getRootDeviceName() {
         return rootDeviceName;
@@ -435,10 +447,10 @@ public class RegisterImageRequest extends AmazonWebServiceRequest implements Ser
     
     /**
      * The name of the root device (for example, <code>/dev/sda1</code>, or
-     * <code>xvda</code>).
+     * <code>/dev/xvda</code>).
      *
      * @param rootDeviceName The name of the root device (for example, <code>/dev/sda1</code>, or
-     *         <code>xvda</code>).
+     *         <code>/dev/xvda</code>).
      */
     public void setRootDeviceName(String rootDeviceName) {
         this.rootDeviceName = rootDeviceName;
@@ -446,12 +458,12 @@ public class RegisterImageRequest extends AmazonWebServiceRequest implements Ser
     
     /**
      * The name of the root device (for example, <code>/dev/sda1</code>, or
-     * <code>xvda</code>).
+     * <code>/dev/xvda</code>).
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *
      * @param rootDeviceName The name of the root device (for example, <code>/dev/sda1</code>, or
-     *         <code>xvda</code>).
+     *         <code>/dev/xvda</code>).
      *
      * @return A reference to this updated object so that method calls can be chained
      *         together.
@@ -491,6 +503,11 @@ public class RegisterImageRequest extends AmazonWebServiceRequest implements Ser
     
     /**
      * One or more block device mapping entries.
+     * <p>
+     * <b>NOTE:</b> This method appends the values to the existing list (if
+     * any). Use {@link #setBlockDeviceMappings(java.util.Collection)} or
+     * {@link #withBlockDeviceMappings(java.util.Collection)} if you want to
+     * override the existing values.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *

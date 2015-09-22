@@ -452,6 +452,61 @@ public class AWSStorageGatewayClient extends AmazonWebServiceClient implements A
 
     /**
      * <p>
+     * This operation lists the tags that have been added to the specified
+     * resource.
+     * </p>
+     *
+     * @param listTagsForResourceRequest Container for the necessary
+     *           parameters to execute the ListTagsForResource service method on
+     *           AWSStorageGateway.
+     * 
+     * @return The response from the ListTagsForResource service method, as
+     *         returned by AWSStorageGateway.
+     * 
+     * @throws InternalServerErrorException
+     * @throws InvalidGatewayRequestException
+     *
+     * @throws AmazonClientException
+     *             If any internal errors are encountered inside the client while
+     *             attempting to make the request or handle the response.  For example
+     *             if a network connection is not available.
+     * @throws AmazonServiceException
+     *             If an error response is returned by AWSStorageGateway indicating
+     *             either a problem with the data in the request, or a server side issue.
+     */
+    public ListTagsForResourceResult listTagsForResource(ListTagsForResourceRequest listTagsForResourceRequest) {
+        ExecutionContext executionContext = createExecutionContext(listTagsForResourceRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<ListTagsForResourceRequest> request = null;
+        Response<ListTagsForResourceResult> response = null;
+        
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new ListTagsForResourceRequestMarshaller().marshall(super.beforeMarshalling(listTagsForResourceRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            Unmarshaller<ListTagsForResourceResult, JsonUnmarshallerContext> unmarshaller =
+                new ListTagsForResourceResultJsonUnmarshaller();
+            JsonResponseHandler<ListTagsForResourceResult> responseHandler =
+                new JsonResponseHandler<ListTagsForResourceResult>(unmarshaller);
+
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+        } finally {
+            
+            endClientExecution(awsRequestMetrics, request, response, LOGGING_AWS_REQUEST_METRIC);
+        }
+    }
+
+    /**
+     * <p>
      * This operation initiates a snapshot of a volume.
      * </p>
      * <p>
@@ -477,7 +532,8 @@ public class AWSStorageGatewayClient extends AmazonWebServiceClient implements A
      * </p>
      * <p>
      * <b>NOTE:</b>To list or delete a snapshot, you must use the Amazon EC2
-     * API. For more information, .
+     * API. For more information, see DescribeSnapshots or DeleteSnapshot in
+     * the EC2 API reference.
      * </p>
      *
      * @param createSnapshotRequest Container for the necessary parameters to
@@ -518,6 +574,93 @@ public class AWSStorageGatewayClient extends AmazonWebServiceClient implements A
                 new CreateSnapshotResultJsonUnmarshaller();
             JsonResponseHandler<CreateSnapshotResult> responseHandler =
                 new JsonResponseHandler<CreateSnapshotResult>(unmarshaller);
+
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+        } finally {
+            
+            endClientExecution(awsRequestMetrics, request, response, LOGGING_AWS_REQUEST_METRIC);
+        }
+    }
+
+    /**
+     * <p>
+     * This operation adds one or more tags to the specified resource. You
+     * use tags to add metadata to resources, which you can use to categorize
+     * these resources. For example, you can categorize resources by purpose,
+     * owner, environment, or team. Each tag consists of a key and a value,
+     * which you define. You can add tags to the following AWS Storage
+     * Gateway resources:
+     * </p>
+     * 
+     * <ul>
+     * <li> <p>
+     * Storage gateways of all types
+     * </p>
+     * </li>
+     * 
+     * </ul>
+     * 
+     * <ul>
+     * <li> <p>
+     * Storage Volumes
+     * </p>
+     * </li>
+     * 
+     * </ul>
+     * 
+     * <ul>
+     * <li> <p>
+     * Virtual Tapes
+     * </p>
+     * </li>
+     * 
+     * </ul>
+     * <p>
+     * You can create a maximum of 10 tags for each resource. Virtual tapes
+     * and storage volumes that are recovered to a new gateway maintain their
+     * tags.
+     * </p>
+     *
+     * @param addTagsToResourceRequest Container for the necessary parameters
+     *           to execute the AddTagsToResource service method on AWSStorageGateway.
+     * 
+     * @return The response from the AddTagsToResource service method, as
+     *         returned by AWSStorageGateway.
+     * 
+     * @throws InternalServerErrorException
+     * @throws InvalidGatewayRequestException
+     *
+     * @throws AmazonClientException
+     *             If any internal errors are encountered inside the client while
+     *             attempting to make the request or handle the response.  For example
+     *             if a network connection is not available.
+     * @throws AmazonServiceException
+     *             If an error response is returned by AWSStorageGateway indicating
+     *             either a problem with the data in the request, or a server side issue.
+     */
+    public AddTagsToResourceResult addTagsToResource(AddTagsToResourceRequest addTagsToResourceRequest) {
+        ExecutionContext executionContext = createExecutionContext(addTagsToResourceRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<AddTagsToResourceRequest> request = null;
+        Response<AddTagsToResourceResult> response = null;
+        
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new AddTagsToResourceRequestMarshaller().marshall(super.beforeMarshalling(addTagsToResourceRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            Unmarshaller<AddTagsToResourceResult, JsonUnmarshallerContext> unmarshaller =
+                new AddTagsToResourceResultJsonUnmarshaller();
+            JsonResponseHandler<AddTagsToResourceResult> responseHandler =
+                new JsonResponseHandler<AddTagsToResourceResult>(unmarshaller);
 
             response = invoke(request, responseHandler, executionContext);
 
@@ -1130,6 +1273,62 @@ public class AWSStorageGatewayClient extends AmazonWebServiceClient implements A
 
     /**
      * <p>
+     * This operation lists iSCSI initiators that are connected to a volume.
+     * You can use this operation to determine whether a volume is being used
+     * or not.
+     * </p>
+     *
+     * @param listVolumeInitiatorsRequest Container for the necessary
+     *           parameters to execute the ListVolumeInitiators service method on
+     *           AWSStorageGateway.
+     * 
+     * @return The response from the ListVolumeInitiators service method, as
+     *         returned by AWSStorageGateway.
+     * 
+     * @throws InternalServerErrorException
+     * @throws InvalidGatewayRequestException
+     *
+     * @throws AmazonClientException
+     *             If any internal errors are encountered inside the client while
+     *             attempting to make the request or handle the response.  For example
+     *             if a network connection is not available.
+     * @throws AmazonServiceException
+     *             If an error response is returned by AWSStorageGateway indicating
+     *             either a problem with the data in the request, or a server side issue.
+     */
+    public ListVolumeInitiatorsResult listVolumeInitiators(ListVolumeInitiatorsRequest listVolumeInitiatorsRequest) {
+        ExecutionContext executionContext = createExecutionContext(listVolumeInitiatorsRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<ListVolumeInitiatorsRequest> request = null;
+        Response<ListVolumeInitiatorsResult> response = null;
+        
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new ListVolumeInitiatorsRequestMarshaller().marshall(super.beforeMarshalling(listVolumeInitiatorsRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            Unmarshaller<ListVolumeInitiatorsResult, JsonUnmarshallerContext> unmarshaller =
+                new ListVolumeInitiatorsResultJsonUnmarshaller();
+            JsonResponseHandler<ListVolumeInitiatorsResult> responseHandler =
+                new JsonResponseHandler<ListVolumeInitiatorsResult>(unmarshaller);
+
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+        } finally {
+            
+            endClientExecution(awsRequestMetrics, request, response, LOGGING_AWS_REQUEST_METRIC);
+        }
+    }
+
+    /**
+     * <p>
      * This operation returns a list of the gateway's local disks. To
      * specify which gateway to describe, you use the Amazon Resource Name
      * (ARN) of the gateway in the body of the request.
@@ -1138,8 +1337,8 @@ public class AWSStorageGatewayClient extends AmazonWebServiceClient implements A
      * The request returns a list of all disks, specifying which are
      * configured as working storage, cache storage, or stored volume or not
      * configured at all. The response includes a <code>DiskStatus</code>
-     * field. This field can have a value of present (the disk is availble to
-     * use), missing (the disk is no longer connected to the gateway), or
+     * field. This field can have a value of present (the disk is available
+     * to use), missing (the disk is no longer connected to the gateway), or
      * mismatch (the disk node is occupied by a disk that has incorrect
      * metadata or the disk content is corrupted).
      * </p>
@@ -1791,10 +1990,10 @@ public class AWSStorageGatewayClient extends AmazonWebServiceClient implements A
 
     /**
      * <p>
-     * This operation returns description of the gateway volumes specified
-     * in the request. The list of gateway volumes in the request must be
-     * from one gateway. In the response Amazon Storage Gateway returns
-     * volume information sorted by volume ARNs.
+     * This operation returns the description of the gateway volumes
+     * specified in the request. The list of gateway volumes in the request
+     * must be from one gateway. In the response Amazon Storage Gateway
+     * returns volume information sorted by volume ARNs.
      * </p>
      *
      * @param describeStorediSCSIVolumesRequest Container for the necessary
@@ -2093,10 +2292,20 @@ public class AWSStorageGatewayClient extends AmazonWebServiceClient implements A
 
     /**
      * <p>
-     * This operation resets all cache disks and makes the disks available
-     * for reconfiguration as cache storage. When a cache is reset, the
-     * gateway loses its cache storage. At this point you can reconfigure the
-     * disks as cache disks.
+     * This operation resets all cache disks that have encountered a error
+     * and makes the disks available for reconfiguration as cache storage. If
+     * your cache disk encounters a error, the gateway prevents read and
+     * write operations on virtual tapes in the gateway. For example, an
+     * error can occur when a disk is corrupted or removed from the gateway.
+     * When a cache is reset, the gateway loses its cache storage. At this
+     * point you can reconfigure the disks as cache disks.
+     * </p>
+     * <p>
+     * <b>IMPORTANT:</b> If the cache disk you are resetting contains data
+     * that has not been uploaded to Amazon S3 yet, that data can be lost.
+     * After you reset cache disks, there will be no configured cache disks
+     * left in the gateway, so you must configure at least one new cache disk
+     * for your gateway to function properly.
      * </p>
      *
      * @param resetCacheRequest Container for the necessary parameters to
@@ -2449,6 +2658,60 @@ public class AWSStorageGatewayClient extends AmazonWebServiceClient implements A
 
     /**
      * <p>
+     * This operation removes one or more tags from the specified resource.
+     * </p>
+     *
+     * @param removeTagsFromResourceRequest Container for the necessary
+     *           parameters to execute the RemoveTagsFromResource service method on
+     *           AWSStorageGateway.
+     * 
+     * @return The response from the RemoveTagsFromResource service method,
+     *         as returned by AWSStorageGateway.
+     * 
+     * @throws InternalServerErrorException
+     * @throws InvalidGatewayRequestException
+     *
+     * @throws AmazonClientException
+     *             If any internal errors are encountered inside the client while
+     *             attempting to make the request or handle the response.  For example
+     *             if a network connection is not available.
+     * @throws AmazonServiceException
+     *             If an error response is returned by AWSStorageGateway indicating
+     *             either a problem with the data in the request, or a server side issue.
+     */
+    public RemoveTagsFromResourceResult removeTagsFromResource(RemoveTagsFromResourceRequest removeTagsFromResourceRequest) {
+        ExecutionContext executionContext = createExecutionContext(removeTagsFromResourceRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<RemoveTagsFromResourceRequest> request = null;
+        Response<RemoveTagsFromResourceResult> response = null;
+        
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new RemoveTagsFromResourceRequestMarshaller().marshall(super.beforeMarshalling(removeTagsFromResourceRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            Unmarshaller<RemoveTagsFromResourceResult, JsonUnmarshallerContext> unmarshaller =
+                new RemoveTagsFromResourceResultJsonUnmarshaller();
+            JsonResponseHandler<RemoveTagsFromResourceResult> responseHandler =
+                new JsonResponseHandler<RemoveTagsFromResourceResult>(unmarshaller);
+
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+        } finally {
+            
+            endClientExecution(awsRequestMetrics, request, response, LOGGING_AWS_REQUEST_METRIC);
+        }
+    }
+
+    /**
+     * <p>
      * Deletes the specified virtual tape from the virtual tape shelf (VTS).
      * </p>
      *
@@ -2748,67 +3011,11 @@ public class AWSStorageGatewayClient extends AmazonWebServiceClient implements A
 
     /**
      * <p>
-     * This operation describes the snapshot schedule for the specified
-     * gateway volume. The snapshot schedule information includes intervals
-     * at which snapshots are automatically initiated on the volume.
-     * </p>
-     *
-     * @param describeSnapshotScheduleRequest Container for the necessary
-     *           parameters to execute the DescribeSnapshotSchedule service method on
-     *           AWSStorageGateway.
-     * 
-     * @return The response from the DescribeSnapshotSchedule service method,
-     *         as returned by AWSStorageGateway.
-     * 
-     * @throws InternalServerErrorException
-     * @throws InvalidGatewayRequestException
-     *
-     * @throws AmazonClientException
-     *             If any internal errors are encountered inside the client while
-     *             attempting to make the request or handle the response.  For example
-     *             if a network connection is not available.
-     * @throws AmazonServiceException
-     *             If an error response is returned by AWSStorageGateway indicating
-     *             either a problem with the data in the request, or a server side issue.
-     */
-    public DescribeSnapshotScheduleResult describeSnapshotSchedule(DescribeSnapshotScheduleRequest describeSnapshotScheduleRequest) {
-        ExecutionContext executionContext = createExecutionContext(describeSnapshotScheduleRequest);
-        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
-        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
-        Request<DescribeSnapshotScheduleRequest> request = null;
-        Response<DescribeSnapshotScheduleResult> response = null;
-        
-        try {
-            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
-            try {
-                request = new DescribeSnapshotScheduleRequestMarshaller().marshall(super.beforeMarshalling(describeSnapshotScheduleRequest));
-                // Binds the request metrics to the current request.
-                request.setAWSRequestMetrics(awsRequestMetrics);
-            } finally {
-                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
-            }
-
-            Unmarshaller<DescribeSnapshotScheduleResult, JsonUnmarshallerContext> unmarshaller =
-                new DescribeSnapshotScheduleResultJsonUnmarshaller();
-            JsonResponseHandler<DescribeSnapshotScheduleResult> responseHandler =
-                new JsonResponseHandler<DescribeSnapshotScheduleResult>(unmarshaller);
-
-            response = invoke(request, responseHandler, executionContext);
-
-            return response.getAwsResponse();
-        } finally {
-            
-            endClientExecution(awsRequestMetrics, request, response, LOGGING_AWS_REQUEST_METRIC);
-        }
-    }
-
-    /**
-     * <p>
-     * This operation delete the specified gateway volume that you
-     * previously created using the CreateStorediSCSIVolume API. For
-     * gateway-stored volumes, the local disk that was configured as the
-     * storage volume is not deleted. You can reuse the local disk to create
-     * another storage volume.
+     * This operation deletes the specified gateway volume that you
+     * previously created using the CreateCachediSCSIVolume or
+     * CreateStorediSCSIVolume API. For gateway-stored volumes, the local
+     * disk that was configured as the storage volume is not deleted. You can
+     * reuse the local disk to create another storage volume.
      * </p>
      * <p>
      * Before you delete a gateway volume, make sure there are no iSCSI
@@ -2863,6 +3070,62 @@ public class AWSStorageGatewayClient extends AmazonWebServiceClient implements A
                 new DeleteVolumeResultJsonUnmarshaller();
             JsonResponseHandler<DeleteVolumeResult> responseHandler =
                 new JsonResponseHandler<DeleteVolumeResult>(unmarshaller);
+
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+        } finally {
+            
+            endClientExecution(awsRequestMetrics, request, response, LOGGING_AWS_REQUEST_METRIC);
+        }
+    }
+
+    /**
+     * <p>
+     * This operation describes the snapshot schedule for the specified
+     * gateway volume. The snapshot schedule information includes intervals
+     * at which snapshots are automatically initiated on the volume.
+     * </p>
+     *
+     * @param describeSnapshotScheduleRequest Container for the necessary
+     *           parameters to execute the DescribeSnapshotSchedule service method on
+     *           AWSStorageGateway.
+     * 
+     * @return The response from the DescribeSnapshotSchedule service method,
+     *         as returned by AWSStorageGateway.
+     * 
+     * @throws InternalServerErrorException
+     * @throws InvalidGatewayRequestException
+     *
+     * @throws AmazonClientException
+     *             If any internal errors are encountered inside the client while
+     *             attempting to make the request or handle the response.  For example
+     *             if a network connection is not available.
+     * @throws AmazonServiceException
+     *             If an error response is returned by AWSStorageGateway indicating
+     *             either a problem with the data in the request, or a server side issue.
+     */
+    public DescribeSnapshotScheduleResult describeSnapshotSchedule(DescribeSnapshotScheduleRequest describeSnapshotScheduleRequest) {
+        ExecutionContext executionContext = createExecutionContext(describeSnapshotScheduleRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<DescribeSnapshotScheduleRequest> request = null;
+        Response<DescribeSnapshotScheduleResult> response = null;
+        
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new DescribeSnapshotScheduleRequestMarshaller().marshall(super.beforeMarshalling(describeSnapshotScheduleRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            Unmarshaller<DescribeSnapshotScheduleResult, JsonUnmarshallerContext> unmarshaller =
+                new DescribeSnapshotScheduleResultJsonUnmarshaller();
+            JsonResponseHandler<DescribeSnapshotScheduleResult> responseHandler =
+                new JsonResponseHandler<DescribeSnapshotScheduleResult>(unmarshaller);
 
             response = invoke(request, responseHandler, executionContext);
 
@@ -3320,6 +3583,30 @@ public class AWSStorageGatewayClient extends AmazonWebServiceClient implements A
 
     /**
      * <p>
+     * This operation lists the tags that have been added to the specified
+     * resource.
+     * </p>
+     * 
+     * @return The response from the ListTagsForResource service method, as
+     *         returned by AWSStorageGateway.
+     * 
+     * @throws InternalServerErrorException
+     * @throws InvalidGatewayRequestException
+     *
+     * @throws AmazonClientException
+     *             If any internal errors are encountered inside the client while
+     *             attempting to make the request or handle the response.  For example
+     *             if a network connection is not available.
+     * @throws AmazonServiceException
+     *             If an error response is returned by AWSStorageGateway indicating
+     *             either a problem with the data in the request, or a server side issue.
+     */
+    public ListTagsForResourceResult listTagsForResource() throws AmazonServiceException, AmazonClientException {
+        return listTagsForResource(new ListTagsForResourceRequest());
+    }
+    
+    /**
+     * <p>
      * This operation lists gateways owned by an AWS account in a region
      * specified in the request. The returned list is ordered by gateway
      * Amazon Resource Name (ARN).
@@ -3381,6 +3668,29 @@ public class AWSStorageGatewayClient extends AmazonWebServiceClient implements A
      */
     public DescribeTapeArchivesResult describeTapeArchives() throws AmazonServiceException, AmazonClientException {
         return describeTapeArchives(new DescribeTapeArchivesRequest());
+    }
+    
+    /**
+     * <p>
+     * This operation removes one or more tags from the specified resource.
+     * </p>
+     * 
+     * @return The response from the RemoveTagsFromResource service method,
+     *         as returned by AWSStorageGateway.
+     * 
+     * @throws InternalServerErrorException
+     * @throws InvalidGatewayRequestException
+     *
+     * @throws AmazonClientException
+     *             If any internal errors are encountered inside the client while
+     *             attempting to make the request or handle the response.  For example
+     *             if a network connection is not available.
+     * @throws AmazonServiceException
+     *             If an error response is returned by AWSStorageGateway indicating
+     *             either a problem with the data in the request, or a server side issue.
+     */
+    public RemoveTagsFromResourceResult removeTagsFromResource() throws AmazonServiceException, AmazonClientException {
+        return removeTagsFromResource(new RemoveTagsFromResourceRequest());
     }
 
     @Override

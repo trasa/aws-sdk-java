@@ -17,7 +17,9 @@ package com.amazonaws.services.ecs.model;
 import java.io.Serializable;
 
 /**
- * 
+ * <p>
+ * Details on a task in a cluster.
+ * </p>
  */
 public class Task implements Serializable, Cloneable {
 
@@ -63,6 +65,13 @@ public class Task implements Serializable, Cloneable {
      * The containers associated with the task.
      */
     private com.amazonaws.internal.ListWithAutoConstructFlag<Container> containers;
+
+    /**
+     * The tag specified when a task is started. If the task is started by an
+     * Amazon ECS service, then the <code>startedBy</code> parameter contains
+     * the deployment ID of the service that starts it.
+     */
+    private String startedBy;
 
     /**
      * The Amazon Resource Name (ARN) of the task.
@@ -344,6 +353,11 @@ public class Task implements Serializable, Cloneable {
     /**
      * The containers associated with the task.
      * <p>
+     * <b>NOTE:</b> This method appends the values to the existing list (if
+     * any). Use {@link #setContainers(java.util.Collection)} or {@link
+     * #withContainers(java.util.Collection)} if you want to override the
+     * existing values.
+     * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *
      * @param containers The containers associated with the task.
@@ -382,6 +396,51 @@ public class Task implements Serializable, Cloneable {
     }
 
     /**
+     * The tag specified when a task is started. If the task is started by an
+     * Amazon ECS service, then the <code>startedBy</code> parameter contains
+     * the deployment ID of the service that starts it.
+     *
+     * @return The tag specified when a task is started. If the task is started by an
+     *         Amazon ECS service, then the <code>startedBy</code> parameter contains
+     *         the deployment ID of the service that starts it.
+     */
+    public String getStartedBy() {
+        return startedBy;
+    }
+    
+    /**
+     * The tag specified when a task is started. If the task is started by an
+     * Amazon ECS service, then the <code>startedBy</code> parameter contains
+     * the deployment ID of the service that starts it.
+     *
+     * @param startedBy The tag specified when a task is started. If the task is started by an
+     *         Amazon ECS service, then the <code>startedBy</code> parameter contains
+     *         the deployment ID of the service that starts it.
+     */
+    public void setStartedBy(String startedBy) {
+        this.startedBy = startedBy;
+    }
+    
+    /**
+     * The tag specified when a task is started. If the task is started by an
+     * Amazon ECS service, then the <code>startedBy</code> parameter contains
+     * the deployment ID of the service that starts it.
+     * <p>
+     * Returns a reference to this object so that method calls can be chained together.
+     *
+     * @param startedBy The tag specified when a task is started. If the task is started by an
+     *         Amazon ECS service, then the <code>startedBy</code> parameter contains
+     *         the deployment ID of the service that starts it.
+     *
+     * @return A reference to this updated object so that method calls can be chained
+     *         together.
+     */
+    public Task withStartedBy(String startedBy) {
+        this.startedBy = startedBy;
+        return this;
+    }
+
+    /**
      * Returns a string representation of this object; useful for testing and
      * debugging.
      *
@@ -400,7 +459,8 @@ public class Task implements Serializable, Cloneable {
         if (getOverrides() != null) sb.append("Overrides: " + getOverrides() + ",");
         if (getLastStatus() != null) sb.append("LastStatus: " + getLastStatus() + ",");
         if (getDesiredStatus() != null) sb.append("DesiredStatus: " + getDesiredStatus() + ",");
-        if (getContainers() != null) sb.append("Containers: " + getContainers() );
+        if (getContainers() != null) sb.append("Containers: " + getContainers() + ",");
+        if (getStartedBy() != null) sb.append("StartedBy: " + getStartedBy() );
         sb.append("}");
         return sb.toString();
     }
@@ -418,6 +478,7 @@ public class Task implements Serializable, Cloneable {
         hashCode = prime * hashCode + ((getLastStatus() == null) ? 0 : getLastStatus().hashCode()); 
         hashCode = prime * hashCode + ((getDesiredStatus() == null) ? 0 : getDesiredStatus().hashCode()); 
         hashCode = prime * hashCode + ((getContainers() == null) ? 0 : getContainers().hashCode()); 
+        hashCode = prime * hashCode + ((getStartedBy() == null) ? 0 : getStartedBy().hashCode()); 
         return hashCode;
     }
     
@@ -445,6 +506,8 @@ public class Task implements Serializable, Cloneable {
         if (other.getDesiredStatus() != null && other.getDesiredStatus().equals(this.getDesiredStatus()) == false) return false; 
         if (other.getContainers() == null ^ this.getContainers() == null) return false;
         if (other.getContainers() != null && other.getContainers().equals(this.getContainers()) == false) return false; 
+        if (other.getStartedBy() == null ^ this.getStartedBy() == null) return false;
+        if (other.getStartedBy() != null && other.getStartedBy().equals(this.getStartedBy()) == false) return false; 
         return true;
     }
     

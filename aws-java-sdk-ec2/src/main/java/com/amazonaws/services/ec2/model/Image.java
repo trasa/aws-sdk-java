@@ -39,7 +39,7 @@ public class Image implements Serializable, Cloneable {
      * instance.
      * <p>
      * <b>Constraints:</b><br/>
-     * <b>Allowed Values: </b>available, deregistered
+     * <b>Allowed Values: </b>pending, available, invalid, deregistered, transient, failed, error
      */
     private String state;
 
@@ -129,8 +129,8 @@ public class Image implements Serializable, Cloneable {
     private String description;
 
     /**
-     * The type of root device used by the AMI. The AMI can use an Amazon EBS
-     * volume or an instance store volume.
+     * The type of root device used by the AMI. The AMI can use an EBS volume
+     * or an instance store volume.
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Allowed Values: </b>ebs, instance-store
@@ -139,7 +139,7 @@ public class Image implements Serializable, Cloneable {
 
     /**
      * The device name of the root device (for example,
-     * <filename>/dev/sda1</filename> or <filename>xvda</filename>).
+     * <code>/dev/sda1</code> or <code>/dev/xvda</code>).
      */
     private String rootDeviceName;
 
@@ -241,7 +241,7 @@ public class Image implements Serializable, Cloneable {
      * instance.
      * <p>
      * <b>Constraints:</b><br/>
-     * <b>Allowed Values: </b>available, deregistered
+     * <b>Allowed Values: </b>pending, available, invalid, deregistered, transient, failed, error
      *
      * @return The current state of the AMI. If the state is <code>available</code>,
      *         the image is successfully registered and can be used to launch an
@@ -259,7 +259,7 @@ public class Image implements Serializable, Cloneable {
      * instance.
      * <p>
      * <b>Constraints:</b><br/>
-     * <b>Allowed Values: </b>available, deregistered
+     * <b>Allowed Values: </b>pending, available, invalid, deregistered, transient, failed, error
      *
      * @param state The current state of the AMI. If the state is <code>available</code>,
      *         the image is successfully registered and can be used to launch an
@@ -279,7 +279,7 @@ public class Image implements Serializable, Cloneable {
      * Returns a reference to this object so that method calls can be chained together.
      * <p>
      * <b>Constraints:</b><br/>
-     * <b>Allowed Values: </b>available, deregistered
+     * <b>Allowed Values: </b>pending, available, invalid, deregistered, transient, failed, error
      *
      * @param state The current state of the AMI. If the state is <code>available</code>,
      *         the image is successfully registered and can be used to launch an
@@ -301,7 +301,7 @@ public class Image implements Serializable, Cloneable {
      * instance.
      * <p>
      * <b>Constraints:</b><br/>
-     * <b>Allowed Values: </b>available, deregistered
+     * <b>Allowed Values: </b>pending, available, invalid, deregistered, transient, failed, error
      *
      * @param state The current state of the AMI. If the state is <code>available</code>,
      *         the image is successfully registered and can be used to launch an
@@ -321,7 +321,7 @@ public class Image implements Serializable, Cloneable {
      * Returns a reference to this object so that method calls can be chained together.
      * <p>
      * <b>Constraints:</b><br/>
-     * <b>Allowed Values: </b>available, deregistered
+     * <b>Allowed Values: </b>pending, available, invalid, deregistered, transient, failed, error
      *
      * @param state The current state of the AMI. If the state is <code>available</code>,
      *         the image is successfully registered and can be used to launch an
@@ -499,6 +499,11 @@ public class Image implements Serializable, Cloneable {
     
     /**
      * Any product codes associated with the AMI.
+     * <p>
+     * <b>NOTE:</b> This method appends the values to the existing list (if
+     * any). Use {@link #setProductCodes(java.util.Collection)} or {@link
+     * #withProductCodes(java.util.Collection)} if you want to override the
+     * existing values.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *
@@ -1033,14 +1038,14 @@ public class Image implements Serializable, Cloneable {
     }
 
     /**
-     * The type of root device used by the AMI. The AMI can use an Amazon EBS
-     * volume or an instance store volume.
+     * The type of root device used by the AMI. The AMI can use an EBS volume
+     * or an instance store volume.
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Allowed Values: </b>ebs, instance-store
      *
-     * @return The type of root device used by the AMI. The AMI can use an Amazon EBS
-     *         volume or an instance store volume.
+     * @return The type of root device used by the AMI. The AMI can use an EBS volume
+     *         or an instance store volume.
      *
      * @see DeviceType
      */
@@ -1049,14 +1054,14 @@ public class Image implements Serializable, Cloneable {
     }
     
     /**
-     * The type of root device used by the AMI. The AMI can use an Amazon EBS
-     * volume or an instance store volume.
+     * The type of root device used by the AMI. The AMI can use an EBS volume
+     * or an instance store volume.
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Allowed Values: </b>ebs, instance-store
      *
-     * @param rootDeviceType The type of root device used by the AMI. The AMI can use an Amazon EBS
-     *         volume or an instance store volume.
+     * @param rootDeviceType The type of root device used by the AMI. The AMI can use an EBS volume
+     *         or an instance store volume.
      *
      * @see DeviceType
      */
@@ -1065,16 +1070,16 @@ public class Image implements Serializable, Cloneable {
     }
     
     /**
-     * The type of root device used by the AMI. The AMI can use an Amazon EBS
-     * volume or an instance store volume.
+     * The type of root device used by the AMI. The AMI can use an EBS volume
+     * or an instance store volume.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Allowed Values: </b>ebs, instance-store
      *
-     * @param rootDeviceType The type of root device used by the AMI. The AMI can use an Amazon EBS
-     *         volume or an instance store volume.
+     * @param rootDeviceType The type of root device used by the AMI. The AMI can use an EBS volume
+     *         or an instance store volume.
      *
      * @return A reference to this updated object so that method calls can be chained
      *         together.
@@ -1087,14 +1092,14 @@ public class Image implements Serializable, Cloneable {
     }
 
     /**
-     * The type of root device used by the AMI. The AMI can use an Amazon EBS
-     * volume or an instance store volume.
+     * The type of root device used by the AMI. The AMI can use an EBS volume
+     * or an instance store volume.
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Allowed Values: </b>ebs, instance-store
      *
-     * @param rootDeviceType The type of root device used by the AMI. The AMI can use an Amazon EBS
-     *         volume or an instance store volume.
+     * @param rootDeviceType The type of root device used by the AMI. The AMI can use an EBS volume
+     *         or an instance store volume.
      *
      * @see DeviceType
      */
@@ -1103,16 +1108,16 @@ public class Image implements Serializable, Cloneable {
     }
     
     /**
-     * The type of root device used by the AMI. The AMI can use an Amazon EBS
-     * volume or an instance store volume.
+     * The type of root device used by the AMI. The AMI can use an EBS volume
+     * or an instance store volume.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Allowed Values: </b>ebs, instance-store
      *
-     * @param rootDeviceType The type of root device used by the AMI. The AMI can use an Amazon EBS
-     *         volume or an instance store volume.
+     * @param rootDeviceType The type of root device used by the AMI. The AMI can use an EBS volume
+     *         or an instance store volume.
      *
      * @return A reference to this updated object so that method calls can be chained
      *         together.
@@ -1126,10 +1131,10 @@ public class Image implements Serializable, Cloneable {
 
     /**
      * The device name of the root device (for example,
-     * <filename>/dev/sda1</filename> or <filename>xvda</filename>).
+     * <code>/dev/sda1</code> or <code>/dev/xvda</code>).
      *
      * @return The device name of the root device (for example,
-     *         <filename>/dev/sda1</filename> or <filename>xvda</filename>).
+     *         <code>/dev/sda1</code> or <code>/dev/xvda</code>).
      */
     public String getRootDeviceName() {
         return rootDeviceName;
@@ -1137,10 +1142,10 @@ public class Image implements Serializable, Cloneable {
     
     /**
      * The device name of the root device (for example,
-     * <filename>/dev/sda1</filename> or <filename>xvda</filename>).
+     * <code>/dev/sda1</code> or <code>/dev/xvda</code>).
      *
      * @param rootDeviceName The device name of the root device (for example,
-     *         <filename>/dev/sda1</filename> or <filename>xvda</filename>).
+     *         <code>/dev/sda1</code> or <code>/dev/xvda</code>).
      */
     public void setRootDeviceName(String rootDeviceName) {
         this.rootDeviceName = rootDeviceName;
@@ -1148,12 +1153,12 @@ public class Image implements Serializable, Cloneable {
     
     /**
      * The device name of the root device (for example,
-     * <filename>/dev/sda1</filename> or <filename>xvda</filename>).
+     * <code>/dev/sda1</code> or <code>/dev/xvda</code>).
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *
      * @param rootDeviceName The device name of the root device (for example,
-     *         <filename>/dev/sda1</filename> or <filename>xvda</filename>).
+     *         <code>/dev/sda1</code> or <code>/dev/xvda</code>).
      *
      * @return A reference to this updated object so that method calls can be chained
      *         together.
@@ -1193,6 +1198,11 @@ public class Image implements Serializable, Cloneable {
     
     /**
      * Any block device mapping entries.
+     * <p>
+     * <b>NOTE:</b> This method appends the values to the existing list (if
+     * any). Use {@link #setBlockDeviceMappings(java.util.Collection)} or
+     * {@link #withBlockDeviceMappings(java.util.Collection)} if you want to
+     * override the existing values.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *
@@ -1343,6 +1353,11 @@ public class Image implements Serializable, Cloneable {
     
     /**
      * Any tags assigned to the image.
+     * <p>
+     * <b>NOTE:</b> This method appends the values to the existing list (if
+     * any). Use {@link #setTags(java.util.Collection)} or {@link
+     * #withTags(java.util.Collection)} if you want to override the existing
+     * values.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *

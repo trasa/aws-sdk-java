@@ -1,5 +1,5 @@
 /*
- * Copyright 2012 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2012-2015 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License.
@@ -40,15 +40,18 @@ class POJOWorkflowDefinitionFactory extends WorkflowDefinitionFactory {
 
     private final Map<String, MethodConverterPair> signals;
 
+    private final Object[] constructorArgs;
+
     public POJOWorkflowDefinitionFactory(POJOWorkflowImplementationFactory implementationFactory, WorkflowType workflowType,
             WorkflowTypeRegistrationOptions registrationOptions, MethodConverterPair workflowImplementationMethod,
-            Map<String, MethodConverterPair> signals, MethodConverterPair getStateMethod) {
+            Map<String, MethodConverterPair> signals, MethodConverterPair getStateMethod, Object[] constructorArgs) {
         this.implementationFactory = implementationFactory;
         this.workflowType = workflowType;
         this.registrationOptions = registrationOptions;
         this.workflowImplementationMethod = workflowImplementationMethod;
         this.signals = signals;
         this.getStateMethod = getStateMethod;
+        this.constructorArgs = constructorArgs;
     }
 
     @Override
@@ -67,7 +70,13 @@ class POJOWorkflowDefinitionFactory extends WorkflowDefinitionFactory {
             return null;
         }
         CurrentDecisionContext.set(context);
-        Object workflowDefinitionObject = implementationFactory.newInstance(context);
+        Object workflowDefinitionObject;
+        if (constructorArgs == null) {
+            workflowDefinitionObject = implementationFactory.newInstance(context);
+        }
+        else {
+            workflowDefinitionObject = implementationFactory.newInstance(context, constructorArgs);
+        }
         return new POJOWorkflowDefinition(workflowDefinitionObject, workflowImplementationMethod, signals, getStateMethod,
                 converter, context);
     }

@@ -98,8 +98,8 @@ public class CopyMonitor implements Callable<CopyResult>, TransferMonitor {
     private int pollInterval = 5000;
 
     /**
-     * Constructs a new watcher for copy operation, which immediately submits
-     * itself to the thread pool.
+     * Constructs a new watcher for copy operation, and then immediately submits
+     * it to the thread pool.
      *
      * @param manager
      *            The {@link TransferManager} that owns this copy request.
@@ -112,7 +112,22 @@ public class CopyMonitor implements Callable<CopyResult>, TransferMonitor {
      * @param copyObjectRequest
      *            The original CopyObject request
      */
-    public CopyMonitor(TransferManager manager, CopyImpl transfer,
+    public static CopyMonitor create(
+            TransferManager manager,
+            CopyImpl transfer,
+            ExecutorService threadPool,
+            CopyCallable multipartCopyCallable,
+            CopyObjectRequest copyObjectRequest,
+            ProgressListenerChain progressListenerChain) {
+
+        CopyMonitor copyMonitor = new CopyMonitor(manager, transfer,
+                threadPool, multipartCopyCallable, copyObjectRequest,
+                progressListenerChain);
+        copyMonitor.setNextFuture(threadPool.submit(copyMonitor));
+        return copyMonitor;
+    }
+
+    private CopyMonitor(TransferManager manager, CopyImpl transfer,
             ExecutorService threadPool, CopyCallable multipartCopyCallable,
             CopyObjectRequest copyObjectRequest,
             ProgressListenerChain progressListenerChain) {
@@ -123,8 +138,6 @@ public class CopyMonitor implements Callable<CopyResult>, TransferMonitor {
         this.origReq = copyObjectRequest;
         this.transfer = transfer;
         this.progressListenerChain = progressListenerChain;
-
-        setNextFuture(threadPool.submit(this));
     }
 
     @Override

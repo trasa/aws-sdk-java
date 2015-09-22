@@ -39,7 +39,7 @@ public class ManagedPolicyDetail implements Serializable, Cloneable {
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>1 - 128<br/>
-     * <b>Pattern: </b>[\w+=,.@-]*<br/>
+     * <b>Pattern: </b>[\w+=,.@-]+<br/>
      */
     private String policyName;
 
@@ -51,7 +51,7 @@ public class ManagedPolicyDetail implements Serializable, Cloneable {
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>16 - 32<br/>
-     * <b>Pattern: </b>[\w]*<br/>
+     * <b>Pattern: </b>[\w]+<br/>
      */
     private String policyId;
 
@@ -135,7 +135,7 @@ public class ManagedPolicyDetail implements Serializable, Cloneable {
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>1 - 128<br/>
-     * <b>Pattern: </b>[\w+=,.@-]*<br/>
+     * <b>Pattern: </b>[\w+=,.@-]+<br/>
      *
      * @return The friendly name (not ARN) identifying the policy.
      */
@@ -148,7 +148,7 @@ public class ManagedPolicyDetail implements Serializable, Cloneable {
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>1 - 128<br/>
-     * <b>Pattern: </b>[\w+=,.@-]*<br/>
+     * <b>Pattern: </b>[\w+=,.@-]+<br/>
      *
      * @param policyName The friendly name (not ARN) identifying the policy.
      */
@@ -163,7 +163,7 @@ public class ManagedPolicyDetail implements Serializable, Cloneable {
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>1 - 128<br/>
-     * <b>Pattern: </b>[\w+=,.@-]*<br/>
+     * <b>Pattern: </b>[\w+=,.@-]+<br/>
      *
      * @param policyName The friendly name (not ARN) identifying the policy.
      *
@@ -183,7 +183,7 @@ public class ManagedPolicyDetail implements Serializable, Cloneable {
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>16 - 32<br/>
-     * <b>Pattern: </b>[\w]*<br/>
+     * <b>Pattern: </b>[\w]+<br/>
      *
      * @return The stable and unique string identifying the policy. <p>For more
      *         information about IDs, see <a
@@ -202,7 +202,7 @@ public class ManagedPolicyDetail implements Serializable, Cloneable {
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>16 - 32<br/>
-     * <b>Pattern: </b>[\w]*<br/>
+     * <b>Pattern: </b>[\w]+<br/>
      *
      * @param policyId The stable and unique string identifying the policy. <p>For more
      *         information about IDs, see <a
@@ -223,7 +223,7 @@ public class ManagedPolicyDetail implements Serializable, Cloneable {
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>16 - 32<br/>
-     * <b>Pattern: </b>[\w]*<br/>
+     * <b>Pattern: </b>[\w]+<br/>
      *
      * @param policyId The stable and unique string identifying the policy. <p>For more
      *         information about IDs, see <a
@@ -687,6 +687,11 @@ public class ManagedPolicyDetail implements Serializable, Cloneable {
     
     /**
      * A list containing information about the versions of the policy.
+     * <p>
+     * <b>NOTE:</b> This method appends the values to the existing list (if
+     * any). Use {@link #setPolicyVersionList(java.util.Collection)} or
+     * {@link #withPolicyVersionList(java.util.Collection)} if you want to
+     * override the existing values.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *

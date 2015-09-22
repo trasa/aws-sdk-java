@@ -1,5 +1,5 @@
 /*
- * Copyright 2012 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2012-2015 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License.
@@ -218,6 +218,10 @@ public class WorkflowWorker implements WorkerBase {
 
     public void addWorkflowImplementationType(Class<?> workflowImplementationType, DataConverter converter) throws InstantiationException, IllegalAccessException {
         factoryFactory.addWorkflowImplementationType(workflowImplementationType, converter);
+    }
+
+    public void addWorkflowImplementationType(Class<?> workflowImplementationType, DataConverter converter, Object[] constructorArgs) throws InstantiationException, IllegalAccessException {
+        factoryFactory.addWorkflowImplementationType(workflowImplementationType, converter, constructorArgs);
     }
     
     @Override

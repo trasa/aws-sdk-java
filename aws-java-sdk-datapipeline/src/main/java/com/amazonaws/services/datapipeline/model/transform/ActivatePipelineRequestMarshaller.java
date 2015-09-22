@@ -85,6 +85,9 @@ public class ActivatePipelineRequestMarshaller implements Marshaller<Request<Act
                 }
                 jsonWriter.endArray();
             }
+            if (activatePipelineRequest.getStartTimestamp() != null) {
+                jsonWriter.key("startTimestamp").value(activatePipelineRequest.getStartTimestamp());
+            }
 
           jsonWriter.endObject();
 

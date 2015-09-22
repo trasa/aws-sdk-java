@@ -28,12 +28,12 @@ import com.amazonaws.AmazonWebServiceRequest;
  * <code>v1</code> and sets v1 as the policy's default version. For more
  * information about policy versions, see
  * <a href="http://docs.aws.amazon.com/IAM/latest/UserGuide/policies-managed-versions.html"> Versioning for Managed Policies </a>
- * in the <i>Using IAM</i> guide.
+ * in the <i>IAM User Guide</i> .
  * </p>
  * <p>
  * For more information about managed policies in general, refer to
  * <a href="http://docs.aws.amazon.com/IAM/latest/UserGuide/policies-managed-vs-inline.html"> Managed Policies and Inline Policies </a>
- * in the <i>Using IAM</i> guide.
+ * in the <i>IAM User Guide</i> .
  * </p>
  *
  * @see com.amazonaws.services.identitymanagement.AmazonIdentityManagement#createPolicy(CreatePolicyRequest)
@@ -45,14 +45,14 @@ public class CreatePolicyRequest extends AmazonWebServiceRequest implements Seri
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>1 - 128<br/>
-     * <b>Pattern: </b>[\w+=,.@-]*<br/>
+     * <b>Pattern: </b>[\w+=,.@-]+<br/>
      */
     private String policyName;
 
     /**
      * The path for the policy. <p>For more information about paths, see <a
      * href="http://docs.aws.amazon.com/IAM/latest/UserGuide/Using_Identifiers.html">IAM
-     * Identifiers</a> in the <i>Using IAM</i> guide. <p>This parameter is
+     * Identifiers</a> in the <i>IAM User Guide</i>. <p>This parameter is
      * optional. If it is not included, it defaults to a slash (/).
      * <p>
      * <b>Constraints:</b><br/>
@@ -61,8 +61,7 @@ public class CreatePolicyRequest extends AmazonWebServiceRequest implements Seri
     private String path;
 
     /**
-     * The policy document. <p>The policy must be URL-encoded according to <a
-     * href="http://www.faqs.org/rfcs/rfc3986.html">RFC 3986</a>.
+     * The policy document.
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>1 - 131072<br/>
@@ -87,7 +86,7 @@ public class CreatePolicyRequest extends AmazonWebServiceRequest implements Seri
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>1 - 128<br/>
-     * <b>Pattern: </b>[\w+=,.@-]*<br/>
+     * <b>Pattern: </b>[\w+=,.@-]+<br/>
      *
      * @return The name of the policy document.
      */
@@ -100,7 +99,7 @@ public class CreatePolicyRequest extends AmazonWebServiceRequest implements Seri
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>1 - 128<br/>
-     * <b>Pattern: </b>[\w+=,.@-]*<br/>
+     * <b>Pattern: </b>[\w+=,.@-]+<br/>
      *
      * @param policyName The name of the policy document.
      */
@@ -115,7 +114,7 @@ public class CreatePolicyRequest extends AmazonWebServiceRequest implements Seri
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>1 - 128<br/>
-     * <b>Pattern: </b>[\w+=,.@-]*<br/>
+     * <b>Pattern: </b>[\w+=,.@-]+<br/>
      *
      * @param policyName The name of the policy document.
      *
@@ -130,7 +129,7 @@ public class CreatePolicyRequest extends AmazonWebServiceRequest implements Seri
     /**
      * The path for the policy. <p>For more information about paths, see <a
      * href="http://docs.aws.amazon.com/IAM/latest/UserGuide/Using_Identifiers.html">IAM
-     * Identifiers</a> in the <i>Using IAM</i> guide. <p>This parameter is
+     * Identifiers</a> in the <i>IAM User Guide</i>. <p>This parameter is
      * optional. If it is not included, it defaults to a slash (/).
      * <p>
      * <b>Constraints:</b><br/>
@@ -138,7 +137,7 @@ public class CreatePolicyRequest extends AmazonWebServiceRequest implements Seri
      *
      * @return The path for the policy. <p>For more information about paths, see <a
      *         href="http://docs.aws.amazon.com/IAM/latest/UserGuide/Using_Identifiers.html">IAM
-     *         Identifiers</a> in the <i>Using IAM</i> guide. <p>This parameter is
+     *         Identifiers</a> in the <i>IAM User Guide</i>. <p>This parameter is
      *         optional. If it is not included, it defaults to a slash (/).
      */
     public String getPath() {
@@ -148,7 +147,7 @@ public class CreatePolicyRequest extends AmazonWebServiceRequest implements Seri
     /**
      * The path for the policy. <p>For more information about paths, see <a
      * href="http://docs.aws.amazon.com/IAM/latest/UserGuide/Using_Identifiers.html">IAM
-     * Identifiers</a> in the <i>Using IAM</i> guide. <p>This parameter is
+     * Identifiers</a> in the <i>IAM User Guide</i>. <p>This parameter is
      * optional. If it is not included, it defaults to a slash (/).
      * <p>
      * <b>Constraints:</b><br/>
@@ -156,7 +155,7 @@ public class CreatePolicyRequest extends AmazonWebServiceRequest implements Seri
      *
      * @param path The path for the policy. <p>For more information about paths, see <a
      *         href="http://docs.aws.amazon.com/IAM/latest/UserGuide/Using_Identifiers.html">IAM
-     *         Identifiers</a> in the <i>Using IAM</i> guide. <p>This parameter is
+     *         Identifiers</a> in the <i>IAM User Guide</i>. <p>This parameter is
      *         optional. If it is not included, it defaults to a slash (/).
      */
     public void setPath(String path) {
@@ -166,7 +165,7 @@ public class CreatePolicyRequest extends AmazonWebServiceRequest implements Seri
     /**
      * The path for the policy. <p>For more information about paths, see <a
      * href="http://docs.aws.amazon.com/IAM/latest/UserGuide/Using_Identifiers.html">IAM
-     * Identifiers</a> in the <i>Using IAM</i> guide. <p>This parameter is
+     * Identifiers</a> in the <i>IAM User Guide</i>. <p>This parameter is
      * optional. If it is not included, it defaults to a slash (/).
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
@@ -176,7 +175,7 @@ public class CreatePolicyRequest extends AmazonWebServiceRequest implements Seri
      *
      * @param path The path for the policy. <p>For more information about paths, see <a
      *         href="http://docs.aws.amazon.com/IAM/latest/UserGuide/Using_Identifiers.html">IAM
-     *         Identifiers</a> in the <i>Using IAM</i> guide. <p>This parameter is
+     *         Identifiers</a> in the <i>IAM User Guide</i>. <p>This parameter is
      *         optional. If it is not included, it defaults to a slash (/).
      *
      * @return A reference to this updated object so that method calls can be chained
@@ -188,38 +187,33 @@ public class CreatePolicyRequest extends AmazonWebServiceRequest implements Seri
     }
 
     /**
-     * The policy document. <p>The policy must be URL-encoded according to <a
-     * href="http://www.faqs.org/rfcs/rfc3986.html">RFC 3986</a>.
+     * The policy document.
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>1 - 131072<br/>
      * <b>Pattern: </b>[&#92;u0009&#92;u000A&#92;u000D&#92;u0020-&#92;u00FF]+<br/>
      *
-     * @return The policy document. <p>The policy must be URL-encoded according to <a
-     *         href="http://www.faqs.org/rfcs/rfc3986.html">RFC 3986</a>.
+     * @return The policy document.
      */
     public String getPolicyDocument() {
         return policyDocument;
     }
     
     /**
-     * The policy document. <p>The policy must be URL-encoded according to <a
-     * href="http://www.faqs.org/rfcs/rfc3986.html">RFC 3986</a>.
+     * The policy document.
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>1 - 131072<br/>
      * <b>Pattern: </b>[&#92;u0009&#92;u000A&#92;u000D&#92;u0020-&#92;u00FF]+<br/>
      *
-     * @param policyDocument The policy document. <p>The policy must be URL-encoded according to <a
-     *         href="http://www.faqs.org/rfcs/rfc3986.html">RFC 3986</a>.
+     * @param policyDocument The policy document.
      */
     public void setPolicyDocument(String policyDocument) {
         this.policyDocument = policyDocument;
     }
     
     /**
-     * The policy document. <p>The policy must be URL-encoded according to <a
-     * href="http://www.faqs.org/rfcs/rfc3986.html">RFC 3986</a>.
+     * The policy document.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      * <p>
@@ -227,8 +221,7 @@ public class CreatePolicyRequest extends AmazonWebServiceRequest implements Seri
      * <b>Length: </b>1 - 131072<br/>
      * <b>Pattern: </b>[&#92;u0009&#92;u000A&#92;u000D&#92;u0020-&#92;u00FF]+<br/>
      *
-     * @param policyDocument The policy document. <p>The policy must be URL-encoded according to <a
-     *         href="http://www.faqs.org/rfcs/rfc3986.html">RFC 3986</a>.
+     * @param policyDocument The policy document.
      *
      * @return A reference to this updated object so that method calls can be chained
      *         together.

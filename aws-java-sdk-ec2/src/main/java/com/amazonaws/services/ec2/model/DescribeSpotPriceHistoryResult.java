@@ -17,25 +17,27 @@ package com.amazonaws.services.ec2.model;
 import java.io.Serializable;
 
 /**
- * 
+ * <p>
+ * Contains the output of DescribeSpotPriceHistory.
+ * </p>
  */
 public class DescribeSpotPriceHistoryResult implements Serializable, Cloneable {
 
     /**
-     * The historical Spot Prices.
+     * The historical Spot prices.
      */
     private com.amazonaws.internal.ListWithAutoConstructFlag<SpotPrice> spotPriceHistory;
 
     /**
-     * The token to use to retrieve the next page of results. This value is
+     * The token required to retrieve the next set of results. This value is
      * <code>null</code> when there are no more results to return.
      */
     private String nextToken;
 
     /**
-     * The historical Spot Prices.
+     * The historical Spot prices.
      *
-     * @return The historical Spot Prices.
+     * @return The historical Spot prices.
      */
     public java.util.List<SpotPrice> getSpotPriceHistory() {
         if (spotPriceHistory == null) {
@@ -46,9 +48,9 @@ public class DescribeSpotPriceHistoryResult implements Serializable, Cloneable {
     }
     
     /**
-     * The historical Spot Prices.
+     * The historical Spot prices.
      *
-     * @param spotPriceHistory The historical Spot Prices.
+     * @param spotPriceHistory The historical Spot prices.
      */
     public void setSpotPriceHistory(java.util.Collection<SpotPrice> spotPriceHistory) {
         if (spotPriceHistory == null) {
@@ -61,11 +63,16 @@ public class DescribeSpotPriceHistoryResult implements Serializable, Cloneable {
     }
     
     /**
-     * The historical Spot Prices.
+     * The historical Spot prices.
+     * <p>
+     * <b>NOTE:</b> This method appends the values to the existing list (if
+     * any). Use {@link #setSpotPriceHistory(java.util.Collection)} or {@link
+     * #withSpotPriceHistory(java.util.Collection)} if you want to override
+     * the existing values.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *
-     * @param spotPriceHistory The historical Spot Prices.
+     * @param spotPriceHistory The historical Spot prices.
      *
      * @return A reference to this updated object so that method calls can be chained
      *         together.
@@ -79,11 +86,11 @@ public class DescribeSpotPriceHistoryResult implements Serializable, Cloneable {
     }
     
     /**
-     * The historical Spot Prices.
+     * The historical Spot prices.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *
-     * @param spotPriceHistory The historical Spot Prices.
+     * @param spotPriceHistory The historical Spot prices.
      *
      * @return A reference to this updated object so that method calls can be chained
      *         together.
@@ -101,10 +108,10 @@ public class DescribeSpotPriceHistoryResult implements Serializable, Cloneable {
     }
 
     /**
-     * The token to use to retrieve the next page of results. This value is
+     * The token required to retrieve the next set of results. This value is
      * <code>null</code> when there are no more results to return.
      *
-     * @return The token to use to retrieve the next page of results. This value is
+     * @return The token required to retrieve the next set of results. This value is
      *         <code>null</code> when there are no more results to return.
      */
     public String getNextToken() {
@@ -112,10 +119,10 @@ public class DescribeSpotPriceHistoryResult implements Serializable, Cloneable {
     }
     
     /**
-     * The token to use to retrieve the next page of results. This value is
+     * The token required to retrieve the next set of results. This value is
      * <code>null</code> when there are no more results to return.
      *
-     * @param nextToken The token to use to retrieve the next page of results. This value is
+     * @param nextToken The token required to retrieve the next set of results. This value is
      *         <code>null</code> when there are no more results to return.
      */
     public void setNextToken(String nextToken) {
@@ -123,12 +130,12 @@ public class DescribeSpotPriceHistoryResult implements Serializable, Cloneable {
     }
     
     /**
-     * The token to use to retrieve the next page of results. This value is
+     * The token required to retrieve the next set of results. This value is
      * <code>null</code> when there are no more results to return.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *
-     * @param nextToken The token to use to retrieve the next page of results. This value is
+     * @param nextToken The token required to retrieve the next set of results. This value is
      *         <code>null</code> when there are no more results to return.
      *
      * @return A reference to this updated object so that method calls can be chained

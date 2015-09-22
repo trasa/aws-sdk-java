@@ -18,7 +18,6 @@ import java.io.Serializable;
 
 /**
  * <p>
- * 
  * </p>
  */
 public class OptionGroup implements Serializable, Cloneable {
@@ -34,7 +33,8 @@ public class OptionGroup implements Serializable, Cloneable {
     private String optionGroupDescription;
 
     /**
-     * Engine name that this option group can be applied to.
+     * Indicates the name of the engine that this option group can be applied
+     * to.
      */
     private String engineName;
 
@@ -132,29 +132,35 @@ public class OptionGroup implements Serializable, Cloneable {
     }
 
     /**
-     * Engine name that this option group can be applied to.
+     * Indicates the name of the engine that this option group can be applied
+     * to.
      *
-     * @return Engine name that this option group can be applied to.
+     * @return Indicates the name of the engine that this option group can be applied
+     *         to.
      */
     public String getEngineName() {
         return engineName;
     }
     
     /**
-     * Engine name that this option group can be applied to.
+     * Indicates the name of the engine that this option group can be applied
+     * to.
      *
-     * @param engineName Engine name that this option group can be applied to.
+     * @param engineName Indicates the name of the engine that this option group can be applied
+     *         to.
      */
     public void setEngineName(String engineName) {
         this.engineName = engineName;
     }
     
     /**
-     * Engine name that this option group can be applied to.
+     * Indicates the name of the engine that this option group can be applied
+     * to.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *
-     * @param engineName Engine name that this option group can be applied to.
+     * @param engineName Indicates the name of the engine that this option group can be applied
+     *         to.
      *
      * @return A reference to this updated object so that method calls can be chained
      *         together.
@@ -227,6 +233,11 @@ public class OptionGroup implements Serializable, Cloneable {
     
     /**
      * Indicates what options are available in the option group.
+     * <p>
+     * <b>NOTE:</b> This method appends the values to the existing list (if
+     * any). Use {@link #setOptions(java.util.Collection)} or {@link
+     * #withOptions(java.util.Collection)} if you want to override the
+     * existing values.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *

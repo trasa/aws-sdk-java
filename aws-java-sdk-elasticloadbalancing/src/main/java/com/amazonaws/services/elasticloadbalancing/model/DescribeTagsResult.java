@@ -17,21 +17,19 @@ package com.amazonaws.services.elasticloadbalancing.model;
 import java.io.Serializable;
 
 /**
- * <p>
- * The output for the DescribeTags action.
- * </p>
+ * 
  */
 public class DescribeTagsResult implements Serializable, Cloneable {
 
     /**
-     * A list of tag description structures.
+     * Information about the tags.
      */
     private com.amazonaws.internal.ListWithAutoConstructFlag<TagDescription> tagDescriptions;
 
     /**
-     * A list of tag description structures.
+     * Information about the tags.
      *
-     * @return A list of tag description structures.
+     * @return Information about the tags.
      */
     public java.util.List<TagDescription> getTagDescriptions() {
         if (tagDescriptions == null) {
@@ -42,9 +40,9 @@ public class DescribeTagsResult implements Serializable, Cloneable {
     }
     
     /**
-     * A list of tag description structures.
+     * Information about the tags.
      *
-     * @param tagDescriptions A list of tag description structures.
+     * @param tagDescriptions Information about the tags.
      */
     public void setTagDescriptions(java.util.Collection<TagDescription> tagDescriptions) {
         if (tagDescriptions == null) {
@@ -57,11 +55,16 @@ public class DescribeTagsResult implements Serializable, Cloneable {
     }
     
     /**
-     * A list of tag description structures.
+     * Information about the tags.
+     * <p>
+     * <b>NOTE:</b> This method appends the values to the existing list (if
+     * any). Use {@link #setTagDescriptions(java.util.Collection)} or {@link
+     * #withTagDescriptions(java.util.Collection)} if you want to override
+     * the existing values.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *
-     * @param tagDescriptions A list of tag description structures.
+     * @param tagDescriptions Information about the tags.
      *
      * @return A reference to this updated object so that method calls can be chained
      *         together.
@@ -75,11 +78,11 @@ public class DescribeTagsResult implements Serializable, Cloneable {
     }
     
     /**
-     * A list of tag description structures.
+     * Information about the tags.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *
-     * @param tagDescriptions A list of tag description structures.
+     * @param tagDescriptions Information about the tags.
      *
      * @return A reference to this updated object so that method calls can be chained
      *         together.

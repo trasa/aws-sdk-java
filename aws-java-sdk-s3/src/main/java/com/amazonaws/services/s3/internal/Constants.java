@@ -20,6 +20,7 @@ import org.apache.commons.logging.LogFactory;
 import com.amazonaws.RequestClientOptions;
 import com.amazonaws.SDKGlobalConfiguration;
 import com.amazonaws.services.s3.AmazonS3Client;
+import com.amazonaws.services.s3.model.SSEAlgorithm;
 
 /**
  * Constants used by the AWS S3 Java client.
@@ -29,8 +30,8 @@ public class Constants {
     /** Default hostname for the S3 service endpoint */
     public static final String S3_HOSTNAME = "s3.amazonaws.com";
 
-    /** Service name for Amazon S3 */
-    public static final String S3_SERVICE_NAME = "Amazon S3";
+    /** Service display name for Amazon S3 (not to be used in SigV4 signing) */
+    public static final String S3_SERVICE_DISPLAY_NAME = "Amazon S3";
 
     /** Default encoding used for text data */
     public static final String DEFAULT_ENCODING = "UTF-8";
@@ -123,5 +124,6 @@ public class Constants {
     // Constant indicating the requester pays for data transfer cost for a bucket.
     public static final String REQUESTER_PAYS = "requester";
 
-    public static final String SSE_AWS_KMS_ENCRYPTION_SCHEME = "aws:kms";
+    public static final String SSE_AWS_KMS_ENCRYPTION_SCHEME =
+            SSEAlgorithm.KMS.getAlgorithm();
 }

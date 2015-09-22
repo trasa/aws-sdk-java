@@ -28,60 +28,63 @@ import com.amazonaws.AmazonWebServiceRequest;
  * parameter. The shard iterator specifies the position in the shard from
  * which you want to start reading data records sequentially. If there
  * are no records available in the portion of the shard that the iterator
- * points to, <code>GetRecords</code> returns an empty list. Note that it
- * might take multiple calls to get to a portion of the shard that
- * contains records.
+ * points to, GetRecords returns an empty list. Note that it might take
+ * multiple calls to get to a portion of the shard that contains records.
  * </p>
  * <p>
  * You can scale by provisioning multiple shards. Your application should
  * have one thread per shard, each reading continuously from its stream.
- * To read from a stream continually, call <code>GetRecords</code> in a
- * loop. Use GetShardIterator to get the shard iterator to specify in the
- * first <code>GetRecords</code> call. <code>GetRecords</code> returns a
- * new shard iterator in <code>NextShardIterator</code> .
- * Specify the shard iterator returned in
- * <code>NextShardIterator</code> in subsequent calls to
- * <code>GetRecords</code> .
- * Note that if the shard has been closed, the shard iterator
- * can't return more data and <code>GetRecords</code> returns
- * <code>null</code> in <code>NextShardIterator</code> .
- * You can terminate the loop when the shard is closed, or
- * when the shard iterator reaches the record with the sequence number or
- * other attribute that marks it as the last record to process.
+ * To read from a stream continually, call GetRecords in a loop. Use
+ * GetShardIterator to get the shard iterator to specify in the first
+ * GetRecords call. GetRecords returns a new shard iterator in
+ * <code>NextShardIterator</code> . Specify the shard iterator returned
+ * in <code>NextShardIterator</code> in subsequent calls to GetRecords.
+ * Note that if the shard has been closed, the shard iterator can't
+ * return more data and GetRecords returns <code>null</code> in
+ * <code>NextShardIterator</code> . You can terminate the loop when the
+ * shard is closed, or when the shard iterator reaches the record with
+ * the sequence number or other attribute that marks it as the last
+ * record to process.
  * </p>
  * <p>
- * Each data record can be up to 50 KB in size, and each shard can read
- * up to 2 MB per second. You can ensure that your calls don't exceed the
+ * Each data record can be up to 1 MB in size, and each shard can read up
+ * to 2 MB per second. You can ensure that your calls don't exceed the
  * maximum supported size or throughput by using the <code>Limit</code>
- * parameter to specify the maximum number of records that
- * <code>GetRecords</code> can return. Consider your average record size
- * when determining this limit. For example, if your average record size
- * is 40 KB, you can limit the data returned to about 1 MB per call by
- * specifying 25 as the limit.
+ * parameter to specify the maximum number of records that GetRecords can
+ * return. Consider your average record size when determining this limit.
  * </p>
  * <p>
- * The size of the data returned by <code>GetRecords</code> will vary
- * depending on the utilization of the shard. The maximum size of data
- * that <code>GetRecords</code> can return is 10 MB. If a call returns 10
- * MB of data, subsequent calls made within the next 5 seconds throw
- * <code>ProvisionedThroughputExceededException</code> .
- * If there is insufficient provisioned throughput on the
- * shard, subsequent calls made within the next 1 second throw
- * <code>ProvisionedThroughputExceededException</code> .
- * Note that <code>GetRecords</code> won't return any data
- * when it throws an exception. For this reason, we recommend that you
- * wait one second between calls to <code>GetRecords</code> ;
- * however, it's possible that the application will get
+ * The size of the data returned by GetRecords will vary depending on the
+ * utilization of the shard. The maximum size of data that GetRecords can
+ * return is 10 MB. If a call returns this amount of data, subsequent
+ * calls made within the next 5 seconds throw
+ * <code>ProvisionedThroughputExceededException</code> . If there is
+ * insufficient provisioned throughput on the shard, subsequent calls
+ * made within the next 1 second throw
+ * <code>ProvisionedThroughputExceededException</code> . Note that
+ * GetRecords won't return any data when it throws an exception. For this
+ * reason, we recommend that you wait one second between calls to
+ * GetRecords; however, it's possible that the application will get
  * exceptions for longer than 1 second.
  * </p>
  * <p>
- * To detect whether the application is falling behind in processing, add
- * a timestamp to your records and note how long it takes to process
- * them. You can also monitor how much data is in a stream using the
- * CloudWatch metrics for write operations ( <code>PutRecord</code> and
- * <code>PutRecords</code> ). For more information, see
- * <a href="http://docs.aws.amazon.com/kinesis/latest/dev/monitoring_with_cloudwatch.html"> Monitoring Amazon Kinesis with Amazon CloudWatch </a>
- * in the <i>Amazon Kinesis Developer Guide</i> .
+ * To detect whether the application is falling behind in processing, you
+ * can use the <code>MillisBehindLatest</code> response attribute. You
+ * can also monitor the stream using CloudWatch metrics (see
+ * <a href="http://docs.aws.amazon.com/kinesis/latest/dev/monitoring.html"> Monitoring Amazon Kinesis </a>
+ * in the <i>Amazon Kinesis Developer Guide</i> ).
+ * </p>
+ * <p>
+ * Each Amazon Kinesis record includes a value,
+ * <code>ApproximateArrivalTimestamp</code> ,
+ * that is set when an Amazon Kinesis stream successfully
+ * receives and stores a record. This is commonly referred to as a
+ * server-side timestamp, which is different than a client-side
+ * timestamp, where the timestamp is set when a data producer creates or
+ * sends the record to a stream. The timestamp has millisecond precision.
+ * There are no guarantees about the timestamp accuracy, or that the
+ * timestamp is always increasing. For example, records in a shard or
+ * across a stream might have timestamps that are out of order.
  * </p>
  *
  * @see com.amazonaws.services.kinesis.AmazonKinesis#getRecords(GetRecordsRequest)
@@ -101,7 +104,7 @@ public class GetRecordsRequest extends AmazonWebServiceRequest implements Serial
     /**
      * The maximum number of records to return. Specify a value of up to
      * 10,000. If you specify a value that is greater than 10,000,
-     * <code>GetRecords</code> throws <code>InvalidArgumentException</code>.
+     * <a>GetRecords</a> throws <code>InvalidArgumentException</code>.
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Range: </b>1 - 10000<br/>
@@ -165,14 +168,14 @@ public class GetRecordsRequest extends AmazonWebServiceRequest implements Serial
     /**
      * The maximum number of records to return. Specify a value of up to
      * 10,000. If you specify a value that is greater than 10,000,
-     * <code>GetRecords</code> throws <code>InvalidArgumentException</code>.
+     * <a>GetRecords</a> throws <code>InvalidArgumentException</code>.
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Range: </b>1 - 10000<br/>
      *
      * @return The maximum number of records to return. Specify a value of up to
      *         10,000. If you specify a value that is greater than 10,000,
-     *         <code>GetRecords</code> throws <code>InvalidArgumentException</code>.
+     *         <a>GetRecords</a> throws <code>InvalidArgumentException</code>.
      */
     public Integer getLimit() {
         return limit;
@@ -181,14 +184,14 @@ public class GetRecordsRequest extends AmazonWebServiceRequest implements Serial
     /**
      * The maximum number of records to return. Specify a value of up to
      * 10,000. If you specify a value that is greater than 10,000,
-     * <code>GetRecords</code> throws <code>InvalidArgumentException</code>.
+     * <a>GetRecords</a> throws <code>InvalidArgumentException</code>.
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Range: </b>1 - 10000<br/>
      *
      * @param limit The maximum number of records to return. Specify a value of up to
      *         10,000. If you specify a value that is greater than 10,000,
-     *         <code>GetRecords</code> throws <code>InvalidArgumentException</code>.
+     *         <a>GetRecords</a> throws <code>InvalidArgumentException</code>.
      */
     public void setLimit(Integer limit) {
         this.limit = limit;
@@ -197,7 +200,7 @@ public class GetRecordsRequest extends AmazonWebServiceRequest implements Serial
     /**
      * The maximum number of records to return. Specify a value of up to
      * 10,000. If you specify a value that is greater than 10,000,
-     * <code>GetRecords</code> throws <code>InvalidArgumentException</code>.
+     * <a>GetRecords</a> throws <code>InvalidArgumentException</code>.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      * <p>
@@ -206,7 +209,7 @@ public class GetRecordsRequest extends AmazonWebServiceRequest implements Serial
      *
      * @param limit The maximum number of records to return. Specify a value of up to
      *         10,000. If you specify a value that is greater than 10,000,
-     *         <code>GetRecords</code> throws <code>InvalidArgumentException</code>.
+     *         <a>GetRecords</a> throws <code>InvalidArgumentException</code>.
      *
      * @return A reference to this updated object so that method calls can be chained
      *         together.

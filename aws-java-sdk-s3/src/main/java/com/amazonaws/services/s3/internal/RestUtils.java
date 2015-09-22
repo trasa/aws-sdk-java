@@ -27,6 +27,7 @@ import java.util.SortedMap;
 import java.util.TreeMap;
 
 import com.amazonaws.Request;
+import com.amazonaws.SignableRequest;
 import com.amazonaws.services.s3.Headers;
 import com.amazonaws.services.s3.model.ResponseHeaderOverrides;
 
@@ -58,7 +59,7 @@ public class RestUtils {
      * @see RestUtils#makeS3CanonicalString(String, String, Request, String, boolean)
      */
     public static <T> String makeS3CanonicalString(String method,
-            String resource, Request<T> request, String expires) {
+            String resource, SignableRequest<T> request, String expires) {
         return makeS3CanonicalString(method, resource, request, expires, null);
     }
 
@@ -81,7 +82,7 @@ public class RestUtils {
      * @return The canonical string representation for the given S3 request.
      */
     public static <T> String makeS3CanonicalString(String method,
-            String resource, Request<T> request, String expires,
+            String resource, SignableRequest<T> request, String expires,
             Collection<String> additionalQueryParamsToSign) {
 
         StringBuilder buf = new StringBuilder();
@@ -132,9 +133,30 @@ public class RestUtils {
 
         // Any parameters that are prefixed with "x-amz-" need to be included
         // in the headers section of the canonical string to sign
-        for (Map.Entry<String, String> parameter: request.getParameters().entrySet()) {
+        final Map<String, List<String>> requestParameters = request
+                .getParameters();
+        for (Map.Entry<String, List<String>> parameter : requestParameters
+                .entrySet()) {
             if (parameter.getKey().startsWith("x-amz-")) {
-                interestingHeaders.put(parameter.getKey(), parameter.getValue());
+                StringBuilder parameterValueBuilder = new StringBuilder();
+                /**
+                 *
+                 * We don't need to url encode here. If a parameter has multiple
+                 * values, then those values needs to be combined to a comma
+                 * separated list and assigned to the header.
+                 *
+                 * Reference : http://docs.aws.amazon.com/AmazonS3/latest/dev/
+                 * RESTAuthentication
+                 * .html#RESTAuthenticationRequestCanonicalization
+                 */
+                for (String value : parameter.getValue()) {
+                    if (parameterValueBuilder.length() > 0) {
+                        parameterValueBuilder.append(",");
+                    }
+                    parameterValueBuilder.append(value);
+                }
+                interestingHeaders.put(parameter.getKey(),
+                        parameterValueBuilder.toString());
             }
         }
 
@@ -157,12 +179,12 @@ public class RestUtils {
 
         // Add all the interesting parameters
         buf.append(resource);
-        String[] parameterNames = request.getParameters().keySet().toArray(
-                new String[request.getParameters().size()]);
+        String[] parameterNames = requestParameters.keySet().toArray(
+                                new String[request.getParameters().size()]);
         Arrays.sort(parameterNames);
-        char separator = '?';
-        for (String parameterName : parameterNames) {
 
+        StringBuilder queryParams = new StringBuilder();
+        for (String parameterName : parameterNames) {
             if ( !SIGNED_PARAMETERS.contains(parameterName)
                  &&
                  (additionalQueryParamsToSign == null ||
@@ -171,15 +193,28 @@ public class RestUtils {
                 continue;
             }
 
-            buf.append(separator);
-            buf.append(parameterName);
-            String parameterValue = request.getParameters().get(parameterName);
-            if (parameterValue != null) {
-                buf.append("=").append(parameterValue);
-            }
+            /**
+             * As per the spec given in the below URL, it is not clear as to
+             * whether we need to sort the parameter values when forming the
+             * string to sign. This is something that needs to be watched if we
+             * receive signing problems.
+             *
+             * Reference : http://docs.aws.amazon.com/AmazonS3/latest/dev/
+             * RESTAuthentication
+             * .html#RESTAuthenticationRequestCanonicalization
+             */
+            List<String> values = requestParameters.get(parameterName);
+            for (String value : values) {
+                queryParams = queryParams.length() > 0 ? queryParams
+                        .append("&") : queryParams.append("?");
 
-            separator = '&';
+                queryParams.append(parameterName);
+                if (value != null) {
+                    queryParams.append("=").append(value);
+                }
+            }
         }
+        buf.append(queryParams.toString());
 
         return buf.toString();
     }

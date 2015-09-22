@@ -16,7 +16,6 @@ package com.amazonaws.services.s3.model.transform;
 
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 import com.amazonaws.AmazonClientException;
 import com.amazonaws.services.s3.internal.Constants;
@@ -34,17 +33,22 @@ import com.amazonaws.services.s3.model.BucketTaggingConfiguration;
 import com.amazonaws.services.s3.model.BucketVersioningConfiguration;
 import com.amazonaws.services.s3.model.BucketWebsiteConfiguration;
 import com.amazonaws.services.s3.model.CORSRule;
-import com.amazonaws.services.s3.model.CloudFunctionConfiguration;
-import com.amazonaws.services.s3.model.QueueConfiguration;
-import com.amazonaws.services.s3.model.ReplicationDestinationConfig;
 import com.amazonaws.services.s3.model.CORSRule.AllowedMethods;
+import com.amazonaws.services.s3.model.CloudFunctionConfiguration;
+import com.amazonaws.services.s3.model.Filter;
+import com.amazonaws.services.s3.model.FilterRule;
+import com.amazonaws.services.s3.model.LambdaConfiguration;
 import com.amazonaws.services.s3.model.NotificationConfiguration;
+import com.amazonaws.services.s3.model.QueueConfiguration;
+import com.amazonaws.services.s3.model.RedirectRule;
+import com.amazonaws.services.s3.model.ReplicationDestinationConfig;
 import com.amazonaws.services.s3.model.ReplicationRule;
 import com.amazonaws.services.s3.model.RoutingRule;
-import com.amazonaws.services.s3.model.RedirectRule;
 import com.amazonaws.services.s3.model.RoutingRuleCondition;
+import com.amazonaws.services.s3.model.S3KeyFilter;
 import com.amazonaws.services.s3.model.TagSet;
 import com.amazonaws.services.s3.model.TopicConfiguration;
+import com.amazonaws.util.CollectionUtils;
 
 /**
  * Converts bucket configuration objects into XML byte arrays.
@@ -130,7 +134,7 @@ public class BucketConfigurationXmlFactory {
                 xml.start("Topic")
                         .value(((TopicConfiguration) config).getTopicARN())
                         .end();
-                addPrefixesAndEvents(xml, config);
+                addEventsAndFilterCriteria(xml, config);
                 xml.end();
             } else if (config instanceof QueueConfiguration) {
                 xml.start("QueueConfiguration");
@@ -138,7 +142,7 @@ public class BucketConfigurationXmlFactory {
                 xml.start("Queue")
                         .value(((QueueConfiguration) config).getQueueARN())
                         .end();
-                addPrefixesAndEvents(xml, config);
+                addEventsAndFilterCriteria(xml, config);
                 xml.end();
             } else if (config instanceof CloudFunctionConfiguration) {
                 xml.start("CloudFunctionConfiguration");
@@ -149,7 +153,15 @@ public class BucketConfigurationXmlFactory {
                 xml.start("CloudFunction")
                         .value(((CloudFunctionConfiguration) config).getCloudFunctionARN())
                         .end();
-                addPrefixesAndEvents(xml, config);
+                addEventsAndFilterCriteria(xml, config);
+                xml.end();
+            } else if (config instanceof LambdaConfiguration) {
+                xml.start("CloudFunctionConfiguration");
+                xml.start("Id").value(configName).end();
+                xml.start("CloudFunction")
+                        .value(((LambdaConfiguration) config).getFunctionARN())
+                        .end();
+                addEventsAndFilterCriteria(xml, config);
                 xml.end();
             }
         }
@@ -157,22 +169,46 @@ public class BucketConfigurationXmlFactory {
         return xml.getBytes();
     }
 
-    private void addPrefixesAndEvents(XmlWriter xml,
-            NotificationConfiguration config) {
-        Set<String> events = config.getEvents();
-
-        for (String event : events) {
+    private void addEventsAndFilterCriteria(XmlWriter xml, NotificationConfiguration config) {
+        for (String event : config.getEvents()) {
             xml.start("Event").value(event).end();
         }
 
-        List<String> objectPrefixes = config.getObjectPrefixes();
-        for (String prefix : objectPrefixes) {
-            xml.start("Prefix").value(prefix).end();
+        Filter filter = config.getFilter();
+        if (filter != null) {
+            validateFilter(filter);
+            xml.start("Filter");
+            if (filter.getS3KeyFilter() != null) {
+                validateS3KeyFilter(filter.getS3KeyFilter());
+                xml.start("S3Key");
+                for (FilterRule filterRule : filter.getS3KeyFilter().getFilterRules()) {
+                    xml.start("FilterRule");
+                    xml.start("Name").value(filterRule.getName()).end();
+                    xml.start("Value").value(filterRule.getValue()).end();
+                    xml.end();
+                }
+                xml.end();
+            }
+            xml.end();
         }
     }
 
-    public byte[] convertToXmlByteArray(
-            BucketReplicationConfiguration replicationConfiguration) {
+    private void validateFilter(Filter filter) {
+        if (filter.getS3KeyFilter() == null) {
+            throw new AmazonClientException("Cannot have a Filter without any criteria");
+        }
+    }
+
+    /**
+     * If S3Key filter is set make sure it has at least one rule
+     */
+    private void validateS3KeyFilter(S3KeyFilter s3KeyFilter) {
+        if (CollectionUtils.isNullOrEmpty(s3KeyFilter.getFilterRules())) {
+            throw new AmazonClientException("Cannot have an S3KeyFilter without any filter rules");
+        }
+    }
+
+    public byte[] convertToXmlByteArray(BucketReplicationConfiguration replicationConfiguration) {
         XmlWriter xml = new XmlWriter();
         xml.start("ReplicationConfiguration");
         Map<String, ReplicationRule> rules = replicationConfiguration
@@ -193,6 +229,9 @@ public class BucketConfigurationXmlFactory {
             final ReplicationDestinationConfig config = rule.getDestinationConfig();
             xml.start("Destination");
             xml.start("Bucket").value(config.getBucketARN()).end();
+            if (config.getStorageClass() != null) {
+                xml.start("StorageClass").value(config.getStorageClass()).end();
+            }
             xml.end();
 
             xml.end();
@@ -364,41 +403,8 @@ public class BucketConfigurationXmlFactory {
         xml.start("Prefix").value(rule.getPrefix()).end();
         xml.start("Status").value(rule.getStatus()).end();
 
-        Transition transition = rule.getTransition();
-        if (transition != null) {
-            xml.start("Transition");
-            if (transition.getDate() != null) {
-                xml.start("Date");
-                xml.value(ServiceUtils.formatIso8601Date(transition.getDate()));
-                xml.end();
-            }
-            if (transition.getDays() != -1) {
-                xml.start("Days");
-                xml.value(Integer.toString(transition.getDays()));
-                xml.end();
-            }
-
-            xml.start("StorageClass");
-            xml.value(transition.getStorageClass().toString());
-            xml.end(); // <StorageClass>
-            xml.end(); // </Transition>
-        }
-
-        NoncurrentVersionTransition ncvTransition =
-            rule.getNoncurrentVersionTransition();
-        if (ncvTransition != null) {
-            xml.start("NoncurrentVersionTransition");
-            if (ncvTransition.getDays() != -1) {
-                xml.start("NoncurrentDays");
-                xml.value(Integer.toString(ncvTransition.getDays()));
-                xml.end();
-            }
-
-            xml.start("StorageClass");
-            xml.value(ncvTransition.getStorageClass().toString());
-            xml.end();  // </StorageClass>
-            xml.end();  // </NoncurrentVersionTransition>
-        }
+        addTransitions(xml, rule.getTransitions());
+        addNoncurrentTransitions(xml, rule.getNoncurrentVersionTransitions());
 
         if (rule.getExpirationInDays() != -1) {
             xml.start("Expiration");
@@ -422,6 +428,56 @@ public class BucketConfigurationXmlFactory {
         }
 
         xml.end(); // </Rule>
+    }
+
+    private void addTransitions(XmlWriter xml, List<Transition> transitions) {
+        if (transitions == null || transitions.isEmpty()) {
+            return;
+        }
+
+        for (Transition t : transitions) {
+            if (t != null) {
+                xml.start("Transition");
+                if (t.getDate() != null) {
+                    xml.start("Date");
+                    xml.value(ServiceUtils.formatIso8601Date(t.getDate()));
+                    xml.end();
+                }
+                if (t.getDays() != -1) {
+                    xml.start("Days");
+                    xml.value(Integer.toString(t.getDays()));
+                    xml.end();
+                }
+
+                xml.start("StorageClass");
+                xml.value(t.getStorageClass().toString());
+                xml.end(); // <StorageClass>
+                xml.end(); // </Transition>
+            }
+        }
+    }
+
+    private void addNoncurrentTransitions(XmlWriter xml,
+            List<NoncurrentVersionTransition> transitions) {
+        if (transitions == null || transitions.isEmpty()) {
+            return;
+        }
+
+        for (NoncurrentVersionTransition t : transitions) {
+            if (t != null) {
+                xml.start("NoncurrentVersionTransition");
+                if (t.getDays() != -1) {
+                    xml.start("NoncurrentDays");
+                    xml.value(Integer.toString(t.getDays()));
+                    xml.end();
+                }
+
+                xml.start("StorageClass");
+                xml.value(t.getStorageClass().toString());
+                xml.end(); // </StorageClass>
+                xml.end(); // </NoncurrentVersionTransition>
+            }
+        }
     }
 
     private void writeRule(XmlWriter xml, CORSRule rule) {

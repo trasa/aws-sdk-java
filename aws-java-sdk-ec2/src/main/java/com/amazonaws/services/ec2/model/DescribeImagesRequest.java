@@ -66,13 +66,13 @@ public class DescribeImagesRequest extends AmazonWebServiceRequest implements Se
      * Boolean value that indicates whether the Amazon EBS volume is deleted
      * on instance termination. </li> <li>
      * <p><code>block-device-mapping.device-name</code> - The device name for
-     * the Amazon EBS volume (for example, <code>/dev/sdh</code>). </li> <li>
+     * the EBS volume (for example, <code>/dev/sdh</code>). </li> <li>
      * <p><code>block-device-mapping.snapshot-id</code> - The ID of the
-     * snapshot used for the Amazon EBS volume. </li> <li>
+     * snapshot used for the EBS volume. </li> <li>
      * <p><code>block-device-mapping.volume-size</code> - The volume size of
-     * the Amazon EBS volume, in GiB. </li> <li>
+     * the EBS volume, in GiB. </li> <li>
      * <p><code>block-device-mapping.volume-type</code> - The volume type of
-     * the Amazon EBS volume (<code>gp2</code> | <code>standard</code> |
+     * the EBS volume (<code>gp2</code> | <code>standard</code> |
      * <code>io1</code>). </li> <li> <p><code>description</code> - The
      * description of the image (provided during image creation). </li> <li>
      * <p><code>hypervisor</code> - The hypervisor type (<code>ovm</code> |
@@ -154,6 +154,11 @@ public class DescribeImagesRequest extends AmazonWebServiceRequest implements Se
     /**
      * One or more image IDs. <p>Default: Describes all images available to
      * you.
+     * <p>
+     * <b>NOTE:</b> This method appends the values to the existing list (if
+     * any). Use {@link #setImageIds(java.util.Collection)} or {@link
+     * #withImageIds(java.util.Collection)} if you want to override the
+     * existing values.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *
@@ -246,6 +251,11 @@ public class DescribeImagesRequest extends AmazonWebServiceRequest implements Se
      * the request). Omitting this option returns all images for which you
      * have launch permissions, regardless of ownership.
      * <p>
+     * <b>NOTE:</b> This method appends the values to the existing list (if
+     * any). Use {@link #setOwners(java.util.Collection)} or {@link
+     * #withOwners(java.util.Collection)} if you want to override the
+     * existing values.
+     * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *
      * @param owners Filters the images by the owner. Specify an AWS account ID,
@@ -336,6 +346,11 @@ public class DescribeImagesRequest extends AmazonWebServiceRequest implements Se
      * an AWS account ID, <code>self</code> (the sender of the request), or
      * <code>all</code> (public AMIs).
      * <p>
+     * <b>NOTE:</b> This method appends the values to the existing list (if
+     * any). Use {@link #setExecutableUsers(java.util.Collection)} or {@link
+     * #withExecutableUsers(java.util.Collection)} if you want to override
+     * the existing values.
+     * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *
      * @param executableUsers Scopes the images by users with explicit launch permissions. Specify
@@ -386,13 +401,13 @@ public class DescribeImagesRequest extends AmazonWebServiceRequest implements Se
      * Boolean value that indicates whether the Amazon EBS volume is deleted
      * on instance termination. </li> <li>
      * <p><code>block-device-mapping.device-name</code> - The device name for
-     * the Amazon EBS volume (for example, <code>/dev/sdh</code>). </li> <li>
+     * the EBS volume (for example, <code>/dev/sdh</code>). </li> <li>
      * <p><code>block-device-mapping.snapshot-id</code> - The ID of the
-     * snapshot used for the Amazon EBS volume. </li> <li>
+     * snapshot used for the EBS volume. </li> <li>
      * <p><code>block-device-mapping.volume-size</code> - The volume size of
-     * the Amazon EBS volume, in GiB. </li> <li>
+     * the EBS volume, in GiB. </li> <li>
      * <p><code>block-device-mapping.volume-type</code> - The volume type of
-     * the Amazon EBS volume (<code>gp2</code> | <code>standard</code> |
+     * the EBS volume (<code>gp2</code> | <code>standard</code> |
      * <code>io1</code>). </li> <li> <p><code>description</code> - The
      * description of the image (provided during image creation). </li> <li>
      * <p><code>hypervisor</code> - The hypervisor type (<code>ovm</code> |
@@ -443,13 +458,13 @@ public class DescribeImagesRequest extends AmazonWebServiceRequest implements Se
      *         Boolean value that indicates whether the Amazon EBS volume is deleted
      *         on instance termination. </li> <li>
      *         <p><code>block-device-mapping.device-name</code> - The device name for
-     *         the Amazon EBS volume (for example, <code>/dev/sdh</code>). </li> <li>
+     *         the EBS volume (for example, <code>/dev/sdh</code>). </li> <li>
      *         <p><code>block-device-mapping.snapshot-id</code> - The ID of the
-     *         snapshot used for the Amazon EBS volume. </li> <li>
+     *         snapshot used for the EBS volume. </li> <li>
      *         <p><code>block-device-mapping.volume-size</code> - The volume size of
-     *         the Amazon EBS volume, in GiB. </li> <li>
+     *         the EBS volume, in GiB. </li> <li>
      *         <p><code>block-device-mapping.volume-type</code> - The volume type of
-     *         the Amazon EBS volume (<code>gp2</code> | <code>standard</code> |
+     *         the EBS volume (<code>gp2</code> | <code>standard</code> |
      *         <code>io1</code>). </li> <li> <p><code>description</code> - The
      *         description of the image (provided during image creation). </li> <li>
      *         <p><code>hypervisor</code> - The hypervisor type (<code>ovm</code> |
@@ -509,13 +524,13 @@ public class DescribeImagesRequest extends AmazonWebServiceRequest implements Se
      * Boolean value that indicates whether the Amazon EBS volume is deleted
      * on instance termination. </li> <li>
      * <p><code>block-device-mapping.device-name</code> - The device name for
-     * the Amazon EBS volume (for example, <code>/dev/sdh</code>). </li> <li>
+     * the EBS volume (for example, <code>/dev/sdh</code>). </li> <li>
      * <p><code>block-device-mapping.snapshot-id</code> - The ID of the
-     * snapshot used for the Amazon EBS volume. </li> <li>
+     * snapshot used for the EBS volume. </li> <li>
      * <p><code>block-device-mapping.volume-size</code> - The volume size of
-     * the Amazon EBS volume, in GiB. </li> <li>
+     * the EBS volume, in GiB. </li> <li>
      * <p><code>block-device-mapping.volume-type</code> - The volume type of
-     * the Amazon EBS volume (<code>gp2</code> | <code>standard</code> |
+     * the EBS volume (<code>gp2</code> | <code>standard</code> |
      * <code>io1</code>). </li> <li> <p><code>description</code> - The
      * description of the image (provided during image creation). </li> <li>
      * <p><code>hypervisor</code> - The hypervisor type (<code>ovm</code> |
@@ -566,13 +581,13 @@ public class DescribeImagesRequest extends AmazonWebServiceRequest implements Se
      *         Boolean value that indicates whether the Amazon EBS volume is deleted
      *         on instance termination. </li> <li>
      *         <p><code>block-device-mapping.device-name</code> - The device name for
-     *         the Amazon EBS volume (for example, <code>/dev/sdh</code>). </li> <li>
+     *         the EBS volume (for example, <code>/dev/sdh</code>). </li> <li>
      *         <p><code>block-device-mapping.snapshot-id</code> - The ID of the
-     *         snapshot used for the Amazon EBS volume. </li> <li>
+     *         snapshot used for the EBS volume. </li> <li>
      *         <p><code>block-device-mapping.volume-size</code> - The volume size of
-     *         the Amazon EBS volume, in GiB. </li> <li>
+     *         the EBS volume, in GiB. </li> <li>
      *         <p><code>block-device-mapping.volume-type</code> - The volume type of
-     *         the Amazon EBS volume (<code>gp2</code> | <code>standard</code> |
+     *         the EBS volume (<code>gp2</code> | <code>standard</code> |
      *         <code>io1</code>). </li> <li> <p><code>description</code> - The
      *         description of the image (provided during image creation). </li> <li>
      *         <p><code>hypervisor</code> - The hypervisor type (<code>ovm</code> |
@@ -634,13 +649,13 @@ public class DescribeImagesRequest extends AmazonWebServiceRequest implements Se
      * Boolean value that indicates whether the Amazon EBS volume is deleted
      * on instance termination. </li> <li>
      * <p><code>block-device-mapping.device-name</code> - The device name for
-     * the Amazon EBS volume (for example, <code>/dev/sdh</code>). </li> <li>
+     * the EBS volume (for example, <code>/dev/sdh</code>). </li> <li>
      * <p><code>block-device-mapping.snapshot-id</code> - The ID of the
-     * snapshot used for the Amazon EBS volume. </li> <li>
+     * snapshot used for the EBS volume. </li> <li>
      * <p><code>block-device-mapping.volume-size</code> - The volume size of
-     * the Amazon EBS volume, in GiB. </li> <li>
+     * the EBS volume, in GiB. </li> <li>
      * <p><code>block-device-mapping.volume-type</code> - The volume type of
-     * the Amazon EBS volume (<code>gp2</code> | <code>standard</code> |
+     * the EBS volume (<code>gp2</code> | <code>standard</code> |
      * <code>io1</code>). </li> <li> <p><code>description</code> - The
      * description of the image (provided during image creation). </li> <li>
      * <p><code>hypervisor</code> - The hypervisor type (<code>ovm</code> |
@@ -685,6 +700,11 @@ public class DescribeImagesRequest extends AmazonWebServiceRequest implements Se
      * virtualization type (<code>paravirtual</code> | <code>hvm</code>).
      * </li> </ul>
      * <p>
+     * <b>NOTE:</b> This method appends the values to the existing list (if
+     * any). Use {@link #setFilters(java.util.Collection)} or {@link
+     * #withFilters(java.util.Collection)} if you want to override the
+     * existing values.
+     * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *
      * @param filters One or more filters. <ul> <li> <p><code>architecture</code> - The
@@ -693,13 +713,13 @@ public class DescribeImagesRequest extends AmazonWebServiceRequest implements Se
      *         Boolean value that indicates whether the Amazon EBS volume is deleted
      *         on instance termination. </li> <li>
      *         <p><code>block-device-mapping.device-name</code> - The device name for
-     *         the Amazon EBS volume (for example, <code>/dev/sdh</code>). </li> <li>
+     *         the EBS volume (for example, <code>/dev/sdh</code>). </li> <li>
      *         <p><code>block-device-mapping.snapshot-id</code> - The ID of the
-     *         snapshot used for the Amazon EBS volume. </li> <li>
+     *         snapshot used for the EBS volume. </li> <li>
      *         <p><code>block-device-mapping.volume-size</code> - The volume size of
-     *         the Amazon EBS volume, in GiB. </li> <li>
+     *         the EBS volume, in GiB. </li> <li>
      *         <p><code>block-device-mapping.volume-type</code> - The volume type of
-     *         the Amazon EBS volume (<code>gp2</code> | <code>standard</code> |
+     *         the EBS volume (<code>gp2</code> | <code>standard</code> |
      *         <code>io1</code>). </li> <li> <p><code>description</code> - The
      *         description of the image (provided during image creation). </li> <li>
      *         <p><code>hypervisor</code> - The hypervisor type (<code>ovm</code> |
@@ -762,13 +782,13 @@ public class DescribeImagesRequest extends AmazonWebServiceRequest implements Se
      * Boolean value that indicates whether the Amazon EBS volume is deleted
      * on instance termination. </li> <li>
      * <p><code>block-device-mapping.device-name</code> - The device name for
-     * the Amazon EBS volume (for example, <code>/dev/sdh</code>). </li> <li>
+     * the EBS volume (for example, <code>/dev/sdh</code>). </li> <li>
      * <p><code>block-device-mapping.snapshot-id</code> - The ID of the
-     * snapshot used for the Amazon EBS volume. </li> <li>
+     * snapshot used for the EBS volume. </li> <li>
      * <p><code>block-device-mapping.volume-size</code> - The volume size of
-     * the Amazon EBS volume, in GiB. </li> <li>
+     * the EBS volume, in GiB. </li> <li>
      * <p><code>block-device-mapping.volume-type</code> - The volume type of
-     * the Amazon EBS volume (<code>gp2</code> | <code>standard</code> |
+     * the EBS volume (<code>gp2</code> | <code>standard</code> |
      * <code>io1</code>). </li> <li> <p><code>description</code> - The
      * description of the image (provided during image creation). </li> <li>
      * <p><code>hypervisor</code> - The hypervisor type (<code>ovm</code> |
@@ -821,13 +841,13 @@ public class DescribeImagesRequest extends AmazonWebServiceRequest implements Se
      *         Boolean value that indicates whether the Amazon EBS volume is deleted
      *         on instance termination. </li> <li>
      *         <p><code>block-device-mapping.device-name</code> - The device name for
-     *         the Amazon EBS volume (for example, <code>/dev/sdh</code>). </li> <li>
+     *         the EBS volume (for example, <code>/dev/sdh</code>). </li> <li>
      *         <p><code>block-device-mapping.snapshot-id</code> - The ID of the
-     *         snapshot used for the Amazon EBS volume. </li> <li>
+     *         snapshot used for the EBS volume. </li> <li>
      *         <p><code>block-device-mapping.volume-size</code> - The volume size of
-     *         the Amazon EBS volume, in GiB. </li> <li>
+     *         the EBS volume, in GiB. </li> <li>
      *         <p><code>block-device-mapping.volume-type</code> - The volume type of
-     *         the Amazon EBS volume (<code>gp2</code> | <code>standard</code> |
+     *         the EBS volume (<code>gp2</code> | <code>standard</code> |
      *         <code>io1</code>). </li> <li> <p><code>description</code> - The
      *         description of the image (provided during image creation). </li> <li>
      *         <p><code>hypervisor</code> - The hypervisor type (<code>ovm</code> |

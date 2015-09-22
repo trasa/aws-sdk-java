@@ -71,11 +71,12 @@ import com.amazonaws.AmazonWebServiceRequest;
 public class InitiateMultipartUploadRequest extends AmazonWebServiceRequest implements Serializable, Cloneable {
 
     /**
-     * The <code>AccountId</code> is the AWS Account ID. You can specify
-     * either the AWS Account ID or optionally a '-', in which case Amazon
-     * Glacier uses the AWS Account ID associated with the credentials used
-     * to sign the request. If you specify your Account ID, do not include
-     * hyphens in it.
+     * The <code>AccountId</code> value is the AWS account ID of the account
+     * that owns the vault. You can either specify an AWS account ID or
+     * optionally a single '<code>-</code>' (hyphen), in which case Amazon
+     * Glacier uses the AWS account ID associated with the credentials used
+     * to sign the request. If you use an account ID, do not include any
+     * hyphens ('-') in the ID.
      */
     private String accountId;
 
@@ -86,8 +87,8 @@ public class InitiateMultipartUploadRequest extends AmazonWebServiceRequest impl
 
     /**
      * The archive description that you are uploading in parts. <p>The part
-     * size must be a megabyte (1024 KB) multiplied by a power of 2???for
-     * example, 1048576 (1 MB), 2097152 (2 MB), 4194304 (4 MB), 8388608 (8
+     * size must be a megabyte (1024 KB) multiplied by a power of 2, for
+     * example 1048576 (1 MB), 2097152 (2 MB), 4194304 (4 MB), 8388608 (8
      * MB), and so on. The minimum allowable part size is 1 MB, and the
      * maximum is 4 GB (4096 MB).
      */
@@ -113,7 +114,7 @@ public class InitiateMultipartUploadRequest extends AmazonWebServiceRequest impl
      * @param vaultName The name of the vault.
      * @param archiveDescription The archive description that you are
      * uploading in parts. <p>The part size must be a megabyte (1024 KB)
-     * multiplied by a power of 2???for example, 1048576 (1 MB), 2097152 (2
+     * multiplied by a power of 2, for example 1048576 (1 MB), 2097152 (2
      * MB), 4194304 (4 MB), 8388608 (8 MB), and so on. The minimum allowable
      * part size is 1 MB, and the maximum is 4 GB (4096 MB).
      * @param partSize The size of each part except the last, in bytes. The
@@ -130,15 +131,16 @@ public class InitiateMultipartUploadRequest extends AmazonWebServiceRequest impl
      * Callers should use the setter or fluent setter (with...) methods to
      * initialize any additional object members.
      * 
-     * @param accountId The <code>AccountId</code> is the AWS Account ID. You
-     * can specify either the AWS Account ID or optionally a '-', in which
-     * case Amazon Glacier uses the AWS Account ID associated with the
-     * credentials used to sign the request. If you specify your Account ID,
-     * do not include hyphens in it.
+     * @param accountId The <code>AccountId</code> value is the AWS account
+     * ID of the account that owns the vault. You can either specify an AWS
+     * account ID or optionally a single '<code>-</code>' (hyphen), in which
+     * case Amazon Glacier uses the AWS account ID associated with the
+     * credentials used to sign the request. If you use an account ID, do not
+     * include any hyphens ('-') in the ID.
      * @param vaultName The name of the vault.
      * @param archiveDescription The archive description that you are
      * uploading in parts. <p>The part size must be a megabyte (1024 KB)
-     * multiplied by a power of 2???for example, 1048576 (1 MB), 2097152 (2
+     * multiplied by a power of 2, for example 1048576 (1 MB), 2097152 (2
      * MB), 4194304 (4 MB), 8388608 (8 MB), and so on. The minimum allowable
      * part size is 1 MB, and the maximum is 4 GB (4096 MB).
      * @param partSize The size of each part except the last, in bytes. The
@@ -152,53 +154,59 @@ public class InitiateMultipartUploadRequest extends AmazonWebServiceRequest impl
     }
 
     /**
-     * The <code>AccountId</code> is the AWS Account ID. You can specify
-     * either the AWS Account ID or optionally a '-', in which case Amazon
-     * Glacier uses the AWS Account ID associated with the credentials used
-     * to sign the request. If you specify your Account ID, do not include
-     * hyphens in it.
+     * The <code>AccountId</code> value is the AWS account ID of the account
+     * that owns the vault. You can either specify an AWS account ID or
+     * optionally a single '<code>-</code>' (hyphen), in which case Amazon
+     * Glacier uses the AWS account ID associated with the credentials used
+     * to sign the request. If you use an account ID, do not include any
+     * hyphens ('-') in the ID.
      *
-     * @return The <code>AccountId</code> is the AWS Account ID. You can specify
-     *         either the AWS Account ID or optionally a '-', in which case Amazon
-     *         Glacier uses the AWS Account ID associated with the credentials used
-     *         to sign the request. If you specify your Account ID, do not include
-     *         hyphens in it.
+     * @return The <code>AccountId</code> value is the AWS account ID of the account
+     *         that owns the vault. You can either specify an AWS account ID or
+     *         optionally a single '<code>-</code>' (hyphen), in which case Amazon
+     *         Glacier uses the AWS account ID associated with the credentials used
+     *         to sign the request. If you use an account ID, do not include any
+     *         hyphens ('-') in the ID.
      */
     public String getAccountId() {
         return accountId;
     }
     
     /**
-     * The <code>AccountId</code> is the AWS Account ID. You can specify
-     * either the AWS Account ID or optionally a '-', in which case Amazon
-     * Glacier uses the AWS Account ID associated with the credentials used
-     * to sign the request. If you specify your Account ID, do not include
-     * hyphens in it.
+     * The <code>AccountId</code> value is the AWS account ID of the account
+     * that owns the vault. You can either specify an AWS account ID or
+     * optionally a single '<code>-</code>' (hyphen), in which case Amazon
+     * Glacier uses the AWS account ID associated with the credentials used
+     * to sign the request. If you use an account ID, do not include any
+     * hyphens ('-') in the ID.
      *
-     * @param accountId The <code>AccountId</code> is the AWS Account ID. You can specify
-     *         either the AWS Account ID or optionally a '-', in which case Amazon
-     *         Glacier uses the AWS Account ID associated with the credentials used
-     *         to sign the request. If you specify your Account ID, do not include
-     *         hyphens in it.
+     * @param accountId The <code>AccountId</code> value is the AWS account ID of the account
+     *         that owns the vault. You can either specify an AWS account ID or
+     *         optionally a single '<code>-</code>' (hyphen), in which case Amazon
+     *         Glacier uses the AWS account ID associated with the credentials used
+     *         to sign the request. If you use an account ID, do not include any
+     *         hyphens ('-') in the ID.
      */
     public void setAccountId(String accountId) {
         this.accountId = accountId;
     }
     
     /**
-     * The <code>AccountId</code> is the AWS Account ID. You can specify
-     * either the AWS Account ID or optionally a '-', in which case Amazon
-     * Glacier uses the AWS Account ID associated with the credentials used
-     * to sign the request. If you specify your Account ID, do not include
-     * hyphens in it.
+     * The <code>AccountId</code> value is the AWS account ID of the account
+     * that owns the vault. You can either specify an AWS account ID or
+     * optionally a single '<code>-</code>' (hyphen), in which case Amazon
+     * Glacier uses the AWS account ID associated with the credentials used
+     * to sign the request. If you use an account ID, do not include any
+     * hyphens ('-') in the ID.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *
-     * @param accountId The <code>AccountId</code> is the AWS Account ID. You can specify
-     *         either the AWS Account ID or optionally a '-', in which case Amazon
-     *         Glacier uses the AWS Account ID associated with the credentials used
-     *         to sign the request. If you specify your Account ID, do not include
-     *         hyphens in it.
+     * @param accountId The <code>AccountId</code> value is the AWS account ID of the account
+     *         that owns the vault. You can either specify an AWS account ID or
+     *         optionally a single '<code>-</code>' (hyphen), in which case Amazon
+     *         Glacier uses the AWS account ID associated with the credentials used
+     *         to sign the request. If you use an account ID, do not include any
+     *         hyphens ('-') in the ID.
      *
      * @return A reference to this updated object so that method calls can be chained
      *         together.
@@ -243,14 +251,14 @@ public class InitiateMultipartUploadRequest extends AmazonWebServiceRequest impl
 
     /**
      * The archive description that you are uploading in parts. <p>The part
-     * size must be a megabyte (1024 KB) multiplied by a power of 2???for
-     * example, 1048576 (1 MB), 2097152 (2 MB), 4194304 (4 MB), 8388608 (8
+     * size must be a megabyte (1024 KB) multiplied by a power of 2, for
+     * example 1048576 (1 MB), 2097152 (2 MB), 4194304 (4 MB), 8388608 (8
      * MB), and so on. The minimum allowable part size is 1 MB, and the
      * maximum is 4 GB (4096 MB).
      *
      * @return The archive description that you are uploading in parts. <p>The part
-     *         size must be a megabyte (1024 KB) multiplied by a power of 2???for
-     *         example, 1048576 (1 MB), 2097152 (2 MB), 4194304 (4 MB), 8388608 (8
+     *         size must be a megabyte (1024 KB) multiplied by a power of 2, for
+     *         example 1048576 (1 MB), 2097152 (2 MB), 4194304 (4 MB), 8388608 (8
      *         MB), and so on. The minimum allowable part size is 1 MB, and the
      *         maximum is 4 GB (4096 MB).
      */
@@ -260,14 +268,14 @@ public class InitiateMultipartUploadRequest extends AmazonWebServiceRequest impl
     
     /**
      * The archive description that you are uploading in parts. <p>The part
-     * size must be a megabyte (1024 KB) multiplied by a power of 2???for
-     * example, 1048576 (1 MB), 2097152 (2 MB), 4194304 (4 MB), 8388608 (8
+     * size must be a megabyte (1024 KB) multiplied by a power of 2, for
+     * example 1048576 (1 MB), 2097152 (2 MB), 4194304 (4 MB), 8388608 (8
      * MB), and so on. The minimum allowable part size is 1 MB, and the
      * maximum is 4 GB (4096 MB).
      *
      * @param archiveDescription The archive description that you are uploading in parts. <p>The part
-     *         size must be a megabyte (1024 KB) multiplied by a power of 2???for
-     *         example, 1048576 (1 MB), 2097152 (2 MB), 4194304 (4 MB), 8388608 (8
+     *         size must be a megabyte (1024 KB) multiplied by a power of 2, for
+     *         example 1048576 (1 MB), 2097152 (2 MB), 4194304 (4 MB), 8388608 (8
      *         MB), and so on. The minimum allowable part size is 1 MB, and the
      *         maximum is 4 GB (4096 MB).
      */
@@ -277,16 +285,16 @@ public class InitiateMultipartUploadRequest extends AmazonWebServiceRequest impl
     
     /**
      * The archive description that you are uploading in parts. <p>The part
-     * size must be a megabyte (1024 KB) multiplied by a power of 2???for
-     * example, 1048576 (1 MB), 2097152 (2 MB), 4194304 (4 MB), 8388608 (8
+     * size must be a megabyte (1024 KB) multiplied by a power of 2, for
+     * example 1048576 (1 MB), 2097152 (2 MB), 4194304 (4 MB), 8388608 (8
      * MB), and so on. The minimum allowable part size is 1 MB, and the
      * maximum is 4 GB (4096 MB).
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *
      * @param archiveDescription The archive description that you are uploading in parts. <p>The part
-     *         size must be a megabyte (1024 KB) multiplied by a power of 2???for
-     *         example, 1048576 (1 MB), 2097152 (2 MB), 4194304 (4 MB), 8388608 (8
+     *         size must be a megabyte (1024 KB) multiplied by a power of 2, for
+     *         example 1048576 (1 MB), 2097152 (2 MB), 4194304 (4 MB), 8388608 (8
      *         MB), and so on. The minimum allowable part size is 1 MB, and the
      *         maximum is 4 GB (4096 MB).
      *

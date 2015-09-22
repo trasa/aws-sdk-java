@@ -3,15 +3,15 @@
  * Synchronous and asynchronous client classes for accessing AmazonIdentityManagement.
  *
  * AWS Identity and Access Management <p>
- * AWS Identity and Access Management (IAM) is a web service that you
- * can use to manage users and user permissions under your AWS account.
- * This guide provides descriptions of IAM actions that you can call
+ * AWS Identity and Access Management (IAM) is a web service that you can
+ * use to manage users and user permissions under your AWS account. This
+ * guide provides descriptions of IAM actions that you can call
  * programmatically. For general information about IAM, see
  * <a href="http://aws.amazon.com/iam/"> AWS Identity and Access Management (IAM) </a> . For the user guide for IAM, see <a href="http://docs.aws.amazon.com/IAM/latest/UserGuide/"> Using IAM </a>
  * .
  * </p>
  * <p>
- * <b>NOTE:</b> AWS provides SDKs that consist of libraries and sample
+ * <b>NOTE:</b>AWS provides SDKs that consist of libraries and sample
  * code for various programming languages and platforms (Java, Ruby,
  * .NET, iOS, Android, etc.). The SDKs provide a convenient way to create
  * programmatic access to IAM and AWS. For example, the SDKs take care of
@@ -52,19 +52,6 @@
  * operations that require version 4 indicate this requirement.
  * </p>
  * <p>
- * <b>Recording API requests</b>
- * </p>
- * <p>
- * IAM supports AWS CloudTrail, which is a service that records AWS
- * calls for your AWS account and delivers log files to an Amazon S3
- * bucket. By using information collected by CloudTrail, you can
- * determine what requests were successfully made to IAM, who made the
- * request, when it was made, and so on. To learn more about CloudTrail,
- * including how to turn it on and find your log files, see the
- * <a href="http://docs.aws.amazon.com/awscloudtrail/latest/userguide/whatisawscloudtrail.html"> AWS CloudTrail User Guide </a>
- * .
- * </p>
- * <p>
  * <b>Additional Resources</b>
  * </p>
  * <p>
@@ -80,10 +67,6 @@
  * <a href="http://docs.aws.amazon.com/IAM/latest/UserGuide/IAMBestPractices.html"> IAM Best Practices </a>
  * . This topic presents a list of suggestions for using the IAM service
  * to help secure your AWS resources. </li>
- * <li>
- * <a href="http://docs.aws.amazon.com/STS/latest/UsingSTS/"> AWS Security Token Service </a>
- * . This guide describes how to create and use temporary security
- * credentials. </li>
  * <li>
  * <a href="http://docs.aws.amazon.com/general/latest/gr/signing_aws_api_requests.html"> Signing AWS API Requests </a>
  * . This set of topics walk you through the process of signing a

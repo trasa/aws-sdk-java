@@ -25,6 +25,7 @@ import java.net.Socket;
 import java.net.SocketTimeoutException;
 import java.net.URI;
 import java.util.Collections;
+import java.util.List;
 import java.util.Map;
 
 import junit.framework.Assert;
@@ -38,6 +39,7 @@ import com.amazonaws.AmazonServiceException;
 import com.amazonaws.AmazonWebServiceRequest;
 import com.amazonaws.AmazonWebServiceResponse;
 import com.amazonaws.ClientConfiguration;
+import com.amazonaws.ReadLimitInfo;
 import com.amazonaws.Request;
 import com.amazonaws.util.AWSRequestMetrics;
 
@@ -229,12 +231,12 @@ public class AmazonHttpClientSslHandshakeTimeoutTest {
         }
 
         @Override
-        public Map<String, String> getParameters() {
+        public Map<String, List<String>> getParameters() {
             return Collections.emptyMap();
         }
 
         @Override
-        public void setParameters(Map<String, String> parameters) {
+        public void setParameters(Map<String, List<String>> parameters) {
         }
 
         @Override
@@ -273,8 +275,7 @@ public class AmazonHttpClientSslHandshakeTimeoutTest {
 
         @Override
         public AmazonWebServiceRequest getOriginalRequest() {
-            return new AmazonWebServiceRequest() {
-            };
+            return new AmazonWebServiceRequest() {};
         }
 
         @Override
@@ -298,6 +299,21 @@ public class AmazonHttpClientSslHandshakeTimeoutTest {
 
         @Override
         public void setAWSRequestMetrics(AWSRequestMetrics metrics) {
+        }
+
+        @Override
+        public ReadLimitInfo getReadLimitInfo() {
+            return new AmazonWebServiceRequest() {};
+        }
+
+        @Override
+        public InputStream getContentUnwrapped() {
+            return null;
+        }
+
+        @Override
+        public Object getOriginalRequestObject() {
+            return new AmazonWebServiceRequest() {};
         }
     }
 }

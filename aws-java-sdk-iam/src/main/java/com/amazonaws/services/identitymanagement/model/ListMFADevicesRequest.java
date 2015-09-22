@@ -40,28 +40,32 @@ public class ListMFADevicesRequest extends AmazonWebServiceRequest implements Se
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>1 - 128<br/>
-     * <b>Pattern: </b>[\w+=,.@-]*<br/>
+     * <b>Pattern: </b>[\w+=,.@-]+<br/>
      */
     private String userName;
 
     /**
-     * Use this only when paginating results, and only in a subsequent
-     * request after you've received a response where the results are
-     * truncated. Set it to the value of the <code>Marker</code> element in
-     * the response you just received.
+     * Use this parameter only when paginating results and only after you
+     * receive a response indicating that the results are truncated. Set it
+     * to the value of the <code>Marker</code> element in the response you
+     * received to inform the next call about where to start.
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>1 - 320<br/>
-     * <b>Pattern: </b>[&#92;u0020-&#92;u00FF]*<br/>
+     * <b>Pattern: </b>[&#92;u0020-&#92;u00FF]+<br/>
      */
     private String marker;
 
     /**
      * Use this only when paginating results to indicate the maximum number
-     * of MFA devices you want in the response. If there are additional MFA
-     * devices beyond the maximum you specify, the <code>IsTruncated</code>
-     * response element is <code>true</code>. This parameter is optional. If
-     * you do not include it, it defaults to 100.
+     * of items you want in the response. If there are additional items
+     * beyond the maximum you specify, the <code>IsTruncated</code> response
+     * element is <code>true</code>. <p>This parameter is optional. If you do
+     * not include it, it defaults to 100. Note that IAM might return fewer
+     * results, even when there are more results available. If this is the
+     * case, the <code>IsTruncated</code> response element returns
+     * <code>true</code> and <code>Marker</code> contains a value to include
+     * in the subsequent call that tells the service where to continue from.
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Range: </b>1 - 1000<br/>
@@ -91,7 +95,7 @@ public class ListMFADevicesRequest extends AmazonWebServiceRequest implements Se
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>1 - 128<br/>
-     * <b>Pattern: </b>[\w+=,.@-]*<br/>
+     * <b>Pattern: </b>[\w+=,.@-]+<br/>
      *
      * @return The name of the user whose MFA devices you want to list.
      */
@@ -104,7 +108,7 @@ public class ListMFADevicesRequest extends AmazonWebServiceRequest implements Se
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>1 - 128<br/>
-     * <b>Pattern: </b>[\w+=,.@-]*<br/>
+     * <b>Pattern: </b>[\w+=,.@-]+<br/>
      *
      * @param userName The name of the user whose MFA devices you want to list.
      */
@@ -119,7 +123,7 @@ public class ListMFADevicesRequest extends AmazonWebServiceRequest implements Se
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>1 - 128<br/>
-     * <b>Pattern: </b>[\w+=,.@-]*<br/>
+     * <b>Pattern: </b>[\w+=,.@-]+<br/>
      *
      * @param userName The name of the user whose MFA devices you want to list.
      *
@@ -132,59 +136,59 @@ public class ListMFADevicesRequest extends AmazonWebServiceRequest implements Se
     }
 
     /**
-     * Use this only when paginating results, and only in a subsequent
-     * request after you've received a response where the results are
-     * truncated. Set it to the value of the <code>Marker</code> element in
-     * the response you just received.
+     * Use this parameter only when paginating results and only after you
+     * receive a response indicating that the results are truncated. Set it
+     * to the value of the <code>Marker</code> element in the response you
+     * received to inform the next call about where to start.
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>1 - 320<br/>
-     * <b>Pattern: </b>[&#92;u0020-&#92;u00FF]*<br/>
+     * <b>Pattern: </b>[&#92;u0020-&#92;u00FF]+<br/>
      *
-     * @return Use this only when paginating results, and only in a subsequent
-     *         request after you've received a response where the results are
-     *         truncated. Set it to the value of the <code>Marker</code> element in
-     *         the response you just received.
+     * @return Use this parameter only when paginating results and only after you
+     *         receive a response indicating that the results are truncated. Set it
+     *         to the value of the <code>Marker</code> element in the response you
+     *         received to inform the next call about where to start.
      */
     public String getMarker() {
         return marker;
     }
     
     /**
-     * Use this only when paginating results, and only in a subsequent
-     * request after you've received a response where the results are
-     * truncated. Set it to the value of the <code>Marker</code> element in
-     * the response you just received.
+     * Use this parameter only when paginating results and only after you
+     * receive a response indicating that the results are truncated. Set it
+     * to the value of the <code>Marker</code> element in the response you
+     * received to inform the next call about where to start.
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>1 - 320<br/>
-     * <b>Pattern: </b>[&#92;u0020-&#92;u00FF]*<br/>
+     * <b>Pattern: </b>[&#92;u0020-&#92;u00FF]+<br/>
      *
-     * @param marker Use this only when paginating results, and only in a subsequent
-     *         request after you've received a response where the results are
-     *         truncated. Set it to the value of the <code>Marker</code> element in
-     *         the response you just received.
+     * @param marker Use this parameter only when paginating results and only after you
+     *         receive a response indicating that the results are truncated. Set it
+     *         to the value of the <code>Marker</code> element in the response you
+     *         received to inform the next call about where to start.
      */
     public void setMarker(String marker) {
         this.marker = marker;
     }
     
     /**
-     * Use this only when paginating results, and only in a subsequent
-     * request after you've received a response where the results are
-     * truncated. Set it to the value of the <code>Marker</code> element in
-     * the response you just received.
+     * Use this parameter only when paginating results and only after you
+     * receive a response indicating that the results are truncated. Set it
+     * to the value of the <code>Marker</code> element in the response you
+     * received to inform the next call about where to start.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>1 - 320<br/>
-     * <b>Pattern: </b>[&#92;u0020-&#92;u00FF]*<br/>
+     * <b>Pattern: </b>[&#92;u0020-&#92;u00FF]+<br/>
      *
-     * @param marker Use this only when paginating results, and only in a subsequent
-     *         request after you've received a response where the results are
-     *         truncated. Set it to the value of the <code>Marker</code> element in
-     *         the response you just received.
+     * @param marker Use this parameter only when paginating results and only after you
+     *         receive a response indicating that the results are truncated. Set it
+     *         to the value of the <code>Marker</code> element in the response you
+     *         received to inform the next call about where to start.
      *
      * @return A reference to this updated object so that method calls can be chained
      *         together.
@@ -196,19 +200,27 @@ public class ListMFADevicesRequest extends AmazonWebServiceRequest implements Se
 
     /**
      * Use this only when paginating results to indicate the maximum number
-     * of MFA devices you want in the response. If there are additional MFA
-     * devices beyond the maximum you specify, the <code>IsTruncated</code>
-     * response element is <code>true</code>. This parameter is optional. If
-     * you do not include it, it defaults to 100.
+     * of items you want in the response. If there are additional items
+     * beyond the maximum you specify, the <code>IsTruncated</code> response
+     * element is <code>true</code>. <p>This parameter is optional. If you do
+     * not include it, it defaults to 100. Note that IAM might return fewer
+     * results, even when there are more results available. If this is the
+     * case, the <code>IsTruncated</code> response element returns
+     * <code>true</code> and <code>Marker</code> contains a value to include
+     * in the subsequent call that tells the service where to continue from.
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Range: </b>1 - 1000<br/>
      *
      * @return Use this only when paginating results to indicate the maximum number
-     *         of MFA devices you want in the response. If there are additional MFA
-     *         devices beyond the maximum you specify, the <code>IsTruncated</code>
-     *         response element is <code>true</code>. This parameter is optional. If
-     *         you do not include it, it defaults to 100.
+     *         of items you want in the response. If there are additional items
+     *         beyond the maximum you specify, the <code>IsTruncated</code> response
+     *         element is <code>true</code>. <p>This parameter is optional. If you do
+     *         not include it, it defaults to 100. Note that IAM might return fewer
+     *         results, even when there are more results available. If this is the
+     *         case, the <code>IsTruncated</code> response element returns
+     *         <code>true</code> and <code>Marker</code> contains a value to include
+     *         in the subsequent call that tells the service where to continue from.
      */
     public Integer getMaxItems() {
         return maxItems;
@@ -216,19 +228,27 @@ public class ListMFADevicesRequest extends AmazonWebServiceRequest implements Se
     
     /**
      * Use this only when paginating results to indicate the maximum number
-     * of MFA devices you want in the response. If there are additional MFA
-     * devices beyond the maximum you specify, the <code>IsTruncated</code>
-     * response element is <code>true</code>. This parameter is optional. If
-     * you do not include it, it defaults to 100.
+     * of items you want in the response. If there are additional items
+     * beyond the maximum you specify, the <code>IsTruncated</code> response
+     * element is <code>true</code>. <p>This parameter is optional. If you do
+     * not include it, it defaults to 100. Note that IAM might return fewer
+     * results, even when there are more results available. If this is the
+     * case, the <code>IsTruncated</code> response element returns
+     * <code>true</code> and <code>Marker</code> contains a value to include
+     * in the subsequent call that tells the service where to continue from.
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Range: </b>1 - 1000<br/>
      *
      * @param maxItems Use this only when paginating results to indicate the maximum number
-     *         of MFA devices you want in the response. If there are additional MFA
-     *         devices beyond the maximum you specify, the <code>IsTruncated</code>
-     *         response element is <code>true</code>. This parameter is optional. If
-     *         you do not include it, it defaults to 100.
+     *         of items you want in the response. If there are additional items
+     *         beyond the maximum you specify, the <code>IsTruncated</code> response
+     *         element is <code>true</code>. <p>This parameter is optional. If you do
+     *         not include it, it defaults to 100. Note that IAM might return fewer
+     *         results, even when there are more results available. If this is the
+     *         case, the <code>IsTruncated</code> response element returns
+     *         <code>true</code> and <code>Marker</code> contains a value to include
+     *         in the subsequent call that tells the service where to continue from.
      */
     public void setMaxItems(Integer maxItems) {
         this.maxItems = maxItems;
@@ -236,10 +256,14 @@ public class ListMFADevicesRequest extends AmazonWebServiceRequest implements Se
     
     /**
      * Use this only when paginating results to indicate the maximum number
-     * of MFA devices you want in the response. If there are additional MFA
-     * devices beyond the maximum you specify, the <code>IsTruncated</code>
-     * response element is <code>true</code>. This parameter is optional. If
-     * you do not include it, it defaults to 100.
+     * of items you want in the response. If there are additional items
+     * beyond the maximum you specify, the <code>IsTruncated</code> response
+     * element is <code>true</code>. <p>This parameter is optional. If you do
+     * not include it, it defaults to 100. Note that IAM might return fewer
+     * results, even when there are more results available. If this is the
+     * case, the <code>IsTruncated</code> response element returns
+     * <code>true</code> and <code>Marker</code> contains a value to include
+     * in the subsequent call that tells the service where to continue from.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      * <p>
@@ -247,10 +271,14 @@ public class ListMFADevicesRequest extends AmazonWebServiceRequest implements Se
      * <b>Range: </b>1 - 1000<br/>
      *
      * @param maxItems Use this only when paginating results to indicate the maximum number
-     *         of MFA devices you want in the response. If there are additional MFA
-     *         devices beyond the maximum you specify, the <code>IsTruncated</code>
-     *         response element is <code>true</code>. This parameter is optional. If
-     *         you do not include it, it defaults to 100.
+     *         of items you want in the response. If there are additional items
+     *         beyond the maximum you specify, the <code>IsTruncated</code> response
+     *         element is <code>true</code>. <p>This parameter is optional. If you do
+     *         not include it, it defaults to 100. Note that IAM might return fewer
+     *         results, even when there are more results available. If this is the
+     *         case, the <code>IsTruncated</code> response element returns
+     *         <code>true</code> and <code>Marker</code> contains a value to include
+     *         in the subsequent call that tells the service where to continue from.
      *
      * @return A reference to this updated object so that method calls can be chained
      *         together.

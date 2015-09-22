@@ -34,7 +34,7 @@ public class CreateDBSecurityGroupRequest extends AmazonWebServiceRequest implem
      * lowercase string. <p>Constraints: <ul> <li>Must be 1 to 255
      * alphanumeric characters</li> <li>First character must be a letter</li>
      * <li>Cannot end with a hyphen or contain two consecutive hyphens</li>
-     * <li>Must not be "Default"</li> <li>May not contain spaces</li> </ul>
+     * <li>Must not be "Default"</li> <li>Cannot contain spaces</li> </ul>
      * <p>Example: <code>mysecuritygroup</code>
      */
     private String dBSecurityGroupName;
@@ -64,7 +64,7 @@ public class CreateDBSecurityGroupRequest extends AmazonWebServiceRequest implem
      * value is stored as a lowercase string. <p>Constraints: <ul> <li>Must
      * be 1 to 255 alphanumeric characters</li> <li>First character must be a
      * letter</li> <li>Cannot end with a hyphen or contain two consecutive
-     * hyphens</li> <li>Must not be "Default"</li> <li>May not contain
+     * hyphens</li> <li>Must not be "Default"</li> <li>Cannot contain
      * spaces</li> </ul> <p>Example: <code>mysecuritygroup</code>
      * @param dBSecurityGroupDescription The description for the DB security
      * group.
@@ -79,14 +79,14 @@ public class CreateDBSecurityGroupRequest extends AmazonWebServiceRequest implem
      * lowercase string. <p>Constraints: <ul> <li>Must be 1 to 255
      * alphanumeric characters</li> <li>First character must be a letter</li>
      * <li>Cannot end with a hyphen or contain two consecutive hyphens</li>
-     * <li>Must not be "Default"</li> <li>May not contain spaces</li> </ul>
+     * <li>Must not be "Default"</li> <li>Cannot contain spaces</li> </ul>
      * <p>Example: <code>mysecuritygroup</code>
      *
      * @return The name for the DB security group. This value is stored as a
      *         lowercase string. <p>Constraints: <ul> <li>Must be 1 to 255
      *         alphanumeric characters</li> <li>First character must be a letter</li>
      *         <li>Cannot end with a hyphen or contain two consecutive hyphens</li>
-     *         <li>Must not be "Default"</li> <li>May not contain spaces</li> </ul>
+     *         <li>Must not be "Default"</li> <li>Cannot contain spaces</li> </ul>
      *         <p>Example: <code>mysecuritygroup</code>
      */
     public String getDBSecurityGroupName() {
@@ -98,14 +98,14 @@ public class CreateDBSecurityGroupRequest extends AmazonWebServiceRequest implem
      * lowercase string. <p>Constraints: <ul> <li>Must be 1 to 255
      * alphanumeric characters</li> <li>First character must be a letter</li>
      * <li>Cannot end with a hyphen or contain two consecutive hyphens</li>
-     * <li>Must not be "Default"</li> <li>May not contain spaces</li> </ul>
+     * <li>Must not be "Default"</li> <li>Cannot contain spaces</li> </ul>
      * <p>Example: <code>mysecuritygroup</code>
      *
      * @param dBSecurityGroupName The name for the DB security group. This value is stored as a
      *         lowercase string. <p>Constraints: <ul> <li>Must be 1 to 255
      *         alphanumeric characters</li> <li>First character must be a letter</li>
      *         <li>Cannot end with a hyphen or contain two consecutive hyphens</li>
-     *         <li>Must not be "Default"</li> <li>May not contain spaces</li> </ul>
+     *         <li>Must not be "Default"</li> <li>Cannot contain spaces</li> </ul>
      *         <p>Example: <code>mysecuritygroup</code>
      */
     public void setDBSecurityGroupName(String dBSecurityGroupName) {
@@ -117,7 +117,7 @@ public class CreateDBSecurityGroupRequest extends AmazonWebServiceRequest implem
      * lowercase string. <p>Constraints: <ul> <li>Must be 1 to 255
      * alphanumeric characters</li> <li>First character must be a letter</li>
      * <li>Cannot end with a hyphen or contain two consecutive hyphens</li>
-     * <li>Must not be "Default"</li> <li>May not contain spaces</li> </ul>
+     * <li>Must not be "Default"</li> <li>Cannot contain spaces</li> </ul>
      * <p>Example: <code>mysecuritygroup</code>
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
@@ -126,7 +126,7 @@ public class CreateDBSecurityGroupRequest extends AmazonWebServiceRequest implem
      *         lowercase string. <p>Constraints: <ul> <li>Must be 1 to 255
      *         alphanumeric characters</li> <li>First character must be a letter</li>
      *         <li>Cannot end with a hyphen or contain two consecutive hyphens</li>
-     *         <li>Must not be "Default"</li> <li>May not contain spaces</li> </ul>
+     *         <li>Must not be "Default"</li> <li>Cannot contain spaces</li> </ul>
      *         <p>Example: <code>mysecuritygroup</code>
      *
      * @return A reference to this updated object so that method calls can be chained
@@ -200,6 +200,11 @@ public class CreateDBSecurityGroupRequest extends AmazonWebServiceRequest implem
     
     /**
      * A list of tags.
+     * <p>
+     * <b>NOTE:</b> This method appends the values to the existing list (if
+     * any). Use {@link #setTags(java.util.Collection)} or {@link
+     * #withTags(java.util.Collection)} if you want to override the existing
+     * values.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *

@@ -99,6 +99,27 @@ public class RunTaskRequestMarshaller implements Marshaller<Request<RunTaskReque
                                 }
                                 jsonWriter.endArray();
                             }
+
+                            com.amazonaws.internal.ListWithAutoConstructFlag<KeyValuePair> environmentList = (com.amazonaws.internal.ListWithAutoConstructFlag<KeyValuePair>)(containerOverridesListValue.getEnvironment());
+                            if (environmentList != null && !(environmentList.isAutoConstruct() && environmentList.isEmpty())) {
+
+                                jsonWriter.key("environment");
+                                jsonWriter.array();
+
+                                for (KeyValuePair environmentListValue : environmentList) {
+                                    if (environmentListValue != null) {
+                                        jsonWriter.object();
+                                        if (environmentListValue.getName() != null) {
+                                            jsonWriter.key("name").value(environmentListValue.getName());
+                                        }
+                                        if (environmentListValue.getValue() != null) {
+                                            jsonWriter.key("value").value(environmentListValue.getValue());
+                                        }
+                                        jsonWriter.endObject();
+                                    }
+                                }
+                                jsonWriter.endArray();
+                            }
                             jsonWriter.endObject();
                         }
                     }
@@ -108,6 +129,9 @@ public class RunTaskRequestMarshaller implements Marshaller<Request<RunTaskReque
             }
             if (runTaskRequest.getCount() != null) {
                 jsonWriter.key("count").value(runTaskRequest.getCount());
+            }
+            if (runTaskRequest.getStartedBy() != null) {
+                jsonWriter.key("startedBy").value(runTaskRequest.getStartedBy());
             }
 
           jsonWriter.endObject();

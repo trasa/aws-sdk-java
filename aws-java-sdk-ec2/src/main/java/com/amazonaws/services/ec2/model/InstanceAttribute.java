@@ -62,7 +62,8 @@ public class InstanceAttribute implements Serializable, Cloneable {
     private String instanceInitiatedShutdownBehavior;
 
     /**
-     * The name of the root device (for example, <code>/dev/sda1</code>).
+     * The name of the root device (for example, <code>/dev/sda1</code> or
+     * <code>/dev/xvda</code>).
      */
     private String rootDeviceName;
 
@@ -360,29 +361,35 @@ public class InstanceAttribute implements Serializable, Cloneable {
     }
 
     /**
-     * The name of the root device (for example, <code>/dev/sda1</code>).
+     * The name of the root device (for example, <code>/dev/sda1</code> or
+     * <code>/dev/xvda</code>).
      *
-     * @return The name of the root device (for example, <code>/dev/sda1</code>).
+     * @return The name of the root device (for example, <code>/dev/sda1</code> or
+     *         <code>/dev/xvda</code>).
      */
     public String getRootDeviceName() {
         return rootDeviceName;
     }
     
     /**
-     * The name of the root device (for example, <code>/dev/sda1</code>).
+     * The name of the root device (for example, <code>/dev/sda1</code> or
+     * <code>/dev/xvda</code>).
      *
-     * @param rootDeviceName The name of the root device (for example, <code>/dev/sda1</code>).
+     * @param rootDeviceName The name of the root device (for example, <code>/dev/sda1</code> or
+     *         <code>/dev/xvda</code>).
      */
     public void setRootDeviceName(String rootDeviceName) {
         this.rootDeviceName = rootDeviceName;
     }
     
     /**
-     * The name of the root device (for example, <code>/dev/sda1</code>).
+     * The name of the root device (for example, <code>/dev/sda1</code> or
+     * <code>/dev/xvda</code>).
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *
-     * @param rootDeviceName The name of the root device (for example, <code>/dev/sda1</code>).
+     * @param rootDeviceName The name of the root device (for example, <code>/dev/sda1</code> or
+     *         <code>/dev/xvda</code>).
      *
      * @return A reference to this updated object so that method calls can be chained
      *         together.
@@ -422,6 +429,11 @@ public class InstanceAttribute implements Serializable, Cloneable {
     
     /**
      * The block device mapping of the instance.
+     * <p>
+     * <b>NOTE:</b> This method appends the values to the existing list (if
+     * any). Use {@link #setBlockDeviceMappings(java.util.Collection)} or
+     * {@link #withBlockDeviceMappings(java.util.Collection)} if you want to
+     * override the existing values.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *
@@ -490,6 +502,11 @@ public class InstanceAttribute implements Serializable, Cloneable {
     
     /**
      * A list of product codes.
+     * <p>
+     * <b>NOTE:</b> This method appends the values to the existing list (if
+     * any). Use {@link #setProductCodes(java.util.Collection)} or {@link
+     * #withProductCodes(java.util.Collection)} if you want to override the
+     * existing values.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *
@@ -699,6 +716,11 @@ public class InstanceAttribute implements Serializable, Cloneable {
     
     /**
      * The security groups associated with the instance.
+     * <p>
+     * <b>NOTE:</b> This method appends the values to the existing list (if
+     * any). Use {@link #setGroups(java.util.Collection)} or {@link
+     * #withGroups(java.util.Collection)} if you want to override the
+     * existing values.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *

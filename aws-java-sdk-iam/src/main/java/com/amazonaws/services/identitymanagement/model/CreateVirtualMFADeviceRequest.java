@@ -35,8 +35,8 @@ import com.amazonaws.AmazonWebServiceRequest;
  * in the <i>Using IAM</i> guide.
  * </p>
  * <p>
- * <b>IMPORTANT:</b> The seed information contained in the QR code and
- * the Base32 string should be treated like any other secret access
+ * <b>IMPORTANT:</b>The seed information contained in the QR code and the
+ * Base32 string should be treated like any other secret access
  * information, such as your AWS access keys or your passwords. After you
  * provision your virtual device, you should ensure that the information
  * is destroyed following secure procedures.
@@ -65,7 +65,7 @@ public class CreateVirtualMFADeviceRequest extends AmazonWebServiceRequest imple
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>1 - <br/>
-     * <b>Pattern: </b>[\w+=,.@-]*<br/>
+     * <b>Pattern: </b>[\w+=,.@-]+<br/>
      */
     private String virtualMFADeviceName;
 
@@ -144,7 +144,7 @@ public class CreateVirtualMFADeviceRequest extends AmazonWebServiceRequest imple
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>1 - <br/>
-     * <b>Pattern: </b>[\w+=,.@-]*<br/>
+     * <b>Pattern: </b>[\w+=,.@-]+<br/>
      *
      * @return The name of the virtual MFA device. Use with path to uniquely identify
      *         a virtual MFA device.
@@ -159,7 +159,7 @@ public class CreateVirtualMFADeviceRequest extends AmazonWebServiceRequest imple
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>1 - <br/>
-     * <b>Pattern: </b>[\w+=,.@-]*<br/>
+     * <b>Pattern: </b>[\w+=,.@-]+<br/>
      *
      * @param virtualMFADeviceName The name of the virtual MFA device. Use with path to uniquely identify
      *         a virtual MFA device.
@@ -176,7 +176,7 @@ public class CreateVirtualMFADeviceRequest extends AmazonWebServiceRequest imple
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>1 - <br/>
-     * <b>Pattern: </b>[\w+=,.@-]*<br/>
+     * <b>Pattern: </b>[\w+=,.@-]+<br/>
      *
      * @param virtualMFADeviceName The name of the virtual MFA device. Use with path to uniquely identify
      *         a virtual MFA device.

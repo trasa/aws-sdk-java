@@ -16,14 +16,18 @@ package com.amazonaws;
 
 import java.io.InputStream;
 import java.net.URI;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.apache.http.annotation.NotThreadSafe;
 
+import com.amazonaws.event.ProgressInputStream;
 import com.amazonaws.http.HttpMethodName;
 import com.amazonaws.util.AWSRequestMetrics;
+import com.amazonaws.util.json.Jackson;
 
 /**
  * Default implementation of the {@linkplain com.amazonaws.Request} interface.
@@ -44,7 +48,7 @@ public class DefaultRequest<T> implements Request<T> {
      * insertion order so that members of a list parameter will still be ordered
      * by their indices when they are marshalled into the query string.
      */
-    private Map<String, String> parameters = new LinkedHashMap<String, String>();
+    private Map<String, List<String>> parameters = new LinkedHashMap<String, List<String>>();
 
     /** Map of the headers included in this request */
     private Map<String, String> headers = new HashMap<String, String>();
@@ -85,7 +89,7 @@ public class DefaultRequest<T> implements Request<T> {
      */
     public DefaultRequest(AmazonWebServiceRequest originalRequest, String serviceName) {
         this.serviceName = serviceName;
-        this.originalRequest = originalRequest == null 
+        this.originalRequest = originalRequest == null
                 ? AmazonWebServiceRequest.NOOP
                 : originalRequest;
     }
@@ -145,13 +149,18 @@ public class DefaultRequest<T> implements Request<T> {
      * @see com.amazonaws.Request#addParameter(java.lang.String, java.lang.String)
      */
     public void addParameter(String name, String value) {
-        parameters.put(name, value);
+        List<String> paramList = parameters.get(name);
+        if (paramList == null) {
+            paramList = new ArrayList<String>();
+            parameters.put(name, paramList);
+        }
+        paramList.add(value);
     }
 
     /**
      * @see com.amazonaws.Request#getParameters()
      */
-    public Map<String, String> getParameters() {
+    public Map<String, List<String>> getParameters() {
         return parameters;
     }
 
@@ -223,7 +232,7 @@ public class DefaultRequest<T> implements Request<T> {
     /**
      * @see com.amazonaws.Request#setParameters(java.util.Map)
      */
-    public void setParameters(Map<String, String> parameters) {
+    public void setParameters(Map<String, List<String>> parameters) {
         this.parameters.clear();
         this.parameters.putAll(parameters);
     }
@@ -252,7 +261,7 @@ public class DefaultRequest<T> implements Request<T> {
 
     @Override
     public String toString() {
-        StringBuilder builder = new StringBuilder();
+        final StringBuilder builder = new StringBuilder();
         builder.append(getHttpMethod()).append(" ");
         builder.append(getEndpoint()).append(" ");
         String resourcePath = getResourcePath();
@@ -268,12 +277,8 @@ public class DefaultRequest<T> implements Request<T> {
         }
         builder.append(" ");
         if (!getParameters().isEmpty()) {
-            builder.append("Parameters: (");
-            for (String key : getParameters().keySet()) {
-                String value = getParameters().get(key);
-                builder.append(key).append(": ").append(value).append(", ");
-            }
-            builder.append(") ");
+            builder.append("Parameters: (")
+                   .append(Jackson.toJsonString(parameters));
         }
 
         if (!getHeaders().isEmpty()) {
@@ -300,5 +305,30 @@ public class DefaultRequest<T> implements Request<T> {
         } else {
             throw new IllegalStateException("AWSRequestMetrics has already been set on this request");
         }
+    }
+
+    @SuppressWarnings("resource")
+    @Override
+    public InputStream getContentUnwrapped() {
+        InputStream is = getContent();
+        if (is == null)
+            return null;
+        // We want to disable the progress reporting when the stream is
+        // consumed for signing purpose.
+        while (is instanceof ProgressInputStream) {
+            ProgressInputStream pris = (ProgressInputStream)is;
+            is = pris.getWrappedInputStream();
+        }
+        return is;
+    }
+
+    @Override
+    public ReadLimitInfo getReadLimitInfo() {
+        return originalRequest;
+    }
+
+    @Override
+    public Object getOriginalRequestObject() {
+        return originalRequest;
     }
 }

@@ -87,8 +87,8 @@ public class UploadMonitor implements Callable<UploadResult>, TransferMonitor {
     }
 
     /**
-     * Constructs a new upload watcher, which immediately submits itself to the
-     * thread pool.
+     * Constructs a new upload watcher and then immediately submits it to
+     * the thread pool.
      *
      * @param manager
      *            The {@link TransferManager} that owns this upload.
@@ -98,14 +98,30 @@ public class UploadMonitor implements Callable<UploadResult>, TransferMonitor {
      *            The {@link ExecutorService} to which we should submit new
      *            tasks.
      * @param multipartUploadCallable
-     *            The callable responsible for processing the upload asynchronously
+     *            The callable responsible for processing the upload
+     *            asynchronously
      * @param putObjectRequest
      *            The original putObject request
      * @param progressListenerChain
      *            A chain of listeners that wish to be notified of upload
      *            progress
      */
-    public UploadMonitor(TransferManager manager, UploadImpl transfer, ExecutorService threadPool,
+    public static UploadMonitor create(
+            TransferManager manager,
+            UploadImpl transfer,
+            ExecutorService threadPool,
+            UploadCallable multipartUploadCallable,
+            PutObjectRequest putObjectRequest,
+            ProgressListenerChain progressListenerChain) {
+
+        UploadMonitor uploadMonitor = new UploadMonitor(manager, transfer,
+                threadPool, multipartUploadCallable, putObjectRequest,
+                progressListenerChain);
+        uploadMonitor.setFuture(threadPool.submit(uploadMonitor));
+        return uploadMonitor;
+    }
+
+    private UploadMonitor(TransferManager manager, UploadImpl transfer, ExecutorService threadPool,
             UploadCallable multipartUploadCallable, PutObjectRequest putObjectRequest,
             ProgressListenerChain progressListenerChain) {
 
@@ -115,8 +131,6 @@ public class UploadMonitor implements Callable<UploadResult>, TransferMonitor {
         this.listener = progressListenerChain;
         this.transfer = transfer;
         this.threadPool = threadPool;
-
-        setFuture(threadPool.submit(this));
     }
 
     @Override
@@ -134,7 +148,7 @@ public class UploadMonitor implements Callable<UploadResult>, TransferMonitor {
                 setFuture(threadPool.submit(new CompleteMultipartUpload(
                         multipartUploadCallable.getMultipartUploadId(), s3,
                         origReq, futures, multipartUploadCallable
-                                .getETags(), this)));
+                                .getETags(), listener, this)));
             } else {
                 uploadComplete();
             }
@@ -145,7 +159,6 @@ public class UploadMonitor implements Callable<UploadResult>, TransferMonitor {
             throw new AmazonClientException("Upload canceled");
         } catch (Exception e) {
             transfer.setState(TransferState.Failed);
-            publishProgress(listener, ProgressEventType.TRANSFER_FAILED_EVENT);
             throw e;
         }
     }
@@ -201,11 +214,12 @@ public class UploadMonitor implements Callable<UploadResult>, TransferMonitor {
 
     /**
      * Cancels all the futures associated with this upload operation. Also
-     * cleans up the parts on Amazon S3 if the uplaod is performed as a
+     * cleans up the parts on Amazon S3 if the upload is performed as a
      * multi-part upload operation.
      */
     void performAbort() {
         cancelFutures();
         multipartUploadCallable.performAbortMultipartUpload();
+        publishProgress(listener, ProgressEventType.TRANSFER_CANCELED_EVENT);
     }
 }

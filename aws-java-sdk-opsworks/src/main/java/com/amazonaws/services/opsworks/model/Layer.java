@@ -37,7 +37,7 @@ public class Layer implements Serializable, Cloneable {
      * The layer type.
      * <p>
      * <b>Constraints:</b><br/>
-     * <b>Allowed Values: </b>java-app, lb, web, php-app, rails-app, nodejs-app, memcached, db-master, monitoring-master, custom
+     * <b>Allowed Values: </b>aws-flow-ruby, ecs-cluster, java-app, lb, web, php-app, rails-app, nodejs-app, memcached, db-master, monitoring-master, custom
      */
     private String type;
 
@@ -52,7 +52,11 @@ public class Layer implements Serializable, Cloneable {
     private String shortname;
 
     /**
-     * The layer attributes.
+     * The layer attributes. <p>For the <code>HaproxyStatsPassword</code>,
+     * <code>MysqlRootPassword</code>, and <code>GangliaPassword</code>
+     * attributes, AWS OpsWorks returns <code>*****FILTERED*****</code>
+     * instead of the actual value <p>For an ECS Cluster layer, AWS OpsWorks
+     * the <code>EcsClusterArn</code> attribute is set to the cluster's ARN.
      */
     private java.util.Map<String,String> attributes;
 
@@ -63,6 +67,12 @@ public class Layer implements Serializable, Cloneable {
      * Identifiers</a>.
      */
     private String customInstanceProfileArn;
+
+    /**
+     * A JSON formatted string containing the layer's custom stack
+     * configuration and deployment attributes.
+     */
+    private String customJson;
 
     /**
      * An array containing the layer's custom security group IDs.
@@ -110,7 +120,7 @@ public class Layer implements Serializable, Cloneable {
     private Boolean autoAssignPublicIps;
 
     /**
-     * AWS OpsWorks supports five lifecycle events, <b>setup</b>,
+     * AWS OpsWorks supports five lifecycle events: <b>setup</b>,
      * <b>configuration</b>, <b>deploy</b>, <b>undeploy</b>, and
      * <b>shutdown</b>. For each layer, AWS OpsWorks runs a set of standard
      * recipes for each event. In addition, you can provide custom recipes
@@ -230,7 +240,7 @@ public class Layer implements Serializable, Cloneable {
      * The layer type.
      * <p>
      * <b>Constraints:</b><br/>
-     * <b>Allowed Values: </b>java-app, lb, web, php-app, rails-app, nodejs-app, memcached, db-master, monitoring-master, custom
+     * <b>Allowed Values: </b>aws-flow-ruby, ecs-cluster, java-app, lb, web, php-app, rails-app, nodejs-app, memcached, db-master, monitoring-master, custom
      *
      * @return The layer type.
      *
@@ -244,7 +254,7 @@ public class Layer implements Serializable, Cloneable {
      * The layer type.
      * <p>
      * <b>Constraints:</b><br/>
-     * <b>Allowed Values: </b>java-app, lb, web, php-app, rails-app, nodejs-app, memcached, db-master, monitoring-master, custom
+     * <b>Allowed Values: </b>aws-flow-ruby, ecs-cluster, java-app, lb, web, php-app, rails-app, nodejs-app, memcached, db-master, monitoring-master, custom
      *
      * @param type The layer type.
      *
@@ -260,7 +270,7 @@ public class Layer implements Serializable, Cloneable {
      * Returns a reference to this object so that method calls can be chained together.
      * <p>
      * <b>Constraints:</b><br/>
-     * <b>Allowed Values: </b>java-app, lb, web, php-app, rails-app, nodejs-app, memcached, db-master, monitoring-master, custom
+     * <b>Allowed Values: </b>aws-flow-ruby, ecs-cluster, java-app, lb, web, php-app, rails-app, nodejs-app, memcached, db-master, monitoring-master, custom
      *
      * @param type The layer type.
      *
@@ -278,7 +288,7 @@ public class Layer implements Serializable, Cloneable {
      * The layer type.
      * <p>
      * <b>Constraints:</b><br/>
-     * <b>Allowed Values: </b>java-app, lb, web, php-app, rails-app, nodejs-app, memcached, db-master, monitoring-master, custom
+     * <b>Allowed Values: </b>aws-flow-ruby, ecs-cluster, java-app, lb, web, php-app, rails-app, nodejs-app, memcached, db-master, monitoring-master, custom
      *
      * @param type The layer type.
      *
@@ -294,7 +304,7 @@ public class Layer implements Serializable, Cloneable {
      * Returns a reference to this object so that method calls can be chained together.
      * <p>
      * <b>Constraints:</b><br/>
-     * <b>Allowed Values: </b>java-app, lb, web, php-app, rails-app, nodejs-app, memcached, db-master, monitoring-master, custom
+     * <b>Allowed Values: </b>aws-flow-ruby, ecs-cluster, java-app, lb, web, php-app, rails-app, nodejs-app, memcached, db-master, monitoring-master, custom
      *
      * @param type The layer type.
      *
@@ -375,9 +385,17 @@ public class Layer implements Serializable, Cloneable {
     }
 
     /**
-     * The layer attributes.
+     * The layer attributes. <p>For the <code>HaproxyStatsPassword</code>,
+     * <code>MysqlRootPassword</code>, and <code>GangliaPassword</code>
+     * attributes, AWS OpsWorks returns <code>*****FILTERED*****</code>
+     * instead of the actual value <p>For an ECS Cluster layer, AWS OpsWorks
+     * the <code>EcsClusterArn</code> attribute is set to the cluster's ARN.
      *
-     * @return The layer attributes.
+     * @return The layer attributes. <p>For the <code>HaproxyStatsPassword</code>,
+     *         <code>MysqlRootPassword</code>, and <code>GangliaPassword</code>
+     *         attributes, AWS OpsWorks returns <code>*****FILTERED*****</code>
+     *         instead of the actual value <p>For an ECS Cluster layer, AWS OpsWorks
+     *         the <code>EcsClusterArn</code> attribute is set to the cluster's ARN.
      */
     public java.util.Map<String,String> getAttributes() {
         
@@ -388,20 +406,36 @@ public class Layer implements Serializable, Cloneable {
     }
     
     /**
-     * The layer attributes.
+     * The layer attributes. <p>For the <code>HaproxyStatsPassword</code>,
+     * <code>MysqlRootPassword</code>, and <code>GangliaPassword</code>
+     * attributes, AWS OpsWorks returns <code>*****FILTERED*****</code>
+     * instead of the actual value <p>For an ECS Cluster layer, AWS OpsWorks
+     * the <code>EcsClusterArn</code> attribute is set to the cluster's ARN.
      *
-     * @param attributes The layer attributes.
+     * @param attributes The layer attributes. <p>For the <code>HaproxyStatsPassword</code>,
+     *         <code>MysqlRootPassword</code>, and <code>GangliaPassword</code>
+     *         attributes, AWS OpsWorks returns <code>*****FILTERED*****</code>
+     *         instead of the actual value <p>For an ECS Cluster layer, AWS OpsWorks
+     *         the <code>EcsClusterArn</code> attribute is set to the cluster's ARN.
      */
     public void setAttributes(java.util.Map<String,String> attributes) {
         this.attributes = attributes;
     }
     
     /**
-     * The layer attributes.
+     * The layer attributes. <p>For the <code>HaproxyStatsPassword</code>,
+     * <code>MysqlRootPassword</code>, and <code>GangliaPassword</code>
+     * attributes, AWS OpsWorks returns <code>*****FILTERED*****</code>
+     * instead of the actual value <p>For an ECS Cluster layer, AWS OpsWorks
+     * the <code>EcsClusterArn</code> attribute is set to the cluster's ARN.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *
-     * @param attributes The layer attributes.
+     * @param attributes The layer attributes. <p>For the <code>HaproxyStatsPassword</code>,
+     *         <code>MysqlRootPassword</code>, and <code>GangliaPassword</code>
+     *         attributes, AWS OpsWorks returns <code>*****FILTERED*****</code>
+     *         instead of the actual value <p>For an ECS Cluster layer, AWS OpsWorks
+     *         the <code>EcsClusterArn</code> attribute is set to the cluster's ARN.
      *
      * @return A reference to this updated object so that method calls can be chained
      *         together.
@@ -412,7 +446,11 @@ public class Layer implements Serializable, Cloneable {
     }
 
     /**
-     * The layer attributes.
+     * The layer attributes. <p>For the <code>HaproxyStatsPassword</code>,
+     * <code>MysqlRootPassword</code>, and <code>GangliaPassword</code>
+     * attributes, AWS OpsWorks returns <code>*****FILTERED*****</code>
+     * instead of the actual value <p>For an ECS Cluster layer, AWS OpsWorks
+     * the <code>EcsClusterArn</code> attribute is set to the cluster's ARN.
      * <p>
      * The method adds a new key-value pair into Attributes parameter, and
      * returns a reference to this object so that method calls can be chained
@@ -421,26 +459,26 @@ public class Layer implements Serializable, Cloneable {
      * @param key The key of the entry to be added into Attributes.
      * @param value The corresponding value of the entry to be added into Attributes.
      */
-    public Layer addAttributesEntry(String key, String value) {
-        if (null == this.attributes) {
-            this.attributes = new java.util.HashMap<String,String>();
-        }
-        if (this.attributes.containsKey(key))
-            throw new IllegalArgumentException("Duplicated keys (" + key.toString() + ") are provided.");
-        this.attributes.put(key, value);
-        return this;
+  public Layer addAttributesEntry(String key, String value) {
+    if (null == this.attributes) {
+      this.attributes = new java.util.HashMap<String,String>();
     }
+    if (this.attributes.containsKey(key))
+      throw new IllegalArgumentException("Duplicated keys (" + key.toString() + ") are provided.");
+    this.attributes.put(key, value);
+    return this;
+  }
 
-    /**
-     * Removes all the entries added into Attributes.
-     * <p>
-     * Returns a reference to this object so that method calls can be chained together.
-     */
-    public Layer clearAttributesEntries() {
-        this.attributes = null;
-        return this;
-    }
-    
+  /**
+   * Removes all the entries added into Attributes.
+   * <p>
+   * Returns a reference to this object so that method calls can be chained together.
+   */
+  public Layer clearAttributesEntries() {
+    this.attributes = null;
+    return this;
+  }
+  
     /**
      * The ARN of the default IAM profile to be used for the layer's EC2
      * instances. For more information about IAM ARNs, see <a
@@ -493,6 +531,45 @@ public class Layer implements Serializable, Cloneable {
     }
 
     /**
+     * A JSON formatted string containing the layer's custom stack
+     * configuration and deployment attributes.
+     *
+     * @return A JSON formatted string containing the layer's custom stack
+     *         configuration and deployment attributes.
+     */
+    public String getCustomJson() {
+        return customJson;
+    }
+    
+    /**
+     * A JSON formatted string containing the layer's custom stack
+     * configuration and deployment attributes.
+     *
+     * @param customJson A JSON formatted string containing the layer's custom stack
+     *         configuration and deployment attributes.
+     */
+    public void setCustomJson(String customJson) {
+        this.customJson = customJson;
+    }
+    
+    /**
+     * A JSON formatted string containing the layer's custom stack
+     * configuration and deployment attributes.
+     * <p>
+     * Returns a reference to this object so that method calls can be chained together.
+     *
+     * @param customJson A JSON formatted string containing the layer's custom stack
+     *         configuration and deployment attributes.
+     *
+     * @return A reference to this updated object so that method calls can be chained
+     *         together.
+     */
+    public Layer withCustomJson(String customJson) {
+        this.customJson = customJson;
+        return this;
+    }
+
+    /**
      * An array containing the layer's custom security group IDs.
      *
      * @return An array containing the layer's custom security group IDs.
@@ -522,6 +599,11 @@ public class Layer implements Serializable, Cloneable {
     
     /**
      * An array containing the layer's custom security group IDs.
+     * <p>
+     * <b>NOTE:</b> This method appends the values to the existing list (if
+     * any). Use {@link #setCustomSecurityGroupIds(java.util.Collection)} or
+     * {@link #withCustomSecurityGroupIds(java.util.Collection)} if you want
+     * to override the existing values.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *
@@ -590,6 +672,11 @@ public class Layer implements Serializable, Cloneable {
     
     /**
      * An array containing the layer's security group names.
+     * <p>
+     * <b>NOTE:</b> This method appends the values to the existing list (if
+     * any). Use {@link #setDefaultSecurityGroupNames(java.util.Collection)}
+     * or {@link #withDefaultSecurityGroupNames(java.util.Collection)} if you
+     * want to override the existing values.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *
@@ -663,6 +750,11 @@ public class Layer implements Serializable, Cloneable {
     /**
      * An array of <code>Package</code> objects that describe the layer's
      * packages.
+     * <p>
+     * <b>NOTE:</b> This method appends the values to the existing list (if
+     * any). Use {@link #setPackages(java.util.Collection)} or {@link
+     * #withPackages(java.util.Collection)} if you want to override the
+     * existing values.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *
@@ -739,6 +831,11 @@ public class Layer implements Serializable, Cloneable {
     /**
      * A <code>VolumeConfigurations</code> object that describes the layer's
      * Amazon EBS volumes.
+     * <p>
+     * <b>NOTE:</b> This method appends the values to the existing list (if
+     * any). Use {@link #setVolumeConfigurations(java.util.Collection)} or
+     * {@link #withVolumeConfigurations(java.util.Collection)} if you want to
+     * override the existing values.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *
@@ -971,7 +1068,7 @@ public class Layer implements Serializable, Cloneable {
     }
 
     /**
-     * AWS OpsWorks supports five lifecycle events, <b>setup</b>,
+     * AWS OpsWorks supports five lifecycle events: <b>setup</b>,
      * <b>configuration</b>, <b>deploy</b>, <b>undeploy</b>, and
      * <b>shutdown</b>. For each layer, AWS OpsWorks runs a set of standard
      * recipes for each event. In addition, you can provide custom recipes
@@ -984,7 +1081,7 @@ public class Layer implements Serializable, Cloneable {
      * extension. For example: phpapp2::dbsetup specifies the dbsetup.rb
      * recipe in the repository's phpapp2 folder.
      *
-     * @return AWS OpsWorks supports five lifecycle events, <b>setup</b>,
+     * @return AWS OpsWorks supports five lifecycle events: <b>setup</b>,
      *         <b>configuration</b>, <b>deploy</b>, <b>undeploy</b>, and
      *         <b>shutdown</b>. For each layer, AWS OpsWorks runs a set of standard
      *         recipes for each event. In addition, you can provide custom recipes
@@ -1002,7 +1099,7 @@ public class Layer implements Serializable, Cloneable {
     }
     
     /**
-     * AWS OpsWorks supports five lifecycle events, <b>setup</b>,
+     * AWS OpsWorks supports five lifecycle events: <b>setup</b>,
      * <b>configuration</b>, <b>deploy</b>, <b>undeploy</b>, and
      * <b>shutdown</b>. For each layer, AWS OpsWorks runs a set of standard
      * recipes for each event. In addition, you can provide custom recipes
@@ -1015,7 +1112,7 @@ public class Layer implements Serializable, Cloneable {
      * extension. For example: phpapp2::dbsetup specifies the dbsetup.rb
      * recipe in the repository's phpapp2 folder.
      *
-     * @param defaultRecipes AWS OpsWorks supports five lifecycle events, <b>setup</b>,
+     * @param defaultRecipes AWS OpsWorks supports five lifecycle events: <b>setup</b>,
      *         <b>configuration</b>, <b>deploy</b>, <b>undeploy</b>, and
      *         <b>shutdown</b>. For each layer, AWS OpsWorks runs a set of standard
      *         recipes for each event. In addition, you can provide custom recipes
@@ -1033,7 +1130,7 @@ public class Layer implements Serializable, Cloneable {
     }
     
     /**
-     * AWS OpsWorks supports five lifecycle events, <b>setup</b>,
+     * AWS OpsWorks supports five lifecycle events: <b>setup</b>,
      * <b>configuration</b>, <b>deploy</b>, <b>undeploy</b>, and
      * <b>shutdown</b>. For each layer, AWS OpsWorks runs a set of standard
      * recipes for each event. In addition, you can provide custom recipes
@@ -1048,7 +1145,7 @@ public class Layer implements Serializable, Cloneable {
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *
-     * @param defaultRecipes AWS OpsWorks supports five lifecycle events, <b>setup</b>,
+     * @param defaultRecipes AWS OpsWorks supports five lifecycle events: <b>setup</b>,
      *         <b>configuration</b>, <b>deploy</b>, <b>undeploy</b>, and
      *         <b>shutdown</b>. For each layer, AWS OpsWorks runs a set of standard
      *         recipes for each event. In addition, you can provide custom recipes
@@ -1347,6 +1444,7 @@ public class Layer implements Serializable, Cloneable {
         if (getShortname() != null) sb.append("Shortname: " + getShortname() + ",");
         if (getAttributes() != null) sb.append("Attributes: " + getAttributes() + ",");
         if (getCustomInstanceProfileArn() != null) sb.append("CustomInstanceProfileArn: " + getCustomInstanceProfileArn() + ",");
+        if (getCustomJson() != null) sb.append("CustomJson: " + getCustomJson() + ",");
         if (getCustomSecurityGroupIds() != null) sb.append("CustomSecurityGroupIds: " + getCustomSecurityGroupIds() + ",");
         if (getDefaultSecurityGroupNames() != null) sb.append("DefaultSecurityGroupNames: " + getDefaultSecurityGroupNames() + ",");
         if (getPackages() != null) sb.append("Packages: " + getPackages() + ",");
@@ -1376,6 +1474,7 @@ public class Layer implements Serializable, Cloneable {
         hashCode = prime * hashCode + ((getShortname() == null) ? 0 : getShortname().hashCode()); 
         hashCode = prime * hashCode + ((getAttributes() == null) ? 0 : getAttributes().hashCode()); 
         hashCode = prime * hashCode + ((getCustomInstanceProfileArn() == null) ? 0 : getCustomInstanceProfileArn().hashCode()); 
+        hashCode = prime * hashCode + ((getCustomJson() == null) ? 0 : getCustomJson().hashCode()); 
         hashCode = prime * hashCode + ((getCustomSecurityGroupIds() == null) ? 0 : getCustomSecurityGroupIds().hashCode()); 
         hashCode = prime * hashCode + ((getDefaultSecurityGroupNames() == null) ? 0 : getDefaultSecurityGroupNames().hashCode()); 
         hashCode = prime * hashCode + ((getPackages() == null) ? 0 : getPackages().hashCode()); 
@@ -1414,6 +1513,8 @@ public class Layer implements Serializable, Cloneable {
         if (other.getAttributes() != null && other.getAttributes().equals(this.getAttributes()) == false) return false; 
         if (other.getCustomInstanceProfileArn() == null ^ this.getCustomInstanceProfileArn() == null) return false;
         if (other.getCustomInstanceProfileArn() != null && other.getCustomInstanceProfileArn().equals(this.getCustomInstanceProfileArn()) == false) return false; 
+        if (other.getCustomJson() == null ^ this.getCustomJson() == null) return false;
+        if (other.getCustomJson() != null && other.getCustomJson().equals(this.getCustomJson()) == false) return false; 
         if (other.getCustomSecurityGroupIds() == null ^ this.getCustomSecurityGroupIds() == null) return false;
         if (other.getCustomSecurityGroupIds() != null && other.getCustomSecurityGroupIds().equals(this.getCustomSecurityGroupIds()) == false) return false; 
         if (other.getDefaultSecurityGroupNames() == null ^ this.getDefaultSecurityGroupNames() == null) return false;

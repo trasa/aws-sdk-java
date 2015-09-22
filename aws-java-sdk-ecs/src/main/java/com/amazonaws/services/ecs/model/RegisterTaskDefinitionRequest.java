@@ -37,7 +37,8 @@ public class RegisterTaskDefinitionRequest extends AmazonWebServiceRequest imple
      * You must specify a <code>family</code> for a task definition, which
      * allows you to track multiple versions of the same task definition. You
      * can think of the <code>family</code> as a name for your task
-     * definition.
+     * definition. Up to 255 letters (uppercase and lowercase), numbers,
+     * hyphens, and underscores are allowed.
      */
     private String family;
 
@@ -57,12 +58,14 @@ public class RegisterTaskDefinitionRequest extends AmazonWebServiceRequest imple
      * You must specify a <code>family</code> for a task definition, which
      * allows you to track multiple versions of the same task definition. You
      * can think of the <code>family</code> as a name for your task
-     * definition.
+     * definition. Up to 255 letters (uppercase and lowercase), numbers,
+     * hyphens, and underscores are allowed.
      *
      * @return You must specify a <code>family</code> for a task definition, which
      *         allows you to track multiple versions of the same task definition. You
      *         can think of the <code>family</code> as a name for your task
-     *         definition.
+     *         definition. Up to 255 letters (uppercase and lowercase), numbers,
+     *         hyphens, and underscores are allowed.
      */
     public String getFamily() {
         return family;
@@ -72,12 +75,14 @@ public class RegisterTaskDefinitionRequest extends AmazonWebServiceRequest imple
      * You must specify a <code>family</code> for a task definition, which
      * allows you to track multiple versions of the same task definition. You
      * can think of the <code>family</code> as a name for your task
-     * definition.
+     * definition. Up to 255 letters (uppercase and lowercase), numbers,
+     * hyphens, and underscores are allowed.
      *
      * @param family You must specify a <code>family</code> for a task definition, which
      *         allows you to track multiple versions of the same task definition. You
      *         can think of the <code>family</code> as a name for your task
-     *         definition.
+     *         definition. Up to 255 letters (uppercase and lowercase), numbers,
+     *         hyphens, and underscores are allowed.
      */
     public void setFamily(String family) {
         this.family = family;
@@ -87,14 +92,16 @@ public class RegisterTaskDefinitionRequest extends AmazonWebServiceRequest imple
      * You must specify a <code>family</code> for a task definition, which
      * allows you to track multiple versions of the same task definition. You
      * can think of the <code>family</code> as a name for your task
-     * definition.
+     * definition. Up to 255 letters (uppercase and lowercase), numbers,
+     * hyphens, and underscores are allowed.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *
      * @param family You must specify a <code>family</code> for a task definition, which
      *         allows you to track multiple versions of the same task definition. You
      *         can think of the <code>family</code> as a name for your task
-     *         definition.
+     *         definition. Up to 255 letters (uppercase and lowercase), numbers,
+     *         hyphens, and underscores are allowed.
      *
      * @return A reference to this updated object so that method calls can be chained
      *         together.
@@ -139,6 +146,11 @@ public class RegisterTaskDefinitionRequest extends AmazonWebServiceRequest imple
     /**
      * A list of container definitions in JSON format that describe the
      * different containers that make up your task.
+     * <p>
+     * <b>NOTE:</b> This method appends the values to the existing list (if
+     * any). Use {@link #setContainerDefinitions(java.util.Collection)} or
+     * {@link #withContainerDefinitions(java.util.Collection)} if you want to
+     * override the existing values.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *
@@ -215,6 +227,11 @@ public class RegisterTaskDefinitionRequest extends AmazonWebServiceRequest imple
     /**
      * A list of volume definitions in JSON format that containers in your
      * task may use.
+     * <p>
+     * <b>NOTE:</b> This method appends the values to the existing list (if
+     * any). Use {@link #setVolumes(java.util.Collection)} or {@link
+     * #withVolumes(java.util.Collection)} if you want to override the
+     * existing values.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *

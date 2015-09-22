@@ -40,11 +40,7 @@ import com.amazonaws.AmazonWebServiceRequest;
 public class DescribeTagsRequest extends AmazonWebServiceRequest implements Serializable, Cloneable {
 
     /**
-     * The value of the filter type used to identify the tags to be returned.
-     * For example, you can filter so that tags are returned according to
-     * Auto Scaling group, the key and value, or whether the new tag will be
-     * applied to instances launched after the tag is created
-     * (PropagateAtLaunch).
+     * A filter used to scope the tags to return.
      */
     private com.amazonaws.internal.ListWithAutoConstructFlag<Filter> filters;
 
@@ -63,17 +59,9 @@ public class DescribeTagsRequest extends AmazonWebServiceRequest implements Seri
     private Integer maxRecords;
 
     /**
-     * The value of the filter type used to identify the tags to be returned.
-     * For example, you can filter so that tags are returned according to
-     * Auto Scaling group, the key and value, or whether the new tag will be
-     * applied to instances launched after the tag is created
-     * (PropagateAtLaunch).
+     * A filter used to scope the tags to return.
      *
-     * @return The value of the filter type used to identify the tags to be returned.
-     *         For example, you can filter so that tags are returned according to
-     *         Auto Scaling group, the key and value, or whether the new tag will be
-     *         applied to instances launched after the tag is created
-     *         (PropagateAtLaunch).
+     * @return A filter used to scope the tags to return.
      */
     public java.util.List<Filter> getFilters() {
         if (filters == null) {
@@ -84,17 +72,9 @@ public class DescribeTagsRequest extends AmazonWebServiceRequest implements Seri
     }
     
     /**
-     * The value of the filter type used to identify the tags to be returned.
-     * For example, you can filter so that tags are returned according to
-     * Auto Scaling group, the key and value, or whether the new tag will be
-     * applied to instances launched after the tag is created
-     * (PropagateAtLaunch).
+     * A filter used to scope the tags to return.
      *
-     * @param filters The value of the filter type used to identify the tags to be returned.
-     *         For example, you can filter so that tags are returned according to
-     *         Auto Scaling group, the key and value, or whether the new tag will be
-     *         applied to instances launched after the tag is created
-     *         (PropagateAtLaunch).
+     * @param filters A filter used to scope the tags to return.
      */
     public void setFilters(java.util.Collection<Filter> filters) {
         if (filters == null) {
@@ -107,19 +87,16 @@ public class DescribeTagsRequest extends AmazonWebServiceRequest implements Seri
     }
     
     /**
-     * The value of the filter type used to identify the tags to be returned.
-     * For example, you can filter so that tags are returned according to
-     * Auto Scaling group, the key and value, or whether the new tag will be
-     * applied to instances launched after the tag is created
-     * (PropagateAtLaunch).
+     * A filter used to scope the tags to return.
+     * <p>
+     * <b>NOTE:</b> This method appends the values to the existing list (if
+     * any). Use {@link #setFilters(java.util.Collection)} or {@link
+     * #withFilters(java.util.Collection)} if you want to override the
+     * existing values.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *
-     * @param filters The value of the filter type used to identify the tags to be returned.
-     *         For example, you can filter so that tags are returned according to
-     *         Auto Scaling group, the key and value, or whether the new tag will be
-     *         applied to instances launched after the tag is created
-     *         (PropagateAtLaunch).
+     * @param filters A filter used to scope the tags to return.
      *
      * @return A reference to this updated object so that method calls can be chained
      *         together.
@@ -133,19 +110,11 @@ public class DescribeTagsRequest extends AmazonWebServiceRequest implements Seri
     }
     
     /**
-     * The value of the filter type used to identify the tags to be returned.
-     * For example, you can filter so that tags are returned according to
-     * Auto Scaling group, the key and value, or whether the new tag will be
-     * applied to instances launched after the tag is created
-     * (PropagateAtLaunch).
+     * A filter used to scope the tags to return.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *
-     * @param filters The value of the filter type used to identify the tags to be returned.
-     *         For example, you can filter so that tags are returned according to
-     *         Auto Scaling group, the key and value, or whether the new tag will be
-     *         applied to instances launched after the tag is created
-     *         (PropagateAtLaunch).
+     * @param filters A filter used to scope the tags to return.
      *
      * @return A reference to this updated object so that method calls can be chained
      *         together.

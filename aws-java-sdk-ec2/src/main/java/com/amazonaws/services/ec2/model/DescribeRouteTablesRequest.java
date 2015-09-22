@@ -26,6 +26,12 @@ import com.amazonaws.services.ec2.model.transform.DescribeRouteTablesRequestMars
  * Describes one or more of your route tables.
  * </p>
  * <p>
+ * Each subnet in your VPC must be associated with a route table. If a
+ * subnet is not explicitly associated with any route table, it is
+ * implicitly associated with the main route table. This command does not
+ * return the subnet ID for implicit associations.
+ * </p>
+ * <p>
  * For more information about route tables, see
  * <a href="http://docs.aws.amazon.com/AmazonVPC/latest/UserGuide/VPC_Route_Tables.html"> Route Tables </a>
  * in the <i>Amazon Virtual Private Cloud User Guide</i> .
@@ -53,6 +59,8 @@ public class DescribeRouteTablesRequest extends AmazonWebServiceRequest implemen
      * </li> <li> <p><code>route-table-id</code> - The ID of the route table.
      * </li> <li> <p><code>route.destination-cidr-block</code> - The CIDR
      * range specified in a route in the table. </li> <li>
+     * <p><code>route.destination-prefix-list-id</code> - The ID (prefix) of
+     * the AWS service specified in a route in the table. </li> <li>
      * <p><code>route.gateway-id</code> - The ID of a gateway specified in a
      * route in the table. </li> <li> <p><code>route.instance-id</code> - The
      * ID of an instance specified in a route in the table. </li> <li>
@@ -122,6 +130,11 @@ public class DescribeRouteTablesRequest extends AmazonWebServiceRequest implemen
      * One or more route table IDs. <p>Default: Describes all your route
      * tables.
      * <p>
+     * <b>NOTE:</b> This method appends the values to the existing list (if
+     * any). Use {@link #setRouteTableIds(java.util.Collection)} or {@link
+     * #withRouteTableIds(java.util.Collection)} if you want to override the
+     * existing values.
+     * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *
      * @param routeTableIds One or more route table IDs. <p>Default: Describes all your route
@@ -174,6 +187,8 @@ public class DescribeRouteTablesRequest extends AmazonWebServiceRequest implemen
      * </li> <li> <p><code>route-table-id</code> - The ID of the route table.
      * </li> <li> <p><code>route.destination-cidr-block</code> - The CIDR
      * range specified in a route in the table. </li> <li>
+     * <p><code>route.destination-prefix-list-id</code> - The ID (prefix) of
+     * the AWS service specified in a route in the table. </li> <li>
      * <p><code>route.gateway-id</code> - The ID of a gateway specified in a
      * route in the table. </li> <li> <p><code>route.instance-id</code> - The
      * ID of an instance specified in a route in the table. </li> <li>
@@ -216,6 +231,8 @@ public class DescribeRouteTablesRequest extends AmazonWebServiceRequest implemen
      *         </li> <li> <p><code>route-table-id</code> - The ID of the route table.
      *         </li> <li> <p><code>route.destination-cidr-block</code> - The CIDR
      *         range specified in a route in the table. </li> <li>
+     *         <p><code>route.destination-prefix-list-id</code> - The ID (prefix) of
+     *         the AWS service specified in a route in the table. </li> <li>
      *         <p><code>route.gateway-id</code> - The ID of a gateway specified in a
      *         route in the table. </li> <li> <p><code>route.instance-id</code> - The
      *         ID of an instance specified in a route in the table. </li> <li>
@@ -267,6 +284,8 @@ public class DescribeRouteTablesRequest extends AmazonWebServiceRequest implemen
      * </li> <li> <p><code>route-table-id</code> - The ID of the route table.
      * </li> <li> <p><code>route.destination-cidr-block</code> - The CIDR
      * range specified in a route in the table. </li> <li>
+     * <p><code>route.destination-prefix-list-id</code> - The ID (prefix) of
+     * the AWS service specified in a route in the table. </li> <li>
      * <p><code>route.gateway-id</code> - The ID of a gateway specified in a
      * route in the table. </li> <li> <p><code>route.instance-id</code> - The
      * ID of an instance specified in a route in the table. </li> <li>
@@ -309,6 +328,8 @@ public class DescribeRouteTablesRequest extends AmazonWebServiceRequest implemen
      *         </li> <li> <p><code>route-table-id</code> - The ID of the route table.
      *         </li> <li> <p><code>route.destination-cidr-block</code> - The CIDR
      *         range specified in a route in the table. </li> <li>
+     *         <p><code>route.destination-prefix-list-id</code> - The ID (prefix) of
+     *         the AWS service specified in a route in the table. </li> <li>
      *         <p><code>route.gateway-id</code> - The ID of a gateway specified in a
      *         route in the table. </li> <li> <p><code>route.instance-id</code> - The
      *         ID of an instance specified in a route in the table. </li> <li>
@@ -362,6 +383,8 @@ public class DescribeRouteTablesRequest extends AmazonWebServiceRequest implemen
      * </li> <li> <p><code>route-table-id</code> - The ID of the route table.
      * </li> <li> <p><code>route.destination-cidr-block</code> - The CIDR
      * range specified in a route in the table. </li> <li>
+     * <p><code>route.destination-prefix-list-id</code> - The ID (prefix) of
+     * the AWS service specified in a route in the table. </li> <li>
      * <p><code>route.gateway-id</code> - The ID of a gateway specified in a
      * route in the table. </li> <li> <p><code>route.instance-id</code> - The
      * ID of an instance specified in a route in the table. </li> <li>
@@ -393,6 +416,11 @@ public class DescribeRouteTablesRequest extends AmazonWebServiceRequest implemen
      * filter. </li> <li> <p><code>vpc-id</code> - The ID of the VPC for the
      * route table. </li> </ul>
      * <p>
+     * <b>NOTE:</b> This method appends the values to the existing list (if
+     * any). Use {@link #setFilters(java.util.Collection)} or {@link
+     * #withFilters(java.util.Collection)} if you want to override the
+     * existing values.
+     * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *
      * @param filters One or more filters. <ul> <li>
@@ -406,6 +434,8 @@ public class DescribeRouteTablesRequest extends AmazonWebServiceRequest implemen
      *         </li> <li> <p><code>route-table-id</code> - The ID of the route table.
      *         </li> <li> <p><code>route.destination-cidr-block</code> - The CIDR
      *         range specified in a route in the table. </li> <li>
+     *         <p><code>route.destination-prefix-list-id</code> - The ID (prefix) of
+     *         the AWS service specified in a route in the table. </li> <li>
      *         <p><code>route.gateway-id</code> - The ID of a gateway specified in a
      *         route in the table. </li> <li> <p><code>route.instance-id</code> - The
      *         ID of an instance specified in a route in the table. </li> <li>
@@ -460,6 +490,8 @@ public class DescribeRouteTablesRequest extends AmazonWebServiceRequest implemen
      * </li> <li> <p><code>route-table-id</code> - The ID of the route table.
      * </li> <li> <p><code>route.destination-cidr-block</code> - The CIDR
      * range specified in a route in the table. </li> <li>
+     * <p><code>route.destination-prefix-list-id</code> - The ID (prefix) of
+     * the AWS service specified in a route in the table. </li> <li>
      * <p><code>route.gateway-id</code> - The ID of a gateway specified in a
      * route in the table. </li> <li> <p><code>route.instance-id</code> - The
      * ID of an instance specified in a route in the table. </li> <li>
@@ -504,6 +536,8 @@ public class DescribeRouteTablesRequest extends AmazonWebServiceRequest implemen
      *         </li> <li> <p><code>route-table-id</code> - The ID of the route table.
      *         </li> <li> <p><code>route.destination-cidr-block</code> - The CIDR
      *         range specified in a route in the table. </li> <li>
+     *         <p><code>route.destination-prefix-list-id</code> - The ID (prefix) of
+     *         the AWS service specified in a route in the table. </li> <li>
      *         <p><code>route.gateway-id</code> - The ID of a gateway specified in a
      *         route in the table. </li> <li> <p><code>route.instance-id</code> - The
      *         ID of an instance specified in a route in the table. </li> <li>

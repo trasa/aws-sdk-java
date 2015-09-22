@@ -54,10 +54,10 @@ public class UpdateTagsForDomainRequest extends AmazonWebServiceRequest implemen
      * <p>Default: None <p>Required: No'> <p>Each tag includes the following
      * elements: <ul> <li><p>Key <p>The key (name) of a tag. <p>Type: String
      * <p>Default: None <p>Valid values: Unicode characters including
-     * alphanumeric, space, and ".:/=+\-%@" <p>Constraints: Each key can be
+     * alphanumeric, space, and ".:/=+\-@" <p>Constraints: Each key can be
      * 1-128 characters long. <p>Required: Yes </li> <li><p>Value <p>The
      * value of a tag. <p>Type: String <p>Default: None <p>Valid values:
-     * Unicode characters including alphanumeric, space, and ".:/=+\-%@"
+     * Unicode characters including alphanumeric, space, and ".:/=+\-@"
      * <p>Constraints: Each value can be 0-256 characters long. <p>Required:
      * Yes </li> </ul>
      */
@@ -151,10 +151,10 @@ public class UpdateTagsForDomainRequest extends AmazonWebServiceRequest implemen
      * <p>Default: None <p>Required: No'> <p>Each tag includes the following
      * elements: <ul> <li><p>Key <p>The key (name) of a tag. <p>Type: String
      * <p>Default: None <p>Valid values: Unicode characters including
-     * alphanumeric, space, and ".:/=+\-%@" <p>Constraints: Each key can be
+     * alphanumeric, space, and ".:/=+\-@" <p>Constraints: Each key can be
      * 1-128 characters long. <p>Required: Yes </li> <li><p>Value <p>The
      * value of a tag. <p>Type: String <p>Default: None <p>Valid values:
-     * Unicode characters including alphanumeric, space, and ".:/=+\-%@"
+     * Unicode characters including alphanumeric, space, and ".:/=+\-@"
      * <p>Constraints: Each value can be 0-256 characters long. <p>Required:
      * Yes </li> </ul>
      *
@@ -164,10 +164,10 @@ public class UpdateTagsForDomainRequest extends AmazonWebServiceRequest implemen
      *         <p>Default: None <p>Required: No'> <p>Each tag includes the following
      *         elements: <ul> <li><p>Key <p>The key (name) of a tag. <p>Type: String
      *         <p>Default: None <p>Valid values: Unicode characters including
-     *         alphanumeric, space, and ".:/=+\-%@" <p>Constraints: Each key can be
+     *         alphanumeric, space, and ".:/=+\-@" <p>Constraints: Each key can be
      *         1-128 characters long. <p>Required: Yes </li> <li><p>Value <p>The
      *         value of a tag. <p>Type: String <p>Default: None <p>Valid values:
-     *         Unicode characters including alphanumeric, space, and ".:/=+\-%@"
+     *         Unicode characters including alphanumeric, space, and ".:/=+\-@"
      *         <p>Constraints: Each value can be 0-256 characters long. <p>Required:
      *         Yes </li> </ul>
      */
@@ -186,10 +186,10 @@ public class UpdateTagsForDomainRequest extends AmazonWebServiceRequest implemen
      * <p>Default: None <p>Required: No'> <p>Each tag includes the following
      * elements: <ul> <li><p>Key <p>The key (name) of a tag. <p>Type: String
      * <p>Default: None <p>Valid values: Unicode characters including
-     * alphanumeric, space, and ".:/=+\-%@" <p>Constraints: Each key can be
+     * alphanumeric, space, and ".:/=+\-@" <p>Constraints: Each key can be
      * 1-128 characters long. <p>Required: Yes </li> <li><p>Value <p>The
      * value of a tag. <p>Type: String <p>Default: None <p>Valid values:
-     * Unicode characters including alphanumeric, space, and ".:/=+\-%@"
+     * Unicode characters including alphanumeric, space, and ".:/=+\-@"
      * <p>Constraints: Each value can be 0-256 characters long. <p>Required:
      * Yes </li> </ul>
      *
@@ -199,10 +199,10 @@ public class UpdateTagsForDomainRequest extends AmazonWebServiceRequest implemen
      *         <p>Default: None <p>Required: No'> <p>Each tag includes the following
      *         elements: <ul> <li><p>Key <p>The key (name) of a tag. <p>Type: String
      *         <p>Default: None <p>Valid values: Unicode characters including
-     *         alphanumeric, space, and ".:/=+\-%@" <p>Constraints: Each key can be
+     *         alphanumeric, space, and ".:/=+\-@" <p>Constraints: Each key can be
      *         1-128 characters long. <p>Required: Yes </li> <li><p>Value <p>The
      *         value of a tag. <p>Type: String <p>Default: None <p>Valid values:
-     *         Unicode characters including alphanumeric, space, and ".:/=+\-%@"
+     *         Unicode characters including alphanumeric, space, and ".:/=+\-@"
      *         <p>Constraints: Each value can be 0-256 characters long. <p>Required:
      *         Yes </li> </ul>
      */
@@ -223,12 +223,17 @@ public class UpdateTagsForDomainRequest extends AmazonWebServiceRequest implemen
      * <p>Default: None <p>Required: No'> <p>Each tag includes the following
      * elements: <ul> <li><p>Key <p>The key (name) of a tag. <p>Type: String
      * <p>Default: None <p>Valid values: Unicode characters including
-     * alphanumeric, space, and ".:/=+\-%@" <p>Constraints: Each key can be
+     * alphanumeric, space, and ".:/=+\-@" <p>Constraints: Each key can be
      * 1-128 characters long. <p>Required: Yes </li> <li><p>Value <p>The
      * value of a tag. <p>Type: String <p>Default: None <p>Valid values:
-     * Unicode characters including alphanumeric, space, and ".:/=+\-%@"
+     * Unicode characters including alphanumeric, space, and ".:/=+\-@"
      * <p>Constraints: Each value can be 0-256 characters long. <p>Required:
      * Yes </li> </ul>
+     * <p>
+     * <b>NOTE:</b> This method appends the values to the existing list (if
+     * any). Use {@link #setTagsToUpdate(java.util.Collection)} or {@link
+     * #withTagsToUpdate(java.util.Collection)} if you want to override the
+     * existing values.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *
@@ -238,10 +243,10 @@ public class UpdateTagsForDomainRequest extends AmazonWebServiceRequest implemen
      *         <p>Default: None <p>Required: No'> <p>Each tag includes the following
      *         elements: <ul> <li><p>Key <p>The key (name) of a tag. <p>Type: String
      *         <p>Default: None <p>Valid values: Unicode characters including
-     *         alphanumeric, space, and ".:/=+\-%@" <p>Constraints: Each key can be
+     *         alphanumeric, space, and ".:/=+\-@" <p>Constraints: Each key can be
      *         1-128 characters long. <p>Required: Yes </li> <li><p>Value <p>The
      *         value of a tag. <p>Type: String <p>Default: None <p>Valid values:
-     *         Unicode characters including alphanumeric, space, and ".:/=+\-%@"
+     *         Unicode characters including alphanumeric, space, and ".:/=+\-@"
      *         <p>Constraints: Each value can be 0-256 characters long. <p>Required:
      *         Yes </li> </ul>
      *
@@ -263,10 +268,10 @@ public class UpdateTagsForDomainRequest extends AmazonWebServiceRequest implemen
      * <p>Default: None <p>Required: No'> <p>Each tag includes the following
      * elements: <ul> <li><p>Key <p>The key (name) of a tag. <p>Type: String
      * <p>Default: None <p>Valid values: Unicode characters including
-     * alphanumeric, space, and ".:/=+\-%@" <p>Constraints: Each key can be
+     * alphanumeric, space, and ".:/=+\-@" <p>Constraints: Each key can be
      * 1-128 characters long. <p>Required: Yes </li> <li><p>Value <p>The
      * value of a tag. <p>Type: String <p>Default: None <p>Valid values:
-     * Unicode characters including alphanumeric, space, and ".:/=+\-%@"
+     * Unicode characters including alphanumeric, space, and ".:/=+\-@"
      * <p>Constraints: Each value can be 0-256 characters long. <p>Required:
      * Yes </li> </ul>
      * <p>
@@ -278,10 +283,10 @@ public class UpdateTagsForDomainRequest extends AmazonWebServiceRequest implemen
      *         <p>Default: None <p>Required: No'> <p>Each tag includes the following
      *         elements: <ul> <li><p>Key <p>The key (name) of a tag. <p>Type: String
      *         <p>Default: None <p>Valid values: Unicode characters including
-     *         alphanumeric, space, and ".:/=+\-%@" <p>Constraints: Each key can be
+     *         alphanumeric, space, and ".:/=+\-@" <p>Constraints: Each key can be
      *         1-128 characters long. <p>Required: Yes </li> <li><p>Value <p>The
      *         value of a tag. <p>Type: String <p>Default: None <p>Valid values:
-     *         Unicode characters including alphanumeric, space, and ".:/=+\-%@"
+     *         Unicode characters including alphanumeric, space, and ".:/=+\-@"
      *         <p>Constraints: Each value can be 0-256 characters long. <p>Required:
      *         Yes </li> </ul>
      *

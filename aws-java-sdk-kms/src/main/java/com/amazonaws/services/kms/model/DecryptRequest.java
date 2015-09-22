@@ -22,7 +22,26 @@ import com.amazonaws.AmazonWebServiceRequest;
  * Container for the parameters to the {@link com.amazonaws.services.kms.AWSKMS#decrypt(DecryptRequest) Decrypt operation}.
  * <p>
  * Decrypts ciphertext. Ciphertext is plaintext that has been previously
- * encrypted by using the Encrypt function.
+ * encrypted by using any of the following functions:
+ * <ul>
+ * <li> GenerateDataKey </li>
+ * <li> GenerateDataKeyWithoutPlaintext </li>
+ * <li> Encrypt </li>
+ * 
+ * </ul>
+ * 
+ * </p>
+ * <p>
+ * Note that if a caller has been granted access permissions to all keys
+ * (through, for example, IAM user policies that grant
+ * <code>Decrypt</code> permission on all resources), then ciphertext
+ * encrypted by using keys in other accounts where the key grants access
+ * to the caller can be decrypted. To remedy this, we recommend that you
+ * do not grant <code>Decrypt</code> access in an IAM user policy.
+ * Instead grant <code>Decrypt</code> access only in key policies. If you
+ * must grant <code>Decrypt</code> access in an IAM user policy, you
+ * should scope the resource to specific keys or to specific trusted
+ * accounts.
  * </p>
  *
  * @see com.amazonaws.services.kms.AWSKMS#decrypt(DecryptRequest)
@@ -30,7 +49,7 @@ import com.amazonaws.AmazonWebServiceRequest;
 public class DecryptRequest extends AmazonWebServiceRequest implements Serializable, Cloneable {
 
     /**
-     * Ciphertext including metadata.
+     * Ciphertext to be decrypted. The blob includes metadata.
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>1 - 6144<br/>
@@ -47,8 +66,9 @@ public class DecryptRequest extends AmazonWebServiceRequest implements Serializa
     private java.util.Map<String,String> encryptionContext;
 
     /**
-     * A list of grant tokens that represent grants which can be used to
-     * provide long term permissions to perform decryption.
+     * For more information, see <a
+     * href="http://docs.aws.amazon.com/kms/latest/developerguide/concepts.html#grant_token">Grant
+     * Tokens</a>.
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>0 - 10<br/>
@@ -56,38 +76,38 @@ public class DecryptRequest extends AmazonWebServiceRequest implements Serializa
     private com.amazonaws.internal.ListWithAutoConstructFlag<String> grantTokens;
 
     /**
-     * Ciphertext including metadata.
+     * Ciphertext to be decrypted. The blob includes metadata.
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>1 - 6144<br/>
      *
-     * @return Ciphertext including metadata.
+     * @return Ciphertext to be decrypted. The blob includes metadata.
      */
     public java.nio.ByteBuffer getCiphertextBlob() {
         return ciphertextBlob;
     }
     
     /**
-     * Ciphertext including metadata.
+     * Ciphertext to be decrypted. The blob includes metadata.
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>1 - 6144<br/>
      *
-     * @param ciphertextBlob Ciphertext including metadata.
+     * @param ciphertextBlob Ciphertext to be decrypted. The blob includes metadata.
      */
     public void setCiphertextBlob(java.nio.ByteBuffer ciphertextBlob) {
         this.ciphertextBlob = ciphertextBlob;
     }
     
     /**
-     * Ciphertext including metadata.
+     * Ciphertext to be decrypted. The blob includes metadata.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>1 - 6144<br/>
      *
-     * @param ciphertextBlob Ciphertext including metadata.
+     * @param ciphertextBlob Ciphertext to be decrypted. The blob includes metadata.
      *
      * @return A reference to this updated object so that method calls can be chained
      *         together.
@@ -172,35 +192,37 @@ public class DecryptRequest extends AmazonWebServiceRequest implements Serializa
      * @param key The key of the entry to be added into EncryptionContext.
      * @param value The corresponding value of the entry to be added into EncryptionContext.
      */
-    public DecryptRequest addEncryptionContextEntry(String key, String value) {
-        if (null == this.encryptionContext) {
-            this.encryptionContext = new java.util.HashMap<String,String>();
-        }
-        if (this.encryptionContext.containsKey(key))
-            throw new IllegalArgumentException("Duplicated keys (" + key.toString() + ") are provided.");
-        this.encryptionContext.put(key, value);
-        return this;
+  public DecryptRequest addEncryptionContextEntry(String key, String value) {
+    if (null == this.encryptionContext) {
+      this.encryptionContext = new java.util.HashMap<String,String>();
     }
+    if (this.encryptionContext.containsKey(key))
+      throw new IllegalArgumentException("Duplicated keys (" + key.toString() + ") are provided.");
+    this.encryptionContext.put(key, value);
+    return this;
+  }
 
+  /**
+   * Removes all the entries added into EncryptionContext.
+   * <p>
+   * Returns a reference to this object so that method calls can be chained together.
+   */
+  public DecryptRequest clearEncryptionContextEntries() {
+    this.encryptionContext = null;
+    return this;
+  }
+  
     /**
-     * Removes all the entries added into EncryptionContext.
-     * <p>
-     * Returns a reference to this object so that method calls can be chained together.
-     */
-    public DecryptRequest clearEncryptionContextEntries() {
-        this.encryptionContext = null;
-        return this;
-    }
-    
-    /**
-     * A list of grant tokens that represent grants which can be used to
-     * provide long term permissions to perform decryption.
+     * For more information, see <a
+     * href="http://docs.aws.amazon.com/kms/latest/developerguide/concepts.html#grant_token">Grant
+     * Tokens</a>.
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>0 - 10<br/>
      *
-     * @return A list of grant tokens that represent grants which can be used to
-     *         provide long term permissions to perform decryption.
+     * @return For more information, see <a
+     *         href="http://docs.aws.amazon.com/kms/latest/developerguide/concepts.html#grant_token">Grant
+     *         Tokens</a>.
      */
     public java.util.List<String> getGrantTokens() {
         if (grantTokens == null) {
@@ -211,14 +233,16 @@ public class DecryptRequest extends AmazonWebServiceRequest implements Serializa
     }
     
     /**
-     * A list of grant tokens that represent grants which can be used to
-     * provide long term permissions to perform decryption.
+     * For more information, see <a
+     * href="http://docs.aws.amazon.com/kms/latest/developerguide/concepts.html#grant_token">Grant
+     * Tokens</a>.
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>0 - 10<br/>
      *
-     * @param grantTokens A list of grant tokens that represent grants which can be used to
-     *         provide long term permissions to perform decryption.
+     * @param grantTokens For more information, see <a
+     *         href="http://docs.aws.amazon.com/kms/latest/developerguide/concepts.html#grant_token">Grant
+     *         Tokens</a>.
      */
     public void setGrantTokens(java.util.Collection<String> grantTokens) {
         if (grantTokens == null) {
@@ -231,16 +255,23 @@ public class DecryptRequest extends AmazonWebServiceRequest implements Serializa
     }
     
     /**
-     * A list of grant tokens that represent grants which can be used to
-     * provide long term permissions to perform decryption.
+     * For more information, see <a
+     * href="http://docs.aws.amazon.com/kms/latest/developerguide/concepts.html#grant_token">Grant
+     * Tokens</a>.
+     * <p>
+     * <b>NOTE:</b> This method appends the values to the existing list (if
+     * any). Use {@link #setGrantTokens(java.util.Collection)} or {@link
+     * #withGrantTokens(java.util.Collection)} if you want to override the
+     * existing values.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>0 - 10<br/>
      *
-     * @param grantTokens A list of grant tokens that represent grants which can be used to
-     *         provide long term permissions to perform decryption.
+     * @param grantTokens For more information, see <a
+     *         href="http://docs.aws.amazon.com/kms/latest/developerguide/concepts.html#grant_token">Grant
+     *         Tokens</a>.
      *
      * @return A reference to this updated object so that method calls can be chained
      *         together.
@@ -254,16 +285,18 @@ public class DecryptRequest extends AmazonWebServiceRequest implements Serializa
     }
     
     /**
-     * A list of grant tokens that represent grants which can be used to
-     * provide long term permissions to perform decryption.
+     * For more information, see <a
+     * href="http://docs.aws.amazon.com/kms/latest/developerguide/concepts.html#grant_token">Grant
+     * Tokens</a>.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>0 - 10<br/>
      *
-     * @param grantTokens A list of grant tokens that represent grants which can be used to
-     *         provide long term permissions to perform decryption.
+     * @param grantTokens For more information, see <a
+     *         href="http://docs.aws.amazon.com/kms/latest/developerguide/concepts.html#grant_token">Grant
+     *         Tokens</a>.
      *
      * @return A reference to this updated object so that method calls can be chained
      *         together.

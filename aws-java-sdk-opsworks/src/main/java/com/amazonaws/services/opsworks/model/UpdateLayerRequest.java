@@ -74,6 +74,15 @@ public class UpdateLayerRequest extends AmazonWebServiceRequest implements Seria
     private String customInstanceProfileArn;
 
     /**
+     * A JSON-formatted string containing custom stack configuration and
+     * deployment attributes to be installed on the layer's instances. For
+     * more information, see <a
+     * href="http://docs.aws.amazon.com/opsworks/latest/userguide/workingcookbook-json-override.html">
+     * Using Custom JSON</a>.
+     */
+    private String customJson;
+
+    /**
      * An array containing the layer's custom security group IDs.
      */
     private com.amazonaws.internal.ListWithAutoConstructFlag<String> customSecurityGroupIds;
@@ -343,26 +352,26 @@ public class UpdateLayerRequest extends AmazonWebServiceRequest implements Seria
      * @param key The key of the entry to be added into Attributes.
      * @param value The corresponding value of the entry to be added into Attributes.
      */
-    public UpdateLayerRequest addAttributesEntry(String key, String value) {
-        if (null == this.attributes) {
-            this.attributes = new java.util.HashMap<String,String>();
-        }
-        if (this.attributes.containsKey(key))
-            throw new IllegalArgumentException("Duplicated keys (" + key.toString() + ") are provided.");
-        this.attributes.put(key, value);
-        return this;
+  public UpdateLayerRequest addAttributesEntry(String key, String value) {
+    if (null == this.attributes) {
+      this.attributes = new java.util.HashMap<String,String>();
     }
+    if (this.attributes.containsKey(key))
+      throw new IllegalArgumentException("Duplicated keys (" + key.toString() + ") are provided.");
+    this.attributes.put(key, value);
+    return this;
+  }
 
-    /**
-     * Removes all the entries added into Attributes.
-     * <p>
-     * Returns a reference to this object so that method calls can be chained together.
-     */
-    public UpdateLayerRequest clearAttributesEntries() {
-        this.attributes = null;
-        return this;
-    }
-    
+  /**
+   * Removes all the entries added into Attributes.
+   * <p>
+   * Returns a reference to this object so that method calls can be chained together.
+   */
+  public UpdateLayerRequest clearAttributesEntries() {
+    this.attributes = null;
+    return this;
+  }
+  
     /**
      * The ARN of an IAM profile to be used for all of the layer's EC2
      * instances. For more information about IAM ARNs, see <a
@@ -415,6 +424,63 @@ public class UpdateLayerRequest extends AmazonWebServiceRequest implements Seria
     }
 
     /**
+     * A JSON-formatted string containing custom stack configuration and
+     * deployment attributes to be installed on the layer's instances. For
+     * more information, see <a
+     * href="http://docs.aws.amazon.com/opsworks/latest/userguide/workingcookbook-json-override.html">
+     * Using Custom JSON</a>.
+     *
+     * @return A JSON-formatted string containing custom stack configuration and
+     *         deployment attributes to be installed on the layer's instances. For
+     *         more information, see <a
+     *         href="http://docs.aws.amazon.com/opsworks/latest/userguide/workingcookbook-json-override.html">
+     *         Using Custom JSON</a>.
+     */
+    public String getCustomJson() {
+        return customJson;
+    }
+    
+    /**
+     * A JSON-formatted string containing custom stack configuration and
+     * deployment attributes to be installed on the layer's instances. For
+     * more information, see <a
+     * href="http://docs.aws.amazon.com/opsworks/latest/userguide/workingcookbook-json-override.html">
+     * Using Custom JSON</a>.
+     *
+     * @param customJson A JSON-formatted string containing custom stack configuration and
+     *         deployment attributes to be installed on the layer's instances. For
+     *         more information, see <a
+     *         href="http://docs.aws.amazon.com/opsworks/latest/userguide/workingcookbook-json-override.html">
+     *         Using Custom JSON</a>.
+     */
+    public void setCustomJson(String customJson) {
+        this.customJson = customJson;
+    }
+    
+    /**
+     * A JSON-formatted string containing custom stack configuration and
+     * deployment attributes to be installed on the layer's instances. For
+     * more information, see <a
+     * href="http://docs.aws.amazon.com/opsworks/latest/userguide/workingcookbook-json-override.html">
+     * Using Custom JSON</a>.
+     * <p>
+     * Returns a reference to this object so that method calls can be chained together.
+     *
+     * @param customJson A JSON-formatted string containing custom stack configuration and
+     *         deployment attributes to be installed on the layer's instances. For
+     *         more information, see <a
+     *         href="http://docs.aws.amazon.com/opsworks/latest/userguide/workingcookbook-json-override.html">
+     *         Using Custom JSON</a>.
+     *
+     * @return A reference to this updated object so that method calls can be chained
+     *         together.
+     */
+    public UpdateLayerRequest withCustomJson(String customJson) {
+        this.customJson = customJson;
+        return this;
+    }
+
+    /**
      * An array containing the layer's custom security group IDs.
      *
      * @return An array containing the layer's custom security group IDs.
@@ -444,6 +510,11 @@ public class UpdateLayerRequest extends AmazonWebServiceRequest implements Seria
     
     /**
      * An array containing the layer's custom security group IDs.
+     * <p>
+     * <b>NOTE:</b> This method appends the values to the existing list (if
+     * any). Use {@link #setCustomSecurityGroupIds(java.util.Collection)} or
+     * {@link #withCustomSecurityGroupIds(java.util.Collection)} if you want
+     * to override the existing values.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *
@@ -517,6 +588,11 @@ public class UpdateLayerRequest extends AmazonWebServiceRequest implements Seria
     /**
      * An array of <code>Package</code> objects that describe the layer's
      * packages.
+     * <p>
+     * <b>NOTE:</b> This method appends the values to the existing list (if
+     * any). Use {@link #setPackages(java.util.Collection)} or {@link
+     * #withPackages(java.util.Collection)} if you want to override the
+     * existing values.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *
@@ -593,6 +669,11 @@ public class UpdateLayerRequest extends AmazonWebServiceRequest implements Seria
     /**
      * A <code>VolumeConfigurations</code> object that describes the layer's
      * Amazon EBS volumes.
+     * <p>
+     * <b>NOTE:</b> This method appends the values to the existing list (if
+     * any). Use {@link #setVolumeConfigurations(java.util.Collection)} or
+     * {@link #withVolumeConfigurations(java.util.Collection)} if you want to
+     * override the existing values.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *
@@ -1061,6 +1142,7 @@ public class UpdateLayerRequest extends AmazonWebServiceRequest implements Seria
         if (getShortname() != null) sb.append("Shortname: " + getShortname() + ",");
         if (getAttributes() != null) sb.append("Attributes: " + getAttributes() + ",");
         if (getCustomInstanceProfileArn() != null) sb.append("CustomInstanceProfileArn: " + getCustomInstanceProfileArn() + ",");
+        if (getCustomJson() != null) sb.append("CustomJson: " + getCustomJson() + ",");
         if (getCustomSecurityGroupIds() != null) sb.append("CustomSecurityGroupIds: " + getCustomSecurityGroupIds() + ",");
         if (getPackages() != null) sb.append("Packages: " + getPackages() + ",");
         if (getVolumeConfigurations() != null) sb.append("VolumeConfigurations: " + getVolumeConfigurations() + ",");
@@ -1085,6 +1167,7 @@ public class UpdateLayerRequest extends AmazonWebServiceRequest implements Seria
         hashCode = prime * hashCode + ((getShortname() == null) ? 0 : getShortname().hashCode()); 
         hashCode = prime * hashCode + ((getAttributes() == null) ? 0 : getAttributes().hashCode()); 
         hashCode = prime * hashCode + ((getCustomInstanceProfileArn() == null) ? 0 : getCustomInstanceProfileArn().hashCode()); 
+        hashCode = prime * hashCode + ((getCustomJson() == null) ? 0 : getCustomJson().hashCode()); 
         hashCode = prime * hashCode + ((getCustomSecurityGroupIds() == null) ? 0 : getCustomSecurityGroupIds().hashCode()); 
         hashCode = prime * hashCode + ((getPackages() == null) ? 0 : getPackages().hashCode()); 
         hashCode = prime * hashCode + ((getVolumeConfigurations() == null) ? 0 : getVolumeConfigurations().hashCode()); 
@@ -1116,6 +1199,8 @@ public class UpdateLayerRequest extends AmazonWebServiceRequest implements Seria
         if (other.getAttributes() != null && other.getAttributes().equals(this.getAttributes()) == false) return false; 
         if (other.getCustomInstanceProfileArn() == null ^ this.getCustomInstanceProfileArn() == null) return false;
         if (other.getCustomInstanceProfileArn() != null && other.getCustomInstanceProfileArn().equals(this.getCustomInstanceProfileArn()) == false) return false; 
+        if (other.getCustomJson() == null ^ this.getCustomJson() == null) return false;
+        if (other.getCustomJson() != null && other.getCustomJson().equals(this.getCustomJson()) == false) return false; 
         if (other.getCustomSecurityGroupIds() == null ^ this.getCustomSecurityGroupIds() == null) return false;
         if (other.getCustomSecurityGroupIds() != null && other.getCustomSecurityGroupIds().equals(this.getCustomSecurityGroupIds()) == false) return false; 
         if (other.getPackages() == null ^ this.getPackages() == null) return false;

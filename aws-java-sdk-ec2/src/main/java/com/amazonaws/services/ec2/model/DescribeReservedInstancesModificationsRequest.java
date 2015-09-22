@@ -29,7 +29,7 @@ import com.amazonaws.AmazonWebServiceRequest;
  * <p>
  * For more information, see
  * <a href="http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ri-modifying.html"> Modifying Reserved Instances </a>
- * in the Amazon Elastic Compute Cloud User Guide for Linux.
+ * in the Amazon Elastic Compute Cloud User Guide.
  * </p>
  *
  * @see com.amazonaws.services.ec2.AmazonEC2#describeReservedInstancesModifications(DescribeReservedInstancesModificationsRequest)
@@ -107,6 +107,12 @@ public class DescribeReservedInstancesModificationsRequest extends AmazonWebServ
     
     /**
      * IDs for the submitted modification request.
+     * <p>
+     * <b>NOTE:</b> This method appends the values to the existing list (if
+     * any). Use {@link
+     * #setReservedInstancesModificationIds(java.util.Collection)} or {@link
+     * #withReservedInstancesModificationIds(java.util.Collection)} if you
+     * want to override the existing values.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *
@@ -338,6 +344,11 @@ public class DescribeReservedInstancesModificationsRequest extends AmazonWebServ
      * <code>failed</code>). </li> <li> <p><code>status-message</code> - The
      * reason for the status. </li> <li> <p><code>update-date</code> - The
      * time when the modification request was last updated. </li> </ul>
+     * <p>
+     * <b>NOTE:</b> This method appends the values to the existing list (if
+     * any). Use {@link #setFilters(java.util.Collection)} or {@link
+     * #withFilters(java.util.Collection)} if you want to override the
+     * existing values.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *

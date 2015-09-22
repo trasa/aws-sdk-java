@@ -25,9 +25,23 @@ import com.amazonaws.AmazonWebServiceRequest;
  * and user.
  * </p>
  * <p>
- * <code>UpdateRecords</code> can only be called with temporary user
- * credentials provided by Cognito Identity. You cannot make this API
- * call with developer credentials.
+ * The sync count in the record patch is your last known sync count for
+ * that record. The server will reject an UpdateRecords request with a
+ * ResourceConflictException if you try to patch a record with a new
+ * value but a stale sync count.
+ * </p>
+ * <p>
+ * For example, if the sync count on the server is 5 for a key called
+ * highScore and you try and submit a new highScore with sync count of 4,
+ * the request will be rejected. To obtain the current sync count for a
+ * record, call ListRecords. On a successful update of the record, the
+ * response returns the new sync count for that record. You should
+ * present that sync count the next time you try to update that same
+ * record. When the record does not exist, specify the sync count as 0.
+ * </p>
+ * <p>
+ * This API can be called with temporary user credentials provided by
+ * Cognito Identity or with developer credentials.
  * </p>
  *
  * @see com.amazonaws.services.cognitosync.AmazonCognitoSync#updateRecords(UpdateRecordsRequest)
@@ -40,7 +54,7 @@ public class UpdateRecordsRequest extends AmazonWebServiceRequest implements Ser
      * Cognito. GUID generation is unique within a region.
      * <p>
      * <b>Constraints:</b><br/>
-     * <b>Length: </b>1 - 50<br/>
+     * <b>Length: </b>1 - 55<br/>
      * <b>Pattern: </b>[\w-]+:[0-9a-f-]+<br/>
      */
     private String identityPoolId;
@@ -51,7 +65,7 @@ public class UpdateRecordsRequest extends AmazonWebServiceRequest implements Ser
      * Cognito. GUID generation is unique within a region.
      * <p>
      * <b>Constraints:</b><br/>
-     * <b>Length: </b>1 - 50<br/>
+     * <b>Length: </b>1 - 55<br/>
      * <b>Pattern: </b>[\w-]+:[0-9a-f-]+<br/>
      */
     private String identityId;
@@ -86,9 +100,9 @@ public class UpdateRecordsRequest extends AmazonWebServiceRequest implements Ser
     private String syncSessionToken;
 
     /**
-     * Intended to supply a device ID that will populate the
-     * <code>lastModifiedBy</code> field referenced in other methods. The
-     * <code>ClientContext</code> field is not yet implemented.
+     * Intended to supply a device ID that will populate the lastModifiedBy
+     * field referenced in other methods. The ClientContext field is not yet
+     * implemented.
      */
     private String clientContext;
 
@@ -98,7 +112,7 @@ public class UpdateRecordsRequest extends AmazonWebServiceRequest implements Ser
      * Cognito. GUID generation is unique within a region.
      * <p>
      * <b>Constraints:</b><br/>
-     * <b>Length: </b>1 - 50<br/>
+     * <b>Length: </b>1 - 55<br/>
      * <b>Pattern: </b>[\w-]+:[0-9a-f-]+<br/>
      *
      * @return A name-spaced GUID (for example,
@@ -115,7 +129,7 @@ public class UpdateRecordsRequest extends AmazonWebServiceRequest implements Ser
      * Cognito. GUID generation is unique within a region.
      * <p>
      * <b>Constraints:</b><br/>
-     * <b>Length: </b>1 - 50<br/>
+     * <b>Length: </b>1 - 55<br/>
      * <b>Pattern: </b>[\w-]+:[0-9a-f-]+<br/>
      *
      * @param identityPoolId A name-spaced GUID (for example,
@@ -134,7 +148,7 @@ public class UpdateRecordsRequest extends AmazonWebServiceRequest implements Ser
      * Returns a reference to this object so that method calls can be chained together.
      * <p>
      * <b>Constraints:</b><br/>
-     * <b>Length: </b>1 - 50<br/>
+     * <b>Length: </b>1 - 55<br/>
      * <b>Pattern: </b>[\w-]+:[0-9a-f-]+<br/>
      *
      * @param identityPoolId A name-spaced GUID (for example,
@@ -155,7 +169,7 @@ public class UpdateRecordsRequest extends AmazonWebServiceRequest implements Ser
      * Cognito. GUID generation is unique within a region.
      * <p>
      * <b>Constraints:</b><br/>
-     * <b>Length: </b>1 - 50<br/>
+     * <b>Length: </b>1 - 55<br/>
      * <b>Pattern: </b>[\w-]+:[0-9a-f-]+<br/>
      *
      * @return A name-spaced GUID (for example,
@@ -172,7 +186,7 @@ public class UpdateRecordsRequest extends AmazonWebServiceRequest implements Ser
      * Cognito. GUID generation is unique within a region.
      * <p>
      * <b>Constraints:</b><br/>
-     * <b>Length: </b>1 - 50<br/>
+     * <b>Length: </b>1 - 55<br/>
      * <b>Pattern: </b>[\w-]+:[0-9a-f-]+<br/>
      *
      * @param identityId A name-spaced GUID (for example,
@@ -191,7 +205,7 @@ public class UpdateRecordsRequest extends AmazonWebServiceRequest implements Ser
      * Returns a reference to this object so that method calls can be chained together.
      * <p>
      * <b>Constraints:</b><br/>
-     * <b>Length: </b>1 - 50<br/>
+     * <b>Length: </b>1 - 55<br/>
      * <b>Pattern: </b>[\w-]+:[0-9a-f-]+<br/>
      *
      * @param identityId A name-spaced GUID (for example,
@@ -330,6 +344,11 @@ public class UpdateRecordsRequest extends AmazonWebServiceRequest implements Ser
     /**
      * A list of patch operations.
      * <p>
+     * <b>NOTE:</b> This method appends the values to the existing list (if
+     * any). Use {@link #setRecordPatches(java.util.Collection)} or {@link
+     * #withRecordPatches(java.util.Collection)} if you want to override the
+     * existing values.
+     * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *
      * @param recordPatches A list of patch operations.
@@ -407,41 +426,41 @@ public class UpdateRecordsRequest extends AmazonWebServiceRequest implements Ser
     }
 
     /**
-     * Intended to supply a device ID that will populate the
-     * <code>lastModifiedBy</code> field referenced in other methods. The
-     * <code>ClientContext</code> field is not yet implemented.
+     * Intended to supply a device ID that will populate the lastModifiedBy
+     * field referenced in other methods. The ClientContext field is not yet
+     * implemented.
      *
-     * @return Intended to supply a device ID that will populate the
-     *         <code>lastModifiedBy</code> field referenced in other methods. The
-     *         <code>ClientContext</code> field is not yet implemented.
+     * @return Intended to supply a device ID that will populate the lastModifiedBy
+     *         field referenced in other methods. The ClientContext field is not yet
+     *         implemented.
      */
     public String getClientContext() {
         return clientContext;
     }
     
     /**
-     * Intended to supply a device ID that will populate the
-     * <code>lastModifiedBy</code> field referenced in other methods. The
-     * <code>ClientContext</code> field is not yet implemented.
+     * Intended to supply a device ID that will populate the lastModifiedBy
+     * field referenced in other methods. The ClientContext field is not yet
+     * implemented.
      *
-     * @param clientContext Intended to supply a device ID that will populate the
-     *         <code>lastModifiedBy</code> field referenced in other methods. The
-     *         <code>ClientContext</code> field is not yet implemented.
+     * @param clientContext Intended to supply a device ID that will populate the lastModifiedBy
+     *         field referenced in other methods. The ClientContext field is not yet
+     *         implemented.
      */
     public void setClientContext(String clientContext) {
         this.clientContext = clientContext;
     }
     
     /**
-     * Intended to supply a device ID that will populate the
-     * <code>lastModifiedBy</code> field referenced in other methods. The
-     * <code>ClientContext</code> field is not yet implemented.
+     * Intended to supply a device ID that will populate the lastModifiedBy
+     * field referenced in other methods. The ClientContext field is not yet
+     * implemented.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *
-     * @param clientContext Intended to supply a device ID that will populate the
-     *         <code>lastModifiedBy</code> field referenced in other methods. The
-     *         <code>ClientContext</code> field is not yet implemented.
+     * @param clientContext Intended to supply a device ID that will populate the lastModifiedBy
+     *         field referenced in other methods. The ClientContext field is not yet
+     *         implemented.
      *
      * @return A reference to this updated object so that method calls can be chained
      *         together.

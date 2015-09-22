@@ -35,7 +35,7 @@ import com.amazonaws.AmazonWebServiceRequest;
  * the AWS account has no associated users.
  * </p>
  * <p>
- * <b>NOTE:</b> Because the body of a X.509 certificate can be large, you
+ * <b>NOTE:</b>Because the body of a X.509 certificate can be large, you
  * should use POST rather than GET when calling UploadSigningCertificate.
  * For information about setting up signatures and authorization through
  * the API, go to Signing AWS API Requests in the AWS General Reference.
@@ -52,7 +52,7 @@ public class UploadSigningCertificateRequest extends AmazonWebServiceRequest imp
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>1 - 128<br/>
-     * <b>Pattern: </b>[\w+=,.@-]*<br/>
+     * <b>Pattern: </b>[\w+=,.@-]+<br/>
      */
     private String userName;
 
@@ -87,7 +87,7 @@ public class UploadSigningCertificateRequest extends AmazonWebServiceRequest imp
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>1 - 128<br/>
-     * <b>Pattern: </b>[\w+=,.@-]*<br/>
+     * <b>Pattern: </b>[\w+=,.@-]+<br/>
      *
      * @return The name of the user the signing certificate is for.
      */
@@ -100,7 +100,7 @@ public class UploadSigningCertificateRequest extends AmazonWebServiceRequest imp
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>1 - 128<br/>
-     * <b>Pattern: </b>[\w+=,.@-]*<br/>
+     * <b>Pattern: </b>[\w+=,.@-]+<br/>
      *
      * @param userName The name of the user the signing certificate is for.
      */
@@ -115,7 +115,7 @@ public class UploadSigningCertificateRequest extends AmazonWebServiceRequest imp
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>1 - 128<br/>
-     * <b>Pattern: </b>[\w+=,.@-]*<br/>
+     * <b>Pattern: </b>[\w+=,.@-]+<br/>
      *
      * @param userName The name of the user the signing certificate is for.
      *

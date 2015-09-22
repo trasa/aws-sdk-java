@@ -1,12 +1,12 @@
 /*
- * Copyright 2012 Amazon.com, Inc. or its affiliates. All Rights Reserved.
- * 
+ * Copyright 2012-2015 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ *
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not
  * use this file except in compliance with the License. A copy of the License is
  * located at
- * 
+ *
  * http://aws.amazon.com/apache2.0
- * 
+ *
  * or in the "license" file accompanying this file. This file is distributed on
  * an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either
  * express or implied. See the License for the specific language governing
@@ -42,7 +42,9 @@ public class StartChildWorkflowExecutionParameters implements Cloneable {
     private ChildPolicy childPolicy;
 
     private int taskPriority;
-    
+
+    private String lambdaRole;
+
     public StartChildWorkflowExecutionParameters() {
     }
 
@@ -162,7 +164,7 @@ public class StartChildWorkflowExecutionParameters implements Cloneable {
         this.childPolicy = childPolicy;
         return this;
     }
-    
+
     public int getTaskPriority() {
         return taskPriority;
     }
@@ -175,7 +177,20 @@ public class StartChildWorkflowExecutionParameters implements Cloneable {
         this.taskPriority = taskPriority;
         return this;
     }
-	
+
+    public String getLambdaRole() {
+        return lambdaRole;
+    }
+
+    public void setLambdaRole(String lambdaRole) {
+        this.lambdaRole = lambdaRole;
+    }
+
+    public StartChildWorkflowExecutionParameters withLambdaRole(String lambdaRole) {
+        this.lambdaRole = lambdaRole;
+        return this;
+    }
+
     public StartChildWorkflowExecutionParameters createStartChildWorkflowExecutionParametersFromOptions(
             StartWorkflowOptions options, StartWorkflowOptions optionsOverride) {
         StartChildWorkflowExecutionParameters startChildWorkflowExecutionParameters = this.clone();
@@ -206,10 +221,15 @@ public class StartChildWorkflowExecutionParameters implements Cloneable {
             if (childPolicy != null) {
                 startChildWorkflowExecutionParameters.setChildPolicy(childPolicy);
             }
-            
+
             Integer taskPriority = options.getTaskPriority();
             if (taskPriority != null) {
                 startChildWorkflowExecutionParameters.setTaskPriority(taskPriority);
+            }
+
+            String lambdaRole = options.getLambdaRole();
+            if (lambdaRole != null) {
+                startChildWorkflowExecutionParameters.setLambdaRole(lambdaRole);
             }
         }
 
@@ -243,6 +263,11 @@ public class StartChildWorkflowExecutionParameters implements Cloneable {
             if (taskPriority != null) {
                 startChildWorkflowExecutionParameters.setTaskPriority(taskPriority);
             }
+
+            String lambdaRole = optionsOverride.getLambdaRole();
+            if (lambdaRole != null) {
+                startChildWorkflowExecutionParameters.setLambdaRole(lambdaRole);
+            }
         }
 
         return startChildWorkflowExecutionParameters;
@@ -260,7 +285,8 @@ public class StartChildWorkflowExecutionParameters implements Cloneable {
         sb.append("TaskStartToCloseTimeout: " + taskStartToCloseTimeoutSeconds + ", ");
         sb.append("TagList: " + tagList + ", ");
         sb.append("TaskList: " + taskList + ", ");
-        sb.append("TaskPriority: " + taskPriority);
+        sb.append("TaskPriority: " + taskPriority + ", ");
+        sb.append("LambdaRole: " + lambdaRole);
         sb.append("}");
         return sb.toString();
     }
@@ -276,6 +302,7 @@ public class StartChildWorkflowExecutionParameters implements Cloneable {
         result.setWorkflowId(workflowId);
         result.setWorkflowType(workflowType);
         result.setTaskPriority(taskPriority);
+        result.setLambdaRole(lambdaRole);
         return result;
     }
 

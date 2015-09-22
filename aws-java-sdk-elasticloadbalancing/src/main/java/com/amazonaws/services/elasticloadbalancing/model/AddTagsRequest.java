@@ -21,14 +21,13 @@ import com.amazonaws.AmazonWebServiceRequest;
 /**
  * Container for the parameters to the {@link com.amazonaws.services.elasticloadbalancing.AmazonElasticLoadBalancing#addTags(AddTagsRequest) AddTags operation}.
  * <p>
- * Adds one or more tags for the specified load balancer. Each load
- * balancer can have a maximum of 10 tags. Each tag consists of a key and
- * an optional value.
+ * Adds the specified tags to the specified load balancer. Each load
+ * balancer can have a maximum of 10 tags.
  * </p>
  * <p>
- * Tag keys must be unique for each load balancer. If a tag with the same
- * key is already associated with the load balancer, this action will
- * update the value of the key.
+ * Each tag consists of a key and an optional value. If a tag with the
+ * same key is already associated with the load balancer,
+ * <code>AddTags</code> updates its value.
  * </p>
  * <p>
  * For more information, see
@@ -41,13 +40,12 @@ import com.amazonaws.AmazonWebServiceRequest;
 public class AddTagsRequest extends AmazonWebServiceRequest implements Serializable, Cloneable {
 
     /**
-     * The name of the load balancer to tag. You can specify a maximum of one
-     * load balancer name.
+     * The name of the load balancer. You can specify one load balancer only.
      */
     private com.amazonaws.internal.ListWithAutoConstructFlag<String> loadBalancerNames;
 
     /**
-     * A list of tags for each load balancer.
+     * The tags.
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>1 - <br/>
@@ -55,11 +53,9 @@ public class AddTagsRequest extends AmazonWebServiceRequest implements Serializa
     private com.amazonaws.internal.ListWithAutoConstructFlag<Tag> tags;
 
     /**
-     * The name of the load balancer to tag. You can specify a maximum of one
-     * load balancer name.
+     * The name of the load balancer. You can specify one load balancer only.
      *
-     * @return The name of the load balancer to tag. You can specify a maximum of one
-     *         load balancer name.
+     * @return The name of the load balancer. You can specify one load balancer only.
      */
     public java.util.List<String> getLoadBalancerNames() {
         if (loadBalancerNames == null) {
@@ -70,11 +66,9 @@ public class AddTagsRequest extends AmazonWebServiceRequest implements Serializa
     }
     
     /**
-     * The name of the load balancer to tag. You can specify a maximum of one
-     * load balancer name.
+     * The name of the load balancer. You can specify one load balancer only.
      *
-     * @param loadBalancerNames The name of the load balancer to tag. You can specify a maximum of one
-     *         load balancer name.
+     * @param loadBalancerNames The name of the load balancer. You can specify one load balancer only.
      */
     public void setLoadBalancerNames(java.util.Collection<String> loadBalancerNames) {
         if (loadBalancerNames == null) {
@@ -87,13 +81,16 @@ public class AddTagsRequest extends AmazonWebServiceRequest implements Serializa
     }
     
     /**
-     * The name of the load balancer to tag. You can specify a maximum of one
-     * load balancer name.
+     * The name of the load balancer. You can specify one load balancer only.
+     * <p>
+     * <b>NOTE:</b> This method appends the values to the existing list (if
+     * any). Use {@link #setLoadBalancerNames(java.util.Collection)} or
+     * {@link #withLoadBalancerNames(java.util.Collection)} if you want to
+     * override the existing values.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *
-     * @param loadBalancerNames The name of the load balancer to tag. You can specify a maximum of one
-     *         load balancer name.
+     * @param loadBalancerNames The name of the load balancer. You can specify one load balancer only.
      *
      * @return A reference to this updated object so that method calls can be chained
      *         together.
@@ -107,13 +104,11 @@ public class AddTagsRequest extends AmazonWebServiceRequest implements Serializa
     }
     
     /**
-     * The name of the load balancer to tag. You can specify a maximum of one
-     * load balancer name.
+     * The name of the load balancer. You can specify one load balancer only.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *
-     * @param loadBalancerNames The name of the load balancer to tag. You can specify a maximum of one
-     *         load balancer name.
+     * @param loadBalancerNames The name of the load balancer. You can specify one load balancer only.
      *
      * @return A reference to this updated object so that method calls can be chained
      *         together.
@@ -131,12 +126,12 @@ public class AddTagsRequest extends AmazonWebServiceRequest implements Serializa
     }
 
     /**
-     * A list of tags for each load balancer.
+     * The tags.
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>1 - <br/>
      *
-     * @return A list of tags for each load balancer.
+     * @return The tags.
      */
     public java.util.List<Tag> getTags() {
         if (tags == null) {
@@ -147,12 +142,12 @@ public class AddTagsRequest extends AmazonWebServiceRequest implements Serializa
     }
     
     /**
-     * A list of tags for each load balancer.
+     * The tags.
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>1 - <br/>
      *
-     * @param tags A list of tags for each load balancer.
+     * @param tags The tags.
      */
     public void setTags(java.util.Collection<Tag> tags) {
         if (tags == null) {
@@ -165,14 +160,19 @@ public class AddTagsRequest extends AmazonWebServiceRequest implements Serializa
     }
     
     /**
-     * A list of tags for each load balancer.
+     * The tags.
+     * <p>
+     * <b>NOTE:</b> This method appends the values to the existing list (if
+     * any). Use {@link #setTags(java.util.Collection)} or {@link
+     * #withTags(java.util.Collection)} if you want to override the existing
+     * values.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>1 - <br/>
      *
-     * @param tags A list of tags for each load balancer.
+     * @param tags The tags.
      *
      * @return A reference to this updated object so that method calls can be chained
      *         together.
@@ -186,14 +186,14 @@ public class AddTagsRequest extends AmazonWebServiceRequest implements Serializa
     }
     
     /**
-     * A list of tags for each load balancer.
+     * The tags.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>1 - <br/>
      *
-     * @param tags A list of tags for each load balancer.
+     * @param tags The tags.
      *
      * @return A reference to this updated object so that method calls can be chained
      *         together.

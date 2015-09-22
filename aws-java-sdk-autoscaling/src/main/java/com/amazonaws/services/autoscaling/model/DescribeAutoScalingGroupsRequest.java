@@ -24,12 +24,6 @@ import com.amazonaws.AmazonWebServiceRequest;
  * Describes one or more Auto Scaling groups. If a list of names is not
  * provided, the call describes all Auto Scaling groups.
  * </p>
- * <p>
- * You can specify a maximum number of items to be returned with a single
- * call. If there are more items to return, the call returns a token. To
- * get the next set of items, repeat the call with the returned token in
- * the <code>NextToken</code> parameter.
- * </p>
  *
  * @see com.amazonaws.services.autoscaling.AmazonAutoScaling#describeAutoScalingGroups(DescribeAutoScalingGroupsRequest)
  */
@@ -84,6 +78,11 @@ public class DescribeAutoScalingGroupsRequest extends AmazonWebServiceRequest im
     
     /**
      * The group names.
+     * <p>
+     * <b>NOTE:</b> This method appends the values to the existing list (if
+     * any). Use {@link #setAutoScalingGroupNames(java.util.Collection)} or
+     * {@link #withAutoScalingGroupNames(java.util.Collection)} if you want
+     * to override the existing values.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *

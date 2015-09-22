@@ -21,8 +21,8 @@ import com.amazonaws.AmazonWebServiceRequest;
 /**
  * Container for the parameters to the {@link com.amazonaws.services.autoscaling.AmazonAutoScaling#describeScheduledActions(DescribeScheduledActionsRequest) DescribeScheduledActions operation}.
  * <p>
- * Lists the actions scheduled for your Auto Scaling group that haven't
- * been executed. To list the actions that were already executed, use
+ * Describes the actions scheduled for your Auto Scaling group that
+ * haven't run. To describe the actions that have already run, use
  * DescribeScalingActivities.
  * </p>
  *
@@ -181,6 +181,11 @@ public class DescribeScheduledActionsRequest extends AmazonWebServiceRequest imp
      * items to return, the call returns a token. To get the next set of
      * items, repeat the call with the returned token in the
      * <code>NextToken</code> parameter.
+     * <p>
+     * <b>NOTE:</b> This method appends the values to the existing list (if
+     * any). Use {@link #setScheduledActionNames(java.util.Collection)} or
+     * {@link #withScheduledActionNames(java.util.Collection)} if you want to
+     * override the existing values.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *

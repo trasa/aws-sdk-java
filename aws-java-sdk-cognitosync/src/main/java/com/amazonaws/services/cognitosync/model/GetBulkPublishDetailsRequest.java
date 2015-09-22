@@ -23,6 +23,11 @@ import com.amazonaws.AmazonWebServiceRequest;
  * <p>
  * Get the status of the last BulkPublish operation for an identity pool.
  * </p>
+ * <p>
+ * This API can only be called with developer credentials. You cannot
+ * call this API with the temporary user credentials provided by Cognito
+ * Identity.
+ * </p>
  *
  * @see com.amazonaws.services.cognitosync.AmazonCognitoSync#getBulkPublishDetails(GetBulkPublishDetailsRequest)
  */
@@ -34,7 +39,7 @@ public class GetBulkPublishDetailsRequest extends AmazonWebServiceRequest implem
      * Cognito. GUID generation is unique within a region.
      * <p>
      * <b>Constraints:</b><br/>
-     * <b>Length: </b>1 - 50<br/>
+     * <b>Length: </b>1 - 55<br/>
      * <b>Pattern: </b>[\w-]+:[0-9a-f-]+<br/>
      */
     private String identityPoolId;
@@ -45,7 +50,7 @@ public class GetBulkPublishDetailsRequest extends AmazonWebServiceRequest implem
      * Cognito. GUID generation is unique within a region.
      * <p>
      * <b>Constraints:</b><br/>
-     * <b>Length: </b>1 - 50<br/>
+     * <b>Length: </b>1 - 55<br/>
      * <b>Pattern: </b>[\w-]+:[0-9a-f-]+<br/>
      *
      * @return A name-spaced GUID (for example,
@@ -62,7 +67,7 @@ public class GetBulkPublishDetailsRequest extends AmazonWebServiceRequest implem
      * Cognito. GUID generation is unique within a region.
      * <p>
      * <b>Constraints:</b><br/>
-     * <b>Length: </b>1 - 50<br/>
+     * <b>Length: </b>1 - 55<br/>
      * <b>Pattern: </b>[\w-]+:[0-9a-f-]+<br/>
      *
      * @param identityPoolId A name-spaced GUID (for example,
@@ -81,7 +86,7 @@ public class GetBulkPublishDetailsRequest extends AmazonWebServiceRequest implem
      * Returns a reference to this object so that method calls can be chained together.
      * <p>
      * <b>Constraints:</b><br/>
-     * <b>Length: </b>1 - 50<br/>
+     * <b>Length: </b>1 - 55<br/>
      * <b>Pattern: </b>[\w-]+:[0-9a-f-]+<br/>
      *
      * @param identityPoolId A name-spaced GUID (for example,

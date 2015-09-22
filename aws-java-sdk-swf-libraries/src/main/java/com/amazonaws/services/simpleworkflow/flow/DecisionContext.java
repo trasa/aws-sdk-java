@@ -1,5 +1,5 @@
 /*
- * Copyright 2012 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2012-2015 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License.
@@ -16,6 +16,7 @@ package com.amazonaws.services.simpleworkflow.flow;
 
 import com.amazonaws.services.simpleworkflow.flow.generic.GenericActivityClient;
 import com.amazonaws.services.simpleworkflow.flow.generic.GenericWorkflowClient;
+import com.amazonaws.services.simpleworkflow.flow.worker.LambdaFunctionClient;
 
 /**
  * Represents the context for decider. Should only be used within the scope of
@@ -31,5 +32,7 @@ public abstract class DecisionContext {
     public abstract WorkflowClock getWorkflowClock();
 
     public abstract WorkflowContext getWorkflowContext();
+
+    public abstract LambdaFunctionClient getLambdaFunctionClient();
 
 }

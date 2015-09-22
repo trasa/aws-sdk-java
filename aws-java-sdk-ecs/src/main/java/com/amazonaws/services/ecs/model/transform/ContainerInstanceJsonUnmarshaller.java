@@ -53,6 +53,10 @@ public class ContainerInstanceJsonUnmarshaller implements Unmarshaller<Container
                     context.nextToken();
                     containerInstance.setEc2InstanceId(StringJsonUnmarshaller.getInstance().unmarshall(context));
                 }
+                if (context.testExpression("versionInfo", targetDepth)) {
+                    context.nextToken();
+                    containerInstance.setVersionInfo(VersionInfoJsonUnmarshaller.getInstance().unmarshall(context));
+                }
                 if (context.testExpression("remainingResources", targetDepth)) {
                     context.nextToken();
                     containerInstance.setRemainingResources(new ListUnmarshaller<Resource>(ResourceJsonUnmarshaller.getInstance()).unmarshall(context));
@@ -68,6 +72,18 @@ public class ContainerInstanceJsonUnmarshaller implements Unmarshaller<Container
                 if (context.testExpression("agentConnected", targetDepth)) {
                     context.nextToken();
                     containerInstance.setAgentConnected(BooleanJsonUnmarshaller.getInstance().unmarshall(context));
+                }
+                if (context.testExpression("runningTasksCount", targetDepth)) {
+                    context.nextToken();
+                    containerInstance.setRunningTasksCount(IntegerJsonUnmarshaller.getInstance().unmarshall(context));
+                }
+                if (context.testExpression("pendingTasksCount", targetDepth)) {
+                    context.nextToken();
+                    containerInstance.setPendingTasksCount(IntegerJsonUnmarshaller.getInstance().unmarshall(context));
+                }
+                if (context.testExpression("agentUpdateStatus", targetDepth)) {
+                    context.nextToken();
+                    containerInstance.setAgentUpdateStatus(StringJsonUnmarshaller.getInstance().unmarshall(context));
                 }
             } else if (token == END_ARRAY || token == END_OBJECT) {
                 if (context.getLastParsedParentElement() == null || context.getLastParsedParentElement().equals(currentParentElement)) {

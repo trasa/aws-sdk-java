@@ -24,7 +24,7 @@ import com.amazonaws.AmazonWebServiceRequest;
  * Modifies the parameters of a parameter group.
  * </p>
  * <p>
- * For more information about managing parameter groups, go to
+ * For more information about parameters and parameter groups, go to
  * <a href="http://docs.aws.amazon.com/redshift/latest/mgmt/working-with-parameter-groups.html"> Amazon Redshift Parameter Groups </a>
  * in the <i>Amazon Redshift Cluster Management Guide</i> .
  * </p>
@@ -136,6 +136,11 @@ public class ModifyClusterParameterGroupRequest extends AmazonWebServiceRequest 
      * value; other name-value pairs of the parameter are optional. <p> For
      * the workload management (WLM) configuration, you must supply all the
      * name-value pairs in the wlm_json_configuration parameter.
+     * <p>
+     * <b>NOTE:</b> This method appends the values to the existing list (if
+     * any). Use {@link #setParameters(java.util.Collection)} or {@link
+     * #withParameters(java.util.Collection)} if you want to override the
+     * existing values.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *

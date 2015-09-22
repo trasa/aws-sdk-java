@@ -32,7 +32,7 @@ import com.amazonaws.services.ec2.model.transform.ModifySnapshotAttributeRequest
  * <p>
  * For more information on modifying snapshot permissions, see
  * <a href="http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ebs-modifying-snapshot-permissions.html"> Sharing Snapshots </a>
- * in the <i>Amazon Elastic Compute Cloud User Guide for Linux</i> .
+ * in the <i>Amazon Elastic Compute Cloud User Guide</i> .
  * </p>
  * <p>
  * <b>NOTE:</b> Snapshots with AWS Marketplace product codes cannot be
@@ -49,7 +49,8 @@ public class ModifySnapshotAttributeRequest extends AmazonWebServiceRequest impl
     private String snapshotId;
 
     /**
-     * The snapshot attribute to modify.
+     * The snapshot attribute to modify. <note> <p>Only volume creation
+     * permissions may be modified at the customer level. </note>
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Allowed Values: </b>productCodes, createVolumePermission
@@ -58,6 +59,9 @@ public class ModifySnapshotAttributeRequest extends AmazonWebServiceRequest impl
 
     /**
      * The type of operation to perform to the attribute.
+     * <p>
+     * <b>Constraints:</b><br/>
+     * <b>Allowed Values: </b>add, remove
      */
     private String operationType;
 
@@ -88,7 +92,9 @@ public class ModifySnapshotAttributeRequest extends AmazonWebServiceRequest impl
      * initialize any additional object members.
      * 
      * @param snapshotId The ID of the snapshot.
-     * @param attribute The snapshot attribute to modify.
+     * @param attribute The snapshot attribute to modify. <note> <p>Only
+     * volume creation permissions may be modified at the customer level.
+     * </note>
      * @param operationType The type of operation to perform to the
      * attribute.
      */
@@ -104,14 +110,16 @@ public class ModifySnapshotAttributeRequest extends AmazonWebServiceRequest impl
      * initialize any additional object members.
      * 
      * @param snapshotId The ID of the snapshot.
-     * @param attribute The snapshot attribute to modify.
+     * @param attribute The snapshot attribute to modify. <note> <p>Only
+     * volume creation permissions may be modified at the customer level.
+     * </note>
      * @param operationType The type of operation to perform to the
      * attribute.
      */
-    public ModifySnapshotAttributeRequest(String snapshotId, SnapshotAttributeName attribute, String operationType) {
+    public ModifySnapshotAttributeRequest(String snapshotId, SnapshotAttributeName attribute, OperationType operationType) {
         this.snapshotId = snapshotId;
         this.attribute = attribute.toString();
-        this.operationType = operationType;
+        this.operationType = operationType.toString();
     }
 
     /**
@@ -148,12 +156,14 @@ public class ModifySnapshotAttributeRequest extends AmazonWebServiceRequest impl
     }
 
     /**
-     * The snapshot attribute to modify.
+     * The snapshot attribute to modify. <note> <p>Only volume creation
+     * permissions may be modified at the customer level. </note>
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Allowed Values: </b>productCodes, createVolumePermission
      *
-     * @return The snapshot attribute to modify.
+     * @return The snapshot attribute to modify. <note> <p>Only volume creation
+     *         permissions may be modified at the customer level. </note>
      *
      * @see SnapshotAttributeName
      */
@@ -162,12 +172,14 @@ public class ModifySnapshotAttributeRequest extends AmazonWebServiceRequest impl
     }
     
     /**
-     * The snapshot attribute to modify.
+     * The snapshot attribute to modify. <note> <p>Only volume creation
+     * permissions may be modified at the customer level. </note>
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Allowed Values: </b>productCodes, createVolumePermission
      *
-     * @param attribute The snapshot attribute to modify.
+     * @param attribute The snapshot attribute to modify. <note> <p>Only volume creation
+     *         permissions may be modified at the customer level. </note>
      *
      * @see SnapshotAttributeName
      */
@@ -176,14 +188,16 @@ public class ModifySnapshotAttributeRequest extends AmazonWebServiceRequest impl
     }
     
     /**
-     * The snapshot attribute to modify.
+     * The snapshot attribute to modify. <note> <p>Only volume creation
+     * permissions may be modified at the customer level. </note>
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Allowed Values: </b>productCodes, createVolumePermission
      *
-     * @param attribute The snapshot attribute to modify.
+     * @param attribute The snapshot attribute to modify. <note> <p>Only volume creation
+     *         permissions may be modified at the customer level. </note>
      *
      * @return A reference to this updated object so that method calls can be chained
      *         together.
@@ -196,12 +210,14 @@ public class ModifySnapshotAttributeRequest extends AmazonWebServiceRequest impl
     }
 
     /**
-     * The snapshot attribute to modify.
+     * The snapshot attribute to modify. <note> <p>Only volume creation
+     * permissions may be modified at the customer level. </note>
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Allowed Values: </b>productCodes, createVolumePermission
      *
-     * @param attribute The snapshot attribute to modify.
+     * @param attribute The snapshot attribute to modify. <note> <p>Only volume creation
+     *         permissions may be modified at the customer level. </note>
      *
      * @see SnapshotAttributeName
      */
@@ -210,14 +226,16 @@ public class ModifySnapshotAttributeRequest extends AmazonWebServiceRequest impl
     }
     
     /**
-     * The snapshot attribute to modify.
+     * The snapshot attribute to modify. <note> <p>Only volume creation
+     * permissions may be modified at the customer level. </note>
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Allowed Values: </b>productCodes, createVolumePermission
      *
-     * @param attribute The snapshot attribute to modify.
+     * @param attribute The snapshot attribute to modify. <note> <p>Only volume creation
+     *         permissions may be modified at the customer level. </note>
      *
      * @return A reference to this updated object so that method calls can be chained
      *         together.
@@ -231,8 +249,13 @@ public class ModifySnapshotAttributeRequest extends AmazonWebServiceRequest impl
 
     /**
      * The type of operation to perform to the attribute.
+     * <p>
+     * <b>Constraints:</b><br/>
+     * <b>Allowed Values: </b>add, remove
      *
      * @return The type of operation to perform to the attribute.
+     *
+     * @see OperationType
      */
     public String getOperationType() {
         return operationType;
@@ -240,8 +263,13 @@ public class ModifySnapshotAttributeRequest extends AmazonWebServiceRequest impl
     
     /**
      * The type of operation to perform to the attribute.
+     * <p>
+     * <b>Constraints:</b><br/>
+     * <b>Allowed Values: </b>add, remove
      *
      * @param operationType The type of operation to perform to the attribute.
+     *
+     * @see OperationType
      */
     public void setOperationType(String operationType) {
         this.operationType = operationType;
@@ -251,14 +279,53 @@ public class ModifySnapshotAttributeRequest extends AmazonWebServiceRequest impl
      * The type of operation to perform to the attribute.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
+     * <p>
+     * <b>Constraints:</b><br/>
+     * <b>Allowed Values: </b>add, remove
      *
      * @param operationType The type of operation to perform to the attribute.
      *
      * @return A reference to this updated object so that method calls can be chained
      *         together.
+     *
+     * @see OperationType
      */
     public ModifySnapshotAttributeRequest withOperationType(String operationType) {
         this.operationType = operationType;
+        return this;
+    }
+
+    /**
+     * The type of operation to perform to the attribute.
+     * <p>
+     * <b>Constraints:</b><br/>
+     * <b>Allowed Values: </b>add, remove
+     *
+     * @param operationType The type of operation to perform to the attribute.
+     *
+     * @see OperationType
+     */
+    public void setOperationType(OperationType operationType) {
+        this.operationType = operationType.toString();
+    }
+    
+    /**
+     * The type of operation to perform to the attribute.
+     * <p>
+     * Returns a reference to this object so that method calls can be chained together.
+     * <p>
+     * <b>Constraints:</b><br/>
+     * <b>Allowed Values: </b>add, remove
+     *
+     * @param operationType The type of operation to perform to the attribute.
+     *
+     * @return A reference to this updated object so that method calls can be chained
+     *         together.
+     *
+     * @see OperationType
+     */
+    public ModifySnapshotAttributeRequest withOperationType(OperationType operationType) {
+        this.operationType = operationType.toString();
         return this;
     }
 
@@ -292,6 +359,11 @@ public class ModifySnapshotAttributeRequest extends AmazonWebServiceRequest impl
     
     /**
      * The account ID to modify for the snapshot.
+     * <p>
+     * <b>NOTE:</b> This method appends the values to the existing list (if
+     * any). Use {@link #setUserIds(java.util.Collection)} or {@link
+     * #withUserIds(java.util.Collection)} if you want to override the
+     * existing values.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *
@@ -360,6 +432,11 @@ public class ModifySnapshotAttributeRequest extends AmazonWebServiceRequest impl
     
     /**
      * The group to modify for the snapshot.
+     * <p>
+     * <b>NOTE:</b> This method appends the values to the existing list (if
+     * any). Use {@link #setGroupNames(java.util.Collection)} or {@link
+     * #withGroupNames(java.util.Collection)} if you want to override the
+     * existing values.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *

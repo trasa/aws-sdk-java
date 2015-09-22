@@ -26,10 +26,10 @@ import com.amazonaws.AmazonWebServiceRequest;
  * <p>
  * <b>IMPORTANT:</b> You should understand the implications of changing a
  * server certificate's path or name. For more information, see Managing
- * Server Certificates in the Using IAM guide.
+ * Server Certificates in the IAM User Guide.
  * </p>
  * <p>
- * <b>NOTE:</b> To change a server certificate name the requester must
+ * <b>NOTE:</b>To change a server certificate name the requester must
  * have appropriate permissions on both the source object and the target
  * object. For example, to change the name from ProductionCert to
  * ProdCert, the entity making the request must have permission on
@@ -46,7 +46,7 @@ public class UpdateServerCertificateRequest extends AmazonWebServiceRequest impl
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>1 - 128<br/>
-     * <b>Pattern: </b>[\w+=,.@-]*<br/>
+     * <b>Pattern: </b>[\w+=,.@-]+<br/>
      */
     private String serverCertificateName;
 
@@ -62,11 +62,12 @@ public class UpdateServerCertificateRequest extends AmazonWebServiceRequest impl
 
     /**
      * The new name for the server certificate. Include this only if you are
-     * updating the server certificate's name.
+     * updating the server certificate's name. The name of the certificate
+     * cannot contain any spaces.
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>1 - 128<br/>
-     * <b>Pattern: </b>[\w+=,.@-]*<br/>
+     * <b>Pattern: </b>[\w+=,.@-]+<br/>
      */
     private String newServerCertificateName;
 
@@ -93,7 +94,7 @@ public class UpdateServerCertificateRequest extends AmazonWebServiceRequest impl
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>1 - 128<br/>
-     * <b>Pattern: </b>[\w+=,.@-]*<br/>
+     * <b>Pattern: </b>[\w+=,.@-]+<br/>
      *
      * @return The name of the server certificate that you want to update.
      */
@@ -106,7 +107,7 @@ public class UpdateServerCertificateRequest extends AmazonWebServiceRequest impl
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>1 - 128<br/>
-     * <b>Pattern: </b>[\w+=,.@-]*<br/>
+     * <b>Pattern: </b>[\w+=,.@-]+<br/>
      *
      * @param serverCertificateName The name of the server certificate that you want to update.
      */
@@ -121,7 +122,7 @@ public class UpdateServerCertificateRequest extends AmazonWebServiceRequest impl
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>1 - 128<br/>
-     * <b>Pattern: </b>[\w+=,.@-]*<br/>
+     * <b>Pattern: </b>[\w+=,.@-]+<br/>
      *
      * @param serverCertificateName The name of the server certificate that you want to update.
      *
@@ -186,14 +187,16 @@ public class UpdateServerCertificateRequest extends AmazonWebServiceRequest impl
 
     /**
      * The new name for the server certificate. Include this only if you are
-     * updating the server certificate's name.
+     * updating the server certificate's name. The name of the certificate
+     * cannot contain any spaces.
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>1 - 128<br/>
-     * <b>Pattern: </b>[\w+=,.@-]*<br/>
+     * <b>Pattern: </b>[\w+=,.@-]+<br/>
      *
      * @return The new name for the server certificate. Include this only if you are
-     *         updating the server certificate's name.
+     *         updating the server certificate's name. The name of the certificate
+     *         cannot contain any spaces.
      */
     public String getNewServerCertificateName() {
         return newServerCertificateName;
@@ -201,14 +204,16 @@ public class UpdateServerCertificateRequest extends AmazonWebServiceRequest impl
     
     /**
      * The new name for the server certificate. Include this only if you are
-     * updating the server certificate's name.
+     * updating the server certificate's name. The name of the certificate
+     * cannot contain any spaces.
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>1 - 128<br/>
-     * <b>Pattern: </b>[\w+=,.@-]*<br/>
+     * <b>Pattern: </b>[\w+=,.@-]+<br/>
      *
      * @param newServerCertificateName The new name for the server certificate. Include this only if you are
-     *         updating the server certificate's name.
+     *         updating the server certificate's name. The name of the certificate
+     *         cannot contain any spaces.
      */
     public void setNewServerCertificateName(String newServerCertificateName) {
         this.newServerCertificateName = newServerCertificateName;
@@ -216,16 +221,18 @@ public class UpdateServerCertificateRequest extends AmazonWebServiceRequest impl
     
     /**
      * The new name for the server certificate. Include this only if you are
-     * updating the server certificate's name.
+     * updating the server certificate's name. The name of the certificate
+     * cannot contain any spaces.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>1 - 128<br/>
-     * <b>Pattern: </b>[\w+=,.@-]*<br/>
+     * <b>Pattern: </b>[\w+=,.@-]+<br/>
      *
      * @param newServerCertificateName The new name for the server certificate. Include this only if you are
-     *         updating the server certificate's name.
+     *         updating the server certificate's name. The name of the certificate
+     *         cannot contain any spaces.
      *
      * @return A reference to this updated object so that method calls can be chained
      *         together.

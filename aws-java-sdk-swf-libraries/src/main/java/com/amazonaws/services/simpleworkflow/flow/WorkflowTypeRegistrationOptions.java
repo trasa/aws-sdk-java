@@ -1,5 +1,5 @@
 /*
- * Copyright 2012 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2012-2015 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License.
@@ -29,7 +29,9 @@ public class WorkflowTypeRegistrationOptions {
     private String description;
     
     private int defaultTaskPriority;
-    
+
+    private String defaultLambdaRole;
+
     public ChildPolicy getDefaultChildPolicy() {
         return defaultChildPolicy;
     }
@@ -83,6 +85,14 @@ public class WorkflowTypeRegistrationOptions {
         this.defaultTaskPriority = defaultTaskPriority;
     }
 
+    public String getDefaultLambdaRole() {
+        return defaultLambdaRole;
+    }
+
+    public void setDefaultLambdaRole(String defaultLambdaRole) {
+        this.defaultLambdaRole = defaultLambdaRole;
+    }
+
     @Override
     public String toString() {
         return "WorkflowVersionRegistrationOptions [defaultTaskList=" + defaultTaskList
@@ -91,6 +101,7 @@ public class WorkflowTypeRegistrationOptions {
                 + ", description=" + description 
                 + ", defaultTaskStartToCloseTimeoutSeconds=" + defaultTaskStartToCloseTimeoutSeconds
                 + ", defaultTaskPriority=" + defaultTaskPriority
+                + ", defaultLambdaRole=" + defaultLambdaRole
                 + "]";
     }
 

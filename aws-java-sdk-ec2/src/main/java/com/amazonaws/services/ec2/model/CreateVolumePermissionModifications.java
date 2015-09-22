@@ -17,7 +17,9 @@ package com.amazonaws.services.ec2.model;
 import java.io.Serializable;
 
 /**
- * 
+ * <p>
+ * Describes modifications to the permissions for a volume.
+ * </p>
  */
 public class CreateVolumePermissionModifications implements Serializable, Cloneable {
 
@@ -68,6 +70,11 @@ public class CreateVolumePermissionModifications implements Serializable, Clonea
     /**
      * Adds a specific AWS account ID or group to a volume's list of create
      * volume permissions.
+     * <p>
+     * <b>NOTE:</b> This method appends the values to the existing list (if
+     * any). Use {@link #setAdd(java.util.Collection)} or {@link
+     * #withAdd(java.util.Collection)} if you want to override the existing
+     * values.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *
@@ -144,6 +151,11 @@ public class CreateVolumePermissionModifications implements Serializable, Clonea
     /**
      * Removes a specific AWS account ID or group from a volume's list of
      * create volume permissions.
+     * <p>
+     * <b>NOTE:</b> This method appends the values to the existing list (if
+     * any). Use {@link #setRemove(java.util.Collection)} or {@link
+     * #withRemove(java.util.Collection)} if you want to override the
+     * existing values.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *

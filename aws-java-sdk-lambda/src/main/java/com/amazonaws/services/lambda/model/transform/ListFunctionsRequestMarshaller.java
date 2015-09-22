@@ -47,7 +47,7 @@ public class ListFunctionsRequestMarshaller implements Marshaller<Request<ListFu
     private static final Map<String, String> STATIC_QUERY_PARAMS;
     private static final Map<String, String> DYNAMIC_QUERY_PARAMS;
     static {
-        String path = "/2014-11-13/functions/?Marker={Marker}&MaxItems={MaxItems}";
+        String path = "/2015-03-31/functions/?Marker={Marker}&MaxItems={MaxItems}";
         Map<String, String> staticMap = new HashMap<String, String>();
         Map<String, String> dynamicMap = new HashMap<String, String>();
 
@@ -90,25 +90,28 @@ public class ListFunctionsRequestMarshaller implements Marshaller<Request<ListFu
 
         if (DYNAMIC_QUERY_PARAMS.containsKey("Marker")) {
             String name = DYNAMIC_QUERY_PARAMS.get("Marker");
+
             String value = (listFunctionsRequest.getMarker() == null) ? null : StringUtils.fromString(listFunctionsRequest.getMarker());
 
             if (!(value == null || value.isEmpty())) {
                 request.addParameter(name, value);
             }
+            
         } else {
             uriResourcePath = uriResourcePath.replace("{Marker}", (listFunctionsRequest.getMarker() == null) ? "" : StringUtils.fromString(listFunctionsRequest.getMarker())); 
-        }
-        
+        } 
         if (DYNAMIC_QUERY_PARAMS.containsKey("MaxItems")) {
             String name = DYNAMIC_QUERY_PARAMS.get("MaxItems");
+
             String value = (listFunctionsRequest.getMaxItems() == null) ? null : StringUtils.fromInteger(listFunctionsRequest.getMaxItems());
 
             if (!(value == null || value.isEmpty())) {
                 request.addParameter(name, value);
             }
+            
         } else {
             uriResourcePath = uriResourcePath.replace("{MaxItems}", (listFunctionsRequest.getMaxItems() == null) ? "" : StringUtils.fromInteger(listFunctionsRequest.getMaxItems())); 
-        }
+        } 
 
         request.setResourcePath(uriResourcePath.replaceAll("//", "/"));
 

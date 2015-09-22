@@ -26,7 +26,8 @@ import com.amazonaws.AmazonWebServiceRequest;
  * token for each identity.
  * </p>
  * <p>
- * This action is throttled at one request per second.
+ * This action is throttled at one request per second and can only get
+ * verification attributes for up to 100 identities at a time.
  * </p>
  *
  * @see com.amazonaws.services.simpleemail.AmazonSimpleEmailService#getIdentityVerificationAttributes(GetIdentityVerificationAttributesRequest)
@@ -68,6 +69,11 @@ public class GetIdentityVerificationAttributesRequest extends AmazonWebServiceRe
     
     /**
      * A list of identities.
+     * <p>
+     * <b>NOTE:</b> This method appends the values to the existing list (if
+     * any). Use {@link #setIdentities(java.util.Collection)} or {@link
+     * #withIdentities(java.util.Collection)} if you want to override the
+     * existing values.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *

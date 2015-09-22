@@ -32,7 +32,7 @@ import com.amazonaws.AmazonWebServiceRequest;
  * <p>
  * Parameters in the parameter group define specific behavior that
  * applies to the databases you create on the cluster. For more
- * information about managing parameter groups, go to
+ * information about parameters and parameter groups, go to
  * <a href="http://docs.aws.amazon.com/redshift/latest/mgmt/working-with-parameter-groups.html"> Amazon Redshift Parameter Groups </a>
  * in the <i>Amazon Redshift Cluster Management Guide</i> .
  * 
@@ -282,6 +282,11 @@ public class CreateClusterParameterGroupRequest extends AmazonWebServiceRequest 
     
     /**
      * A list of tag instances.
+     * <p>
+     * <b>NOTE:</b> This method appends the values to the existing list (if
+     * any). Use {@link #setTags(java.util.Collection)} or {@link
+     * #withTags(java.util.Collection)} if you want to override the existing
+     * values.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *

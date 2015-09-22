@@ -54,7 +54,7 @@ public class ModifyInstanceAttributeRequest extends AmazonWebServiceRequest impl
      * A new value for the attribute. Use only with the <code>kernel</code>,
      * <code>ramdisk</code>, <code>userData</code>,
      * <code>disableApiTermination</code>, or
-     * <code>intanceInitiateShutdownBehavior</code> attribute.
+     * <code>instanceInitiatedShutdownBehavior</code> attribute.
      */
     private String value;
 
@@ -82,7 +82,8 @@ public class ModifyInstanceAttributeRequest extends AmazonWebServiceRequest impl
 
     /**
      * If the value is <code>true</code>, you can't terminate the instance
-     * using the Amazon EC2 console, CLI, or API; otherwise, you can.
+     * using the Amazon EC2 console, CLI, or API; otherwise, you can. You
+     * cannot use this paramater for Spot Instances.
      */
     private Boolean disableApiTermination;
 
@@ -127,10 +128,7 @@ public class ModifyInstanceAttributeRequest extends AmazonWebServiceRequest impl
      * [EC2-VPC] Changes the security groups of the instance. You must
      * specify at least one security group, even if it's just the default
      * security group for the VPC. You must specify the security group ID,
-     * not the security group name. <p>For example, if you want the instance
-     * to be in sg-1a1a1a1a and sg-9b9b9b9b, specify
-     * <code>GroupId.1=sg-1a1a1a1a</code> and
-     * <code>GroupId.2=sg-9b9b9b9b</code>.
+     * not the security group name.
      */
     private com.amazonaws.internal.ListWithAutoConstructFlag<String> groups;
 
@@ -302,12 +300,12 @@ public class ModifyInstanceAttributeRequest extends AmazonWebServiceRequest impl
      * A new value for the attribute. Use only with the <code>kernel</code>,
      * <code>ramdisk</code>, <code>userData</code>,
      * <code>disableApiTermination</code>, or
-     * <code>intanceInitiateShutdownBehavior</code> attribute.
+     * <code>instanceInitiatedShutdownBehavior</code> attribute.
      *
      * @return A new value for the attribute. Use only with the <code>kernel</code>,
      *         <code>ramdisk</code>, <code>userData</code>,
      *         <code>disableApiTermination</code>, or
-     *         <code>intanceInitiateShutdownBehavior</code> attribute.
+     *         <code>instanceInitiatedShutdownBehavior</code> attribute.
      */
     public String getValue() {
         return value;
@@ -317,12 +315,12 @@ public class ModifyInstanceAttributeRequest extends AmazonWebServiceRequest impl
      * A new value for the attribute. Use only with the <code>kernel</code>,
      * <code>ramdisk</code>, <code>userData</code>,
      * <code>disableApiTermination</code>, or
-     * <code>intanceInitiateShutdownBehavior</code> attribute.
+     * <code>instanceInitiatedShutdownBehavior</code> attribute.
      *
      * @param value A new value for the attribute. Use only with the <code>kernel</code>,
      *         <code>ramdisk</code>, <code>userData</code>,
      *         <code>disableApiTermination</code>, or
-     *         <code>intanceInitiateShutdownBehavior</code> attribute.
+     *         <code>instanceInitiatedShutdownBehavior</code> attribute.
      */
     public void setValue(String value) {
         this.value = value;
@@ -332,14 +330,14 @@ public class ModifyInstanceAttributeRequest extends AmazonWebServiceRequest impl
      * A new value for the attribute. Use only with the <code>kernel</code>,
      * <code>ramdisk</code>, <code>userData</code>,
      * <code>disableApiTermination</code>, or
-     * <code>intanceInitiateShutdownBehavior</code> attribute.
+     * <code>instanceInitiatedShutdownBehavior</code> attribute.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *
      * @param value A new value for the attribute. Use only with the <code>kernel</code>,
      *         <code>ramdisk</code>, <code>userData</code>,
      *         <code>disableApiTermination</code>, or
-     *         <code>intanceInitiateShutdownBehavior</code> attribute.
+     *         <code>instanceInitiatedShutdownBehavior</code> attribute.
      *
      * @return A reference to this updated object so that method calls can be chained
      *         together.
@@ -424,6 +422,11 @@ public class ModifyInstanceAttributeRequest extends AmazonWebServiceRequest impl
      * href="http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/block-device-mapping-concepts.html#Using_OverridingAMIBDM">Updating
      * the Block Device Mapping when Launching an Instance</a> in the
      * <i>Amazon Elastic Compute Cloud User Guide</i>.
+     * <p>
+     * <b>NOTE:</b> This method appends the values to the existing list (if
+     * any). Use {@link #setBlockDeviceMappings(java.util.Collection)} or
+     * {@link #withBlockDeviceMappings(java.util.Collection)} if you want to
+     * override the existing values.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *
@@ -557,10 +560,12 @@ public class ModifyInstanceAttributeRequest extends AmazonWebServiceRequest impl
 
     /**
      * If the value is <code>true</code>, you can't terminate the instance
-     * using the Amazon EC2 console, CLI, or API; otherwise, you can.
+     * using the Amazon EC2 console, CLI, or API; otherwise, you can. You
+     * cannot use this paramater for Spot Instances.
      *
      * @return If the value is <code>true</code>, you can't terminate the instance
-     *         using the Amazon EC2 console, CLI, or API; otherwise, you can.
+     *         using the Amazon EC2 console, CLI, or API; otherwise, you can. You
+     *         cannot use this paramater for Spot Instances.
      */
     public Boolean isDisableApiTermination() {
         return disableApiTermination;
@@ -568,10 +573,12 @@ public class ModifyInstanceAttributeRequest extends AmazonWebServiceRequest impl
     
     /**
      * If the value is <code>true</code>, you can't terminate the instance
-     * using the Amazon EC2 console, CLI, or API; otherwise, you can.
+     * using the Amazon EC2 console, CLI, or API; otherwise, you can. You
+     * cannot use this paramater for Spot Instances.
      *
      * @param disableApiTermination If the value is <code>true</code>, you can't terminate the instance
-     *         using the Amazon EC2 console, CLI, or API; otherwise, you can.
+     *         using the Amazon EC2 console, CLI, or API; otherwise, you can. You
+     *         cannot use this paramater for Spot Instances.
      */
     public void setDisableApiTermination(Boolean disableApiTermination) {
         this.disableApiTermination = disableApiTermination;
@@ -579,12 +586,14 @@ public class ModifyInstanceAttributeRequest extends AmazonWebServiceRequest impl
     
     /**
      * If the value is <code>true</code>, you can't terminate the instance
-     * using the Amazon EC2 console, CLI, or API; otherwise, you can.
+     * using the Amazon EC2 console, CLI, or API; otherwise, you can. You
+     * cannot use this paramater for Spot Instances.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *
      * @param disableApiTermination If the value is <code>true</code>, you can't terminate the instance
-     *         using the Amazon EC2 console, CLI, or API; otherwise, you can.
+     *         using the Amazon EC2 console, CLI, or API; otherwise, you can. You
+     *         cannot use this paramater for Spot Instances.
      *
      * @return A reference to this updated object so that method calls can be chained
      *         together.
@@ -596,10 +605,12 @@ public class ModifyInstanceAttributeRequest extends AmazonWebServiceRequest impl
 
     /**
      * If the value is <code>true</code>, you can't terminate the instance
-     * using the Amazon EC2 console, CLI, or API; otherwise, you can.
+     * using the Amazon EC2 console, CLI, or API; otherwise, you can. You
+     * cannot use this paramater for Spot Instances.
      *
      * @return If the value is <code>true</code>, you can't terminate the instance
-     *         using the Amazon EC2 console, CLI, or API; otherwise, you can.
+     *         using the Amazon EC2 console, CLI, or API; otherwise, you can. You
+     *         cannot use this paramater for Spot Instances.
      */
     public Boolean getDisableApiTermination() {
         return disableApiTermination;
@@ -846,18 +857,12 @@ public class ModifyInstanceAttributeRequest extends AmazonWebServiceRequest impl
      * [EC2-VPC] Changes the security groups of the instance. You must
      * specify at least one security group, even if it's just the default
      * security group for the VPC. You must specify the security group ID,
-     * not the security group name. <p>For example, if you want the instance
-     * to be in sg-1a1a1a1a and sg-9b9b9b9b, specify
-     * <code>GroupId.1=sg-1a1a1a1a</code> and
-     * <code>GroupId.2=sg-9b9b9b9b</code>.
+     * not the security group name.
      *
      * @return [EC2-VPC] Changes the security groups of the instance. You must
      *         specify at least one security group, even if it's just the default
      *         security group for the VPC. You must specify the security group ID,
-     *         not the security group name. <p>For example, if you want the instance
-     *         to be in sg-1a1a1a1a and sg-9b9b9b9b, specify
-     *         <code>GroupId.1=sg-1a1a1a1a</code> and
-     *         <code>GroupId.2=sg-9b9b9b9b</code>.
+     *         not the security group name.
      */
     public java.util.List<String> getGroups() {
         if (groups == null) {
@@ -871,18 +876,12 @@ public class ModifyInstanceAttributeRequest extends AmazonWebServiceRequest impl
      * [EC2-VPC] Changes the security groups of the instance. You must
      * specify at least one security group, even if it's just the default
      * security group for the VPC. You must specify the security group ID,
-     * not the security group name. <p>For example, if you want the instance
-     * to be in sg-1a1a1a1a and sg-9b9b9b9b, specify
-     * <code>GroupId.1=sg-1a1a1a1a</code> and
-     * <code>GroupId.2=sg-9b9b9b9b</code>.
+     * not the security group name.
      *
      * @param groups [EC2-VPC] Changes the security groups of the instance. You must
      *         specify at least one security group, even if it's just the default
      *         security group for the VPC. You must specify the security group ID,
-     *         not the security group name. <p>For example, if you want the instance
-     *         to be in sg-1a1a1a1a and sg-9b9b9b9b, specify
-     *         <code>GroupId.1=sg-1a1a1a1a</code> and
-     *         <code>GroupId.2=sg-9b9b9b9b</code>.
+     *         not the security group name.
      */
     public void setGroups(java.util.Collection<String> groups) {
         if (groups == null) {
@@ -898,20 +897,19 @@ public class ModifyInstanceAttributeRequest extends AmazonWebServiceRequest impl
      * [EC2-VPC] Changes the security groups of the instance. You must
      * specify at least one security group, even if it's just the default
      * security group for the VPC. You must specify the security group ID,
-     * not the security group name. <p>For example, if you want the instance
-     * to be in sg-1a1a1a1a and sg-9b9b9b9b, specify
-     * <code>GroupId.1=sg-1a1a1a1a</code> and
-     * <code>GroupId.2=sg-9b9b9b9b</code>.
+     * not the security group name.
+     * <p>
+     * <b>NOTE:</b> This method appends the values to the existing list (if
+     * any). Use {@link #setGroups(java.util.Collection)} or {@link
+     * #withGroups(java.util.Collection)} if you want to override the
+     * existing values.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *
      * @param groups [EC2-VPC] Changes the security groups of the instance. You must
      *         specify at least one security group, even if it's just the default
      *         security group for the VPC. You must specify the security group ID,
-     *         not the security group name. <p>For example, if you want the instance
-     *         to be in sg-1a1a1a1a and sg-9b9b9b9b, specify
-     *         <code>GroupId.1=sg-1a1a1a1a</code> and
-     *         <code>GroupId.2=sg-9b9b9b9b</code>.
+     *         not the security group name.
      *
      * @return A reference to this updated object so that method calls can be chained
      *         together.
@@ -928,20 +926,14 @@ public class ModifyInstanceAttributeRequest extends AmazonWebServiceRequest impl
      * [EC2-VPC] Changes the security groups of the instance. You must
      * specify at least one security group, even if it's just the default
      * security group for the VPC. You must specify the security group ID,
-     * not the security group name. <p>For example, if you want the instance
-     * to be in sg-1a1a1a1a and sg-9b9b9b9b, specify
-     * <code>GroupId.1=sg-1a1a1a1a</code> and
-     * <code>GroupId.2=sg-9b9b9b9b</code>.
+     * not the security group name.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *
      * @param groups [EC2-VPC] Changes the security groups of the instance. You must
      *         specify at least one security group, even if it's just the default
      *         security group for the VPC. You must specify the security group ID,
-     *         not the security group name. <p>For example, if you want the instance
-     *         to be in sg-1a1a1a1a and sg-9b9b9b9b, specify
-     *         <code>GroupId.1=sg-1a1a1a1a</code> and
-     *         <code>GroupId.2=sg-9b9b9b9b</code>.
+     *         not the security group name.
      *
      * @return A reference to this updated object so that method calls can be chained
      *         together.

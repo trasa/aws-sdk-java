@@ -20,14 +20,13 @@ package com.amazonaws.util;
 import java.io.ByteArrayInputStream;
 import java.nio.ByteBuffer;
 import java.util.Arrays;
-import java.util.Locale;
 
 /**
  * Utilities for encoding and decoding binary data to and from different forms.
  */
 public class BinaryUtils {
     /**
-     * Converts byte data to a Hex-encoded string.
+     * Converts byte data to a Hex-encoded string in lower case.
      *
      * @param data
      *            data to hex encode.
@@ -35,19 +34,7 @@ public class BinaryUtils {
      * @return hex-encoded string.
      */
     public static String toHex(byte[] data) {
-        StringBuilder sb = new StringBuilder(data.length * 2);
-        for (int i = 0; i < data.length; i++) {
-            String hex = Integer.toHexString(data[i]);
-            if (hex.length() == 1) {
-                // Append leading zero.
-                sb.append("0");
-            } else if (hex.length() == 8) {
-                // Remove ff prefix from negative numbers.
-                hex = hex.substring(6);
-            }
-            sb.append(hex);
-        }
-        return sb.toString().toLowerCase(Locale.getDefault());
+        return Base16Lower.encodeAsString(data);
     }
 
     /**
@@ -58,16 +45,7 @@ public class BinaryUtils {
      * @return decoded data from the hex string.
      */
     public static byte[] fromHex(String hexData) {
-        byte[] result = new byte[(hexData.length() + 1) / 2];
-        String hexNumber = null;
-        int stringOffset = 0;
-        int byteOffset = 0;
-        while (stringOffset < hexData.length()) {
-            hexNumber = hexData.substring(stringOffset, stringOffset + 2);
-            stringOffset += 2;
-            result[byteOffset++] = (byte) Integer.parseInt(hexNumber, 16);
-        }
-        return result;
+        return Base16Lower.decode(hexData);
     }
 
     /**
@@ -94,16 +72,17 @@ public class BinaryUtils {
     }
 
     /**
-     * @deprecated not used; to be removed in future releases.
-     * 
-     * Wraps a ByteBuffer in an InputStream.
+     * Wraps a ByteBuffer in an InputStream. If the input {@code byteBuffer}
+     * is null, returns an empty stream.
      *
      * @param byteBuffer The ByteBuffer to wrap.
      *
      * @return An InputStream wrapping the ByteBuffer content.
      */
-    @Deprecated
     public static ByteArrayInputStream toStream(ByteBuffer byteBuffer) {
+        if (byteBuffer == null) {
+            return new ByteArrayInputStream(new byte[0]);
+        }
         return new ByteArrayInputStream(copyBytesFrom(byteBuffer));
     }
 
@@ -122,28 +101,30 @@ public class BinaryUtils {
      * unmarshallers of the low-level clients.
      */
     public static byte[] copyAllBytesFrom(ByteBuffer bb) {
-        if (bb == null)
+        if (bb == null) {
             return null;
-        if (bb.hasArray())
-            return Arrays.copyOf(bb.array(), bb.limit());
-        bb.mark();
-        // the default ByteBuffer#mark() and reset() won't work, as the
-        // rewind would discard the mark position
-        final int marked = bb.position();
-        try {
-            byte[] dst = new byte[bb.rewind().remaining()];
-            bb.get(dst);
-            return dst;
-        } finally {
-            bb.position(marked);
         }
+
+        if (bb.hasArray()) {
+            return Arrays.copyOfRange(
+                    bb.array(),
+                    bb.arrayOffset(),
+                    bb.arrayOffset() + bb.limit());
+        }
+
+        ByteBuffer copy = bb.asReadOnlyBuffer();
+        copy.rewind();
+
+        byte[] dst = new byte[copy.remaining()];
+        copy.get(dst);
+        return dst;
     }
 
     /**
      * Returns a copy of the bytes from the given <code>ByteBuffer</code>,
      * ranging from the the buffer's current position to the buffer's limit; or
      * null if the input is null.
-     * <p> 
+     * <p>
      * The internal states of the given byte buffer will be restored when this
      * method completes execution.
      * <p>
@@ -155,17 +136,19 @@ public class BinaryUtils {
      * unmarshallers of the low-level clients.
      */
     public static byte[] copyBytesFrom(ByteBuffer bb) {
-        if (bb == null)
+        if (bb == null) {
             return null;
-        if (bb.hasArray())
-            return Arrays.copyOfRange(bb.array(), bb.position(), bb.limit());
-        bb.mark();
-        try {
-            byte[] dst = new byte[bb.remaining()];
-            bb.get(dst);
-            return dst;
-        } finally {
-            bb.reset();
         }
+
+        if (bb.hasArray()) {
+            return Arrays.copyOfRange(
+                    bb.array(),
+                    bb.arrayOffset() + bb.position(),
+                    bb.arrayOffset() + bb.limit());
+        }
+
+        byte[] dst = new byte[bb.remaining()];
+        bb.asReadOnlyBuffer().get(dst);
+        return dst;
     }
 }

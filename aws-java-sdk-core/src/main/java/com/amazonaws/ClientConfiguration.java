@@ -22,6 +22,7 @@ import com.amazonaws.http.IdleConnectionReaper;
 import com.amazonaws.retry.PredefinedRetryPolicies;
 import com.amazonaws.retry.RetryPolicy;
 import com.amazonaws.util.VersionInfoUtils;
+
 /**
  * Client configuration options such as proxy settings, user agent string, max
  * retry attempts, etc.
@@ -75,9 +76,20 @@ public class ClientConfiguration {
     public static final long DEFAULT_CONNECTION_TTL = -1;
 
     /**
+     * The default maximum idle time (in milliseconds) for a connection in
+     * the connection pool.
+     */
+    public static final long DEFAULT_CONNECTION_MAX_IDLE_MILLIS = 60 * 1000;
+
+    /**
      * The default on whether to use TCP KeepAlive.
      */
     public static final boolean DEFAULT_TCP_KEEP_ALIVE = false;
+
+    /**
+     * The default response metadata cache size.
+     */
+    public static final int DEFAULT_RESPONSE_METADATA_CACHE_SIZE = 50;
 
     /** The HTTP user agent header passed with all HTTP requests. */
     private String userAgent = DEFAULT_USER_AGENT;
@@ -187,6 +199,11 @@ public class ClientConfiguration {
     private long connectionTTL = DEFAULT_CONNECTION_TTL;
 
     /**
+     * The maximum idle time for a connection in the connection pool.
+     */
+    private long connectionMaxIdleMillis = DEFAULT_CONNECTION_MAX_IDLE_MILLIS;
+
+    /**
      * Optional override to enable support for TCP KeepAlive (not to be confused
      * with HTTP KeepAlive). TCP KeepAlive can be used to detect misbehaving routers
      * or down servers through the use of special, empty-data keep alive packets.
@@ -195,7 +212,20 @@ public class ClientConfiguration {
      * the operating system (sysctl on Linux, and Registry values on Windows).
      */
     private boolean tcpKeepAlive = DEFAULT_TCP_KEEP_ALIVE;
-    
+
+    /**
+     * Size of the response metadata cache.
+     * <p>
+     * Response metadata is typically used for troubleshooting issues with AWS
+     * support staff when services aren't acting as expected.
+     */
+    private int responseMetadataCacheSize = DEFAULT_RESPONSE_METADATA_CACHE_SIZE;
+
+    /**
+     * The DNS Resolver to resolve IP addresses of Amazon Web Services.
+     */
+    private DnsResolver dnsResolver = new SystemDefaultDnsResolver();
+
     /**
      * Can be used to specify custom specific Apache HTTP client configurations.
      */
@@ -226,6 +256,8 @@ public class ClientConfiguration {
         this.socketReceiveBufferSizeHint = other.socketReceiveBufferSizeHint;
         this.socketSendBufferSizeHint    = other.socketSendBufferSizeHint;
         this.signerOverride              = other.signerOverride;
+        this.responseMetadataCacheSize   = other.responseMetadataCacheSize;
+        this.dnsResolver                 = other.dnsResolver;
         this.apacheHttpClientConfig =
             new ApacheHttpClientConfig(other.apacheHttpClientConfig);
     }
@@ -1089,31 +1121,135 @@ public class ClientConfiguration {
     }
 
     /**
-     * Returns the expiration time(in milliseconds) for a connection in the
-     * connection pool.
+     * Returns the expiration time (in milliseconds) for a connection in the
+     * connection pool. When retrieving a connection from the pool to make a
+     * request, the total time that the connection has been open is compared
+     * against this value. Connections which have been open for longer are
+     * discarded, and if needed a new connection is created.
+     * <p>
+     * Tuning this setting down (together with an appropriately-low setting
+     * for Java's DNS cache TTL) ensures that your application will quickly
+     * rotate over to new IP addresses when the service begins announcing them
+     * through DNS, at the cost of having to re-establish new connections more
+     * frequently.
+     *
+     * @return the connection TTL, in milliseconds
      */
     public long getConnectionTTL() {
         return connectionTTL;
     }
 
     /**
-     * Sets the expiration time(in milliseconds) for a connection in the
-     * connection pool. By default, it is set to -1 i.e., connections don't have
-     * an expiration time.
+     * Sets the expiration time (in milliseconds) for a connection in the
+     * connection pool. When retrieving a connection from the pool to make a
+     * request, the total time that the connection has been open is compared
+     * against this value. Connections which have been open for longer are
+     * discarded, and if needed a new connection is created.
+     * <p>
+     * Tuning this setting down (together with an appropriately-low setting
+     * for Java's DNS cache TTL) ensures that your application will quickly
+     * rotate over to new IP addresses when the service begins announcing them
+     * through DNS, at the cost of having to re-establish new connections more
+     * frequently.
+     * <p>
+     * By default, it is set to {@code -1], i.e. connections do not expire.
+     *
+     * @param connectionTTL the connection TTL, in milliseconds
      */
     public void setConnectionTTL(long connectionTTL) {
         this.connectionTTL = connectionTTL;
     }
 
     /**
-     * Sets the expiration time(in milliseconds) for a connection in the
-     * connection pool. By default, it is set to -1 i.e., connections don't have
-     * an expiration time.
+     * Sets the expiration time (in milliseconds) for a connection in the
+     * connection pool. When retrieving a connection from the pool to make a
+     * request, the total time that the connection has been open is compared
+     * against this value. Connections which have been open for longer are
+     * discarded, and if needed a new connection is created.
+     * <p>
+     * Tuning this setting down (together with an appropriately-low setting
+     * for Java's DNS cache TTL) ensures that your application will quickly
+     * rotate over to new IP addresses when the service begins announcing them
+     * through DNS, at the cost of having to re-establish new connections more
+     * frequently.
+     * <p>
+     * By default, it is set to {@code -1}, i.e. connections do not expire.
      *
-     * @return The updated ClientConfiguration object.
+     * @param connectionTTL the connection TTL, in milliseconds
+     * @return the updated ClientConfiguration object
      */
     public ClientConfiguration withConnectionTTL(long connectionTTL) {
         setConnectionTTL(connectionTTL);
+        return this;
+    }
+
+    /**
+     * Returns the maximum amount of time that an idle connection may sit in
+     * the connection pool and still be eligible for reuse. When retrieving
+     * a connection from the pool to make a request, the amount of time the
+     * connection has been idle is compared against this value. Connections
+     * which have been idle for longer are discarded, and if needed a new
+     * connection is created.
+     * <p>
+     * Tuning this setting down reduces the likelihood of a race condition
+     * (wherein you begin sending a request down a connection which appears to
+     * be healthy, but before it arrives the service decides the connection has
+     * been idle for too long and closes it) at the cost of having to
+     * re-establish new connections more frequently.
+     *
+     * @return the connection maximum idle time, in milliseconds
+     */
+    public long getConnectionMaxIdleMillis() {
+        return connectionMaxIdleMillis;
+    }
+
+    /**
+     * Sets the maximum amount of time that an idle connection may sit in
+     * the connection pool and still be eligible for reuse. When retrieving
+     * a connection from the pool to make a request, the amount of time the
+     * connection has been idle is compared against this value. Connections
+     * which have been idle for longer are discarded, and if needed a new
+     * connection is created.
+     * <p>
+     * Tuning this setting down reduces the likelihood of a race condition
+     * (wherein you begin sending a request down a connection which appears to
+     * be healthy, but before it arrives the service decides the connection has
+     * been idle for too long and closes it) at the cost of having to
+     * re-establish new connections more frequently.
+     * <p>
+     * By default, it is set to one minute (60000ms).
+     *
+     * @param connectionMaxIdleMillis the connection maximum idle time, in
+     *            milliseconds
+     */
+    public void setConnectionMaxIdleMillis(long connectionMaxIdleMillis) {
+        this.connectionMaxIdleMillis = connectionMaxIdleMillis;
+    }
+
+    /**
+     * Sets the maximum amount of time that an idle connection may sit in
+     * the connection pool and still be eligible for reuse. When retrieving
+     * a connection from the pool to make a request, the amount of time the
+     * connection has been idle is compared against this value. Connections
+     * which have been idle for longer are discarded, and if needed a new
+     * connection is created.
+     * <p>
+     * Tuning this setting down reduces the likelihood of a race condition
+     * (wherein you begin sending a request down a connection which appears to
+     * be healthy, but before it arrives the service decides the connection has
+     * been idle for too long and closes it) at the cost of having to
+     * re-establish new connections more frequently.
+     * <p>
+     * By default, it is set to one minute (60000ms).
+     *
+     * @param connectionMaxIdleMillis the connection maximum idle time, in
+     *            milliseconds
+     * @return the updated ClientConfiguration object
+     */
+    public ClientConfiguration withConnectionMaxIdleMillis(
+            long connectionMaxIdleMillis) {
+
+        setConnectionMaxIdleMillis(connectionMaxIdleMillis);
         return this;
     }
 
@@ -1137,6 +1273,59 @@ public class ClientConfiguration {
      */
     public ClientConfiguration withTcpKeepAlive(final boolean use) {
         setUseTcpKeepAlive(use);
+        return this;
+    }
+
+    /**
+     * Returns the DnsResolver that is used by the client for resolving AWS IP addresses.
+     */
+    public DnsResolver getDnsResolver() {
+        return dnsResolver;
+    }
+
+    /**
+     * Sets the DNS Resolver that should be used to for resolving AWS IP addresses.
+     */
+    public void setDnsResolver(final DnsResolver resolver) {
+        if (resolver == null) {
+            throw new IllegalArgumentException("resolver cannot be null");
+        }
+        this.dnsResolver = resolver;
+    }
+
+    /**
+     * Sets the DNS Resolver that should be used to for resolving AWS IP addresses.
+     * @return The updated ClientConfiguration object.
+     */
+    public ClientConfiguration withDnsResolver(final DnsResolver resolver) {
+        setDnsResolver(resolver);
+        return this;
+    }
+
+    /**
+     * Returns the response metadata cache size.
+     */
+    public int getResponseMetadataCacheSize() {
+        return responseMetadataCacheSize;
+    }
+
+    /**
+     * Sets the response metadata cache size. By default, it is set to
+     * {@value #DEFAULT_RESPONSE_METADATA_CACHE_SIZE}.
+     * @param responseMetadataCacheSize maximum cache size.
+     */
+    public void setResponseMetadataCacheSize(int responseMetadataCacheSize) {
+        this.responseMetadataCacheSize = responseMetadataCacheSize;
+    }
+
+    /**
+     * Sets the response metadata cache size. By default, it is set to
+     * {@value #DEFAULT_RESPONSE_METADATA_CACHE_SIZE}.
+     * @param responseMetadataCacheSize maximum cache size.
+     * @return The updated ClientConfiguration object.
+     */
+    public ClientConfiguration withResponseMetadataCacheSize(int responseMetadataCacheSize) {
+        setResponseMetadataCacheSize(responseMetadataCacheSize);
         return this;
     }
 

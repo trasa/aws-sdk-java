@@ -227,8 +227,8 @@ public class AmazonSimpleDBClient extends AmazonWebServiceClient implements Amaz
         exceptionUnmarshallers.add(new DuplicateItemNameExceptionUnmarshaller());
         exceptionUnmarshallers.add(new NumberDomainAttributesExceededExceptionUnmarshaller());
         exceptionUnmarshallers.add(new InvalidNumberPredicatesExceptionUnmarshaller());
-        exceptionUnmarshallers.add(new TooManyRequestedAttributesExceptionUnmarshaller());
         exceptionUnmarshallers.add(new InvalidNextTokenExceptionUnmarshaller());
+        exceptionUnmarshallers.add(new TooManyRequestedAttributesExceptionUnmarshaller());
         exceptionUnmarshallers.add(new NumberItemAttributesExceededExceptionUnmarshaller());
         exceptionUnmarshallers.add(new AttributeDoesNotExistExceptionUnmarshaller());
         exceptionUnmarshallers.add(new MissingParameterExceptionUnmarshaller());
@@ -1005,9 +1005,6 @@ public class AmazonSimpleDBClient extends AmazonWebServiceClient implements Amaz
         request.setEndpoint(endpoint);
         request.setTimeOffset(timeOffset);
         AmazonWebServiceRequest originalRequest = request.getOriginalRequest();
-        for (Entry<String, String> entry : originalRequest.copyPrivateRequestParameters().entrySet()) {
-            request.addParameter(entry.getKey(), entry.getValue());
-        }
 
         AWSCredentials credentials = awsCredentialsProvider.getCredentials();
         if (originalRequest.getRequestCredentials() != null) {

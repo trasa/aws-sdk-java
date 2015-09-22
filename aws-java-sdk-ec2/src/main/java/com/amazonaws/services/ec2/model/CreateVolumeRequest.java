@@ -23,15 +23,15 @@ import com.amazonaws.services.ec2.model.transform.CreateVolumeRequestMarshaller;
 /**
  * Container for the parameters to the {@link com.amazonaws.services.ec2.AmazonEC2#createVolume(CreateVolumeRequest) CreateVolume operation}.
  * <p>
- * Creates an Amazon EBS volume that can be attached to an instance in
- * the same Availability Zone. The volume is created in the regional
- * endpoint that you send the HTTP request to. For more information see
+ * Creates an EBS volume that can be attached to an instance in the same
+ * Availability Zone. The volume is created in the regional endpoint that
+ * you send the HTTP request to. For more information see
  * <a href="http://docs.aws.amazon.com/general/latest/gr/rande.html"> Regions and Endpoints </a>
  * .
  * </p>
  * <p>
- * You can create a new empty volume or restore a volume from an Amazon
- * EBS snapshot. Any AWS Marketplace product codes from the snapshot are
+ * You can create a new empty volume or restore a volume from an EBS
+ * snapshot. Any AWS Marketplace product codes from the snapshot are
  * propagated to the volume.
  * </p>
  * <p>
@@ -40,12 +40,12 @@ import com.amazonaws.services.ec2.model.transform.CreateVolumeRequestMarshaller;
  * support Amazon EBS encryption. Volumes that are created from encrypted
  * snapshots are also automatically encrypted. For more information, see
  * <a href="http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/EBSEncryption.html"> Amazon EBS Encryption </a>
- * in the <i>Amazon Elastic Compute Cloud User Guide for Linux</i> .
+ * in the <i>Amazon Elastic Compute Cloud User Guide</i> .
  * </p>
  * <p>
  * For more information, see
  * <a href="http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ebs-creating-volume.html"> Creating or Restoring an Amazon EBS Volume </a>
- * in the <i>Amazon Elastic Compute Cloud User Guide for Linux</i> .
+ * in the <i>Amazon Elastic Compute Cloud User Guide</i> .
  * </p>
  *
  * @see com.amazonaws.services.ec2.AmazonEC2#createVolume(CreateVolumeRequest)
@@ -103,20 +103,22 @@ public class CreateVolumeRequest extends AmazonWebServiceRequest implements Seri
      * volumes, you can only launch it on supported instance types. For more
      * information, see <a
      * href="http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/EBSEncryption.html">Amazon
-     * EBS Encryption</a> in the <i>Amazon Elastic Compute Cloud User Guide
-     * for Linux</i>.
+     * EBS Encryption</a> in the <i>Amazon Elastic Compute Cloud User
+     * Guide</i>.
      */
     private Boolean encrypted;
 
     /**
-     * The full ARN of the AWS Key Management Service (KMS) master key to use
-     * when creating the encrypted volume. This parameter is only required if
-     * you want to use a non-default master key; if this parameter is not
-     * specified, the default master key is used. The ARN contains the
-     * <code>arn:aws:kms</code> namespace, followed by the region of the
-     * master key, the AWS account ID of the master key owner, the
-     * <code>key</code> namespace, and then the master key ID. For example,
+     * The full ARN of the AWS Key Management Service (AWS KMS) customer
+     * master key (CMK) to use when creating the encrypted volume. This
+     * parameter is only required if you want to use a non-default CMK; if
+     * this parameter is not specified, the default CMK for EBS is used. The
+     * ARN contains the <code>arn:aws:kms</code> namespace, followed by the
+     * region of the CMK, the AWS account ID of the CMK owner, the
+     * <code>key</code> namespace, and then the CMK ID. For example,
      * arn:aws:kms:<i>us-east-1</i>:<i>012345678910</i>:key/<i>abcd1234-a123-456a-a12b-a123b4cd56ef</i>.
+     * If a <code>KmsKeyId</code> is specified, the <code>Encrypted</code>
+     * flag must also be set.
      */
     private String kmsKeyId;
 
@@ -481,8 +483,8 @@ public class CreateVolumeRequest extends AmazonWebServiceRequest implements Seri
      * volumes, you can only launch it on supported instance types. For more
      * information, see <a
      * href="http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/EBSEncryption.html">Amazon
-     * EBS Encryption</a> in the <i>Amazon Elastic Compute Cloud User Guide
-     * for Linux</i>.
+     * EBS Encryption</a> in the <i>Amazon Elastic Compute Cloud User
+     * Guide</i>.
      *
      * @return Specifies whether the volume should be encrypted. Encrypted Amazon EBS
      *         volumes may only be attached to instances that support Amazon EBS
@@ -492,8 +494,8 @@ public class CreateVolumeRequest extends AmazonWebServiceRequest implements Seri
      *         volumes, you can only launch it on supported instance types. For more
      *         information, see <a
      *         href="http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/EBSEncryption.html">Amazon
-     *         EBS Encryption</a> in the <i>Amazon Elastic Compute Cloud User Guide
-     *         for Linux</i>.
+     *         EBS Encryption</a> in the <i>Amazon Elastic Compute Cloud User
+     *         Guide</i>.
      */
     public Boolean isEncrypted() {
         return encrypted;
@@ -508,8 +510,8 @@ public class CreateVolumeRequest extends AmazonWebServiceRequest implements Seri
      * volumes, you can only launch it on supported instance types. For more
      * information, see <a
      * href="http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/EBSEncryption.html">Amazon
-     * EBS Encryption</a> in the <i>Amazon Elastic Compute Cloud User Guide
-     * for Linux</i>.
+     * EBS Encryption</a> in the <i>Amazon Elastic Compute Cloud User
+     * Guide</i>.
      *
      * @param encrypted Specifies whether the volume should be encrypted. Encrypted Amazon EBS
      *         volumes may only be attached to instances that support Amazon EBS
@@ -519,8 +521,8 @@ public class CreateVolumeRequest extends AmazonWebServiceRequest implements Seri
      *         volumes, you can only launch it on supported instance types. For more
      *         information, see <a
      *         href="http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/EBSEncryption.html">Amazon
-     *         EBS Encryption</a> in the <i>Amazon Elastic Compute Cloud User Guide
-     *         for Linux</i>.
+     *         EBS Encryption</a> in the <i>Amazon Elastic Compute Cloud User
+     *         Guide</i>.
      */
     public void setEncrypted(Boolean encrypted) {
         this.encrypted = encrypted;
@@ -535,8 +537,8 @@ public class CreateVolumeRequest extends AmazonWebServiceRequest implements Seri
      * volumes, you can only launch it on supported instance types. For more
      * information, see <a
      * href="http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/EBSEncryption.html">Amazon
-     * EBS Encryption</a> in the <i>Amazon Elastic Compute Cloud User Guide
-     * for Linux</i>.
+     * EBS Encryption</a> in the <i>Amazon Elastic Compute Cloud User
+     * Guide</i>.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *
@@ -548,8 +550,8 @@ public class CreateVolumeRequest extends AmazonWebServiceRequest implements Seri
      *         volumes, you can only launch it on supported instance types. For more
      *         information, see <a
      *         href="http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/EBSEncryption.html">Amazon
-     *         EBS Encryption</a> in the <i>Amazon Elastic Compute Cloud User Guide
-     *         for Linux</i>.
+     *         EBS Encryption</a> in the <i>Amazon Elastic Compute Cloud User
+     *         Guide</i>.
      *
      * @return A reference to this updated object so that method calls can be chained
      *         together.
@@ -568,8 +570,8 @@ public class CreateVolumeRequest extends AmazonWebServiceRequest implements Seri
      * volumes, you can only launch it on supported instance types. For more
      * information, see <a
      * href="http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/EBSEncryption.html">Amazon
-     * EBS Encryption</a> in the <i>Amazon Elastic Compute Cloud User Guide
-     * for Linux</i>.
+     * EBS Encryption</a> in the <i>Amazon Elastic Compute Cloud User
+     * Guide</i>.
      *
      * @return Specifies whether the volume should be encrypted. Encrypted Amazon EBS
      *         volumes may only be attached to instances that support Amazon EBS
@@ -579,79 +581,91 @@ public class CreateVolumeRequest extends AmazonWebServiceRequest implements Seri
      *         volumes, you can only launch it on supported instance types. For more
      *         information, see <a
      *         href="http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/EBSEncryption.html">Amazon
-     *         EBS Encryption</a> in the <i>Amazon Elastic Compute Cloud User Guide
-     *         for Linux</i>.
+     *         EBS Encryption</a> in the <i>Amazon Elastic Compute Cloud User
+     *         Guide</i>.
      */
     public Boolean getEncrypted() {
         return encrypted;
     }
 
     /**
-     * The full ARN of the AWS Key Management Service (KMS) master key to use
-     * when creating the encrypted volume. This parameter is only required if
-     * you want to use a non-default master key; if this parameter is not
-     * specified, the default master key is used. The ARN contains the
-     * <code>arn:aws:kms</code> namespace, followed by the region of the
-     * master key, the AWS account ID of the master key owner, the
-     * <code>key</code> namespace, and then the master key ID. For example,
+     * The full ARN of the AWS Key Management Service (AWS KMS) customer
+     * master key (CMK) to use when creating the encrypted volume. This
+     * parameter is only required if you want to use a non-default CMK; if
+     * this parameter is not specified, the default CMK for EBS is used. The
+     * ARN contains the <code>arn:aws:kms</code> namespace, followed by the
+     * region of the CMK, the AWS account ID of the CMK owner, the
+     * <code>key</code> namespace, and then the CMK ID. For example,
      * arn:aws:kms:<i>us-east-1</i>:<i>012345678910</i>:key/<i>abcd1234-a123-456a-a12b-a123b4cd56ef</i>.
+     * If a <code>KmsKeyId</code> is specified, the <code>Encrypted</code>
+     * flag must also be set.
      *
-     * @return The full ARN of the AWS Key Management Service (KMS) master key to use
-     *         when creating the encrypted volume. This parameter is only required if
-     *         you want to use a non-default master key; if this parameter is not
-     *         specified, the default master key is used. The ARN contains the
-     *         <code>arn:aws:kms</code> namespace, followed by the region of the
-     *         master key, the AWS account ID of the master key owner, the
-     *         <code>key</code> namespace, and then the master key ID. For example,
+     * @return The full ARN of the AWS Key Management Service (AWS KMS) customer
+     *         master key (CMK) to use when creating the encrypted volume. This
+     *         parameter is only required if you want to use a non-default CMK; if
+     *         this parameter is not specified, the default CMK for EBS is used. The
+     *         ARN contains the <code>arn:aws:kms</code> namespace, followed by the
+     *         region of the CMK, the AWS account ID of the CMK owner, the
+     *         <code>key</code> namespace, and then the CMK ID. For example,
      *         arn:aws:kms:<i>us-east-1</i>:<i>012345678910</i>:key/<i>abcd1234-a123-456a-a12b-a123b4cd56ef</i>.
+     *         If a <code>KmsKeyId</code> is specified, the <code>Encrypted</code>
+     *         flag must also be set.
      */
     public String getKmsKeyId() {
         return kmsKeyId;
     }
     
     /**
-     * The full ARN of the AWS Key Management Service (KMS) master key to use
-     * when creating the encrypted volume. This parameter is only required if
-     * you want to use a non-default master key; if this parameter is not
-     * specified, the default master key is used. The ARN contains the
-     * <code>arn:aws:kms</code> namespace, followed by the region of the
-     * master key, the AWS account ID of the master key owner, the
-     * <code>key</code> namespace, and then the master key ID. For example,
+     * The full ARN of the AWS Key Management Service (AWS KMS) customer
+     * master key (CMK) to use when creating the encrypted volume. This
+     * parameter is only required if you want to use a non-default CMK; if
+     * this parameter is not specified, the default CMK for EBS is used. The
+     * ARN contains the <code>arn:aws:kms</code> namespace, followed by the
+     * region of the CMK, the AWS account ID of the CMK owner, the
+     * <code>key</code> namespace, and then the CMK ID. For example,
      * arn:aws:kms:<i>us-east-1</i>:<i>012345678910</i>:key/<i>abcd1234-a123-456a-a12b-a123b4cd56ef</i>.
+     * If a <code>KmsKeyId</code> is specified, the <code>Encrypted</code>
+     * flag must also be set.
      *
-     * @param kmsKeyId The full ARN of the AWS Key Management Service (KMS) master key to use
-     *         when creating the encrypted volume. This parameter is only required if
-     *         you want to use a non-default master key; if this parameter is not
-     *         specified, the default master key is used. The ARN contains the
-     *         <code>arn:aws:kms</code> namespace, followed by the region of the
-     *         master key, the AWS account ID of the master key owner, the
-     *         <code>key</code> namespace, and then the master key ID. For example,
+     * @param kmsKeyId The full ARN of the AWS Key Management Service (AWS KMS) customer
+     *         master key (CMK) to use when creating the encrypted volume. This
+     *         parameter is only required if you want to use a non-default CMK; if
+     *         this parameter is not specified, the default CMK for EBS is used. The
+     *         ARN contains the <code>arn:aws:kms</code> namespace, followed by the
+     *         region of the CMK, the AWS account ID of the CMK owner, the
+     *         <code>key</code> namespace, and then the CMK ID. For example,
      *         arn:aws:kms:<i>us-east-1</i>:<i>012345678910</i>:key/<i>abcd1234-a123-456a-a12b-a123b4cd56ef</i>.
+     *         If a <code>KmsKeyId</code> is specified, the <code>Encrypted</code>
+     *         flag must also be set.
      */
     public void setKmsKeyId(String kmsKeyId) {
         this.kmsKeyId = kmsKeyId;
     }
     
     /**
-     * The full ARN of the AWS Key Management Service (KMS) master key to use
-     * when creating the encrypted volume. This parameter is only required if
-     * you want to use a non-default master key; if this parameter is not
-     * specified, the default master key is used. The ARN contains the
-     * <code>arn:aws:kms</code> namespace, followed by the region of the
-     * master key, the AWS account ID of the master key owner, the
-     * <code>key</code> namespace, and then the master key ID. For example,
+     * The full ARN of the AWS Key Management Service (AWS KMS) customer
+     * master key (CMK) to use when creating the encrypted volume. This
+     * parameter is only required if you want to use a non-default CMK; if
+     * this parameter is not specified, the default CMK for EBS is used. The
+     * ARN contains the <code>arn:aws:kms</code> namespace, followed by the
+     * region of the CMK, the AWS account ID of the CMK owner, the
+     * <code>key</code> namespace, and then the CMK ID. For example,
      * arn:aws:kms:<i>us-east-1</i>:<i>012345678910</i>:key/<i>abcd1234-a123-456a-a12b-a123b4cd56ef</i>.
+     * If a <code>KmsKeyId</code> is specified, the <code>Encrypted</code>
+     * flag must also be set.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *
-     * @param kmsKeyId The full ARN of the AWS Key Management Service (KMS) master key to use
-     *         when creating the encrypted volume. This parameter is only required if
-     *         you want to use a non-default master key; if this parameter is not
-     *         specified, the default master key is used. The ARN contains the
-     *         <code>arn:aws:kms</code> namespace, followed by the region of the
-     *         master key, the AWS account ID of the master key owner, the
-     *         <code>key</code> namespace, and then the master key ID. For example,
+     * @param kmsKeyId The full ARN of the AWS Key Management Service (AWS KMS) customer
+     *         master key (CMK) to use when creating the encrypted volume. This
+     *         parameter is only required if you want to use a non-default CMK; if
+     *         this parameter is not specified, the default CMK for EBS is used. The
+     *         ARN contains the <code>arn:aws:kms</code> namespace, followed by the
+     *         region of the CMK, the AWS account ID of the CMK owner, the
+     *         <code>key</code> namespace, and then the CMK ID. For example,
      *         arn:aws:kms:<i>us-east-1</i>:<i>012345678910</i>:key/<i>abcd1234-a123-456a-a12b-a123b4cd56ef</i>.
+     *         If a <code>KmsKeyId</code> is specified, the <code>Encrypted</code>
+     *         flag must also be set.
      *
      * @return A reference to this updated object so that method calls can be chained
      *         together.

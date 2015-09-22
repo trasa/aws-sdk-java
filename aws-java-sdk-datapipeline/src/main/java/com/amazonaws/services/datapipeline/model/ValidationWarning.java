@@ -18,8 +18,7 @@ import java.io.Serializable;
 
 /**
  * <p>
- * Defines a validation warning returned by PutPipelineDefinition or
- * ValidatePipelineDefinition. Validation warnings do not prevent
+ * Defines a validation warning. Validation warnings do not prevent
  * pipeline activation. The set of validation warnings that can be
  * returned are defined by AWS Data Pipeline.
  * </p>
@@ -115,6 +114,11 @@ public class ValidationWarning implements Serializable, Cloneable {
     
     /**
      * A description of the validation warning.
+     * <p>
+     * <b>NOTE:</b> This method appends the values to the existing list (if
+     * any). Use {@link #setWarnings(java.util.Collection)} or {@link
+     * #withWarnings(java.util.Collection)} if you want to override the
+     * existing values.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *

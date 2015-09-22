@@ -47,6 +47,7 @@ import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 
 import javax.net.ssl.SSLContext;
 
@@ -81,7 +82,7 @@ import com.amazonaws.RequestClientOptions.Marker;
 import com.amazonaws.ResetException;
 import com.amazonaws.Response;
 import com.amazonaws.ResponseMetadata;
-import com.amazonaws.SDKGlobalConfiguration;
+import com.amazonaws.SDKGlobalTime;
 import com.amazonaws.auth.AWSCredentials;
 import com.amazonaws.auth.Signer;
 import com.amazonaws.event.ProgressEventType;
@@ -102,6 +103,7 @@ import com.amazonaws.retry.internal.AuthErrorRetryStrategy;
 import com.amazonaws.retry.internal.AuthRetryParameters;
 import com.amazonaws.util.AWSRequestMetrics;
 import com.amazonaws.util.AWSRequestMetrics.Field;
+import com.amazonaws.util.CollectionUtils;
 import com.amazonaws.util.CountingInputStream;
 import com.amazonaws.util.DateUtils;
 import com.amazonaws.util.FakeIOException;
@@ -113,6 +115,11 @@ import com.amazonaws.util.UnreliableFilterInputStream;
 public class AmazonHttpClient {
     private static final String HEADER_USER_AGENT = "User-Agent";
 
+    /**
+     * Logger used for the purpose of logging the AWS request id extracted
+     * either from the http header response or from the response body.
+     */
+    private static final Log requestIdLog = LogFactory.getLog("com.amazonaws.requestId");
     /**
      * Logger providing detailed information on requests/responses. Users can
      * enable this logger to get access to AWS request IDs for responses,
@@ -150,7 +157,7 @@ public class AmazonHttpClient {
     private final ClientConfiguration config;
 
     /** Cache of metadata for recently executed requests for diagnostic purposes */
-    private final ResponseMetadataCache responseMetadataCache = new ResponseMetadataCache(50);
+    private final ResponseMetadataCache responseMetadataCache;
 
     /**
      * A request metric collector used specifically for this http client; or
@@ -162,7 +169,7 @@ public class AmazonHttpClient {
     private final RequestMetricCollector requestMetricCollector;
 
     /** The time difference in seconds between this client and AWS. */
-    private volatile int timeOffset = SDKGlobalConfiguration.getGlobalTimeOffset();
+    private volatile int timeOffset = SDKGlobalTime.getGlobalTimeOffset();
 
     /**
      * Constructs a new AWS client using the specified client configuration
@@ -204,6 +211,7 @@ public class AmazonHttpClient {
         this.config = config;
         this.httpClient = httpClient;
         this.requestMetricCollector = requestMetricCollector;
+        this.responseMetadataCache = new ResponseMetadataCache(config.getResponseMetadataCacheSize());
     }
 
     /**
@@ -277,9 +285,15 @@ public class AmazonHttpClient {
         final List<RequestHandler2> requestHandler2s = requestHandler2s(request, executionContext);
         AmazonWebServiceRequest awsreq = request.getOriginalRequest();
         ProgressListener listener = awsreq.getGeneralProgressListener();
+        // add custom headers
         Map<String, String> customHeaders = awsreq.getCustomRequestHeaders();
         if (customHeaders != null) {
             request.getHeaders().putAll(customHeaders);
+        }
+        // add custom query parameters
+        Map<String, List<String>> customQueryParams = awsreq.getCustomQueryParameters();
+        if (customQueryParams != null) {
+            mergeQueryParameters(request, customQueryParams);
         }
         final AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
         Response<T> response = null;
@@ -307,6 +321,20 @@ public class AmazonHttpClient {
             // Always close so any progress tracking would get the final events propagated.
             closeQuietly(toBeClosed, log);
             request.setContent(origContent); // restore the original content
+        }
+    }
+
+    /**
+     * Merge query parameters into the given request.
+     */
+    private void mergeQueryParameters(Request<?> request,
+            Map<String, List<String>> params) {
+        Map<String, List<String>> existingParams = request.getParameters();
+        for (Entry<String, List<String>> param : params.entrySet()) {
+            String pName = param.getKey();
+            List<String> pValues = param.getValue();
+            existingParams.put(pName,
+                    CollectionUtils.mergeLists(existingParams.get(pName), pValues));
         }
     }
 
@@ -422,8 +450,8 @@ public class AmazonHttpClient {
         setUserAgent(request);
         // Make a copy of the original request params and headers so that we can
         // permute it in this loop and start over with the original every time.
-        final Map<String, String> originalParameters =
-            new LinkedHashMap<String, String>(request.getParameters());
+        final Map<String, List<String>> originalParameters =
+            new LinkedHashMap<String, List<String>>(request.getParameters());
         final Map<String, String> originalHeaders =
             new HashMap<String, String>(request.getHeaders());
         // Always mark the input stream before execution.
@@ -624,10 +652,10 @@ public class AmazonHttpClient {
             final HttpResponseHandler<AmazonServiceException> errorResponseHandler,
             final ExecutionContext execContext,
             final AWSRequestMetrics awsRequestMetrics,
-            ExecOneRequestParams p)
+            ExecOneRequestParams execParams)
             throws IOException {
         // Reset the request input stream
-        if (p.isRetry()) {
+        if (execParams.isRetry()) {
             InputStream requestInputStream = request.getContent();
             if (requestInputStream != null) {
                 if (requestInputStream.markSupported()) {
@@ -643,103 +671,120 @@ public class AmazonHttpClient {
             requestLog.debug("Sending Request: " + request);
         final AWSCredentials credentials = execContext.getCredentials();
         final AmazonWebServiceRequest awsreq = request.getOriginalRequest();
-        // Sign the request if a signer was provided
-        p.newSigner(request, execContext);
-        if (p.signer != null && credentials != null) {
-            awsRequestMetrics.startEvent(RequestSigningTime);
-            try {
-                if (timeOffset != 0)
-                    request.setTimeOffset(timeOffset);
-                p.signer.sign(request, credentials);
-            } finally {
-                awsRequestMetrics.endEvent(RequestSigningTime);
-            }
-        }
-        p.newApacheRequest(httpRequestFactory, request, config, execContext);
         final ProgressListener listener = awsreq.getGeneralProgressListener();
 
-        if (p.isRetry()) {
+        if (execParams.isRetry()) {
             publishProgress(listener, ProgressEventType.CLIENT_REQUEST_RETRY_EVENT);
             // Notify the progress listener of the retry
             awsRequestMetrics.startEvent(RetryPauseTime);
             try {
                 // don't pause if the retry was not due to a redirection
                 // ie when retried exception is null
-                if (p.retriedException != null) {
+                if (execParams.retriedException != null) {
                     pauseBeforeNextRetry(request.getOriginalRequest(),
-                        p.retriedException, p.requestCount,
+                        execParams.retriedException, execParams.requestCount,
                         config.getRetryPolicy());
                 }
             } finally {
                 awsRequestMetrics.endEvent(RetryPauseTime);
             }
         }
+
+        // Sign the request if a signer was provided
+        execParams.newSigner(request, execContext);
+        if (execParams.signer != null && credentials != null) {
+            awsRequestMetrics.startEvent(RequestSigningTime);
+            try {
+                if (timeOffset != 0) {
+                    // Always use the client level timeOffset if it was
+                    // non-zero; Otherwise, we respect the timeOffset in the
+                    // request, which could have been externally configured (at
+                    // least for the 1st non-retry request).
+                    //
+                    // For retry due to clock skew, the timeOffset in the
+                    // request used for the retry is assumed to have been
+                    // adjusted when execution reaches here.
+                    request.setTimeOffset(timeOffset);
+                }
+                execParams.signer.sign(request, credentials);
+            } finally {
+                awsRequestMetrics.endEvent(RequestSigningTime);
+            }
+        }
+        execParams.newApacheRequest(httpRequestFactory, request, config, execContext);
+
         captureConnectionPoolMetrics(httpClient.getConnectionManager(), awsRequestMetrics);
         HttpContext httpContext = new BasicHttpContext();
         httpContext.setAttribute(
             AWSRequestMetrics.class.getSimpleName(),
             awsRequestMetrics);
-        p.resetBeforeHttpRequest();
+        execParams.resetBeforeHttpRequest();
         publishProgress(listener, ProgressEventType.HTTP_REQUEST_STARTED_EVENT);
         awsRequestMetrics.startEvent(HttpRequestTime);
+
+        /////////// Send HTTP request ////////////
+        final boolean isHeaderReqIdAvail;
         try {
-            p.apacheResponse = httpClient.execute(p.apacheRequest, httpContext);
+            execParams.apacheResponse = httpClient.execute(execParams.apacheRequest, httpContext);
+            isHeaderReqIdAvail = logHeaderRequestId(execParams.apacheResponse);
         } finally {
             awsRequestMetrics.endEvent(HttpRequestTime);
         }
+
         publishProgress(listener, ProgressEventType.HTTP_REQUEST_COMPLETED_EVENT);
-        final StatusLine statusLine = p.apacheResponse.getStatusLine();
+        final StatusLine statusLine = execParams.apacheResponse.getStatusLine();
         final int statusCode = statusLine == null ? -1 : statusLine.getStatusCode();
-        if (isRequestSuccessful(p.apacheResponse)) {
+        if (isRequestSuccessful(execParams.apacheResponse)) {
             awsRequestMetrics.addProperty(StatusCode, statusCode);
             /*
              * If we get back any 2xx status code, then we know we should
              * treat the service call as successful.
              */
-            p.leaveHttpConnectionOpen = responseHandler.needsConnectionLeftOpen();
-            HttpResponse httpResponse = createResponse(p.apacheRequest,
-                    request, p.apacheResponse);
+            execParams.leaveHttpConnectionOpen = responseHandler.needsConnectionLeftOpen();
+            HttpResponse httpResponse = createResponse(execParams.apacheRequest,
+                    request, execParams.apacheResponse);
             T response = handleResponse(request, responseHandler,
-                    p.apacheRequest, httpResponse, p.apacheResponse,
-                    execContext);
+                    execParams.apacheRequest, httpResponse, execParams.apacheResponse,
+                    execContext, isHeaderReqIdAvail);
             return new Response<T>(response, httpResponse);
         }
-        if (isTemporaryRedirect(p.apacheResponse)) {
+        if (isTemporaryRedirect(execParams.apacheResponse)) {
             /*
              * S3 sends 307 Temporary Redirects if you try to delete an
              * EU bucket from the US endpoint. If we get a 307, we'll
              * point the HTTP method to the redirected location, and let
              * the next retry deliver the request to the right location.
              */
-            Header[] locationHeaders = p.apacheResponse.getHeaders("location");
+            Header[] locationHeaders = execParams.apacheResponse.getHeaders("location");
             String redirectedLocation = locationHeaders[0].getValue();
             if (log.isDebugEnabled())
                 log.debug("Redirecting to: " + redirectedLocation);
-            p.redirectedURI = URI.create(redirectedLocation);
+            execParams.redirectedURI = URI.create(redirectedLocation);
             awsRequestMetrics.addPropertyWith(StatusCode, statusCode)
                 .addPropertyWith(RedirectLocation, redirectedLocation)
                 .addPropertyWith(AWSRequestID, null)
                 ;
             return null; // => retry
         }
-        p.leaveHttpConnectionOpen = errorResponseHandler.needsConnectionLeftOpen();
+        execParams.leaveHttpConnectionOpen = errorResponseHandler.needsConnectionLeftOpen();
         final AmazonServiceException ase = handleErrorResponse(request,
-                errorResponseHandler, p.apacheRequest, p.apacheResponse);
+                errorResponseHandler, execParams.apacheRequest, execParams.apacheResponse);
         awsRequestMetrics
             .addPropertyWith(AWSRequestID, ase.getRequestId())
             .addPropertyWith(AWSErrorCode, ase.getErrorCode())
             .addPropertyWith(StatusCode, ase.getStatusCode());
         // Check whether we should internally retry the auth error
-        p.authRetryParam = null;
+        execParams.authRetryParam = null;
         AuthErrorRetryStrategy authRetry = execContext.getAuthErrorRetryStrategy();
         if ( authRetry != null ) {
-            p.authRetryParam = authRetry.shouldRetryWithAuthParam(request, ase);
+            HttpResponse httpResponse = createResponse(execParams.apacheRequest, request, execParams.apacheResponse);
+            execParams.authRetryParam = authRetry.shouldRetryWithAuthParam(request, httpResponse, ase);
         }
-        if (p.authRetryParam == null &&
+        if (execParams.authRetryParam == null &&
             !shouldRetry(request.getOriginalRequest(),
-                p.apacheRequest,
+                execParams.apacheRequest,
                 ase,
-                p.requestCount,
+                execParams.requestCount,
                 config.getRetryPolicy())) {
             throw ase;
         }
@@ -752,16 +797,64 @@ public class AmazonHttpClient {
                              ;
         }
         // Cache the retryable exception
-        p.retriedException = ase;
+        execParams.retriedException = ase;
         /*
          * Checking for clock skew error again because we don't want to set the
          * global time offset for every service exception.
          */
         if (RetryUtils.isClockSkewError(ase)) {
-            int clockSkew = parseClockSkewOffset(p.apacheResponse, ase);
-            SDKGlobalConfiguration.setGlobalTimeOffset(timeOffset = clockSkew);
+            int clockSkew = parseClockSkewOffset(execParams.apacheResponse, ase);
+            SDKGlobalTime.setGlobalTimeOffset(timeOffset = clockSkew);
+            request.setTimeOffset(timeOffset);  // adjust time offset for the retry
         }
         return null; // => retry
+    }
+
+    /**
+     * Used to log the "x-amzn-RequestId" header at DEBUG level, if any, from
+     * the response. This method assumes the apache http request/response has
+     * just been successfully executed. The request id is logged using the
+     * "com.amazonaws.requestId" logger if it was enabled at DEBUG level;
+     * otherwise, it is logged at DEBUG level using the "com.amazonaws.request"
+     * logger.
+     *
+     * @return true if the AWS request id is available from the http header;
+     *         false otherwise.
+     */
+    private boolean logHeaderRequestId(final org.apache.http.HttpResponse res) {
+        final Header reqIdHeader =
+            res.getFirstHeader(HttpResponseHandler.X_AMZN_REQUEST_ID_HEADER);
+        final boolean isHeaderReqIdAvail = reqIdHeader != null;
+
+        if (requestIdLog.isDebugEnabled() || requestLog.isDebugEnabled()) {
+            final String msg = HttpResponseHandler.X_AMZN_REQUEST_ID_HEADER
+                + ": "
+                + (isHeaderReqIdAvail ? reqIdHeader.getValue() : "not available");
+            if (requestIdLog.isDebugEnabled())
+                requestIdLog.debug(msg);
+            else
+                requestLog.debug(msg);
+        }
+        return isHeaderReqIdAvail;
+    }
+
+    /**
+     * Used to log the request id (extracted from the response) at DEBUG level.
+     * This method is called only if there is no request id present in the http
+     * response header. The request id is logged using the
+     * "com.amazonaws.requestId" logger if it was enabled at DEBUG level;
+     * otherwise, it is logged using at DEBUG level using the
+     * "com.amazonaws.request" logger.
+     */
+    private void logResponseRequestId(final String awsRequestId) {
+        if (requestIdLog.isDebugEnabled() || requestLog.isDebugEnabled()) {
+            final String msg = "AWS Request ID: "
+                    + (awsRequestId == null ? "not available" : awsRequestId);
+            if (requestIdLog.isDebugEnabled())
+                requestIdLog.debug(msg);
+            else
+                requestLog.debug(msg);
+        }
     }
 
     /**
@@ -926,6 +1019,9 @@ public class AmazonHttpClient {
      * @param executionContext
      *            Extra state information about the request currently being
      *            executed.
+     * @param isHeaderReqIdAvail
+     *            true if the AWS request id is available from the http response
+     *            header; false otherwise.
      * @return The contents of the response, unmarshalled using the specified
      *         response handler.
      *
@@ -938,7 +1034,8 @@ public class AmazonHttpClient {
             HttpResponseHandler<AmazonWebServiceResponse<T>> responseHandler,
             HttpRequestBase method, HttpResponse httpResponse,
             org.apache.http.HttpResponse apacheHttpResponse,
-            ExecutionContext executionContext) throws IOException
+            ExecutionContext executionContext,
+            final boolean isHeaderReqIdAvail) throws IOException
     {
         AmazonWebServiceRequest awsreq = request.getOriginalRequest();
         ProgressListener listener = awsreq.getGeneralProgressListener();
@@ -987,14 +1084,21 @@ public class AmazonHttpClient {
                         httpResponse.getStatusCode() + ", Response Text: " + httpResponse.getStatusText());
 
             responseMetadataCache.add(request.getOriginalRequest(), awsResponse.getResponseMetadata());
+            final String awsRequestId = awsResponse.getRequestId();
 
             if (requestLog.isDebugEnabled()) {
                 final StatusLine statusLine = apacheHttpResponse.getStatusLine();
                 requestLog.debug("Received successful response: "
                     + (statusLine == null ? null : statusLine.getStatusCode())
-                    + ", AWS Request ID: " + awsResponse.getRequestId());
+                    + ", AWS Request ID: " + awsRequestId);
             }
-            awsRequestMetrics.addProperty(AWSRequestID, awsResponse.getRequestId());
+
+            if (!isHeaderReqIdAvail) {
+                // Logs the AWS request ID extracted from the payload if
+                // it is not available from the response header.
+                logResponseRequestId(awsRequestId);
+            }
+            awsRequestMetrics.addProperty(AWSRequestID, awsRequestId);
             return awsResponse.getResult();
         } catch (CRC32MismatchException e) {
             throw e;

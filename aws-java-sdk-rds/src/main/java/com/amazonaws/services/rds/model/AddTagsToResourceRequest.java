@@ -23,8 +23,8 @@ import com.amazonaws.AmazonWebServiceRequest;
  * <p>
  * Adds metadata tags to an Amazon RDS resource. These tags can also be
  * used with cost allocation reporting to track cost associated with
- * Amazon RDS resources, or used in Condition statement in IAM policy for
- * Amazon RDS.
+ * Amazon RDS resources, or used in a Condition statement in an IAM
+ * policy for Amazon RDS.
  * </p>
  * <p>
  * For an overview on tagging Amazon RDS resources, see
@@ -137,6 +137,11 @@ public class AddTagsToResourceRequest extends AmazonWebServiceRequest implements
     
     /**
      * The tags to be assigned to the Amazon RDS resource.
+     * <p>
+     * <b>NOTE:</b> This method appends the values to the existing list (if
+     * any). Use {@link #setTags(java.util.Collection)} or {@link
+     * #withTags(java.util.Collection)} if you want to override the existing
+     * values.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *

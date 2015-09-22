@@ -44,7 +44,8 @@ public class ValidateTemplateResult implements Serializable, Cloneable {
     private com.amazonaws.internal.ListWithAutoConstructFlag<String> capabilities;
 
     /**
-     * The capabilities reason found within the template.
+     * The list of resources that generated the values in the
+     * <code>Capabilities</code> response element.
      */
     private String capabilitiesReason;
 
@@ -78,6 +79,11 @@ public class ValidateTemplateResult implements Serializable, Cloneable {
     
     /**
      * A list of <code>TemplateParameter</code> structures.
+     * <p>
+     * <b>NOTE:</b> This method appends the values to the existing list (if
+     * any). Use {@link #setParameters(java.util.Collection)} or {@link
+     * #withParameters(java.util.Collection)} if you want to override the
+     * existing values.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *
@@ -205,6 +211,11 @@ public class ValidateTemplateResult implements Serializable, Cloneable {
      * <a>UpdateStack</a> actions with your template; otherwise, those
      * actions return an InsufficientCapabilities error.
      * <p>
+     * <b>NOTE:</b> This method appends the values to the existing list (if
+     * any). Use {@link #setCapabilities(java.util.Collection)} or {@link
+     * #withCapabilities(java.util.Collection)} if you want to override the
+     * existing values.
+     * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *
      * @param capabilities The capabilities found within the template. Currently, AWS
@@ -291,29 +302,35 @@ public class ValidateTemplateResult implements Serializable, Cloneable {
     }
 
     /**
-     * The capabilities reason found within the template.
+     * The list of resources that generated the values in the
+     * <code>Capabilities</code> response element.
      *
-     * @return The capabilities reason found within the template.
+     * @return The list of resources that generated the values in the
+     *         <code>Capabilities</code> response element.
      */
     public String getCapabilitiesReason() {
         return capabilitiesReason;
     }
     
     /**
-     * The capabilities reason found within the template.
+     * The list of resources that generated the values in the
+     * <code>Capabilities</code> response element.
      *
-     * @param capabilitiesReason The capabilities reason found within the template.
+     * @param capabilitiesReason The list of resources that generated the values in the
+     *         <code>Capabilities</code> response element.
      */
     public void setCapabilitiesReason(String capabilitiesReason) {
         this.capabilitiesReason = capabilitiesReason;
     }
     
     /**
-     * The capabilities reason found within the template.
+     * The list of resources that generated the values in the
+     * <code>Capabilities</code> response element.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *
-     * @param capabilitiesReason The capabilities reason found within the template.
+     * @param capabilitiesReason The list of resources that generated the values in the
+     *         <code>Capabilities</code> response element.
      *
      * @return A reference to this updated object so that method calls can be chained
      *         together.

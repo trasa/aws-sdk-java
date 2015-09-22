@@ -59,7 +59,7 @@ public class Role implements Serializable, Cloneable {
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>1 - 64<br/>
-     * <b>Pattern: </b>[\w+=,.@-]*<br/>
+     * <b>Pattern: </b>[\w+=,.@-]+<br/>
      */
     private String roleName;
 
@@ -71,7 +71,7 @@ public class Role implements Serializable, Cloneable {
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>16 - 32<br/>
-     * <b>Pattern: </b>[\w]*<br/>
+     * <b>Pattern: </b>[\w]+<br/>
      */
     private String roleId;
 
@@ -93,9 +93,7 @@ public class Role implements Serializable, Cloneable {
     private java.util.Date createDate;
 
     /**
-     * The policy that grants an entity permission to assume the role. <p>
-     * The returned policy is URL-encoded according to <a
-     * href="http://www.faqs.org/rfcs/rfc3986.html">RFC 3986</a>.
+     * The policy that grants an entity permission to assume the role.
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>1 - 131072<br/>
@@ -165,7 +163,7 @@ public class Role implements Serializable, Cloneable {
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>1 - 64<br/>
-     * <b>Pattern: </b>[\w+=,.@-]*<br/>
+     * <b>Pattern: </b>[\w+=,.@-]+<br/>
      *
      * @return The friendly name that identifies the role.
      */
@@ -178,7 +176,7 @@ public class Role implements Serializable, Cloneable {
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>1 - 64<br/>
-     * <b>Pattern: </b>[\w+=,.@-]*<br/>
+     * <b>Pattern: </b>[\w+=,.@-]+<br/>
      *
      * @param roleName The friendly name that identifies the role.
      */
@@ -193,7 +191,7 @@ public class Role implements Serializable, Cloneable {
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>1 - 64<br/>
-     * <b>Pattern: </b>[\w+=,.@-]*<br/>
+     * <b>Pattern: </b>[\w+=,.@-]+<br/>
      *
      * @param roleName The friendly name that identifies the role.
      *
@@ -213,7 +211,7 @@ public class Role implements Serializable, Cloneable {
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>16 - 32<br/>
-     * <b>Pattern: </b>[\w]*<br/>
+     * <b>Pattern: </b>[\w]+<br/>
      *
      * @return The stable and unique string identifying the role. For more
      *         information about IDs, see <a
@@ -232,7 +230,7 @@ public class Role implements Serializable, Cloneable {
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>16 - 32<br/>
-     * <b>Pattern: </b>[\w]*<br/>
+     * <b>Pattern: </b>[\w]+<br/>
      *
      * @param roleId The stable and unique string identifying the role. For more
      *         information about IDs, see <a
@@ -253,7 +251,7 @@ public class Role implements Serializable, Cloneable {
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>16 - 32<br/>
-     * <b>Pattern: </b>[\w]*<br/>
+     * <b>Pattern: </b>[\w]+<br/>
      *
      * @param roleId The stable and unique string identifying the role. For more
      *         information about IDs, see <a
@@ -368,43 +366,33 @@ public class Role implements Serializable, Cloneable {
     }
 
     /**
-     * The policy that grants an entity permission to assume the role. <p>
-     * The returned policy is URL-encoded according to <a
-     * href="http://www.faqs.org/rfcs/rfc3986.html">RFC 3986</a>.
+     * The policy that grants an entity permission to assume the role.
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>1 - 131072<br/>
      * <b>Pattern: </b>[&#92;u0009&#92;u000A&#92;u000D&#92;u0020-&#92;u00FF]+<br/>
      *
-     * @return The policy that grants an entity permission to assume the role. <p>
-     *         The returned policy is URL-encoded according to <a
-     *         href="http://www.faqs.org/rfcs/rfc3986.html">RFC 3986</a>.
+     * @return The policy that grants an entity permission to assume the role.
      */
     public String getAssumeRolePolicyDocument() {
         return assumeRolePolicyDocument;
     }
     
     /**
-     * The policy that grants an entity permission to assume the role. <p>
-     * The returned policy is URL-encoded according to <a
-     * href="http://www.faqs.org/rfcs/rfc3986.html">RFC 3986</a>.
+     * The policy that grants an entity permission to assume the role.
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>1 - 131072<br/>
      * <b>Pattern: </b>[&#92;u0009&#92;u000A&#92;u000D&#92;u0020-&#92;u00FF]+<br/>
      *
-     * @param assumeRolePolicyDocument The policy that grants an entity permission to assume the role. <p>
-     *         The returned policy is URL-encoded according to <a
-     *         href="http://www.faqs.org/rfcs/rfc3986.html">RFC 3986</a>.
+     * @param assumeRolePolicyDocument The policy that grants an entity permission to assume the role.
      */
     public void setAssumeRolePolicyDocument(String assumeRolePolicyDocument) {
         this.assumeRolePolicyDocument = assumeRolePolicyDocument;
     }
     
     /**
-     * The policy that grants an entity permission to assume the role. <p>
-     * The returned policy is URL-encoded according to <a
-     * href="http://www.faqs.org/rfcs/rfc3986.html">RFC 3986</a>.
+     * The policy that grants an entity permission to assume the role.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      * <p>
@@ -412,9 +400,7 @@ public class Role implements Serializable, Cloneable {
      * <b>Length: </b>1 - 131072<br/>
      * <b>Pattern: </b>[&#92;u0009&#92;u000A&#92;u000D&#92;u0020-&#92;u00FF]+<br/>
      *
-     * @param assumeRolePolicyDocument The policy that grants an entity permission to assume the role. <p>
-     *         The returned policy is URL-encoded according to <a
-     *         href="http://www.faqs.org/rfcs/rfc3986.html">RFC 3986</a>.
+     * @param assumeRolePolicyDocument The policy that grants an entity permission to assume the role.
      *
      * @return A reference to this updated object so that method calls can be chained
      *         together.

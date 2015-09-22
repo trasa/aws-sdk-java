@@ -18,34 +18,30 @@ import java.io.Serializable;
 
 /**
  * <p>
- * Contains the output from the ValidatePipelineDefinition action.
+ * Contains the output of ValidatePipelineDefinition.
  * </p>
  */
 public class ValidatePipelineDefinitionResult implements Serializable, Cloneable {
 
     /**
-     * Lists the validation errors that were found by
-     * <a>ValidatePipelineDefinition</a>.
+     * Any validation errors that were found.
      */
     private com.amazonaws.internal.ListWithAutoConstructFlag<ValidationError> validationErrors;
 
     /**
-     * Lists the validation warnings that were found by
-     * <a>ValidatePipelineDefinition</a>.
+     * Any validation warnings that were found.
      */
     private com.amazonaws.internal.ListWithAutoConstructFlag<ValidationWarning> validationWarnings;
 
     /**
-     * If <code>True</code>, there were validation errors.
+     * Indicates whether there were validation errors.
      */
     private Boolean errored;
 
     /**
-     * Lists the validation errors that were found by
-     * <a>ValidatePipelineDefinition</a>.
+     * Any validation errors that were found.
      *
-     * @return Lists the validation errors that were found by
-     *         <a>ValidatePipelineDefinition</a>.
+     * @return Any validation errors that were found.
      */
     public java.util.List<ValidationError> getValidationErrors() {
         if (validationErrors == null) {
@@ -56,11 +52,9 @@ public class ValidatePipelineDefinitionResult implements Serializable, Cloneable
     }
     
     /**
-     * Lists the validation errors that were found by
-     * <a>ValidatePipelineDefinition</a>.
+     * Any validation errors that were found.
      *
-     * @param validationErrors Lists the validation errors that were found by
-     *         <a>ValidatePipelineDefinition</a>.
+     * @param validationErrors Any validation errors that were found.
      */
     public void setValidationErrors(java.util.Collection<ValidationError> validationErrors) {
         if (validationErrors == null) {
@@ -73,13 +67,16 @@ public class ValidatePipelineDefinitionResult implements Serializable, Cloneable
     }
     
     /**
-     * Lists the validation errors that were found by
-     * <a>ValidatePipelineDefinition</a>.
+     * Any validation errors that were found.
+     * <p>
+     * <b>NOTE:</b> This method appends the values to the existing list (if
+     * any). Use {@link #setValidationErrors(java.util.Collection)} or {@link
+     * #withValidationErrors(java.util.Collection)} if you want to override
+     * the existing values.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *
-     * @param validationErrors Lists the validation errors that were found by
-     *         <a>ValidatePipelineDefinition</a>.
+     * @param validationErrors Any validation errors that were found.
      *
      * @return A reference to this updated object so that method calls can be chained
      *         together.
@@ -93,13 +90,11 @@ public class ValidatePipelineDefinitionResult implements Serializable, Cloneable
     }
     
     /**
-     * Lists the validation errors that were found by
-     * <a>ValidatePipelineDefinition</a>.
+     * Any validation errors that were found.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *
-     * @param validationErrors Lists the validation errors that were found by
-     *         <a>ValidatePipelineDefinition</a>.
+     * @param validationErrors Any validation errors that were found.
      *
      * @return A reference to this updated object so that method calls can be chained
      *         together.
@@ -117,11 +112,9 @@ public class ValidatePipelineDefinitionResult implements Serializable, Cloneable
     }
 
     /**
-     * Lists the validation warnings that were found by
-     * <a>ValidatePipelineDefinition</a>.
+     * Any validation warnings that were found.
      *
-     * @return Lists the validation warnings that were found by
-     *         <a>ValidatePipelineDefinition</a>.
+     * @return Any validation warnings that were found.
      */
     public java.util.List<ValidationWarning> getValidationWarnings() {
         if (validationWarnings == null) {
@@ -132,11 +125,9 @@ public class ValidatePipelineDefinitionResult implements Serializable, Cloneable
     }
     
     /**
-     * Lists the validation warnings that were found by
-     * <a>ValidatePipelineDefinition</a>.
+     * Any validation warnings that were found.
      *
-     * @param validationWarnings Lists the validation warnings that were found by
-     *         <a>ValidatePipelineDefinition</a>.
+     * @param validationWarnings Any validation warnings that were found.
      */
     public void setValidationWarnings(java.util.Collection<ValidationWarning> validationWarnings) {
         if (validationWarnings == null) {
@@ -149,13 +140,16 @@ public class ValidatePipelineDefinitionResult implements Serializable, Cloneable
     }
     
     /**
-     * Lists the validation warnings that were found by
-     * <a>ValidatePipelineDefinition</a>.
+     * Any validation warnings that were found.
+     * <p>
+     * <b>NOTE:</b> This method appends the values to the existing list (if
+     * any). Use {@link #setValidationWarnings(java.util.Collection)} or
+     * {@link #withValidationWarnings(java.util.Collection)} if you want to
+     * override the existing values.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *
-     * @param validationWarnings Lists the validation warnings that were found by
-     *         <a>ValidatePipelineDefinition</a>.
+     * @param validationWarnings Any validation warnings that were found.
      *
      * @return A reference to this updated object so that method calls can be chained
      *         together.
@@ -169,13 +163,11 @@ public class ValidatePipelineDefinitionResult implements Serializable, Cloneable
     }
     
     /**
-     * Lists the validation warnings that were found by
-     * <a>ValidatePipelineDefinition</a>.
+     * Any validation warnings that were found.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *
-     * @param validationWarnings Lists the validation warnings that were found by
-     *         <a>ValidatePipelineDefinition</a>.
+     * @param validationWarnings Any validation warnings that were found.
      *
      * @return A reference to this updated object so that method calls can be chained
      *         together.
@@ -193,29 +185,29 @@ public class ValidatePipelineDefinitionResult implements Serializable, Cloneable
     }
 
     /**
-     * If <code>True</code>, there were validation errors.
+     * Indicates whether there were validation errors.
      *
-     * @return If <code>True</code>, there were validation errors.
+     * @return Indicates whether there were validation errors.
      */
     public Boolean isErrored() {
         return errored;
     }
     
     /**
-     * If <code>True</code>, there were validation errors.
+     * Indicates whether there were validation errors.
      *
-     * @param errored If <code>True</code>, there were validation errors.
+     * @param errored Indicates whether there were validation errors.
      */
     public void setErrored(Boolean errored) {
         this.errored = errored;
     }
     
     /**
-     * If <code>True</code>, there were validation errors.
+     * Indicates whether there were validation errors.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *
-     * @param errored If <code>True</code>, there were validation errors.
+     * @param errored Indicates whether there were validation errors.
      *
      * @return A reference to this updated object so that method calls can be chained
      *         together.
@@ -226,9 +218,9 @@ public class ValidatePipelineDefinitionResult implements Serializable, Cloneable
     }
 
     /**
-     * If <code>True</code>, there were validation errors.
+     * Indicates whether there were validation errors.
      *
-     * @return If <code>True</code>, there were validation errors.
+     * @return Indicates whether there were validation errors.
      */
     public Boolean getErrored() {
         return errored;

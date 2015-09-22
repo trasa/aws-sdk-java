@@ -26,15 +26,15 @@ import com.amazonaws.AmazonWebServiceRequest;
  * <p>
  * <b>IMPORTANT:</b> You should understand the implications of changing a
  * group's path or name. For more information, see Renaming Users and
- * Groups in the Using IAM guide.
+ * Groups in the IAM User Guide.
  * </p>
  * <p>
- * <b>NOTE:</b> To change a group name the requester must have
- * appropriate permissions on both the source object and the target
- * object. For example, to change Managers to MGRs, the entity making the
- * request must have permission on Managers and MGRs, or must have
- * permission on all (*). For more information about permissions, see
- * Permissions and Policies.
+ * <b>NOTE:</b>To change a group name the requester must have appropriate
+ * permissions on both the source object and the target object. For
+ * example, to change Managers to MGRs, the entity making the request
+ * must have permission on Managers and MGRs, or must have permission on
+ * all (*). For more information about permissions, see Permissions and
+ * Policies.
  * </p>
  *
  * @see com.amazonaws.services.identitymanagement.AmazonIdentityManagement#updateGroup(UpdateGroupRequest)
@@ -47,7 +47,7 @@ public class UpdateGroupRequest extends AmazonWebServiceRequest implements Seria
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>1 - 128<br/>
-     * <b>Pattern: </b>[\w+=,.@-]*<br/>
+     * <b>Pattern: </b>[\w+=,.@-]+<br/>
      */
     private String groupName;
 
@@ -67,7 +67,7 @@ public class UpdateGroupRequest extends AmazonWebServiceRequest implements Seria
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>1 - 128<br/>
-     * <b>Pattern: </b>[\w+=,.@-]*<br/>
+     * <b>Pattern: </b>[\w+=,.@-]+<br/>
      */
     private String newGroupName;
 
@@ -95,7 +95,7 @@ public class UpdateGroupRequest extends AmazonWebServiceRequest implements Seria
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>1 - 128<br/>
-     * <b>Pattern: </b>[\w+=,.@-]*<br/>
+     * <b>Pattern: </b>[\w+=,.@-]+<br/>
      *
      * @return Name of the group to update. If you're changing the name of the group,
      *         this is the original name.
@@ -110,7 +110,7 @@ public class UpdateGroupRequest extends AmazonWebServiceRequest implements Seria
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>1 - 128<br/>
-     * <b>Pattern: </b>[\w+=,.@-]*<br/>
+     * <b>Pattern: </b>[\w+=,.@-]+<br/>
      *
      * @param groupName Name of the group to update. If you're changing the name of the group,
      *         this is the original name.
@@ -127,7 +127,7 @@ public class UpdateGroupRequest extends AmazonWebServiceRequest implements Seria
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>1 - 128<br/>
-     * <b>Pattern: </b>[\w+=,.@-]*<br/>
+     * <b>Pattern: </b>[\w+=,.@-]+<br/>
      *
      * @param groupName Name of the group to update. If you're changing the name of the group,
      *         this is the original name.
@@ -197,7 +197,7 @@ public class UpdateGroupRequest extends AmazonWebServiceRequest implements Seria
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>1 - 128<br/>
-     * <b>Pattern: </b>[\w+=,.@-]*<br/>
+     * <b>Pattern: </b>[\w+=,.@-]+<br/>
      *
      * @return New name for the group. Only include this if changing the group's
      *         name.
@@ -212,7 +212,7 @@ public class UpdateGroupRequest extends AmazonWebServiceRequest implements Seria
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>1 - 128<br/>
-     * <b>Pattern: </b>[\w+=,.@-]*<br/>
+     * <b>Pattern: </b>[\w+=,.@-]+<br/>
      *
      * @param newGroupName New name for the group. Only include this if changing the group's
      *         name.
@@ -229,7 +229,7 @@ public class UpdateGroupRequest extends AmazonWebServiceRequest implements Seria
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>1 - 128<br/>
-     * <b>Pattern: </b>[\w+=,.@-]*<br/>
+     * <b>Pattern: </b>[\w+=,.@-]+<br/>
      *
      * @param newGroupName New name for the group. Only include this if changing the group's
      *         name.

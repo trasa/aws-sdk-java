@@ -14,13 +14,15 @@
  */
 package com.amazonaws.services.s3.internal;
 
+import static com.amazonaws.auth.internal.SignerConstants.X_AMZ_CONTENT_SHA256;
+
 import java.io.IOException;
 import java.io.InputStream;
 
 import com.amazonaws.AmazonClientException;
-import com.amazonaws.AmazonWebServiceRequest;
-import com.amazonaws.Request;
+import com.amazonaws.ReadLimitInfo;
 import com.amazonaws.ResetException;
+import com.amazonaws.SignableRequest;
 import com.amazonaws.auth.AWS4Signer;
 import com.amazonaws.auth.AwsChunkedEncodingInputStream;
 import com.amazonaws.auth.internal.AWS4SignerRequestParams;
@@ -47,7 +49,7 @@ public class AWSS3V4Signer extends AWS4Signer {
      * If necessary, creates a chunk-encoding wrapper on the request payload.
      */
     @Override
-    protected void processRequestPayload(Request<?> request, byte[] signature,
+    protected void processRequestPayload(SignableRequest<?> request, byte[] signature,
             byte[] signingKey, AWS4SignerRequestParams signerRequestParams) {
         if (useChunkEncoding(request)) {
             AwsChunkedEncodingInputStream chunkEncodededStream = new AwsChunkedEncodingInputStream(
@@ -60,7 +62,7 @@ public class AWSS3V4Signer extends AWS4Signer {
     }
 
     @Override
-    protected String calculateContentHashPresign(Request<?> request){
+    protected String calculateContentHashPresign(SignableRequest<?> request){
         return "UNSIGNED-PAYLOAD";
     }
 
@@ -70,11 +72,11 @@ public class AWSS3V4Signer extends AWS4Signer {
      * method which calculates the hash of the whole content for signing.
      */
     @Override
-    protected String calculateContentHash(Request<?> request) {
+    protected String calculateContentHash(SignableRequest<?> request) {
         // To be consistent with other service clients using sig-v4,
         // we just set the header as "required", and AWS4Signer.sign() will be
         // notified to pick up the header value returned by this method.
-        request.addHeader("x-amz-content-sha256", "required");
+        request.addHeader(X_AMZ_CONTENT_SHA256, "required");
         if (useChunkEncoding(request)) {
             final String contentLength =
                 request.getHeaders().get(Headers.CONTENT_LENGTH);
@@ -115,11 +117,11 @@ public class AWSS3V4Signer extends AWS4Signer {
     /**
      * Determine whether to use aws-chunked for signing
      */
-    private static boolean useChunkEncoding(Request<?> request) {
+    private static boolean useChunkEncoding(SignableRequest<?> request) {
         // Whether to use chunked encoding for signing the request
         boolean chunkedEncodingEnabled = false;
-        if (request.getOriginalRequest() instanceof PutObjectRequest
-                || request.getOriginalRequest() instanceof UploadPartRequest) {
+        if (request.getOriginalRequestObject() instanceof PutObjectRequest
+                || request.getOriginalRequestObject() instanceof UploadPartRequest) {
             chunkedEncodingEnabled = true;
         }
         return chunkedEncodingEnabled;
@@ -130,25 +132,18 @@ public class AWSS3V4Signer extends AWS4Signer {
      * method will wrap the stream by SdkBufferedInputStream if it is not
      * mark-supported.
      */
-    static long getContentLength(Request<?> request) throws IOException {
+    static long getContentLength(SignableRequest<?> request) throws IOException {
         final InputStream content = request.getContent();
         if (!content.markSupported())
             throw new IllegalStateException("Bug: request input stream must have been made mark-and-resettable at this point");
-        AmazonWebServiceRequest awsreq = request.getOriginalRequest();
-        final int readLimit = awsreq.getReadLimit();
+        ReadLimitInfo info = request.getReadLimitInfo();
+        final int readLimit = info.getReadLimit();
         long contentLength = 0;
         byte[] tmp = new byte[4096];
         int read;
         content.mark(readLimit);
         while ((read = content.read(tmp)) != -1) {
             contentLength += read;
-            if (contentLength > readLimit) {
-                // Fail fast since the following reset won't work anyway
-                // due to limited buffer size
-                throw new ResetException(
-                    "Content length exceeded the reset buffer limit of "
-                    + readLimit);
-            }
         }
         try {
             content.reset();

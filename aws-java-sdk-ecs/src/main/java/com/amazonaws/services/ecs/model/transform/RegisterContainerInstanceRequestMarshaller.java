@@ -114,6 +114,26 @@ public class RegisterContainerInstanceRequestMarshaller implements Marshaller<Re
                 }
                 jsonWriter.endArray();
             }
+            VersionInfo versionInfo = registerContainerInstanceRequest.getVersionInfo();
+            if (versionInfo != null) {
+
+                jsonWriter.key("versionInfo");
+                jsonWriter.object();
+
+                if (versionInfo.getAgentVersion() != null) {
+                    jsonWriter.key("agentVersion").value(versionInfo.getAgentVersion());
+                }
+                if (versionInfo.getAgentHash() != null) {
+                    jsonWriter.key("agentHash").value(versionInfo.getAgentHash());
+                }
+                if (versionInfo.getDockerVersion() != null) {
+                    jsonWriter.key("dockerVersion").value(versionInfo.getDockerVersion());
+                }
+                jsonWriter.endObject();
+            }
+            if (registerContainerInstanceRequest.getContainerInstanceArn() != null) {
+                jsonWriter.key("containerInstanceArn").value(registerContainerInstanceRequest.getContainerInstanceArn());
+            }
 
           jsonWriter.endObject();
 

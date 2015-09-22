@@ -21,17 +21,23 @@ import com.amazonaws.AmazonWebServiceRequest;
 /**
  * Container for the parameters to the {@link com.amazonaws.services.kinesis.AmazonKinesis#putRecords(PutRecordsRequest) PutRecords operation}.
  * <p>
- * Puts (writes) multiple data records from a producer into an Amazon
- * Kinesis stream in a single call (also referred to as a
- * <code>PutRecords</code> request). Use this operation to send data from
- * a data producer into the Amazon Kinesis stream for real-time ingestion
- * and processing. Each shard can support up to 1000 records written per
- * second, up to a maximum total of 1 MB data written per second.
+ * Writes multiple data records from a producer into an Amazon Kinesis
+ * stream in a single call (also referred to as a <code>PutRecords</code>
+ * request). Use this operation to send data from a data producer into
+ * the Amazon Kinesis stream for data ingestion and processing.
+ * </p>
+ * <p>
+ * Each <code>PutRecords</code> request can support up to 500 records.
+ * Each record in the request can be as large as 1 MB, up to a limit of 5
+ * MB for the entire request, including partition keys. Each shard can
+ * support writes up to 1,000 records per second, up to a maximum data
+ * write total of 1 MB per second.
  * </p>
  * <p>
  * You must specify the name of the stream that captures, stores, and
  * transports the data; and an array of request <code>Records</code> ,
- * with each record in the array requiring a partition key
+ * with each record in the array requiring a partition key and data blob.
+ * The record size limit applies to the total size of the partition key
  * and data blob.
  * </p>
  * <p>
@@ -47,7 +53,7 @@ import com.amazonaws.AmazonWebServiceRequest;
  * result of this hashing mechanism, all data records with the same
  * partition key map to the same shard within the stream. For more
  * information, see
- * <a href="http://docs.aws.amazon.com/kinesis/latest/dev/kinesis-using-api-java.html#kinesis-using-api-defn-partition-key"> Partition Key </a>
+ * <a href="http://docs.aws.amazon.com/kinesis/latest/dev/developing-producers-with-sdk.html#kinesis-using-sdk-java-add-data-to-stream"> Adding Data to a Stream </a>
  * in the <i>Amazon Kinesis Developer Guide</i> .
  * </p>
  * <p>
@@ -56,14 +62,15 @@ import com.amazonaws.AmazonWebServiceRequest;
  * partition key to shard mapping. This parameter allows a data producer
  * to determine explicitly the shard where the record is stored. For more
  * information, see
- * <a href="http://docs.aws.amazon.com/kinesis/latest/dev/kinesis-using-api-java.html#kinesis-using-api-putrecords"> Adding Multiple Records with PutRecords </a>
+ * <a href="http://docs.aws.amazon.com/kinesis/latest/dev/developing-producers-with-sdk.html#kinesis-using-sdk-java-putrecords"> Adding Multiple Records with PutRecords </a>
  * in the <i>Amazon Kinesis Developer Guide</i> .
  * </p>
  * <p>
  * The <code>PutRecords</code> response includes an array of response
- * <code>Records</code> . Each record in the response array directly
- * correlates with a record in the request array using natural ordering,
- * from the top to the bottom of the request and response. The response
+ * <code>Records</code> .
+ * Each record in the response array directly correlates with
+ * a record in the request array using natural ordering, from the top to
+ * the bottom of the request and response. The response
  * <code>Records</code> array always includes the same number of records
  * as the request array.
  * </p>
@@ -91,7 +98,10 @@ import com.amazonaws.AmazonWebServiceRequest;
  * information about the
  * <code>ProvisionedThroughputExceededException</code> exception
  * including the account ID, stream name, and shard ID of the record that
- * was throttled.
+ * was throttled. For more information about partially successful
+ * responses, see
+ * <a href="http://docs.aws.amazon.com/kinesis/latest/dev/kinesis-using-sdk-java-add-data-to-stream.html#kinesis-using-sdk-java-putrecords"> Adding Multiple Records with PutRecords </a>
+ * in the <i>Amazon Kinesis Developer Guide</i> .
  * </p>
  * <p>
  * Data records are accessible for only 24 hours from the time that they
@@ -155,6 +165,11 @@ public class PutRecordsRequest extends AmazonWebServiceRequest implements Serial
     
     /**
      * The records associated with the request.
+     * <p>
+     * <b>NOTE:</b> This method appends the values to the existing list (if
+     * any). Use {@link #setRecords(java.util.Collection)} or {@link
+     * #withRecords(java.util.Collection)} if you want to override the
+     * existing values.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      * <p>

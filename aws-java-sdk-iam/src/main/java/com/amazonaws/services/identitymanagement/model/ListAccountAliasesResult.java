@@ -29,22 +29,24 @@ public class ListAccountAliasesResult implements Serializable, Cloneable {
     private com.amazonaws.internal.ListWithAutoConstructFlag<String> accountAliases;
 
     /**
-     * A flag that indicates whether there are more account aliases to list.
-     * If your results were truncated, you can make a subsequent pagination
-     * request using the <code>Marker</code> request parameter to retrieve
-     * more account aliases in the list.
+     * A flag that indicates whether there are more items to return. If your
+     * results were truncated, you can make a subsequent pagination request
+     * using the <code>Marker</code> request parameter to retrieve more
+     * items. Note that IAM might return fewer than the <code>MaxItems</code>
+     * number of results even when there are more results available. We
+     * recommend that you check <code>IsTruncated</code> after every call to
+     * ensure that you receive all of your results.
      */
     private Boolean isTruncated;
 
     /**
-     * Use this only when paginating results, and only in a subsequent
-     * request after you've received a response where the results are
-     * truncated. Set it to the value of the <code>Marker</code> element in
-     * the response you just received.
+     * When <code>IsTruncated</code> is <code>true</code>, this element is
+     * present and contains the value to use for the <code>Marker</code>
+     * parameter in a subsequent pagination request.
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>1 - 320<br/>
-     * <b>Pattern: </b>[&#92;u0020-&#92;u00FF]*<br/>
+     * <b>Pattern: </b>[&#92;u0020-&#92;u00FF]+<br/>
      */
     private String marker;
 
@@ -78,6 +80,11 @@ public class ListAccountAliasesResult implements Serializable, Cloneable {
     
     /**
      * A list of aliases associated with the account.
+     * <p>
+     * <b>NOTE:</b> This method appends the values to the existing list (if
+     * any). Use {@link #setAccountAliases(java.util.Collection)} or {@link
+     * #withAccountAliases(java.util.Collection)} if you want to override the
+     * existing values.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *
@@ -117,47 +124,65 @@ public class ListAccountAliasesResult implements Serializable, Cloneable {
     }
 
     /**
-     * A flag that indicates whether there are more account aliases to list.
-     * If your results were truncated, you can make a subsequent pagination
-     * request using the <code>Marker</code> request parameter to retrieve
-     * more account aliases in the list.
+     * A flag that indicates whether there are more items to return. If your
+     * results were truncated, you can make a subsequent pagination request
+     * using the <code>Marker</code> request parameter to retrieve more
+     * items. Note that IAM might return fewer than the <code>MaxItems</code>
+     * number of results even when there are more results available. We
+     * recommend that you check <code>IsTruncated</code> after every call to
+     * ensure that you receive all of your results.
      *
-     * @return A flag that indicates whether there are more account aliases to list.
-     *         If your results were truncated, you can make a subsequent pagination
-     *         request using the <code>Marker</code> request parameter to retrieve
-     *         more account aliases in the list.
+     * @return A flag that indicates whether there are more items to return. If your
+     *         results were truncated, you can make a subsequent pagination request
+     *         using the <code>Marker</code> request parameter to retrieve more
+     *         items. Note that IAM might return fewer than the <code>MaxItems</code>
+     *         number of results even when there are more results available. We
+     *         recommend that you check <code>IsTruncated</code> after every call to
+     *         ensure that you receive all of your results.
      */
     public Boolean isTruncated() {
         return isTruncated;
     }
     
     /**
-     * A flag that indicates whether there are more account aliases to list.
-     * If your results were truncated, you can make a subsequent pagination
-     * request using the <code>Marker</code> request parameter to retrieve
-     * more account aliases in the list.
+     * A flag that indicates whether there are more items to return. If your
+     * results were truncated, you can make a subsequent pagination request
+     * using the <code>Marker</code> request parameter to retrieve more
+     * items. Note that IAM might return fewer than the <code>MaxItems</code>
+     * number of results even when there are more results available. We
+     * recommend that you check <code>IsTruncated</code> after every call to
+     * ensure that you receive all of your results.
      *
-     * @param isTruncated A flag that indicates whether there are more account aliases to list.
-     *         If your results were truncated, you can make a subsequent pagination
-     *         request using the <code>Marker</code> request parameter to retrieve
-     *         more account aliases in the list.
+     * @param isTruncated A flag that indicates whether there are more items to return. If your
+     *         results were truncated, you can make a subsequent pagination request
+     *         using the <code>Marker</code> request parameter to retrieve more
+     *         items. Note that IAM might return fewer than the <code>MaxItems</code>
+     *         number of results even when there are more results available. We
+     *         recommend that you check <code>IsTruncated</code> after every call to
+     *         ensure that you receive all of your results.
      */
     public void setIsTruncated(Boolean isTruncated) {
         this.isTruncated = isTruncated;
     }
     
     /**
-     * A flag that indicates whether there are more account aliases to list.
-     * If your results were truncated, you can make a subsequent pagination
-     * request using the <code>Marker</code> request parameter to retrieve
-     * more account aliases in the list.
+     * A flag that indicates whether there are more items to return. If your
+     * results were truncated, you can make a subsequent pagination request
+     * using the <code>Marker</code> request parameter to retrieve more
+     * items. Note that IAM might return fewer than the <code>MaxItems</code>
+     * number of results even when there are more results available. We
+     * recommend that you check <code>IsTruncated</code> after every call to
+     * ensure that you receive all of your results.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *
-     * @param isTruncated A flag that indicates whether there are more account aliases to list.
-     *         If your results were truncated, you can make a subsequent pagination
-     *         request using the <code>Marker</code> request parameter to retrieve
-     *         more account aliases in the list.
+     * @param isTruncated A flag that indicates whether there are more items to return. If your
+     *         results were truncated, you can make a subsequent pagination request
+     *         using the <code>Marker</code> request parameter to retrieve more
+     *         items. Note that IAM might return fewer than the <code>MaxItems</code>
+     *         number of results even when there are more results available. We
+     *         recommend that you check <code>IsTruncated</code> after every call to
+     *         ensure that you receive all of your results.
      *
      * @return A reference to this updated object so that method calls can be chained
      *         together.
@@ -168,74 +193,74 @@ public class ListAccountAliasesResult implements Serializable, Cloneable {
     }
 
     /**
-     * A flag that indicates whether there are more account aliases to list.
-     * If your results were truncated, you can make a subsequent pagination
-     * request using the <code>Marker</code> request parameter to retrieve
-     * more account aliases in the list.
+     * A flag that indicates whether there are more items to return. If your
+     * results were truncated, you can make a subsequent pagination request
+     * using the <code>Marker</code> request parameter to retrieve more
+     * items. Note that IAM might return fewer than the <code>MaxItems</code>
+     * number of results even when there are more results available. We
+     * recommend that you check <code>IsTruncated</code> after every call to
+     * ensure that you receive all of your results.
      *
-     * @return A flag that indicates whether there are more account aliases to list.
-     *         If your results were truncated, you can make a subsequent pagination
-     *         request using the <code>Marker</code> request parameter to retrieve
-     *         more account aliases in the list.
+     * @return A flag that indicates whether there are more items to return. If your
+     *         results were truncated, you can make a subsequent pagination request
+     *         using the <code>Marker</code> request parameter to retrieve more
+     *         items. Note that IAM might return fewer than the <code>MaxItems</code>
+     *         number of results even when there are more results available. We
+     *         recommend that you check <code>IsTruncated</code> after every call to
+     *         ensure that you receive all of your results.
      */
     public Boolean getIsTruncated() {
         return isTruncated;
     }
 
     /**
-     * Use this only when paginating results, and only in a subsequent
-     * request after you've received a response where the results are
-     * truncated. Set it to the value of the <code>Marker</code> element in
-     * the response you just received.
+     * When <code>IsTruncated</code> is <code>true</code>, this element is
+     * present and contains the value to use for the <code>Marker</code>
+     * parameter in a subsequent pagination request.
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>1 - 320<br/>
-     * <b>Pattern: </b>[&#92;u0020-&#92;u00FF]*<br/>
+     * <b>Pattern: </b>[&#92;u0020-&#92;u00FF]+<br/>
      *
-     * @return Use this only when paginating results, and only in a subsequent
-     *         request after you've received a response where the results are
-     *         truncated. Set it to the value of the <code>Marker</code> element in
-     *         the response you just received.
+     * @return When <code>IsTruncated</code> is <code>true</code>, this element is
+     *         present and contains the value to use for the <code>Marker</code>
+     *         parameter in a subsequent pagination request.
      */
     public String getMarker() {
         return marker;
     }
     
     /**
-     * Use this only when paginating results, and only in a subsequent
-     * request after you've received a response where the results are
-     * truncated. Set it to the value of the <code>Marker</code> element in
-     * the response you just received.
+     * When <code>IsTruncated</code> is <code>true</code>, this element is
+     * present and contains the value to use for the <code>Marker</code>
+     * parameter in a subsequent pagination request.
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>1 - 320<br/>
-     * <b>Pattern: </b>[&#92;u0020-&#92;u00FF]*<br/>
+     * <b>Pattern: </b>[&#92;u0020-&#92;u00FF]+<br/>
      *
-     * @param marker Use this only when paginating results, and only in a subsequent
-     *         request after you've received a response where the results are
-     *         truncated. Set it to the value of the <code>Marker</code> element in
-     *         the response you just received.
+     * @param marker When <code>IsTruncated</code> is <code>true</code>, this element is
+     *         present and contains the value to use for the <code>Marker</code>
+     *         parameter in a subsequent pagination request.
      */
     public void setMarker(String marker) {
         this.marker = marker;
     }
     
     /**
-     * Use this only when paginating results, and only in a subsequent
-     * request after you've received a response where the results are
-     * truncated. Set it to the value of the <code>Marker</code> element in
-     * the response you just received.
+     * When <code>IsTruncated</code> is <code>true</code>, this element is
+     * present and contains the value to use for the <code>Marker</code>
+     * parameter in a subsequent pagination request.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>1 - 320<br/>
-     * <b>Pattern: </b>[&#92;u0020-&#92;u00FF]*<br/>
+     * <b>Pattern: </b>[&#92;u0020-&#92;u00FF]+<br/>
      *
-     * @param marker Use this only when paginating results, and only in a subsequent
-     *         request after you've received a response where the results are
-     *         truncated. Set it to the value of the <code>Marker</code> element in
-     *         the response you just received.
+     * @param marker When <code>IsTruncated</code> is <code>true</code>, this element is
+     *         present and contains the value to use for the <code>Marker</code>
+     *         parameter in a subsequent pagination request.
      *
      * @return A reference to this updated object so that method calls can be chained
      *         together.

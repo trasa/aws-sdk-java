@@ -1,5 +1,5 @@
 /*
- * Copyright 2010-2014 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2010-2015 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License.
@@ -16,6 +16,8 @@ package com.amazonaws;
 
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Map;
 
 import org.apache.http.annotation.NotThreadSafe;
@@ -28,7 +30,7 @@ import com.amazonaws.metrics.RequestMetricCollector;
  * Base class for all user facing web service requests.
  */
 @NotThreadSafe
-public abstract class AmazonWebServiceRequest implements Cloneable {
+public abstract class AmazonWebServiceRequest implements Cloneable, ReadLimitInfo {
 
     public static final AmazonWebServiceRequest NOOP = new AmazonWebServiceRequest() {};
 
@@ -62,6 +64,10 @@ public abstract class AmazonWebServiceRequest implements Cloneable {
      */
     private Map<String, String> customRequestHeaders;
 
+    /**
+     * Custom query parameters for the request.
+     */
+    private Map<String, List<String>> customQueryParameters;
 
     /**
      * Sets the optional credentials to use for this request, overriding the
@@ -84,16 +90,6 @@ public abstract class AmazonWebServiceRequest implements Cloneable {
      */
     public AWSCredentials getRequestCredentials() {
         return credentials;
-    }
-
-    /**
-     * Internal only method for accessing private, internal request parameters.
-     * Not intended for direct use by callers.
-     *
-     * @return private, internal request parameter information.
-     */
-    public Map<String, String> copyPrivateRequestParameters() {
-        return new HashMap<String, String>();
     }
 
     /**
@@ -204,9 +200,45 @@ public abstract class AmazonWebServiceRequest implements Cloneable {
     }
 
     /**
-     * Convenient method to return the optional read limit for mark-and-reset
-     * during retries.
+     * @return the immutable map of custom query parameters. The parameter value
+     *         is modeled as a list of strings because multiple values can be
+     *         specified for the same parameter name.
      */
+    public Map<String, List<String>> getCustomQueryParameters() {
+        if(customQueryParameters == null) {
+            return null;
+        }
+        return Collections.unmodifiableMap(customQueryParameters);
+    }
+
+    /**
+     * Add a custom query parameter for the request. Since multiple values are
+     * allowed for the same query parameter, this method does NOT overwrite any
+     * existing parameter values in the request.
+     *
+     * @param name
+     *            The name of the query parameter
+     * @param value
+     *            The value of the query parameter. Only the parameter name will
+     *            be added in the URI if the value is set to null. For example,
+     *            putCustomQueryParameter("param", null) will be serialized to
+     *            "?param", while putCustomQueryParameter("param", "") will be
+     *            serialized to "?param=".
+     */
+    public void putCustomQueryParameter(String name, String value) {
+        if (customQueryParameters == null) {
+            customQueryParameters = new HashMap<String, List<String>>();
+        }
+        List<String> paramList = customQueryParameters.get(name);
+        if (paramList == null) {
+            paramList = new LinkedList<String>();
+            customQueryParameters.put(name, paramList);
+        }
+        paramList.add(value);
+    }
+
+
+    @Override
     public final int getReadLimit() {
         return requestClientOptions.getReadLimit();
     }
@@ -214,13 +246,22 @@ public abstract class AmazonWebServiceRequest implements Cloneable {
     /**
      * Copies the internal state of this base class to that of the target
      * request.
-     * 
+     *
      * @return the target request
      */
     protected final <T extends AmazonWebServiceRequest> T copyBaseTo(T target) {
         if (customRequestHeaders != null) {
             for (Map.Entry<String, String> e: customRequestHeaders.entrySet())
                 target.putCustomRequestHeader(e.getKey(), e.getValue());
+        }
+        if (customQueryParameters != null) {
+            for (Map.Entry<String, List<String>> e: customQueryParameters.entrySet()) {
+                if (e.getValue() != null) {
+                    for (String value : e.getValue()) {
+                        target.putCustomQueryParameter(e.getKey(), value);
+                    }
+                }
+            }
         }
         target.setRequestCredentials(credentials);
         target.setGeneralProgressListener(progressListener);

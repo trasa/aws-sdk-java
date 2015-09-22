@@ -18,20 +18,20 @@ import java.io.Serializable;
 
 /**
  * <p>
- * Contains the output from the DescribePipelines action.
+ * Contains the output of DescribePipelines.
  * </p>
  */
 public class DescribePipelinesResult implements Serializable, Cloneable {
 
     /**
-     * An array of descriptions returned for the specified pipelines.
+     * An array of descriptions for the specified pipelines.
      */
     private com.amazonaws.internal.ListWithAutoConstructFlag<PipelineDescription> pipelineDescriptionList;
 
     /**
-     * An array of descriptions returned for the specified pipelines.
+     * An array of descriptions for the specified pipelines.
      *
-     * @return An array of descriptions returned for the specified pipelines.
+     * @return An array of descriptions for the specified pipelines.
      */
     public java.util.List<PipelineDescription> getPipelineDescriptionList() {
         if (pipelineDescriptionList == null) {
@@ -42,9 +42,9 @@ public class DescribePipelinesResult implements Serializable, Cloneable {
     }
     
     /**
-     * An array of descriptions returned for the specified pipelines.
+     * An array of descriptions for the specified pipelines.
      *
-     * @param pipelineDescriptionList An array of descriptions returned for the specified pipelines.
+     * @param pipelineDescriptionList An array of descriptions for the specified pipelines.
      */
     public void setPipelineDescriptionList(java.util.Collection<PipelineDescription> pipelineDescriptionList) {
         if (pipelineDescriptionList == null) {
@@ -57,11 +57,16 @@ public class DescribePipelinesResult implements Serializable, Cloneable {
     }
     
     /**
-     * An array of descriptions returned for the specified pipelines.
+     * An array of descriptions for the specified pipelines.
+     * <p>
+     * <b>NOTE:</b> This method appends the values to the existing list (if
+     * any). Use {@link #setPipelineDescriptionList(java.util.Collection)} or
+     * {@link #withPipelineDescriptionList(java.util.Collection)} if you want
+     * to override the existing values.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *
-     * @param pipelineDescriptionList An array of descriptions returned for the specified pipelines.
+     * @param pipelineDescriptionList An array of descriptions for the specified pipelines.
      *
      * @return A reference to this updated object so that method calls can be chained
      *         together.
@@ -75,11 +80,11 @@ public class DescribePipelinesResult implements Serializable, Cloneable {
     }
     
     /**
-     * An array of descriptions returned for the specified pipelines.
+     * An array of descriptions for the specified pipelines.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *
-     * @param pipelineDescriptionList An array of descriptions returned for the specified pipelines.
+     * @param pipelineDescriptionList An array of descriptions for the specified pipelines.
      *
      * @return A reference to this updated object so that method calls can be chained
      *         together.

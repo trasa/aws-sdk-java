@@ -60,7 +60,7 @@ public class ConversionTask implements Serializable, Cloneable {
     private String statusMessage;
 
     /**
-     * 
+     * Any tags assigned to the task.
      */
     private com.amazonaws.internal.ListWithAutoConstructFlag<Tag> tags;
 
@@ -330,9 +330,9 @@ public class ConversionTask implements Serializable, Cloneable {
     }
 
     /**
-     * 
+     * Any tags assigned to the task.
      *
-     * @return 
+     * @return Any tags assigned to the task.
      */
     public java.util.List<Tag> getTags() {
         if (tags == null) {
@@ -343,9 +343,9 @@ public class ConversionTask implements Serializable, Cloneable {
     }
     
     /**
-     * 
+     * Any tags assigned to the task.
      *
-     * @param tags 
+     * @param tags Any tags assigned to the task.
      */
     public void setTags(java.util.Collection<Tag> tags) {
         if (tags == null) {
@@ -358,11 +358,16 @@ public class ConversionTask implements Serializable, Cloneable {
     }
     
     /**
-     * 
+     * Any tags assigned to the task.
+     * <p>
+     * <b>NOTE:</b> This method appends the values to the existing list (if
+     * any). Use {@link #setTags(java.util.Collection)} or {@link
+     * #withTags(java.util.Collection)} if you want to override the existing
+     * values.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *
-     * @param tags 
+     * @param tags Any tags assigned to the task.
      *
      * @return A reference to this updated object so that method calls can be chained
      *         together.
@@ -376,11 +381,11 @@ public class ConversionTask implements Serializable, Cloneable {
     }
     
     /**
-     * 
+     * Any tags assigned to the task.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *
-     * @param tags 
+     * @param tags Any tags assigned to the task.
      *
      * @return A reference to this updated object so that method calls can be chained
      *         together.

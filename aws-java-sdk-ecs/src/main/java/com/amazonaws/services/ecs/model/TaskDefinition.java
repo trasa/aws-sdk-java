@@ -17,7 +17,9 @@ package com.amazonaws.services.ecs.model;
 import java.io.Serializable;
 
 /**
- * 
+ * <p>
+ * Details of a task definition.
+ * </p>
  */
 public class TaskDefinition implements Serializable, Cloneable {
 
@@ -46,8 +48,9 @@ public class TaskDefinition implements Serializable, Cloneable {
      * The revision of the task in a particular family. You can think of the
      * revision as a version number of a task definition in a family. When
      * you register a task definition for the first time, the revision is
-     * <code>1</code>, and each time you register a task definition in the
-     * same family, the revision value increases by one.
+     * <code>1</code>, and each time you register a new revision of a task
+     * definition in the same family, the revision value always increases by
+     * one (even if you have deregistered previous revisions in this family).
      */
     private Integer revision;
 
@@ -59,6 +62,14 @@ public class TaskDefinition implements Serializable, Cloneable {
      * Developer Guide</i>.
      */
     private com.amazonaws.internal.ListWithAutoConstructFlag<Volume> volumes;
+
+    /**
+     * The status of the task definition.
+     * <p>
+     * <b>Constraints:</b><br/>
+     * <b>Allowed Values: </b>ACTIVE, INACTIVE
+     */
+    private String status;
 
     /**
      * The full Amazon Resource Name (ARN) of the of the task definition.
@@ -148,6 +159,11 @@ public class TaskDefinition implements Serializable, Cloneable {
      * href="http://docs.aws.amazon.com/AmazonECS/latest/developerguide/task_defintions.html">Amazon
      * ECS Task Definitions</a> in the <i>Amazon EC2 Container Service
      * Developer Guide</i>.
+     * <p>
+     * <b>NOTE:</b> This method appends the values to the existing list (if
+     * any). Use {@link #setContainerDefinitions(java.util.Collection)} or
+     * {@link #withContainerDefinitions(java.util.Collection)} if you want to
+     * override the existing values.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *
@@ -244,14 +260,16 @@ public class TaskDefinition implements Serializable, Cloneable {
      * The revision of the task in a particular family. You can think of the
      * revision as a version number of a task definition in a family. When
      * you register a task definition for the first time, the revision is
-     * <code>1</code>, and each time you register a task definition in the
-     * same family, the revision value increases by one.
+     * <code>1</code>, and each time you register a new revision of a task
+     * definition in the same family, the revision value always increases by
+     * one (even if you have deregistered previous revisions in this family).
      *
      * @return The revision of the task in a particular family. You can think of the
      *         revision as a version number of a task definition in a family. When
      *         you register a task definition for the first time, the revision is
-     *         <code>1</code>, and each time you register a task definition in the
-     *         same family, the revision value increases by one.
+     *         <code>1</code>, and each time you register a new revision of a task
+     *         definition in the same family, the revision value always increases by
+     *         one (even if you have deregistered previous revisions in this family).
      */
     public Integer getRevision() {
         return revision;
@@ -261,14 +279,16 @@ public class TaskDefinition implements Serializable, Cloneable {
      * The revision of the task in a particular family. You can think of the
      * revision as a version number of a task definition in a family. When
      * you register a task definition for the first time, the revision is
-     * <code>1</code>, and each time you register a task definition in the
-     * same family, the revision value increases by one.
+     * <code>1</code>, and each time you register a new revision of a task
+     * definition in the same family, the revision value always increases by
+     * one (even if you have deregistered previous revisions in this family).
      *
      * @param revision The revision of the task in a particular family. You can think of the
      *         revision as a version number of a task definition in a family. When
      *         you register a task definition for the first time, the revision is
-     *         <code>1</code>, and each time you register a task definition in the
-     *         same family, the revision value increases by one.
+     *         <code>1</code>, and each time you register a new revision of a task
+     *         definition in the same family, the revision value always increases by
+     *         one (even if you have deregistered previous revisions in this family).
      */
     public void setRevision(Integer revision) {
         this.revision = revision;
@@ -278,16 +298,18 @@ public class TaskDefinition implements Serializable, Cloneable {
      * The revision of the task in a particular family. You can think of the
      * revision as a version number of a task definition in a family. When
      * you register a task definition for the first time, the revision is
-     * <code>1</code>, and each time you register a task definition in the
-     * same family, the revision value increases by one.
+     * <code>1</code>, and each time you register a new revision of a task
+     * definition in the same family, the revision value always increases by
+     * one (even if you have deregistered previous revisions in this family).
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *
      * @param revision The revision of the task in a particular family. You can think of the
      *         revision as a version number of a task definition in a family. When
      *         you register a task definition for the first time, the revision is
-     *         <code>1</code>, and each time you register a task definition in the
-     *         same family, the revision value increases by one.
+     *         <code>1</code>, and each time you register a new revision of a task
+     *         definition in the same family, the revision value always increases by
+     *         one (even if you have deregistered previous revisions in this family).
      *
      * @return A reference to this updated object so that method calls can be chained
      *         together.
@@ -348,6 +370,11 @@ public class TaskDefinition implements Serializable, Cloneable {
      * ECS Task Definitions</a> in the <i>Amazon EC2 Container Service
      * Developer Guide</i>.
      * <p>
+     * <b>NOTE:</b> This method appends the values to the existing list (if
+     * any). Use {@link #setVolumes(java.util.Collection)} or {@link
+     * #withVolumes(java.util.Collection)} if you want to override the
+     * existing values.
+     * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *
      * @param volumes The list of volumes in a task. For more information on volume
@@ -398,6 +425,88 @@ public class TaskDefinition implements Serializable, Cloneable {
     }
 
     /**
+     * The status of the task definition.
+     * <p>
+     * <b>Constraints:</b><br/>
+     * <b>Allowed Values: </b>ACTIVE, INACTIVE
+     *
+     * @return The status of the task definition.
+     *
+     * @see TaskDefinitionStatus
+     */
+    public String getStatus() {
+        return status;
+    }
+    
+    /**
+     * The status of the task definition.
+     * <p>
+     * <b>Constraints:</b><br/>
+     * <b>Allowed Values: </b>ACTIVE, INACTIVE
+     *
+     * @param status The status of the task definition.
+     *
+     * @see TaskDefinitionStatus
+     */
+    public void setStatus(String status) {
+        this.status = status;
+    }
+    
+    /**
+     * The status of the task definition.
+     * <p>
+     * Returns a reference to this object so that method calls can be chained together.
+     * <p>
+     * <b>Constraints:</b><br/>
+     * <b>Allowed Values: </b>ACTIVE, INACTIVE
+     *
+     * @param status The status of the task definition.
+     *
+     * @return A reference to this updated object so that method calls can be chained
+     *         together.
+     *
+     * @see TaskDefinitionStatus
+     */
+    public TaskDefinition withStatus(String status) {
+        this.status = status;
+        return this;
+    }
+
+    /**
+     * The status of the task definition.
+     * <p>
+     * <b>Constraints:</b><br/>
+     * <b>Allowed Values: </b>ACTIVE, INACTIVE
+     *
+     * @param status The status of the task definition.
+     *
+     * @see TaskDefinitionStatus
+     */
+    public void setStatus(TaskDefinitionStatus status) {
+        this.status = status.toString();
+    }
+    
+    /**
+     * The status of the task definition.
+     * <p>
+     * Returns a reference to this object so that method calls can be chained together.
+     * <p>
+     * <b>Constraints:</b><br/>
+     * <b>Allowed Values: </b>ACTIVE, INACTIVE
+     *
+     * @param status The status of the task definition.
+     *
+     * @return A reference to this updated object so that method calls can be chained
+     *         together.
+     *
+     * @see TaskDefinitionStatus
+     */
+    public TaskDefinition withStatus(TaskDefinitionStatus status) {
+        this.status = status.toString();
+        return this;
+    }
+
+    /**
      * Returns a string representation of this object; useful for testing and
      * debugging.
      *
@@ -413,7 +522,8 @@ public class TaskDefinition implements Serializable, Cloneable {
         if (getContainerDefinitions() != null) sb.append("ContainerDefinitions: " + getContainerDefinitions() + ",");
         if (getFamily() != null) sb.append("Family: " + getFamily() + ",");
         if (getRevision() != null) sb.append("Revision: " + getRevision() + ",");
-        if (getVolumes() != null) sb.append("Volumes: " + getVolumes() );
+        if (getVolumes() != null) sb.append("Volumes: " + getVolumes() + ",");
+        if (getStatus() != null) sb.append("Status: " + getStatus() );
         sb.append("}");
         return sb.toString();
     }
@@ -428,6 +538,7 @@ public class TaskDefinition implements Serializable, Cloneable {
         hashCode = prime * hashCode + ((getFamily() == null) ? 0 : getFamily().hashCode()); 
         hashCode = prime * hashCode + ((getRevision() == null) ? 0 : getRevision().hashCode()); 
         hashCode = prime * hashCode + ((getVolumes() == null) ? 0 : getVolumes().hashCode()); 
+        hashCode = prime * hashCode + ((getStatus() == null) ? 0 : getStatus().hashCode()); 
         return hashCode;
     }
     
@@ -449,6 +560,8 @@ public class TaskDefinition implements Serializable, Cloneable {
         if (other.getRevision() != null && other.getRevision().equals(this.getRevision()) == false) return false; 
         if (other.getVolumes() == null ^ this.getVolumes() == null) return false;
         if (other.getVolumes() != null && other.getVolumes().equals(this.getVolumes()) == false) return false; 
+        if (other.getStatus() == null ^ this.getStatus() == null) return false;
+        if (other.getStatus() != null && other.getStatus().equals(this.getStatus()) == false) return false; 
         return true;
     }
     

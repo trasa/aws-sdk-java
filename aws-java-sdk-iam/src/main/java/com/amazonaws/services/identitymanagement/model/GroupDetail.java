@@ -44,7 +44,7 @@ public class GroupDetail implements Serializable, Cloneable {
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>1 - 128<br/>
-     * <b>Pattern: </b>[\w+=,.@-]*<br/>
+     * <b>Pattern: </b>[\w+=,.@-]+<br/>
      */
     private String groupName;
 
@@ -56,7 +56,7 @@ public class GroupDetail implements Serializable, Cloneable {
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>16 - 32<br/>
-     * <b>Pattern: </b>[\w]*<br/>
+     * <b>Pattern: </b>[\w]+<br/>
      */
     private String groupId;
 
@@ -150,7 +150,7 @@ public class GroupDetail implements Serializable, Cloneable {
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>1 - 128<br/>
-     * <b>Pattern: </b>[\w+=,.@-]*<br/>
+     * <b>Pattern: </b>[\w+=,.@-]+<br/>
      *
      * @return The friendly name that identifies the group.
      */
@@ -163,7 +163,7 @@ public class GroupDetail implements Serializable, Cloneable {
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>1 - 128<br/>
-     * <b>Pattern: </b>[\w+=,.@-]*<br/>
+     * <b>Pattern: </b>[\w+=,.@-]+<br/>
      *
      * @param groupName The friendly name that identifies the group.
      */
@@ -178,7 +178,7 @@ public class GroupDetail implements Serializable, Cloneable {
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>1 - 128<br/>
-     * <b>Pattern: </b>[\w+=,.@-]*<br/>
+     * <b>Pattern: </b>[\w+=,.@-]+<br/>
      *
      * @param groupName The friendly name that identifies the group.
      *
@@ -198,7 +198,7 @@ public class GroupDetail implements Serializable, Cloneable {
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>16 - 32<br/>
-     * <b>Pattern: </b>[\w]*<br/>
+     * <b>Pattern: </b>[\w]+<br/>
      *
      * @return The stable and unique string identifying the group. For more
      *         information about IDs, see <a
@@ -217,7 +217,7 @@ public class GroupDetail implements Serializable, Cloneable {
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>16 - 32<br/>
-     * <b>Pattern: </b>[\w]*<br/>
+     * <b>Pattern: </b>[\w]+<br/>
      *
      * @param groupId The stable and unique string identifying the group. For more
      *         information about IDs, see <a
@@ -238,7 +238,7 @@ public class GroupDetail implements Serializable, Cloneable {
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>16 - 32<br/>
-     * <b>Pattern: </b>[\w]*<br/>
+     * <b>Pattern: </b>[\w]+<br/>
      *
      * @param groupId The stable and unique string identifying the group. For more
      *         information about IDs, see <a
@@ -389,6 +389,11 @@ public class GroupDetail implements Serializable, Cloneable {
     /**
      * A list of the inline policies embedded in the group.
      * <p>
+     * <b>NOTE:</b> This method appends the values to the existing list (if
+     * any). Use {@link #setGroupPolicyList(java.util.Collection)} or {@link
+     * #withGroupPolicyList(java.util.Collection)} if you want to override
+     * the existing values.
+     * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *
      * @param groupPolicyList A list of the inline policies embedded in the group.
@@ -456,6 +461,11 @@ public class GroupDetail implements Serializable, Cloneable {
     
     /**
      * A list of the managed policies attached to the group.
+     * <p>
+     * <b>NOTE:</b> This method appends the values to the existing list (if
+     * any). Use {@link #setAttachedManagedPolicies(java.util.Collection)} or
+     * {@link #withAttachedManagedPolicies(java.util.Collection)} if you want
+     * to override the existing values.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *

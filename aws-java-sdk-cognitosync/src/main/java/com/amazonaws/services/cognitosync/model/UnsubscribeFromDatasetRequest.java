@@ -24,6 +24,10 @@ import com.amazonaws.AmazonWebServiceRequest;
  * Unsubscribes from receiving notifications when a dataset is modified
  * by another device.
  * </p>
+ * <p>
+ * This API can only be called with temporary credentials provided by
+ * Cognito Identity. You cannot call this API with developer credentials.
+ * </p>
  *
  * @see com.amazonaws.services.cognitosync.AmazonCognitoSync#unsubscribeFromDataset(UnsubscribeFromDatasetRequest)
  */
@@ -35,7 +39,7 @@ public class UnsubscribeFromDatasetRequest extends AmazonWebServiceRequest imple
      * Cognito. The ID of the pool to which this identity belongs.
      * <p>
      * <b>Constraints:</b><br/>
-     * <b>Length: </b>1 - 50<br/>
+     * <b>Length: </b>1 - 55<br/>
      * <b>Pattern: </b>[\w-]+:[0-9a-f-]+<br/>
      */
     private String identityPoolId;
@@ -44,7 +48,7 @@ public class UnsubscribeFromDatasetRequest extends AmazonWebServiceRequest imple
      * Unique ID for this identity.
      * <p>
      * <b>Constraints:</b><br/>
-     * <b>Length: </b>1 - 50<br/>
+     * <b>Length: </b>1 - 55<br/>
      * <b>Pattern: </b>[\w-]+:[0-9a-f-]+<br/>
      */
     private String identityId;
@@ -72,7 +76,7 @@ public class UnsubscribeFromDatasetRequest extends AmazonWebServiceRequest imple
      * Cognito. The ID of the pool to which this identity belongs.
      * <p>
      * <b>Constraints:</b><br/>
-     * <b>Length: </b>1 - 50<br/>
+     * <b>Length: </b>1 - 55<br/>
      * <b>Pattern: </b>[\w-]+:[0-9a-f-]+<br/>
      *
      * @return A name-spaced GUID (for example,
@@ -89,7 +93,7 @@ public class UnsubscribeFromDatasetRequest extends AmazonWebServiceRequest imple
      * Cognito. The ID of the pool to which this identity belongs.
      * <p>
      * <b>Constraints:</b><br/>
-     * <b>Length: </b>1 - 50<br/>
+     * <b>Length: </b>1 - 55<br/>
      * <b>Pattern: </b>[\w-]+:[0-9a-f-]+<br/>
      *
      * @param identityPoolId A name-spaced GUID (for example,
@@ -108,7 +112,7 @@ public class UnsubscribeFromDatasetRequest extends AmazonWebServiceRequest imple
      * Returns a reference to this object so that method calls can be chained together.
      * <p>
      * <b>Constraints:</b><br/>
-     * <b>Length: </b>1 - 50<br/>
+     * <b>Length: </b>1 - 55<br/>
      * <b>Pattern: </b>[\w-]+:[0-9a-f-]+<br/>
      *
      * @param identityPoolId A name-spaced GUID (for example,
@@ -127,7 +131,7 @@ public class UnsubscribeFromDatasetRequest extends AmazonWebServiceRequest imple
      * Unique ID for this identity.
      * <p>
      * <b>Constraints:</b><br/>
-     * <b>Length: </b>1 - 50<br/>
+     * <b>Length: </b>1 - 55<br/>
      * <b>Pattern: </b>[\w-]+:[0-9a-f-]+<br/>
      *
      * @return Unique ID for this identity.
@@ -140,7 +144,7 @@ public class UnsubscribeFromDatasetRequest extends AmazonWebServiceRequest imple
      * Unique ID for this identity.
      * <p>
      * <b>Constraints:</b><br/>
-     * <b>Length: </b>1 - 50<br/>
+     * <b>Length: </b>1 - 55<br/>
      * <b>Pattern: </b>[\w-]+:[0-9a-f-]+<br/>
      *
      * @param identityId Unique ID for this identity.
@@ -155,7 +159,7 @@ public class UnsubscribeFromDatasetRequest extends AmazonWebServiceRequest imple
      * Returns a reference to this object so that method calls can be chained together.
      * <p>
      * <b>Constraints:</b><br/>
-     * <b>Length: </b>1 - 50<br/>
+     * <b>Length: </b>1 - 55<br/>
      * <b>Pattern: </b>[\w-]+:[0-9a-f-]+<br/>
      *
      * @param identityId Unique ID for this identity.

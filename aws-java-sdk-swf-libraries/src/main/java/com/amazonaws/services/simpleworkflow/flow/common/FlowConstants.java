@@ -1,5 +1,5 @@
 /*
- * Copyright 2012 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2012-2015 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License.
@@ -37,4 +37,7 @@ public final class FlowConstants {
      * Use task priority 0
      */
     public static final int DEFAULT_TASK_PRIORITY = 0;
+
+	public static final long DEFAULT_LAMBDA_FUNCTION_TIMEOUT = 60;
+
 }

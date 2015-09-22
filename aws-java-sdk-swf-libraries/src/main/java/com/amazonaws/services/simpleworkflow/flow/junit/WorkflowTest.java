@@ -1,5 +1,5 @@
 /*
- * Copyright 2012 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2012-2015 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not
  * use this file except in compliance with the License. A copy of the License is
@@ -20,6 +20,7 @@ import java.util.Map;
 import java.util.Map.Entry;
 
 import com.amazonaws.services.simpleworkflow.flow.test.TestDecisionContext;
+import com.amazonaws.services.simpleworkflow.flow.test.TestLambdaFunctionClient;
 import com.amazonaws.services.simpleworkflow.flow.test.TestPOJOActivityImplementationGenericActivityClient;
 import com.amazonaws.services.simpleworkflow.flow.test.TestPOJOActivityImplementationWorker;
 import com.amazonaws.services.simpleworkflow.flow.test.TestPOJOWorkflowImplementationGenericWorkflowClient;
@@ -43,7 +44,7 @@ public class WorkflowTest extends WorkflowTestBase {
 
     public WorkflowTest() {
         super(new TestDecisionContext(new TestPOJOActivityImplementationGenericActivityClient(),
-                new TestPOJOWorkflowImplementationGenericWorkflowClient(), new TestWorkflowClock(), new TestWorkflowContext()));
+                new TestPOJOWorkflowImplementationGenericWorkflowClient(), new TestWorkflowClock(), new TestWorkflowContext(), new TestLambdaFunctionClient()));
         activityClient = (TestPOJOActivityImplementationGenericActivityClient) decisionContext.getActivityClient();
         workflowClient = (TestPOJOWorkflowImplementationGenericWorkflowClient) decisionContext.getWorkflowClient();
     }
@@ -73,8 +74,12 @@ public class WorkflowTest extends WorkflowTestBase {
     }
 
     public void addWorkflowImplementationType(Class<?> workflowImplementationType) {
+        addWorkflowImplementationType(workflowImplementationType, null);
+    }
+
+    public void addWorkflowImplementationType(Class<?> workflowImplementationType, Object[] constructorArgs) {
         try {
-            workflowClient.addWorkflowImplementationType(workflowImplementationType);
+            workflowClient.addWorkflowImplementationType(workflowImplementationType, null, constructorArgs);
         }
         catch (Exception e) {
             throw new IllegalArgumentException("Invalid workflow type: " + workflowImplementationType, e);

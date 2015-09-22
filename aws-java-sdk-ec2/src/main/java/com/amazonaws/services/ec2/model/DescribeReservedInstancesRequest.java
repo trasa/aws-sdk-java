@@ -28,7 +28,7 @@ import com.amazonaws.services.ec2.model.transform.DescribeReservedInstancesReque
  * <p>
  * For more information about Reserved Instances, see
  * <a href="http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/concepts-on-demand-reserved-instances.html"> Reserved Instances </a>
- * in the <i>Amazon Elastic Compute Cloud User Guide for Linux</i> .
+ * in the <i>Amazon Elastic Compute Cloud User Guide</i> .
  * </p>
  *
  * @see com.amazonaws.services.ec2.AmazonEC2#describeReservedInstances(DescribeReservedInstancesRequest)
@@ -47,19 +47,29 @@ public class DescribeReservedInstancesRequest extends AmazonWebServiceRequest im
      * <p><code>duration</code> - The duration of the Reserved Instance (one
      * year or three years), in seconds (<code>31536000</code> |
      * <code>94608000</code>). </li> <li> <p><code>end</code> - The time when
-     * the Reserved Instance expires (for example, 2014-08-07T11:54:42.000Z).
+     * the Reserved Instance expires (for example, 2015-08-07T11:54:42.000Z).
      * </li> <li> <p><code>fixed-price</code> - The purchase price of the
      * Reserved Instance (for example, 9800.0). </li> <li>
      * <p><code>instance-type</code> - The instance type on which the
      * Reserved Instance can be used. </li> <li>
-     * <p><code>product-description</code> - The product description of the
-     * Reserved Instance (<code>Linux/UNIX</code> | <code>Linux/UNIX (Amazon
-     * VPC)</code> | <code>Windows</code> | <code>Windows (Amazon
+     * <p><code>product-description</code> - The Reserved Instance product
+     * platform description. Instances that include <code>(Amazon VPC)</code>
+     * in the product platform description will only be displayed to
+     * EC2-Classic account holders and are for use with Amazon VPC.
+     * (<code>Linux/UNIX</code> | <code>Linux/UNIX (Amazon VPC)</code> |
+     * <code>SUSE Linux</code> | <code>SUSE Linux (Amazon VPC)</code> |
+     * <code>Red Hat Enterprise Linux</code> | <code>Red Hat Enterprise Linux
+     * (Amazon VPC)</code> | <code>Windows</code> | <code>Windows (Amazon
+     * VPC)</code> | <code>Windows with SQL Server Standard</code> |
+     * <code>Windows with SQL Server Standard (Amazon VPC)</code> |
+     * <code>Windows with SQL Server Web</code> | <code>Windows with SQL
+     * Server Web (Amazon VPC)</code> | <code>Windows with SQL Server
+     * Enterprise</code> | <code>Windows with SQL Server Enterprise (Amazon
      * VPC)</code>). </li> <li> <p><code>reserved-instances-id</code> - The
      * ID of the Reserved Instance. </li> <li> <p><code>start</code> - The
      * time at which the Reserved Instance purchase request was placed (for
      * example, 2014-08-07T11:54:42.000Z). </li> <li> <p><code>state</code> -
-     * The state of the Reserved Instance (<code>pending-payment</code> |
+     * The state of the Reserved Instance (<code>payment-pending</code> |
      * <code>active</code> | <code>payment-failed</code> |
      * <code>retired</code>). </li> <li>
      * <p><code>tag</code>:<i>key</i>=<i>value</i> - The key/value
@@ -125,6 +135,11 @@ public class DescribeReservedInstancesRequest extends AmazonWebServiceRequest im
      * One or more Reserved Instance IDs. <p>Default: Describes all your
      * Reserved Instances, or only those otherwise specified.
      * <p>
+     * <b>NOTE:</b> This method appends the values to the existing list (if
+     * any). Use {@link #setReservedInstancesIds(java.util.Collection)} or
+     * {@link #withReservedInstancesIds(java.util.Collection)} if you want to
+     * override the existing values.
+     * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *
      * @param reservedInstancesIds One or more Reserved Instance IDs. <p>Default: Describes all your
@@ -171,19 +186,29 @@ public class DescribeReservedInstancesRequest extends AmazonWebServiceRequest im
      * <p><code>duration</code> - The duration of the Reserved Instance (one
      * year or three years), in seconds (<code>31536000</code> |
      * <code>94608000</code>). </li> <li> <p><code>end</code> - The time when
-     * the Reserved Instance expires (for example, 2014-08-07T11:54:42.000Z).
+     * the Reserved Instance expires (for example, 2015-08-07T11:54:42.000Z).
      * </li> <li> <p><code>fixed-price</code> - The purchase price of the
      * Reserved Instance (for example, 9800.0). </li> <li>
      * <p><code>instance-type</code> - The instance type on which the
      * Reserved Instance can be used. </li> <li>
-     * <p><code>product-description</code> - The product description of the
-     * Reserved Instance (<code>Linux/UNIX</code> | <code>Linux/UNIX (Amazon
-     * VPC)</code> | <code>Windows</code> | <code>Windows (Amazon
+     * <p><code>product-description</code> - The Reserved Instance product
+     * platform description. Instances that include <code>(Amazon VPC)</code>
+     * in the product platform description will only be displayed to
+     * EC2-Classic account holders and are for use with Amazon VPC.
+     * (<code>Linux/UNIX</code> | <code>Linux/UNIX (Amazon VPC)</code> |
+     * <code>SUSE Linux</code> | <code>SUSE Linux (Amazon VPC)</code> |
+     * <code>Red Hat Enterprise Linux</code> | <code>Red Hat Enterprise Linux
+     * (Amazon VPC)</code> | <code>Windows</code> | <code>Windows (Amazon
+     * VPC)</code> | <code>Windows with SQL Server Standard</code> |
+     * <code>Windows with SQL Server Standard (Amazon VPC)</code> |
+     * <code>Windows with SQL Server Web</code> | <code>Windows with SQL
+     * Server Web (Amazon VPC)</code> | <code>Windows with SQL Server
+     * Enterprise</code> | <code>Windows with SQL Server Enterprise (Amazon
      * VPC)</code>). </li> <li> <p><code>reserved-instances-id</code> - The
      * ID of the Reserved Instance. </li> <li> <p><code>start</code> - The
      * time at which the Reserved Instance purchase request was placed (for
      * example, 2014-08-07T11:54:42.000Z). </li> <li> <p><code>state</code> -
-     * The state of the Reserved Instance (<code>pending-payment</code> |
+     * The state of the Reserved Instance (<code>payment-pending</code> |
      * <code>active</code> | <code>payment-failed</code> |
      * <code>retired</code>). </li> <li>
      * <p><code>tag</code>:<i>key</i>=<i>value</i> - The key/value
@@ -206,19 +231,29 @@ public class DescribeReservedInstancesRequest extends AmazonWebServiceRequest im
      *         <p><code>duration</code> - The duration of the Reserved Instance (one
      *         year or three years), in seconds (<code>31536000</code> |
      *         <code>94608000</code>). </li> <li> <p><code>end</code> - The time when
-     *         the Reserved Instance expires (for example, 2014-08-07T11:54:42.000Z).
+     *         the Reserved Instance expires (for example, 2015-08-07T11:54:42.000Z).
      *         </li> <li> <p><code>fixed-price</code> - The purchase price of the
      *         Reserved Instance (for example, 9800.0). </li> <li>
      *         <p><code>instance-type</code> - The instance type on which the
      *         Reserved Instance can be used. </li> <li>
-     *         <p><code>product-description</code> - The product description of the
-     *         Reserved Instance (<code>Linux/UNIX</code> | <code>Linux/UNIX (Amazon
-     *         VPC)</code> | <code>Windows</code> | <code>Windows (Amazon
+     *         <p><code>product-description</code> - The Reserved Instance product
+     *         platform description. Instances that include <code>(Amazon VPC)</code>
+     *         in the product platform description will only be displayed to
+     *         EC2-Classic account holders and are for use with Amazon VPC.
+     *         (<code>Linux/UNIX</code> | <code>Linux/UNIX (Amazon VPC)</code> |
+     *         <code>SUSE Linux</code> | <code>SUSE Linux (Amazon VPC)</code> |
+     *         <code>Red Hat Enterprise Linux</code> | <code>Red Hat Enterprise Linux
+     *         (Amazon VPC)</code> | <code>Windows</code> | <code>Windows (Amazon
+     *         VPC)</code> | <code>Windows with SQL Server Standard</code> |
+     *         <code>Windows with SQL Server Standard (Amazon VPC)</code> |
+     *         <code>Windows with SQL Server Web</code> | <code>Windows with SQL
+     *         Server Web (Amazon VPC)</code> | <code>Windows with SQL Server
+     *         Enterprise</code> | <code>Windows with SQL Server Enterprise (Amazon
      *         VPC)</code>). </li> <li> <p><code>reserved-instances-id</code> - The
      *         ID of the Reserved Instance. </li> <li> <p><code>start</code> - The
      *         time at which the Reserved Instance purchase request was placed (for
      *         example, 2014-08-07T11:54:42.000Z). </li> <li> <p><code>state</code> -
-     *         The state of the Reserved Instance (<code>pending-payment</code> |
+     *         The state of the Reserved Instance (<code>payment-pending</code> |
      *         <code>active</code> | <code>payment-failed</code> |
      *         <code>retired</code>). </li> <li>
      *         <p><code>tag</code>:<i>key</i>=<i>value</i> - The key/value
@@ -250,19 +285,29 @@ public class DescribeReservedInstancesRequest extends AmazonWebServiceRequest im
      * <p><code>duration</code> - The duration of the Reserved Instance (one
      * year or three years), in seconds (<code>31536000</code> |
      * <code>94608000</code>). </li> <li> <p><code>end</code> - The time when
-     * the Reserved Instance expires (for example, 2014-08-07T11:54:42.000Z).
+     * the Reserved Instance expires (for example, 2015-08-07T11:54:42.000Z).
      * </li> <li> <p><code>fixed-price</code> - The purchase price of the
      * Reserved Instance (for example, 9800.0). </li> <li>
      * <p><code>instance-type</code> - The instance type on which the
      * Reserved Instance can be used. </li> <li>
-     * <p><code>product-description</code> - The product description of the
-     * Reserved Instance (<code>Linux/UNIX</code> | <code>Linux/UNIX (Amazon
-     * VPC)</code> | <code>Windows</code> | <code>Windows (Amazon
+     * <p><code>product-description</code> - The Reserved Instance product
+     * platform description. Instances that include <code>(Amazon VPC)</code>
+     * in the product platform description will only be displayed to
+     * EC2-Classic account holders and are for use with Amazon VPC.
+     * (<code>Linux/UNIX</code> | <code>Linux/UNIX (Amazon VPC)</code> |
+     * <code>SUSE Linux</code> | <code>SUSE Linux (Amazon VPC)</code> |
+     * <code>Red Hat Enterprise Linux</code> | <code>Red Hat Enterprise Linux
+     * (Amazon VPC)</code> | <code>Windows</code> | <code>Windows (Amazon
+     * VPC)</code> | <code>Windows with SQL Server Standard</code> |
+     * <code>Windows with SQL Server Standard (Amazon VPC)</code> |
+     * <code>Windows with SQL Server Web</code> | <code>Windows with SQL
+     * Server Web (Amazon VPC)</code> | <code>Windows with SQL Server
+     * Enterprise</code> | <code>Windows with SQL Server Enterprise (Amazon
      * VPC)</code>). </li> <li> <p><code>reserved-instances-id</code> - The
      * ID of the Reserved Instance. </li> <li> <p><code>start</code> - The
      * time at which the Reserved Instance purchase request was placed (for
      * example, 2014-08-07T11:54:42.000Z). </li> <li> <p><code>state</code> -
-     * The state of the Reserved Instance (<code>pending-payment</code> |
+     * The state of the Reserved Instance (<code>payment-pending</code> |
      * <code>active</code> | <code>payment-failed</code> |
      * <code>retired</code>). </li> <li>
      * <p><code>tag</code>:<i>key</i>=<i>value</i> - The key/value
@@ -285,19 +330,29 @@ public class DescribeReservedInstancesRequest extends AmazonWebServiceRequest im
      *         <p><code>duration</code> - The duration of the Reserved Instance (one
      *         year or three years), in seconds (<code>31536000</code> |
      *         <code>94608000</code>). </li> <li> <p><code>end</code> - The time when
-     *         the Reserved Instance expires (for example, 2014-08-07T11:54:42.000Z).
+     *         the Reserved Instance expires (for example, 2015-08-07T11:54:42.000Z).
      *         </li> <li> <p><code>fixed-price</code> - The purchase price of the
      *         Reserved Instance (for example, 9800.0). </li> <li>
      *         <p><code>instance-type</code> - The instance type on which the
      *         Reserved Instance can be used. </li> <li>
-     *         <p><code>product-description</code> - The product description of the
-     *         Reserved Instance (<code>Linux/UNIX</code> | <code>Linux/UNIX (Amazon
-     *         VPC)</code> | <code>Windows</code> | <code>Windows (Amazon
+     *         <p><code>product-description</code> - The Reserved Instance product
+     *         platform description. Instances that include <code>(Amazon VPC)</code>
+     *         in the product platform description will only be displayed to
+     *         EC2-Classic account holders and are for use with Amazon VPC.
+     *         (<code>Linux/UNIX</code> | <code>Linux/UNIX (Amazon VPC)</code> |
+     *         <code>SUSE Linux</code> | <code>SUSE Linux (Amazon VPC)</code> |
+     *         <code>Red Hat Enterprise Linux</code> | <code>Red Hat Enterprise Linux
+     *         (Amazon VPC)</code> | <code>Windows</code> | <code>Windows (Amazon
+     *         VPC)</code> | <code>Windows with SQL Server Standard</code> |
+     *         <code>Windows with SQL Server Standard (Amazon VPC)</code> |
+     *         <code>Windows with SQL Server Web</code> | <code>Windows with SQL
+     *         Server Web (Amazon VPC)</code> | <code>Windows with SQL Server
+     *         Enterprise</code> | <code>Windows with SQL Server Enterprise (Amazon
      *         VPC)</code>). </li> <li> <p><code>reserved-instances-id</code> - The
      *         ID of the Reserved Instance. </li> <li> <p><code>start</code> - The
      *         time at which the Reserved Instance purchase request was placed (for
      *         example, 2014-08-07T11:54:42.000Z). </li> <li> <p><code>state</code> -
-     *         The state of the Reserved Instance (<code>pending-payment</code> |
+     *         The state of the Reserved Instance (<code>payment-pending</code> |
      *         <code>active</code> | <code>payment-failed</code> |
      *         <code>retired</code>). </li> <li>
      *         <p><code>tag</code>:<i>key</i>=<i>value</i> - The key/value
@@ -331,19 +386,29 @@ public class DescribeReservedInstancesRequest extends AmazonWebServiceRequest im
      * <p><code>duration</code> - The duration of the Reserved Instance (one
      * year or three years), in seconds (<code>31536000</code> |
      * <code>94608000</code>). </li> <li> <p><code>end</code> - The time when
-     * the Reserved Instance expires (for example, 2014-08-07T11:54:42.000Z).
+     * the Reserved Instance expires (for example, 2015-08-07T11:54:42.000Z).
      * </li> <li> <p><code>fixed-price</code> - The purchase price of the
      * Reserved Instance (for example, 9800.0). </li> <li>
      * <p><code>instance-type</code> - The instance type on which the
      * Reserved Instance can be used. </li> <li>
-     * <p><code>product-description</code> - The product description of the
-     * Reserved Instance (<code>Linux/UNIX</code> | <code>Linux/UNIX (Amazon
-     * VPC)</code> | <code>Windows</code> | <code>Windows (Amazon
+     * <p><code>product-description</code> - The Reserved Instance product
+     * platform description. Instances that include <code>(Amazon VPC)</code>
+     * in the product platform description will only be displayed to
+     * EC2-Classic account holders and are for use with Amazon VPC.
+     * (<code>Linux/UNIX</code> | <code>Linux/UNIX (Amazon VPC)</code> |
+     * <code>SUSE Linux</code> | <code>SUSE Linux (Amazon VPC)</code> |
+     * <code>Red Hat Enterprise Linux</code> | <code>Red Hat Enterprise Linux
+     * (Amazon VPC)</code> | <code>Windows</code> | <code>Windows (Amazon
+     * VPC)</code> | <code>Windows with SQL Server Standard</code> |
+     * <code>Windows with SQL Server Standard (Amazon VPC)</code> |
+     * <code>Windows with SQL Server Web</code> | <code>Windows with SQL
+     * Server Web (Amazon VPC)</code> | <code>Windows with SQL Server
+     * Enterprise</code> | <code>Windows with SQL Server Enterprise (Amazon
      * VPC)</code>). </li> <li> <p><code>reserved-instances-id</code> - The
      * ID of the Reserved Instance. </li> <li> <p><code>start</code> - The
      * time at which the Reserved Instance purchase request was placed (for
      * example, 2014-08-07T11:54:42.000Z). </li> <li> <p><code>state</code> -
-     * The state of the Reserved Instance (<code>pending-payment</code> |
+     * The state of the Reserved Instance (<code>payment-pending</code> |
      * <code>active</code> | <code>payment-failed</code> |
      * <code>retired</code>). </li> <li>
      * <p><code>tag</code>:<i>key</i>=<i>value</i> - The key/value
@@ -361,6 +426,11 @@ public class DescribeReservedInstancesRequest extends AmazonWebServiceRequest im
      * filter. </li> <li> <p><code>usage-price</code> - The usage price of
      * the Reserved Instance, per hour (for example, 0.84). </li> </ul>
      * <p>
+     * <b>NOTE:</b> This method appends the values to the existing list (if
+     * any). Use {@link #setFilters(java.util.Collection)} or {@link
+     * #withFilters(java.util.Collection)} if you want to override the
+     * existing values.
+     * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *
      * @param filters One or more filters. <ul> <li> <p><code>availability-zone</code> - The
@@ -368,19 +438,29 @@ public class DescribeReservedInstancesRequest extends AmazonWebServiceRequest im
      *         <p><code>duration</code> - The duration of the Reserved Instance (one
      *         year or three years), in seconds (<code>31536000</code> |
      *         <code>94608000</code>). </li> <li> <p><code>end</code> - The time when
-     *         the Reserved Instance expires (for example, 2014-08-07T11:54:42.000Z).
+     *         the Reserved Instance expires (for example, 2015-08-07T11:54:42.000Z).
      *         </li> <li> <p><code>fixed-price</code> - The purchase price of the
      *         Reserved Instance (for example, 9800.0). </li> <li>
      *         <p><code>instance-type</code> - The instance type on which the
      *         Reserved Instance can be used. </li> <li>
-     *         <p><code>product-description</code> - The product description of the
-     *         Reserved Instance (<code>Linux/UNIX</code> | <code>Linux/UNIX (Amazon
-     *         VPC)</code> | <code>Windows</code> | <code>Windows (Amazon
+     *         <p><code>product-description</code> - The Reserved Instance product
+     *         platform description. Instances that include <code>(Amazon VPC)</code>
+     *         in the product platform description will only be displayed to
+     *         EC2-Classic account holders and are for use with Amazon VPC.
+     *         (<code>Linux/UNIX</code> | <code>Linux/UNIX (Amazon VPC)</code> |
+     *         <code>SUSE Linux</code> | <code>SUSE Linux (Amazon VPC)</code> |
+     *         <code>Red Hat Enterprise Linux</code> | <code>Red Hat Enterprise Linux
+     *         (Amazon VPC)</code> | <code>Windows</code> | <code>Windows (Amazon
+     *         VPC)</code> | <code>Windows with SQL Server Standard</code> |
+     *         <code>Windows with SQL Server Standard (Amazon VPC)</code> |
+     *         <code>Windows with SQL Server Web</code> | <code>Windows with SQL
+     *         Server Web (Amazon VPC)</code> | <code>Windows with SQL Server
+     *         Enterprise</code> | <code>Windows with SQL Server Enterprise (Amazon
      *         VPC)</code>). </li> <li> <p><code>reserved-instances-id</code> - The
      *         ID of the Reserved Instance. </li> <li> <p><code>start</code> - The
      *         time at which the Reserved Instance purchase request was placed (for
      *         example, 2014-08-07T11:54:42.000Z). </li> <li> <p><code>state</code> -
-     *         The state of the Reserved Instance (<code>pending-payment</code> |
+     *         The state of the Reserved Instance (<code>payment-pending</code> |
      *         <code>active</code> | <code>payment-failed</code> |
      *         <code>retired</code>). </li> <li>
      *         <p><code>tag</code>:<i>key</i>=<i>value</i> - The key/value
@@ -415,19 +495,29 @@ public class DescribeReservedInstancesRequest extends AmazonWebServiceRequest im
      * <p><code>duration</code> - The duration of the Reserved Instance (one
      * year or three years), in seconds (<code>31536000</code> |
      * <code>94608000</code>). </li> <li> <p><code>end</code> - The time when
-     * the Reserved Instance expires (for example, 2014-08-07T11:54:42.000Z).
+     * the Reserved Instance expires (for example, 2015-08-07T11:54:42.000Z).
      * </li> <li> <p><code>fixed-price</code> - The purchase price of the
      * Reserved Instance (for example, 9800.0). </li> <li>
      * <p><code>instance-type</code> - The instance type on which the
      * Reserved Instance can be used. </li> <li>
-     * <p><code>product-description</code> - The product description of the
-     * Reserved Instance (<code>Linux/UNIX</code> | <code>Linux/UNIX (Amazon
-     * VPC)</code> | <code>Windows</code> | <code>Windows (Amazon
+     * <p><code>product-description</code> - The Reserved Instance product
+     * platform description. Instances that include <code>(Amazon VPC)</code>
+     * in the product platform description will only be displayed to
+     * EC2-Classic account holders and are for use with Amazon VPC.
+     * (<code>Linux/UNIX</code> | <code>Linux/UNIX (Amazon VPC)</code> |
+     * <code>SUSE Linux</code> | <code>SUSE Linux (Amazon VPC)</code> |
+     * <code>Red Hat Enterprise Linux</code> | <code>Red Hat Enterprise Linux
+     * (Amazon VPC)</code> | <code>Windows</code> | <code>Windows (Amazon
+     * VPC)</code> | <code>Windows with SQL Server Standard</code> |
+     * <code>Windows with SQL Server Standard (Amazon VPC)</code> |
+     * <code>Windows with SQL Server Web</code> | <code>Windows with SQL
+     * Server Web (Amazon VPC)</code> | <code>Windows with SQL Server
+     * Enterprise</code> | <code>Windows with SQL Server Enterprise (Amazon
      * VPC)</code>). </li> <li> <p><code>reserved-instances-id</code> - The
      * ID of the Reserved Instance. </li> <li> <p><code>start</code> - The
      * time at which the Reserved Instance purchase request was placed (for
      * example, 2014-08-07T11:54:42.000Z). </li> <li> <p><code>state</code> -
-     * The state of the Reserved Instance (<code>pending-payment</code> |
+     * The state of the Reserved Instance (<code>payment-pending</code> |
      * <code>active</code> | <code>payment-failed</code> |
      * <code>retired</code>). </li> <li>
      * <p><code>tag</code>:<i>key</i>=<i>value</i> - The key/value
@@ -452,19 +542,29 @@ public class DescribeReservedInstancesRequest extends AmazonWebServiceRequest im
      *         <p><code>duration</code> - The duration of the Reserved Instance (one
      *         year or three years), in seconds (<code>31536000</code> |
      *         <code>94608000</code>). </li> <li> <p><code>end</code> - The time when
-     *         the Reserved Instance expires (for example, 2014-08-07T11:54:42.000Z).
+     *         the Reserved Instance expires (for example, 2015-08-07T11:54:42.000Z).
      *         </li> <li> <p><code>fixed-price</code> - The purchase price of the
      *         Reserved Instance (for example, 9800.0). </li> <li>
      *         <p><code>instance-type</code> - The instance type on which the
      *         Reserved Instance can be used. </li> <li>
-     *         <p><code>product-description</code> - The product description of the
-     *         Reserved Instance (<code>Linux/UNIX</code> | <code>Linux/UNIX (Amazon
-     *         VPC)</code> | <code>Windows</code> | <code>Windows (Amazon
+     *         <p><code>product-description</code> - The Reserved Instance product
+     *         platform description. Instances that include <code>(Amazon VPC)</code>
+     *         in the product platform description will only be displayed to
+     *         EC2-Classic account holders and are for use with Amazon VPC.
+     *         (<code>Linux/UNIX</code> | <code>Linux/UNIX (Amazon VPC)</code> |
+     *         <code>SUSE Linux</code> | <code>SUSE Linux (Amazon VPC)</code> |
+     *         <code>Red Hat Enterprise Linux</code> | <code>Red Hat Enterprise Linux
+     *         (Amazon VPC)</code> | <code>Windows</code> | <code>Windows (Amazon
+     *         VPC)</code> | <code>Windows with SQL Server Standard</code> |
+     *         <code>Windows with SQL Server Standard (Amazon VPC)</code> |
+     *         <code>Windows with SQL Server Web</code> | <code>Windows with SQL
+     *         Server Web (Amazon VPC)</code> | <code>Windows with SQL Server
+     *         Enterprise</code> | <code>Windows with SQL Server Enterprise (Amazon
      *         VPC)</code>). </li> <li> <p><code>reserved-instances-id</code> - The
      *         ID of the Reserved Instance. </li> <li> <p><code>start</code> - The
      *         time at which the Reserved Instance purchase request was placed (for
      *         example, 2014-08-07T11:54:42.000Z). </li> <li> <p><code>state</code> -
-     *         The state of the Reserved Instance (<code>pending-payment</code> |
+     *         The state of the Reserved Instance (<code>payment-pending</code> |
      *         <code>active</code> | <code>payment-failed</code> |
      *         <code>retired</code>). </li> <li>
      *         <p><code>tag</code>:<i>key</i>=<i>value</i> - The key/value

@@ -21,7 +21,7 @@ import com.amazonaws.AmazonWebServiceRequest;
 /**
  * Container for the parameters to the {@link com.amazonaws.services.elasticloadbalancing.AmazonElasticLoadBalancing#describeTags(DescribeTagsRequest) DescribeTags operation}.
  * <p>
- * Describes the tags associated with one or more load balancers.
+ * Describes the tags associated with the specified load balancers.
  * </p>
  *
  * @see com.amazonaws.services.elasticloadbalancing.AmazonElasticLoadBalancing#describeTags(DescribeTagsRequest)
@@ -72,6 +72,11 @@ public class DescribeTagsRequest extends AmazonWebServiceRequest implements Seri
     
     /**
      * The names of the load balancers.
+     * <p>
+     * <b>NOTE:</b> This method appends the values to the existing list (if
+     * any). Use {@link #setLoadBalancerNames(java.util.Collection)} or
+     * {@link #withLoadBalancerNames(java.util.Collection)} if you want to
+     * override the existing values.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      * <p>

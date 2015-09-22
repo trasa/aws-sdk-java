@@ -17,9 +17,7 @@ package com.amazonaws;
 import static com.amazonaws.SDKGlobalConfiguration.PROFILING_SYSTEM_PROPERTY;
 
 import java.net.URI;
-import java.net.URISyntaxException;
 import java.util.List;
-import java.util.Map.Entry;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 import org.apache.commons.logging.Log;
@@ -32,8 +30,8 @@ import com.amazonaws.handlers.RequestHandler;
 import com.amazonaws.handlers.RequestHandler2;
 import com.amazonaws.http.AmazonHttpClient;
 import com.amazonaws.http.ExecutionContext;
-import com.amazonaws.http.HttpMethodName;
-import com.amazonaws.http.HttpRequest;
+import com.amazonaws.internal.DefaultServiceEndpointBuilder;
+import com.amazonaws.log.CommonsLogFactory;
 import com.amazonaws.metrics.AwsSdkMetrics;
 import com.amazonaws.metrics.RequestMetricCollector;
 import com.amazonaws.regions.Region;
@@ -42,6 +40,7 @@ import com.amazonaws.util.AWSRequestMetrics;
 import com.amazonaws.util.AWSRequestMetrics.Field;
 import com.amazonaws.util.AwsHostNameUtils;
 import com.amazonaws.util.Classes;
+import com.amazonaws.util.HttpUtils;
 
 /**
  * Abstract base class for Amazon Web Service Java clients.
@@ -56,6 +55,16 @@ public abstract class AmazonWebServiceClient {
 
     private static final Log log =
         LogFactory.getLog(AmazonWebServiceClient.class);
+    static {
+        // Configures the internal logging of the signers and core
+        // classes to use Jakarta Commons Logging to stay consistent with the
+        // rest of the library.
+        boolean success = com.amazonaws.log.InternalLogFactory.configureFactory(
+                            new CommonsLogFactory());
+        if (log.isDebugEnabled())
+            log.debug("Internal logging succesfully configured to commons logger: "
+                    + success);
+    }
 
     /**
      * The service endpoint to which this client will send requests.
@@ -167,20 +176,7 @@ public abstract class AmazonWebServiceClient {
 
     /** Returns the endpoint as a URI. */
     private URI toURI(String endpoint) throws IllegalArgumentException {
-        /*
-         * If the endpoint doesn't explicitly specify a protocol to use, then
-         * we'll defer to the default protocol specified in the client
-         * configuration.
-         */
-        if (endpoint.contains("://") == false) {
-            endpoint = clientConfiguration.getProtocol().toString() + "://" + endpoint;
-        }
-
-        try {
-            return new URI(endpoint);
-        } catch (URISyntaxException e) {
-            throw new IllegalArgumentException(e);
-        }
+        return HttpUtils.toUri(endpoint, clientConfiguration);
     }
 
     /**
@@ -328,80 +324,41 @@ public abstract class AmazonWebServiceClient {
     }
 
     /**
-     * An alternative to {@link AmazonWebServiceClient#setEndpoint(String)}, sets the
-     * regional endpoint for this client's service calls. Callers can use this
-     * method to control which AWS region they want to work with.
+     * An alternative to {@link AmazonWebServiceClient#setEndpoint(String)}, sets the regional
+     * endpoint for this client's service calls. Callers can use this method to control which AWS
+     * region they want to work with.
      * <p>
-     * <b>This method is not threadsafe. A region should be configured when the
-     * client is created and before any service requests are made. Changing it
-     * afterwards creates inevitable race conditions for any service requests in
-     * transit or retrying.</b>
+     * <b>This method is not threadsafe. A region should be configured when the client is created
+     * and before any service requests are made. Changing it afterwards creates inevitable race
+     * conditions for any service requests in transit or retrying.</b>
      * <p>
-     * By default, all service endpoints in all regions use the https protocol.
-     * To use http instead, specify it in the {@link ClientConfiguration}
-     * supplied at construction.
+     * By default, all service endpoints in all regions use the https protocol. To use http instead,
+     * specify it in the {@link ClientConfiguration} supplied at construction.
      *
      * @param region
      *            The region this client will communicate with. See
-     *            {@link Region#getRegion(com.amazonaws.regions.Regions)} for
-     *            accessing a given region.
+     *            {@link Region#getRegion(com.amazonaws.regions.Regions)} for accessing a given
+     *            region.
      * @throws java.lang.IllegalArgumentException
-     *             If the given region is null, or if this service isn't
-     *             available in the given region. See
-     *             {@link Region#isServiceSupported(String)}
+     *             If the given region is null, or if this service isn't available in the given
+     *             region. See {@link Region#isServiceSupported(String)}
      * @see Region#getRegion(com.amazonaws.regions.Regions)
-     * @see Region#createClient(Class, com.amazonaws.auth.AWSCredentialsProvider, ClientConfiguration)
+     * @see Region#createClient(Class, com.amazonaws.auth.AWSCredentialsProvider,
+     *      ClientConfiguration)
      */
     public void setRegion(Region region) throws IllegalArgumentException {
-        if ( region == null ) {
+        if (region == null) {
             throw new IllegalArgumentException("No region provided");
         }
-
-        String serviceName = getServiceNameIntern();
-        String serviceEndpoint;
-
-        if ( region.isServiceSupported(serviceName) ) {
-
-            serviceEndpoint = region.getServiceEndpoint(serviceName);
-
-            int protocolIdx = serviceEndpoint.indexOf("://");
-            // Strip off the protocol to allow the client config to specify it
-            if ( protocolIdx >= 0 ) {
-                serviceEndpoint =
-                    serviceEndpoint.substring(protocolIdx + "://".length());
-            }
-
-        } else {
-
-            serviceEndpoint = String.format("%s.%s.%s",
-                                            serviceName,
-                                            region.getName(),
-                                            region.getDomain());
-
-            log.info("{" + serviceName + ", " + region.getName() + "} was not "
-                     + "found in region metadata, trying to construct an "
-                     + "endpoint using the standard pattern for this region: '"
-                     + serviceEndpoint + "'.");
-
-        }
-
-        URI uri = toURI(serviceEndpoint);
-        Signer signer = computeSignerByServiceRegion(serviceName,
-                region.getName(), signerRegionOverride, false);
-        synchronized(this)  {
+        final String serviceNameForEndpoint = getServiceNameForRegionMetadata();
+        final String serviceNameForSigner = getServiceNameIntern();
+        URI uri = new DefaultServiceEndpointBuilder(serviceNameForEndpoint, clientConfiguration.getProtocol()
+                .toString()).withRegion(region).getServiceEndpoint();
+        Signer signer = computeSignerByServiceRegion(serviceNameForSigner, region.getName(), signerRegionOverride, false);
+        synchronized (this) {
             this.endpoint = uri;
             this.signer = signer;
         }
-    }
-
-    /**
-     * @deprecated to be removed from this class
-     */
-    @Deprecated
-    public final void setRegion(Regions region) {
-        if (region == null)
-            throw new IllegalArgumentException("No region provided");
-        this.setRegion(Region.getRegion(region));
     }
 
     /**
@@ -418,22 +375,6 @@ public abstract class AmazonWebServiceClient {
     }
 
     /**
-     * @deprecated by client configuration via the constructor.
-     * This method will be removed later on.
-     */
-    @Deprecated
-    public void setConfiguration(ClientConfiguration clientConfiguration) {
-        AmazonHttpClient existingClient = this.client;
-        RequestMetricCollector requestMetricCollector = null;
-        if (existingClient != null) {
-            requestMetricCollector = existingClient.getRequestMetricCollector();
-            existingClient.shutdown();
-        }
-        this.clientConfiguration = clientConfiguration;
-        this.client = new AmazonHttpClient(clientConfiguration, requestMetricCollector);
-    }
-
-    /**
      * Shuts down this client object, releasing any resources that might be held
      * open. This is an optional method, and callers are not expected to call
      * it, but can if they want to explicitly release any open resources. Once a
@@ -442,38 +383,6 @@ public abstract class AmazonWebServiceClient {
      */
     public void shutdown() {
         client.shutdown();
-    }
-
-    /**
-     * Converts a Request<T> object into an HttpRequest object. Copies all the
-     * headers, parameters, etc. from the Request into the new HttpRequest.
-     *
-     * @param request
-     *            The request to convert.
-     * @param methodName
-     *            The HTTP method (GET, PUT, DELETE, HEAD) to use in the
-     *            converted HttpRequest object.
-     *
-     * @return A new HttpRequest object created from the details of the
-     *         specified Request<T> object.
-     */
-    @Deprecated
-    protected <T> HttpRequest convertToHttpRequest(Request<T> request, HttpMethodName methodName) {
-        HttpRequest httpRequest = new HttpRequest(methodName);
-        for (Entry<String, String> parameter : request.getParameters().entrySet()) {
-            httpRequest.addParameter(parameter.getKey(), parameter.getValue());
-        }
-
-        for (Entry<String, String> parameter : request.getHeaders().entrySet()) {
-            httpRequest.addHeader(parameter.getKey(), parameter.getValue());
-        }
-
-        httpRequest.setServiceName(request.getServiceName());
-        httpRequest.setEndpoint(request.getEndpoint());
-        httpRequest.setResourcePath(request.getResourcePath());
-        httpRequest.setOriginalRequest(request.getOriginalRequest());
-
-        return httpRequest;
     }
 
     /**
@@ -710,6 +619,27 @@ public abstract class AmazonWebServiceClient {
     }
 
     /**
+     * @return the service name that should be used when computing the region
+     *         endpoints. This method returns the value of the
+     *         regionMetadataServiceName configuration in the internal config
+     *         file if such configuration is specified for the current client,
+     *         otherwise it returns the same service name that is used for
+     *         request signing.
+     */
+    private String getServiceNameForRegionMetadata() {
+        String httpClientName = getHttpClientName();
+        String serviceNameInRegionMetadata = ServiceNameFactory
+                .getServiceNameInRegionMetadata(httpClientName);
+
+        if (serviceNameInRegionMetadata != null) {
+            return serviceNameInRegionMetadata;
+        } else {
+            return getServiceNameIntern();
+        }
+
+    }
+
+    /**
      * Internal method for implementing {@link #getServiceName()}. Method is
      * protected by intent so peculiar subclass that don't follow the class
      * naming convention can choose to return whatever service name as needed.
@@ -731,6 +661,9 @@ public abstract class AmazonWebServiceClient {
      * normally called except for AWS internal development purposes.
      */
     public final void setServiceNameIntern(String serviceName) {
+        if (serviceName == null)
+            throw new IllegalArgumentException(
+                    "The parameter serviceName must be specified!");
         this.serviceName = serviceName;
     }
 
@@ -742,9 +675,7 @@ public abstract class AmazonWebServiceClient {
      * follows the convention of <code>(Amazon|AWS).*(JavaClient|Client)</code>.
      */
     private String computeServiceName() {
-        Class<?> httpClientClass = Classes.childClassOf(
-                AmazonWebServiceClient.class, this);
-        final String httpClientName = httpClientClass.getSimpleName();
+        final String httpClientName = getHttpClientName();
         String service = ServiceNameFactory.getServiceName(httpClientName);
         if (service != null) {
             return service; // only if it is so explicitly configured
@@ -778,6 +709,12 @@ public abstract class AmazonWebServiceClient {
         }
         String serviceName = httpClientName.substring(i + len, j);
         return serviceName.toLowerCase();
+    }
+
+    private String getHttpClientName() {
+        Class<?> httpClientClass = Classes.childClassOf(
+                AmazonWebServiceClient.class, this);
+        return httpClientClass.getSimpleName();
     }
 
     /**

@@ -17,7 +17,9 @@ package com.amazonaws.services.ecs.model;
 import java.io.Serializable;
 
 /**
- * 
+ * <p>
+ * The overrides that should be sent to a container.
+ * </p>
  */
 public class ContainerOverride implements Serializable, Cloneable {
 
@@ -27,9 +29,18 @@ public class ContainerOverride implements Serializable, Cloneable {
     private String name;
 
     /**
-     * The command to send to the container that receives the override.
+     * The command to send to the container that overrides the default
+     * command from the Docker image or the task definition.
      */
     private com.amazonaws.internal.ListWithAutoConstructFlag<String> command;
+
+    /**
+     * The environment variables to send to the container. You can add new
+     * environment variables, which are added to the container at launch, or
+     * you can override the existing environment variables from the Docker
+     * image or the task definition.
+     */
+    private com.amazonaws.internal.ListWithAutoConstructFlag<KeyValuePair> environment;
 
     /**
      * The name of the container that receives the override.
@@ -65,9 +76,11 @@ public class ContainerOverride implements Serializable, Cloneable {
     }
 
     /**
-     * The command to send to the container that receives the override.
+     * The command to send to the container that overrides the default
+     * command from the Docker image or the task definition.
      *
-     * @return The command to send to the container that receives the override.
+     * @return The command to send to the container that overrides the default
+     *         command from the Docker image or the task definition.
      */
     public java.util.List<String> getCommand() {
         if (command == null) {
@@ -78,9 +91,11 @@ public class ContainerOverride implements Serializable, Cloneable {
     }
     
     /**
-     * The command to send to the container that receives the override.
+     * The command to send to the container that overrides the default
+     * command from the Docker image or the task definition.
      *
-     * @param command The command to send to the container that receives the override.
+     * @param command The command to send to the container that overrides the default
+     *         command from the Docker image or the task definition.
      */
     public void setCommand(java.util.Collection<String> command) {
         if (command == null) {
@@ -93,11 +108,18 @@ public class ContainerOverride implements Serializable, Cloneable {
     }
     
     /**
-     * The command to send to the container that receives the override.
+     * The command to send to the container that overrides the default
+     * command from the Docker image or the task definition.
+     * <p>
+     * <b>NOTE:</b> This method appends the values to the existing list (if
+     * any). Use {@link #setCommand(java.util.Collection)} or {@link
+     * #withCommand(java.util.Collection)} if you want to override the
+     * existing values.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *
-     * @param command The command to send to the container that receives the override.
+     * @param command The command to send to the container that overrides the default
+     *         command from the Docker image or the task definition.
      *
      * @return A reference to this updated object so that method calls can be chained
      *         together.
@@ -111,11 +133,13 @@ public class ContainerOverride implements Serializable, Cloneable {
     }
     
     /**
-     * The command to send to the container that receives the override.
+     * The command to send to the container that overrides the default
+     * command from the Docker image or the task definition.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *
-     * @param command The command to send to the container that receives the override.
+     * @param command The command to send to the container that overrides the default
+     *         command from the Docker image or the task definition.
      *
      * @return A reference to this updated object so that method calls can be chained
      *         together.
@@ -127,6 +151,103 @@ public class ContainerOverride implements Serializable, Cloneable {
             com.amazonaws.internal.ListWithAutoConstructFlag<String> commandCopy = new com.amazonaws.internal.ListWithAutoConstructFlag<String>(command.size());
             commandCopy.addAll(command);
             this.command = commandCopy;
+        }
+
+        return this;
+    }
+
+    /**
+     * The environment variables to send to the container. You can add new
+     * environment variables, which are added to the container at launch, or
+     * you can override the existing environment variables from the Docker
+     * image or the task definition.
+     *
+     * @return The environment variables to send to the container. You can add new
+     *         environment variables, which are added to the container at launch, or
+     *         you can override the existing environment variables from the Docker
+     *         image or the task definition.
+     */
+    public java.util.List<KeyValuePair> getEnvironment() {
+        if (environment == null) {
+              environment = new com.amazonaws.internal.ListWithAutoConstructFlag<KeyValuePair>();
+              environment.setAutoConstruct(true);
+        }
+        return environment;
+    }
+    
+    /**
+     * The environment variables to send to the container. You can add new
+     * environment variables, which are added to the container at launch, or
+     * you can override the existing environment variables from the Docker
+     * image or the task definition.
+     *
+     * @param environment The environment variables to send to the container. You can add new
+     *         environment variables, which are added to the container at launch, or
+     *         you can override the existing environment variables from the Docker
+     *         image or the task definition.
+     */
+    public void setEnvironment(java.util.Collection<KeyValuePair> environment) {
+        if (environment == null) {
+            this.environment = null;
+            return;
+        }
+        com.amazonaws.internal.ListWithAutoConstructFlag<KeyValuePair> environmentCopy = new com.amazonaws.internal.ListWithAutoConstructFlag<KeyValuePair>(environment.size());
+        environmentCopy.addAll(environment);
+        this.environment = environmentCopy;
+    }
+    
+    /**
+     * The environment variables to send to the container. You can add new
+     * environment variables, which are added to the container at launch, or
+     * you can override the existing environment variables from the Docker
+     * image or the task definition.
+     * <p>
+     * <b>NOTE:</b> This method appends the values to the existing list (if
+     * any). Use {@link #setEnvironment(java.util.Collection)} or {@link
+     * #withEnvironment(java.util.Collection)} if you want to override the
+     * existing values.
+     * <p>
+     * Returns a reference to this object so that method calls can be chained together.
+     *
+     * @param environment The environment variables to send to the container. You can add new
+     *         environment variables, which are added to the container at launch, or
+     *         you can override the existing environment variables from the Docker
+     *         image or the task definition.
+     *
+     * @return A reference to this updated object so that method calls can be chained
+     *         together.
+     */
+    public ContainerOverride withEnvironment(KeyValuePair... environment) {
+        if (getEnvironment() == null) setEnvironment(new java.util.ArrayList<KeyValuePair>(environment.length));
+        for (KeyValuePair value : environment) {
+            getEnvironment().add(value);
+        }
+        return this;
+    }
+    
+    /**
+     * The environment variables to send to the container. You can add new
+     * environment variables, which are added to the container at launch, or
+     * you can override the existing environment variables from the Docker
+     * image or the task definition.
+     * <p>
+     * Returns a reference to this object so that method calls can be chained together.
+     *
+     * @param environment The environment variables to send to the container. You can add new
+     *         environment variables, which are added to the container at launch, or
+     *         you can override the existing environment variables from the Docker
+     *         image or the task definition.
+     *
+     * @return A reference to this updated object so that method calls can be chained
+     *         together.
+     */
+    public ContainerOverride withEnvironment(java.util.Collection<KeyValuePair> environment) {
+        if (environment == null) {
+            this.environment = null;
+        } else {
+            com.amazonaws.internal.ListWithAutoConstructFlag<KeyValuePair> environmentCopy = new com.amazonaws.internal.ListWithAutoConstructFlag<KeyValuePair>(environment.size());
+            environmentCopy.addAll(environment);
+            this.environment = environmentCopy;
         }
 
         return this;
@@ -145,7 +266,8 @@ public class ContainerOverride implements Serializable, Cloneable {
         StringBuilder sb = new StringBuilder();
         sb.append("{");
         if (getName() != null) sb.append("Name: " + getName() + ",");
-        if (getCommand() != null) sb.append("Command: " + getCommand() );
+        if (getCommand() != null) sb.append("Command: " + getCommand() + ",");
+        if (getEnvironment() != null) sb.append("Environment: " + getEnvironment() );
         sb.append("}");
         return sb.toString();
     }
@@ -157,6 +279,7 @@ public class ContainerOverride implements Serializable, Cloneable {
         
         hashCode = prime * hashCode + ((getName() == null) ? 0 : getName().hashCode()); 
         hashCode = prime * hashCode + ((getCommand() == null) ? 0 : getCommand().hashCode()); 
+        hashCode = prime * hashCode + ((getEnvironment() == null) ? 0 : getEnvironment().hashCode()); 
         return hashCode;
     }
     
@@ -172,6 +295,8 @@ public class ContainerOverride implements Serializable, Cloneable {
         if (other.getName() != null && other.getName().equals(this.getName()) == false) return false; 
         if (other.getCommand() == null ^ this.getCommand() == null) return false;
         if (other.getCommand() != null && other.getCommand().equals(this.getCommand()) == false) return false; 
+        if (other.getEnvironment() == null ^ this.getEnvironment() == null) return false;
+        if (other.getEnvironment() != null && other.getEnvironment().equals(this.getEnvironment()) == false) return false; 
         return true;
     }
     

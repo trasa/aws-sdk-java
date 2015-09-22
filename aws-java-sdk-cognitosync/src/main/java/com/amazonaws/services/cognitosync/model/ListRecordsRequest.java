@@ -27,10 +27,9 @@ import com.amazonaws.AmazonWebServiceRequest;
  * to make this API call need to have access to the identity data.
  * </p>
  * <p>
- * <code>ListRecords</code> can be called with temporary user
- * credentials provided by Cognito Identity or with developer
- * credentials. You should use Cognito Identity credentials to make this
- * API call.
+ * ListRecords can be called with temporary user credentials provided by
+ * Cognito Identity or with developer credentials. You should use Cognito
+ * Identity credentials to make this API call.
  * </p>
  *
  * @see com.amazonaws.services.cognitosync.AmazonCognitoSync#listRecords(ListRecordsRequest)
@@ -43,7 +42,7 @@ public class ListRecordsRequest extends AmazonWebServiceRequest implements Seria
      * Cognito. GUID generation is unique within a region.
      * <p>
      * <b>Constraints:</b><br/>
-     * <b>Length: </b>1 - 50<br/>
+     * <b>Length: </b>1 - 55<br/>
      * <b>Pattern: </b>[\w-]+:[0-9a-f-]+<br/>
      */
     private String identityPoolId;
@@ -54,7 +53,7 @@ public class ListRecordsRequest extends AmazonWebServiceRequest implements Seria
      * Cognito. GUID generation is unique within a region.
      * <p>
      * <b>Constraints:</b><br/>
-     * <b>Length: </b>1 - 50<br/>
+     * <b>Length: </b>1 - 55<br/>
      * <b>Pattern: </b>[\w-]+:[0-9a-f-]+<br/>
      */
     private String identityId;
@@ -103,7 +102,7 @@ public class ListRecordsRequest extends AmazonWebServiceRequest implements Seria
      * Cognito. GUID generation is unique within a region.
      * <p>
      * <b>Constraints:</b><br/>
-     * <b>Length: </b>1 - 50<br/>
+     * <b>Length: </b>1 - 55<br/>
      * <b>Pattern: </b>[\w-]+:[0-9a-f-]+<br/>
      *
      * @return A name-spaced GUID (for example,
@@ -120,7 +119,7 @@ public class ListRecordsRequest extends AmazonWebServiceRequest implements Seria
      * Cognito. GUID generation is unique within a region.
      * <p>
      * <b>Constraints:</b><br/>
-     * <b>Length: </b>1 - 50<br/>
+     * <b>Length: </b>1 - 55<br/>
      * <b>Pattern: </b>[\w-]+:[0-9a-f-]+<br/>
      *
      * @param identityPoolId A name-spaced GUID (for example,
@@ -139,7 +138,7 @@ public class ListRecordsRequest extends AmazonWebServiceRequest implements Seria
      * Returns a reference to this object so that method calls can be chained together.
      * <p>
      * <b>Constraints:</b><br/>
-     * <b>Length: </b>1 - 50<br/>
+     * <b>Length: </b>1 - 55<br/>
      * <b>Pattern: </b>[\w-]+:[0-9a-f-]+<br/>
      *
      * @param identityPoolId A name-spaced GUID (for example,
@@ -160,7 +159,7 @@ public class ListRecordsRequest extends AmazonWebServiceRequest implements Seria
      * Cognito. GUID generation is unique within a region.
      * <p>
      * <b>Constraints:</b><br/>
-     * <b>Length: </b>1 - 50<br/>
+     * <b>Length: </b>1 - 55<br/>
      * <b>Pattern: </b>[\w-]+:[0-9a-f-]+<br/>
      *
      * @return A name-spaced GUID (for example,
@@ -177,7 +176,7 @@ public class ListRecordsRequest extends AmazonWebServiceRequest implements Seria
      * Cognito. GUID generation is unique within a region.
      * <p>
      * <b>Constraints:</b><br/>
-     * <b>Length: </b>1 - 50<br/>
+     * <b>Length: </b>1 - 55<br/>
      * <b>Pattern: </b>[\w-]+:[0-9a-f-]+<br/>
      *
      * @param identityId A name-spaced GUID (for example,
@@ -196,7 +195,7 @@ public class ListRecordsRequest extends AmazonWebServiceRequest implements Seria
      * Returns a reference to this object so that method calls can be chained together.
      * <p>
      * <b>Constraints:</b><br/>
-     * <b>Length: </b>1 - 50<br/>
+     * <b>Length: </b>1 - 55<br/>
      * <b>Pattern: </b>[\w-]+:[0-9a-f-]+<br/>
      *
      * @param identityId A name-spaced GUID (for example,

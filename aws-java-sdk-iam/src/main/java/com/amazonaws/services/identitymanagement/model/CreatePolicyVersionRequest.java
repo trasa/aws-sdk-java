@@ -36,7 +36,7 @@ import com.amazonaws.AmazonWebServiceRequest;
  * <p>
  * For more information about managed policy versions, see
  * <a href="http://docs.aws.amazon.com/IAM/latest/UserGuide/policies-managed-versions.html"> Versioning for Managed Policies </a>
- * in the <i>Using IAM</i> guide.
+ * in the <i>IAM User Guide</i> .
  * </p>
  *
  * @see com.amazonaws.services.identitymanagement.AmazonIdentityManagement#createPolicyVersion(CreatePolicyVersionRequest)
@@ -56,8 +56,7 @@ public class CreatePolicyVersionRequest extends AmazonWebServiceRequest implemen
     private String policyArn;
 
     /**
-     * The policy document. <p>The policy must be URL-encoded according to <a
-     * href="http://www.faqs.org/rfcs/rfc3986.html">RFC 3986</a>.
+     * The policy document.
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>1 - 131072<br/>
@@ -72,7 +71,7 @@ public class CreatePolicyVersionRequest extends AmazonWebServiceRequest implemen
      * for the IAM users, groups, and roles that the policy is attached to.
      * <p>For more information about managed policy versions, see <a
      * href="http://docs.aws.amazon.com/IAM/latest/UserGuide/policies-managed-versions.html">Versioning
-     * for Managed Policies</a> in the <i>Using IAM</i> guide.
+     * for Managed Policies</a> in the <i>IAM User Guide</i>.
      */
     private Boolean setAsDefault;
 
@@ -143,38 +142,33 @@ public class CreatePolicyVersionRequest extends AmazonWebServiceRequest implemen
     }
 
     /**
-     * The policy document. <p>The policy must be URL-encoded according to <a
-     * href="http://www.faqs.org/rfcs/rfc3986.html">RFC 3986</a>.
+     * The policy document.
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>1 - 131072<br/>
      * <b>Pattern: </b>[&#92;u0009&#92;u000A&#92;u000D&#92;u0020-&#92;u00FF]+<br/>
      *
-     * @return The policy document. <p>The policy must be URL-encoded according to <a
-     *         href="http://www.faqs.org/rfcs/rfc3986.html">RFC 3986</a>.
+     * @return The policy document.
      */
     public String getPolicyDocument() {
         return policyDocument;
     }
     
     /**
-     * The policy document. <p>The policy must be URL-encoded according to <a
-     * href="http://www.faqs.org/rfcs/rfc3986.html">RFC 3986</a>.
+     * The policy document.
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>1 - 131072<br/>
      * <b>Pattern: </b>[&#92;u0009&#92;u000A&#92;u000D&#92;u0020-&#92;u00FF]+<br/>
      *
-     * @param policyDocument The policy document. <p>The policy must be URL-encoded according to <a
-     *         href="http://www.faqs.org/rfcs/rfc3986.html">RFC 3986</a>.
+     * @param policyDocument The policy document.
      */
     public void setPolicyDocument(String policyDocument) {
         this.policyDocument = policyDocument;
     }
     
     /**
-     * The policy document. <p>The policy must be URL-encoded according to <a
-     * href="http://www.faqs.org/rfcs/rfc3986.html">RFC 3986</a>.
+     * The policy document.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      * <p>
@@ -182,8 +176,7 @@ public class CreatePolicyVersionRequest extends AmazonWebServiceRequest implemen
      * <b>Length: </b>1 - 131072<br/>
      * <b>Pattern: </b>[&#92;u0009&#92;u000A&#92;u000D&#92;u0020-&#92;u00FF]+<br/>
      *
-     * @param policyDocument The policy document. <p>The policy must be URL-encoded according to <a
-     *         href="http://www.faqs.org/rfcs/rfc3986.html">RFC 3986</a>.
+     * @param policyDocument The policy document.
      *
      * @return A reference to this updated object so that method calls can be chained
      *         together.
@@ -200,7 +193,7 @@ public class CreatePolicyVersionRequest extends AmazonWebServiceRequest implemen
      * for the IAM users, groups, and roles that the policy is attached to.
      * <p>For more information about managed policy versions, see <a
      * href="http://docs.aws.amazon.com/IAM/latest/UserGuide/policies-managed-versions.html">Versioning
-     * for Managed Policies</a> in the <i>Using IAM</i> guide.
+     * for Managed Policies</a> in the <i>IAM User Guide</i>.
      *
      * @return Specifies whether to set this version as the policy's default version.
      *         <p>When this parameter is <code>true</code>, the new policy version
@@ -208,7 +201,7 @@ public class CreatePolicyVersionRequest extends AmazonWebServiceRequest implemen
      *         for the IAM users, groups, and roles that the policy is attached to.
      *         <p>For more information about managed policy versions, see <a
      *         href="http://docs.aws.amazon.com/IAM/latest/UserGuide/policies-managed-versions.html">Versioning
-     *         for Managed Policies</a> in the <i>Using IAM</i> guide.
+     *         for Managed Policies</a> in the <i>IAM User Guide</i>.
      */
     public Boolean isSetAsDefault() {
         return setAsDefault;
@@ -221,7 +214,7 @@ public class CreatePolicyVersionRequest extends AmazonWebServiceRequest implemen
      * for the IAM users, groups, and roles that the policy is attached to.
      * <p>For more information about managed policy versions, see <a
      * href="http://docs.aws.amazon.com/IAM/latest/UserGuide/policies-managed-versions.html">Versioning
-     * for Managed Policies</a> in the <i>Using IAM</i> guide.
+     * for Managed Policies</a> in the <i>IAM User Guide</i>.
      *
      * @param setAsDefault Specifies whether to set this version as the policy's default version.
      *         <p>When this parameter is <code>true</code>, the new policy version
@@ -229,7 +222,7 @@ public class CreatePolicyVersionRequest extends AmazonWebServiceRequest implemen
      *         for the IAM users, groups, and roles that the policy is attached to.
      *         <p>For more information about managed policy versions, see <a
      *         href="http://docs.aws.amazon.com/IAM/latest/UserGuide/policies-managed-versions.html">Versioning
-     *         for Managed Policies</a> in the <i>Using IAM</i> guide.
+     *         for Managed Policies</a> in the <i>IAM User Guide</i>.
      */
     public void setSetAsDefault(Boolean setAsDefault) {
         this.setAsDefault = setAsDefault;
@@ -242,7 +235,7 @@ public class CreatePolicyVersionRequest extends AmazonWebServiceRequest implemen
      * for the IAM users, groups, and roles that the policy is attached to.
      * <p>For more information about managed policy versions, see <a
      * href="http://docs.aws.amazon.com/IAM/latest/UserGuide/policies-managed-versions.html">Versioning
-     * for Managed Policies</a> in the <i>Using IAM</i> guide.
+     * for Managed Policies</a> in the <i>IAM User Guide</i>.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *
@@ -252,7 +245,7 @@ public class CreatePolicyVersionRequest extends AmazonWebServiceRequest implemen
      *         for the IAM users, groups, and roles that the policy is attached to.
      *         <p>For more information about managed policy versions, see <a
      *         href="http://docs.aws.amazon.com/IAM/latest/UserGuide/policies-managed-versions.html">Versioning
-     *         for Managed Policies</a> in the <i>Using IAM</i> guide.
+     *         for Managed Policies</a> in the <i>IAM User Guide</i>.
      *
      * @return A reference to this updated object so that method calls can be chained
      *         together.
@@ -269,7 +262,7 @@ public class CreatePolicyVersionRequest extends AmazonWebServiceRequest implemen
      * for the IAM users, groups, and roles that the policy is attached to.
      * <p>For more information about managed policy versions, see <a
      * href="http://docs.aws.amazon.com/IAM/latest/UserGuide/policies-managed-versions.html">Versioning
-     * for Managed Policies</a> in the <i>Using IAM</i> guide.
+     * for Managed Policies</a> in the <i>IAM User Guide</i>.
      *
      * @return Specifies whether to set this version as the policy's default version.
      *         <p>When this parameter is <code>true</code>, the new policy version
@@ -277,7 +270,7 @@ public class CreatePolicyVersionRequest extends AmazonWebServiceRequest implemen
      *         for the IAM users, groups, and roles that the policy is attached to.
      *         <p>For more information about managed policy versions, see <a
      *         href="http://docs.aws.amazon.com/IAM/latest/UserGuide/policies-managed-versions.html">Versioning
-     *         for Managed Policies</a> in the <i>Using IAM</i> guide.
+     *         for Managed Policies</a> in the <i>IAM User Guide</i>.
      */
     public Boolean getSetAsDefault() {
         return setAsDefault;

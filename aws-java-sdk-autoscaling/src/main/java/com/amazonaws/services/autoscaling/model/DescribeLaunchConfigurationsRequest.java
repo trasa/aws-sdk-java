@@ -24,12 +24,6 @@ import com.amazonaws.AmazonWebServiceRequest;
  * Describes one or more launch configurations. If you omit the list of
  * names, then the call describes all launch configurations.
  * </p>
- * <p>
- * You can specify a maximum number of items to be returned with a single
- * call. If there are more items to return, the call returns a token. To
- * get the next set of items, repeat the call with the returned token in
- * the <code>NextToken</code> parameter.
- * </p>
  *
  * @see com.amazonaws.services.autoscaling.AmazonAutoScaling#describeLaunchConfigurations(DescribeLaunchConfigurationsRequest)
  */
@@ -85,6 +79,11 @@ public class DescribeLaunchConfigurationsRequest extends AmazonWebServiceRequest
     
     /**
      * The launch configuration names.
+     * <p>
+     * <b>NOTE:</b> This method appends the values to the existing list (if
+     * any). Use {@link #setLaunchConfigurationNames(java.util.Collection)}
+     * or {@link #withLaunchConfigurationNames(java.util.Collection)} if you
+     * want to override the existing values.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *

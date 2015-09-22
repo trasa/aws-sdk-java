@@ -1,5 +1,5 @@
 /*
- * Copyright 2012 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2012-2015 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not
  * use this file except in compliance with the License. A copy of the License is
@@ -42,6 +42,7 @@ import com.amazonaws.services.simpleworkflow.flow.generic.StartChildWorkflowRepl
 import com.amazonaws.services.simpleworkflow.flow.generic.WorkflowDefinition;
 import com.amazonaws.services.simpleworkflow.flow.generic.WorkflowDefinitionFactory;
 import com.amazonaws.services.simpleworkflow.flow.generic.WorkflowDefinitionFactoryFactory;
+import com.amazonaws.services.simpleworkflow.flow.worker.LambdaFunctionClient;
 import com.amazonaws.services.simpleworkflow.model.StartChildWorkflowExecutionFailedCause;
 import com.amazonaws.services.simpleworkflow.model.UnknownResourceException;
 import com.amazonaws.services.simpleworkflow.model.WorkflowExecution;
@@ -231,6 +232,7 @@ public class TestGenericWorkflowClient implements GenericWorkflowClient {
 
             final GenericActivityClient activityClient = parentDecisionContext.getActivityClient();
             final WorkflowClock workflowClock = parentDecisionContext.getWorkflowClock();
+            final LambdaFunctionClient lambdaFunctionClient = parentDecisionContext.getLambdaFunctionClient();
             WorkflowDefinitionFactory factory;
             if (factoryFactory == null) {
                 throw new IllegalStateException("required property factoryFactory is null");
@@ -247,7 +249,7 @@ public class TestGenericWorkflowClient implements GenericWorkflowClient {
             workflowContext.setTagList(parameters.getTagList());
             workflowContext.setTaskList(parameters.getTaskList());
             DecisionContext context = new TestDecisionContext(activityClient, TestGenericWorkflowClient.this, workflowClock,
-                    workflowContext);
+                    workflowContext, lambdaFunctionClient);
             //this, parameters, childExecution, workflowClock, activityClient);
             final WorkflowDefinition childWorkflowDefinition = factory.getWorkflowDefinition(context);
             final ChildWorkflowTryCatchFinally tryCatch = new ChildWorkflowTryCatchFinally(parameters, childExecution,

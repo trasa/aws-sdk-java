@@ -177,6 +177,14 @@ public class DBInstanceStaxUnmarshaller implements Unmarshaller<DBInstance, Stax
                     dBInstance.setTdeCredentialArn(StringStaxUnmarshaller.getInstance().unmarshall(context));
                     continue;
                 }
+                if (context.testExpression("DbInstancePort", targetDepth)) {
+                    dBInstance.setDbInstancePort(IntegerStaxUnmarshaller.getInstance().unmarshall(context));
+                    continue;
+                }
+                if (context.testExpression("DBClusterIdentifier", targetDepth)) {
+                    dBInstance.setDBClusterIdentifier(StringStaxUnmarshaller.getInstance().unmarshall(context));
+                    continue;
+                }
                 if (context.testExpression("StorageEncrypted", targetDepth)) {
                     dBInstance.setStorageEncrypted(BooleanStaxUnmarshaller.getInstance().unmarshall(context));
                     continue;
@@ -187,6 +195,10 @@ public class DBInstanceStaxUnmarshaller implements Unmarshaller<DBInstance, Stax
                 }
                 if (context.testExpression("DbiResourceId", targetDepth)) {
                     dBInstance.setDbiResourceId(StringStaxUnmarshaller.getInstance().unmarshall(context));
+                    continue;
+                }
+                if (context.testExpression("CACertificateIdentifier", targetDepth)) {
+                    dBInstance.setCACertificateIdentifier(StringStaxUnmarshaller.getInstance().unmarshall(context));
                     continue;
                 }
             } else if (xmlEvent.isEndElement()) {

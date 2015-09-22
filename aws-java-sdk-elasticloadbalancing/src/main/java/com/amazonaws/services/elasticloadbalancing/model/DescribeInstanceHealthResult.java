@@ -17,21 +17,19 @@ package com.amazonaws.services.elasticloadbalancing.model;
 import java.io.Serializable;
 
 /**
- * <p>
- * The output for the DescribeInstanceHealth action.
- * </p>
+ * 
  */
 public class DescribeInstanceHealthResult implements Serializable, Cloneable {
 
     /**
-     * A list containing health information for the specified instances.
+     * Information about the health of the instances.
      */
     private com.amazonaws.internal.ListWithAutoConstructFlag<InstanceState> instanceStates;
 
     /**
-     * A list containing health information for the specified instances.
+     * Information about the health of the instances.
      *
-     * @return A list containing health information for the specified instances.
+     * @return Information about the health of the instances.
      */
     public java.util.List<InstanceState> getInstanceStates() {
         if (instanceStates == null) {
@@ -42,9 +40,9 @@ public class DescribeInstanceHealthResult implements Serializable, Cloneable {
     }
     
     /**
-     * A list containing health information for the specified instances.
+     * Information about the health of the instances.
      *
-     * @param instanceStates A list containing health information for the specified instances.
+     * @param instanceStates Information about the health of the instances.
      */
     public void setInstanceStates(java.util.Collection<InstanceState> instanceStates) {
         if (instanceStates == null) {
@@ -57,11 +55,16 @@ public class DescribeInstanceHealthResult implements Serializable, Cloneable {
     }
     
     /**
-     * A list containing health information for the specified instances.
+     * Information about the health of the instances.
+     * <p>
+     * <b>NOTE:</b> This method appends the values to the existing list (if
+     * any). Use {@link #setInstanceStates(java.util.Collection)} or {@link
+     * #withInstanceStates(java.util.Collection)} if you want to override the
+     * existing values.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *
-     * @param instanceStates A list containing health information for the specified instances.
+     * @param instanceStates Information about the health of the instances.
      *
      * @return A reference to this updated object so that method calls can be chained
      *         together.
@@ -75,11 +78,11 @@ public class DescribeInstanceHealthResult implements Serializable, Cloneable {
     }
     
     /**
-     * A list containing health information for the specified instances.
+     * Information about the health of the instances.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *
-     * @param instanceStates A list containing health information for the specified instances.
+     * @param instanceStates Information about the health of the instances.
      *
      * @return A reference to this updated object so that method calls can be chained
      *         together.

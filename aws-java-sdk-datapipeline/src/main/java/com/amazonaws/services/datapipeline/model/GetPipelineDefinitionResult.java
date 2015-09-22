@@ -18,30 +18,30 @@ import java.io.Serializable;
 
 /**
  * <p>
- * Contains the output from the GetPipelineDefinition action.
+ * Contains the output of GetPipelineDefinition.
  * </p>
  */
 public class GetPipelineDefinitionResult implements Serializable, Cloneable {
 
     /**
-     * An array of objects defined in the pipeline.
+     * The objects defined in the pipeline.
      */
     private com.amazonaws.internal.ListWithAutoConstructFlag<PipelineObject> pipelineObjects;
 
     /**
-     * Returns a list of parameter objects used in the pipeline definition.
+     * The parameter objects used in the pipeline definition.
      */
     private com.amazonaws.internal.ListWithAutoConstructFlag<ParameterObject> parameterObjects;
 
     /**
-     * Returns a list of parameter values used in the pipeline definition.
+     * The parameter values used in the pipeline definition.
      */
     private com.amazonaws.internal.ListWithAutoConstructFlag<ParameterValue> parameterValues;
 
     /**
-     * An array of objects defined in the pipeline.
+     * The objects defined in the pipeline.
      *
-     * @return An array of objects defined in the pipeline.
+     * @return The objects defined in the pipeline.
      */
     public java.util.List<PipelineObject> getPipelineObjects() {
         if (pipelineObjects == null) {
@@ -52,9 +52,9 @@ public class GetPipelineDefinitionResult implements Serializable, Cloneable {
     }
     
     /**
-     * An array of objects defined in the pipeline.
+     * The objects defined in the pipeline.
      *
-     * @param pipelineObjects An array of objects defined in the pipeline.
+     * @param pipelineObjects The objects defined in the pipeline.
      */
     public void setPipelineObjects(java.util.Collection<PipelineObject> pipelineObjects) {
         if (pipelineObjects == null) {
@@ -67,11 +67,16 @@ public class GetPipelineDefinitionResult implements Serializable, Cloneable {
     }
     
     /**
-     * An array of objects defined in the pipeline.
+     * The objects defined in the pipeline.
+     * <p>
+     * <b>NOTE:</b> This method appends the values to the existing list (if
+     * any). Use {@link #setPipelineObjects(java.util.Collection)} or {@link
+     * #withPipelineObjects(java.util.Collection)} if you want to override
+     * the existing values.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *
-     * @param pipelineObjects An array of objects defined in the pipeline.
+     * @param pipelineObjects The objects defined in the pipeline.
      *
      * @return A reference to this updated object so that method calls can be chained
      *         together.
@@ -85,11 +90,11 @@ public class GetPipelineDefinitionResult implements Serializable, Cloneable {
     }
     
     /**
-     * An array of objects defined in the pipeline.
+     * The objects defined in the pipeline.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *
-     * @param pipelineObjects An array of objects defined in the pipeline.
+     * @param pipelineObjects The objects defined in the pipeline.
      *
      * @return A reference to this updated object so that method calls can be chained
      *         together.
@@ -107,9 +112,9 @@ public class GetPipelineDefinitionResult implements Serializable, Cloneable {
     }
 
     /**
-     * Returns a list of parameter objects used in the pipeline definition.
+     * The parameter objects used in the pipeline definition.
      *
-     * @return Returns a list of parameter objects used in the pipeline definition.
+     * @return The parameter objects used in the pipeline definition.
      */
     public java.util.List<ParameterObject> getParameterObjects() {
         if (parameterObjects == null) {
@@ -120,9 +125,9 @@ public class GetPipelineDefinitionResult implements Serializable, Cloneable {
     }
     
     /**
-     * Returns a list of parameter objects used in the pipeline definition.
+     * The parameter objects used in the pipeline definition.
      *
-     * @param parameterObjects Returns a list of parameter objects used in the pipeline definition.
+     * @param parameterObjects The parameter objects used in the pipeline definition.
      */
     public void setParameterObjects(java.util.Collection<ParameterObject> parameterObjects) {
         if (parameterObjects == null) {
@@ -135,11 +140,16 @@ public class GetPipelineDefinitionResult implements Serializable, Cloneable {
     }
     
     /**
-     * Returns a list of parameter objects used in the pipeline definition.
+     * The parameter objects used in the pipeline definition.
+     * <p>
+     * <b>NOTE:</b> This method appends the values to the existing list (if
+     * any). Use {@link #setParameterObjects(java.util.Collection)} or {@link
+     * #withParameterObjects(java.util.Collection)} if you want to override
+     * the existing values.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *
-     * @param parameterObjects Returns a list of parameter objects used in the pipeline definition.
+     * @param parameterObjects The parameter objects used in the pipeline definition.
      *
      * @return A reference to this updated object so that method calls can be chained
      *         together.
@@ -153,11 +163,11 @@ public class GetPipelineDefinitionResult implements Serializable, Cloneable {
     }
     
     /**
-     * Returns a list of parameter objects used in the pipeline definition.
+     * The parameter objects used in the pipeline definition.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *
-     * @param parameterObjects Returns a list of parameter objects used in the pipeline definition.
+     * @param parameterObjects The parameter objects used in the pipeline definition.
      *
      * @return A reference to this updated object so that method calls can be chained
      *         together.
@@ -175,9 +185,9 @@ public class GetPipelineDefinitionResult implements Serializable, Cloneable {
     }
 
     /**
-     * Returns a list of parameter values used in the pipeline definition.
+     * The parameter values used in the pipeline definition.
      *
-     * @return Returns a list of parameter values used in the pipeline definition.
+     * @return The parameter values used in the pipeline definition.
      */
     public java.util.List<ParameterValue> getParameterValues() {
         if (parameterValues == null) {
@@ -188,9 +198,9 @@ public class GetPipelineDefinitionResult implements Serializable, Cloneable {
     }
     
     /**
-     * Returns a list of parameter values used in the pipeline definition.
+     * The parameter values used in the pipeline definition.
      *
-     * @param parameterValues Returns a list of parameter values used in the pipeline definition.
+     * @param parameterValues The parameter values used in the pipeline definition.
      */
     public void setParameterValues(java.util.Collection<ParameterValue> parameterValues) {
         if (parameterValues == null) {
@@ -203,11 +213,16 @@ public class GetPipelineDefinitionResult implements Serializable, Cloneable {
     }
     
     /**
-     * Returns a list of parameter values used in the pipeline definition.
+     * The parameter values used in the pipeline definition.
+     * <p>
+     * <b>NOTE:</b> This method appends the values to the existing list (if
+     * any). Use {@link #setParameterValues(java.util.Collection)} or {@link
+     * #withParameterValues(java.util.Collection)} if you want to override
+     * the existing values.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *
-     * @param parameterValues Returns a list of parameter values used in the pipeline definition.
+     * @param parameterValues The parameter values used in the pipeline definition.
      *
      * @return A reference to this updated object so that method calls can be chained
      *         together.
@@ -221,11 +236,11 @@ public class GetPipelineDefinitionResult implements Serializable, Cloneable {
     }
     
     /**
-     * Returns a list of parameter values used in the pipeline definition.
+     * The parameter values used in the pipeline definition.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *
-     * @param parameterValues Returns a list of parameter values used in the pipeline definition.
+     * @param parameterValues The parameter values used in the pipeline definition.
      *
      * @return A reference to this updated object so that method calls can be chained
      *         together.

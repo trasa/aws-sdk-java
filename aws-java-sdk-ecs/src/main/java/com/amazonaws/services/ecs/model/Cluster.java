@@ -24,10 +24,6 @@ import java.io.Serializable;
  * other clusters. Clusters may contain more than one instance type
  * simultaneously.
  * </p>
- * <p>
- * <b>IMPORTANT:</b> During the preview, each account is limited to two
- * clusters.
- * </p>
  */
 public class Cluster implements Serializable, Cloneable {
 
@@ -53,6 +49,30 @@ public class Cluster implements Serializable, Cloneable {
      * instances can accept tasks.
      */
     private String status;
+
+    /**
+     * The number of container instances registered into the cluster.
+     */
+    private Integer registeredContainerInstancesCount;
+
+    /**
+     * The number of tasks in the cluster that are in the
+     * <code>RUNNING</code> state.
+     */
+    private Integer runningTasksCount;
+
+    /**
+     * The number of tasks in the cluster that are in the
+     * <code>PENDING</code> state.
+     */
+    private Integer pendingTasksCount;
+
+    /**
+     * The number of services that are running on the cluster in an
+     * <code>ACTIVE</code> state. You can view these services with
+     * <a>ListServices</a>.
+     */
+    private Integer activeServicesCount;
 
     /**
      * The Amazon Resource Name (ARN) that identifies the cluster. The ARN
@@ -202,6 +222,162 @@ public class Cluster implements Serializable, Cloneable {
     }
 
     /**
+     * The number of container instances registered into the cluster.
+     *
+     * @return The number of container instances registered into the cluster.
+     */
+    public Integer getRegisteredContainerInstancesCount() {
+        return registeredContainerInstancesCount;
+    }
+    
+    /**
+     * The number of container instances registered into the cluster.
+     *
+     * @param registeredContainerInstancesCount The number of container instances registered into the cluster.
+     */
+    public void setRegisteredContainerInstancesCount(Integer registeredContainerInstancesCount) {
+        this.registeredContainerInstancesCount = registeredContainerInstancesCount;
+    }
+    
+    /**
+     * The number of container instances registered into the cluster.
+     * <p>
+     * Returns a reference to this object so that method calls can be chained together.
+     *
+     * @param registeredContainerInstancesCount The number of container instances registered into the cluster.
+     *
+     * @return A reference to this updated object so that method calls can be chained
+     *         together.
+     */
+    public Cluster withRegisteredContainerInstancesCount(Integer registeredContainerInstancesCount) {
+        this.registeredContainerInstancesCount = registeredContainerInstancesCount;
+        return this;
+    }
+
+    /**
+     * The number of tasks in the cluster that are in the
+     * <code>RUNNING</code> state.
+     *
+     * @return The number of tasks in the cluster that are in the
+     *         <code>RUNNING</code> state.
+     */
+    public Integer getRunningTasksCount() {
+        return runningTasksCount;
+    }
+    
+    /**
+     * The number of tasks in the cluster that are in the
+     * <code>RUNNING</code> state.
+     *
+     * @param runningTasksCount The number of tasks in the cluster that are in the
+     *         <code>RUNNING</code> state.
+     */
+    public void setRunningTasksCount(Integer runningTasksCount) {
+        this.runningTasksCount = runningTasksCount;
+    }
+    
+    /**
+     * The number of tasks in the cluster that are in the
+     * <code>RUNNING</code> state.
+     * <p>
+     * Returns a reference to this object so that method calls can be chained together.
+     *
+     * @param runningTasksCount The number of tasks in the cluster that are in the
+     *         <code>RUNNING</code> state.
+     *
+     * @return A reference to this updated object so that method calls can be chained
+     *         together.
+     */
+    public Cluster withRunningTasksCount(Integer runningTasksCount) {
+        this.runningTasksCount = runningTasksCount;
+        return this;
+    }
+
+    /**
+     * The number of tasks in the cluster that are in the
+     * <code>PENDING</code> state.
+     *
+     * @return The number of tasks in the cluster that are in the
+     *         <code>PENDING</code> state.
+     */
+    public Integer getPendingTasksCount() {
+        return pendingTasksCount;
+    }
+    
+    /**
+     * The number of tasks in the cluster that are in the
+     * <code>PENDING</code> state.
+     *
+     * @param pendingTasksCount The number of tasks in the cluster that are in the
+     *         <code>PENDING</code> state.
+     */
+    public void setPendingTasksCount(Integer pendingTasksCount) {
+        this.pendingTasksCount = pendingTasksCount;
+    }
+    
+    /**
+     * The number of tasks in the cluster that are in the
+     * <code>PENDING</code> state.
+     * <p>
+     * Returns a reference to this object so that method calls can be chained together.
+     *
+     * @param pendingTasksCount The number of tasks in the cluster that are in the
+     *         <code>PENDING</code> state.
+     *
+     * @return A reference to this updated object so that method calls can be chained
+     *         together.
+     */
+    public Cluster withPendingTasksCount(Integer pendingTasksCount) {
+        this.pendingTasksCount = pendingTasksCount;
+        return this;
+    }
+
+    /**
+     * The number of services that are running on the cluster in an
+     * <code>ACTIVE</code> state. You can view these services with
+     * <a>ListServices</a>.
+     *
+     * @return The number of services that are running on the cluster in an
+     *         <code>ACTIVE</code> state. You can view these services with
+     *         <a>ListServices</a>.
+     */
+    public Integer getActiveServicesCount() {
+        return activeServicesCount;
+    }
+    
+    /**
+     * The number of services that are running on the cluster in an
+     * <code>ACTIVE</code> state. You can view these services with
+     * <a>ListServices</a>.
+     *
+     * @param activeServicesCount The number of services that are running on the cluster in an
+     *         <code>ACTIVE</code> state. You can view these services with
+     *         <a>ListServices</a>.
+     */
+    public void setActiveServicesCount(Integer activeServicesCount) {
+        this.activeServicesCount = activeServicesCount;
+    }
+    
+    /**
+     * The number of services that are running on the cluster in an
+     * <code>ACTIVE</code> state. You can view these services with
+     * <a>ListServices</a>.
+     * <p>
+     * Returns a reference to this object so that method calls can be chained together.
+     *
+     * @param activeServicesCount The number of services that are running on the cluster in an
+     *         <code>ACTIVE</code> state. You can view these services with
+     *         <a>ListServices</a>.
+     *
+     * @return A reference to this updated object so that method calls can be chained
+     *         together.
+     */
+    public Cluster withActiveServicesCount(Integer activeServicesCount) {
+        this.activeServicesCount = activeServicesCount;
+        return this;
+    }
+
+    /**
      * Returns a string representation of this object; useful for testing and
      * debugging.
      *
@@ -215,7 +391,11 @@ public class Cluster implements Serializable, Cloneable {
         sb.append("{");
         if (getClusterArn() != null) sb.append("ClusterArn: " + getClusterArn() + ",");
         if (getClusterName() != null) sb.append("ClusterName: " + getClusterName() + ",");
-        if (getStatus() != null) sb.append("Status: " + getStatus() );
+        if (getStatus() != null) sb.append("Status: " + getStatus() + ",");
+        if (getRegisteredContainerInstancesCount() != null) sb.append("RegisteredContainerInstancesCount: " + getRegisteredContainerInstancesCount() + ",");
+        if (getRunningTasksCount() != null) sb.append("RunningTasksCount: " + getRunningTasksCount() + ",");
+        if (getPendingTasksCount() != null) sb.append("PendingTasksCount: " + getPendingTasksCount() + ",");
+        if (getActiveServicesCount() != null) sb.append("ActiveServicesCount: " + getActiveServicesCount() );
         sb.append("}");
         return sb.toString();
     }
@@ -228,6 +408,10 @@ public class Cluster implements Serializable, Cloneable {
         hashCode = prime * hashCode + ((getClusterArn() == null) ? 0 : getClusterArn().hashCode()); 
         hashCode = prime * hashCode + ((getClusterName() == null) ? 0 : getClusterName().hashCode()); 
         hashCode = prime * hashCode + ((getStatus() == null) ? 0 : getStatus().hashCode()); 
+        hashCode = prime * hashCode + ((getRegisteredContainerInstancesCount() == null) ? 0 : getRegisteredContainerInstancesCount().hashCode()); 
+        hashCode = prime * hashCode + ((getRunningTasksCount() == null) ? 0 : getRunningTasksCount().hashCode()); 
+        hashCode = prime * hashCode + ((getPendingTasksCount() == null) ? 0 : getPendingTasksCount().hashCode()); 
+        hashCode = prime * hashCode + ((getActiveServicesCount() == null) ? 0 : getActiveServicesCount().hashCode()); 
         return hashCode;
     }
     
@@ -245,6 +429,14 @@ public class Cluster implements Serializable, Cloneable {
         if (other.getClusterName() != null && other.getClusterName().equals(this.getClusterName()) == false) return false; 
         if (other.getStatus() == null ^ this.getStatus() == null) return false;
         if (other.getStatus() != null && other.getStatus().equals(this.getStatus()) == false) return false; 
+        if (other.getRegisteredContainerInstancesCount() == null ^ this.getRegisteredContainerInstancesCount() == null) return false;
+        if (other.getRegisteredContainerInstancesCount() != null && other.getRegisteredContainerInstancesCount().equals(this.getRegisteredContainerInstancesCount()) == false) return false; 
+        if (other.getRunningTasksCount() == null ^ this.getRunningTasksCount() == null) return false;
+        if (other.getRunningTasksCount() != null && other.getRunningTasksCount().equals(this.getRunningTasksCount()) == false) return false; 
+        if (other.getPendingTasksCount() == null ^ this.getPendingTasksCount() == null) return false;
+        if (other.getPendingTasksCount() != null && other.getPendingTasksCount().equals(this.getPendingTasksCount()) == false) return false; 
+        if (other.getActiveServicesCount() == null ^ this.getActiveServicesCount() == null) return false;
+        if (other.getActiveServicesCount() != null && other.getActiveServicesCount().equals(this.getActiveServicesCount()) == false) return false; 
         return true;
     }
     

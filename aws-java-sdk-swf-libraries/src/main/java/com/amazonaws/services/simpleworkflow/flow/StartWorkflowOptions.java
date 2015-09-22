@@ -1,5 +1,5 @@
 /*
- * Copyright 2012 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2012-2015 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License.
@@ -29,7 +29,9 @@ public class StartWorkflowOptions {
     private String taskList;
 	
     private Integer taskPriority;
-    
+
+    private String lambdaRole;
+
     private ChildPolicy childPolicy;
     
     public ChildPolicy getChildPolicy() {
@@ -104,4 +106,17 @@ public class StartWorkflowOptions {
     	this.taskPriority = taskPriority;
     	return this;
     }
+
+	public String getLambdaRole() {
+		return lambdaRole;
+	}
+
+	public void setLambdaRole(String lambdaRole) {
+		this.lambdaRole = lambdaRole;
+	}
+
+	public StartWorkflowOptions withLambdaRole(String lambdaRole) {
+		this.lambdaRole = lambdaRole;
+		return this;
+	}
 }

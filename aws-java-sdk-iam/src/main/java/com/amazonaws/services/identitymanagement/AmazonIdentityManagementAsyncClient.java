@@ -35,15 +35,15 @@ import com.amazonaws.services.identitymanagement.model.*;
  * process the result and handle the exceptions in the worker thread by providing a callback handler
  * when making the call, or use the returned Future object to check the result of the call in the calling thread.
  * AWS Identity and Access Management <p>
- * AWS Identity and Access Management (IAM) is a web service that you
- * can use to manage users and user permissions under your AWS account.
- * This guide provides descriptions of IAM actions that you can call
+ * AWS Identity and Access Management (IAM) is a web service that you can
+ * use to manage users and user permissions under your AWS account. This
+ * guide provides descriptions of IAM actions that you can call
  * programmatically. For general information about IAM, see
  * <a href="http://aws.amazon.com/iam/"> AWS Identity and Access Management (IAM) </a> . For the user guide for IAM, see <a href="http://docs.aws.amazon.com/IAM/latest/UserGuide/"> Using IAM </a>
  * .
  * </p>
  * <p>
- * <b>NOTE:</b> AWS provides SDKs that consist of libraries and sample
+ * <b>NOTE:</b>AWS provides SDKs that consist of libraries and sample
  * code for various programming languages and platforms (Java, Ruby,
  * .NET, iOS, Android, etc.). The SDKs provide a convenient way to create
  * programmatic access to IAM and AWS. For example, the SDKs take care of
@@ -84,19 +84,6 @@ import com.amazonaws.services.identitymanagement.model.*;
  * operations that require version 4 indicate this requirement.
  * </p>
  * <p>
- * <b>Recording API requests</b>
- * </p>
- * <p>
- * IAM supports AWS CloudTrail, which is a service that records AWS
- * calls for your AWS account and delivers log files to an Amazon S3
- * bucket. By using information collected by CloudTrail, you can
- * determine what requests were successfully made to IAM, who made the
- * request, when it was made, and so on. To learn more about CloudTrail,
- * including how to turn it on and find your log files, see the
- * <a href="http://docs.aws.amazon.com/awscloudtrail/latest/userguide/whatisawscloudtrail.html"> AWS CloudTrail User Guide </a>
- * .
- * </p>
- * <p>
  * <b>Additional Resources</b>
  * </p>
  * <p>
@@ -113,10 +100,6 @@ import com.amazonaws.services.identitymanagement.model.*;
  * . This topic presents a list of suggestions for using the IAM service
  * to help secure your AWS resources. </li>
  * <li>
- * <a href="http://docs.aws.amazon.com/STS/latest/UsingSTS/"> AWS Security Token Service </a>
- * . This guide describes how to create and use temporary security
- * credentials. </li>
- * <li>
  * <a href="http://docs.aws.amazon.com/general/latest/gr/signing_aws_api_requests.html"> Signing AWS API Requests </a>
  * . This set of topics walk you through the process of signing a
  * request using an access key ID and secret access key. </li>
@@ -129,7 +112,7 @@ public class AmazonIdentityManagementAsyncClient extends AmazonIdentityManagemen
     /**
      * Executor service for executing asynchronous requests.
      */
-    private ExecutorService executorService;
+    private final ExecutorService executorService;
 
     private static final int DEFAULT_THREAD_POOL_SIZE = 50;
 
@@ -360,7 +343,7 @@ public class AmazonIdentityManagementAsyncClient extends AmazonIdentityManagemen
      * Deletes the specified AWS account alias. For information about using
      * an AWS account alias, see
      * <a href="http://docs.aws.amazon.com/IAM/latest/UserGuide/AccountAlias.html"> Using an Alias for Your AWS Account ID </a>
-     * in the <i>Using IAM</i> guide.
+     * in the <i>IAM User Guide</i> .
      * </p>
      *
      * @param deleteAccountAliasRequest Container for the necessary
@@ -395,7 +378,7 @@ public class AmazonIdentityManagementAsyncClient extends AmazonIdentityManagemen
      * Deletes the specified AWS account alias. For information about using
      * an AWS account alias, see
      * <a href="http://docs.aws.amazon.com/IAM/latest/UserGuide/AccountAlias.html"> Using an Alias for Your AWS Account ID </a>
-     * in the <i>Using IAM</i> guide.
+     * in the <i>IAM User Guide</i> .
      * </p>
      *
      * @param deleteAccountAliasRequest Container for the necessary
@@ -614,13 +597,13 @@ public class AmazonIdentityManagementAsyncClient extends AmazonIdentityManagemen
      * managed policy, use CreatePolicy. For information about policies,
      * refer to
      * <a href="http://docs.aws.amazon.com/IAM/latest/UserGuide/policies-managed-vs-inline.html"> Managed Policies and Inline Policies </a>
-     * in the <i>Using IAM</i> guide.
+     * in the <i>IAM User Guide</i> .
      * </p>
      * <p>
      * For information about limits on the number of inline policies that
      * you can embed in a user, see
      * <a href="http://docs.aws.amazon.com/IAM/latest/UserGuide/LimitationsOnEntities.html"> Limitations on IAM Entities </a>
-     * in the <i>Using IAM</i> guide.
+     * in the <i>IAM User Guide</i> .
      * </p>
      * <p>
      * <b>NOTE:</b>Because policy documents can be large, you should use
@@ -665,13 +648,13 @@ public class AmazonIdentityManagementAsyncClient extends AmazonIdentityManagemen
      * managed policy, use CreatePolicy. For information about policies,
      * refer to
      * <a href="http://docs.aws.amazon.com/IAM/latest/UserGuide/policies-managed-vs-inline.html"> Managed Policies and Inline Policies </a>
-     * in the <i>Using IAM</i> guide.
+     * in the <i>IAM User Guide</i> .
      * </p>
      * <p>
      * For information about limits on the number of inline policies that
      * you can embed in a user, see
      * <a href="http://docs.aws.amazon.com/IAM/latest/UserGuide/LimitationsOnEntities.html"> Limitations on IAM Entities </a>
-     * in the <i>Using IAM</i> guide.
+     * in the <i>IAM User Guide</i> .
      * </p>
      * <p>
      * <b>NOTE:</b>Because policy documents can be large, you should use
@@ -713,6 +696,112 @@ public class AmazonIdentityManagementAsyncClient extends AmazonIdentityManagemen
               }
               asyncHandler.onSuccess(putUserPolicyRequest, null);
                  return null;
+        }
+    });
+    }
+    
+    /**
+     * <p>
+     * Returns information about the SSH public keys associated with the
+     * specified IAM user. If there are none, the action returns an empty
+     * list.
+     * </p>
+     * <p>
+     * The SSH public keys returned by this action are used only for
+     * authenticating the IAM user to an AWS CodeCommit repository. For more
+     * information about using SSH keys to authenticate to an AWS CodeCommit
+     * repository, see
+     * <a href="http://docs.aws.amazon.com/codecommit/latest/userguide/setting-up-credentials-ssh.html"> Set up AWS CodeCommit for SSH Connections </a>
+     * in the <i>AWS CodeCommit User Guide</i> .
+     * </p>
+     * <p>
+     * Although each user is limited to a small number of keys, you can
+     * still paginate the results using the <code>MaxItems</code> and
+     * <code>Marker</code> parameters.
+     * </p>
+     *
+     * @param listSSHPublicKeysRequest Container for the necessary parameters
+     *           to execute the ListSSHPublicKeys operation on
+     *           AmazonIdentityManagement.
+     * 
+     * @return A Java Future object containing the response from the
+     *         ListSSHPublicKeys service method, as returned by
+     *         AmazonIdentityManagement.
+     * 
+     *
+     * @throws AmazonClientException
+     *             If any internal errors are encountered inside the client while
+     *             attempting to make the request or handle the response.  For example
+     *             if a network connection is not available.
+     * @throws AmazonServiceException
+     *             If an error response is returned by AmazonIdentityManagement indicating
+     *             either a problem with the data in the request, or a server side issue.
+     */
+    public Future<ListSSHPublicKeysResult> listSSHPublicKeysAsync(final ListSSHPublicKeysRequest listSSHPublicKeysRequest) 
+            throws AmazonServiceException, AmazonClientException {
+        return executorService.submit(new Callable<ListSSHPublicKeysResult>() {
+            public ListSSHPublicKeysResult call() throws Exception {
+                return listSSHPublicKeys(listSSHPublicKeysRequest);
+        }
+    });
+    }
+
+    /**
+     * <p>
+     * Returns information about the SSH public keys associated with the
+     * specified IAM user. If there are none, the action returns an empty
+     * list.
+     * </p>
+     * <p>
+     * The SSH public keys returned by this action are used only for
+     * authenticating the IAM user to an AWS CodeCommit repository. For more
+     * information about using SSH keys to authenticate to an AWS CodeCommit
+     * repository, see
+     * <a href="http://docs.aws.amazon.com/codecommit/latest/userguide/setting-up-credentials-ssh.html"> Set up AWS CodeCommit for SSH Connections </a>
+     * in the <i>AWS CodeCommit User Guide</i> .
+     * </p>
+     * <p>
+     * Although each user is limited to a small number of keys, you can
+     * still paginate the results using the <code>MaxItems</code> and
+     * <code>Marker</code> parameters.
+     * </p>
+     *
+     * @param listSSHPublicKeysRequest Container for the necessary parameters
+     *           to execute the ListSSHPublicKeys operation on
+     *           AmazonIdentityManagement.
+     * @param asyncHandler Asynchronous callback handler for events in the
+     *           life-cycle of the request. Users could provide the implementation of
+     *           the four callback methods in this interface to process the operation
+     *           result or handle the exception.
+     * 
+     * @return A Java Future object containing the response from the
+     *         ListSSHPublicKeys service method, as returned by
+     *         AmazonIdentityManagement.
+     * 
+     *
+     * @throws AmazonClientException
+     *             If any internal errors are encountered inside the client while
+     *             attempting to make the request or handle the response.  For example
+     *             if a network connection is not available.
+     * @throws AmazonServiceException
+     *             If an error response is returned by AmazonIdentityManagement indicating
+     *             either a problem with the data in the request, or a server side issue.
+     */
+    public Future<ListSSHPublicKeysResult> listSSHPublicKeysAsync(
+            final ListSSHPublicKeysRequest listSSHPublicKeysRequest,
+            final AsyncHandler<ListSSHPublicKeysRequest, ListSSHPublicKeysResult> asyncHandler)
+                    throws AmazonServiceException, AmazonClientException {
+        return executorService.submit(new Callable<ListSSHPublicKeysResult>() {
+            public ListSSHPublicKeysResult call() throws Exception {
+              ListSSHPublicKeysResult result;
+                try {
+                result = listSSHPublicKeys(listSSHPublicKeysRequest);
+              } catch (Exception ex) {
+                  asyncHandler.onError(ex);
+            throw ex;
+              }
+              asyncHandler.onSuccess(listSSHPublicKeysRequest, result);
+                 return result;
         }
     });
     }
@@ -813,7 +902,7 @@ public class AmazonIdentityManagementAsyncClient extends AmazonIdentityManagemen
      * <p>
      * For more information about policies, refer to
      * <a href="http://docs.aws.amazon.com/IAM/latest/UserGuide/policies-managed-vs-inline.html"> Managed Policies and Inline Policies </a>
-     * in the <i>Using IAM</i> guide.
+     * in the <i>IAM User Guide</i> .
      * </p>
      *
      * @param getUserPolicyRequest Container for the necessary parameters to
@@ -854,7 +943,7 @@ public class AmazonIdentityManagementAsyncClient extends AmazonIdentityManagemen
      * <p>
      * For more information about policies, refer to
      * <a href="http://docs.aws.amazon.com/IAM/latest/UserGuide/policies-managed-vs-inline.html"> Managed Policies and Inline Policies </a>
-     * in the <i>Using IAM</i> guide.
+     * in the <i>IAM User Guide</i> .
      * </p>
      *
      * @param getUserPolicyRequest Container for the necessary parameters to
@@ -1005,11 +1094,6 @@ public class AmazonIdentityManagementAsyncClient extends AmazonIdentityManagemen
      * account, you can use this action to manage root credentials even if
      * the AWS account has no associated users.
      * </p>
-     * <p>
-     * For information about rotating certificates, see
-     * <a href="http://docs.aws.amazon.com/IAM/latest/UserGuide/ManagingCredentials.html"> Managing Keys and Certificates </a>
-     * in the <i>Using IAM</i> guide.
-     * </p>
      *
      * @param updateSigningCertificateRequest Container for the necessary
      *           parameters to execute the UpdateSigningCertificate operation on
@@ -1051,11 +1135,6 @@ public class AmazonIdentityManagementAsyncClient extends AmazonIdentityManagemen
      * request. Because this action works for access keys under the AWS
      * account, you can use this action to manage root credentials even if
      * the AWS account has no associated users.
-     * </p>
-     * <p>
-     * For information about rotating certificates, see
-     * <a href="http://docs.aws.amazon.com/IAM/latest/UserGuide/ManagingCredentials.html"> Managing Keys and Certificates </a>
-     * in the <i>Using IAM</i> guide.
      * </p>
      *
      * @param updateSigningCertificateRequest Container for the necessary
@@ -1197,7 +1276,7 @@ public class AmazonIdentityManagementAsyncClient extends AmazonIdentityManagemen
      * policy in a role, use PutRolePolicy. For more information about
      * policies, refer to
      * <a href="http://docs.aws.amazon.com/IAM/latest/UserGuide/policies-managed-vs-inline.html"> Managed Policies and Inline Policies </a>
-     * in the <i>Using IAM</i> guide.
+     * in the <i>IAM User Guide</i> .
      * </p>
      *
      * @param attachRolePolicyRequest Container for the necessary parameters
@@ -1242,7 +1321,7 @@ public class AmazonIdentityManagementAsyncClient extends AmazonIdentityManagemen
      * policy in a role, use PutRolePolicy. For more information about
      * policies, refer to
      * <a href="http://docs.aws.amazon.com/IAM/latest/UserGuide/policies-managed-vs-inline.html"> Managed Policies and Inline Policies </a>
-     * in the <i>Using IAM</i> guide.
+     * in the <i>IAM User Guide</i> .
      * </p>
      *
      * @param attachRolePolicyRequest Container for the necessary parameters
@@ -1285,10 +1364,112 @@ public class AmazonIdentityManagementAsyncClient extends AmazonIdentityManagemen
     
     /**
      * <p>
+     * Gets a list of all of the context keys referenced in
+     * <code>Condition</code> elements in the input policies. The policies
+     * are supplied as a list of one or more strings. To get the context keys
+     * from policies associated with an IAM user, group, or role, use
+     * GetContextKeysForPrincipalPolicy.
+     * </p>
+     * <p>
+     * Context keys are variables maintained by AWS and its services that
+     * provide details about the context of an API query request, and can be
+     * evaluated by using the <code>Condition</code> element of an IAM
+     * policy. Use GetContextKeysForCustomPolicy to understand what key names
+     * and values you must supply when you call SimulateCustomPolicy. Note
+     * that all parameters are shown in unencoded form here for clarity, but
+     * must be URL encoded to be included as a part of a real HTML request.
+     * </p>
+     *
+     * @param getContextKeysForCustomPolicyRequest Container for the
+     *           necessary parameters to execute the GetContextKeysForCustomPolicy
+     *           operation on AmazonIdentityManagement.
+     * 
+     * @return A Java Future object containing the response from the
+     *         GetContextKeysForCustomPolicy service method, as returned by
+     *         AmazonIdentityManagement.
+     * 
+     *
+     * @throws AmazonClientException
+     *             If any internal errors are encountered inside the client while
+     *             attempting to make the request or handle the response.  For example
+     *             if a network connection is not available.
+     * @throws AmazonServiceException
+     *             If an error response is returned by AmazonIdentityManagement indicating
+     *             either a problem with the data in the request, or a server side issue.
+     */
+    public Future<GetContextKeysForCustomPolicyResult> getContextKeysForCustomPolicyAsync(final GetContextKeysForCustomPolicyRequest getContextKeysForCustomPolicyRequest) 
+            throws AmazonServiceException, AmazonClientException {
+        return executorService.submit(new Callable<GetContextKeysForCustomPolicyResult>() {
+            public GetContextKeysForCustomPolicyResult call() throws Exception {
+                return getContextKeysForCustomPolicy(getContextKeysForCustomPolicyRequest);
+        }
+    });
+    }
+
+    /**
+     * <p>
+     * Gets a list of all of the context keys referenced in
+     * <code>Condition</code> elements in the input policies. The policies
+     * are supplied as a list of one or more strings. To get the context keys
+     * from policies associated with an IAM user, group, or role, use
+     * GetContextKeysForPrincipalPolicy.
+     * </p>
+     * <p>
+     * Context keys are variables maintained by AWS and its services that
+     * provide details about the context of an API query request, and can be
+     * evaluated by using the <code>Condition</code> element of an IAM
+     * policy. Use GetContextKeysForCustomPolicy to understand what key names
+     * and values you must supply when you call SimulateCustomPolicy. Note
+     * that all parameters are shown in unencoded form here for clarity, but
+     * must be URL encoded to be included as a part of a real HTML request.
+     * </p>
+     *
+     * @param getContextKeysForCustomPolicyRequest Container for the
+     *           necessary parameters to execute the GetContextKeysForCustomPolicy
+     *           operation on AmazonIdentityManagement.
+     * @param asyncHandler Asynchronous callback handler for events in the
+     *           life-cycle of the request. Users could provide the implementation of
+     *           the four callback methods in this interface to process the operation
+     *           result or handle the exception.
+     * 
+     * @return A Java Future object containing the response from the
+     *         GetContextKeysForCustomPolicy service method, as returned by
+     *         AmazonIdentityManagement.
+     * 
+     *
+     * @throws AmazonClientException
+     *             If any internal errors are encountered inside the client while
+     *             attempting to make the request or handle the response.  For example
+     *             if a network connection is not available.
+     * @throws AmazonServiceException
+     *             If an error response is returned by AmazonIdentityManagement indicating
+     *             either a problem with the data in the request, or a server side issue.
+     */
+    public Future<GetContextKeysForCustomPolicyResult> getContextKeysForCustomPolicyAsync(
+            final GetContextKeysForCustomPolicyRequest getContextKeysForCustomPolicyRequest,
+            final AsyncHandler<GetContextKeysForCustomPolicyRequest, GetContextKeysForCustomPolicyResult> asyncHandler)
+                    throws AmazonServiceException, AmazonClientException {
+        return executorService.submit(new Callable<GetContextKeysForCustomPolicyResult>() {
+            public GetContextKeysForCustomPolicyResult call() throws Exception {
+              GetContextKeysForCustomPolicyResult result;
+                try {
+                result = getContextKeysForCustomPolicy(getContextKeysForCustomPolicyRequest);
+              } catch (Exception ex) {
+                  asyncHandler.onError(ex);
+            throw ex;
+              }
+              asyncHandler.onSuccess(getContextKeysForCustomPolicyRequest, result);
+                 return result;
+        }
+    });
+    }
+    
+    /**
+     * <p>
      * Retrieves a credential report for the AWS account. For more
      * information about the credential report, see
      * <a href="http://docs.aws.amazon.com/IAM/latest/UserGuide/credential-reports.html"> Getting Credential Reports </a>
-     * in the <i>Using IAM</i> guide.
+     * in the <i>IAM User Guide</i> .
      * </p>
      *
      * @param getCredentialReportRequest Container for the necessary
@@ -1322,7 +1503,7 @@ public class AmazonIdentityManagementAsyncClient extends AmazonIdentityManagemen
      * Retrieves a credential report for the AWS account. For more
      * information about the credential report, see
      * <a href="http://docs.aws.amazon.com/IAM/latest/UserGuide/credential-reports.html"> Getting Credential Reports </a>
-     * in the <i>Using IAM</i> guide.
+     * in the <i>IAM User Guide</i> .
      * </p>
      *
      * @param getCredentialReportRequest Container for the necessary
@@ -1602,7 +1783,7 @@ public class AmazonIdentityManagementAsyncClient extends AmazonIdentityManagemen
      * Updates the metadata document for an existing SAML provider.
      * </p>
      * <p>
-     * <b>NOTE:</b> This operation requires Signature Version 4.
+     * <b>NOTE:</b>This operation requires Signature Version 4.
      * </p>
      *
      * @param updateSAMLProviderRequest Container for the necessary
@@ -1636,7 +1817,7 @@ public class AmazonIdentityManagementAsyncClient extends AmazonIdentityManagemen
      * Updates the metadata document for an existing SAML provider.
      * </p>
      * <p>
-     * <b>NOTE:</b> This operation requires Signature Version 4.
+     * <b>NOTE:</b>This operation requires Signature Version 4.
      * </p>
      *
      * @param updateSAMLProviderRequest Container for the necessary
@@ -1689,16 +1870,16 @@ public class AmazonIdentityManagementAsyncClient extends AmazonIdentityManagemen
      * For information about the number of server certificates you can
      * upload, see
      * <a href="http://docs.aws.amazon.com/IAM/latest/UserGuide/LimitationsOnEntities.html"> Limitations on IAM Entities </a>
-     * in the <i>Using IAM</i> guide.
+     * in the <i>IAM User Guide</i> .
      * </p>
      * <p>
-     * <b>NOTE:</b> Because the body of the public key certificate, private
+     * <b>NOTE:</b>Because the body of the public key certificate, private
      * key, and the certificate chain can be large, you should use POST
      * rather than GET when calling UploadServerCertificate. For information
      * about setting up signatures and authorization through the API, go to
      * Signing AWS API Requests in the AWS General Reference. For general
      * information about using the Query API with IAM, go to Making Query
-     * Requests in the Using IAM guide.
+     * Requests in the IAM User Guide.
      * </p>
      *
      * @param uploadServerCertificateRequest Container for the necessary
@@ -1737,16 +1918,16 @@ public class AmazonIdentityManagementAsyncClient extends AmazonIdentityManagemen
      * For information about the number of server certificates you can
      * upload, see
      * <a href="http://docs.aws.amazon.com/IAM/latest/UserGuide/LimitationsOnEntities.html"> Limitations on IAM Entities </a>
-     * in the <i>Using IAM</i> guide.
+     * in the <i>IAM User Guide</i> .
      * </p>
      * <p>
-     * <b>NOTE:</b> Because the body of the public key certificate, private
+     * <b>NOTE:</b>Because the body of the public key certificate, private
      * key, and the certificate chain can be large, you should use POST
      * rather than GET when calling UploadServerCertificate. For information
      * about setting up signatures and authorization through the API, go to
      * Signing AWS API Requests in the AWS General Reference. For general
      * information about using the Query API with IAM, go to Making Query
-     * Requests in the Using IAM guide.
+     * Requests in the IAM User Guide.
      * </p>
      *
      * @param uploadServerCertificateRequest Container for the necessary
@@ -1794,7 +1975,7 @@ public class AmazonIdentityManagementAsyncClient extends AmazonIdentityManagemen
      * Creates an alias for your AWS account. For information about using an
      * AWS account alias, see
      * <a href="http://docs.aws.amazon.com/IAM/latest/UserGuide/AccountAlias.html"> Using an Alias for Your AWS Account ID </a>
-     * in the <i>Using IAM</i> guide.
+     * in the <i>IAM User Guide</i> .
      * </p>
      *
      * @param createAccountAliasRequest Container for the necessary
@@ -1829,7 +2010,7 @@ public class AmazonIdentityManagementAsyncClient extends AmazonIdentityManagemen
      * Creates an alias for your AWS account. For information about using an
      * AWS account alias, see
      * <a href="http://docs.aws.amazon.com/IAM/latest/UserGuide/AccountAlias.html"> Using an Alias for Your AWS Account ID </a>
-     * in the <i>Using IAM</i> guide.
+     * in the <i>IAM User Guide</i> .
      * </p>
      *
      * @param createAccountAliasRequest Container for the necessary
@@ -1880,7 +2061,7 @@ public class AmazonIdentityManagementAsyncClient extends AmazonIdentityManagemen
      * inline policies for a user, use the ListUserPolicies API. For
      * information about policies, refer to
      * <a href="http://docs.aws.amazon.com/IAM/latest/UserGuide/policies-managed-vs-inline.html"> Managed Policies and Inline Policies </a>
-     * in the <i>Using IAM</i> guide.
+     * in the <i>IAM User Guide</i> .
      * </p>
      * <p>
      * You can paginate the results using the <code>MaxItems</code> and
@@ -1926,7 +2107,7 @@ public class AmazonIdentityManagementAsyncClient extends AmazonIdentityManagemen
      * inline policies for a user, use the ListUserPolicies API. For
      * information about policies, refer to
      * <a href="http://docs.aws.amazon.com/IAM/latest/UserGuide/policies-managed-vs-inline.html"> Managed Policies and Inline Policies </a>
-     * in the <i>Using IAM</i> guide.
+     * in the <i>IAM User Guide</i> .
      * </p>
      * <p>
      * You can paginate the results using the <code>MaxItems</code> and
@@ -2002,7 +2183,7 @@ public class AmazonIdentityManagementAsyncClient extends AmazonIdentityManagemen
      * <p>
      * For information about managed policies, refer to
      * <a href="http://docs.aws.amazon.com/IAM/latest/UserGuide/policies-managed-vs-inline.html"> Managed Policies and Inline Policies </a>
-     * in the <i>Using IAM</i> guide.
+     * in the <i>IAM User Guide</i> .
      * </p>
      *
      * @param deletePolicyRequest Container for the necessary parameters to
@@ -2055,7 +2236,7 @@ public class AmazonIdentityManagementAsyncClient extends AmazonIdentityManagemen
      * <p>
      * For information about managed policies, refer to
      * <a href="http://docs.aws.amazon.com/IAM/latest/UserGuide/policies-managed-vs-inline.html"> Managed Policies and Inline Policies </a>
-     * in the <i>Using IAM</i> guide.
+     * in the <i>IAM User Guide</i> .
      * </p>
      *
      * @param deletePolicyRequest Container for the necessary parameters to
@@ -2097,13 +2278,133 @@ public class AmazonIdentityManagementAsyncClient extends AmazonIdentityManagemen
     
     /**
      * <p>
+     * Simulate a set of IAM policies against a list of API actions and AWS
+     * resources to determine the policies' effective permissions. The
+     * policies are provided as a list of strings.
+     * </p>
+     * <p>
+     * The simulation does not perform the API actions, it only checks the
+     * authorization to determine if the simulated policies allow or deny the
+     * actions.
+     * </p>
+     * <p>
+     * If you want to simulate existing policies attached to an IAM user,
+     * group, or role, use SimulatePrincipalPolicy instead.
+     * </p>
+     * <p>
+     * Context keys are variables maintained by AWS and its services that
+     * provide details about the context of an API query request, and can be
+     * evaluated by using the <code>Condition</code> element of an IAM
+     * policy. To get the list of context keys required by the policies to
+     * simulate them correctly, use GetContextKeysForCustomPolicy.
+     * </p>
+     * <p>
+     * If the output is long, you can paginate the results using the
+     * <code>MaxItems</code> and <code>Marker</code> parameters.
+     * </p>
+     *
+     * @param simulateCustomPolicyRequest Container for the necessary
+     *           parameters to execute the SimulateCustomPolicy operation on
+     *           AmazonIdentityManagement.
+     * 
+     * @return A Java Future object containing the response from the
+     *         SimulateCustomPolicy service method, as returned by
+     *         AmazonIdentityManagement.
+     * 
+     *
+     * @throws AmazonClientException
+     *             If any internal errors are encountered inside the client while
+     *             attempting to make the request or handle the response.  For example
+     *             if a network connection is not available.
+     * @throws AmazonServiceException
+     *             If an error response is returned by AmazonIdentityManagement indicating
+     *             either a problem with the data in the request, or a server side issue.
+     */
+    public Future<SimulateCustomPolicyResult> simulateCustomPolicyAsync(final SimulateCustomPolicyRequest simulateCustomPolicyRequest) 
+            throws AmazonServiceException, AmazonClientException {
+        return executorService.submit(new Callable<SimulateCustomPolicyResult>() {
+            public SimulateCustomPolicyResult call() throws Exception {
+                return simulateCustomPolicy(simulateCustomPolicyRequest);
+        }
+    });
+    }
+
+    /**
+     * <p>
+     * Simulate a set of IAM policies against a list of API actions and AWS
+     * resources to determine the policies' effective permissions. The
+     * policies are provided as a list of strings.
+     * </p>
+     * <p>
+     * The simulation does not perform the API actions, it only checks the
+     * authorization to determine if the simulated policies allow or deny the
+     * actions.
+     * </p>
+     * <p>
+     * If you want to simulate existing policies attached to an IAM user,
+     * group, or role, use SimulatePrincipalPolicy instead.
+     * </p>
+     * <p>
+     * Context keys are variables maintained by AWS and its services that
+     * provide details about the context of an API query request, and can be
+     * evaluated by using the <code>Condition</code> element of an IAM
+     * policy. To get the list of context keys required by the policies to
+     * simulate them correctly, use GetContextKeysForCustomPolicy.
+     * </p>
+     * <p>
+     * If the output is long, you can paginate the results using the
+     * <code>MaxItems</code> and <code>Marker</code> parameters.
+     * </p>
+     *
+     * @param simulateCustomPolicyRequest Container for the necessary
+     *           parameters to execute the SimulateCustomPolicy operation on
+     *           AmazonIdentityManagement.
+     * @param asyncHandler Asynchronous callback handler for events in the
+     *           life-cycle of the request. Users could provide the implementation of
+     *           the four callback methods in this interface to process the operation
+     *           result or handle the exception.
+     * 
+     * @return A Java Future object containing the response from the
+     *         SimulateCustomPolicy service method, as returned by
+     *         AmazonIdentityManagement.
+     * 
+     *
+     * @throws AmazonClientException
+     *             If any internal errors are encountered inside the client while
+     *             attempting to make the request or handle the response.  For example
+     *             if a network connection is not available.
+     * @throws AmazonServiceException
+     *             If an error response is returned by AmazonIdentityManagement indicating
+     *             either a problem with the data in the request, or a server side issue.
+     */
+    public Future<SimulateCustomPolicyResult> simulateCustomPolicyAsync(
+            final SimulateCustomPolicyRequest simulateCustomPolicyRequest,
+            final AsyncHandler<SimulateCustomPolicyRequest, SimulateCustomPolicyResult> asyncHandler)
+                    throws AmazonServiceException, AmazonClientException {
+        return executorService.submit(new Callable<SimulateCustomPolicyResult>() {
+            public SimulateCustomPolicyResult call() throws Exception {
+              SimulateCustomPolicyResult result;
+                try {
+                result = simulateCustomPolicy(simulateCustomPolicyRequest);
+              } catch (Exception ex) {
+                  asyncHandler.onError(ex);
+            throw ex;
+              }
+              asyncHandler.onSuccess(simulateCustomPolicyRequest, result);
+                 return result;
+        }
+    });
+    }
+    
+    /**
+     * <p>
      * Deletes the specified role. The role must not have any policies
      * attached. For more information about roles, go to
      * <a href="http://docs.aws.amazon.com/IAM/latest/UserGuide/WorkingWithRoles.html"> Working with Roles </a>
      * .
      * </p>
      * <p>
-     * <b>IMPORTANT:</b> Make sure you do not have any Amazon EC2 instances
+     * <b>IMPORTANT:</b>Make sure you do not have any Amazon EC2 instances
      * running with the role you are about to delete. Deleting a role or
      * instance profile that is associated with a running instance will break
      * any applications running on the instance.
@@ -2142,7 +2443,7 @@ public class AmazonIdentityManagementAsyncClient extends AmazonIdentityManagemen
      * .
      * </p>
      * <p>
-     * <b>IMPORTANT:</b> Make sure you do not have any Amazon EC2 instances
+     * <b>IMPORTANT:</b>Make sure you do not have any Amazon EC2 instances
      * running with the role you are about to delete. Deleting a role or
      * instance profile that is associated with a running instance will break
      * any applications running on the instance.
@@ -2202,7 +2503,7 @@ public class AmazonIdentityManagementAsyncClient extends AmazonIdentityManagemen
      * For information about limits on the number of keys you can create,
      * see
      * <a href="http://docs.aws.amazon.com/IAM/latest/UserGuide/LimitationsOnEntities.html"> Limitations on IAM Entities </a>
-     * in the <i>Using IAM</i> guide.
+     * in the <i>IAM User Guide</i> .
      * </p>
      * <p>
      * <b>IMPORTANT:</b> To ensure the security of your AWS account, the
@@ -2254,7 +2555,7 @@ public class AmazonIdentityManagementAsyncClient extends AmazonIdentityManagemen
      * For information about limits on the number of keys you can create,
      * see
      * <a href="http://docs.aws.amazon.com/IAM/latest/UserGuide/LimitationsOnEntities.html"> Limitations on IAM Entities </a>
-     * in the <i>Using IAM</i> guide.
+     * in the <i>IAM User Guide</i> .
      * </p>
      * <p>
      * <b>IMPORTANT:</b> To ensure the security of your AWS account, the
@@ -2394,7 +2695,7 @@ public class AmazonIdentityManagementAsyncClient extends AmazonIdentityManagemen
      * inline policies for a group, use the ListGroupPolicies API. For
      * information about policies, refer to
      * <a href="http://docs.aws.amazon.com/IAM/latest/UserGuide/policies-managed-vs-inline.html"> Managed Policies and Inline Policies </a>
-     * in the <i>Using IAM</i> guide.
+     * in the <i>IAM User Guide</i> .
      * </p>
      * <p>
      * You can paginate the results using the <code>MaxItems</code> and
@@ -2440,7 +2741,7 @@ public class AmazonIdentityManagementAsyncClient extends AmazonIdentityManagemen
      * inline policies for a group, use the ListGroupPolicies API. For
      * information about policies, refer to
      * <a href="http://docs.aws.amazon.com/IAM/latest/UserGuide/policies-managed-vs-inline.html"> Managed Policies and Inline Policies </a>
-     * in the <i>Using IAM</i> guide.
+     * in the <i>IAM User Guide</i> .
      * </p>
      * <p>
      * You can paginate the results using the <code>MaxItems</code> and
@@ -2487,6 +2788,92 @@ public class AmazonIdentityManagementAsyncClient extends AmazonIdentityManagemen
               }
               asyncHandler.onSuccess(listAttachedGroupPoliciesRequest, result);
                  return result;
+        }
+    });
+    }
+    
+    /**
+     * <p>
+     * Synchronizes the specified MFA device with AWS servers.
+     * </p>
+     * <p>
+     * For more information about creating and working with virtual MFA
+     * devices, go to
+     * <a href="http://docs.aws.amazon.com/IAM/latest/UserGuide/Using_VirtualMFA.html"> Using a Virtual MFA Device </a>
+     * in the <i>Using IAM</i> guide.
+     * </p>
+     *
+     * @param resyncMFADeviceRequest Container for the necessary parameters
+     *           to execute the ResyncMFADevice operation on AmazonIdentityManagement.
+     * 
+     * @return A Java Future object containing the response from the
+     *         ResyncMFADevice service method, as returned by
+     *         AmazonIdentityManagement.
+     * 
+     *
+     * @throws AmazonClientException
+     *             If any internal errors are encountered inside the client while
+     *             attempting to make the request or handle the response.  For example
+     *             if a network connection is not available.
+     * @throws AmazonServiceException
+     *             If an error response is returned by AmazonIdentityManagement indicating
+     *             either a problem with the data in the request, or a server side issue.
+     */
+    public Future<Void> resyncMFADeviceAsync(final ResyncMFADeviceRequest resyncMFADeviceRequest) 
+            throws AmazonServiceException, AmazonClientException {
+        return executorService.submit(new Callable<Void>() {
+            public Void call() throws Exception {
+                resyncMFADevice(resyncMFADeviceRequest);
+                return null;
+        }
+    });
+    }
+
+    /**
+     * <p>
+     * Synchronizes the specified MFA device with AWS servers.
+     * </p>
+     * <p>
+     * For more information about creating and working with virtual MFA
+     * devices, go to
+     * <a href="http://docs.aws.amazon.com/IAM/latest/UserGuide/Using_VirtualMFA.html"> Using a Virtual MFA Device </a>
+     * in the <i>Using IAM</i> guide.
+     * </p>
+     *
+     * @param resyncMFADeviceRequest Container for the necessary parameters
+     *           to execute the ResyncMFADevice operation on AmazonIdentityManagement.
+     * @param asyncHandler Asynchronous callback handler for events in the
+     *           life-cycle of the request. Users could provide the implementation of
+     *           the four callback methods in this interface to process the operation
+     *           result or handle the exception.
+     * 
+     * @return A Java Future object containing the response from the
+     *         ResyncMFADevice service method, as returned by
+     *         AmazonIdentityManagement.
+     * 
+     *
+     * @throws AmazonClientException
+     *             If any internal errors are encountered inside the client while
+     *             attempting to make the request or handle the response.  For example
+     *             if a network connection is not available.
+     * @throws AmazonServiceException
+     *             If an error response is returned by AmazonIdentityManagement indicating
+     *             either a problem with the data in the request, or a server side issue.
+     */
+    public Future<Void> resyncMFADeviceAsync(
+            final ResyncMFADeviceRequest resyncMFADeviceRequest,
+            final AsyncHandler<ResyncMFADeviceRequest, Void> asyncHandler)
+                    throws AmazonServiceException, AmazonClientException {
+        return executorService.submit(new Callable<Void>() {
+            public Void call() throws Exception {
+              try {
+                resyncMFADevice(resyncMFADeviceRequest);
+              } catch (Exception ex) {
+                  asyncHandler.onError(ex);
+            throw ex;
+              }
+              asyncHandler.onSuccess(resyncMFADeviceRequest, null);
+                 return null;
         }
     });
     }
@@ -2581,92 +2968,6 @@ public class AmazonIdentityManagementAsyncClient extends AmazonIdentityManagemen
     
     /**
      * <p>
-     * Synchronizes the specified MFA device with AWS servers.
-     * </p>
-     * <p>
-     * For more information about creating and working with virtual MFA
-     * devices, go to
-     * <a href="http://docs.aws.amazon.com/IAM/latest/UserGuide/Using_VirtualMFA.html"> Using a Virtual MFA Device </a>
-     * in the <i>Using IAM</i> guide.
-     * </p>
-     *
-     * @param resyncMFADeviceRequest Container for the necessary parameters
-     *           to execute the ResyncMFADevice operation on AmazonIdentityManagement.
-     * 
-     * @return A Java Future object containing the response from the
-     *         ResyncMFADevice service method, as returned by
-     *         AmazonIdentityManagement.
-     * 
-     *
-     * @throws AmazonClientException
-     *             If any internal errors are encountered inside the client while
-     *             attempting to make the request or handle the response.  For example
-     *             if a network connection is not available.
-     * @throws AmazonServiceException
-     *             If an error response is returned by AmazonIdentityManagement indicating
-     *             either a problem with the data in the request, or a server side issue.
-     */
-    public Future<Void> resyncMFADeviceAsync(final ResyncMFADeviceRequest resyncMFADeviceRequest) 
-            throws AmazonServiceException, AmazonClientException {
-        return executorService.submit(new Callable<Void>() {
-            public Void call() throws Exception {
-                resyncMFADevice(resyncMFADeviceRequest);
-                return null;
-        }
-    });
-    }
-
-    /**
-     * <p>
-     * Synchronizes the specified MFA device with AWS servers.
-     * </p>
-     * <p>
-     * For more information about creating and working with virtual MFA
-     * devices, go to
-     * <a href="http://docs.aws.amazon.com/IAM/latest/UserGuide/Using_VirtualMFA.html"> Using a Virtual MFA Device </a>
-     * in the <i>Using IAM</i> guide.
-     * </p>
-     *
-     * @param resyncMFADeviceRequest Container for the necessary parameters
-     *           to execute the ResyncMFADevice operation on AmazonIdentityManagement.
-     * @param asyncHandler Asynchronous callback handler for events in the
-     *           life-cycle of the request. Users could provide the implementation of
-     *           the four callback methods in this interface to process the operation
-     *           result or handle the exception.
-     * 
-     * @return A Java Future object containing the response from the
-     *         ResyncMFADevice service method, as returned by
-     *         AmazonIdentityManagement.
-     * 
-     *
-     * @throws AmazonClientException
-     *             If any internal errors are encountered inside the client while
-     *             attempting to make the request or handle the response.  For example
-     *             if a network connection is not available.
-     * @throws AmazonServiceException
-     *             If an error response is returned by AmazonIdentityManagement indicating
-     *             either a problem with the data in the request, or a server side issue.
-     */
-    public Future<Void> resyncMFADeviceAsync(
-            final ResyncMFADeviceRequest resyncMFADeviceRequest,
-            final AsyncHandler<ResyncMFADeviceRequest, Void> asyncHandler)
-                    throws AmazonServiceException, AmazonClientException {
-        return executorService.submit(new Callable<Void>() {
-            public Void call() throws Exception {
-              try {
-                resyncMFADevice(resyncMFADeviceRequest);
-              } catch (Exception ex) {
-                  asyncHandler.onError(ex);
-            throw ex;
-              }
-              asyncHandler.onSuccess(resyncMFADeviceRequest, null);
-                 return null;
-        }
-    });
-    }
-    
-    /**
-     * <p>
      * Creates a new virtual MFA device for the AWS account. After creating
      * the virtual MFA, use EnableMFADevice to attach the MFA device to an
      * IAM user. For more information about creating and working with virtual
@@ -2681,7 +2982,7 @@ public class AmazonIdentityManagementAsyncClient extends AmazonIdentityManagemen
      * in the <i>Using IAM</i> guide.
      * </p>
      * <p>
-     * <b>IMPORTANT:</b> The seed information contained in the QR code and
+     * <b>IMPORTANT:</b>The seed information contained in the QR code and
      * the Base32 string should be treated like any other secret access
      * information, such as your AWS access keys or your passwords. After you
      * provision your virtual device, you should ensure that the information
@@ -2730,7 +3031,7 @@ public class AmazonIdentityManagementAsyncClient extends AmazonIdentityManagemen
      * in the <i>Using IAM</i> guide.
      * </p>
      * <p>
-     * <b>IMPORTANT:</b> The seed information contained in the QR code and
+     * <b>IMPORTANT:</b>The seed information contained in the QR code and
      * the Base32 string should be treated like any other secret access
      * information, such as your AWS access keys or your passwords. After you
      * provision your virtual device, you should ensure that the information
@@ -2790,7 +3091,7 @@ public class AmazonIdentityManagementAsyncClient extends AmazonIdentityManagemen
      * <p>
      * For information about versions for managed policies, refer to
      * <a href="http://docs.aws.amazon.com/IAM/latest/UserGuide/policies-managed-versions.html"> Versioning for Managed Policies </a>
-     * in the <i>Using IAM</i> guide.
+     * in the <i>IAM User Guide</i> .
      * </p>
      *
      * @param deletePolicyVersionRequest Container for the necessary
@@ -2833,7 +3134,7 @@ public class AmazonIdentityManagementAsyncClient extends AmazonIdentityManagemen
      * <p>
      * For information about versions for managed policies, refer to
      * <a href="http://docs.aws.amazon.com/IAM/latest/UserGuide/policies-managed-versions.html"> Versioning for Managed Policies </a>
-     * in the <i>Using IAM</i> guide.
+     * in the <i>IAM User Guide</i> .
      * </p>
      *
      * @param deletePolicyVersionRequest Container for the necessary
@@ -2871,6 +3172,96 @@ public class AmazonIdentityManagementAsyncClient extends AmazonIdentityManagemen
               }
               asyncHandler.onSuccess(deletePolicyVersionRequest, null);
                  return null;
+        }
+    });
+    }
+    
+    /**
+     * <p>
+     * Lists the account aliases associated with the account. For
+     * information about using an AWS account alias, see
+     * <a href="http://docs.aws.amazon.com/IAM/latest/UserGuide/AccountAlias.html"> Using an Alias for Your AWS Account ID </a>
+     * in the <i>IAM User Guide</i> .
+     * </p>
+     * <p>
+     * You can paginate the results using the <code>MaxItems</code> and
+     * <code>Marker</code> parameters.
+     * </p>
+     *
+     * @param listAccountAliasesRequest Container for the necessary
+     *           parameters to execute the ListAccountAliases operation on
+     *           AmazonIdentityManagement.
+     * 
+     * @return A Java Future object containing the response from the
+     *         ListAccountAliases service method, as returned by
+     *         AmazonIdentityManagement.
+     * 
+     *
+     * @throws AmazonClientException
+     *             If any internal errors are encountered inside the client while
+     *             attempting to make the request or handle the response.  For example
+     *             if a network connection is not available.
+     * @throws AmazonServiceException
+     *             If an error response is returned by AmazonIdentityManagement indicating
+     *             either a problem with the data in the request, or a server side issue.
+     */
+    public Future<ListAccountAliasesResult> listAccountAliasesAsync(final ListAccountAliasesRequest listAccountAliasesRequest) 
+            throws AmazonServiceException, AmazonClientException {
+        return executorService.submit(new Callable<ListAccountAliasesResult>() {
+            public ListAccountAliasesResult call() throws Exception {
+                return listAccountAliases(listAccountAliasesRequest);
+        }
+    });
+    }
+
+    /**
+     * <p>
+     * Lists the account aliases associated with the account. For
+     * information about using an AWS account alias, see
+     * <a href="http://docs.aws.amazon.com/IAM/latest/UserGuide/AccountAlias.html"> Using an Alias for Your AWS Account ID </a>
+     * in the <i>IAM User Guide</i> .
+     * </p>
+     * <p>
+     * You can paginate the results using the <code>MaxItems</code> and
+     * <code>Marker</code> parameters.
+     * </p>
+     *
+     * @param listAccountAliasesRequest Container for the necessary
+     *           parameters to execute the ListAccountAliases operation on
+     *           AmazonIdentityManagement.
+     * @param asyncHandler Asynchronous callback handler for events in the
+     *           life-cycle of the request. Users could provide the implementation of
+     *           the four callback methods in this interface to process the operation
+     *           result or handle the exception.
+     * 
+     * @return A Java Future object containing the response from the
+     *         ListAccountAliases service method, as returned by
+     *         AmazonIdentityManagement.
+     * 
+     *
+     * @throws AmazonClientException
+     *             If any internal errors are encountered inside the client while
+     *             attempting to make the request or handle the response.  For example
+     *             if a network connection is not available.
+     * @throws AmazonServiceException
+     *             If an error response is returned by AmazonIdentityManagement indicating
+     *             either a problem with the data in the request, or a server side issue.
+     */
+    public Future<ListAccountAliasesResult> listAccountAliasesAsync(
+            final ListAccountAliasesRequest listAccountAliasesRequest,
+            final AsyncHandler<ListAccountAliasesRequest, ListAccountAliasesResult> asyncHandler)
+                    throws AmazonServiceException, AmazonClientException {
+        return executorService.submit(new Callable<ListAccountAliasesResult>() {
+            public ListAccountAliasesResult call() throws Exception {
+              ListAccountAliasesResult result;
+                try {
+                result = listAccountAliases(listAccountAliasesRequest);
+              } catch (Exception ex) {
+                  asyncHandler.onError(ex);
+            throw ex;
+              }
+              asyncHandler.onSuccess(listAccountAliasesRequest, result);
+                 return result;
         }
     });
     }
@@ -2999,106 +3390,10 @@ public class AmazonIdentityManagementAsyncClient extends AmazonIdentityManagemen
     
     /**
      * <p>
-     * Lists the account aliases associated with the account. For
-     * information about using an AWS account alias, see
-     * <a href="http://docs.aws.amazon.com/IAM/latest/UserGuide/AccountAlias.html"> Using an Alias for Your AWS Account ID </a>
-     * in the <i>Using IAM</i> guide.
-     * </p>
-     * <p>
-     * You can paginate the results using the <code>MaxItems</code> and
-     * <code>Marker</code> parameters.
-     * </p>
-     *
-     * @param listAccountAliasesRequest Container for the necessary
-     *           parameters to execute the ListAccountAliases operation on
-     *           AmazonIdentityManagement.
-     * 
-     * @return A Java Future object containing the response from the
-     *         ListAccountAliases service method, as returned by
-     *         AmazonIdentityManagement.
-     * 
-     *
-     * @throws AmazonClientException
-     *             If any internal errors are encountered inside the client while
-     *             attempting to make the request or handle the response.  For example
-     *             if a network connection is not available.
-     * @throws AmazonServiceException
-     *             If an error response is returned by AmazonIdentityManagement indicating
-     *             either a problem with the data in the request, or a server side issue.
-     */
-    public Future<ListAccountAliasesResult> listAccountAliasesAsync(final ListAccountAliasesRequest listAccountAliasesRequest) 
-            throws AmazonServiceException, AmazonClientException {
-        return executorService.submit(new Callable<ListAccountAliasesResult>() {
-            public ListAccountAliasesResult call() throws Exception {
-                return listAccountAliases(listAccountAliasesRequest);
-        }
-    });
-    }
-
-    /**
-     * <p>
-     * Lists the account aliases associated with the account. For
-     * information about using an AWS account alias, see
-     * <a href="http://docs.aws.amazon.com/IAM/latest/UserGuide/AccountAlias.html"> Using an Alias for Your AWS Account ID </a>
-     * in the <i>Using IAM</i> guide.
-     * </p>
-     * <p>
-     * You can paginate the results using the <code>MaxItems</code> and
-     * <code>Marker</code> parameters.
-     * </p>
-     *
-     * @param listAccountAliasesRequest Container for the necessary
-     *           parameters to execute the ListAccountAliases operation on
-     *           AmazonIdentityManagement.
-     * @param asyncHandler Asynchronous callback handler for events in the
-     *           life-cycle of the request. Users could provide the implementation of
-     *           the four callback methods in this interface to process the operation
-     *           result or handle the exception.
-     * 
-     * @return A Java Future object containing the response from the
-     *         ListAccountAliases service method, as returned by
-     *         AmazonIdentityManagement.
-     * 
-     *
-     * @throws AmazonClientException
-     *             If any internal errors are encountered inside the client while
-     *             attempting to make the request or handle the response.  For example
-     *             if a network connection is not available.
-     * @throws AmazonServiceException
-     *             If an error response is returned by AmazonIdentityManagement indicating
-     *             either a problem with the data in the request, or a server side issue.
-     */
-    public Future<ListAccountAliasesResult> listAccountAliasesAsync(
-            final ListAccountAliasesRequest listAccountAliasesRequest,
-            final AsyncHandler<ListAccountAliasesRequest, ListAccountAliasesResult> asyncHandler)
-                    throws AmazonServiceException, AmazonClientException {
-        return executorService.submit(new Callable<ListAccountAliasesResult>() {
-            public ListAccountAliasesResult call() throws Exception {
-              ListAccountAliasesResult result;
-                try {
-                result = listAccountAliases(listAccountAliasesRequest);
-              } catch (Exception ex) {
-                  asyncHandler.onError(ex);
-            throw ex;
-              }
-              asyncHandler.onSuccess(listAccountAliasesRequest, result);
-                 return result;
-        }
-    });
-    }
-    
-    /**
-     * <p>
      * Retrieves information about the specified role, including the role's
      * path, GUID, ARN, and the policy granting permission to assume the
      * role. For more information about ARNs, go to
      * <a href="http://docs.aws.amazon.com/IAM/latest/UserGuide/Using_Identifiers.html#Identifiers_ARNs"> ARNs </a> . For more information about roles, go to <a href="http://docs.aws.amazon.com/IAM/latest/UserGuide/WorkingWithRoles.html"> Working with Roles </a>
-     * .
-     * </p>
-     * <p>
-     * The returned policy is URL-encoded according to RFC 3986. For more
-     * information about RFC 3986, go to
-     * <a href="http://www.faqs.org/rfcs/rfc3986.html"> http://www.faqs.org/rfcs/rfc3986.html </a>
      * .
      * </p>
      *
@@ -3132,12 +3427,6 @@ public class AmazonIdentityManagementAsyncClient extends AmazonIdentityManagemen
      * path, GUID, ARN, and the policy granting permission to assume the
      * role. For more information about ARNs, go to
      * <a href="http://docs.aws.amazon.com/IAM/latest/UserGuide/Using_Identifiers.html#Identifiers_ARNs"> ARNs </a> . For more information about roles, go to <a href="http://docs.aws.amazon.com/IAM/latest/UserGuide/WorkingWithRoles.html"> Working with Roles </a>
-     * .
-     * </p>
-     * <p>
-     * The returned policy is URL-encoded according to RFC 3986. For more
-     * information about RFC 3986, go to
-     * <a href="http://www.faqs.org/rfcs/rfc3986.html"> http://www.faqs.org/rfcs/rfc3986.html </a>
      * .
      * </p>
      *
@@ -3190,7 +3479,7 @@ public class AmazonIdentityManagementAsyncClient extends AmazonIdentityManagemen
      * ListAttachedRolePolicies. For more information about policies, refer
      * to
      * <a href="http://docs.aws.amazon.com/IAM/latest/UserGuide/policies-managed-vs-inline.html"> Managed Policies and Inline Policies </a>
-     * in the <i>Using IAM</i> guide.
+     * in the <i>IAM User Guide</i> .
      * </p>
      * <p>
      * You can paginate the results using the <code>MaxItems</code> and
@@ -3234,7 +3523,7 @@ public class AmazonIdentityManagementAsyncClient extends AmazonIdentityManagemen
      * ListAttachedRolePolicies. For more information about policies, refer
      * to
      * <a href="http://docs.aws.amazon.com/IAM/latest/UserGuide/policies-managed-vs-inline.html"> Managed Policies and Inline Policies </a>
-     * in the <i>Using IAM</i> guide.
+     * in the <i>IAM User Guide</i> .
      * </p>
      * <p>
      * You can paginate the results using the <code>MaxItems</code> and
@@ -3401,12 +3690,12 @@ public class AmazonIdentityManagementAsyncClient extends AmazonIdentityManagemen
      * the AWS account has no associated users.
      * </p>
      * <p>
-     * <b>NOTE:</b> Because the body of a X.509 certificate can be large,
-     * you should use POST rather than GET when calling
-     * UploadSigningCertificate. For information about setting up signatures
-     * and authorization through the API, go to Signing AWS API Requests in
-     * the AWS General Reference. For general information about using the
-     * Query API with IAM, go to Making Query Requests in the Using IAMguide.
+     * <b>NOTE:</b>Because the body of a X.509 certificate can be large, you
+     * should use POST rather than GET when calling UploadSigningCertificate.
+     * For information about setting up signatures and authorization through
+     * the API, go to Signing AWS API Requests in the AWS General Reference.
+     * For general information about using the Query API with IAM, go to
+     * Making Query Requests in the Using IAMguide.
      * </p>
      *
      * @param uploadSigningCertificateRequest Container for the necessary
@@ -3451,12 +3740,12 @@ public class AmazonIdentityManagementAsyncClient extends AmazonIdentityManagemen
      * the AWS account has no associated users.
      * </p>
      * <p>
-     * <b>NOTE:</b> Because the body of a X.509 certificate can be large,
-     * you should use POST rather than GET when calling
-     * UploadSigningCertificate. For information about setting up signatures
-     * and authorization through the API, go to Signing AWS API Requests in
-     * the AWS General Reference. For general information about using the
-     * Query API with IAM, go to Making Query Requests in the Using IAMguide.
+     * <b>NOTE:</b>Because the body of a X.509 certificate can be large, you
+     * should use POST rather than GET when calling UploadSigningCertificate.
+     * For information about setting up signatures and authorization through
+     * the API, go to Signing AWS API Requests in the AWS General Reference.
+     * For general information about using the Query API with IAM, go to
+     * Making Query Requests in the Using IAMguide.
      * </p>
      *
      * @param uploadSigningCertificateRequest Container for the necessary
@@ -3501,10 +3790,10 @@ public class AmazonIdentityManagementAsyncClient extends AmazonIdentityManagemen
     
     /**
      * <p>
-     * Retrieves information about all IAM users, groups, and roles in your
-     * account, including their relationships to one another and their
-     * policies. Use this API to obtain a snapshot of the configuration of
-     * IAM permissions (users, groups, roles, and policies) in your account.
+     * Retrieves information about all IAM users, groups, roles, and
+     * policies in your account, including their relationships to one
+     * another. Use this API to obtain a snapshot of the configuration of IAM
+     * permissions (users, groups, roles, and policies) in your account.
      * </p>
      * <p>
      * You can optionally filter the results using the <code>Filter</code>
@@ -3540,10 +3829,10 @@ public class AmazonIdentityManagementAsyncClient extends AmazonIdentityManagemen
 
     /**
      * <p>
-     * Retrieves information about all IAM users, groups, and roles in your
-     * account, including their relationships to one another and their
-     * policies. Use this API to obtain a snapshot of the configuration of
-     * IAM permissions (users, groups, roles, and policies) in your account.
+     * Retrieves information about all IAM users, groups, roles, and
+     * policies in your account, including their relationships to one
+     * another. Use this API to obtain a snapshot of the configuration of IAM
+     * permissions (users, groups, roles, and policies) in your account.
      * </p>
      * <p>
      * You can optionally filter the results using the <code>Filter</code>
@@ -3600,7 +3889,7 @@ public class AmazonIdentityManagementAsyncClient extends AmazonIdentityManagemen
      * To change the password for a different user, see UpdateLoginProfile.
      * For more information about modifying passwords, see
      * <a href="http://docs.aws.amazon.com/IAM/latest/UserGuide/Using_ManagingLogins.html"> Managing Passwords </a>
-     * in the <i>Using IAM</i> guide.
+     * in the <i>IAM User Guide</i> .
      * </p>
      *
      * @param changePasswordRequest Container for the necessary parameters to
@@ -3638,7 +3927,7 @@ public class AmazonIdentityManagementAsyncClient extends AmazonIdentityManagemen
      * To change the password for a different user, see UpdateLoginProfile.
      * For more information about modifying passwords, see
      * <a href="http://docs.aws.amazon.com/IAM/latest/UserGuide/Using_ManagingLogins.html"> Managing Passwords </a>
-     * in the <i>Using IAM</i> guide.
+     * in the <i>IAM User Guide</i> .
      * </p>
      *
      * @param changePasswordRequest Container for the necessary parameters to
@@ -3690,13 +3979,13 @@ public class AmazonIdentityManagementAsyncClient extends AmazonIdentityManagemen
      * managed policy, use CreatePolicy. For information about policies,
      * refer to
      * <a href="http://docs.aws.amazon.com/IAM/latest/UserGuide/policies-managed-vs-inline.html"> Managed Policies and Inline Policies </a>
-     * in the <i>Using IAM</i> guide.
+     * in the <i>IAM User Guide</i> .
      * </p>
      * <p>
      * For information about limits on the number of inline policies that
      * you can embed in a group, see
      * <a href="http://docs.aws.amazon.com/IAM/latest/UserGuide/LimitationsOnEntities.html"> Limitations on IAM Entities </a>
-     * in the <i>Using IAM</i> guide.
+     * in the <i>IAM User Guide</i> .
      * </p>
      * <p>
      * <b>NOTE:</b>Because policy documents can be large, you should use
@@ -3742,13 +4031,13 @@ public class AmazonIdentityManagementAsyncClient extends AmazonIdentityManagemen
      * managed policy, use CreatePolicy. For information about policies,
      * refer to
      * <a href="http://docs.aws.amazon.com/IAM/latest/UserGuide/policies-managed-vs-inline.html"> Managed Policies and Inline Policies </a>
-     * in the <i>Using IAM</i> guide.
+     * in the <i>IAM User Guide</i> .
      * </p>
      * <p>
      * For information about limits on the number of inline policies that
      * you can embed in a group, see
      * <a href="http://docs.aws.amazon.com/IAM/latest/UserGuide/LimitationsOnEntities.html"> Limitations on IAM Entities </a>
-     * in the <i>Using IAM</i> guide.
+     * in the <i>IAM User Guide</i> .
      * </p>
      * <p>
      * <b>NOTE:</b>Because policy documents can be large, you should use
@@ -3905,7 +4194,7 @@ public class AmazonIdentityManagementAsyncClient extends AmazonIdentityManagemen
      * the AWS account has no associated users.
      * </p>
      * <p>
-     * <b>NOTE:</b> To ensure the security of your AWS account, the secret
+     * <b>NOTE:</b>To ensure the security of your AWS account, the secret
      * access key is accessible only during key and user creation.
      * </p>
      *
@@ -3952,7 +4241,7 @@ public class AmazonIdentityManagementAsyncClient extends AmazonIdentityManagemen
      * the AWS account has no associated users.
      * </p>
      * <p>
-     * <b>NOTE:</b> To ensure the security of your AWS account, the secret
+     * <b>NOTE:</b>To ensure the security of your AWS account, the secret
      * access key is accessible only during key and user creation.
      * </p>
      *
@@ -4191,6 +4480,98 @@ public class AmazonIdentityManagementAsyncClient extends AmazonIdentityManagemen
     
     /**
      * <p>
+     * Retrieves the specified SSH public key, including metadata about the
+     * key.
+     * </p>
+     * <p>
+     * The SSH public key retrieved by this action is used only for
+     * authenticating the associated IAM user to an AWS CodeCommit
+     * repository. For more information about using SSH keys to authenticate
+     * to an AWS CodeCommit repository, see
+     * <a href="http://docs.aws.amazon.com/codecommit/latest/userguide/setting-up-credentials-ssh.html"> Set up AWS CodeCommit for SSH Connections </a>
+     * in the <i>AWS CodeCommit User Guide</i> .
+     * </p>
+     *
+     * @param getSSHPublicKeyRequest Container for the necessary parameters
+     *           to execute the GetSSHPublicKey operation on AmazonIdentityManagement.
+     * 
+     * @return A Java Future object containing the response from the
+     *         GetSSHPublicKey service method, as returned by
+     *         AmazonIdentityManagement.
+     * 
+     *
+     * @throws AmazonClientException
+     *             If any internal errors are encountered inside the client while
+     *             attempting to make the request or handle the response.  For example
+     *             if a network connection is not available.
+     * @throws AmazonServiceException
+     *             If an error response is returned by AmazonIdentityManagement indicating
+     *             either a problem with the data in the request, or a server side issue.
+     */
+    public Future<GetSSHPublicKeyResult> getSSHPublicKeyAsync(final GetSSHPublicKeyRequest getSSHPublicKeyRequest) 
+            throws AmazonServiceException, AmazonClientException {
+        return executorService.submit(new Callable<GetSSHPublicKeyResult>() {
+            public GetSSHPublicKeyResult call() throws Exception {
+                return getSSHPublicKey(getSSHPublicKeyRequest);
+        }
+    });
+    }
+
+    /**
+     * <p>
+     * Retrieves the specified SSH public key, including metadata about the
+     * key.
+     * </p>
+     * <p>
+     * The SSH public key retrieved by this action is used only for
+     * authenticating the associated IAM user to an AWS CodeCommit
+     * repository. For more information about using SSH keys to authenticate
+     * to an AWS CodeCommit repository, see
+     * <a href="http://docs.aws.amazon.com/codecommit/latest/userguide/setting-up-credentials-ssh.html"> Set up AWS CodeCommit for SSH Connections </a>
+     * in the <i>AWS CodeCommit User Guide</i> .
+     * </p>
+     *
+     * @param getSSHPublicKeyRequest Container for the necessary parameters
+     *           to execute the GetSSHPublicKey operation on AmazonIdentityManagement.
+     * @param asyncHandler Asynchronous callback handler for events in the
+     *           life-cycle of the request. Users could provide the implementation of
+     *           the four callback methods in this interface to process the operation
+     *           result or handle the exception.
+     * 
+     * @return A Java Future object containing the response from the
+     *         GetSSHPublicKey service method, as returned by
+     *         AmazonIdentityManagement.
+     * 
+     *
+     * @throws AmazonClientException
+     *             If any internal errors are encountered inside the client while
+     *             attempting to make the request or handle the response.  For example
+     *             if a network connection is not available.
+     * @throws AmazonServiceException
+     *             If an error response is returned by AmazonIdentityManagement indicating
+     *             either a problem with the data in the request, or a server side issue.
+     */
+    public Future<GetSSHPublicKeyResult> getSSHPublicKeyAsync(
+            final GetSSHPublicKeyRequest getSSHPublicKeyRequest,
+            final AsyncHandler<GetSSHPublicKeyRequest, GetSSHPublicKeyResult> asyncHandler)
+                    throws AmazonServiceException, AmazonClientException {
+        return executorService.submit(new Callable<GetSSHPublicKeyResult>() {
+            public GetSSHPublicKeyResult call() throws Exception {
+              GetSSHPublicKeyResult result;
+                try {
+                result = getSSHPublicKey(getSSHPublicKeyRequest);
+              } catch (Exception ex) {
+                  asyncHandler.onError(ex);
+            throw ex;
+              }
+              asyncHandler.onSuccess(getSSHPublicKeyRequest, result);
+                 return result;
+        }
+    });
+    }
+    
+    /**
+     * <p>
      * Removes the specified managed policy from the specified role.
      * </p>
      * <p>
@@ -4198,7 +4579,7 @@ public class AmazonIdentityManagementAsyncClient extends AmazonIdentityManagemen
      * inline policy, use the DeleteRolePolicy API. For information about
      * policies, refer to
      * <a href="http://docs.aws.amazon.com/IAM/latest/UserGuide/policies-managed-vs-inline.html"> Managed Policies and Inline Policies </a>
-     * in the <i>Using IAM</i> guide.
+     * in the <i>IAM User Guide</i> .
      * </p>
      *
      * @param detachRolePolicyRequest Container for the necessary parameters
@@ -4236,7 +4617,7 @@ public class AmazonIdentityManagementAsyncClient extends AmazonIdentityManagemen
      * inline policy, use the DeleteRolePolicy API. For information about
      * policies, refer to
      * <a href="http://docs.aws.amazon.com/IAM/latest/UserGuide/policies-managed-vs-inline.html"> Managed Policies and Inline Policies </a>
-     * in the <i>Using IAM</i> guide.
+     * in the <i>IAM User Guide</i> .
      * </p>
      *
      * @param detachRolePolicyRequest Container for the necessary parameters
@@ -4286,12 +4667,12 @@ public class AmazonIdentityManagementAsyncClient extends AmazonIdentityManagemen
      * <code>v1</code> and sets v1 as the policy's default version. For more
      * information about policy versions, see
      * <a href="http://docs.aws.amazon.com/IAM/latest/UserGuide/policies-managed-versions.html"> Versioning for Managed Policies </a>
-     * in the <i>Using IAM</i> guide.
+     * in the <i>IAM User Guide</i> .
      * </p>
      * <p>
      * For more information about managed policies in general, refer to
      * <a href="http://docs.aws.amazon.com/IAM/latest/UserGuide/policies-managed-vs-inline.html"> Managed Policies and Inline Policies </a>
-     * in the <i>Using IAM</i> guide.
+     * in the <i>IAM User Guide</i> .
      * </p>
      *
      * @param createPolicyRequest Container for the necessary parameters to
@@ -4327,12 +4708,12 @@ public class AmazonIdentityManagementAsyncClient extends AmazonIdentityManagemen
      * <code>v1</code> and sets v1 as the policy's default version. For more
      * information about policy versions, see
      * <a href="http://docs.aws.amazon.com/IAM/latest/UserGuide/policies-managed-versions.html"> Versioning for Managed Policies </a>
-     * in the <i>Using IAM</i> guide.
+     * in the <i>IAM User Guide</i> .
      * </p>
      * <p>
      * For more information about managed policies in general, refer to
      * <a href="http://docs.aws.amazon.com/IAM/latest/UserGuide/policies-managed-vs-inline.html"> Managed Policies and Inline Policies </a>
-     * in the <i>Using IAM</i> guide.
+     * in the <i>IAM User Guide</i> .
      * </p>
      *
      * @param createPolicyRequest Container for the necessary parameters to
@@ -4384,7 +4765,7 @@ public class AmazonIdentityManagementAsyncClient extends AmazonIdentityManagemen
      * For information about the number of instance profiles you can create,
      * see
      * <a href="http://docs.aws.amazon.com/IAM/latest/UserGuide/LimitationsOnEntities.html"> Limitations on IAM Entities </a>
-     * in the <i>Using IAM</i> guide.
+     * in the <i>IAM User Guide</i> .
      * </p>
      *
      * @param createInstanceProfileRequest Container for the necessary
@@ -4424,7 +4805,7 @@ public class AmazonIdentityManagementAsyncClient extends AmazonIdentityManagemen
      * For information about the number of instance profiles you can create,
      * see
      * <a href="http://docs.aws.amazon.com/IAM/latest/UserGuide/LimitationsOnEntities.html"> Limitations on IAM Entities </a>
-     * in the <i>Using IAM</i> guide.
+     * in the <i>IAM User Guide</i> .
      * </p>
      *
      * @param createInstanceProfileRequest Container for the necessary
@@ -4462,6 +4843,90 @@ public class AmazonIdentityManagementAsyncClient extends AmazonIdentityManagemen
             throw ex;
               }
               asyncHandler.onSuccess(createInstanceProfileRequest, result);
+                 return result;
+        }
+    });
+    }
+    
+    /**
+     * <p>
+     * Creates a password for the specified user, giving the user the
+     * ability to access AWS services through the AWS Management Console. For
+     * more information about managing passwords, see
+     * <a href="http://docs.aws.amazon.com/IAM/latest/UserGuide/Using_ManagingLogins.html"> Managing Passwords </a>
+     * in the <i>Using IAM</i> guide.
+     * </p>
+     *
+     * @param createLoginProfileRequest Container for the necessary
+     *           parameters to execute the CreateLoginProfile operation on
+     *           AmazonIdentityManagement.
+     * 
+     * @return A Java Future object containing the response from the
+     *         CreateLoginProfile service method, as returned by
+     *         AmazonIdentityManagement.
+     * 
+     *
+     * @throws AmazonClientException
+     *             If any internal errors are encountered inside the client while
+     *             attempting to make the request or handle the response.  For example
+     *             if a network connection is not available.
+     * @throws AmazonServiceException
+     *             If an error response is returned by AmazonIdentityManagement indicating
+     *             either a problem with the data in the request, or a server side issue.
+     */
+    public Future<CreateLoginProfileResult> createLoginProfileAsync(final CreateLoginProfileRequest createLoginProfileRequest) 
+            throws AmazonServiceException, AmazonClientException {
+        return executorService.submit(new Callable<CreateLoginProfileResult>() {
+            public CreateLoginProfileResult call() throws Exception {
+                return createLoginProfile(createLoginProfileRequest);
+        }
+    });
+    }
+
+    /**
+     * <p>
+     * Creates a password for the specified user, giving the user the
+     * ability to access AWS services through the AWS Management Console. For
+     * more information about managing passwords, see
+     * <a href="http://docs.aws.amazon.com/IAM/latest/UserGuide/Using_ManagingLogins.html"> Managing Passwords </a>
+     * in the <i>Using IAM</i> guide.
+     * </p>
+     *
+     * @param createLoginProfileRequest Container for the necessary
+     *           parameters to execute the CreateLoginProfile operation on
+     *           AmazonIdentityManagement.
+     * @param asyncHandler Asynchronous callback handler for events in the
+     *           life-cycle of the request. Users could provide the implementation of
+     *           the four callback methods in this interface to process the operation
+     *           result or handle the exception.
+     * 
+     * @return A Java Future object containing the response from the
+     *         CreateLoginProfile service method, as returned by
+     *         AmazonIdentityManagement.
+     * 
+     *
+     * @throws AmazonClientException
+     *             If any internal errors are encountered inside the client while
+     *             attempting to make the request or handle the response.  For example
+     *             if a network connection is not available.
+     * @throws AmazonServiceException
+     *             If an error response is returned by AmazonIdentityManagement indicating
+     *             either a problem with the data in the request, or a server side issue.
+     */
+    public Future<CreateLoginProfileResult> createLoginProfileAsync(
+            final CreateLoginProfileRequest createLoginProfileRequest,
+            final AsyncHandler<CreateLoginProfileRequest, CreateLoginProfileResult> asyncHandler)
+                    throws AmazonServiceException, AmazonClientException {
+        return executorService.submit(new Callable<CreateLoginProfileResult>() {
+            public CreateLoginProfileResult call() throws Exception {
+              CreateLoginProfileResult result;
+                try {
+                result = createLoginProfile(createLoginProfileRequest);
+              } catch (Exception ex) {
+                  asyncHandler.onError(ex);
+            throw ex;
+              }
+              asyncHandler.onSuccess(createLoginProfileRequest, result);
                  return result;
         }
     });
@@ -4569,90 +5034,6 @@ public class AmazonIdentityManagementAsyncClient extends AmazonIdentityManagemen
     
     /**
      * <p>
-     * Creates a password for the specified user, giving the user the
-     * ability to access AWS services through the AWS Management Console. For
-     * more information about managing passwords, see
-     * <a href="http://docs.aws.amazon.com/IAM/latest/UserGuide/Using_ManagingLogins.html"> Managing Passwords </a>
-     * in the <i>Using IAM</i> guide.
-     * </p>
-     *
-     * @param createLoginProfileRequest Container for the necessary
-     *           parameters to execute the CreateLoginProfile operation on
-     *           AmazonIdentityManagement.
-     * 
-     * @return A Java Future object containing the response from the
-     *         CreateLoginProfile service method, as returned by
-     *         AmazonIdentityManagement.
-     * 
-     *
-     * @throws AmazonClientException
-     *             If any internal errors are encountered inside the client while
-     *             attempting to make the request or handle the response.  For example
-     *             if a network connection is not available.
-     * @throws AmazonServiceException
-     *             If an error response is returned by AmazonIdentityManagement indicating
-     *             either a problem with the data in the request, or a server side issue.
-     */
-    public Future<CreateLoginProfileResult> createLoginProfileAsync(final CreateLoginProfileRequest createLoginProfileRequest) 
-            throws AmazonServiceException, AmazonClientException {
-        return executorService.submit(new Callable<CreateLoginProfileResult>() {
-            public CreateLoginProfileResult call() throws Exception {
-                return createLoginProfile(createLoginProfileRequest);
-        }
-    });
-    }
-
-    /**
-     * <p>
-     * Creates a password for the specified user, giving the user the
-     * ability to access AWS services through the AWS Management Console. For
-     * more information about managing passwords, see
-     * <a href="http://docs.aws.amazon.com/IAM/latest/UserGuide/Using_ManagingLogins.html"> Managing Passwords </a>
-     * in the <i>Using IAM</i> guide.
-     * </p>
-     *
-     * @param createLoginProfileRequest Container for the necessary
-     *           parameters to execute the CreateLoginProfile operation on
-     *           AmazonIdentityManagement.
-     * @param asyncHandler Asynchronous callback handler for events in the
-     *           life-cycle of the request. Users could provide the implementation of
-     *           the four callback methods in this interface to process the operation
-     *           result or handle the exception.
-     * 
-     * @return A Java Future object containing the response from the
-     *         CreateLoginProfile service method, as returned by
-     *         AmazonIdentityManagement.
-     * 
-     *
-     * @throws AmazonClientException
-     *             If any internal errors are encountered inside the client while
-     *             attempting to make the request or handle the response.  For example
-     *             if a network connection is not available.
-     * @throws AmazonServiceException
-     *             If an error response is returned by AmazonIdentityManagement indicating
-     *             either a problem with the data in the request, or a server side issue.
-     */
-    public Future<CreateLoginProfileResult> createLoginProfileAsync(
-            final CreateLoginProfileRequest createLoginProfileRequest,
-            final AsyncHandler<CreateLoginProfileRequest, CreateLoginProfileResult> asyncHandler)
-                    throws AmazonServiceException, AmazonClientException {
-        return executorService.submit(new Callable<CreateLoginProfileResult>() {
-            public CreateLoginProfileResult call() throws Exception {
-              CreateLoginProfileResult result;
-                try {
-                result = createLoginProfile(createLoginProfileRequest);
-              } catch (Exception ex) {
-                  asyncHandler.onError(ex);
-            throw ex;
-              }
-              asyncHandler.onSuccess(createLoginProfileRequest, result);
-                 return result;
-        }
-    });
-    }
-    
-    /**
-     * <p>
      * Updates the password policy settings for the AWS account.
      * </p>
      * <p>
@@ -4664,7 +5045,7 @@ public class AmazonIdentityManagementAsyncClient extends AmazonIdentityManagemen
      * <p>
      * For more information about using a password policy, see
      * <a href="http://docs.aws.amazon.com/IAM/latest/UserGuide/Using_ManagingPasswordPolicies.html"> Managing an IAM Password Policy </a>
-     * in the <i>Using IAM</i> guide.
+     * in the <i>IAM User Guide</i> .
      * </p>
      *
      * @param updateAccountPasswordPolicyRequest Container for the necessary
@@ -4707,7 +5088,7 @@ public class AmazonIdentityManagementAsyncClient extends AmazonIdentityManagemen
      * <p>
      * For more information about using a password policy, see
      * <a href="http://docs.aws.amazon.com/IAM/latest/UserGuide/Using_ManagingPasswordPolicies.html"> Managing an IAM Password Policy </a>
-     * in the <i>Using IAM</i> guide.
+     * in the <i>IAM User Guide</i> .
      * </p>
      *
      * @param updateAccountPasswordPolicyRequest Container for the necessary
@@ -4744,6 +5125,88 @@ public class AmazonIdentityManagementAsyncClient extends AmazonIdentityManagemen
             throw ex;
               }
               asyncHandler.onSuccess(updateAccountPasswordPolicyRequest, null);
+                 return null;
+        }
+    });
+    }
+    
+    /**
+     * <p>
+     * Updates the policy that grants an entity permission to assume a role.
+     * For more information about roles, go to
+     * <a href="http://docs.aws.amazon.com/IAM/latest/UserGuide/roles-toplevel.html"> Using Roles to Delegate Permissions and Federate Identities </a>
+     * .
+     * </p>
+     *
+     * @param updateAssumeRolePolicyRequest Container for the necessary
+     *           parameters to execute the UpdateAssumeRolePolicy operation on
+     *           AmazonIdentityManagement.
+     * 
+     * @return A Java Future object containing the response from the
+     *         UpdateAssumeRolePolicy service method, as returned by
+     *         AmazonIdentityManagement.
+     * 
+     *
+     * @throws AmazonClientException
+     *             If any internal errors are encountered inside the client while
+     *             attempting to make the request or handle the response.  For example
+     *             if a network connection is not available.
+     * @throws AmazonServiceException
+     *             If an error response is returned by AmazonIdentityManagement indicating
+     *             either a problem with the data in the request, or a server side issue.
+     */
+    public Future<Void> updateAssumeRolePolicyAsync(final UpdateAssumeRolePolicyRequest updateAssumeRolePolicyRequest) 
+            throws AmazonServiceException, AmazonClientException {
+        return executorService.submit(new Callable<Void>() {
+            public Void call() throws Exception {
+                updateAssumeRolePolicy(updateAssumeRolePolicyRequest);
+                return null;
+        }
+    });
+    }
+
+    /**
+     * <p>
+     * Updates the policy that grants an entity permission to assume a role.
+     * For more information about roles, go to
+     * <a href="http://docs.aws.amazon.com/IAM/latest/UserGuide/roles-toplevel.html"> Using Roles to Delegate Permissions and Federate Identities </a>
+     * .
+     * </p>
+     *
+     * @param updateAssumeRolePolicyRequest Container for the necessary
+     *           parameters to execute the UpdateAssumeRolePolicy operation on
+     *           AmazonIdentityManagement.
+     * @param asyncHandler Asynchronous callback handler for events in the
+     *           life-cycle of the request. Users could provide the implementation of
+     *           the four callback methods in this interface to process the operation
+     *           result or handle the exception.
+     * 
+     * @return A Java Future object containing the response from the
+     *         UpdateAssumeRolePolicy service method, as returned by
+     *         AmazonIdentityManagement.
+     * 
+     *
+     * @throws AmazonClientException
+     *             If any internal errors are encountered inside the client while
+     *             attempting to make the request or handle the response.  For example
+     *             if a network connection is not available.
+     * @throws AmazonServiceException
+     *             If an error response is returned by AmazonIdentityManagement indicating
+     *             either a problem with the data in the request, or a server side issue.
+     */
+    public Future<Void> updateAssumeRolePolicyAsync(
+            final UpdateAssumeRolePolicyRequest updateAssumeRolePolicyRequest,
+            final AsyncHandler<UpdateAssumeRolePolicyRequest, Void> asyncHandler)
+                    throws AmazonServiceException, AmazonClientException {
+        return executorService.submit(new Callable<Void>() {
+            public Void call() throws Exception {
+              try {
+                updateAssumeRolePolicy(updateAssumeRolePolicyRequest);
+              } catch (Exception ex) {
+                  asyncHandler.onError(ex);
+            throw ex;
+              }
+              asyncHandler.onSuccess(updateAssumeRolePolicyRequest, null);
                  return null;
         }
     });
@@ -4835,95 +5298,13 @@ public class AmazonIdentityManagementAsyncClient extends AmazonIdentityManagemen
     
     /**
      * <p>
-     * Updates the policy that grants an entity permission to assume a role.
-     * For more information about roles, go to
-     * <a href="http://docs.aws.amazon.com/IAM/latest/UserGuide/roles-toplevel.html"> Using Roles to Delegate Permissions and Federate Identities </a>
-     * .
-     * </p>
-     *
-     * @param updateAssumeRolePolicyRequest Container for the necessary
-     *           parameters to execute the UpdateAssumeRolePolicy operation on
-     *           AmazonIdentityManagement.
-     * 
-     * @return A Java Future object containing the response from the
-     *         UpdateAssumeRolePolicy service method, as returned by
-     *         AmazonIdentityManagement.
-     * 
-     *
-     * @throws AmazonClientException
-     *             If any internal errors are encountered inside the client while
-     *             attempting to make the request or handle the response.  For example
-     *             if a network connection is not available.
-     * @throws AmazonServiceException
-     *             If an error response is returned by AmazonIdentityManagement indicating
-     *             either a problem with the data in the request, or a server side issue.
-     */
-    public Future<Void> updateAssumeRolePolicyAsync(final UpdateAssumeRolePolicyRequest updateAssumeRolePolicyRequest) 
-            throws AmazonServiceException, AmazonClientException {
-        return executorService.submit(new Callable<Void>() {
-            public Void call() throws Exception {
-                updateAssumeRolePolicy(updateAssumeRolePolicyRequest);
-                return null;
-        }
-    });
-    }
-
-    /**
-     * <p>
-     * Updates the policy that grants an entity permission to assume a role.
-     * For more information about roles, go to
-     * <a href="http://docs.aws.amazon.com/IAM/latest/UserGuide/roles-toplevel.html"> Using Roles to Delegate Permissions and Federate Identities </a>
-     * .
-     * </p>
-     *
-     * @param updateAssumeRolePolicyRequest Container for the necessary
-     *           parameters to execute the UpdateAssumeRolePolicy operation on
-     *           AmazonIdentityManagement.
-     * @param asyncHandler Asynchronous callback handler for events in the
-     *           life-cycle of the request. Users could provide the implementation of
-     *           the four callback methods in this interface to process the operation
-     *           result or handle the exception.
-     * 
-     * @return A Java Future object containing the response from the
-     *         UpdateAssumeRolePolicy service method, as returned by
-     *         AmazonIdentityManagement.
-     * 
-     *
-     * @throws AmazonClientException
-     *             If any internal errors are encountered inside the client while
-     *             attempting to make the request or handle the response.  For example
-     *             if a network connection is not available.
-     * @throws AmazonServiceException
-     *             If an error response is returned by AmazonIdentityManagement indicating
-     *             either a problem with the data in the request, or a server side issue.
-     */
-    public Future<Void> updateAssumeRolePolicyAsync(
-            final UpdateAssumeRolePolicyRequest updateAssumeRolePolicyRequest,
-            final AsyncHandler<UpdateAssumeRolePolicyRequest, Void> asyncHandler)
-                    throws AmazonServiceException, AmazonClientException {
-        return executorService.submit(new Callable<Void>() {
-            public Void call() throws Exception {
-              try {
-                updateAssumeRolePolicy(updateAssumeRolePolicyRequest);
-              } catch (Exception ex) {
-                  asyncHandler.onError(ex);
-            throw ex;
-              }
-              asyncHandler.onSuccess(updateAssumeRolePolicyRequest, null);
-                 return null;
-        }
-    });
-    }
-    
-    /**
-     * <p>
      * Retrieves information about IAM entity usage and IAM quotas in the
      * AWS account.
      * </p>
      * <p>
      * For information about limitations on IAM entities, see
      * <a href="http://docs.aws.amazon.com/IAM/latest/UserGuide/LimitationsOnEntities.html"> Limitations on IAM Entities </a>
-     * in the <i>Using IAM</i> guide.
+     * in the <i>IAM User Guide</i> .
      * </p>
      *
      * @param getAccountSummaryRequest Container for the necessary parameters
@@ -4960,7 +5341,7 @@ public class AmazonIdentityManagementAsyncClient extends AmazonIdentityManagemen
      * <p>
      * For information about limitations on IAM entities, see
      * <a href="http://docs.aws.amazon.com/IAM/latest/UserGuide/LimitationsOnEntities.html"> Limitations on IAM Entities </a>
-     * in the <i>Using IAM</i> guide.
+     * in the <i>IAM User Guide</i> .
      * </p>
      *
      * @param getAccountSummaryRequest Container for the necessary parameters
@@ -5028,8 +5409,8 @@ public class AmazonIdentityManagementAsyncClient extends AmazonIdentityManagemen
      * </p>
      * <p>
      * For more information, see
-     * <a href="http://docs.aws.amazon.com/STS/latest/UsingSTS/STSMgmtConsole-SAML.html"> Giving Console Access Using SAML </a> and <a href="http://docs.aws.amazon.com/STS/latest/UsingSTS/CreatingSAML.html"> Creating Temporary Security Credentials for SAML Federation </a>
-     * in the <i>Using Temporary Credentials</i> guide.
+     * <a href="http://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_providers_enable-console-saml.html"> Enabling SAML 2.0 Federated Users to Access the AWS Management Console </a> and <a href="http://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_providers_saml.html"> About SAML 2.0-based Federation </a>
+     * in the <i>IAM User Guide</i> .
      * </p>
      *
      * @param createSAMLProviderRequest Container for the necessary
@@ -5083,8 +5464,8 @@ public class AmazonIdentityManagementAsyncClient extends AmazonIdentityManagemen
      * </p>
      * <p>
      * For more information, see
-     * <a href="http://docs.aws.amazon.com/STS/latest/UsingSTS/STSMgmtConsole-SAML.html"> Giving Console Access Using SAML </a> and <a href="http://docs.aws.amazon.com/STS/latest/UsingSTS/CreatingSAML.html"> Creating Temporary Security Credentials for SAML Federation </a>
-     * in the <i>Using Temporary Credentials</i> guide.
+     * <a href="http://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_providers_enable-console-saml.html"> Enabling SAML 2.0 Federated Users to Access the AWS Management Console </a> and <a href="http://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_providers_saml.html"> About SAML 2.0-based Federation </a>
+     * in the <i>IAM User Guide</i> .
      * </p>
      *
      * @param createSAMLProviderRequest Container for the necessary
@@ -5146,7 +5527,7 @@ public class AmazonIdentityManagementAsyncClient extends AmazonIdentityManagemen
      * <p>
      * For more information about policies, refer to
      * <a href="http://docs.aws.amazon.com/IAM/latest/UserGuide/policies-managed-vs-inline.html"> Managed Policies and Inline Policies </a>
-     * in the <i>Using IAM</i> guide.
+     * in the <i>IAM User Guide</i> .
      * </p>
      *
      * @param getPolicyRequest Container for the necessary parameters to
@@ -5192,7 +5573,7 @@ public class AmazonIdentityManagementAsyncClient extends AmazonIdentityManagemen
      * <p>
      * For more information about policies, refer to
      * <a href="http://docs.aws.amazon.com/IAM/latest/UserGuide/policies-managed-vs-inline.html"> Managed Policies and Inline Policies </a>
-     * in the <i>Using IAM</i> guide.
+     * in the <i>IAM User Guide</i> .
      * </p>
      *
      * @param getPolicyRequest Container for the necessary parameters to
@@ -5241,7 +5622,7 @@ public class AmazonIdentityManagementAsyncClient extends AmazonIdentityManagemen
      * <p>
      * For more information about managed policies, refer to
      * <a href="http://docs.aws.amazon.com/IAM/latest/UserGuide/policies-managed-vs-inline.html"> Managed Policies and Inline Policies </a>
-     * in the <i>Using IAM</i> guide.
+     * in the <i>IAM User Guide</i> .
      * </p>
      *
      * @param listPolicyVersionsRequest Container for the necessary
@@ -5278,7 +5659,7 @@ public class AmazonIdentityManagementAsyncClient extends AmazonIdentityManagemen
      * <p>
      * For more information about managed policies, refer to
      * <a href="http://docs.aws.amazon.com/IAM/latest/UserGuide/policies-managed-vs-inline.html"> Managed Policies and Inline Policies </a>
-     * in the <i>Using IAM</i> guide.
+     * in the <i>IAM User Guide</i> .
      * </p>
      *
      * @param listPolicyVersionsRequest Container for the necessary
@@ -5419,7 +5800,7 @@ public class AmazonIdentityManagementAsyncClient extends AmazonIdentityManagemen
      * managed policy from a user, use DetachUserPolicy. For more information
      * about policies, refer to
      * <a href="http://docs.aws.amazon.com/IAM/latest/UserGuide/policies-managed-vs-inline.html"> Managed Policies and Inline Policies </a>
-     * in the <i>Using IAM</i> guide.
+     * in the <i>IAM User Guide</i> .
      * </p>
      *
      * @param deleteUserPolicyRequest Container for the necessary parameters
@@ -5458,7 +5839,7 @@ public class AmazonIdentityManagementAsyncClient extends AmazonIdentityManagemen
      * managed policy from a user, use DetachUserPolicy. For more information
      * about policies, refer to
      * <a href="http://docs.aws.amazon.com/IAM/latest/UserGuide/policies-managed-vs-inline.html"> Managed Policies and Inline Policies </a>
-     * in the <i>Using IAM</i> guide.
+     * in the <i>IAM User Guide</i> .
      * </p>
      *
      * @param deleteUserPolicyRequest Container for the necessary parameters
@@ -5592,10 +5973,10 @@ public class AmazonIdentityManagementAsyncClient extends AmazonIdentityManagemen
      * <p>
      * <b>IMPORTANT:</b> You should understand the implications of changing
      * a server certificate's path or name. For more information, see
-     * Managing Server Certificates in the Using IAM guide.
+     * Managing Server Certificates in the IAM User Guide.
      * </p>
      * <p>
-     * <b>NOTE:</b> To change a server certificate name the requester must
+     * <b>NOTE:</b>To change a server certificate name the requester must
      * have appropriate permissions on both the source object and the target
      * object. For example, to change the name from ProductionCert to
      * ProdCert, the entity making the request must have permission on
@@ -5637,10 +6018,10 @@ public class AmazonIdentityManagementAsyncClient extends AmazonIdentityManagemen
      * <p>
      * <b>IMPORTANT:</b> You should understand the implications of changing
      * a server certificate's path or name. For more information, see
-     * Managing Server Certificates in the Using IAM guide.
+     * Managing Server Certificates in the IAM User Guide.
      * </p>
      * <p>
-     * <b>NOTE:</b> To change a server certificate name the requester must
+     * <b>NOTE:</b>To change a server certificate name the requester must
      * have appropriate permissions on both the source object and the target
      * object. For example, to change the name from ProductionCert to
      * ProdCert, the entity making the request must have permission on
@@ -5694,7 +6075,7 @@ public class AmazonIdentityManagementAsyncClient extends AmazonIdentityManagemen
      * <p>
      * <b>IMPORTANT:</b> You should understand the implications of changing
      * a user's path or name. For more information, see Renaming Users and
-     * Groups in the Using IAM guide.
+     * Groups in the IAM User Guide.
      * </p>
      * <p>
      * <b>NOTE:</b> To change a user name the requester must have
@@ -5737,7 +6118,7 @@ public class AmazonIdentityManagementAsyncClient extends AmazonIdentityManagemen
      * <p>
      * <b>IMPORTANT:</b> You should understand the implications of changing
      * a user's path or name. For more information, see Renaming Users and
-     * Groups in the Using IAM guide.
+     * Groups in the IAM User Guide.
      * </p>
      * <p>
      * <b>NOTE:</b> To change a user name the requester must have
@@ -5787,6 +6168,98 @@ public class AmazonIdentityManagementAsyncClient extends AmazonIdentityManagemen
     
     /**
      * <p>
+     * Deletes the specified SSH public key.
+     * </p>
+     * <p>
+     * The SSH public key deleted by this action is used only for
+     * authenticating the associated IAM user to an AWS CodeCommit
+     * repository. For more information about using SSH keys to authenticate
+     * to an AWS CodeCommit repository, see
+     * <a href="http://docs.aws.amazon.com/codecommit/latest/userguide/setting-up-credentials-ssh.html"> Set up AWS CodeCommit for SSH Connections </a>
+     * in the <i>AWS CodeCommit User Guide</i> .
+     * </p>
+     *
+     * @param deleteSSHPublicKeyRequest Container for the necessary
+     *           parameters to execute the DeleteSSHPublicKey operation on
+     *           AmazonIdentityManagement.
+     * 
+     * @return A Java Future object containing the response from the
+     *         DeleteSSHPublicKey service method, as returned by
+     *         AmazonIdentityManagement.
+     * 
+     *
+     * @throws AmazonClientException
+     *             If any internal errors are encountered inside the client while
+     *             attempting to make the request or handle the response.  For example
+     *             if a network connection is not available.
+     * @throws AmazonServiceException
+     *             If an error response is returned by AmazonIdentityManagement indicating
+     *             either a problem with the data in the request, or a server side issue.
+     */
+    public Future<Void> deleteSSHPublicKeyAsync(final DeleteSSHPublicKeyRequest deleteSSHPublicKeyRequest) 
+            throws AmazonServiceException, AmazonClientException {
+        return executorService.submit(new Callable<Void>() {
+            public Void call() throws Exception {
+                deleteSSHPublicKey(deleteSSHPublicKeyRequest);
+                return null;
+        }
+    });
+    }
+
+    /**
+     * <p>
+     * Deletes the specified SSH public key.
+     * </p>
+     * <p>
+     * The SSH public key deleted by this action is used only for
+     * authenticating the associated IAM user to an AWS CodeCommit
+     * repository. For more information about using SSH keys to authenticate
+     * to an AWS CodeCommit repository, see
+     * <a href="http://docs.aws.amazon.com/codecommit/latest/userguide/setting-up-credentials-ssh.html"> Set up AWS CodeCommit for SSH Connections </a>
+     * in the <i>AWS CodeCommit User Guide</i> .
+     * </p>
+     *
+     * @param deleteSSHPublicKeyRequest Container for the necessary
+     *           parameters to execute the DeleteSSHPublicKey operation on
+     *           AmazonIdentityManagement.
+     * @param asyncHandler Asynchronous callback handler for events in the
+     *           life-cycle of the request. Users could provide the implementation of
+     *           the four callback methods in this interface to process the operation
+     *           result or handle the exception.
+     * 
+     * @return A Java Future object containing the response from the
+     *         DeleteSSHPublicKey service method, as returned by
+     *         AmazonIdentityManagement.
+     * 
+     *
+     * @throws AmazonClientException
+     *             If any internal errors are encountered inside the client while
+     *             attempting to make the request or handle the response.  For example
+     *             if a network connection is not available.
+     * @throws AmazonServiceException
+     *             If an error response is returned by AmazonIdentityManagement indicating
+     *             either a problem with the data in the request, or a server side issue.
+     */
+    public Future<Void> deleteSSHPublicKeyAsync(
+            final DeleteSSHPublicKeyRequest deleteSSHPublicKeyRequest,
+            final AsyncHandler<DeleteSSHPublicKeyRequest, Void> asyncHandler)
+                    throws AmazonServiceException, AmazonClientException {
+        return executorService.submit(new Callable<Void>() {
+            public Void call() throws Exception {
+              try {
+                deleteSSHPublicKey(deleteSSHPublicKeyRequest);
+              } catch (Exception ex) {
+                  asyncHandler.onError(ex);
+            throw ex;
+              }
+              asyncHandler.onSuccess(deleteSSHPublicKeyRequest, null);
+                 return null;
+        }
+    });
+    }
+    
+    /**
+     * <p>
      * Adds (or updates) an inline policy document that is embedded in the
      * specified role.
      * </p>
@@ -5805,13 +6278,13 @@ public class AmazonIdentityManagementAsyncClient extends AmazonIdentityManagemen
      * managed policy, use CreatePolicy. For information about policies,
      * refer to
      * <a href="http://docs.aws.amazon.com/IAM/latest/UserGuide/policies-managed-vs-inline.html"> Managed Policies and Inline Policies </a>
-     * in the <i>Using IAM</i> guide.
+     * in the <i>IAM User Guide</i> .
      * </p>
      * <p>
      * For information about limits on the number of inline policies that
      * you can embed with a role, see
      * <a href="http://docs.aws.amazon.com/IAM/latest/UserGuide/LimitationsOnEntities.html"> Limitations on IAM Entities </a>
-     * in the <i>Using IAM</i> guide.
+     * in the <i>IAM User Guide</i> .
      * </p>
      * <p>
      * <b>NOTE:</b>Because policy documents can be large, you should use
@@ -5865,13 +6338,13 @@ public class AmazonIdentityManagementAsyncClient extends AmazonIdentityManagemen
      * managed policy, use CreatePolicy. For information about policies,
      * refer to
      * <a href="http://docs.aws.amazon.com/IAM/latest/UserGuide/policies-managed-vs-inline.html"> Managed Policies and Inline Policies </a>
-     * in the <i>Using IAM</i> guide.
+     * in the <i>IAM User Guide</i> .
      * </p>
      * <p>
      * For information about limits on the number of inline policies that
      * you can embed with a role, see
      * <a href="http://docs.aws.amazon.com/IAM/latest/UserGuide/LimitationsOnEntities.html"> Limitations on IAM Entities </a>
-     * in the <i>Using IAM</i> guide.
+     * in the <i>IAM User Guide</i> .
      * </p>
      * <p>
      * <b>NOTE:</b>Because policy documents can be large, you should use
@@ -5927,7 +6400,7 @@ public class AmazonIdentityManagementAsyncClient extends AmazonIdentityManagemen
      * managed policy from a group, use DetachGroupPolicy. For more
      * information about policies, refer to
      * <a href="http://docs.aws.amazon.com/IAM/latest/UserGuide/policies-managed-vs-inline.html"> Managed Policies and Inline Policies </a>
-     * in the <i>Using IAM</i> guide.
+     * in the <i>IAM User Guide</i> .
      * </p>
      *
      * @param deleteGroupPolicyRequest Container for the necessary parameters
@@ -5967,7 +6440,7 @@ public class AmazonIdentityManagementAsyncClient extends AmazonIdentityManagemen
      * managed policy from a group, use DetachGroupPolicy. For more
      * information about policies, refer to
      * <a href="http://docs.aws.amazon.com/IAM/latest/UserGuide/policies-managed-vs-inline.html"> Managed Policies and Inline Policies </a>
-     * in the <i>Using IAM</i> guide.
+     * in the <i>IAM User Guide</i> .
      * </p>
      *
      * @param deleteGroupPolicyRequest Container for the necessary parameters
@@ -6016,10 +6489,10 @@ public class AmazonIdentityManagementAsyncClient extends AmazonIdentityManagemen
      * <p>
      * <b>IMPORTANT:</b> You should understand the implications of changing
      * a group's path or name. For more information, see Renaming Users and
-     * Groups in the Using IAM guide.
+     * Groups in the IAM User Guide.
      * </p>
      * <p>
-     * <b>NOTE:</b> To change a group name the requester must have
+     * <b>NOTE:</b>To change a group name the requester must have
      * appropriate permissions on both the source object and the target
      * object. For example, to change Managers to MGRs, the entity making the
      * request must have permission on Managers and MGRs, or must have
@@ -6059,10 +6532,10 @@ public class AmazonIdentityManagementAsyncClient extends AmazonIdentityManagemen
      * <p>
      * <b>IMPORTANT:</b> You should understand the implications of changing
      * a group's path or name. For more information, see Renaming Users and
-     * Groups in the Using IAM guide.
+     * Groups in the IAM User Guide.
      * </p>
      * <p>
-     * <b>NOTE:</b> To change a group name the requester must have
+     * <b>NOTE:</b>To change a group name the requester must have
      * appropriate permissions on both the source object and the target
      * object. For example, to change Managers to MGRs, the entity making the
      * request must have permission on Managers and MGRs, or must have
@@ -6109,6 +6582,104 @@ public class AmazonIdentityManagementAsyncClient extends AmazonIdentityManagemen
     
     /**
      * <p>
+     * Sets the status of the specified SSH public key to active or
+     * inactive. SSH public keys that are inactive cannot be used for
+     * authentication. This action can be used to disable a user's SSH public
+     * key as part of a key rotation work flow.
+     * </p>
+     * <p>
+     * The SSH public key affected by this action is used only for
+     * authenticating the associated IAM user to an AWS CodeCommit
+     * repository. For more information about using SSH keys to authenticate
+     * to an AWS CodeCommit repository, see
+     * <a href="http://docs.aws.amazon.com/codecommit/latest/userguide/setting-up-credentials-ssh.html"> Set up AWS CodeCommit for SSH Connections </a>
+     * in the <i>AWS CodeCommit User Guide</i> .
+     * </p>
+     *
+     * @param updateSSHPublicKeyRequest Container for the necessary
+     *           parameters to execute the UpdateSSHPublicKey operation on
+     *           AmazonIdentityManagement.
+     * 
+     * @return A Java Future object containing the response from the
+     *         UpdateSSHPublicKey service method, as returned by
+     *         AmazonIdentityManagement.
+     * 
+     *
+     * @throws AmazonClientException
+     *             If any internal errors are encountered inside the client while
+     *             attempting to make the request or handle the response.  For example
+     *             if a network connection is not available.
+     * @throws AmazonServiceException
+     *             If an error response is returned by AmazonIdentityManagement indicating
+     *             either a problem with the data in the request, or a server side issue.
+     */
+    public Future<Void> updateSSHPublicKeyAsync(final UpdateSSHPublicKeyRequest updateSSHPublicKeyRequest) 
+            throws AmazonServiceException, AmazonClientException {
+        return executorService.submit(new Callable<Void>() {
+            public Void call() throws Exception {
+                updateSSHPublicKey(updateSSHPublicKeyRequest);
+                return null;
+        }
+    });
+    }
+
+    /**
+     * <p>
+     * Sets the status of the specified SSH public key to active or
+     * inactive. SSH public keys that are inactive cannot be used for
+     * authentication. This action can be used to disable a user's SSH public
+     * key as part of a key rotation work flow.
+     * </p>
+     * <p>
+     * The SSH public key affected by this action is used only for
+     * authenticating the associated IAM user to an AWS CodeCommit
+     * repository. For more information about using SSH keys to authenticate
+     * to an AWS CodeCommit repository, see
+     * <a href="http://docs.aws.amazon.com/codecommit/latest/userguide/setting-up-credentials-ssh.html"> Set up AWS CodeCommit for SSH Connections </a>
+     * in the <i>AWS CodeCommit User Guide</i> .
+     * </p>
+     *
+     * @param updateSSHPublicKeyRequest Container for the necessary
+     *           parameters to execute the UpdateSSHPublicKey operation on
+     *           AmazonIdentityManagement.
+     * @param asyncHandler Asynchronous callback handler for events in the
+     *           life-cycle of the request. Users could provide the implementation of
+     *           the four callback methods in this interface to process the operation
+     *           result or handle the exception.
+     * 
+     * @return A Java Future object containing the response from the
+     *         UpdateSSHPublicKey service method, as returned by
+     *         AmazonIdentityManagement.
+     * 
+     *
+     * @throws AmazonClientException
+     *             If any internal errors are encountered inside the client while
+     *             attempting to make the request or handle the response.  For example
+     *             if a network connection is not available.
+     * @throws AmazonServiceException
+     *             If an error response is returned by AmazonIdentityManagement indicating
+     *             either a problem with the data in the request, or a server side issue.
+     */
+    public Future<Void> updateSSHPublicKeyAsync(
+            final UpdateSSHPublicKeyRequest updateSSHPublicKeyRequest,
+            final AsyncHandler<UpdateSSHPublicKeyRequest, Void> asyncHandler)
+                    throws AmazonServiceException, AmazonClientException {
+        return executorService.submit(new Callable<Void>() {
+            public Void call() throws Exception {
+              try {
+                updateSSHPublicKey(updateSSHPublicKeyRequest);
+              } catch (Exception ex) {
+                  asyncHandler.onError(ex);
+            throw ex;
+              }
+              asyncHandler.onSuccess(updateSSHPublicKeyRequest, null);
+                 return null;
+        }
+    });
+    }
+    
+    /**
+     * <p>
      * Lists all the managed policies that are available to your account,
      * including your own customer managed policies and all AWS managed
      * policies.
@@ -6128,7 +6699,7 @@ public class AmazonIdentityManagementAsyncClient extends AmazonIdentityManagemen
      * <p>
      * For more information about managed policies, refer to
      * <a href="http://docs.aws.amazon.com/IAM/latest/UserGuide/policies-managed-vs-inline.html"> Managed Policies and Inline Policies </a>
-     * in the <i>Using IAM</i> guide.
+     * in the <i>IAM User Guide</i> .
      * </p>
      *
      * @param listPoliciesRequest Container for the necessary parameters to
@@ -6176,7 +6747,7 @@ public class AmazonIdentityManagementAsyncClient extends AmazonIdentityManagemen
      * <p>
      * For more information about managed policies, refer to
      * <a href="http://docs.aws.amazon.com/IAM/latest/UserGuide/policies-managed-vs-inline.html"> Managed Policies and Inline Policies </a>
-     * in the <i>Using IAM</i> guide.
+     * in the <i>IAM User Guide</i> .
      * </p>
      *
      * @param listPoliciesRequest Container for the necessary parameters to
@@ -6225,7 +6796,7 @@ public class AmazonIdentityManagementAsyncClient extends AmazonIdentityManagemen
      * For information about limitations on the number of users you can
      * create, see
      * <a href="http://docs.aws.amazon.com/IAM/latest/UserGuide/LimitationsOnEntities.html"> Limitations on IAM Entities </a>
-     * in the <i>Using IAM</i> guide.
+     * in the <i>IAM User Guide</i> .
      * </p>
      *
      * @param createUserRequest Container for the necessary parameters to
@@ -6260,7 +6831,7 @@ public class AmazonIdentityManagementAsyncClient extends AmazonIdentityManagemen
      * For information about limitations on the number of users you can
      * create, see
      * <a href="http://docs.aws.amazon.com/IAM/latest/UserGuide/LimitationsOnEntities.html"> Limitations on IAM Entities </a>
-     * in the <i>Using IAM</i> guide.
+     * in the <i>IAM User Guide</i> .
      * </p>
      *
      * @param createUserRequest Container for the necessary parameters to
@@ -6483,6 +7054,128 @@ public class AmazonIdentityManagementAsyncClient extends AmazonIdentityManagemen
     
     /**
      * <p>
+     * Gets a list of all of the context keys referenced in
+     * <code>Condition</code> elements in all of the IAM policies attached to
+     * the specified IAM entity. The entity can be an IAM user, group, or
+     * role. If you specify a user, then the request also includes all of the
+     * policies attached to groups that the user is a member of.
+     * </p>
+     * <p>
+     * You can optionally include a list of one or more additional policies,
+     * specified as strings. If you want to include only a list of policies
+     * by string, use GetContextKeysForCustomPolicy instead.
+     * </p>
+     * <p>
+     * <b>Note:</b> This API discloses information about the permissions
+     * granted to other users. If you do not want users to see other user's
+     * permissions, then consider allowing them to use
+     * GetContextKeysForCustomPolicy instead.
+     * </p>
+     * <p>
+     * Context keys are variables maintained by AWS and its services that
+     * provide details about the context of an API query request, and can be
+     * evaluated by using the <code>Condition</code> element of an IAM
+     * policy. Use GetContextKeysForPrincipalPolicy to understand what key
+     * names and values you must supply when you call
+     * SimulatePrincipalPolicy.
+     * </p>
+     *
+     * @param getContextKeysForPrincipalPolicyRequest Container for the
+     *           necessary parameters to execute the GetContextKeysForPrincipalPolicy
+     *           operation on AmazonIdentityManagement.
+     * 
+     * @return A Java Future object containing the response from the
+     *         GetContextKeysForPrincipalPolicy service method, as returned by
+     *         AmazonIdentityManagement.
+     * 
+     *
+     * @throws AmazonClientException
+     *             If any internal errors are encountered inside the client while
+     *             attempting to make the request or handle the response.  For example
+     *             if a network connection is not available.
+     * @throws AmazonServiceException
+     *             If an error response is returned by AmazonIdentityManagement indicating
+     *             either a problem with the data in the request, or a server side issue.
+     */
+    public Future<GetContextKeysForPrincipalPolicyResult> getContextKeysForPrincipalPolicyAsync(final GetContextKeysForPrincipalPolicyRequest getContextKeysForPrincipalPolicyRequest) 
+            throws AmazonServiceException, AmazonClientException {
+        return executorService.submit(new Callable<GetContextKeysForPrincipalPolicyResult>() {
+            public GetContextKeysForPrincipalPolicyResult call() throws Exception {
+                return getContextKeysForPrincipalPolicy(getContextKeysForPrincipalPolicyRequest);
+        }
+    });
+    }
+
+    /**
+     * <p>
+     * Gets a list of all of the context keys referenced in
+     * <code>Condition</code> elements in all of the IAM policies attached to
+     * the specified IAM entity. The entity can be an IAM user, group, or
+     * role. If you specify a user, then the request also includes all of the
+     * policies attached to groups that the user is a member of.
+     * </p>
+     * <p>
+     * You can optionally include a list of one or more additional policies,
+     * specified as strings. If you want to include only a list of policies
+     * by string, use GetContextKeysForCustomPolicy instead.
+     * </p>
+     * <p>
+     * <b>Note:</b> This API discloses information about the permissions
+     * granted to other users. If you do not want users to see other user's
+     * permissions, then consider allowing them to use
+     * GetContextKeysForCustomPolicy instead.
+     * </p>
+     * <p>
+     * Context keys are variables maintained by AWS and its services that
+     * provide details about the context of an API query request, and can be
+     * evaluated by using the <code>Condition</code> element of an IAM
+     * policy. Use GetContextKeysForPrincipalPolicy to understand what key
+     * names and values you must supply when you call
+     * SimulatePrincipalPolicy.
+     * </p>
+     *
+     * @param getContextKeysForPrincipalPolicyRequest Container for the
+     *           necessary parameters to execute the GetContextKeysForPrincipalPolicy
+     *           operation on AmazonIdentityManagement.
+     * @param asyncHandler Asynchronous callback handler for events in the
+     *           life-cycle of the request. Users could provide the implementation of
+     *           the four callback methods in this interface to process the operation
+     *           result or handle the exception.
+     * 
+     * @return A Java Future object containing the response from the
+     *         GetContextKeysForPrincipalPolicy service method, as returned by
+     *         AmazonIdentityManagement.
+     * 
+     *
+     * @throws AmazonClientException
+     *             If any internal errors are encountered inside the client while
+     *             attempting to make the request or handle the response.  For example
+     *             if a network connection is not available.
+     * @throws AmazonServiceException
+     *             If an error response is returned by AmazonIdentityManagement indicating
+     *             either a problem with the data in the request, or a server side issue.
+     */
+    public Future<GetContextKeysForPrincipalPolicyResult> getContextKeysForPrincipalPolicyAsync(
+            final GetContextKeysForPrincipalPolicyRequest getContextKeysForPrincipalPolicyRequest,
+            final AsyncHandler<GetContextKeysForPrincipalPolicyRequest, GetContextKeysForPrincipalPolicyResult> asyncHandler)
+                    throws AmazonServiceException, AmazonClientException {
+        return executorService.submit(new Callable<GetContextKeysForPrincipalPolicyResult>() {
+            public GetContextKeysForPrincipalPolicyResult call() throws Exception {
+              GetContextKeysForPrincipalPolicyResult result;
+                try {
+                result = getContextKeysForPrincipalPolicy(getContextKeysForPrincipalPolicyRequest);
+              } catch (Exception ex) {
+                  asyncHandler.onError(ex);
+            throw ex;
+              }
+              asyncHandler.onSuccess(getContextKeysForPrincipalPolicyRequest, result);
+                 return result;
+        }
+    });
+    }
+    
+    /**
+     * <p>
      * Removes the specified client ID (also known as audience) from the
      * list of client IDs registered for the specified IAM OpenID Connect
      * provider.
@@ -6578,7 +7271,7 @@ public class AmazonIdentityManagementAsyncClient extends AmazonIdentityManagemen
      * <p>
      * For information about the number of groups you can create, see
      * <a href="http://docs.aws.amazon.com/IAM/latest/UserGuide/LimitationsOnEntities.html"> Limitations on IAM Entities </a>
-     * in the <i>Using IAM</i> guide.
+     * in the <i>IAM User Guide</i> .
      * </p>
      *
      * @param createGroupRequest Container for the necessary parameters to
@@ -6612,7 +7305,7 @@ public class AmazonIdentityManagementAsyncClient extends AmazonIdentityManagemen
      * <p>
      * For information about the number of groups you can create, see
      * <a href="http://docs.aws.amazon.com/IAM/latest/UserGuide/LimitationsOnEntities.html"> Limitations on IAM Entities </a>
-     * in the <i>Using IAM</i> guide.
+     * in the <i>IAM User Guide</i> .
      * </p>
      *
      * @param createGroupRequest Container for the necessary parameters to
@@ -6833,7 +7526,7 @@ public class AmazonIdentityManagementAsyncClient extends AmazonIdentityManagemen
      * <p>
      * For more information about the types of policies, refer to
      * <a href="http://docs.aws.amazon.com/IAM/latest/UserGuide/policies-managed-vs-inline.html"> Managed Policies and Inline Policies </a>
-     * in the <i>Using IAM</i> guide.
+     * in the <i>IAM User Guide</i> .
      * </p>
      *
      * @param getPolicyVersionRequest Container for the necessary parameters
@@ -6877,7 +7570,7 @@ public class AmazonIdentityManagementAsyncClient extends AmazonIdentityManagemen
      * <p>
      * For more information about the types of policies, refer to
      * <a href="http://docs.aws.amazon.com/IAM/latest/UserGuide/policies-managed-vs-inline.html"> Managed Policies and Inline Policies </a>
-     * in the <i>Using IAM</i> guide.
+     * in the <i>IAM User Guide</i> .
      * </p>
      *
      * @param getPolicyVersionRequest Container for the necessary parameters
@@ -6924,7 +7617,7 @@ public class AmazonIdentityManagementAsyncClient extends AmazonIdentityManagemen
      * Generates a credential report for the AWS account. For more
      * information about the credential report, see
      * <a href="http://docs.aws.amazon.com/IAM/latest/UserGuide/credential-reports.html"> Getting Credential Reports </a>
-     * in the <i>Using IAM</i> guide.
+     * in the <i>IAM User Guide</i> .
      * </p>
      *
      * @param generateCredentialReportRequest Container for the necessary
@@ -6958,7 +7651,7 @@ public class AmazonIdentityManagementAsyncClient extends AmazonIdentityManagemen
      * Generates a credential report for the AWS account. For more
      * information about the credential report, see
      * <a href="http://docs.aws.amazon.com/IAM/latest/UserGuide/credential-reports.html"> Getting Credential Reports </a>
-     * in the <i>Using IAM</i> guide.
+     * in the <i>IAM User Guide</i> .
      * </p>
      *
      * @param generateCredentialReportRequest Container for the necessary
@@ -7086,7 +7779,7 @@ public class AmazonIdentityManagementAsyncClient extends AmazonIdentityManagemen
      * inline policies for a role, use the ListRolePolicies API. For
      * information about policies, refer to
      * <a href="http://docs.aws.amazon.com/IAM/latest/UserGuide/policies-managed-vs-inline.html"> Managed Policies and Inline Policies </a>
-     * in the <i>Using IAM</i> guide.
+     * in the <i>IAM User Guide</i> .
      * </p>
      * <p>
      * You can paginate the results using the <code>MaxItems</code> and
@@ -7132,7 +7825,7 @@ public class AmazonIdentityManagementAsyncClient extends AmazonIdentityManagemen
      * inline policies for a role, use the ListRolePolicies API. For
      * information about policies, refer to
      * <a href="http://docs.aws.amazon.com/IAM/latest/UserGuide/policies-managed-vs-inline.html"> Managed Policies and Inline Policies </a>
-     * in the <i>Using IAM</i> guide.
+     * in the <i>IAM User Guide</i> .
      * </p>
      * <p>
      * You can paginate the results using the <code>MaxItems</code> and
@@ -7390,7 +8083,7 @@ public class AmazonIdentityManagementAsyncClient extends AmazonIdentityManagemen
      * inline policy, use the DeleteGroupPolicy API. For information about
      * policies, refer to
      * <a href="http://docs.aws.amazon.com/IAM/latest/UserGuide/policies-managed-vs-inline.html"> Managed Policies and Inline Policies </a>
-     * in the <i>Using IAM</i> guide.
+     * in the <i>IAM User Guide</i> .
      * </p>
      *
      * @param detachGroupPolicyRequest Container for the necessary parameters
@@ -7429,7 +8122,7 @@ public class AmazonIdentityManagementAsyncClient extends AmazonIdentityManagemen
      * inline policy, use the DeleteGroupPolicy API. For information about
      * policies, refer to
      * <a href="http://docs.aws.amazon.com/IAM/latest/UserGuide/policies-managed-vs-inline.html"> Managed Policies and Inline Policies </a>
-     * in the <i>Using IAM</i> guide.
+     * in the <i>IAM User Guide</i> .
      * </p>
      *
      * @param detachGroupPolicyRequest Container for the necessary parameters
@@ -7579,7 +8272,7 @@ public class AmazonIdentityManagementAsyncClient extends AmazonIdentityManagemen
      * <p>
      * For information about rotating keys, see
      * <a href="http://docs.aws.amazon.com/IAM/latest/UserGuide/ManagingCredentials.html"> Managing Keys and Certificates </a>
-     * in the <i>Using IAM</i> guide.
+     * in the <i>IAM User Guide</i> .
      * </p>
      *
      * @param updateAccessKeyRequest Container for the necessary parameters
@@ -7624,7 +8317,7 @@ public class AmazonIdentityManagementAsyncClient extends AmazonIdentityManagemen
      * <p>
      * For information about rotating keys, see
      * <a href="http://docs.aws.amazon.com/IAM/latest/UserGuide/ManagingCredentials.html"> Managing Keys and Certificates </a>
-     * in the <i>Using IAM</i> guide.
+     * in the <i>IAM User Guide</i> .
      * </p>
      *
      * @param updateAccessKeyRequest Container for the necessary parameters
@@ -7974,7 +8667,7 @@ public class AmazonIdentityManagementAsyncClient extends AmazonIdentityManagemen
      * inline policy, use the DeleteUserPolicy API. For information about
      * policies, refer to
      * <a href="http://docs.aws.amazon.com/IAM/latest/UserGuide/policies-managed-vs-inline.html"> Managed Policies and Inline Policies </a>
-     * in the <i>Using IAM</i> guide.
+     * in the <i>IAM User Guide</i> .
      * </p>
      *
      * @param detachUserPolicyRequest Container for the necessary parameters
@@ -8012,7 +8705,7 @@ public class AmazonIdentityManagementAsyncClient extends AmazonIdentityManagemen
      * inline policy, use the DeleteUserPolicy API. For information about
      * policies, refer to
      * <a href="http://docs.aws.amazon.com/IAM/latest/UserGuide/policies-managed-vs-inline.html"> Managed Policies and Inline Policies </a>
-     * in the <i>Using IAM</i> guide.
+     * in the <i>IAM User Guide</i> .
      * </p>
      *
      * @param detachUserPolicyRequest Container for the necessary parameters
@@ -8155,103 +8848,11 @@ public class AmazonIdentityManagementAsyncClient extends AmazonIdentityManagemen
     
     /**
      * <p>
-     * Creates a new role for your AWS account. For more information about
-     * roles, go to
-     * <a href="http://docs.aws.amazon.com/IAM/latest/UserGuide/WorkingWithRoles.html"> Working with Roles </a> . For information about limitations on role names and the number of roles you can create, go to <a href="http://docs.aws.amazon.com/IAM/latest/UserGuide/LimitationsOnEntities.html"> Limitations on IAM Entities </a>
-     * in the <i>Using IAM</i> guide.
-     * </p>
-     * <p>
-     * The example policy grants permission to an EC2 instance to assume the
-     * role. The policy is URL-encoded according to RFC 3986. For more
-     * information about RFC 3986, go to
-     * <a href="http://www.faqs.org/rfcs/rfc3986.html"> http://www.faqs.org/rfcs/rfc3986.html </a>
-     * .
-     * </p>
-     *
-     * @param createRoleRequest Container for the necessary parameters to
-     *           execute the CreateRole operation on AmazonIdentityManagement.
-     * 
-     * @return A Java Future object containing the response from the
-     *         CreateRole service method, as returned by AmazonIdentityManagement.
-     * 
-     *
-     * @throws AmazonClientException
-     *             If any internal errors are encountered inside the client while
-     *             attempting to make the request or handle the response.  For example
-     *             if a network connection is not available.
-     * @throws AmazonServiceException
-     *             If an error response is returned by AmazonIdentityManagement indicating
-     *             either a problem with the data in the request, or a server side issue.
-     */
-    public Future<CreateRoleResult> createRoleAsync(final CreateRoleRequest createRoleRequest) 
-            throws AmazonServiceException, AmazonClientException {
-        return executorService.submit(new Callable<CreateRoleResult>() {
-            public CreateRoleResult call() throws Exception {
-                return createRole(createRoleRequest);
-        }
-    });
-    }
-
-    /**
-     * <p>
-     * Creates a new role for your AWS account. For more information about
-     * roles, go to
-     * <a href="http://docs.aws.amazon.com/IAM/latest/UserGuide/WorkingWithRoles.html"> Working with Roles </a> . For information about limitations on role names and the number of roles you can create, go to <a href="http://docs.aws.amazon.com/IAM/latest/UserGuide/LimitationsOnEntities.html"> Limitations on IAM Entities </a>
-     * in the <i>Using IAM</i> guide.
-     * </p>
-     * <p>
-     * The example policy grants permission to an EC2 instance to assume the
-     * role. The policy is URL-encoded according to RFC 3986. For more
-     * information about RFC 3986, go to
-     * <a href="http://www.faqs.org/rfcs/rfc3986.html"> http://www.faqs.org/rfcs/rfc3986.html </a>
-     * .
-     * </p>
-     *
-     * @param createRoleRequest Container for the necessary parameters to
-     *           execute the CreateRole operation on AmazonIdentityManagement.
-     * @param asyncHandler Asynchronous callback handler for events in the
-     *           life-cycle of the request. Users could provide the implementation of
-     *           the four callback methods in this interface to process the operation
-     *           result or handle the exception.
-     * 
-     * @return A Java Future object containing the response from the
-     *         CreateRole service method, as returned by AmazonIdentityManagement.
-     * 
-     *
-     * @throws AmazonClientException
-     *             If any internal errors are encountered inside the client while
-     *             attempting to make the request or handle the response.  For example
-     *             if a network connection is not available.
-     * @throws AmazonServiceException
-     *             If an error response is returned by AmazonIdentityManagement indicating
-     *             either a problem with the data in the request, or a server side issue.
-     */
-    public Future<CreateRoleResult> createRoleAsync(
-            final CreateRoleRequest createRoleRequest,
-            final AsyncHandler<CreateRoleRequest, CreateRoleResult> asyncHandler)
-                    throws AmazonServiceException, AmazonClientException {
-        return executorService.submit(new Callable<CreateRoleResult>() {
-            public CreateRoleResult call() throws Exception {
-              CreateRoleResult result;
-                try {
-                result = createRole(createRoleRequest);
-              } catch (Exception ex) {
-                  asyncHandler.onError(ex);
-            throw ex;
-              }
-              asyncHandler.onSuccess(createRoleRequest, result);
-                 return result;
-        }
-    });
-    }
-    
-    /**
-     * <p>
      * Returns the SAML provider metadocument that was uploaded when the
      * provider was created or updated.
      * </p>
      * <p>
-     * <b>NOTE:</b> This operation requires Signature Version 4.
+     * <b>NOTE:</b>This operation requires Signature Version 4.
      * </p>
      *
      * @param getSAMLProviderRequest Container for the necessary parameters
@@ -8285,7 +8886,7 @@ public class AmazonIdentityManagementAsyncClient extends AmazonIdentityManagemen
      * provider was created or updated.
      * </p>
      * <p>
-     * <b>NOTE:</b> This operation requires Signature Version 4.
+     * <b>NOTE:</b>This operation requires Signature Version 4.
      * </p>
      *
      * @param getSAMLProviderRequest Container for the necessary parameters
@@ -8329,13 +8930,99 @@ public class AmazonIdentityManagementAsyncClient extends AmazonIdentityManagemen
     
     /**
      * <p>
+     * Creates a new role for your AWS account. For more information about
+     * roles, go to
+     * <a href="http://docs.aws.amazon.com/IAM/latest/UserGuide/WorkingWithRoles.html"> Working with Roles </a> . For information about limitations on role names and the number of roles you can create, go to <a href="http://docs.aws.amazon.com/IAM/latest/UserGuide/LimitationsOnEntities.html"> Limitations on IAM Entities </a>
+     * in the <i>IAM User Guide</i> .
+     * </p>
+     * <p>
+     * The policy in the following example grants permission to an EC2
+     * instance to assume the role.
+     * </p>
+     *
+     * @param createRoleRequest Container for the necessary parameters to
+     *           execute the CreateRole operation on AmazonIdentityManagement.
+     * 
+     * @return A Java Future object containing the response from the
+     *         CreateRole service method, as returned by AmazonIdentityManagement.
+     * 
+     *
+     * @throws AmazonClientException
+     *             If any internal errors are encountered inside the client while
+     *             attempting to make the request or handle the response.  For example
+     *             if a network connection is not available.
+     * @throws AmazonServiceException
+     *             If an error response is returned by AmazonIdentityManagement indicating
+     *             either a problem with the data in the request, or a server side issue.
+     */
+    public Future<CreateRoleResult> createRoleAsync(final CreateRoleRequest createRoleRequest) 
+            throws AmazonServiceException, AmazonClientException {
+        return executorService.submit(new Callable<CreateRoleResult>() {
+            public CreateRoleResult call() throws Exception {
+                return createRole(createRoleRequest);
+        }
+    });
+    }
+
+    /**
+     * <p>
+     * Creates a new role for your AWS account. For more information about
+     * roles, go to
+     * <a href="http://docs.aws.amazon.com/IAM/latest/UserGuide/WorkingWithRoles.html"> Working with Roles </a> . For information about limitations on role names and the number of roles you can create, go to <a href="http://docs.aws.amazon.com/IAM/latest/UserGuide/LimitationsOnEntities.html"> Limitations on IAM Entities </a>
+     * in the <i>IAM User Guide</i> .
+     * </p>
+     * <p>
+     * The policy in the following example grants permission to an EC2
+     * instance to assume the role.
+     * </p>
+     *
+     * @param createRoleRequest Container for the necessary parameters to
+     *           execute the CreateRole operation on AmazonIdentityManagement.
+     * @param asyncHandler Asynchronous callback handler for events in the
+     *           life-cycle of the request. Users could provide the implementation of
+     *           the four callback methods in this interface to process the operation
+     *           result or handle the exception.
+     * 
+     * @return A Java Future object containing the response from the
+     *         CreateRole service method, as returned by AmazonIdentityManagement.
+     * 
+     *
+     * @throws AmazonClientException
+     *             If any internal errors are encountered inside the client while
+     *             attempting to make the request or handle the response.  For example
+     *             if a network connection is not available.
+     * @throws AmazonServiceException
+     *             If an error response is returned by AmazonIdentityManagement indicating
+     *             either a problem with the data in the request, or a server side issue.
+     */
+    public Future<CreateRoleResult> createRoleAsync(
+            final CreateRoleRequest createRoleRequest,
+            final AsyncHandler<CreateRoleRequest, CreateRoleResult> asyncHandler)
+                    throws AmazonServiceException, AmazonClientException {
+        return executorService.submit(new Callable<CreateRoleResult>() {
+            public CreateRoleResult call() throws Exception {
+              CreateRoleResult result;
+                try {
+                result = createRole(createRoleRequest);
+              } catch (Exception ex) {
+                  asyncHandler.onError(ex);
+            throw ex;
+              }
+              asyncHandler.onSuccess(createRoleRequest, result);
+                 return result;
+        }
+    });
+    }
+    
+    /**
+     * <p>
      * Changes the password for the specified user.
      * </p>
      * <p>
      * Users can change their own passwords by calling ChangePassword. For
      * more information about modifying passwords, see
      * <a href="http://docs.aws.amazon.com/IAM/latest/UserGuide/Using_ManagingLogins.html"> Managing Passwords </a>
-     * in the <i>Using IAM</i> guide.
+     * in the <i>IAM User Guide</i> .
      * </p>
      *
      * @param updateLoginProfileRequest Container for the necessary
@@ -8373,7 +9060,7 @@ public class AmazonIdentityManagementAsyncClient extends AmazonIdentityManagemen
      * Users can change their own passwords by calling ChangePassword. For
      * more information about modifying passwords, see
      * <a href="http://docs.aws.amazon.com/IAM/latest/UserGuide/Using_ManagingLogins.html"> Managing Passwords </a>
-     * in the <i>Using IAM</i> guide.
+     * in the <i>IAM User Guide</i> .
      * </p>
      *
      * @param updateLoginProfileRequest Container for the necessary
@@ -8511,6 +9198,240 @@ public class AmazonIdentityManagementAsyncClient extends AmazonIdentityManagemen
     
     /**
      * <p>
+     * Uploads an SSH public key and associates it with the specified IAM
+     * user.
+     * </p>
+     * <p>
+     * The SSH public key uploaded by this action can be used only for
+     * authenticating the associated IAM user to an AWS CodeCommit
+     * repository. For more information about using SSH keys to authenticate
+     * to an AWS CodeCommit repository, see
+     * <a href="http://docs.aws.amazon.com/codecommit/latest/userguide/setting-up-credentials-ssh.html"> Set up AWS CodeCommit for SSH Connections </a>
+     * in the <i>AWS CodeCommit User Guide</i> .
+     * </p>
+     *
+     * @param uploadSSHPublicKeyRequest Container for the necessary
+     *           parameters to execute the UploadSSHPublicKey operation on
+     *           AmazonIdentityManagement.
+     * 
+     * @return A Java Future object containing the response from the
+     *         UploadSSHPublicKey service method, as returned by
+     *         AmazonIdentityManagement.
+     * 
+     *
+     * @throws AmazonClientException
+     *             If any internal errors are encountered inside the client while
+     *             attempting to make the request or handle the response.  For example
+     *             if a network connection is not available.
+     * @throws AmazonServiceException
+     *             If an error response is returned by AmazonIdentityManagement indicating
+     *             either a problem with the data in the request, or a server side issue.
+     */
+    public Future<UploadSSHPublicKeyResult> uploadSSHPublicKeyAsync(final UploadSSHPublicKeyRequest uploadSSHPublicKeyRequest) 
+            throws AmazonServiceException, AmazonClientException {
+        return executorService.submit(new Callable<UploadSSHPublicKeyResult>() {
+            public UploadSSHPublicKeyResult call() throws Exception {
+                return uploadSSHPublicKey(uploadSSHPublicKeyRequest);
+        }
+    });
+    }
+
+    /**
+     * <p>
+     * Uploads an SSH public key and associates it with the specified IAM
+     * user.
+     * </p>
+     * <p>
+     * The SSH public key uploaded by this action can be used only for
+     * authenticating the associated IAM user to an AWS CodeCommit
+     * repository. For more information about using SSH keys to authenticate
+     * to an AWS CodeCommit repository, see
+     * <a href="http://docs.aws.amazon.com/codecommit/latest/userguide/setting-up-credentials-ssh.html"> Set up AWS CodeCommit for SSH Connections </a>
+     * in the <i>AWS CodeCommit User Guide</i> .
+     * </p>
+     *
+     * @param uploadSSHPublicKeyRequest Container for the necessary
+     *           parameters to execute the UploadSSHPublicKey operation on
+     *           AmazonIdentityManagement.
+     * @param asyncHandler Asynchronous callback handler for events in the
+     *           life-cycle of the request. Users could provide the implementation of
+     *           the four callback methods in this interface to process the operation
+     *           result or handle the exception.
+     * 
+     * @return A Java Future object containing the response from the
+     *         UploadSSHPublicKey service method, as returned by
+     *         AmazonIdentityManagement.
+     * 
+     *
+     * @throws AmazonClientException
+     *             If any internal errors are encountered inside the client while
+     *             attempting to make the request or handle the response.  For example
+     *             if a network connection is not available.
+     * @throws AmazonServiceException
+     *             If an error response is returned by AmazonIdentityManagement indicating
+     *             either a problem with the data in the request, or a server side issue.
+     */
+    public Future<UploadSSHPublicKeyResult> uploadSSHPublicKeyAsync(
+            final UploadSSHPublicKeyRequest uploadSSHPublicKeyRequest,
+            final AsyncHandler<UploadSSHPublicKeyRequest, UploadSSHPublicKeyResult> asyncHandler)
+                    throws AmazonServiceException, AmazonClientException {
+        return executorService.submit(new Callable<UploadSSHPublicKeyResult>() {
+            public UploadSSHPublicKeyResult call() throws Exception {
+              UploadSSHPublicKeyResult result;
+                try {
+                result = uploadSSHPublicKey(uploadSSHPublicKeyRequest);
+              } catch (Exception ex) {
+                  asyncHandler.onError(ex);
+            throw ex;
+              }
+              asyncHandler.onSuccess(uploadSSHPublicKeyRequest, result);
+                 return result;
+        }
+    });
+    }
+    
+    /**
+     * <p>
+     * Simulate the set of IAM policies attached to an IAM entity against a
+     * list of API actions and AWS resources to determine the policies'
+     * effective permissions. The entity can be an IAM user, group, or role.
+     * If you specify a user, then the simulation also includes all of the
+     * policies attached to groups that the user is a member of.
+     * </p>
+     * <p>
+     * You can optionally include a list of one or more additional policies
+     * specified as strings to include in the simulation. If you want to
+     * simulate only policies specified as strings, use SimulateCustomPolicy
+     * instead.
+     * </p>
+     * <p>
+     * The simulation does not perform the API actions, it only checks the
+     * authorization to determine if the simulated policies allow or deny the
+     * actions.
+     * </p>
+     * <p>
+     * <b>Note:</b> This API discloses information about the permissions
+     * granted to other users. If you do not want users to see other user's
+     * permissions, then consider allowing them to use SimulateCustomPolicy
+     * instead.
+     * </p>
+     * <p>
+     * Context keys are variables maintained by AWS and its services that
+     * provide details about the context of an API query request, and can be
+     * evaluated by using the <code>Condition</code> element of an IAM
+     * policy. To get the list of context keys required by the policies to
+     * simulate them correctly, use GetContextKeysForPrincipalPolicy.
+     * </p>
+     * <p>
+     * If the output is long, you can paginate the results using the
+     * <code>MaxItems</code> and <code>Marker</code> parameters.
+     * </p>
+     *
+     * @param simulatePrincipalPolicyRequest Container for the necessary
+     *           parameters to execute the SimulatePrincipalPolicy operation on
+     *           AmazonIdentityManagement.
+     * 
+     * @return A Java Future object containing the response from the
+     *         SimulatePrincipalPolicy service method, as returned by
+     *         AmazonIdentityManagement.
+     * 
+     *
+     * @throws AmazonClientException
+     *             If any internal errors are encountered inside the client while
+     *             attempting to make the request or handle the response.  For example
+     *             if a network connection is not available.
+     * @throws AmazonServiceException
+     *             If an error response is returned by AmazonIdentityManagement indicating
+     *             either a problem with the data in the request, or a server side issue.
+     */
+    public Future<SimulatePrincipalPolicyResult> simulatePrincipalPolicyAsync(final SimulatePrincipalPolicyRequest simulatePrincipalPolicyRequest) 
+            throws AmazonServiceException, AmazonClientException {
+        return executorService.submit(new Callable<SimulatePrincipalPolicyResult>() {
+            public SimulatePrincipalPolicyResult call() throws Exception {
+                return simulatePrincipalPolicy(simulatePrincipalPolicyRequest);
+        }
+    });
+    }
+
+    /**
+     * <p>
+     * Simulate the set of IAM policies attached to an IAM entity against a
+     * list of API actions and AWS resources to determine the policies'
+     * effective permissions. The entity can be an IAM user, group, or role.
+     * If you specify a user, then the simulation also includes all of the
+     * policies attached to groups that the user is a member of.
+     * </p>
+     * <p>
+     * You can optionally include a list of one or more additional policies
+     * specified as strings to include in the simulation. If you want to
+     * simulate only policies specified as strings, use SimulateCustomPolicy
+     * instead.
+     * </p>
+     * <p>
+     * The simulation does not perform the API actions, it only checks the
+     * authorization to determine if the simulated policies allow or deny the
+     * actions.
+     * </p>
+     * <p>
+     * <b>Note:</b> This API discloses information about the permissions
+     * granted to other users. If you do not want users to see other user's
+     * permissions, then consider allowing them to use SimulateCustomPolicy
+     * instead.
+     * </p>
+     * <p>
+     * Context keys are variables maintained by AWS and its services that
+     * provide details about the context of an API query request, and can be
+     * evaluated by using the <code>Condition</code> element of an IAM
+     * policy. To get the list of context keys required by the policies to
+     * simulate them correctly, use GetContextKeysForPrincipalPolicy.
+     * </p>
+     * <p>
+     * If the output is long, you can paginate the results using the
+     * <code>MaxItems</code> and <code>Marker</code> parameters.
+     * </p>
+     *
+     * @param simulatePrincipalPolicyRequest Container for the necessary
+     *           parameters to execute the SimulatePrincipalPolicy operation on
+     *           AmazonIdentityManagement.
+     * @param asyncHandler Asynchronous callback handler for events in the
+     *           life-cycle of the request. Users could provide the implementation of
+     *           the four callback methods in this interface to process the operation
+     *           result or handle the exception.
+     * 
+     * @return A Java Future object containing the response from the
+     *         SimulatePrincipalPolicy service method, as returned by
+     *         AmazonIdentityManagement.
+     * 
+     *
+     * @throws AmazonClientException
+     *             If any internal errors are encountered inside the client while
+     *             attempting to make the request or handle the response.  For example
+     *             if a network connection is not available.
+     * @throws AmazonServiceException
+     *             If an error response is returned by AmazonIdentityManagement indicating
+     *             either a problem with the data in the request, or a server side issue.
+     */
+    public Future<SimulatePrincipalPolicyResult> simulatePrincipalPolicyAsync(
+            final SimulatePrincipalPolicyRequest simulatePrincipalPolicyRequest,
+            final AsyncHandler<SimulatePrincipalPolicyRequest, SimulatePrincipalPolicyResult> asyncHandler)
+                    throws AmazonServiceException, AmazonClientException {
+        return executorService.submit(new Callable<SimulatePrincipalPolicyResult>() {
+            public SimulatePrincipalPolicyResult call() throws Exception {
+              SimulatePrincipalPolicyResult result;
+                try {
+                result = simulatePrincipalPolicy(simulatePrincipalPolicyRequest);
+              } catch (Exception ex) {
+                  asyncHandler.onError(ex);
+            throw ex;
+              }
+              asyncHandler.onSuccess(simulatePrincipalPolicyRequest, result);
+                 return result;
+        }
+    });
+    }
+    
+    /**
+     * <p>
      * Attaches the specified managed policy to the specified user.
      * </p>
      * <p>
@@ -8520,7 +9441,7 @@ public class AmazonIdentityManagementAsyncClient extends AmazonIdentityManagemen
      * <p>
      * For more information about policies, refer to
      * <a href="http://docs.aws.amazon.com/IAM/latest/UserGuide/policies-managed-vs-inline.html"> Managed Policies and Inline Policies </a>
-     * in the <i>Using IAM</i> guide.
+     * in the <i>IAM User Guide</i> .
      * </p>
      *
      * @param attachUserPolicyRequest Container for the necessary parameters
@@ -8560,7 +9481,7 @@ public class AmazonIdentityManagementAsyncClient extends AmazonIdentityManagemen
      * <p>
      * For more information about policies, refer to
      * <a href="http://docs.aws.amazon.com/IAM/latest/UserGuide/policies-managed-vs-inline.html"> Managed Policies and Inline Policies </a>
-     * in the <i>Using IAM</i> guide.
+     * in the <i>IAM User Guide</i> .
      * </p>
      *
      * @param attachUserPolicyRequest Container for the necessary parameters
@@ -8679,104 +9600,6 @@ public class AmazonIdentityManagementAsyncClient extends AmazonIdentityManagemen
     
     /**
      * <p>
-     * Sets the specified version of the specified policy as the policy's
-     * default (operative) version.
-     * </p>
-     * <p>
-     * This action affects all users, groups, and roles that the policy is
-     * attached to. To list the users, groups, and roles that the policy is
-     * attached to, use the ListEntitiesForPolicy API.
-     * </p>
-     * <p>
-     * For information about managed policies, refer to
-     * <a href="http://docs.aws.amazon.com/IAM/latest/UserGuide/policies-managed-vs-inline.html"> Managed Policies and Inline Policies </a>
-     * in the <i>Using IAM</i> guide.
-     * </p>
-     *
-     * @param setDefaultPolicyVersionRequest Container for the necessary
-     *           parameters to execute the SetDefaultPolicyVersion operation on
-     *           AmazonIdentityManagement.
-     * 
-     * @return A Java Future object containing the response from the
-     *         SetDefaultPolicyVersion service method, as returned by
-     *         AmazonIdentityManagement.
-     * 
-     *
-     * @throws AmazonClientException
-     *             If any internal errors are encountered inside the client while
-     *             attempting to make the request or handle the response.  For example
-     *             if a network connection is not available.
-     * @throws AmazonServiceException
-     *             If an error response is returned by AmazonIdentityManagement indicating
-     *             either a problem with the data in the request, or a server side issue.
-     */
-    public Future<Void> setDefaultPolicyVersionAsync(final SetDefaultPolicyVersionRequest setDefaultPolicyVersionRequest) 
-            throws AmazonServiceException, AmazonClientException {
-        return executorService.submit(new Callable<Void>() {
-            public Void call() throws Exception {
-                setDefaultPolicyVersion(setDefaultPolicyVersionRequest);
-                return null;
-        }
-    });
-    }
-
-    /**
-     * <p>
-     * Sets the specified version of the specified policy as the policy's
-     * default (operative) version.
-     * </p>
-     * <p>
-     * This action affects all users, groups, and roles that the policy is
-     * attached to. To list the users, groups, and roles that the policy is
-     * attached to, use the ListEntitiesForPolicy API.
-     * </p>
-     * <p>
-     * For information about managed policies, refer to
-     * <a href="http://docs.aws.amazon.com/IAM/latest/UserGuide/policies-managed-vs-inline.html"> Managed Policies and Inline Policies </a>
-     * in the <i>Using IAM</i> guide.
-     * </p>
-     *
-     * @param setDefaultPolicyVersionRequest Container for the necessary
-     *           parameters to execute the SetDefaultPolicyVersion operation on
-     *           AmazonIdentityManagement.
-     * @param asyncHandler Asynchronous callback handler for events in the
-     *           life-cycle of the request. Users could provide the implementation of
-     *           the four callback methods in this interface to process the operation
-     *           result or handle the exception.
-     * 
-     * @return A Java Future object containing the response from the
-     *         SetDefaultPolicyVersion service method, as returned by
-     *         AmazonIdentityManagement.
-     * 
-     *
-     * @throws AmazonClientException
-     *             If any internal errors are encountered inside the client while
-     *             attempting to make the request or handle the response.  For example
-     *             if a network connection is not available.
-     * @throws AmazonServiceException
-     *             If an error response is returned by AmazonIdentityManagement indicating
-     *             either a problem with the data in the request, or a server side issue.
-     */
-    public Future<Void> setDefaultPolicyVersionAsync(
-            final SetDefaultPolicyVersionRequest setDefaultPolicyVersionRequest,
-            final AsyncHandler<SetDefaultPolicyVersionRequest, Void> asyncHandler)
-                    throws AmazonServiceException, AmazonClientException {
-        return executorService.submit(new Callable<Void>() {
-            public Void call() throws Exception {
-              try {
-                setDefaultPolicyVersion(setDefaultPolicyVersionRequest);
-              } catch (Exception ex) {
-                  asyncHandler.onError(ex);
-            throw ex;
-              }
-              asyncHandler.onSuccess(setDefaultPolicyVersionRequest, null);
-                 return null;
-        }
-    });
-    }
-    
-    /**
-     * <p>
      * Attaches the specified managed policy to the specified group.
      * </p>
      * <p>
@@ -8786,7 +9609,7 @@ public class AmazonIdentityManagementAsyncClient extends AmazonIdentityManagemen
      * <p>
      * For more information about policies, refer to
      * <a href="http://docs.aws.amazon.com/IAM/latest/UserGuide/policies-managed-vs-inline.html"> Managed Policies and Inline Policies </a>
-     * in the <i>Using IAM</i> guide.
+     * in the <i>IAM User Guide</i> .
      * </p>
      *
      * @param attachGroupPolicyRequest Container for the necessary parameters
@@ -8827,7 +9650,7 @@ public class AmazonIdentityManagementAsyncClient extends AmazonIdentityManagemen
      * <p>
      * For more information about policies, refer to
      * <a href="http://docs.aws.amazon.com/IAM/latest/UserGuide/policies-managed-vs-inline.html"> Managed Policies and Inline Policies </a>
-     * in the <i>Using IAM</i> guide.
+     * in the <i>IAM User Guide</i> .
      * </p>
      *
      * @param attachGroupPolicyRequest Container for the necessary parameters
@@ -8871,6 +9694,104 @@ public class AmazonIdentityManagementAsyncClient extends AmazonIdentityManagemen
     
     /**
      * <p>
+     * Sets the specified version of the specified policy as the policy's
+     * default (operative) version.
+     * </p>
+     * <p>
+     * This action affects all users, groups, and roles that the policy is
+     * attached to. To list the users, groups, and roles that the policy is
+     * attached to, use the ListEntitiesForPolicy API.
+     * </p>
+     * <p>
+     * For information about managed policies, refer to
+     * <a href="http://docs.aws.amazon.com/IAM/latest/UserGuide/policies-managed-vs-inline.html"> Managed Policies and Inline Policies </a>
+     * in the <i>IAM User Guide</i> .
+     * </p>
+     *
+     * @param setDefaultPolicyVersionRequest Container for the necessary
+     *           parameters to execute the SetDefaultPolicyVersion operation on
+     *           AmazonIdentityManagement.
+     * 
+     * @return A Java Future object containing the response from the
+     *         SetDefaultPolicyVersion service method, as returned by
+     *         AmazonIdentityManagement.
+     * 
+     *
+     * @throws AmazonClientException
+     *             If any internal errors are encountered inside the client while
+     *             attempting to make the request or handle the response.  For example
+     *             if a network connection is not available.
+     * @throws AmazonServiceException
+     *             If an error response is returned by AmazonIdentityManagement indicating
+     *             either a problem with the data in the request, or a server side issue.
+     */
+    public Future<Void> setDefaultPolicyVersionAsync(final SetDefaultPolicyVersionRequest setDefaultPolicyVersionRequest) 
+            throws AmazonServiceException, AmazonClientException {
+        return executorService.submit(new Callable<Void>() {
+            public Void call() throws Exception {
+                setDefaultPolicyVersion(setDefaultPolicyVersionRequest);
+                return null;
+        }
+    });
+    }
+
+    /**
+     * <p>
+     * Sets the specified version of the specified policy as the policy's
+     * default (operative) version.
+     * </p>
+     * <p>
+     * This action affects all users, groups, and roles that the policy is
+     * attached to. To list the users, groups, and roles that the policy is
+     * attached to, use the ListEntitiesForPolicy API.
+     * </p>
+     * <p>
+     * For information about managed policies, refer to
+     * <a href="http://docs.aws.amazon.com/IAM/latest/UserGuide/policies-managed-vs-inline.html"> Managed Policies and Inline Policies </a>
+     * in the <i>IAM User Guide</i> .
+     * </p>
+     *
+     * @param setDefaultPolicyVersionRequest Container for the necessary
+     *           parameters to execute the SetDefaultPolicyVersion operation on
+     *           AmazonIdentityManagement.
+     * @param asyncHandler Asynchronous callback handler for events in the
+     *           life-cycle of the request. Users could provide the implementation of
+     *           the four callback methods in this interface to process the operation
+     *           result or handle the exception.
+     * 
+     * @return A Java Future object containing the response from the
+     *         SetDefaultPolicyVersion service method, as returned by
+     *         AmazonIdentityManagement.
+     * 
+     *
+     * @throws AmazonClientException
+     *             If any internal errors are encountered inside the client while
+     *             attempting to make the request or handle the response.  For example
+     *             if a network connection is not available.
+     * @throws AmazonServiceException
+     *             If an error response is returned by AmazonIdentityManagement indicating
+     *             either a problem with the data in the request, or a server side issue.
+     */
+    public Future<Void> setDefaultPolicyVersionAsync(
+            final SetDefaultPolicyVersionRequest setDefaultPolicyVersionRequest,
+            final AsyncHandler<SetDefaultPolicyVersionRequest, Void> asyncHandler)
+                    throws AmazonServiceException, AmazonClientException {
+        return executorService.submit(new Callable<Void>() {
+            public Void call() throws Exception {
+              try {
+                setDefaultPolicyVersion(setDefaultPolicyVersionRequest);
+              } catch (Exception ex) {
+                  asyncHandler.onError(ex);
+            throw ex;
+              }
+              asyncHandler.onSuccess(setDefaultPolicyVersionRequest, null);
+                 return null;
+        }
+    });
+    }
+    
+    /**
+     * <p>
      * Lists the names of the inline policies embedded in the specified
      * user.
      * </p>
@@ -8880,7 +9801,7 @@ public class AmazonIdentityManagementAsyncClient extends AmazonIdentityManagemen
      * ListAttachedUserPolicies. For more information about policies, refer
      * to
      * <a href="http://docs.aws.amazon.com/IAM/latest/UserGuide/policies-managed-vs-inline.html"> Managed Policies and Inline Policies </a>
-     * in the <i>Using IAM</i> guide.
+     * in the <i>IAM User Guide</i> .
      * </p>
      * <p>
      * You can paginate the results using the <code>MaxItems</code> and
@@ -8924,7 +9845,7 @@ public class AmazonIdentityManagementAsyncClient extends AmazonIdentityManagemen
      * ListAttachedUserPolicies. For more information about policies, refer
      * to
      * <a href="http://docs.aws.amazon.com/IAM/latest/UserGuide/policies-managed-vs-inline.html"> Managed Policies and Inline Policies </a>
-     * in the <i>Using IAM</i> guide.
+     * in the <i>IAM User Guide</i> .
      * </p>
      * <p>
      * You can paginate the results using the <code>MaxItems</code> and
@@ -8966,6 +9887,88 @@ public class AmazonIdentityManagementAsyncClient extends AmazonIdentityManagemen
             throw ex;
               }
               asyncHandler.onSuccess(listUserPoliciesRequest, result);
+                 return result;
+        }
+    });
+    }
+    
+    /**
+     * <p>
+     * Retrieves information about when the specified access key was last
+     * used. The information includes the date and time of last use, along
+     * with the AWS service and region that were specified in the last
+     * request made with that key.
+     * </p>
+     *
+     * @param getAccessKeyLastUsedRequest Container for the necessary
+     *           parameters to execute the GetAccessKeyLastUsed operation on
+     *           AmazonIdentityManagement.
+     * 
+     * @return A Java Future object containing the response from the
+     *         GetAccessKeyLastUsed service method, as returned by
+     *         AmazonIdentityManagement.
+     * 
+     *
+     * @throws AmazonClientException
+     *             If any internal errors are encountered inside the client while
+     *             attempting to make the request or handle the response.  For example
+     *             if a network connection is not available.
+     * @throws AmazonServiceException
+     *             If an error response is returned by AmazonIdentityManagement indicating
+     *             either a problem with the data in the request, or a server side issue.
+     */
+    public Future<GetAccessKeyLastUsedResult> getAccessKeyLastUsedAsync(final GetAccessKeyLastUsedRequest getAccessKeyLastUsedRequest) 
+            throws AmazonServiceException, AmazonClientException {
+        return executorService.submit(new Callable<GetAccessKeyLastUsedResult>() {
+            public GetAccessKeyLastUsedResult call() throws Exception {
+                return getAccessKeyLastUsed(getAccessKeyLastUsedRequest);
+        }
+    });
+    }
+
+    /**
+     * <p>
+     * Retrieves information about when the specified access key was last
+     * used. The information includes the date and time of last use, along
+     * with the AWS service and region that were specified in the last
+     * request made with that key.
+     * </p>
+     *
+     * @param getAccessKeyLastUsedRequest Container for the necessary
+     *           parameters to execute the GetAccessKeyLastUsed operation on
+     *           AmazonIdentityManagement.
+     * @param asyncHandler Asynchronous callback handler for events in the
+     *           life-cycle of the request. Users could provide the implementation of
+     *           the four callback methods in this interface to process the operation
+     *           result or handle the exception.
+     * 
+     * @return A Java Future object containing the response from the
+     *         GetAccessKeyLastUsed service method, as returned by
+     *         AmazonIdentityManagement.
+     * 
+     *
+     * @throws AmazonClientException
+     *             If any internal errors are encountered inside the client while
+     *             attempting to make the request or handle the response.  For example
+     *             if a network connection is not available.
+     * @throws AmazonServiceException
+     *             If an error response is returned by AmazonIdentityManagement indicating
+     *             either a problem with the data in the request, or a server side issue.
+     */
+    public Future<GetAccessKeyLastUsedResult> getAccessKeyLastUsedAsync(
+            final GetAccessKeyLastUsedRequest getAccessKeyLastUsedRequest,
+            final AsyncHandler<GetAccessKeyLastUsedRequest, GetAccessKeyLastUsedResult> asyncHandler)
+                    throws AmazonServiceException, AmazonClientException {
+        return executorService.submit(new Callable<GetAccessKeyLastUsedResult>() {
+            public GetAccessKeyLastUsedResult call() throws Exception {
+              GetAccessKeyLastUsedResult result;
+                try {
+                result = getAccessKeyLastUsed(getAccessKeyLastUsedRequest);
+              } catch (Exception ex) {
+                  asyncHandler.onError(ex);
+            throw ex;
+              }
+              asyncHandler.onSuccess(getAccessKeyLastUsedRequest, result);
                  return result;
         }
     });
@@ -9072,7 +10075,7 @@ public class AmazonIdentityManagementAsyncClient extends AmazonIdentityManagemen
      * <p>
      * For more information about managed policy versions, see
      * <a href="http://docs.aws.amazon.com/IAM/latest/UserGuide/policies-managed-versions.html"> Versioning for Managed Policies </a>
-     * in the <i>Using IAM</i> guide.
+     * in the <i>IAM User Guide</i> .
      * </p>
      *
      * @param createPolicyVersionRequest Container for the necessary
@@ -9118,7 +10121,7 @@ public class AmazonIdentityManagementAsyncClient extends AmazonIdentityManagemen
      * <p>
      * For more information about managed policy versions, see
      * <a href="http://docs.aws.amazon.com/IAM/latest/UserGuide/policies-managed-versions.html"> Versioning for Managed Policies </a>
-     * in the <i>Using IAM</i> guide.
+     * in the <i>IAM User Guide</i> .
      * </p>
      *
      * @param createPolicyVersionRequest Container for the necessary
@@ -9257,7 +10260,7 @@ public class AmazonIdentityManagementAsyncClient extends AmazonIdentityManagemen
      * <p>
      * For more information about policies, refer to
      * <a href="http://docs.aws.amazon.com/IAM/latest/UserGuide/policies-managed-vs-inline.html"> Managed Policies and Inline Policies </a>
-     * in the <i>Using IAM</i> guide.
+     * in the <i>IAM User Guide</i> .
      * </p>
      *
      * @param getGroupPolicyRequest Container for the necessary parameters to
@@ -9299,7 +10302,7 @@ public class AmazonIdentityManagementAsyncClient extends AmazonIdentityManagemen
      * <p>
      * For more information about policies, refer to
      * <a href="http://docs.aws.amazon.com/IAM/latest/UserGuide/policies-managed-vs-inline.html"> Managed Policies and Inline Policies </a>
-     * in the <i>Using IAM</i> guide.
+     * in the <i>IAM User Guide</i> .
      * </p>
      *
      * @param getGroupPolicyRequest Container for the necessary parameters to
@@ -9355,7 +10358,7 @@ public class AmazonIdentityManagementAsyncClient extends AmazonIdentityManagemen
      * <p>
      * For more information about policies, refer to
      * <a href="http://docs.aws.amazon.com/IAM/latest/UserGuide/policies-managed-vs-inline.html"> Managed Policies and Inline Policies </a>
-     * in the <i>Using IAM</i> guide.
+     * in the <i>IAM User Guide</i> .
      * </p>
      * <p>
      * For more information about roles, go to
@@ -9401,7 +10404,7 @@ public class AmazonIdentityManagementAsyncClient extends AmazonIdentityManagemen
      * <p>
      * For more information about policies, refer to
      * <a href="http://docs.aws.amazon.com/IAM/latest/UserGuide/policies-managed-vs-inline.html"> Managed Policies and Inline Policies </a>
-     * in the <i>Using IAM</i> guide.
+     * in the <i>IAM User Guide</i> .
      * </p>
      * <p>
      * For more information about roles, go to
@@ -9549,7 +10552,7 @@ public class AmazonIdentityManagementAsyncClient extends AmazonIdentityManagemen
      * managed policy from a role, use DetachRolePolicy. For more information
      * about policies, refer to
      * <a href="http://docs.aws.amazon.com/IAM/latest/UserGuide/policies-managed-vs-inline.html"> Managed Policies and Inline Policies </a>
-     * in the <i>Using IAM</i> guide.
+     * in the <i>IAM User Guide</i> .
      * </p>
      *
      * @param deleteRolePolicyRequest Container for the necessary parameters
@@ -9588,7 +10591,7 @@ public class AmazonIdentityManagementAsyncClient extends AmazonIdentityManagemen
      * managed policy from a role, use DetachRolePolicy. For more information
      * about policies, refer to
      * <a href="http://docs.aws.amazon.com/IAM/latest/UserGuide/policies-managed-vs-inline.html"> Managed Policies and Inline Policies </a>
-     * in the <i>Using IAM</i> guide.
+     * in the <i>IAM User Guide</i> .
      * </p>
      *
      * @param deleteRolePolicyRequest Container for the necessary parameters
@@ -9732,7 +10735,7 @@ public class AmazonIdentityManagementAsyncClient extends AmazonIdentityManagemen
      * ListAttachedGroupPolicies. For more information about policies, refer
      * to
      * <a href="http://docs.aws.amazon.com/IAM/latest/UserGuide/policies-managed-vs-inline.html"> Managed Policies and Inline Policies </a>
-     * in the <i>Using IAM</i> guide.
+     * in the <i>IAM User Guide</i> .
      * </p>
      * <p>
      * You can paginate the results using the <code>MaxItems</code> and
@@ -9777,7 +10780,7 @@ public class AmazonIdentityManagementAsyncClient extends AmazonIdentityManagemen
      * ListAttachedGroupPolicies. For more information about policies, refer
      * to
      * <a href="http://docs.aws.amazon.com/IAM/latest/UserGuide/policies-managed-vs-inline.html"> Managed Policies and Inline Policies </a>
-     * in the <i>Using IAM</i> guide.
+     * in the <i>IAM User Guide</i> .
      * </p>
      * <p>
      * You can paginate the results using the <code>MaxItems</code> and
@@ -9837,12 +10840,6 @@ public class AmazonIdentityManagementAsyncClient extends AmazonIdentityManagemen
      * You can paginate the results using the <code>MaxItems</code> and
      * <code>Marker</code> parameters.
      * </p>
-     * <p>
-     * The returned policy is URL-encoded according to RFC 3986. For more
-     * information about RFC 3986, go to
-     * <a href="http://www.faqs.org/rfcs/rfc3986.html"> http://www.faqs.org/rfcs/rfc3986.html </a>
-     * .
-     * </p>
      *
      * @param listRolesRequest Container for the necessary parameters to
      *           execute the ListRoles operation on AmazonIdentityManagement.
@@ -9879,12 +10876,6 @@ public class AmazonIdentityManagementAsyncClient extends AmazonIdentityManagemen
      * <p>
      * You can paginate the results using the <code>MaxItems</code> and
      * <code>Marker</code> parameters.
-     * </p>
-     * <p>
-     * The returned policy is URL-encoded according to RFC 3986. For more
-     * information about RFC 3986, go to
-     * <a href="http://www.faqs.org/rfcs/rfc3986.html"> http://www.faqs.org/rfcs/rfc3986.html </a>
-     * .
      * </p>
      *
      * @param listRolesRequest Container for the necessary parameters to

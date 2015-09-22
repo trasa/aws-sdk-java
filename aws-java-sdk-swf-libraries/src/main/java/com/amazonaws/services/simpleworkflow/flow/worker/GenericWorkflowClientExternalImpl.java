@@ -1,5 +1,5 @@
 /*
- * Copyright 2012 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2012-2015 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"). You may not
  * use this file except in compliance with the License. A copy of the License is
@@ -59,7 +59,12 @@ public class GenericWorkflowClientExternalImpl implements GenericWorkflowClientE
         request.setWorkflowId(startParameters.getWorkflowId());
         request.setWorkflowType(startParameters.getWorkflowType());
         request.setTaskPriority(FlowHelpers.taskPriorityToString(startParameters.getTaskPriority()));
-        
+
+        if(startParameters.getChildPolicy() != null) {
+            request.setChildPolicy(startParameters.getChildPolicy());
+        }
+        request.setLambdaRole(startParameters.getLambdaRole());
+
         Run result = service.startWorkflowExecution(request);
         WorkflowExecution execution = new WorkflowExecution().withRunId(result.getRunId()).withWorkflowId(request.getWorkflowId());
 

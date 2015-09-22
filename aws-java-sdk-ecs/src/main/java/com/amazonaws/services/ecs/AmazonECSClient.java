@@ -219,8 +219,17 @@ public class AmazonECSClient extends AmazonWebServiceClient implements AmazonECS
 
     private void init() {
         jsonErrorUnmarshallers = new ArrayList<JsonErrorUnmarshaller>();
-        jsonErrorUnmarshallers.add(new ClientExceptionUnmarshaller());
+        jsonErrorUnmarshallers.add(new ClusterContainsContainerInstancesExceptionUnmarshaller());
         jsonErrorUnmarshallers.add(new ServerExceptionUnmarshaller());
+        jsonErrorUnmarshallers.add(new MissingVersionExceptionUnmarshaller());
+        jsonErrorUnmarshallers.add(new ClusterContainsServicesExceptionUnmarshaller());
+        jsonErrorUnmarshallers.add(new ServiceNotActiveExceptionUnmarshaller());
+        jsonErrorUnmarshallers.add(new ClientExceptionUnmarshaller());
+        jsonErrorUnmarshallers.add(new UpdateInProgressExceptionUnmarshaller());
+        jsonErrorUnmarshallers.add(new ClusterNotFoundExceptionUnmarshaller());
+        jsonErrorUnmarshallers.add(new InvalidParameterExceptionUnmarshaller());
+        jsonErrorUnmarshallers.add(new NoUpdateAvailableExceptionUnmarshaller());
+        jsonErrorUnmarshallers.add(new ServiceNotFoundExceptionUnmarshaller());
         
         jsonErrorUnmarshallers.add(new JsonErrorUnmarshaller());
         
@@ -238,6 +247,855 @@ public class AmazonECSClient extends AmazonWebServiceClient implements AmazonECS
         ClientConfiguration config = orig;
         
         return config;
+    }
+
+    /**
+     * <p>
+     * Deletes the specified cluster. You must deregister all container
+     * instances from this cluster before you may delete it. You can list the
+     * container instances in a cluster with ListContainerInstances and
+     * deregister them with DeregisterContainerInstance.
+     * </p>
+     *
+     * @param deleteClusterRequest Container for the necessary parameters to
+     *           execute the DeleteCluster service method on AmazonECS.
+     * 
+     * @return The response from the DeleteCluster service method, as
+     *         returned by AmazonECS.
+     * 
+     * @throws InvalidParameterException
+     * @throws ClusterContainsContainerInstancesException
+     * @throws ClusterNotFoundException
+     * @throws ServerException
+     * @throws ClientException
+     * @throws ClusterContainsServicesException
+     *
+     * @throws AmazonClientException
+     *             If any internal errors are encountered inside the client while
+     *             attempting to make the request or handle the response.  For example
+     *             if a network connection is not available.
+     * @throws AmazonServiceException
+     *             If an error response is returned by AmazonECS indicating
+     *             either a problem with the data in the request, or a server side issue.
+     */
+    public DeleteClusterResult deleteCluster(DeleteClusterRequest deleteClusterRequest) {
+        ExecutionContext executionContext = createExecutionContext(deleteClusterRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<DeleteClusterRequest> request = null;
+        Response<DeleteClusterResult> response = null;
+        
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new DeleteClusterRequestMarshaller().marshall(super.beforeMarshalling(deleteClusterRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            Unmarshaller<DeleteClusterResult, JsonUnmarshallerContext> unmarshaller =
+                new DeleteClusterResultJsonUnmarshaller();
+            JsonResponseHandler<DeleteClusterResult> responseHandler =
+                new JsonResponseHandler<DeleteClusterResult>(unmarshaller);
+
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+        } finally {
+            
+            endClientExecution(awsRequestMetrics, request, response, LOGGING_AWS_REQUEST_METRIC);
+        }
+    }
+
+    /**
+     * <p>
+     * <b>NOTE:</b> This action is only used by the Amazon EC2 Container
+     * Service agent, and it is not intended for use outside of the agent.
+     * </p>
+     * <p>
+     * Sent to acknowledge that a container changed states.
+     * </p>
+     *
+     * @param submitContainerStateChangeRequest Container for the necessary
+     *           parameters to execute the SubmitContainerStateChange service method on
+     *           AmazonECS.
+     * 
+     * @return The response from the SubmitContainerStateChange service
+     *         method, as returned by AmazonECS.
+     * 
+     * @throws ServerException
+     * @throws ClientException
+     *
+     * @throws AmazonClientException
+     *             If any internal errors are encountered inside the client while
+     *             attempting to make the request or handle the response.  For example
+     *             if a network connection is not available.
+     * @throws AmazonServiceException
+     *             If an error response is returned by AmazonECS indicating
+     *             either a problem with the data in the request, or a server side issue.
+     */
+    public SubmitContainerStateChangeResult submitContainerStateChange(SubmitContainerStateChangeRequest submitContainerStateChangeRequest) {
+        ExecutionContext executionContext = createExecutionContext(submitContainerStateChangeRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<SubmitContainerStateChangeRequest> request = null;
+        Response<SubmitContainerStateChangeResult> response = null;
+        
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new SubmitContainerStateChangeRequestMarshaller().marshall(super.beforeMarshalling(submitContainerStateChangeRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            Unmarshaller<SubmitContainerStateChangeResult, JsonUnmarshallerContext> unmarshaller =
+                new SubmitContainerStateChangeResultJsonUnmarshaller();
+            JsonResponseHandler<SubmitContainerStateChangeResult> responseHandler =
+                new JsonResponseHandler<SubmitContainerStateChangeResult>(unmarshaller);
+
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+        } finally {
+            
+            endClientExecution(awsRequestMetrics, request, response, LOGGING_AWS_REQUEST_METRIC);
+        }
+    }
+
+    /**
+     * <p>
+     * Deletes a specified service within a cluster.
+     * </p>
+     *
+     * @param deleteServiceRequest Container for the necessary parameters to
+     *           execute the DeleteService service method on AmazonECS.
+     * 
+     * @return The response from the DeleteService service method, as
+     *         returned by AmazonECS.
+     * 
+     * @throws InvalidParameterException
+     * @throws ClusterNotFoundException
+     * @throws ServerException
+     * @throws ClientException
+     * @throws ServiceNotFoundException
+     *
+     * @throws AmazonClientException
+     *             If any internal errors are encountered inside the client while
+     *             attempting to make the request or handle the response.  For example
+     *             if a network connection is not available.
+     * @throws AmazonServiceException
+     *             If an error response is returned by AmazonECS indicating
+     *             either a problem with the data in the request, or a server side issue.
+     */
+    public DeleteServiceResult deleteService(DeleteServiceRequest deleteServiceRequest) {
+        ExecutionContext executionContext = createExecutionContext(deleteServiceRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<DeleteServiceRequest> request = null;
+        Response<DeleteServiceResult> response = null;
+        
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new DeleteServiceRequestMarshaller().marshall(super.beforeMarshalling(deleteServiceRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            Unmarshaller<DeleteServiceResult, JsonUnmarshallerContext> unmarshaller =
+                new DeleteServiceResultJsonUnmarshaller();
+            JsonResponseHandler<DeleteServiceResult> responseHandler =
+                new JsonResponseHandler<DeleteServiceResult>(unmarshaller);
+
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+        } finally {
+            
+            endClientExecution(awsRequestMetrics, request, response, LOGGING_AWS_REQUEST_METRIC);
+        }
+    }
+
+    /**
+     * <p>
+     * Returns a list of task definitions that are registered to your
+     * account. You can filter the results by family name with the
+     * <code>familyPrefix</code> parameter or by status with the
+     * <code>status</code> parameter.
+     * </p>
+     *
+     * @param listTaskDefinitionsRequest Container for the necessary
+     *           parameters to execute the ListTaskDefinitions service method on
+     *           AmazonECS.
+     * 
+     * @return The response from the ListTaskDefinitions service method, as
+     *         returned by AmazonECS.
+     * 
+     * @throws InvalidParameterException
+     * @throws ServerException
+     * @throws ClientException
+     *
+     * @throws AmazonClientException
+     *             If any internal errors are encountered inside the client while
+     *             attempting to make the request or handle the response.  For example
+     *             if a network connection is not available.
+     * @throws AmazonServiceException
+     *             If an error response is returned by AmazonECS indicating
+     *             either a problem with the data in the request, or a server side issue.
+     */
+    public ListTaskDefinitionsResult listTaskDefinitions(ListTaskDefinitionsRequest listTaskDefinitionsRequest) {
+        ExecutionContext executionContext = createExecutionContext(listTaskDefinitionsRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<ListTaskDefinitionsRequest> request = null;
+        Response<ListTaskDefinitionsResult> response = null;
+        
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new ListTaskDefinitionsRequestMarshaller().marshall(super.beforeMarshalling(listTaskDefinitionsRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            Unmarshaller<ListTaskDefinitionsResult, JsonUnmarshallerContext> unmarshaller =
+                new ListTaskDefinitionsResultJsonUnmarshaller();
+            JsonResponseHandler<ListTaskDefinitionsResult> responseHandler =
+                new JsonResponseHandler<ListTaskDefinitionsResult>(unmarshaller);
+
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+        } finally {
+            
+            endClientExecution(awsRequestMetrics, request, response, LOGGING_AWS_REQUEST_METRIC);
+        }
+    }
+
+    /**
+     * <p>
+     * Start a task using random placement and the default Amazon ECS
+     * scheduler. If you want to use your own scheduler or place a task on a
+     * specific container instance, use <code>StartTask</code> instead.
+     * </p>
+     * <p>
+     * <b>IMPORTANT:</b> The count parameter is limited to 10 tasks per
+     * call.
+     * </p>
+     *
+     * @param runTaskRequest Container for the necessary parameters to
+     *           execute the RunTask service method on AmazonECS.
+     * 
+     * @return The response from the RunTask service method, as returned by
+     *         AmazonECS.
+     * 
+     * @throws InvalidParameterException
+     * @throws ClusterNotFoundException
+     * @throws ServerException
+     * @throws ClientException
+     *
+     * @throws AmazonClientException
+     *             If any internal errors are encountered inside the client while
+     *             attempting to make the request or handle the response.  For example
+     *             if a network connection is not available.
+     * @throws AmazonServiceException
+     *             If an error response is returned by AmazonECS indicating
+     *             either a problem with the data in the request, or a server side issue.
+     */
+    public RunTaskResult runTask(RunTaskRequest runTaskRequest) {
+        ExecutionContext executionContext = createExecutionContext(runTaskRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<RunTaskRequest> request = null;
+        Response<RunTaskResult> response = null;
+        
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new RunTaskRequestMarshaller().marshall(super.beforeMarshalling(runTaskRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            Unmarshaller<RunTaskResult, JsonUnmarshallerContext> unmarshaller =
+                new RunTaskResultJsonUnmarshaller();
+            JsonResponseHandler<RunTaskResult> responseHandler =
+                new JsonResponseHandler<RunTaskResult>(unmarshaller);
+
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+        } finally {
+            
+            endClientExecution(awsRequestMetrics, request, response, LOGGING_AWS_REQUEST_METRIC);
+        }
+    }
+
+    /**
+     * <p>
+     * Returns a list of existing clusters.
+     * </p>
+     *
+     * @param listClustersRequest Container for the necessary parameters to
+     *           execute the ListClusters service method on AmazonECS.
+     * 
+     * @return The response from the ListClusters service method, as returned
+     *         by AmazonECS.
+     * 
+     * @throws InvalidParameterException
+     * @throws ServerException
+     * @throws ClientException
+     *
+     * @throws AmazonClientException
+     *             If any internal errors are encountered inside the client while
+     *             attempting to make the request or handle the response.  For example
+     *             if a network connection is not available.
+     * @throws AmazonServiceException
+     *             If an error response is returned by AmazonECS indicating
+     *             either a problem with the data in the request, or a server side issue.
+     */
+    public ListClustersResult listClusters(ListClustersRequest listClustersRequest) {
+        ExecutionContext executionContext = createExecutionContext(listClustersRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<ListClustersRequest> request = null;
+        Response<ListClustersResult> response = null;
+        
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new ListClustersRequestMarshaller().marshall(super.beforeMarshalling(listClustersRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            Unmarshaller<ListClustersResult, JsonUnmarshallerContext> unmarshaller =
+                new ListClustersResultJsonUnmarshaller();
+            JsonResponseHandler<ListClustersResult> responseHandler =
+                new JsonResponseHandler<ListClustersResult>(unmarshaller);
+
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+        } finally {
+            
+            endClientExecution(awsRequestMetrics, request, response, LOGGING_AWS_REQUEST_METRIC);
+        }
+    }
+
+    /**
+     * <p>
+     * Creates a new Amazon ECS cluster. By default, your account will
+     * receive a <code>default</code> cluster when you launch your first
+     * container instance. However, you can create your own cluster with a
+     * unique name with the <code>CreateCluster</code> action.
+     * </p>
+     *
+     * @param createClusterRequest Container for the necessary parameters to
+     *           execute the CreateCluster service method on AmazonECS.
+     * 
+     * @return The response from the CreateCluster service method, as
+     *         returned by AmazonECS.
+     * 
+     * @throws InvalidParameterException
+     * @throws ServerException
+     * @throws ClientException
+     *
+     * @throws AmazonClientException
+     *             If any internal errors are encountered inside the client while
+     *             attempting to make the request or handle the response.  For example
+     *             if a network connection is not available.
+     * @throws AmazonServiceException
+     *             If an error response is returned by AmazonECS indicating
+     *             either a problem with the data in the request, or a server side issue.
+     */
+    public CreateClusterResult createCluster(CreateClusterRequest createClusterRequest) {
+        ExecutionContext executionContext = createExecutionContext(createClusterRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<CreateClusterRequest> request = null;
+        Response<CreateClusterResult> response = null;
+        
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new CreateClusterRequestMarshaller().marshall(super.beforeMarshalling(createClusterRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            Unmarshaller<CreateClusterResult, JsonUnmarshallerContext> unmarshaller =
+                new CreateClusterResultJsonUnmarshaller();
+            JsonResponseHandler<CreateClusterResult> responseHandler =
+                new JsonResponseHandler<CreateClusterResult>(unmarshaller);
+
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+        } finally {
+            
+            endClientExecution(awsRequestMetrics, request, response, LOGGING_AWS_REQUEST_METRIC);
+        }
+    }
+
+    /**
+     * <p>
+     * Describes one or more of your clusters.
+     * </p>
+     *
+     * @param describeClustersRequest Container for the necessary parameters
+     *           to execute the DescribeClusters service method on AmazonECS.
+     * 
+     * @return The response from the DescribeClusters service method, as
+     *         returned by AmazonECS.
+     * 
+     * @throws InvalidParameterException
+     * @throws ServerException
+     * @throws ClientException
+     *
+     * @throws AmazonClientException
+     *             If any internal errors are encountered inside the client while
+     *             attempting to make the request or handle the response.  For example
+     *             if a network connection is not available.
+     * @throws AmazonServiceException
+     *             If an error response is returned by AmazonECS indicating
+     *             either a problem with the data in the request, or a server side issue.
+     */
+    public DescribeClustersResult describeClusters(DescribeClustersRequest describeClustersRequest) {
+        ExecutionContext executionContext = createExecutionContext(describeClustersRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<DescribeClustersRequest> request = null;
+        Response<DescribeClustersResult> response = null;
+        
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new DescribeClustersRequestMarshaller().marshall(super.beforeMarshalling(describeClustersRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            Unmarshaller<DescribeClustersResult, JsonUnmarshallerContext> unmarshaller =
+                new DescribeClustersResultJsonUnmarshaller();
+            JsonResponseHandler<DescribeClustersResult> responseHandler =
+                new JsonResponseHandler<DescribeClustersResult>(unmarshaller);
+
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+        } finally {
+            
+            endClientExecution(awsRequestMetrics, request, response, LOGGING_AWS_REQUEST_METRIC);
+        }
+    }
+
+    /**
+     * <p>
+     * Deregisters the specified task definition by family and revision.
+     * Upon deregistration, the task definition is marked as
+     * <code>INACTIVE</code> . Existing tasks and services that reference an
+     * <code>INACTIVE</code> task definition continue to run without
+     * disruption. Existing services that reference an <code>INACTIVE</code>
+     * task definition can still scale up or down by modifying the service's
+     * desired count.
+     * </p>
+     * <p>
+     * You cannot use an <code>INACTIVE</code> task definition to run new
+     * tasks or create new services, and you cannot update an existing
+     * service to reference an <code>INACTIVE</code> task definition
+     * (although there may be up to a 10 minute window following
+     * deregistration where these restrictions have not yet taken effect).
+     * </p>
+     *
+     * @param deregisterTaskDefinitionRequest Container for the necessary
+     *           parameters to execute the DeregisterTaskDefinition service method on
+     *           AmazonECS.
+     * 
+     * @return The response from the DeregisterTaskDefinition service method,
+     *         as returned by AmazonECS.
+     * 
+     * @throws InvalidParameterException
+     * @throws ServerException
+     * @throws ClientException
+     *
+     * @throws AmazonClientException
+     *             If any internal errors are encountered inside the client while
+     *             attempting to make the request or handle the response.  For example
+     *             if a network connection is not available.
+     * @throws AmazonServiceException
+     *             If an error response is returned by AmazonECS indicating
+     *             either a problem with the data in the request, or a server side issue.
+     */
+    public DeregisterTaskDefinitionResult deregisterTaskDefinition(DeregisterTaskDefinitionRequest deregisterTaskDefinitionRequest) {
+        ExecutionContext executionContext = createExecutionContext(deregisterTaskDefinitionRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<DeregisterTaskDefinitionRequest> request = null;
+        Response<DeregisterTaskDefinitionResult> response = null;
+        
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new DeregisterTaskDefinitionRequestMarshaller().marshall(super.beforeMarshalling(deregisterTaskDefinitionRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            Unmarshaller<DeregisterTaskDefinitionResult, JsonUnmarshallerContext> unmarshaller =
+                new DeregisterTaskDefinitionResultJsonUnmarshaller();
+            JsonResponseHandler<DeregisterTaskDefinitionResult> responseHandler =
+                new JsonResponseHandler<DeregisterTaskDefinitionResult>(unmarshaller);
+
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+        } finally {
+            
+            endClientExecution(awsRequestMetrics, request, response, LOGGING_AWS_REQUEST_METRIC);
+        }
+    }
+
+    /**
+     * <p>
+     * Deregisters an Amazon ECS container instance from the specified
+     * cluster. This instance will no longer be available to run tasks.
+     * </p>
+     * <p>
+     * If you intend to use the container instance for some other purpose
+     * after deregistration, you should stop all of the tasks running on the
+     * container instance before deregistration to avoid any orphaned tasks
+     * from consuming resources.
+     * </p>
+     * <p>
+     * Deregistering a container instance removes the instance from a
+     * cluster, but it does not terminate the EC2 instance; if you are
+     * finished using the instance, be sure to terminate it in the Amazon EC2
+     * console to stop billing.
+     * </p>
+     * <p>
+     * <b>NOTE:</b> When you terminate a container instance, it is
+     * automatically deregistered from your cluster.
+     * </p>
+     *
+     * @param deregisterContainerInstanceRequest Container for the necessary
+     *           parameters to execute the DeregisterContainerInstance service method
+     *           on AmazonECS.
+     * 
+     * @return The response from the DeregisterContainerInstance service
+     *         method, as returned by AmazonECS.
+     * 
+     * @throws InvalidParameterException
+     * @throws ClusterNotFoundException
+     * @throws ServerException
+     * @throws ClientException
+     *
+     * @throws AmazonClientException
+     *             If any internal errors are encountered inside the client while
+     *             attempting to make the request or handle the response.  For example
+     *             if a network connection is not available.
+     * @throws AmazonServiceException
+     *             If an error response is returned by AmazonECS indicating
+     *             either a problem with the data in the request, or a server side issue.
+     */
+    public DeregisterContainerInstanceResult deregisterContainerInstance(DeregisterContainerInstanceRequest deregisterContainerInstanceRequest) {
+        ExecutionContext executionContext = createExecutionContext(deregisterContainerInstanceRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<DeregisterContainerInstanceRequest> request = null;
+        Response<DeregisterContainerInstanceResult> response = null;
+        
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new DeregisterContainerInstanceRequestMarshaller().marshall(super.beforeMarshalling(deregisterContainerInstanceRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            Unmarshaller<DeregisterContainerInstanceResult, JsonUnmarshallerContext> unmarshaller =
+                new DeregisterContainerInstanceResultJsonUnmarshaller();
+            JsonResponseHandler<DeregisterContainerInstanceResult> responseHandler =
+                new JsonResponseHandler<DeregisterContainerInstanceResult>(unmarshaller);
+
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+        } finally {
+            
+            endClientExecution(awsRequestMetrics, request, response, LOGGING_AWS_REQUEST_METRIC);
+        }
+    }
+
+    /**
+     * <p>
+     * Returns a list of container instances in a specified cluster.
+     * </p>
+     *
+     * @param listContainerInstancesRequest Container for the necessary
+     *           parameters to execute the ListContainerInstances service method on
+     *           AmazonECS.
+     * 
+     * @return The response from the ListContainerInstances service method,
+     *         as returned by AmazonECS.
+     * 
+     * @throws InvalidParameterException
+     * @throws ClusterNotFoundException
+     * @throws ServerException
+     * @throws ClientException
+     *
+     * @throws AmazonClientException
+     *             If any internal errors are encountered inside the client while
+     *             attempting to make the request or handle the response.  For example
+     *             if a network connection is not available.
+     * @throws AmazonServiceException
+     *             If an error response is returned by AmazonECS indicating
+     *             either a problem with the data in the request, or a server side issue.
+     */
+    public ListContainerInstancesResult listContainerInstances(ListContainerInstancesRequest listContainerInstancesRequest) {
+        ExecutionContext executionContext = createExecutionContext(listContainerInstancesRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<ListContainerInstancesRequest> request = null;
+        Response<ListContainerInstancesResult> response = null;
+        
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new ListContainerInstancesRequestMarshaller().marshall(super.beforeMarshalling(listContainerInstancesRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            Unmarshaller<ListContainerInstancesResult, JsonUnmarshallerContext> unmarshaller =
+                new ListContainerInstancesResultJsonUnmarshaller();
+            JsonResponseHandler<ListContainerInstancesResult> responseHandler =
+                new JsonResponseHandler<ListContainerInstancesResult>(unmarshaller);
+
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+        } finally {
+            
+            endClientExecution(awsRequestMetrics, request, response, LOGGING_AWS_REQUEST_METRIC);
+        }
+    }
+
+    /**
+     * <p>
+     * Updates the Amazon ECS container agent on a specified container
+     * instance. Updating the Amazon ECS container agent does not interrupt
+     * running tasks or services on the container instance. The process for
+     * updating the agent differs depending on whether your container
+     * instance was launched with the Amazon ECS-optimized AMI or another
+     * operating system.
+     * </p>
+     * <p>
+     * <code>UpdateContainerAgent</code> requires the Amazon ECS-optimized
+     * AMI or Amazon Linux with the <code>ecs-init</code> service installed
+     * and running. For help updating the Amazon ECS container agent on other
+     * operating systems, see
+     * <a href="http://docs.aws.amazon.com/AmazonECS/latest/developerguide/ecs-agent-update.html#manually_update_agent"> Manually Updating the Amazon ECS Container Agent </a>
+     * in the <i>Amazon EC2 Container Service Developer Guide</i> .
+     * </p>
+     *
+     * @param updateContainerAgentRequest Container for the necessary
+     *           parameters to execute the UpdateContainerAgent service method on
+     *           AmazonECS.
+     * 
+     * @return The response from the UpdateContainerAgent service method, as
+     *         returned by AmazonECS.
+     * 
+     * @throws InvalidParameterException
+     * @throws ClusterNotFoundException
+     * @throws ServerException
+     * @throws NoUpdateAvailableException
+     * @throws ClientException
+     * @throws MissingVersionException
+     * @throws UpdateInProgressException
+     *
+     * @throws AmazonClientException
+     *             If any internal errors are encountered inside the client while
+     *             attempting to make the request or handle the response.  For example
+     *             if a network connection is not available.
+     * @throws AmazonServiceException
+     *             If an error response is returned by AmazonECS indicating
+     *             either a problem with the data in the request, or a server side issue.
+     */
+    public UpdateContainerAgentResult updateContainerAgent(UpdateContainerAgentRequest updateContainerAgentRequest) {
+        ExecutionContext executionContext = createExecutionContext(updateContainerAgentRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<UpdateContainerAgentRequest> request = null;
+        Response<UpdateContainerAgentResult> response = null;
+        
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new UpdateContainerAgentRequestMarshaller().marshall(super.beforeMarshalling(updateContainerAgentRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            Unmarshaller<UpdateContainerAgentResult, JsonUnmarshallerContext> unmarshaller =
+                new UpdateContainerAgentResultJsonUnmarshaller();
+            JsonResponseHandler<UpdateContainerAgentResult> responseHandler =
+                new JsonResponseHandler<UpdateContainerAgentResult>(unmarshaller);
+
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+        } finally {
+            
+            endClientExecution(awsRequestMetrics, request, response, LOGGING_AWS_REQUEST_METRIC);
+        }
+    }
+
+    /**
+     * <p>
+     * Describes a task definition. You can specify a <code>family</code>
+     * and <code>revision</code> to find information on a specific task
+     * definition, or you can simply specify the family to find the latest
+     * <code>ACTIVE</code> revision in that family.
+     * </p>
+     * <p>
+     * <b>NOTE:</b> You can only describe INACTIVE task definitions while an
+     * active task or service references them.
+     * </p>
+     *
+     * @param describeTaskDefinitionRequest Container for the necessary
+     *           parameters to execute the DescribeTaskDefinition service method on
+     *           AmazonECS.
+     * 
+     * @return The response from the DescribeTaskDefinition service method,
+     *         as returned by AmazonECS.
+     * 
+     * @throws InvalidParameterException
+     * @throws ServerException
+     * @throws ClientException
+     *
+     * @throws AmazonClientException
+     *             If any internal errors are encountered inside the client while
+     *             attempting to make the request or handle the response.  For example
+     *             if a network connection is not available.
+     * @throws AmazonServiceException
+     *             If an error response is returned by AmazonECS indicating
+     *             either a problem with the data in the request, or a server side issue.
+     */
+    public DescribeTaskDefinitionResult describeTaskDefinition(DescribeTaskDefinitionRequest describeTaskDefinitionRequest) {
+        ExecutionContext executionContext = createExecutionContext(describeTaskDefinitionRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<DescribeTaskDefinitionRequest> request = null;
+        Response<DescribeTaskDefinitionResult> response = null;
+        
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new DescribeTaskDefinitionRequestMarshaller().marshall(super.beforeMarshalling(describeTaskDefinitionRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            Unmarshaller<DescribeTaskDefinitionResult, JsonUnmarshallerContext> unmarshaller =
+                new DescribeTaskDefinitionResultJsonUnmarshaller();
+            JsonResponseHandler<DescribeTaskDefinitionResult> responseHandler =
+                new JsonResponseHandler<DescribeTaskDefinitionResult>(unmarshaller);
+
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+        } finally {
+            
+            endClientExecution(awsRequestMetrics, request, response, LOGGING_AWS_REQUEST_METRIC);
+        }
+    }
+
+    /**
+     * <p>
+     * Registers a new task definition from the supplied <code>family</code>
+     * and <code>containerDefinitions</code> . Optionally, you can add data
+     * volumes to your containers with the <code>volumes</code> parameter.
+     * For more information on task definition parameters and defaults, see
+     * <a href="http://docs.aws.amazon.com/AmazonECS/latest/developerguide/task_defintions.html"> Amazon ECS Task Definitions </a>
+     * in the <i>Amazon EC2 Container Service Developer Guide</i> .
+     * </p>
+     *
+     * @param registerTaskDefinitionRequest Container for the necessary
+     *           parameters to execute the RegisterTaskDefinition service method on
+     *           AmazonECS.
+     * 
+     * @return The response from the RegisterTaskDefinition service method,
+     *         as returned by AmazonECS.
+     * 
+     * @throws InvalidParameterException
+     * @throws ServerException
+     * @throws ClientException
+     *
+     * @throws AmazonClientException
+     *             If any internal errors are encountered inside the client while
+     *             attempting to make the request or handle the response.  For example
+     *             if a network connection is not available.
+     * @throws AmazonServiceException
+     *             If an error response is returned by AmazonECS indicating
+     *             either a problem with the data in the request, or a server side issue.
+     */
+    public RegisterTaskDefinitionResult registerTaskDefinition(RegisterTaskDefinitionRequest registerTaskDefinitionRequest) {
+        ExecutionContext executionContext = createExecutionContext(registerTaskDefinitionRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<RegisterTaskDefinitionRequest> request = null;
+        Response<RegisterTaskDefinitionResult> response = null;
+        
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new RegisterTaskDefinitionRequestMarshaller().marshall(super.beforeMarshalling(registerTaskDefinitionRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            Unmarshaller<RegisterTaskDefinitionResult, JsonUnmarshallerContext> unmarshaller =
+                new RegisterTaskDefinitionResultJsonUnmarshaller();
+            JsonResponseHandler<RegisterTaskDefinitionResult> responseHandler =
+                new JsonResponseHandler<RegisterTaskDefinitionResult>(unmarshaller);
+
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+        } finally {
+            
+            endClientExecution(awsRequestMetrics, request, response, LOGGING_AWS_REQUEST_METRIC);
+        }
     }
 
     /**
@@ -300,18 +1158,20 @@ public class AmazonECSClient extends AmazonWebServiceClient implements AmazonECS
 
     /**
      * <p>
-     * Deletes the specified cluster. You must deregister all container
-     * instances from this cluster before you may delete it. You can list the
-     * container instances in a cluster with ListContainerInstances and
-     * deregister them with DeregisterContainerInstance.
+     * Runs and maintains a desired number of tasks from a specified task
+     * definition. If the number of tasks running in a service drops below
+     * <code>desiredCount</code> , Amazon ECS will spawn another
+     * instantiation of the task in the specified cluster.
      * </p>
      *
-     * @param deleteClusterRequest Container for the necessary parameters to
-     *           execute the DeleteCluster service method on AmazonECS.
+     * @param createServiceRequest Container for the necessary parameters to
+     *           execute the CreateService service method on AmazonECS.
      * 
-     * @return The response from the DeleteCluster service method, as
+     * @return The response from the CreateService service method, as
      *         returned by AmazonECS.
      * 
+     * @throws InvalidParameterException
+     * @throws ClusterNotFoundException
      * @throws ServerException
      * @throws ClientException
      *
@@ -323,27 +1183,85 @@ public class AmazonECSClient extends AmazonWebServiceClient implements AmazonECS
      *             If an error response is returned by AmazonECS indicating
      *             either a problem with the data in the request, or a server side issue.
      */
-    public DeleteClusterResult deleteCluster(DeleteClusterRequest deleteClusterRequest) {
-        ExecutionContext executionContext = createExecutionContext(deleteClusterRequest);
+    public CreateServiceResult createService(CreateServiceRequest createServiceRequest) {
+        ExecutionContext executionContext = createExecutionContext(createServiceRequest);
         AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
         awsRequestMetrics.startEvent(Field.ClientExecuteTime);
-        Request<DeleteClusterRequest> request = null;
-        Response<DeleteClusterResult> response = null;
+        Request<CreateServiceRequest> request = null;
+        Response<CreateServiceResult> response = null;
         
         try {
             awsRequestMetrics.startEvent(Field.RequestMarshallTime);
             try {
-                request = new DeleteClusterRequestMarshaller().marshall(super.beforeMarshalling(deleteClusterRequest));
+                request = new CreateServiceRequestMarshaller().marshall(super.beforeMarshalling(createServiceRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
 
-            Unmarshaller<DeleteClusterResult, JsonUnmarshallerContext> unmarshaller =
-                new DeleteClusterResultJsonUnmarshaller();
-            JsonResponseHandler<DeleteClusterResult> responseHandler =
-                new JsonResponseHandler<DeleteClusterResult>(unmarshaller);
+            Unmarshaller<CreateServiceResult, JsonUnmarshallerContext> unmarshaller =
+                new CreateServiceResultJsonUnmarshaller();
+            JsonResponseHandler<CreateServiceResult> responseHandler =
+                new JsonResponseHandler<CreateServiceResult>(unmarshaller);
+
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+        } finally {
+            
+            endClientExecution(awsRequestMetrics, request, response, LOGGING_AWS_REQUEST_METRIC);
+        }
+    }
+
+    /**
+     * <p>
+     * Describes Amazon EC2 Container Service container instances. Returns
+     * metadata about registered and remaining resources on each container
+     * instance requested.
+     * </p>
+     *
+     * @param describeContainerInstancesRequest Container for the necessary
+     *           parameters to execute the DescribeContainerInstances service method on
+     *           AmazonECS.
+     * 
+     * @return The response from the DescribeContainerInstances service
+     *         method, as returned by AmazonECS.
+     * 
+     * @throws InvalidParameterException
+     * @throws ClusterNotFoundException
+     * @throws ServerException
+     * @throws ClientException
+     *
+     * @throws AmazonClientException
+     *             If any internal errors are encountered inside the client while
+     *             attempting to make the request or handle the response.  For example
+     *             if a network connection is not available.
+     * @throws AmazonServiceException
+     *             If an error response is returned by AmazonECS indicating
+     *             either a problem with the data in the request, or a server side issue.
+     */
+    public DescribeContainerInstancesResult describeContainerInstances(DescribeContainerInstancesRequest describeContainerInstancesRequest) {
+        ExecutionContext executionContext = createExecutionContext(describeContainerInstancesRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<DescribeContainerInstancesRequest> request = null;
+        Response<DescribeContainerInstancesResult> response = null;
+        
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new DescribeContainerInstancesRequestMarshaller().marshall(super.beforeMarshalling(describeContainerInstancesRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            Unmarshaller<DescribeContainerInstancesResult, JsonUnmarshallerContext> unmarshaller =
+                new DescribeContainerInstancesResultJsonUnmarshaller();
+            JsonResponseHandler<DescribeContainerInstancesResult> responseHandler =
+                new JsonResponseHandler<DescribeContainerInstancesResult>(unmarshaller);
 
             response = invoke(request, responseHandler, executionContext);
 
@@ -415,132 +1333,17 @@ public class AmazonECSClient extends AmazonWebServiceClient implements AmazonECS
 
     /**
      * <p>
-     * Describes Amazon EC2 Container Service container instances. Returns
-     * metadata about registered and remaining resources on each container
-     * instance requested.
+     * Describes the specified services running in your cluster.
      * </p>
      *
-     * @param describeContainerInstancesRequest Container for the necessary
-     *           parameters to execute the DescribeContainerInstances service method on
-     *           AmazonECS.
+     * @param describeServicesRequest Container for the necessary parameters
+     *           to execute the DescribeServices service method on AmazonECS.
      * 
-     * @return The response from the DescribeContainerInstances service
-     *         method, as returned by AmazonECS.
-     * 
-     * @throws ServerException
-     * @throws ClientException
-     *
-     * @throws AmazonClientException
-     *             If any internal errors are encountered inside the client while
-     *             attempting to make the request or handle the response.  For example
-     *             if a network connection is not available.
-     * @throws AmazonServiceException
-     *             If an error response is returned by AmazonECS indicating
-     *             either a problem with the data in the request, or a server side issue.
-     */
-    public DescribeContainerInstancesResult describeContainerInstances(DescribeContainerInstancesRequest describeContainerInstancesRequest) {
-        ExecutionContext executionContext = createExecutionContext(describeContainerInstancesRequest);
-        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
-        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
-        Request<DescribeContainerInstancesRequest> request = null;
-        Response<DescribeContainerInstancesResult> response = null;
-        
-        try {
-            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
-            try {
-                request = new DescribeContainerInstancesRequestMarshaller().marshall(super.beforeMarshalling(describeContainerInstancesRequest));
-                // Binds the request metrics to the current request.
-                request.setAWSRequestMetrics(awsRequestMetrics);
-            } finally {
-                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
-            }
-
-            Unmarshaller<DescribeContainerInstancesResult, JsonUnmarshallerContext> unmarshaller =
-                new DescribeContainerInstancesResultJsonUnmarshaller();
-            JsonResponseHandler<DescribeContainerInstancesResult> responseHandler =
-                new JsonResponseHandler<DescribeContainerInstancesResult>(unmarshaller);
-
-            response = invoke(request, responseHandler, executionContext);
-
-            return response.getAwsResponse();
-        } finally {
-            
-            endClientExecution(awsRequestMetrics, request, response, LOGGING_AWS_REQUEST_METRIC);
-        }
-    }
-
-    /**
-     * <p>
-     * <b>NOTE:</b> This action is only used by the Amazon EC2 Container
-     * Service agent, and it is not intended for use outside of the agent.
-     * </p>
-     * <p>
-     * Sent to acknowledge that a container changed states.
-     * </p>
-     *
-     * @param submitContainerStateChangeRequest Container for the necessary
-     *           parameters to execute the SubmitContainerStateChange service method on
-     *           AmazonECS.
-     * 
-     * @return The response from the SubmitContainerStateChange service
-     *         method, as returned by AmazonECS.
-     * 
-     * @throws ServerException
-     * @throws ClientException
-     *
-     * @throws AmazonClientException
-     *             If any internal errors are encountered inside the client while
-     *             attempting to make the request or handle the response.  For example
-     *             if a network connection is not available.
-     * @throws AmazonServiceException
-     *             If an error response is returned by AmazonECS indicating
-     *             either a problem with the data in the request, or a server side issue.
-     */
-    public SubmitContainerStateChangeResult submitContainerStateChange(SubmitContainerStateChangeRequest submitContainerStateChangeRequest) {
-        ExecutionContext executionContext = createExecutionContext(submitContainerStateChangeRequest);
-        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
-        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
-        Request<SubmitContainerStateChangeRequest> request = null;
-        Response<SubmitContainerStateChangeResult> response = null;
-        
-        try {
-            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
-            try {
-                request = new SubmitContainerStateChangeRequestMarshaller().marshall(super.beforeMarshalling(submitContainerStateChangeRequest));
-                // Binds the request metrics to the current request.
-                request.setAWSRequestMetrics(awsRequestMetrics);
-            } finally {
-                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
-            }
-
-            Unmarshaller<SubmitContainerStateChangeResult, JsonUnmarshallerContext> unmarshaller =
-                new SubmitContainerStateChangeResultJsonUnmarshaller();
-            JsonResponseHandler<SubmitContainerStateChangeResult> responseHandler =
-                new JsonResponseHandler<SubmitContainerStateChangeResult>(unmarshaller);
-
-            response = invoke(request, responseHandler, executionContext);
-
-            return response.getAwsResponse();
-        } finally {
-            
-            endClientExecution(awsRequestMetrics, request, response, LOGGING_AWS_REQUEST_METRIC);
-        }
-    }
-
-    /**
-     * <p>
-     * Returns a list of task definitions that are registered to your
-     * account. You can filter the results by family name with the
-     * <code>familyPrefix</code> parameter.
-     * </p>
-     *
-     * @param listTaskDefinitionsRequest Container for the necessary
-     *           parameters to execute the ListTaskDefinitions service method on
-     *           AmazonECS.
-     * 
-     * @return The response from the ListTaskDefinitions service method, as
+     * @return The response from the DescribeServices service method, as
      *         returned by AmazonECS.
      * 
+     * @throws InvalidParameterException
+     * @throws ClusterNotFoundException
      * @throws ServerException
      * @throws ClientException
      *
@@ -552,27 +1355,157 @@ public class AmazonECSClient extends AmazonWebServiceClient implements AmazonECS
      *             If an error response is returned by AmazonECS indicating
      *             either a problem with the data in the request, or a server side issue.
      */
-    public ListTaskDefinitionsResult listTaskDefinitions(ListTaskDefinitionsRequest listTaskDefinitionsRequest) {
-        ExecutionContext executionContext = createExecutionContext(listTaskDefinitionsRequest);
+    public DescribeServicesResult describeServices(DescribeServicesRequest describeServicesRequest) {
+        ExecutionContext executionContext = createExecutionContext(describeServicesRequest);
         AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
         awsRequestMetrics.startEvent(Field.ClientExecuteTime);
-        Request<ListTaskDefinitionsRequest> request = null;
-        Response<ListTaskDefinitionsResult> response = null;
+        Request<DescribeServicesRequest> request = null;
+        Response<DescribeServicesResult> response = null;
         
         try {
             awsRequestMetrics.startEvent(Field.RequestMarshallTime);
             try {
-                request = new ListTaskDefinitionsRequestMarshaller().marshall(super.beforeMarshalling(listTaskDefinitionsRequest));
+                request = new DescribeServicesRequestMarshaller().marshall(super.beforeMarshalling(describeServicesRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
 
-            Unmarshaller<ListTaskDefinitionsResult, JsonUnmarshallerContext> unmarshaller =
-                new ListTaskDefinitionsResultJsonUnmarshaller();
-            JsonResponseHandler<ListTaskDefinitionsResult> responseHandler =
-                new JsonResponseHandler<ListTaskDefinitionsResult>(unmarshaller);
+            Unmarshaller<DescribeServicesResult, JsonUnmarshallerContext> unmarshaller =
+                new DescribeServicesResultJsonUnmarshaller();
+            JsonResponseHandler<DescribeServicesResult> responseHandler =
+                new JsonResponseHandler<DescribeServicesResult>(unmarshaller);
+
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+        } finally {
+            
+            endClientExecution(awsRequestMetrics, request, response, LOGGING_AWS_REQUEST_METRIC);
+        }
+    }
+
+    /**
+     * <p>
+     * Lists the services that are running in a specified cluster.
+     * </p>
+     *
+     * @param listServicesRequest Container for the necessary parameters to
+     *           execute the ListServices service method on AmazonECS.
+     * 
+     * @return The response from the ListServices service method, as returned
+     *         by AmazonECS.
+     * 
+     * @throws InvalidParameterException
+     * @throws ClusterNotFoundException
+     * @throws ServerException
+     * @throws ClientException
+     *
+     * @throws AmazonClientException
+     *             If any internal errors are encountered inside the client while
+     *             attempting to make the request or handle the response.  For example
+     *             if a network connection is not available.
+     * @throws AmazonServiceException
+     *             If an error response is returned by AmazonECS indicating
+     *             either a problem with the data in the request, or a server side issue.
+     */
+    public ListServicesResult listServices(ListServicesRequest listServicesRequest) {
+        ExecutionContext executionContext = createExecutionContext(listServicesRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<ListServicesRequest> request = null;
+        Response<ListServicesResult> response = null;
+        
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new ListServicesRequestMarshaller().marshall(super.beforeMarshalling(listServicesRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            Unmarshaller<ListServicesResult, JsonUnmarshallerContext> unmarshaller =
+                new ListServicesResultJsonUnmarshaller();
+            JsonResponseHandler<ListServicesResult> responseHandler =
+                new JsonResponseHandler<ListServicesResult>(unmarshaller);
+
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+        } finally {
+            
+            endClientExecution(awsRequestMetrics, request, response, LOGGING_AWS_REQUEST_METRIC);
+        }
+    }
+
+    /**
+     * <p>
+     * Modify the desired count or task definition used in a service.
+     * </p>
+     * <p>
+     * You can add to or subtract from the number of instantiations of a
+     * task definition in a service by specifying the cluster that the
+     * service is running in and a new <code>desiredCount</code> parameter.
+     * </p>
+     * <p>
+     * You can use <code>UpdateService</code> to modify your task definition
+     * and deploy a new version of your service, one task at a time. If you
+     * modify the task definition with <code>UpdateService</code> , Amazon
+     * ECS spawns a task with the new version of the task definition and then
+     * stops an old task after the new version is running. Because
+     * <code>UpdateService</code> starts a new version of the task before
+     * stopping an old version, your cluster must have capacity to support
+     * one more instantiation of the task when <code>UpdateService</code> is
+     * run. If your cluster cannot support another instantiation of the task
+     * used in your service, you can reduce the desired count of your service
+     * by one before modifying the task definition.
+     * </p>
+     *
+     * @param updateServiceRequest Container for the necessary parameters to
+     *           execute the UpdateService service method on AmazonECS.
+     * 
+     * @return The response from the UpdateService service method, as
+     *         returned by AmazonECS.
+     * 
+     * @throws InvalidParameterException
+     * @throws ServiceNotActiveException
+     * @throws ClusterNotFoundException
+     * @throws ServerException
+     * @throws ClientException
+     * @throws ServiceNotFoundException
+     *
+     * @throws AmazonClientException
+     *             If any internal errors are encountered inside the client while
+     *             attempting to make the request or handle the response.  For example
+     *             if a network connection is not available.
+     * @throws AmazonServiceException
+     *             If an error response is returned by AmazonECS indicating
+     *             either a problem with the data in the request, or a server side issue.
+     */
+    public UpdateServiceResult updateService(UpdateServiceRequest updateServiceRequest) {
+        ExecutionContext executionContext = createExecutionContext(updateServiceRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<UpdateServiceRequest> request = null;
+        Response<UpdateServiceResult> response = null;
+        
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new UpdateServiceRequestMarshaller().marshall(super.beforeMarshalling(updateServiceRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            Unmarshaller<UpdateServiceResult, JsonUnmarshallerContext> unmarshaller =
+                new UpdateServiceResultJsonUnmarshaller();
+            JsonResponseHandler<UpdateServiceResult> responseHandler =
+                new JsonResponseHandler<UpdateServiceResult>(unmarshaller);
 
             response = invoke(request, responseHandler, executionContext);
 
@@ -586,8 +1519,9 @@ public class AmazonECSClient extends AmazonWebServiceClient implements AmazonECS
     /**
      * <p>
      * Returns a list of task definition families that are registered to
-     * your account. You can filter the results with the
-     * <code>familyPrefix</code> parameter.
+     * your account (which may include task definition families that no
+     * longer have any <code>ACTIVE</code> task definitions). You can filter
+     * the results with the <code>familyPrefix</code> parameter.
      * </p>
      *
      * @param listTaskDefinitionFamiliesRequest Container for the necessary
@@ -597,6 +1531,7 @@ public class AmazonECSClient extends AmazonWebServiceClient implements AmazonECS
      * @return The response from the ListTaskDefinitionFamilies service
      *         method, as returned by AmazonECS.
      * 
+     * @throws InvalidParameterException
      * @throws ServerException
      * @throws ClientException
      *
@@ -650,6 +1585,8 @@ public class AmazonECSClient extends AmazonWebServiceClient implements AmazonECS
      * @return The response from the DescribeTasks service method, as
      *         returned by AmazonECS.
      * 
+     * @throws InvalidParameterException
+     * @throws ClusterNotFoundException
      * @throws ServerException
      * @throws ClientException
      *
@@ -682,114 +1619,6 @@ public class AmazonECSClient extends AmazonWebServiceClient implements AmazonECS
                 new DescribeTasksResultJsonUnmarshaller();
             JsonResponseHandler<DescribeTasksResult> responseHandler =
                 new JsonResponseHandler<DescribeTasksResult>(unmarshaller);
-
-            response = invoke(request, responseHandler, executionContext);
-
-            return response.getAwsResponse();
-        } finally {
-            
-            endClientExecution(awsRequestMetrics, request, response, LOGGING_AWS_REQUEST_METRIC);
-        }
-    }
-
-    /**
-     * <p>
-     * Start a task using random placement and the default Amazon ECS
-     * scheduler. If you want to use your own scheduler or place a task on a
-     * specific container instance, use <code>StartTask</code> instead.
-     * </p>
-     *
-     * @param runTaskRequest Container for the necessary parameters to
-     *           execute the RunTask service method on AmazonECS.
-     * 
-     * @return The response from the RunTask service method, as returned by
-     *         AmazonECS.
-     * 
-     * @throws ServerException
-     * @throws ClientException
-     *
-     * @throws AmazonClientException
-     *             If any internal errors are encountered inside the client while
-     *             attempting to make the request or handle the response.  For example
-     *             if a network connection is not available.
-     * @throws AmazonServiceException
-     *             If an error response is returned by AmazonECS indicating
-     *             either a problem with the data in the request, or a server side issue.
-     */
-    public RunTaskResult runTask(RunTaskRequest runTaskRequest) {
-        ExecutionContext executionContext = createExecutionContext(runTaskRequest);
-        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
-        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
-        Request<RunTaskRequest> request = null;
-        Response<RunTaskResult> response = null;
-        
-        try {
-            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
-            try {
-                request = new RunTaskRequestMarshaller().marshall(super.beforeMarshalling(runTaskRequest));
-                // Binds the request metrics to the current request.
-                request.setAWSRequestMetrics(awsRequestMetrics);
-            } finally {
-                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
-            }
-
-            Unmarshaller<RunTaskResult, JsonUnmarshallerContext> unmarshaller =
-                new RunTaskResultJsonUnmarshaller();
-            JsonResponseHandler<RunTaskResult> responseHandler =
-                new JsonResponseHandler<RunTaskResult>(unmarshaller);
-
-            response = invoke(request, responseHandler, executionContext);
-
-            return response.getAwsResponse();
-        } finally {
-            
-            endClientExecution(awsRequestMetrics, request, response, LOGGING_AWS_REQUEST_METRIC);
-        }
-    }
-
-    /**
-     * <p>
-     * Returns a list of existing clusters.
-     * </p>
-     *
-     * @param listClustersRequest Container for the necessary parameters to
-     *           execute the ListClusters service method on AmazonECS.
-     * 
-     * @return The response from the ListClusters service method, as returned
-     *         by AmazonECS.
-     * 
-     * @throws ServerException
-     * @throws ClientException
-     *
-     * @throws AmazonClientException
-     *             If any internal errors are encountered inside the client while
-     *             attempting to make the request or handle the response.  For example
-     *             if a network connection is not available.
-     * @throws AmazonServiceException
-     *             If an error response is returned by AmazonECS indicating
-     *             either a problem with the data in the request, or a server side issue.
-     */
-    public ListClustersResult listClusters(ListClustersRequest listClustersRequest) {
-        ExecutionContext executionContext = createExecutionContext(listClustersRequest);
-        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
-        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
-        Request<ListClustersRequest> request = null;
-        Response<ListClustersResult> response = null;
-        
-        try {
-            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
-            try {
-                request = new ListClustersRequestMarshaller().marshall(super.beforeMarshalling(listClustersRequest));
-                // Binds the request metrics to the current request.
-                request.setAWSRequestMetrics(awsRequestMetrics);
-            } finally {
-                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
-            }
-
-            Unmarshaller<ListClustersResult, JsonUnmarshallerContext> unmarshaller =
-                new ListClustersResultJsonUnmarshaller();
-            JsonResponseHandler<ListClustersResult> responseHandler =
-                new JsonResponseHandler<ListClustersResult>(unmarshaller);
 
             response = invoke(request, responseHandler, executionContext);
 
@@ -861,289 +1690,13 @@ public class AmazonECSClient extends AmazonWebServiceClient implements AmazonECS
 
     /**
      * <p>
-     * Creates a new Amazon ECS cluster. By default, your account will
-     * receive a <code>default</code> cluster when you launch your first
-     * container instance. However, you can create your own cluster with a
-     * unique name with the <code>CreateCluster</code> action.
-     * </p>
-     * <p>
-     * <b>IMPORTANT:</b> During the preview, each account is limited to two
-     * clusters.
-     * </p>
-     *
-     * @param createClusterRequest Container for the necessary parameters to
-     *           execute the CreateCluster service method on AmazonECS.
-     * 
-     * @return The response from the CreateCluster service method, as
-     *         returned by AmazonECS.
-     * 
-     * @throws ServerException
-     * @throws ClientException
-     *
-     * @throws AmazonClientException
-     *             If any internal errors are encountered inside the client while
-     *             attempting to make the request or handle the response.  For example
-     *             if a network connection is not available.
-     * @throws AmazonServiceException
-     *             If an error response is returned by AmazonECS indicating
-     *             either a problem with the data in the request, or a server side issue.
-     */
-    public CreateClusterResult createCluster(CreateClusterRequest createClusterRequest) {
-        ExecutionContext executionContext = createExecutionContext(createClusterRequest);
-        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
-        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
-        Request<CreateClusterRequest> request = null;
-        Response<CreateClusterResult> response = null;
-        
-        try {
-            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
-            try {
-                request = new CreateClusterRequestMarshaller().marshall(super.beforeMarshalling(createClusterRequest));
-                // Binds the request metrics to the current request.
-                request.setAWSRequestMetrics(awsRequestMetrics);
-            } finally {
-                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
-            }
-
-            Unmarshaller<CreateClusterResult, JsonUnmarshallerContext> unmarshaller =
-                new CreateClusterResultJsonUnmarshaller();
-            JsonResponseHandler<CreateClusterResult> responseHandler =
-                new JsonResponseHandler<CreateClusterResult>(unmarshaller);
-
-            response = invoke(request, responseHandler, executionContext);
-
-            return response.getAwsResponse();
-        } finally {
-            
-            endClientExecution(awsRequestMetrics, request, response, LOGGING_AWS_REQUEST_METRIC);
-        }
-    }
-
-    /**
-     * <p>
-     * Describes one or more of your clusters.
-     * </p>
-     *
-     * @param describeClustersRequest Container for the necessary parameters
-     *           to execute the DescribeClusters service method on AmazonECS.
-     * 
-     * @return The response from the DescribeClusters service method, as
-     *         returned by AmazonECS.
-     * 
-     * @throws ServerException
-     * @throws ClientException
-     *
-     * @throws AmazonClientException
-     *             If any internal errors are encountered inside the client while
-     *             attempting to make the request or handle the response.  For example
-     *             if a network connection is not available.
-     * @throws AmazonServiceException
-     *             If an error response is returned by AmazonECS indicating
-     *             either a problem with the data in the request, or a server side issue.
-     */
-    public DescribeClustersResult describeClusters(DescribeClustersRequest describeClustersRequest) {
-        ExecutionContext executionContext = createExecutionContext(describeClustersRequest);
-        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
-        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
-        Request<DescribeClustersRequest> request = null;
-        Response<DescribeClustersResult> response = null;
-        
-        try {
-            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
-            try {
-                request = new DescribeClustersRequestMarshaller().marshall(super.beforeMarshalling(describeClustersRequest));
-                // Binds the request metrics to the current request.
-                request.setAWSRequestMetrics(awsRequestMetrics);
-            } finally {
-                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
-            }
-
-            Unmarshaller<DescribeClustersResult, JsonUnmarshallerContext> unmarshaller =
-                new DescribeClustersResultJsonUnmarshaller();
-            JsonResponseHandler<DescribeClustersResult> responseHandler =
-                new JsonResponseHandler<DescribeClustersResult>(unmarshaller);
-
-            response = invoke(request, responseHandler, executionContext);
-
-            return response.getAwsResponse();
-        } finally {
-            
-            endClientExecution(awsRequestMetrics, request, response, LOGGING_AWS_REQUEST_METRIC);
-        }
-    }
-
-    /**
-     * <p>
-     * NOT YET IMPLEMENTED.
-     * </p>
-     * <p>
-     * Deregisters the specified task definition. You will no longer be able
-     * to run tasks from this definition after deregistration.
-     * </p>
-     *
-     * @param deregisterTaskDefinitionRequest Container for the necessary
-     *           parameters to execute the DeregisterTaskDefinition service method on
-     *           AmazonECS.
-     * 
-     * @return The response from the DeregisterTaskDefinition service method,
-     *         as returned by AmazonECS.
-     * 
-     * @throws ServerException
-     * @throws ClientException
-     *
-     * @throws AmazonClientException
-     *             If any internal errors are encountered inside the client while
-     *             attempting to make the request or handle the response.  For example
-     *             if a network connection is not available.
-     * @throws AmazonServiceException
-     *             If an error response is returned by AmazonECS indicating
-     *             either a problem with the data in the request, or a server side issue.
-     */
-    public DeregisterTaskDefinitionResult deregisterTaskDefinition(DeregisterTaskDefinitionRequest deregisterTaskDefinitionRequest) {
-        ExecutionContext executionContext = createExecutionContext(deregisterTaskDefinitionRequest);
-        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
-        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
-        Request<DeregisterTaskDefinitionRequest> request = null;
-        Response<DeregisterTaskDefinitionResult> response = null;
-        
-        try {
-            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
-            try {
-                request = new DeregisterTaskDefinitionRequestMarshaller().marshall(super.beforeMarshalling(deregisterTaskDefinitionRequest));
-                // Binds the request metrics to the current request.
-                request.setAWSRequestMetrics(awsRequestMetrics);
-            } finally {
-                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
-            }
-
-            Unmarshaller<DeregisterTaskDefinitionResult, JsonUnmarshallerContext> unmarshaller =
-                new DeregisterTaskDefinitionResultJsonUnmarshaller();
-            JsonResponseHandler<DeregisterTaskDefinitionResult> responseHandler =
-                new JsonResponseHandler<DeregisterTaskDefinitionResult>(unmarshaller);
-
-            response = invoke(request, responseHandler, executionContext);
-
-            return response.getAwsResponse();
-        } finally {
-            
-            endClientExecution(awsRequestMetrics, request, response, LOGGING_AWS_REQUEST_METRIC);
-        }
-    }
-
-    /**
-     * <p>
-     * Returns a list of container instances in a specified cluster.
-     * </p>
-     *
-     * @param listContainerInstancesRequest Container for the necessary
-     *           parameters to execute the ListContainerInstances service method on
-     *           AmazonECS.
-     * 
-     * @return The response from the ListContainerInstances service method,
-     *         as returned by AmazonECS.
-     * 
-     * @throws ServerException
-     * @throws ClientException
-     *
-     * @throws AmazonClientException
-     *             If any internal errors are encountered inside the client while
-     *             attempting to make the request or handle the response.  For example
-     *             if a network connection is not available.
-     * @throws AmazonServiceException
-     *             If an error response is returned by AmazonECS indicating
-     *             either a problem with the data in the request, or a server side issue.
-     */
-    public ListContainerInstancesResult listContainerInstances(ListContainerInstancesRequest listContainerInstancesRequest) {
-        ExecutionContext executionContext = createExecutionContext(listContainerInstancesRequest);
-        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
-        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
-        Request<ListContainerInstancesRequest> request = null;
-        Response<ListContainerInstancesResult> response = null;
-        
-        try {
-            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
-            try {
-                request = new ListContainerInstancesRequestMarshaller().marshall(super.beforeMarshalling(listContainerInstancesRequest));
-                // Binds the request metrics to the current request.
-                request.setAWSRequestMetrics(awsRequestMetrics);
-            } finally {
-                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
-            }
-
-            Unmarshaller<ListContainerInstancesResult, JsonUnmarshallerContext> unmarshaller =
-                new ListContainerInstancesResultJsonUnmarshaller();
-            JsonResponseHandler<ListContainerInstancesResult> responseHandler =
-                new JsonResponseHandler<ListContainerInstancesResult>(unmarshaller);
-
-            response = invoke(request, responseHandler, executionContext);
-
-            return response.getAwsResponse();
-        } finally {
-            
-            endClientExecution(awsRequestMetrics, request, response, LOGGING_AWS_REQUEST_METRIC);
-        }
-    }
-
-    /**
-     * <p>
-     * Deregisters an Amazon ECS container instance from the specified
-     * cluster. This instance will no longer be available to run tasks.
-     * </p>
-     *
-     * @param deregisterContainerInstanceRequest Container for the necessary
-     *           parameters to execute the DeregisterContainerInstance service method
-     *           on AmazonECS.
-     * 
-     * @return The response from the DeregisterContainerInstance service
-     *         method, as returned by AmazonECS.
-     * 
-     * @throws ServerException
-     * @throws ClientException
-     *
-     * @throws AmazonClientException
-     *             If any internal errors are encountered inside the client while
-     *             attempting to make the request or handle the response.  For example
-     *             if a network connection is not available.
-     * @throws AmazonServiceException
-     *             If an error response is returned by AmazonECS indicating
-     *             either a problem with the data in the request, or a server side issue.
-     */
-    public DeregisterContainerInstanceResult deregisterContainerInstance(DeregisterContainerInstanceRequest deregisterContainerInstanceRequest) {
-        ExecutionContext executionContext = createExecutionContext(deregisterContainerInstanceRequest);
-        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
-        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
-        Request<DeregisterContainerInstanceRequest> request = null;
-        Response<DeregisterContainerInstanceResult> response = null;
-        
-        try {
-            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
-            try {
-                request = new DeregisterContainerInstanceRequestMarshaller().marshall(super.beforeMarshalling(deregisterContainerInstanceRequest));
-                // Binds the request metrics to the current request.
-                request.setAWSRequestMetrics(awsRequestMetrics);
-            } finally {
-                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
-            }
-
-            Unmarshaller<DeregisterContainerInstanceResult, JsonUnmarshallerContext> unmarshaller =
-                new DeregisterContainerInstanceResultJsonUnmarshaller();
-            JsonResponseHandler<DeregisterContainerInstanceResult> responseHandler =
-                new JsonResponseHandler<DeregisterContainerInstanceResult>(unmarshaller);
-
-            response = invoke(request, responseHandler, executionContext);
-
-            return response.getAwsResponse();
-        } finally {
-            
-            endClientExecution(awsRequestMetrics, request, response, LOGGING_AWS_REQUEST_METRIC);
-        }
-    }
-
-    /**
-     * <p>
      * Starts a new task from the specified task definition on the specified
      * container instance or instances. If you want to use the default Amazon
      * ECS scheduler to place your task, use <code>RunTask</code> instead.
+     * </p>
+     * <p>
+     * <b>IMPORTANT:</b> The list of container instances to start tasks on
+     * is limited to 10.
      * </p>
      *
      * @param startTaskRequest Container for the necessary parameters to
@@ -1152,6 +1705,8 @@ public class AmazonECSClient extends AmazonWebServiceClient implements AmazonECS
      * @return The response from the StartTask service method, as returned by
      *         AmazonECS.
      * 
+     * @throws InvalidParameterException
+     * @throws ClusterNotFoundException
      * @throws ServerException
      * @throws ClientException
      *
@@ -1196,66 +1751,11 @@ public class AmazonECSClient extends AmazonWebServiceClient implements AmazonECS
 
     /**
      * <p>
-     * Describes a task definition. You can specify a <code>family</code>
-     * and <code>revision</code> to find information on a specific task
-     * definition, or you can simply specify the family to find the latest
-     * revision in that family.
-     * </p>
-     *
-     * @param describeTaskDefinitionRequest Container for the necessary
-     *           parameters to execute the DescribeTaskDefinition service method on
-     *           AmazonECS.
-     * 
-     * @return The response from the DescribeTaskDefinition service method,
-     *         as returned by AmazonECS.
-     * 
-     * @throws ServerException
-     * @throws ClientException
-     *
-     * @throws AmazonClientException
-     *             If any internal errors are encountered inside the client while
-     *             attempting to make the request or handle the response.  For example
-     *             if a network connection is not available.
-     * @throws AmazonServiceException
-     *             If an error response is returned by AmazonECS indicating
-     *             either a problem with the data in the request, or a server side issue.
-     */
-    public DescribeTaskDefinitionResult describeTaskDefinition(DescribeTaskDefinitionRequest describeTaskDefinitionRequest) {
-        ExecutionContext executionContext = createExecutionContext(describeTaskDefinitionRequest);
-        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
-        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
-        Request<DescribeTaskDefinitionRequest> request = null;
-        Response<DescribeTaskDefinitionResult> response = null;
-        
-        try {
-            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
-            try {
-                request = new DescribeTaskDefinitionRequestMarshaller().marshall(super.beforeMarshalling(describeTaskDefinitionRequest));
-                // Binds the request metrics to the current request.
-                request.setAWSRequestMetrics(awsRequestMetrics);
-            } finally {
-                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
-            }
-
-            Unmarshaller<DescribeTaskDefinitionResult, JsonUnmarshallerContext> unmarshaller =
-                new DescribeTaskDefinitionResultJsonUnmarshaller();
-            JsonResponseHandler<DescribeTaskDefinitionResult> responseHandler =
-                new JsonResponseHandler<DescribeTaskDefinitionResult>(unmarshaller);
-
-            response = invoke(request, responseHandler, executionContext);
-
-            return response.getAwsResponse();
-        } finally {
-            
-            endClientExecution(awsRequestMetrics, request, response, LOGGING_AWS_REQUEST_METRIC);
-        }
-    }
-
-    /**
-     * <p>
      * Returns a list of tasks for a specified cluster. You can filter the
-     * results by family name or by a particular container instance with the
-     * <code>family</code> and <code>containerInstance</code> parameters.
+     * results by family name, by a particular container instance, or by the
+     * desired status of the task with the <code>family</code> ,
+     * <code>containerInstance</code> , and <code>desiredStatus</code>
+     * parameters.
      * </p>
      *
      * @param listTasksRequest Container for the necessary parameters to
@@ -1264,6 +1764,8 @@ public class AmazonECSClient extends AmazonWebServiceClient implements AmazonECS
      * @return The response from the ListTasks service method, as returned by
      *         AmazonECS.
      * 
+     * @throws InvalidParameterException
+     * @throws ClusterNotFoundException
      * @throws ServerException
      * @throws ClientException
      *
@@ -1308,65 +1810,6 @@ public class AmazonECSClient extends AmazonWebServiceClient implements AmazonECS
 
     /**
      * <p>
-     * Registers a new task definition from the supplied <code>family</code>
-     * and <code>containerDefinitions</code> . Optionally, you can add data
-     * volumes to your containers with the <code>volumes</code> parameter.
-     * For more information on task definition parameters and defaults, see
-     * <a href="http://docs.aws.amazon.com/AmazonECS/latest/developerguide/task_defintions.html"> Amazon ECS Task Definitions </a>
-     * in the <i>Amazon EC2 Container Service Developer Guide</i> .
-     * </p>
-     *
-     * @param registerTaskDefinitionRequest Container for the necessary
-     *           parameters to execute the RegisterTaskDefinition service method on
-     *           AmazonECS.
-     * 
-     * @return The response from the RegisterTaskDefinition service method,
-     *         as returned by AmazonECS.
-     * 
-     * @throws ServerException
-     * @throws ClientException
-     *
-     * @throws AmazonClientException
-     *             If any internal errors are encountered inside the client while
-     *             attempting to make the request or handle the response.  For example
-     *             if a network connection is not available.
-     * @throws AmazonServiceException
-     *             If an error response is returned by AmazonECS indicating
-     *             either a problem with the data in the request, or a server side issue.
-     */
-    public RegisterTaskDefinitionResult registerTaskDefinition(RegisterTaskDefinitionRequest registerTaskDefinitionRequest) {
-        ExecutionContext executionContext = createExecutionContext(registerTaskDefinitionRequest);
-        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
-        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
-        Request<RegisterTaskDefinitionRequest> request = null;
-        Response<RegisterTaskDefinitionResult> response = null;
-        
-        try {
-            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
-            try {
-                request = new RegisterTaskDefinitionRequestMarshaller().marshall(super.beforeMarshalling(registerTaskDefinitionRequest));
-                // Binds the request metrics to the current request.
-                request.setAWSRequestMetrics(awsRequestMetrics);
-            } finally {
-                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
-            }
-
-            Unmarshaller<RegisterTaskDefinitionResult, JsonUnmarshallerContext> unmarshaller =
-                new RegisterTaskDefinitionResultJsonUnmarshaller();
-            JsonResponseHandler<RegisterTaskDefinitionResult> responseHandler =
-                new JsonResponseHandler<RegisterTaskDefinitionResult>(unmarshaller);
-
-            response = invoke(request, responseHandler, executionContext);
-
-            return response.getAwsResponse();
-        } finally {
-            
-            endClientExecution(awsRequestMetrics, request, response, LOGGING_AWS_REQUEST_METRIC);
-        }
-    }
-
-    /**
-     * <p>
      * Stops a running task.
      * </p>
      *
@@ -1376,6 +1819,8 @@ public class AmazonECSClient extends AmazonWebServiceClient implements AmazonECS
      * @return The response from the StopTask service method, as returned by
      *         AmazonECS.
      * 
+     * @throws InvalidParameterException
+     * @throws ClusterNotFoundException
      * @throws ServerException
      * @throws ClientException
      *
@@ -1449,12 +1894,14 @@ public class AmazonECSClient extends AmazonWebServiceClient implements AmazonECS
      * <p>
      * Returns a list of task definitions that are registered to your
      * account. You can filter the results by family name with the
-     * <code>familyPrefix</code> parameter.
+     * <code>familyPrefix</code> parameter or by status with the
+     * <code>status</code> parameter.
      * </p>
      * 
      * @return The response from the ListTaskDefinitions service method, as
      *         returned by AmazonECS.
      * 
+     * @throws InvalidParameterException
      * @throws ServerException
      * @throws ClientException
      *
@@ -1472,37 +1919,13 @@ public class AmazonECSClient extends AmazonWebServiceClient implements AmazonECS
     
     /**
      * <p>
-     * Returns a list of task definition families that are registered to
-     * your account. You can filter the results with the
-     * <code>familyPrefix</code> parameter.
-     * </p>
-     * 
-     * @return The response from the ListTaskDefinitionFamilies service
-     *         method, as returned by AmazonECS.
-     * 
-     * @throws ServerException
-     * @throws ClientException
-     *
-     * @throws AmazonClientException
-     *             If any internal errors are encountered inside the client while
-     *             attempting to make the request or handle the response.  For example
-     *             if a network connection is not available.
-     * @throws AmazonServiceException
-     *             If an error response is returned by AmazonECS indicating
-     *             either a problem with the data in the request, or a server side issue.
-     */
-    public ListTaskDefinitionFamiliesResult listTaskDefinitionFamilies() throws AmazonServiceException, AmazonClientException {
-        return listTaskDefinitionFamilies(new ListTaskDefinitionFamiliesRequest());
-    }
-    
-    /**
-     * <p>
      * Returns a list of existing clusters.
      * </p>
      * 
      * @return The response from the ListClusters service method, as returned
      *         by AmazonECS.
      * 
+     * @throws InvalidParameterException
      * @throws ServerException
      * @throws ClientException
      *
@@ -1516,6 +1939,134 @@ public class AmazonECSClient extends AmazonWebServiceClient implements AmazonECS
      */
     public ListClustersResult listClusters() throws AmazonServiceException, AmazonClientException {
         return listClusters(new ListClustersRequest());
+    }
+    
+    /**
+     * <p>
+     * Creates a new Amazon ECS cluster. By default, your account will
+     * receive a <code>default</code> cluster when you launch your first
+     * container instance. However, you can create your own cluster with a
+     * unique name with the <code>CreateCluster</code> action.
+     * </p>
+     * 
+     * @return The response from the CreateCluster service method, as
+     *         returned by AmazonECS.
+     * 
+     * @throws InvalidParameterException
+     * @throws ServerException
+     * @throws ClientException
+     *
+     * @throws AmazonClientException
+     *             If any internal errors are encountered inside the client while
+     *             attempting to make the request or handle the response.  For example
+     *             if a network connection is not available.
+     * @throws AmazonServiceException
+     *             If an error response is returned by AmazonECS indicating
+     *             either a problem with the data in the request, or a server side issue.
+     */
+    public CreateClusterResult createCluster() throws AmazonServiceException, AmazonClientException {
+        return createCluster(new CreateClusterRequest());
+    }
+    
+    /**
+     * <p>
+     * Describes one or more of your clusters.
+     * </p>
+     * 
+     * @return The response from the DescribeClusters service method, as
+     *         returned by AmazonECS.
+     * 
+     * @throws InvalidParameterException
+     * @throws ServerException
+     * @throws ClientException
+     *
+     * @throws AmazonClientException
+     *             If any internal errors are encountered inside the client while
+     *             attempting to make the request or handle the response.  For example
+     *             if a network connection is not available.
+     * @throws AmazonServiceException
+     *             If an error response is returned by AmazonECS indicating
+     *             either a problem with the data in the request, or a server side issue.
+     */
+    public DescribeClustersResult describeClusters() throws AmazonServiceException, AmazonClientException {
+        return describeClusters(new DescribeClustersRequest());
+    }
+    
+    /**
+     * <p>
+     * Returns a list of container instances in a specified cluster.
+     * </p>
+     * 
+     * @return The response from the ListContainerInstances service method,
+     *         as returned by AmazonECS.
+     * 
+     * @throws InvalidParameterException
+     * @throws ClusterNotFoundException
+     * @throws ServerException
+     * @throws ClientException
+     *
+     * @throws AmazonClientException
+     *             If any internal errors are encountered inside the client while
+     *             attempting to make the request or handle the response.  For example
+     *             if a network connection is not available.
+     * @throws AmazonServiceException
+     *             If an error response is returned by AmazonECS indicating
+     *             either a problem with the data in the request, or a server side issue.
+     */
+    public ListContainerInstancesResult listContainerInstances() throws AmazonServiceException, AmazonClientException {
+        return listContainerInstances(new ListContainerInstancesRequest());
+    }
+    
+    /**
+     * <p>
+     * Lists the services that are running in a specified cluster.
+     * </p>
+     * 
+     * @return The response from the ListServices service method, as returned
+     *         by AmazonECS.
+     * 
+     * @throws InvalidParameterException
+     * @throws ClusterNotFoundException
+     * @throws ServerException
+     * @throws ClientException
+     *
+     * @throws AmazonClientException
+     *             If any internal errors are encountered inside the client while
+     *             attempting to make the request or handle the response.  For example
+     *             if a network connection is not available.
+     * @throws AmazonServiceException
+     *             If an error response is returned by AmazonECS indicating
+     *             either a problem with the data in the request, or a server side issue.
+     */
+    public ListServicesResult listServices() throws AmazonServiceException, AmazonClientException {
+        return listServices(new ListServicesRequest());
+    }
+    
+    /**
+     * <p>
+     * Returns a list of task definition families that are registered to
+     * your account (which may include task definition families that no
+     * longer have any <code>ACTIVE</code> task definitions). You can filter
+     * the results with the <code>familyPrefix</code> parameter.
+     * </p>
+     * 
+     * @return The response from the ListTaskDefinitionFamilies service
+     *         method, as returned by AmazonECS.
+     * 
+     * @throws InvalidParameterException
+     * @throws ServerException
+     * @throws ClientException
+     *
+     * @throws AmazonClientException
+     *             If any internal errors are encountered inside the client while
+     *             attempting to make the request or handle the response.  For example
+     *             if a network connection is not available.
+     * @throws AmazonServiceException
+     *             If an error response is returned by AmazonECS indicating
+     *             either a problem with the data in the request, or a server side issue.
+     */
+    public ListTaskDefinitionFamiliesResult listTaskDefinitionFamilies() throws AmazonServiceException, AmazonClientException {
+        return listTaskDefinitionFamilies(new ListTaskDefinitionFamiliesRequest());
     }
     
     /**
@@ -1548,90 +2099,18 @@ public class AmazonECSClient extends AmazonWebServiceClient implements AmazonECS
     
     /**
      * <p>
-     * Creates a new Amazon ECS cluster. By default, your account will
-     * receive a <code>default</code> cluster when you launch your first
-     * container instance. However, you can create your own cluster with a
-     * unique name with the <code>CreateCluster</code> action.
-     * </p>
-     * <p>
-     * <b>IMPORTANT:</b> During the preview, each account is limited to two
-     * clusters.
-     * </p>
-     * 
-     * @return The response from the CreateCluster service method, as
-     *         returned by AmazonECS.
-     * 
-     * @throws ServerException
-     * @throws ClientException
-     *
-     * @throws AmazonClientException
-     *             If any internal errors are encountered inside the client while
-     *             attempting to make the request or handle the response.  For example
-     *             if a network connection is not available.
-     * @throws AmazonServiceException
-     *             If an error response is returned by AmazonECS indicating
-     *             either a problem with the data in the request, or a server side issue.
-     */
-    public CreateClusterResult createCluster() throws AmazonServiceException, AmazonClientException {
-        return createCluster(new CreateClusterRequest());
-    }
-    
-    /**
-     * <p>
-     * Describes one or more of your clusters.
-     * </p>
-     * 
-     * @return The response from the DescribeClusters service method, as
-     *         returned by AmazonECS.
-     * 
-     * @throws ServerException
-     * @throws ClientException
-     *
-     * @throws AmazonClientException
-     *             If any internal errors are encountered inside the client while
-     *             attempting to make the request or handle the response.  For example
-     *             if a network connection is not available.
-     * @throws AmazonServiceException
-     *             If an error response is returned by AmazonECS indicating
-     *             either a problem with the data in the request, or a server side issue.
-     */
-    public DescribeClustersResult describeClusters() throws AmazonServiceException, AmazonClientException {
-        return describeClusters(new DescribeClustersRequest());
-    }
-    
-    /**
-     * <p>
-     * Returns a list of container instances in a specified cluster.
-     * </p>
-     * 
-     * @return The response from the ListContainerInstances service method,
-     *         as returned by AmazonECS.
-     * 
-     * @throws ServerException
-     * @throws ClientException
-     *
-     * @throws AmazonClientException
-     *             If any internal errors are encountered inside the client while
-     *             attempting to make the request or handle the response.  For example
-     *             if a network connection is not available.
-     * @throws AmazonServiceException
-     *             If an error response is returned by AmazonECS indicating
-     *             either a problem with the data in the request, or a server side issue.
-     */
-    public ListContainerInstancesResult listContainerInstances() throws AmazonServiceException, AmazonClientException {
-        return listContainerInstances(new ListContainerInstancesRequest());
-    }
-    
-    /**
-     * <p>
      * Returns a list of tasks for a specified cluster. You can filter the
-     * results by family name or by a particular container instance with the
-     * <code>family</code> and <code>containerInstance</code> parameters.
+     * results by family name, by a particular container instance, or by the
+     * desired status of the task with the <code>family</code> ,
+     * <code>containerInstance</code> , and <code>desiredStatus</code>
+     * parameters.
      * </p>
      * 
      * @return The response from the ListTasks service method, as returned by
      *         AmazonECS.
      * 
+     * @throws InvalidParameterException
+     * @throws ClusterNotFoundException
      * @throws ServerException
      * @throws ClientException
      *

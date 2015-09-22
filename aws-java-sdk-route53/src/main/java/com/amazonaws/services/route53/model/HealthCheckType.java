@@ -23,7 +23,8 @@ public enum HealthCheckType {
     HTTPS("HTTPS"),
     HTTP_STR_MATCH("HTTP_STR_MATCH"),
     HTTPS_STR_MATCH("HTTPS_STR_MATCH"),
-    TCP("TCP");
+    TCP("TCP"),
+    CALCULATED("CALCULATED");
 
     private String value;
 
@@ -57,6 +58,8 @@ public enum HealthCheckType {
             return HealthCheckType.HTTPS_STR_MATCH;
         } else if ("TCP".equals(value)) {
             return HealthCheckType.TCP;
+        } else if ("CALCULATED".equals(value)) {
+            return HealthCheckType.CALCULATED;
         } else {
             throw new IllegalArgumentException("Cannot create enum from " + value + " value!");
         }

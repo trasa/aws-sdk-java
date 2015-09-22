@@ -1,5 +1,5 @@
 /*
- * Copyright 2012 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2012-2015 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License.
@@ -79,5 +79,7 @@ public @interface WorkflowRegistrationOptions {
      * is not specified on activity invocation
      */
     int defaultTaskPriority() default FlowConstants.DEFAULT_TASK_PRIORITY;
-    
+
+    String defaultLambdaRole() default "";
+
 }

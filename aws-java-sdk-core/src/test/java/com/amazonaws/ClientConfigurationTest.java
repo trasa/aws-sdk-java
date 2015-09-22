@@ -17,7 +17,10 @@ package com.amazonaws;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertSame;
+import static org.junit.Assert.fail;
 
+import java.net.InetAddress;
+import java.net.UnknownHostException;
 import java.security.KeyStore;
 
 import org.apache.http.conn.ssl.SSLSocketFactory;
@@ -34,7 +37,7 @@ public class ClientConfigurationTest {
         assertNull("default ssl socket factory is null",
                 httpclientConfig.getSslSocketFactory());
 
-        SSLSocketFactory customFactory = new SSLSocketFactory((KeyStore)null);
+        SSLSocketFactory customFactory = new SSLSocketFactory((KeyStore) null);
         config.getApacheHttpClientConfig().setSslSocketFactory(customFactory);
         assertSame("custom ssl socket factory configured", customFactory,
                 config.getApacheHttpClientConfig().getSslSocketFactory());
@@ -60,6 +63,27 @@ public class ClientConfigurationTest {
         assertNotNull(
             "ssl soscket of the new httpclient config should not be affected",
             config2.getApacheHttpClientConfig().getSslSocketFactory());
+
+        assertNotNull("Client Configuration must have a default DnsResolver",
+                config.getDnsResolver());
+
+        try {
+            config.setDnsResolver(null);
+            fail("Expected IllegalArgumentException");
+        } catch (IllegalArgumentException expected) {
+        }
+
+        DnsResolver resolver = new DnsResolver() {
+            @Override
+            public InetAddress[] resolve(String s) throws UnknownHostException {
+                return new InetAddress[0];
+            }
+        };
+
+        config.setDnsResolver(resolver);
+        assertSame("custom dns resolver set via fluent API",
+                resolver,
+                config.getDnsResolver());
     }
 
 }

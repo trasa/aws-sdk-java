@@ -18,7 +18,7 @@ import java.io.Serializable;
 
 /**
  * <p>
- * The result of the RemoveTags action.
+ * Contains the output of RemoveTags.
  * </p>
  */
 public class RemoveTagsResult implements Serializable, Cloneable {

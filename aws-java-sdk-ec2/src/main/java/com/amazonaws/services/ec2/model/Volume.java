@@ -57,7 +57,7 @@ public class Volume implements Serializable, Cloneable {
     private java.util.Date createTime;
 
     /**
-     * 
+     * Information about the volume attachments.
      */
     private com.amazonaws.internal.ListWithAutoConstructFlag<VolumeAttachment> attachments;
 
@@ -85,9 +85,9 @@ public class Volume implements Serializable, Cloneable {
      * bursting. For more information on General Purpose (SSD) baseline
      * performance, I/O credits, and bursting, see <a
      * href="http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/EBSVolumeTypes.html">Amazon
-     * EBS Volume Types</a> in the <i>Amazon Elastic Compute Cloud User Guide
-     * for Linux</i>. <p>Constraint: Range is 100 to 20000 for Provisioned
-     * IOPS (SSD) volumes and 3 to 10000 for General Purpose (SSD) volumes.
+     * EBS Volume Types</a> in the <i>Amazon Elastic Compute Cloud User
+     * Guide</i>. <p>Constraint: Range is 100 to 20000 for Provisioned IOPS
+     * (SSD) volumes and 3 to 10000 for General Purpose (SSD) volumes.
      * <p>Condition: This parameter is required for requests to create
      * <code>io1</code> volumes; it is not used in requests to create
      * <code>standard</code> or <code>gp2</code> volumes.
@@ -100,8 +100,9 @@ public class Volume implements Serializable, Cloneable {
     private Boolean encrypted;
 
     /**
-     * The full ARN of the AWS Key Management Service (KMS) master key that
-     * was used to protect the volume encryption key for the volume.
+     * The full ARN of the AWS Key Management Service (AWS KMS) customer
+     * master key (CMK) that was used to protect the volume encryption key
+     * for the volume.
      */
     private String kmsKeyId;
 
@@ -353,9 +354,9 @@ public class Volume implements Serializable, Cloneable {
     }
 
     /**
-     * 
+     * Information about the volume attachments.
      *
-     * @return 
+     * @return Information about the volume attachments.
      */
     public java.util.List<VolumeAttachment> getAttachments() {
         if (attachments == null) {
@@ -366,9 +367,9 @@ public class Volume implements Serializable, Cloneable {
     }
     
     /**
-     * 
+     * Information about the volume attachments.
      *
-     * @param attachments 
+     * @param attachments Information about the volume attachments.
      */
     public void setAttachments(java.util.Collection<VolumeAttachment> attachments) {
         if (attachments == null) {
@@ -381,11 +382,16 @@ public class Volume implements Serializable, Cloneable {
     }
     
     /**
-     * 
+     * Information about the volume attachments.
+     * <p>
+     * <b>NOTE:</b> This method appends the values to the existing list (if
+     * any). Use {@link #setAttachments(java.util.Collection)} or {@link
+     * #withAttachments(java.util.Collection)} if you want to override the
+     * existing values.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *
-     * @param attachments 
+     * @param attachments Information about the volume attachments.
      *
      * @return A reference to this updated object so that method calls can be chained
      *         together.
@@ -399,11 +405,11 @@ public class Volume implements Serializable, Cloneable {
     }
     
     /**
-     * 
+     * Information about the volume attachments.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *
-     * @param attachments 
+     * @param attachments Information about the volume attachments.
      *
      * @return A reference to this updated object so that method calls can be chained
      *         together.
@@ -450,6 +456,11 @@ public class Volume implements Serializable, Cloneable {
     
     /**
      * Any tags assigned to the volume.
+     * <p>
+     * <b>NOTE:</b> This method appends the values to the existing list (if
+     * any). Use {@link #setTags(java.util.Collection)} or {@link
+     * #withTags(java.util.Collection)} if you want to override the existing
+     * values.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *
@@ -599,9 +610,9 @@ public class Volume implements Serializable, Cloneable {
      * bursting. For more information on General Purpose (SSD) baseline
      * performance, I/O credits, and bursting, see <a
      * href="http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/EBSVolumeTypes.html">Amazon
-     * EBS Volume Types</a> in the <i>Amazon Elastic Compute Cloud User Guide
-     * for Linux</i>. <p>Constraint: Range is 100 to 20000 for Provisioned
-     * IOPS (SSD) volumes and 3 to 10000 for General Purpose (SSD) volumes.
+     * EBS Volume Types</a> in the <i>Amazon Elastic Compute Cloud User
+     * Guide</i>. <p>Constraint: Range is 100 to 20000 for Provisioned IOPS
+     * (SSD) volumes and 3 to 10000 for General Purpose (SSD) volumes.
      * <p>Condition: This parameter is required for requests to create
      * <code>io1</code> volumes; it is not used in requests to create
      * <code>standard</code> or <code>gp2</code> volumes.
@@ -614,9 +625,9 @@ public class Volume implements Serializable, Cloneable {
      *         bursting. For more information on General Purpose (SSD) baseline
      *         performance, I/O credits, and bursting, see <a
      *         href="http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/EBSVolumeTypes.html">Amazon
-     *         EBS Volume Types</a> in the <i>Amazon Elastic Compute Cloud User Guide
-     *         for Linux</i>. <p>Constraint: Range is 100 to 20000 for Provisioned
-     *         IOPS (SSD) volumes and 3 to 10000 for General Purpose (SSD) volumes.
+     *         EBS Volume Types</a> in the <i>Amazon Elastic Compute Cloud User
+     *         Guide</i>. <p>Constraint: Range is 100 to 20000 for Provisioned IOPS
+     *         (SSD) volumes and 3 to 10000 for General Purpose (SSD) volumes.
      *         <p>Condition: This parameter is required for requests to create
      *         <code>io1</code> volumes; it is not used in requests to create
      *         <code>standard</code> or <code>gp2</code> volumes.
@@ -634,9 +645,9 @@ public class Volume implements Serializable, Cloneable {
      * bursting. For more information on General Purpose (SSD) baseline
      * performance, I/O credits, and bursting, see <a
      * href="http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/EBSVolumeTypes.html">Amazon
-     * EBS Volume Types</a> in the <i>Amazon Elastic Compute Cloud User Guide
-     * for Linux</i>. <p>Constraint: Range is 100 to 20000 for Provisioned
-     * IOPS (SSD) volumes and 3 to 10000 for General Purpose (SSD) volumes.
+     * EBS Volume Types</a> in the <i>Amazon Elastic Compute Cloud User
+     * Guide</i>. <p>Constraint: Range is 100 to 20000 for Provisioned IOPS
+     * (SSD) volumes and 3 to 10000 for General Purpose (SSD) volumes.
      * <p>Condition: This parameter is required for requests to create
      * <code>io1</code> volumes; it is not used in requests to create
      * <code>standard</code> or <code>gp2</code> volumes.
@@ -649,9 +660,9 @@ public class Volume implements Serializable, Cloneable {
      *         bursting. For more information on General Purpose (SSD) baseline
      *         performance, I/O credits, and bursting, see <a
      *         href="http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/EBSVolumeTypes.html">Amazon
-     *         EBS Volume Types</a> in the <i>Amazon Elastic Compute Cloud User Guide
-     *         for Linux</i>. <p>Constraint: Range is 100 to 20000 for Provisioned
-     *         IOPS (SSD) volumes and 3 to 10000 for General Purpose (SSD) volumes.
+     *         EBS Volume Types</a> in the <i>Amazon Elastic Compute Cloud User
+     *         Guide</i>. <p>Constraint: Range is 100 to 20000 for Provisioned IOPS
+     *         (SSD) volumes and 3 to 10000 for General Purpose (SSD) volumes.
      *         <p>Condition: This parameter is required for requests to create
      *         <code>io1</code> volumes; it is not used in requests to create
      *         <code>standard</code> or <code>gp2</code> volumes.
@@ -669,9 +680,9 @@ public class Volume implements Serializable, Cloneable {
      * bursting. For more information on General Purpose (SSD) baseline
      * performance, I/O credits, and bursting, see <a
      * href="http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/EBSVolumeTypes.html">Amazon
-     * EBS Volume Types</a> in the <i>Amazon Elastic Compute Cloud User Guide
-     * for Linux</i>. <p>Constraint: Range is 100 to 20000 for Provisioned
-     * IOPS (SSD) volumes and 3 to 10000 for General Purpose (SSD) volumes.
+     * EBS Volume Types</a> in the <i>Amazon Elastic Compute Cloud User
+     * Guide</i>. <p>Constraint: Range is 100 to 20000 for Provisioned IOPS
+     * (SSD) volumes and 3 to 10000 for General Purpose (SSD) volumes.
      * <p>Condition: This parameter is required for requests to create
      * <code>io1</code> volumes; it is not used in requests to create
      * <code>standard</code> or <code>gp2</code> volumes.
@@ -686,9 +697,9 @@ public class Volume implements Serializable, Cloneable {
      *         bursting. For more information on General Purpose (SSD) baseline
      *         performance, I/O credits, and bursting, see <a
      *         href="http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/EBSVolumeTypes.html">Amazon
-     *         EBS Volume Types</a> in the <i>Amazon Elastic Compute Cloud User Guide
-     *         for Linux</i>. <p>Constraint: Range is 100 to 20000 for Provisioned
-     *         IOPS (SSD) volumes and 3 to 10000 for General Purpose (SSD) volumes.
+     *         EBS Volume Types</a> in the <i>Amazon Elastic Compute Cloud User
+     *         Guide</i>. <p>Constraint: Range is 100 to 20000 for Provisioned IOPS
+     *         (SSD) volumes and 3 to 10000 for General Purpose (SSD) volumes.
      *         <p>Condition: This parameter is required for requests to create
      *         <code>io1</code> volumes; it is not used in requests to create
      *         <code>standard</code> or <code>gp2</code> volumes.
@@ -744,35 +755,41 @@ public class Volume implements Serializable, Cloneable {
     }
 
     /**
-     * The full ARN of the AWS Key Management Service (KMS) master key that
-     * was used to protect the volume encryption key for the volume.
+     * The full ARN of the AWS Key Management Service (AWS KMS) customer
+     * master key (CMK) that was used to protect the volume encryption key
+     * for the volume.
      *
-     * @return The full ARN of the AWS Key Management Service (KMS) master key that
-     *         was used to protect the volume encryption key for the volume.
+     * @return The full ARN of the AWS Key Management Service (AWS KMS) customer
+     *         master key (CMK) that was used to protect the volume encryption key
+     *         for the volume.
      */
     public String getKmsKeyId() {
         return kmsKeyId;
     }
     
     /**
-     * The full ARN of the AWS Key Management Service (KMS) master key that
-     * was used to protect the volume encryption key for the volume.
+     * The full ARN of the AWS Key Management Service (AWS KMS) customer
+     * master key (CMK) that was used to protect the volume encryption key
+     * for the volume.
      *
-     * @param kmsKeyId The full ARN of the AWS Key Management Service (KMS) master key that
-     *         was used to protect the volume encryption key for the volume.
+     * @param kmsKeyId The full ARN of the AWS Key Management Service (AWS KMS) customer
+     *         master key (CMK) that was used to protect the volume encryption key
+     *         for the volume.
      */
     public void setKmsKeyId(String kmsKeyId) {
         this.kmsKeyId = kmsKeyId;
     }
     
     /**
-     * The full ARN of the AWS Key Management Service (KMS) master key that
-     * was used to protect the volume encryption key for the volume.
+     * The full ARN of the AWS Key Management Service (AWS KMS) customer
+     * master key (CMK) that was used to protect the volume encryption key
+     * for the volume.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *
-     * @param kmsKeyId The full ARN of the AWS Key Management Service (KMS) master key that
-     *         was used to protect the volume encryption key for the volume.
+     * @param kmsKeyId The full ARN of the AWS Key Management Service (AWS KMS) customer
+     *         master key (CMK) that was used to protect the volume encryption key
+     *         for the volume.
      *
      * @return A reference to this updated object so that method calls can be chained
      *         together.

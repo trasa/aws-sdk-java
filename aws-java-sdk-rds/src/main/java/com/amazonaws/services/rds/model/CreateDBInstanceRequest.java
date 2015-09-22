@@ -30,21 +30,22 @@ public class CreateDBInstanceRequest extends AmazonWebServiceRequest implements 
 
     /**
      * The meaning of this parameter differs according to the database engine
-     * you use. <p>Type: String <p><b>MySQL</b> <p>The name of the database
+     * you use. <p>Type: String <p> <b>MySQL</b> <p>The name of the database
      * to create when the DB instance is created. If this parameter is not
      * specified, no database is created in the DB instance. <p>Constraints:
      * <ul> <li>Must contain 1 to 64 alphanumeric characters</li> <li>Cannot
-     * be a word reserved by the specified database engine</li> </ul>
-     * <p><b>PostgreSQL</b> <p>The name of the database to create when the DB
-     * instance is created. If this parameter is not specified, no database
-     * is created in the DB instance. <p>Constraints: <ul> <li>Must contain 1
-     * to 63 alphanumeric characters</li> <li>Must begin with a letter or an
-     * underscore. Subsequent characters can be letters, underscores, or
-     * digits (0-9).</li> <li>Cannot be a word reserved by the specified
-     * database engine</li> </ul> <p><b>Oracle</b> <p> The Oracle System ID
-     * (SID) of the created DB instance. <p>Default: <code>ORCL</code>
-     * <p>Constraints: <ul> <li>Cannot be longer than 8 characters</li> </ul>
-     * <p><b>SQL Server</b> <p>Not applicable. Must be null.
+     * be a word reserved by the specified database engine</li> </ul> <p>
+     * <b>PostgreSQL</b> <p>The name of the database to create when the DB
+     * instance is created. If this parameter is not specified, the default
+     * "postgres" database is created in the DB instance. <p>Constraints:
+     * <ul> <li>Must contain 1 to 63 alphanumeric characters</li> <li>Must
+     * begin with a letter or an underscore. Subsequent characters can be
+     * letters, underscores, or digits (0-9).</li> <li>Cannot be a word
+     * reserved by the specified database engine</li> </ul> <p> <b>Oracle</b>
+     * <p> The Oracle System ID (SID) of the created DB instance. <p>Default:
+     * <code>ORCL</code> <p>Constraints: <ul> <li>Cannot be longer than 8
+     * characters</li> </ul> <p> <b>SQL Server</b> <p>Not applicable. Must be
+     * null.
      */
     private String dBName;
 
@@ -60,12 +61,12 @@ public class CreateDBInstanceRequest extends AmazonWebServiceRequest implements 
 
     /**
      * The amount of storage (in gigabytes) to be initially allocated for the
-     * database instance. <p> Type: Integer <p><b>MySQL</b> <p> Constraints:
-     * Must be an integer from 5 to 3072. <p><b>PostgreSQL</b> <p>
-     * Constraints: Must be an integer from 5 to 3072. <p><b>Oracle</b> <p>
-     * Constraints: Must be an integer from 10 to 3072. <p><b>SQL Server</b>
-     * <p> Constraints: Must be an integer from 200 to 1024 (Standard Edition
-     * and Enterprise Edition) or from 20 to 1024 (Express Edition and Web
+     * database instance. <p> Type: Integer <p> <b>MySQL</b> <p> Constraints:
+     * Must be an integer from 5 to 6144. <p> <b>PostgreSQL</b> <p>
+     * Constraints: Must be an integer from 5 to 6144. <p> <b>Oracle</b> <p>
+     * Constraints: Must be an integer from 10 to 6144. <p> <b>SQL Server</b>
+     * <p> Constraints: Must be an integer from 200 to 4096 (Standard Edition
+     * and Enterprise Edition) or from 20 to 4096 (Express Edition and Web
      * Edition)
      */
     private Integer allocatedStorage;
@@ -92,15 +93,18 @@ public class CreateDBInstanceRequest extends AmazonWebServiceRequest implements 
     private String engine;
 
     /**
-     * The name of master user for the client DB instance. <p><b>MySQL</b>
+     * The name of master user for the client DB instance. <p> <b>MySQL</b>
      * <p>Constraints: <ul> <li>Must be 1 to 16 alphanumeric characters.</li>
      * <li>First character must be a letter.</li> <li>Cannot be a reserved
-     * word for the chosen database engine.</li> </ul> <p>Type: String
-     * <p><b>Oracle</b> <p>Constraints: <ul> <li>Must be 1 to 30 alphanumeric
+     * word for the chosen database engine.</li> </ul> <p>Type: String <p>
+     * <b>Oracle</b> <p>Constraints: <ul> <li>Must be 1 to 30 alphanumeric
      * characters.</li> <li>First character must be a letter.</li> <li>Cannot
-     * be a reserved word for the chosen database engine.</li> </ul>
-     * <p><b>SQL Server</b> <p>Constraints: <ul> <li>Must be 1 to 128
+     * be a reserved word for the chosen database engine.</li> </ul> <p>
+     * <b>SQL Server</b> <p>Constraints: <ul> <li>Must be 1 to 128
      * alphanumeric characters.</li> <li>First character must be a
+     * letter.</li> <li>Cannot be a reserved word for the chosen database
+     * engine.</li> </ul> <p> <b>PostgreSQL</b> <p>Constraints: <ul> <li>Must
+     * be 1 to 63 alphanumeric characters.</li> <li>First character must be a
      * letter.</li> <li>Cannot be a reserved word for the chosen database
      * engine.</li> </ul>
      */
@@ -108,10 +112,12 @@ public class CreateDBInstanceRequest extends AmazonWebServiceRequest implements 
 
     /**
      * The password for the master database user. Can be any printable ASCII
-     * character except "/", """, or "@". <p>Type: String <p><b>MySQL</b> <p>
-     * Constraints: Must contain from 8 to 41 characters. <p><b>Oracle</b>
-     * <p> Constraints: Must contain from 8 to 30 characters. <p><b>SQL
-     * Server</b> <p> Constraints: Must contain from 8 to 128 characters.
+     * character except "/", """, or "@". <p>Type: String <p> <b>MySQL</b>
+     * <p> Constraints: Must contain from 8 to 41 characters. <p>
+     * <b>Oracle</b> <p> Constraints: Must contain from 8 to 30 characters.
+     * <p> <b>SQL Server</b> <p> Constraints: Must contain from 8 to 128
+     * characters. <p> <b>PostgreSQL</b> <p> Constraints: Must contain from 8
+     * to 128 characters.
      */
     private String masterUserPassword;
 
@@ -148,16 +154,16 @@ public class CreateDBInstanceRequest extends AmazonWebServiceRequest implements 
     private String dBSubnetGroupName;
 
     /**
-     * The weekly time range (in UTC) during which system maintenance can
-     * occur. For more information, see <a
+     * The weekly time range during which system maintenance can occur, in
+     * Universal Coordinated Time (UTC). For more information, see <a
      * href="http://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/Concepts.DBMaintenance.html">DB
      * Instance Maintenance</a>. <p> Format:
      * <code>ddd:hh24:mi-ddd:hh24:mi</code> <p> Default: A 30-minute window
      * selected at random from an 8-hour block of time per region, occurring
      * on a random day of the week. To see the time blocks available, see <a
      * href="http://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/AdjustingTheMaintenanceWindow.html">
-     * Adjusting the Preferred Maintenance Window</a> in the Amazon RDS User
-     * Guide. <p>Valid Days: Mon, Tue, Wed, Thu, Fri, Sat, Sun
+     * Adjusting the Preferred Maintenance Window</a> in the <i>Amazon RDS
+     * User Guide.</i> <p>Valid Days: Mon, Tue, Wed, Thu, Fri, Sat, Sun
      * <p>Constraints: Minimum 30-minute window.
      */
     private String preferredMaintenanceWindow;
@@ -188,22 +194,24 @@ public class CreateDBInstanceRequest extends AmazonWebServiceRequest implements 
      * see <a
      * href="http://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/Overview.BackingUpAndRestoringAmazonRDSInstances.html">DB
      * Instance Backups</a>. <p> Default: A 30-minute window selected at
-     * random from an 8-hour block of time per region. See the Amazon RDS
-     * User Guide for the time blocks for each region from which the default
-     * backup windows are assigned. <p> Constraints: Must be in the format
-     * <code>hh24:mi-hh24:mi</code>. Times should be Universal Time
-     * Coordinated (UTC). Must not conflict with the preferred maintenance
-     * window. Must be at least 30 minutes.
+     * random from an 8-hour block of time per region. To see the time blocks
+     * available, see <a
+     * href="http://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/AdjustingTheMaintenanceWindow.html">
+     * Adjusting the Preferred Maintenance Window</a> in the <i>Amazon RDS
+     * User Guide.</i> <p>Constraints: <ul> <li>Must be in the format
+     * <code>hh24:mi-hh24:mi</code>.</li> <li>Times should be in Universal
+     * Coordinated Time (UTC).</li> <li>Must not conflict with the preferred
+     * maintenance window.</li> <li>Must be at least 30 minutes.</li> </ul>
      */
     private String preferredBackupWindow;
 
     /**
-     * The port number on which the database accepts connections.
-     * <p><b>MySQL</b> <p> Default: <code>3306</code> <p> Valid Values:
-     * <code>1150-65535</code> <p>Type: Integer <p><b>PostgreSQL</b> <p>
+     * The port number on which the database accepts connections. <p>
+     * <b>MySQL</b> <p> Default: <code>3306</code> <p> Valid Values:
+     * <code>1150-65535</code> <p>Type: Integer <p> <b>PostgreSQL</b> <p>
      * Default: <code>5432</code> <p> Valid Values: <code>1150-65535</code>
-     * <p>Type: Integer <p><b>Oracle</b> <p> Default: <code>1521</code> <p>
-     * Valid Values: <code>1150-65535</code> <p><b>SQL Server</b> <p>
+     * <p>Type: Integer <p> <b>Oracle</b> <p> Default: <code>1521</code> <p>
+     * Valid Values: <code>1150-65535</code> <p> <b>SQL Server</b> <p>
      * Default: <code>1433</code> <p> Valid Values: <code>1150-65535</code>
      * except for <code>1434</code>, <code>3389</code>, <code>47001</code>,
      * <code>49152</code>, and <code>49152</code> through <code>49156</code>.
@@ -213,7 +221,9 @@ public class CreateDBInstanceRequest extends AmazonWebServiceRequest implements 
     /**
      * Specifies if the DB instance is a Multi-AZ deployment. You cannot set
      * the AvailabilityZone parameter if the MultiAZ parameter is set to
-     * true.
+     * true. Do not set this value if you want a Multi-AZ deployment for a
+     * SQL Server DB instance. Multi-AZ for SQL Server is set using the
+     * Mirroring option in an option group.
      */
     private Boolean multiAZ;
 
@@ -221,35 +231,169 @@ public class CreateDBInstanceRequest extends AmazonWebServiceRequest implements 
      * The version number of the database engine to use. <p> The following
      * are the database engines and major and minor versions that are
      * available with Amazon RDS. Not every database engine is available for
-     * every AWS region. <p><b>MySQL</b> <ul> <li><b>Version 5.1:</b> <code>
-     * 5.1.45 | 5.1.49 | 5.1.50 | 5.1.57 | 5.1.61 | 5.1.62 | 5.1.63 | 5.1.69
-     * | 5.1.71 | 5.1.73</code></li> <li><b>Version 5.5:</b> <code> 5.5.12 |
-     * 5.5.20 | 5.5.23 | 5.5.25a | 5.5.27 | 5.5.31 | 5.5.33 | 5.5.37 | 5.5.38
-     * | 5.5.8</code></li> <li><b>Version 5.6:</b> <code> 5.6.12 | 5.6.13 |
-     * 5.6.17 | 5.6.19 | 5.6.21</code></li> </ul> <p><b>Oracle Database
-     * Enterprise Edition (oracle-ee)</b> <ul> <li><b>Version 11.2:</b>
-     * <code> 11.2.0.2.v3 | 11.2.0.2.v4 | 11.2.0.2.v5 | 11.2.0.2.v6 |
-     * 11.2.0.2.v7 | 11.2.0.3.v1 | 11.2.0.4.v1</code></li> </ul> <p><b>Oracle
-     * Database Standard Edition (oracle-se)</b> <ul> <li><b>Version
-     * 11.2:</b> <code> 11.2.0.2.v3 | 11.2.0.2.v4 | 11.2.0.2.v5 | 11.2.0.2.v6
-     * | 11.2.0.2.v7 | 11.2.0.3.v1 | 11.2.0.4.v1</code></li> </ul>
-     * <p><b>Oracle Database Standard Edition One (oracle-se1)</b> <ul>
-     * <li><b>Version 11.2:</b> <code> 11.2.0.2.v3 | 11.2.0.2.v4 |
-     * 11.2.0.2.v5 | 11.2.0.2.v6 | 11.2.0.2.v7 | 11.2.0.3.v1 |
-     * 11.2.0.4.v1</code></li> </ul> <p><b>PostgreSQL</b> <ul> <li><b>Version
-     * 9.3:</b> <code> 9.3.1 | 9.3.2 | 9.3.3</code></li> </ul>
+     * every AWS region. <p><b>MySQL</b> <ul> <li><b>Version 5.1 (Only
+     * available in the following regions: ap-northeast-1, ap-southeast-1,
+     * ap-southeast-2, eu-west-1, sa-east-1, us-west-1, us-west-2):</b>
+     * <code> 5.1.73a | 5.1.73b</code></li> <li><b>Version 5.5 (Only
+     * available in the following regions: ap-northeast-1, ap-southeast-1,
+     * ap-southeast-2, eu-west-1, sa-east-1, us-west-1, us-west-2):</b>
+     * <code> 5.5.40 | 5.5.40a</code></li> <li><b>Version 5.5 (Available in
+     * all regions):</b> <code> 5.5.40b | 5.5.41 | 5.5.42</code></li>
+     * <li><b>Version 5.6 (Available in all regions):</b> <code> 5.6.19a |
+     * 5.6.19b | 5.6.21 | 5.6.21b | 5.6.22 | 5.6.23</code></li> </ul>
+     * <p><b>MySQL</b> <ul> <li><b>Version 5.1 (Only available in the
+     * following regions: ap-northeast-1, ap-southeast-1, ap-southeast-2,
+     * eu-west-1, sa-east-1, us-west-1, us-west-2):</b> <code> 5.1.73a |
+     * 5.1.73b</code></li> <li><b>Version 5.5 (Only available in the
+     * following regions: ap-northeast-1, ap-southeast-1, ap-southeast-2,
+     * eu-west-1, sa-east-1, us-west-1, us-west-2):</b> <code> 5.5.40 |
+     * 5.5.40a</code></li> <li><b>Version 5.5 (Available in all regions):</b>
+     * <code> 5.5.40b | 5.5.41 | 5.5.42</code></li> <li><b>Version 5.6
+     * (Available in all regions):</b> <code> 5.6.19a | 5.6.19b | 5.6.21 |
+     * 5.6.21b | 5.6.22 | 5.6.23</code></li> </ul> <p><b>MySQL</b> <ul>
+     * <li><b>Version 5.1 (Only available in the following regions:
+     * ap-northeast-1, ap-southeast-1, ap-southeast-2, eu-west-1, sa-east-1,
+     * us-west-1, us-west-2):</b> <code> 5.1.73a | 5.1.73b</code></li>
+     * <li><b>Version 5.5 (Only available in the following regions:
+     * ap-northeast-1, ap-southeast-1, ap-southeast-2, eu-west-1, sa-east-1,
+     * us-west-1, us-west-2):</b> <code> 5.5.40 | 5.5.40a</code></li>
+     * <li><b>Version 5.5 (Available in all regions):</b> <code> 5.5.40b |
+     * 5.5.41 | 5.5.42</code></li> <li><b>Version 5.6 (Available in all
+     * regions):</b> <code> 5.6.19a | 5.6.19b | 5.6.21 | 5.6.21b | 5.6.22 |
+     * 5.6.23</code></li> </ul> <p><b>MySQL</b> <ul> <li><b>Version 5.1 (Only
+     * available in the following regions: ap-northeast-1, ap-southeast-1,
+     * ap-southeast-2, eu-west-1, sa-east-1, us-west-1, us-west-2):</b>
+     * <code> 5.1.73a | 5.1.73b</code></li> <li><b>Version 5.5 (Only
+     * available in the following regions: ap-northeast-1, ap-southeast-1,
+     * ap-southeast-2, eu-west-1, sa-east-1, us-west-1, us-west-2):</b>
+     * <code> 5.5.40 | 5.5.40a</code></li> <li><b>Version 5.5 (Available in
+     * all regions):</b> <code> 5.5.40b | 5.5.41 | 5.5.42</code></li>
+     * <li><b>Version 5.6 (Available in all regions):</b> <code> 5.6.19a |
+     * 5.6.19b | 5.6.21 | 5.6.21b | 5.6.22 | 5.6.23</code></li> </ul>
+     * <p><b>Oracle Database Enterprise Edition (oracle-ee)</b> <ul>
+     * <li><b>Version 11.2 (Only available in the following regions:
+     * ap-northeast-1, ap-southeast-1, ap-southeast-2, eu-west-1, sa-east-1,
+     * us-west-1, us-west-2):</b> <code> 11.2.0.2.v3 | 11.2.0.2.v4 |
+     * 11.2.0.2.v5 | 11.2.0.2.v6 | 11.2.0.2.v7</code></li> <li><b>Version
+     * 11.2 (Available in all regions):</b> <code> 11.2.0.3.v1 | 11.2.0.3.v2
+     * | 11.2.0.4.v1 | 11.2.0.4.v3</code></li> <li><b>Version 12.1 (Available
+     * in all regions):</b> <code> 12.1.0.1.v1</code></li> </ul> <p><b>Oracle
+     * Database Enterprise Edition (oracle-ee)</b> <ul> <li><b>Version 11.2
+     * (Only available in the following regions: ap-northeast-1,
+     * ap-southeast-1, ap-southeast-2, eu-west-1, sa-east-1, us-west-1,
+     * us-west-2):</b> <code> 11.2.0.2.v3 | 11.2.0.2.v4 | 11.2.0.2.v5 |
+     * 11.2.0.2.v6 | 11.2.0.2.v7</code></li> <li><b>Version 11.2 (Available
+     * in all regions):</b> <code> 11.2.0.3.v1 | 11.2.0.3.v2 | 11.2.0.4.v1 |
+     * 11.2.0.4.v3</code></li> <li><b>Version 12.1 (Available in all
+     * regions):</b> <code> 12.1.0.1.v1</code></li> </ul> <p><b>Oracle
+     * Database Enterprise Edition (oracle-ee)</b> <ul> <li><b>Version 11.2
+     * (Only available in the following regions: ap-northeast-1,
+     * ap-southeast-1, ap-southeast-2, eu-west-1, sa-east-1, us-west-1,
+     * us-west-2):</b> <code> 11.2.0.2.v3 | 11.2.0.2.v4 | 11.2.0.2.v5 |
+     * 11.2.0.2.v6 | 11.2.0.2.v7</code></li> <li><b>Version 11.2 (Available
+     * in all regions):</b> <code> 11.2.0.3.v1 | 11.2.0.3.v2 | 11.2.0.4.v1 |
+     * 11.2.0.4.v3</code></li> <li><b>Version 12.1 (Available in all
+     * regions):</b> <code> 12.1.0.1.v1</code></li> </ul> <p><b>Oracle
+     * Database Standard Edition (oracle-se)</b> <ul> <li><b>Version 11.2
+     * (Only available in the following regions: us-west-1):</b> <code>
+     * 11.2.0.2.v3 | 11.2.0.2.v4 | 11.2.0.2.v5 | 11.2.0.2.v6 |
+     * 11.2.0.2.v7</code></li> <li><b>Version 11.2 (Only available in the
+     * following regions: eu-central-1, us-west-1):</b> <code> 11.2.0.3.v1 |
+     * 11.2.0.3.v2 | 11.2.0.4.v1 | 11.2.0.4.v3</code></li> <li><b>Version
+     * 12.1 (Only available in the following regions: eu-central-1,
+     * us-west-1):</b> <code> 12.1.0.1.v1</code></li> </ul> <p><b>Oracle
+     * Database Standard Edition (oracle-se)</b> <ul> <li><b>Version 11.2
+     * (Only available in the following regions: us-west-1):</b> <code>
+     * 11.2.0.2.v3 | 11.2.0.2.v4 | 11.2.0.2.v5 | 11.2.0.2.v6 |
+     * 11.2.0.2.v7</code></li> <li><b>Version 11.2 (Only available in the
+     * following regions: eu-central-1, us-west-1):</b> <code> 11.2.0.3.v1 |
+     * 11.2.0.3.v2 | 11.2.0.4.v1 | 11.2.0.4.v3</code></li> <li><b>Version
+     * 12.1 (Only available in the following regions: eu-central-1,
+     * us-west-1):</b> <code> 12.1.0.1.v1</code></li> </ul> <p><b>Oracle
+     * Database Standard Edition (oracle-se)</b> <ul> <li><b>Version 11.2
+     * (Only available in the following regions: us-west-1):</b> <code>
+     * 11.2.0.2.v3 | 11.2.0.2.v4 | 11.2.0.2.v5 | 11.2.0.2.v6 |
+     * 11.2.0.2.v7</code></li> <li><b>Version 11.2 (Only available in the
+     * following regions: eu-central-1, us-west-1):</b> <code> 11.2.0.3.v1 |
+     * 11.2.0.3.v2 | 11.2.0.4.v1 | 11.2.0.4.v3</code></li> <li><b>Version
+     * 12.1 (Only available in the following regions: eu-central-1,
+     * us-west-1):</b> <code> 12.1.0.1.v1</code></li> </ul> <p><b>Oracle
+     * Database Standard Edition One (oracle-se1)</b> <ul> <li><b>Version
+     * 11.2 (Only available in the following regions: us-west-1):</b> <code>
+     * 11.2.0.2.v3 | 11.2.0.2.v4 | 11.2.0.2.v5 | 11.2.0.2.v6 |
+     * 11.2.0.2.v7</code></li> <li><b>Version 11.2 (Only available in the
+     * following regions: eu-central-1, us-west-1):</b> <code> 11.2.0.3.v1 |
+     * 11.2.0.3.v2 | 11.2.0.4.v1 | 11.2.0.4.v3</code></li> <li><b>Version
+     * 12.1 (Only available in the following regions: eu-central-1,
+     * us-west-1):</b> <code> 12.1.0.1.v1</code></li> </ul> <p><b>Oracle
+     * Database Standard Edition One (oracle-se1)</b> <ul> <li><b>Version
+     * 11.2 (Only available in the following regions: us-west-1):</b> <code>
+     * 11.2.0.2.v3 | 11.2.0.2.v4 | 11.2.0.2.v5 | 11.2.0.2.v6 |
+     * 11.2.0.2.v7</code></li> <li><b>Version 11.2 (Only available in the
+     * following regions: eu-central-1, us-west-1):</b> <code> 11.2.0.3.v1 |
+     * 11.2.0.3.v2 | 11.2.0.4.v1 | 11.2.0.4.v3</code></li> <li><b>Version
+     * 12.1 (Only available in the following regions: eu-central-1,
+     * us-west-1):</b> <code> 12.1.0.1.v1</code></li> </ul> <p><b>Oracle
+     * Database Standard Edition One (oracle-se1)</b> <ul> <li><b>Version
+     * 11.2 (Only available in the following regions: us-west-1):</b> <code>
+     * 11.2.0.2.v3 | 11.2.0.2.v4 | 11.2.0.2.v5 | 11.2.0.2.v6 |
+     * 11.2.0.2.v7</code></li> <li><b>Version 11.2 (Only available in the
+     * following regions: eu-central-1, us-west-1):</b> <code> 11.2.0.3.v1 |
+     * 11.2.0.3.v2 | 11.2.0.4.v1 | 11.2.0.4.v3</code></li> <li><b>Version
+     * 12.1 (Only available in the following regions: eu-central-1,
+     * us-west-1):</b> <code> 12.1.0.1.v1</code></li> </ul>
+     * <p><b>PostgreSQL</b> <ul> <li><b>Version 9.3 (Only available in the
+     * following regions: ap-northeast-1, ap-southeast-1, ap-southeast-2,
+     * eu-west-1, sa-east-1, us-west-1, us-west-2):</b> <code> 9.3.1 |
+     * 9.3.2</code></li> <li><b>Version 9.3 (Available in all regions):</b>
+     * <code> 9.3.3 | 9.3.5 | 9.3.6</code></li> <li><b>Version 9.4 (Available
+     * in all regions):</b> <code> 9.4.1</code></li> </ul>
+     * <p><b>PostgreSQL</b> <ul> <li><b>Version 9.3 (Only available in the
+     * following regions: ap-northeast-1, ap-southeast-1, ap-southeast-2,
+     * eu-west-1, sa-east-1, us-west-1, us-west-2):</b> <code> 9.3.1 |
+     * 9.3.2</code></li> <li><b>Version 9.3 (Available in all regions):</b>
+     * <code> 9.3.3 | 9.3.5 | 9.3.6</code></li> <li><b>Version 9.4 (Available
+     * in all regions):</b> <code> 9.4.1</code></li> </ul>
+     * <p><b>PostgreSQL</b> <ul> <li><b>Version 9.3 (Only available in the
+     * following regions: ap-northeast-1, ap-southeast-1, ap-southeast-2,
+     * eu-west-1, sa-east-1, us-west-1, us-west-2):</b> <code> 9.3.1 |
+     * 9.3.2</code></li> <li><b>Version 9.3 (Available in all regions):</b>
+     * <code> 9.3.3 | 9.3.5 | 9.3.6</code></li> <li><b>Version 9.4 (Available
+     * in all regions):</b> <code> 9.4.1</code></li> </ul> <p><b>Microsoft
+     * SQL Server Enterprise Edition (sqlserver-ee)</b> <ul> <li><b>Version
+     * 10.50 (Only available in the following regions: eu-central-1,
+     * us-west-1):</b> <code> 10.50.2789.0.v1</code></li> <li><b>Version
+     * 11.00 (Only available in the following regions: eu-central-1,
+     * us-west-1):</b> <code> 11.00.2100.60.v1</code></li> </ul>
      * <p><b>Microsoft SQL Server Enterprise Edition (sqlserver-ee)</b> <ul>
-     * <li><b>Version 10.5:</b> <code> 10.50.2789.0.v1</code></li>
-     * <li><b>Version 11.0:</b> <code> 11.00.2100.60.v1</code></li> </ul>
+     * <li><b>Version 10.50 (Only available in the following regions:
+     * eu-central-1, us-west-1):</b> <code> 10.50.2789.0.v1</code></li>
+     * <li><b>Version 11.00 (Only available in the following regions:
+     * eu-central-1, us-west-1):</b> <code> 11.00.2100.60.v1</code></li>
+     * </ul> <p><b>Microsoft SQL Server Express Edition (sqlserver-ex)</b>
+     * <ul> <li><b>Version 10.50 (Available in all regions):</b> <code>
+     * 10.50.2789.0.v1</code></li> <li><b>Version 11.00 (Available in all
+     * regions):</b> <code> 11.00.2100.60.v1</code></li> </ul>
      * <p><b>Microsoft SQL Server Express Edition (sqlserver-ex)</b> <ul>
-     * <li><b>Version 10.5:</b> <code> 10.50.2789.0.v1</code></li>
-     * <li><b>Version 11.0:</b> <code> 11.00.2100.60.v1</code></li> </ul>
+     * <li><b>Version 10.50 (Available in all regions):</b> <code>
+     * 10.50.2789.0.v1</code></li> <li><b>Version 11.00 (Available in all
+     * regions):</b> <code> 11.00.2100.60.v1</code></li> </ul>
      * <p><b>Microsoft SQL Server Standard Edition (sqlserver-se)</b> <ul>
-     * <li><b>Version 10.5:</b> <code> 10.50.2789.0.v1</code></li>
-     * <li><b>Version 11.0:</b> <code> 11.00.2100.60.v1</code></li> </ul>
+     * <li><b>Version 10.50 (Available in all regions):</b> <code>
+     * 10.50.2789.0.v1</code></li> <li><b>Version 11.00 (Available in all
+     * regions):</b> <code> 11.00.2100.60.v1</code></li> </ul>
+     * <p><b>Microsoft SQL Server Standard Edition (sqlserver-se)</b> <ul>
+     * <li><b>Version 10.50 (Available in all regions):</b> <code>
+     * 10.50.2789.0.v1</code></li> <li><b>Version 11.00 (Available in all
+     * regions):</b> <code> 11.00.2100.60.v1</code></li> </ul>
      * <p><b>Microsoft SQL Server Web Edition (sqlserver-web)</b> <ul>
-     * <li><b>Version 10.5:</b> <code> 10.50.2789.0.v1</code></li>
-     * <li><b>Version 11.0:</b> <code> 11.00.2100.60.v1</code></li> </ul>
+     * <li><b>Version 10.50 (Available in all regions):</b> <code>
+     * 10.50.2789.0.v1</code></li> <li><b>Version 11.00 (Available in all
+     * regions):</b> <code> 11.00.2100.60.v1</code></li> </ul>
+     * <p><b>Microsoft SQL Server Web Edition (sqlserver-web)</b> <ul>
+     * <li><b>Version 10.50 (Available in all regions):</b> <code>
+     * 10.50.2789.0.v1</code></li> <li><b>Version 11.00 (Available in all
+     * regions):</b> <code> 11.00.2100.60.v1</code></li> </ul>
      */
     private String engineVersion;
 
@@ -296,8 +440,8 @@ public class CreateDBInstanceRequest extends AmazonWebServiceRequest implements 
      * specifies an internal instance with a DNS name that resolves to a
      * private IP address. <p> Default: The default behavior varies depending
      * on whether a VPC has been requested or not. The following list shows
-     * the default behavior in each case. <ul> <li><b>Default VPC:</b>
-     * true</li> <li><b>VPC:</b> false</li> </ul> <p> If no DB subnet group
+     * the default behavior in each case. <ul> <li> <b>Default VPC:</b>
+     * true</li> <li> <b>VPC:</b> false</li> </ul> <p> If no DB subnet group
      * has been specified as part of the request and the PubliclyAccessible
      * value has not been set, the DB instance will be publicly accessible.
      * If a specific DB subnet group has been specified as part of the
@@ -310,6 +454,13 @@ public class CreateDBInstanceRequest extends AmazonWebServiceRequest implements 
      * A list of tags.
      */
     private com.amazonaws.internal.ListWithAutoConstructFlag<Tag> tags;
+
+    /**
+     * The identifier of the DB cluster that the instance will belong to.
+     * <p>For information on creating a DB cluster, see
+     * <a>CreateDBCluster</a>. <p>Type: String
+     */
+    private String dBClusterIdentifier;
 
     /**
      * Specifies the storage type to be associated with the DB instance. <p>
@@ -370,13 +521,13 @@ public class CreateDBInstanceRequest extends AmazonWebServiceRequest implements 
      * end with a hyphen or contain two consecutive hyphens.</li> </ul>
      * <p>Example: <code>mydbinstance</code>
      * @param allocatedStorage The amount of storage (in gigabytes) to be
-     * initially allocated for the database instance. <p> Type: Integer
-     * <p><b>MySQL</b> <p> Constraints: Must be an integer from 5 to 3072.
-     * <p><b>PostgreSQL</b> <p> Constraints: Must be an integer from 5 to
-     * 3072. <p><b>Oracle</b> <p> Constraints: Must be an integer from 10 to
-     * 3072. <p><b>SQL Server</b> <p> Constraints: Must be an integer from
-     * 200 to 1024 (Standard Edition and Enterprise Edition) or from 20 to
-     * 1024 (Express Edition and Web Edition)
+     * initially allocated for the database instance. <p> Type: Integer <p>
+     * <b>MySQL</b> <p> Constraints: Must be an integer from 5 to 6144. <p>
+     * <b>PostgreSQL</b> <p> Constraints: Must be an integer from 5 to 6144.
+     * <p> <b>Oracle</b> <p> Constraints: Must be an integer from 10 to 6144.
+     * <p> <b>SQL Server</b> <p> Constraints: Must be an integer from 200 to
+     * 4096 (Standard Edition and Enterprise Edition) or from 20 to 4096
+     * (Express Edition and Web Edition)
      * @param dBInstanceClass The compute and memory capacity of the DB
      * instance. <p> Valid Values: <code>db.t1.micro | db.m1.small |
      * db.m1.medium | db.m1.large | db.m1.xlarge | db.m2.xlarge
@@ -392,22 +543,27 @@ public class CreateDBInstanceRequest extends AmazonWebServiceRequest implements 
      * <code>sqlserver-web</code> | <code>postgres</code> <p> Not every
      * database engine is available for every AWS region.
      * @param masterUsername The name of master user for the client DB
-     * instance. <p><b>MySQL</b> <p>Constraints: <ul> <li>Must be 1 to 16
+     * instance. <p> <b>MySQL</b> <p>Constraints: <ul> <li>Must be 1 to 16
      * alphanumeric characters.</li> <li>First character must be a
      * letter.</li> <li>Cannot be a reserved word for the chosen database
-     * engine.</li> </ul> <p>Type: String <p><b>Oracle</b> <p>Constraints:
+     * engine.</li> </ul> <p>Type: String <p> <b>Oracle</b> <p>Constraints:
      * <ul> <li>Must be 1 to 30 alphanumeric characters.</li> <li>First
      * character must be a letter.</li> <li>Cannot be a reserved word for the
-     * chosen database engine.</li> </ul> <p><b>SQL Server</b>
+     * chosen database engine.</li> </ul> <p> <b>SQL Server</b>
      * <p>Constraints: <ul> <li>Must be 1 to 128 alphanumeric
      * characters.</li> <li>First character must be a letter.</li> <li>Cannot
-     * be a reserved word for the chosen database engine.</li> </ul>
+     * be a reserved word for the chosen database engine.</li> </ul> <p>
+     * <b>PostgreSQL</b> <p>Constraints: <ul> <li>Must be 1 to 63
+     * alphanumeric characters.</li> <li>First character must be a
+     * letter.</li> <li>Cannot be a reserved word for the chosen database
+     * engine.</li> </ul>
      * @param masterUserPassword The password for the master database user.
      * Can be any printable ASCII character except "/", """, or "@". <p>Type:
-     * String <p><b>MySQL</b> <p> Constraints: Must contain from 8 to 41
-     * characters. <p><b>Oracle</b> <p> Constraints: Must contain from 8 to
-     * 30 characters. <p><b>SQL Server</b> <p> Constraints: Must contain from
-     * 8 to 128 characters.
+     * String <p> <b>MySQL</b> <p> Constraints: Must contain from 8 to 41
+     * characters. <p> <b>Oracle</b> <p> Constraints: Must contain from 8 to
+     * 30 characters. <p> <b>SQL Server</b> <p> Constraints: Must contain
+     * from 8 to 128 characters. <p> <b>PostgreSQL</b> <p> Constraints: Must
+     * contain from 8 to 128 characters.
      */
     public CreateDBInstanceRequest(String dBInstanceIdentifier, Integer allocatedStorage, String dBInstanceClass, String engine, String masterUsername, String masterUserPassword) {
         setDBInstanceIdentifier(dBInstanceIdentifier);
@@ -420,38 +576,40 @@ public class CreateDBInstanceRequest extends AmazonWebServiceRequest implements 
 
     /**
      * The meaning of this parameter differs according to the database engine
-     * you use. <p>Type: String <p><b>MySQL</b> <p>The name of the database
+     * you use. <p>Type: String <p> <b>MySQL</b> <p>The name of the database
      * to create when the DB instance is created. If this parameter is not
      * specified, no database is created in the DB instance. <p>Constraints:
      * <ul> <li>Must contain 1 to 64 alphanumeric characters</li> <li>Cannot
-     * be a word reserved by the specified database engine</li> </ul>
-     * <p><b>PostgreSQL</b> <p>The name of the database to create when the DB
-     * instance is created. If this parameter is not specified, no database
-     * is created in the DB instance. <p>Constraints: <ul> <li>Must contain 1
-     * to 63 alphanumeric characters</li> <li>Must begin with a letter or an
-     * underscore. Subsequent characters can be letters, underscores, or
-     * digits (0-9).</li> <li>Cannot be a word reserved by the specified
-     * database engine</li> </ul> <p><b>Oracle</b> <p> The Oracle System ID
-     * (SID) of the created DB instance. <p>Default: <code>ORCL</code>
-     * <p>Constraints: <ul> <li>Cannot be longer than 8 characters</li> </ul>
-     * <p><b>SQL Server</b> <p>Not applicable. Must be null.
+     * be a word reserved by the specified database engine</li> </ul> <p>
+     * <b>PostgreSQL</b> <p>The name of the database to create when the DB
+     * instance is created. If this parameter is not specified, the default
+     * "postgres" database is created in the DB instance. <p>Constraints:
+     * <ul> <li>Must contain 1 to 63 alphanumeric characters</li> <li>Must
+     * begin with a letter or an underscore. Subsequent characters can be
+     * letters, underscores, or digits (0-9).</li> <li>Cannot be a word
+     * reserved by the specified database engine</li> </ul> <p> <b>Oracle</b>
+     * <p> The Oracle System ID (SID) of the created DB instance. <p>Default:
+     * <code>ORCL</code> <p>Constraints: <ul> <li>Cannot be longer than 8
+     * characters</li> </ul> <p> <b>SQL Server</b> <p>Not applicable. Must be
+     * null.
      *
      * @return The meaning of this parameter differs according to the database engine
-     *         you use. <p>Type: String <p><b>MySQL</b> <p>The name of the database
+     *         you use. <p>Type: String <p> <b>MySQL</b> <p>The name of the database
      *         to create when the DB instance is created. If this parameter is not
      *         specified, no database is created in the DB instance. <p>Constraints:
      *         <ul> <li>Must contain 1 to 64 alphanumeric characters</li> <li>Cannot
-     *         be a word reserved by the specified database engine</li> </ul>
-     *         <p><b>PostgreSQL</b> <p>The name of the database to create when the DB
-     *         instance is created. If this parameter is not specified, no database
-     *         is created in the DB instance. <p>Constraints: <ul> <li>Must contain 1
-     *         to 63 alphanumeric characters</li> <li>Must begin with a letter or an
-     *         underscore. Subsequent characters can be letters, underscores, or
-     *         digits (0-9).</li> <li>Cannot be a word reserved by the specified
-     *         database engine</li> </ul> <p><b>Oracle</b> <p> The Oracle System ID
-     *         (SID) of the created DB instance. <p>Default: <code>ORCL</code>
-     *         <p>Constraints: <ul> <li>Cannot be longer than 8 characters</li> </ul>
-     *         <p><b>SQL Server</b> <p>Not applicable. Must be null.
+     *         be a word reserved by the specified database engine</li> </ul> <p>
+     *         <b>PostgreSQL</b> <p>The name of the database to create when the DB
+     *         instance is created. If this parameter is not specified, the default
+     *         "postgres" database is created in the DB instance. <p>Constraints:
+     *         <ul> <li>Must contain 1 to 63 alphanumeric characters</li> <li>Must
+     *         begin with a letter or an underscore. Subsequent characters can be
+     *         letters, underscores, or digits (0-9).</li> <li>Cannot be a word
+     *         reserved by the specified database engine</li> </ul> <p> <b>Oracle</b>
+     *         <p> The Oracle System ID (SID) of the created DB instance. <p>Default:
+     *         <code>ORCL</code> <p>Constraints: <ul> <li>Cannot be longer than 8
+     *         characters</li> </ul> <p> <b>SQL Server</b> <p>Not applicable. Must be
+     *         null.
      */
     public String getDBName() {
         return dBName;
@@ -459,38 +617,40 @@ public class CreateDBInstanceRequest extends AmazonWebServiceRequest implements 
     
     /**
      * The meaning of this parameter differs according to the database engine
-     * you use. <p>Type: String <p><b>MySQL</b> <p>The name of the database
+     * you use. <p>Type: String <p> <b>MySQL</b> <p>The name of the database
      * to create when the DB instance is created. If this parameter is not
      * specified, no database is created in the DB instance. <p>Constraints:
      * <ul> <li>Must contain 1 to 64 alphanumeric characters</li> <li>Cannot
-     * be a word reserved by the specified database engine</li> </ul>
-     * <p><b>PostgreSQL</b> <p>The name of the database to create when the DB
-     * instance is created. If this parameter is not specified, no database
-     * is created in the DB instance. <p>Constraints: <ul> <li>Must contain 1
-     * to 63 alphanumeric characters</li> <li>Must begin with a letter or an
-     * underscore. Subsequent characters can be letters, underscores, or
-     * digits (0-9).</li> <li>Cannot be a word reserved by the specified
-     * database engine</li> </ul> <p><b>Oracle</b> <p> The Oracle System ID
-     * (SID) of the created DB instance. <p>Default: <code>ORCL</code>
-     * <p>Constraints: <ul> <li>Cannot be longer than 8 characters</li> </ul>
-     * <p><b>SQL Server</b> <p>Not applicable. Must be null.
+     * be a word reserved by the specified database engine</li> </ul> <p>
+     * <b>PostgreSQL</b> <p>The name of the database to create when the DB
+     * instance is created. If this parameter is not specified, the default
+     * "postgres" database is created in the DB instance. <p>Constraints:
+     * <ul> <li>Must contain 1 to 63 alphanumeric characters</li> <li>Must
+     * begin with a letter or an underscore. Subsequent characters can be
+     * letters, underscores, or digits (0-9).</li> <li>Cannot be a word
+     * reserved by the specified database engine</li> </ul> <p> <b>Oracle</b>
+     * <p> The Oracle System ID (SID) of the created DB instance. <p>Default:
+     * <code>ORCL</code> <p>Constraints: <ul> <li>Cannot be longer than 8
+     * characters</li> </ul> <p> <b>SQL Server</b> <p>Not applicable. Must be
+     * null.
      *
      * @param dBName The meaning of this parameter differs according to the database engine
-     *         you use. <p>Type: String <p><b>MySQL</b> <p>The name of the database
+     *         you use. <p>Type: String <p> <b>MySQL</b> <p>The name of the database
      *         to create when the DB instance is created. If this parameter is not
      *         specified, no database is created in the DB instance. <p>Constraints:
      *         <ul> <li>Must contain 1 to 64 alphanumeric characters</li> <li>Cannot
-     *         be a word reserved by the specified database engine</li> </ul>
-     *         <p><b>PostgreSQL</b> <p>The name of the database to create when the DB
-     *         instance is created. If this parameter is not specified, no database
-     *         is created in the DB instance. <p>Constraints: <ul> <li>Must contain 1
-     *         to 63 alphanumeric characters</li> <li>Must begin with a letter or an
-     *         underscore. Subsequent characters can be letters, underscores, or
-     *         digits (0-9).</li> <li>Cannot be a word reserved by the specified
-     *         database engine</li> </ul> <p><b>Oracle</b> <p> The Oracle System ID
-     *         (SID) of the created DB instance. <p>Default: <code>ORCL</code>
-     *         <p>Constraints: <ul> <li>Cannot be longer than 8 characters</li> </ul>
-     *         <p><b>SQL Server</b> <p>Not applicable. Must be null.
+     *         be a word reserved by the specified database engine</li> </ul> <p>
+     *         <b>PostgreSQL</b> <p>The name of the database to create when the DB
+     *         instance is created. If this parameter is not specified, the default
+     *         "postgres" database is created in the DB instance. <p>Constraints:
+     *         <ul> <li>Must contain 1 to 63 alphanumeric characters</li> <li>Must
+     *         begin with a letter or an underscore. Subsequent characters can be
+     *         letters, underscores, or digits (0-9).</li> <li>Cannot be a word
+     *         reserved by the specified database engine</li> </ul> <p> <b>Oracle</b>
+     *         <p> The Oracle System ID (SID) of the created DB instance. <p>Default:
+     *         <code>ORCL</code> <p>Constraints: <ul> <li>Cannot be longer than 8
+     *         characters</li> </ul> <p> <b>SQL Server</b> <p>Not applicable. Must be
+     *         null.
      */
     public void setDBName(String dBName) {
         this.dBName = dBName;
@@ -498,40 +658,42 @@ public class CreateDBInstanceRequest extends AmazonWebServiceRequest implements 
     
     /**
      * The meaning of this parameter differs according to the database engine
-     * you use. <p>Type: String <p><b>MySQL</b> <p>The name of the database
+     * you use. <p>Type: String <p> <b>MySQL</b> <p>The name of the database
      * to create when the DB instance is created. If this parameter is not
      * specified, no database is created in the DB instance. <p>Constraints:
      * <ul> <li>Must contain 1 to 64 alphanumeric characters</li> <li>Cannot
-     * be a word reserved by the specified database engine</li> </ul>
-     * <p><b>PostgreSQL</b> <p>The name of the database to create when the DB
-     * instance is created. If this parameter is not specified, no database
-     * is created in the DB instance. <p>Constraints: <ul> <li>Must contain 1
-     * to 63 alphanumeric characters</li> <li>Must begin with a letter or an
-     * underscore. Subsequent characters can be letters, underscores, or
-     * digits (0-9).</li> <li>Cannot be a word reserved by the specified
-     * database engine</li> </ul> <p><b>Oracle</b> <p> The Oracle System ID
-     * (SID) of the created DB instance. <p>Default: <code>ORCL</code>
-     * <p>Constraints: <ul> <li>Cannot be longer than 8 characters</li> </ul>
-     * <p><b>SQL Server</b> <p>Not applicable. Must be null.
+     * be a word reserved by the specified database engine</li> </ul> <p>
+     * <b>PostgreSQL</b> <p>The name of the database to create when the DB
+     * instance is created. If this parameter is not specified, the default
+     * "postgres" database is created in the DB instance. <p>Constraints:
+     * <ul> <li>Must contain 1 to 63 alphanumeric characters</li> <li>Must
+     * begin with a letter or an underscore. Subsequent characters can be
+     * letters, underscores, or digits (0-9).</li> <li>Cannot be a word
+     * reserved by the specified database engine</li> </ul> <p> <b>Oracle</b>
+     * <p> The Oracle System ID (SID) of the created DB instance. <p>Default:
+     * <code>ORCL</code> <p>Constraints: <ul> <li>Cannot be longer than 8
+     * characters</li> </ul> <p> <b>SQL Server</b> <p>Not applicable. Must be
+     * null.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *
      * @param dBName The meaning of this parameter differs according to the database engine
-     *         you use. <p>Type: String <p><b>MySQL</b> <p>The name of the database
+     *         you use. <p>Type: String <p> <b>MySQL</b> <p>The name of the database
      *         to create when the DB instance is created. If this parameter is not
      *         specified, no database is created in the DB instance. <p>Constraints:
      *         <ul> <li>Must contain 1 to 64 alphanumeric characters</li> <li>Cannot
-     *         be a word reserved by the specified database engine</li> </ul>
-     *         <p><b>PostgreSQL</b> <p>The name of the database to create when the DB
-     *         instance is created. If this parameter is not specified, no database
-     *         is created in the DB instance. <p>Constraints: <ul> <li>Must contain 1
-     *         to 63 alphanumeric characters</li> <li>Must begin with a letter or an
-     *         underscore. Subsequent characters can be letters, underscores, or
-     *         digits (0-9).</li> <li>Cannot be a word reserved by the specified
-     *         database engine</li> </ul> <p><b>Oracle</b> <p> The Oracle System ID
-     *         (SID) of the created DB instance. <p>Default: <code>ORCL</code>
-     *         <p>Constraints: <ul> <li>Cannot be longer than 8 characters</li> </ul>
-     *         <p><b>SQL Server</b> <p>Not applicable. Must be null.
+     *         be a word reserved by the specified database engine</li> </ul> <p>
+     *         <b>PostgreSQL</b> <p>The name of the database to create when the DB
+     *         instance is created. If this parameter is not specified, the default
+     *         "postgres" database is created in the DB instance. <p>Constraints:
+     *         <ul> <li>Must contain 1 to 63 alphanumeric characters</li> <li>Must
+     *         begin with a letter or an underscore. Subsequent characters can be
+     *         letters, underscores, or digits (0-9).</li> <li>Cannot be a word
+     *         reserved by the specified database engine</li> </ul> <p> <b>Oracle</b>
+     *         <p> The Oracle System ID (SID) of the created DB instance. <p>Default:
+     *         <code>ORCL</code> <p>Constraints: <ul> <li>Cannot be longer than 8
+     *         characters</li> </ul> <p> <b>SQL Server</b> <p>Not applicable. Must be
+     *         null.
      *
      * @return A reference to this updated object so that method calls can be chained
      *         together.
@@ -606,21 +768,21 @@ public class CreateDBInstanceRequest extends AmazonWebServiceRequest implements 
 
     /**
      * The amount of storage (in gigabytes) to be initially allocated for the
-     * database instance. <p> Type: Integer <p><b>MySQL</b> <p> Constraints:
-     * Must be an integer from 5 to 3072. <p><b>PostgreSQL</b> <p>
-     * Constraints: Must be an integer from 5 to 3072. <p><b>Oracle</b> <p>
-     * Constraints: Must be an integer from 10 to 3072. <p><b>SQL Server</b>
-     * <p> Constraints: Must be an integer from 200 to 1024 (Standard Edition
-     * and Enterprise Edition) or from 20 to 1024 (Express Edition and Web
+     * database instance. <p> Type: Integer <p> <b>MySQL</b> <p> Constraints:
+     * Must be an integer from 5 to 6144. <p> <b>PostgreSQL</b> <p>
+     * Constraints: Must be an integer from 5 to 6144. <p> <b>Oracle</b> <p>
+     * Constraints: Must be an integer from 10 to 6144. <p> <b>SQL Server</b>
+     * <p> Constraints: Must be an integer from 200 to 4096 (Standard Edition
+     * and Enterprise Edition) or from 20 to 4096 (Express Edition and Web
      * Edition)
      *
      * @return The amount of storage (in gigabytes) to be initially allocated for the
-     *         database instance. <p> Type: Integer <p><b>MySQL</b> <p> Constraints:
-     *         Must be an integer from 5 to 3072. <p><b>PostgreSQL</b> <p>
-     *         Constraints: Must be an integer from 5 to 3072. <p><b>Oracle</b> <p>
-     *         Constraints: Must be an integer from 10 to 3072. <p><b>SQL Server</b>
-     *         <p> Constraints: Must be an integer from 200 to 1024 (Standard Edition
-     *         and Enterprise Edition) or from 20 to 1024 (Express Edition and Web
+     *         database instance. <p> Type: Integer <p> <b>MySQL</b> <p> Constraints:
+     *         Must be an integer from 5 to 6144. <p> <b>PostgreSQL</b> <p>
+     *         Constraints: Must be an integer from 5 to 6144. <p> <b>Oracle</b> <p>
+     *         Constraints: Must be an integer from 10 to 6144. <p> <b>SQL Server</b>
+     *         <p> Constraints: Must be an integer from 200 to 4096 (Standard Edition
+     *         and Enterprise Edition) or from 20 to 4096 (Express Edition and Web
      *         Edition)
      */
     public Integer getAllocatedStorage() {
@@ -629,21 +791,21 @@ public class CreateDBInstanceRequest extends AmazonWebServiceRequest implements 
     
     /**
      * The amount of storage (in gigabytes) to be initially allocated for the
-     * database instance. <p> Type: Integer <p><b>MySQL</b> <p> Constraints:
-     * Must be an integer from 5 to 3072. <p><b>PostgreSQL</b> <p>
-     * Constraints: Must be an integer from 5 to 3072. <p><b>Oracle</b> <p>
-     * Constraints: Must be an integer from 10 to 3072. <p><b>SQL Server</b>
-     * <p> Constraints: Must be an integer from 200 to 1024 (Standard Edition
-     * and Enterprise Edition) or from 20 to 1024 (Express Edition and Web
+     * database instance. <p> Type: Integer <p> <b>MySQL</b> <p> Constraints:
+     * Must be an integer from 5 to 6144. <p> <b>PostgreSQL</b> <p>
+     * Constraints: Must be an integer from 5 to 6144. <p> <b>Oracle</b> <p>
+     * Constraints: Must be an integer from 10 to 6144. <p> <b>SQL Server</b>
+     * <p> Constraints: Must be an integer from 200 to 4096 (Standard Edition
+     * and Enterprise Edition) or from 20 to 4096 (Express Edition and Web
      * Edition)
      *
      * @param allocatedStorage The amount of storage (in gigabytes) to be initially allocated for the
-     *         database instance. <p> Type: Integer <p><b>MySQL</b> <p> Constraints:
-     *         Must be an integer from 5 to 3072. <p><b>PostgreSQL</b> <p>
-     *         Constraints: Must be an integer from 5 to 3072. <p><b>Oracle</b> <p>
-     *         Constraints: Must be an integer from 10 to 3072. <p><b>SQL Server</b>
-     *         <p> Constraints: Must be an integer from 200 to 1024 (Standard Edition
-     *         and Enterprise Edition) or from 20 to 1024 (Express Edition and Web
+     *         database instance. <p> Type: Integer <p> <b>MySQL</b> <p> Constraints:
+     *         Must be an integer from 5 to 6144. <p> <b>PostgreSQL</b> <p>
+     *         Constraints: Must be an integer from 5 to 6144. <p> <b>Oracle</b> <p>
+     *         Constraints: Must be an integer from 10 to 6144. <p> <b>SQL Server</b>
+     *         <p> Constraints: Must be an integer from 200 to 4096 (Standard Edition
+     *         and Enterprise Edition) or from 20 to 4096 (Express Edition and Web
      *         Edition)
      */
     public void setAllocatedStorage(Integer allocatedStorage) {
@@ -652,23 +814,23 @@ public class CreateDBInstanceRequest extends AmazonWebServiceRequest implements 
     
     /**
      * The amount of storage (in gigabytes) to be initially allocated for the
-     * database instance. <p> Type: Integer <p><b>MySQL</b> <p> Constraints:
-     * Must be an integer from 5 to 3072. <p><b>PostgreSQL</b> <p>
-     * Constraints: Must be an integer from 5 to 3072. <p><b>Oracle</b> <p>
-     * Constraints: Must be an integer from 10 to 3072. <p><b>SQL Server</b>
-     * <p> Constraints: Must be an integer from 200 to 1024 (Standard Edition
-     * and Enterprise Edition) or from 20 to 1024 (Express Edition and Web
+     * database instance. <p> Type: Integer <p> <b>MySQL</b> <p> Constraints:
+     * Must be an integer from 5 to 6144. <p> <b>PostgreSQL</b> <p>
+     * Constraints: Must be an integer from 5 to 6144. <p> <b>Oracle</b> <p>
+     * Constraints: Must be an integer from 10 to 6144. <p> <b>SQL Server</b>
+     * <p> Constraints: Must be an integer from 200 to 4096 (Standard Edition
+     * and Enterprise Edition) or from 20 to 4096 (Express Edition and Web
      * Edition)
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *
      * @param allocatedStorage The amount of storage (in gigabytes) to be initially allocated for the
-     *         database instance. <p> Type: Integer <p><b>MySQL</b> <p> Constraints:
-     *         Must be an integer from 5 to 3072. <p><b>PostgreSQL</b> <p>
-     *         Constraints: Must be an integer from 5 to 3072. <p><b>Oracle</b> <p>
-     *         Constraints: Must be an integer from 10 to 3072. <p><b>SQL Server</b>
-     *         <p> Constraints: Must be an integer from 200 to 1024 (Standard Edition
-     *         and Enterprise Edition) or from 20 to 1024 (Express Edition and Web
+     *         database instance. <p> Type: Integer <p> <b>MySQL</b> <p> Constraints:
+     *         Must be an integer from 5 to 6144. <p> <b>PostgreSQL</b> <p>
+     *         Constraints: Must be an integer from 5 to 6144. <p> <b>Oracle</b> <p>
+     *         Constraints: Must be an integer from 10 to 6144. <p> <b>SQL Server</b>
+     *         <p> Constraints: Must be an integer from 200 to 4096 (Standard Edition
+     *         and Enterprise Edition) or from 20 to 4096 (Express Edition and Web
      *         Edition)
      *
      * @return A reference to this updated object so that method calls can be chained
@@ -812,27 +974,33 @@ public class CreateDBInstanceRequest extends AmazonWebServiceRequest implements 
     }
 
     /**
-     * The name of master user for the client DB instance. <p><b>MySQL</b>
+     * The name of master user for the client DB instance. <p> <b>MySQL</b>
      * <p>Constraints: <ul> <li>Must be 1 to 16 alphanumeric characters.</li>
      * <li>First character must be a letter.</li> <li>Cannot be a reserved
-     * word for the chosen database engine.</li> </ul> <p>Type: String
-     * <p><b>Oracle</b> <p>Constraints: <ul> <li>Must be 1 to 30 alphanumeric
+     * word for the chosen database engine.</li> </ul> <p>Type: String <p>
+     * <b>Oracle</b> <p>Constraints: <ul> <li>Must be 1 to 30 alphanumeric
      * characters.</li> <li>First character must be a letter.</li> <li>Cannot
-     * be a reserved word for the chosen database engine.</li> </ul>
-     * <p><b>SQL Server</b> <p>Constraints: <ul> <li>Must be 1 to 128
+     * be a reserved word for the chosen database engine.</li> </ul> <p>
+     * <b>SQL Server</b> <p>Constraints: <ul> <li>Must be 1 to 128
      * alphanumeric characters.</li> <li>First character must be a
+     * letter.</li> <li>Cannot be a reserved word for the chosen database
+     * engine.</li> </ul> <p> <b>PostgreSQL</b> <p>Constraints: <ul> <li>Must
+     * be 1 to 63 alphanumeric characters.</li> <li>First character must be a
      * letter.</li> <li>Cannot be a reserved word for the chosen database
      * engine.</li> </ul>
      *
-     * @return The name of master user for the client DB instance. <p><b>MySQL</b>
+     * @return The name of master user for the client DB instance. <p> <b>MySQL</b>
      *         <p>Constraints: <ul> <li>Must be 1 to 16 alphanumeric characters.</li>
      *         <li>First character must be a letter.</li> <li>Cannot be a reserved
-     *         word for the chosen database engine.</li> </ul> <p>Type: String
-     *         <p><b>Oracle</b> <p>Constraints: <ul> <li>Must be 1 to 30 alphanumeric
+     *         word for the chosen database engine.</li> </ul> <p>Type: String <p>
+     *         <b>Oracle</b> <p>Constraints: <ul> <li>Must be 1 to 30 alphanumeric
      *         characters.</li> <li>First character must be a letter.</li> <li>Cannot
-     *         be a reserved word for the chosen database engine.</li> </ul>
-     *         <p><b>SQL Server</b> <p>Constraints: <ul> <li>Must be 1 to 128
+     *         be a reserved word for the chosen database engine.</li> </ul> <p>
+     *         <b>SQL Server</b> <p>Constraints: <ul> <li>Must be 1 to 128
      *         alphanumeric characters.</li> <li>First character must be a
+     *         letter.</li> <li>Cannot be a reserved word for the chosen database
+     *         engine.</li> </ul> <p> <b>PostgreSQL</b> <p>Constraints: <ul> <li>Must
+     *         be 1 to 63 alphanumeric characters.</li> <li>First character must be a
      *         letter.</li> <li>Cannot be a reserved word for the chosen database
      *         engine.</li> </ul>
      */
@@ -841,27 +1009,33 @@ public class CreateDBInstanceRequest extends AmazonWebServiceRequest implements 
     }
     
     /**
-     * The name of master user for the client DB instance. <p><b>MySQL</b>
+     * The name of master user for the client DB instance. <p> <b>MySQL</b>
      * <p>Constraints: <ul> <li>Must be 1 to 16 alphanumeric characters.</li>
      * <li>First character must be a letter.</li> <li>Cannot be a reserved
-     * word for the chosen database engine.</li> </ul> <p>Type: String
-     * <p><b>Oracle</b> <p>Constraints: <ul> <li>Must be 1 to 30 alphanumeric
+     * word for the chosen database engine.</li> </ul> <p>Type: String <p>
+     * <b>Oracle</b> <p>Constraints: <ul> <li>Must be 1 to 30 alphanumeric
      * characters.</li> <li>First character must be a letter.</li> <li>Cannot
-     * be a reserved word for the chosen database engine.</li> </ul>
-     * <p><b>SQL Server</b> <p>Constraints: <ul> <li>Must be 1 to 128
+     * be a reserved word for the chosen database engine.</li> </ul> <p>
+     * <b>SQL Server</b> <p>Constraints: <ul> <li>Must be 1 to 128
      * alphanumeric characters.</li> <li>First character must be a
+     * letter.</li> <li>Cannot be a reserved word for the chosen database
+     * engine.</li> </ul> <p> <b>PostgreSQL</b> <p>Constraints: <ul> <li>Must
+     * be 1 to 63 alphanumeric characters.</li> <li>First character must be a
      * letter.</li> <li>Cannot be a reserved word for the chosen database
      * engine.</li> </ul>
      *
-     * @param masterUsername The name of master user for the client DB instance. <p><b>MySQL</b>
+     * @param masterUsername The name of master user for the client DB instance. <p> <b>MySQL</b>
      *         <p>Constraints: <ul> <li>Must be 1 to 16 alphanumeric characters.</li>
      *         <li>First character must be a letter.</li> <li>Cannot be a reserved
-     *         word for the chosen database engine.</li> </ul> <p>Type: String
-     *         <p><b>Oracle</b> <p>Constraints: <ul> <li>Must be 1 to 30 alphanumeric
+     *         word for the chosen database engine.</li> </ul> <p>Type: String <p>
+     *         <b>Oracle</b> <p>Constraints: <ul> <li>Must be 1 to 30 alphanumeric
      *         characters.</li> <li>First character must be a letter.</li> <li>Cannot
-     *         be a reserved word for the chosen database engine.</li> </ul>
-     *         <p><b>SQL Server</b> <p>Constraints: <ul> <li>Must be 1 to 128
+     *         be a reserved word for the chosen database engine.</li> </ul> <p>
+     *         <b>SQL Server</b> <p>Constraints: <ul> <li>Must be 1 to 128
      *         alphanumeric characters.</li> <li>First character must be a
+     *         letter.</li> <li>Cannot be a reserved word for the chosen database
+     *         engine.</li> </ul> <p> <b>PostgreSQL</b> <p>Constraints: <ul> <li>Must
+     *         be 1 to 63 alphanumeric characters.</li> <li>First character must be a
      *         letter.</li> <li>Cannot be a reserved word for the chosen database
      *         engine.</li> </ul>
      */
@@ -870,29 +1044,35 @@ public class CreateDBInstanceRequest extends AmazonWebServiceRequest implements 
     }
     
     /**
-     * The name of master user for the client DB instance. <p><b>MySQL</b>
+     * The name of master user for the client DB instance. <p> <b>MySQL</b>
      * <p>Constraints: <ul> <li>Must be 1 to 16 alphanumeric characters.</li>
      * <li>First character must be a letter.</li> <li>Cannot be a reserved
-     * word for the chosen database engine.</li> </ul> <p>Type: String
-     * <p><b>Oracle</b> <p>Constraints: <ul> <li>Must be 1 to 30 alphanumeric
+     * word for the chosen database engine.</li> </ul> <p>Type: String <p>
+     * <b>Oracle</b> <p>Constraints: <ul> <li>Must be 1 to 30 alphanumeric
      * characters.</li> <li>First character must be a letter.</li> <li>Cannot
-     * be a reserved word for the chosen database engine.</li> </ul>
-     * <p><b>SQL Server</b> <p>Constraints: <ul> <li>Must be 1 to 128
+     * be a reserved word for the chosen database engine.</li> </ul> <p>
+     * <b>SQL Server</b> <p>Constraints: <ul> <li>Must be 1 to 128
      * alphanumeric characters.</li> <li>First character must be a
+     * letter.</li> <li>Cannot be a reserved word for the chosen database
+     * engine.</li> </ul> <p> <b>PostgreSQL</b> <p>Constraints: <ul> <li>Must
+     * be 1 to 63 alphanumeric characters.</li> <li>First character must be a
      * letter.</li> <li>Cannot be a reserved word for the chosen database
      * engine.</li> </ul>
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *
-     * @param masterUsername The name of master user for the client DB instance. <p><b>MySQL</b>
+     * @param masterUsername The name of master user for the client DB instance. <p> <b>MySQL</b>
      *         <p>Constraints: <ul> <li>Must be 1 to 16 alphanumeric characters.</li>
      *         <li>First character must be a letter.</li> <li>Cannot be a reserved
-     *         word for the chosen database engine.</li> </ul> <p>Type: String
-     *         <p><b>Oracle</b> <p>Constraints: <ul> <li>Must be 1 to 30 alphanumeric
+     *         word for the chosen database engine.</li> </ul> <p>Type: String <p>
+     *         <b>Oracle</b> <p>Constraints: <ul> <li>Must be 1 to 30 alphanumeric
      *         characters.</li> <li>First character must be a letter.</li> <li>Cannot
-     *         be a reserved word for the chosen database engine.</li> </ul>
-     *         <p><b>SQL Server</b> <p>Constraints: <ul> <li>Must be 1 to 128
+     *         be a reserved word for the chosen database engine.</li> </ul> <p>
+     *         <b>SQL Server</b> <p>Constraints: <ul> <li>Must be 1 to 128
      *         alphanumeric characters.</li> <li>First character must be a
+     *         letter.</li> <li>Cannot be a reserved word for the chosen database
+     *         engine.</li> </ul> <p> <b>PostgreSQL</b> <p>Constraints: <ul> <li>Must
+     *         be 1 to 63 alphanumeric characters.</li> <li>First character must be a
      *         letter.</li> <li>Cannot be a reserved word for the chosen database
      *         engine.</li> </ul>
      *
@@ -906,16 +1086,20 @@ public class CreateDBInstanceRequest extends AmazonWebServiceRequest implements 
 
     /**
      * The password for the master database user. Can be any printable ASCII
-     * character except "/", """, or "@". <p>Type: String <p><b>MySQL</b> <p>
-     * Constraints: Must contain from 8 to 41 characters. <p><b>Oracle</b>
-     * <p> Constraints: Must contain from 8 to 30 characters. <p><b>SQL
-     * Server</b> <p> Constraints: Must contain from 8 to 128 characters.
+     * character except "/", """, or "@". <p>Type: String <p> <b>MySQL</b>
+     * <p> Constraints: Must contain from 8 to 41 characters. <p>
+     * <b>Oracle</b> <p> Constraints: Must contain from 8 to 30 characters.
+     * <p> <b>SQL Server</b> <p> Constraints: Must contain from 8 to 128
+     * characters. <p> <b>PostgreSQL</b> <p> Constraints: Must contain from 8
+     * to 128 characters.
      *
      * @return The password for the master database user. Can be any printable ASCII
-     *         character except "/", """, or "@". <p>Type: String <p><b>MySQL</b> <p>
-     *         Constraints: Must contain from 8 to 41 characters. <p><b>Oracle</b>
-     *         <p> Constraints: Must contain from 8 to 30 characters. <p><b>SQL
-     *         Server</b> <p> Constraints: Must contain from 8 to 128 characters.
+     *         character except "/", """, or "@". <p>Type: String <p> <b>MySQL</b>
+     *         <p> Constraints: Must contain from 8 to 41 characters. <p>
+     *         <b>Oracle</b> <p> Constraints: Must contain from 8 to 30 characters.
+     *         <p> <b>SQL Server</b> <p> Constraints: Must contain from 8 to 128
+     *         characters. <p> <b>PostgreSQL</b> <p> Constraints: Must contain from 8
+     *         to 128 characters.
      */
     public String getMasterUserPassword() {
         return masterUserPassword;
@@ -923,16 +1107,20 @@ public class CreateDBInstanceRequest extends AmazonWebServiceRequest implements 
     
     /**
      * The password for the master database user. Can be any printable ASCII
-     * character except "/", """, or "@". <p>Type: String <p><b>MySQL</b> <p>
-     * Constraints: Must contain from 8 to 41 characters. <p><b>Oracle</b>
-     * <p> Constraints: Must contain from 8 to 30 characters. <p><b>SQL
-     * Server</b> <p> Constraints: Must contain from 8 to 128 characters.
+     * character except "/", """, or "@". <p>Type: String <p> <b>MySQL</b>
+     * <p> Constraints: Must contain from 8 to 41 characters. <p>
+     * <b>Oracle</b> <p> Constraints: Must contain from 8 to 30 characters.
+     * <p> <b>SQL Server</b> <p> Constraints: Must contain from 8 to 128
+     * characters. <p> <b>PostgreSQL</b> <p> Constraints: Must contain from 8
+     * to 128 characters.
      *
      * @param masterUserPassword The password for the master database user. Can be any printable ASCII
-     *         character except "/", """, or "@". <p>Type: String <p><b>MySQL</b> <p>
-     *         Constraints: Must contain from 8 to 41 characters. <p><b>Oracle</b>
-     *         <p> Constraints: Must contain from 8 to 30 characters. <p><b>SQL
-     *         Server</b> <p> Constraints: Must contain from 8 to 128 characters.
+     *         character except "/", """, or "@". <p>Type: String <p> <b>MySQL</b>
+     *         <p> Constraints: Must contain from 8 to 41 characters. <p>
+     *         <b>Oracle</b> <p> Constraints: Must contain from 8 to 30 characters.
+     *         <p> <b>SQL Server</b> <p> Constraints: Must contain from 8 to 128
+     *         characters. <p> <b>PostgreSQL</b> <p> Constraints: Must contain from 8
+     *         to 128 characters.
      */
     public void setMasterUserPassword(String masterUserPassword) {
         this.masterUserPassword = masterUserPassword;
@@ -940,18 +1128,22 @@ public class CreateDBInstanceRequest extends AmazonWebServiceRequest implements 
     
     /**
      * The password for the master database user. Can be any printable ASCII
-     * character except "/", """, or "@". <p>Type: String <p><b>MySQL</b> <p>
-     * Constraints: Must contain from 8 to 41 characters. <p><b>Oracle</b>
-     * <p> Constraints: Must contain from 8 to 30 characters. <p><b>SQL
-     * Server</b> <p> Constraints: Must contain from 8 to 128 characters.
+     * character except "/", """, or "@". <p>Type: String <p> <b>MySQL</b>
+     * <p> Constraints: Must contain from 8 to 41 characters. <p>
+     * <b>Oracle</b> <p> Constraints: Must contain from 8 to 30 characters.
+     * <p> <b>SQL Server</b> <p> Constraints: Must contain from 8 to 128
+     * characters. <p> <b>PostgreSQL</b> <p> Constraints: Must contain from 8
+     * to 128 characters.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *
      * @param masterUserPassword The password for the master database user. Can be any printable ASCII
-     *         character except "/", """, or "@". <p>Type: String <p><b>MySQL</b> <p>
-     *         Constraints: Must contain from 8 to 41 characters. <p><b>Oracle</b>
-     *         <p> Constraints: Must contain from 8 to 30 characters. <p><b>SQL
-     *         Server</b> <p> Constraints: Must contain from 8 to 128 characters.
+     *         character except "/", """, or "@". <p>Type: String <p> <b>MySQL</b>
+     *         <p> Constraints: Must contain from 8 to 41 characters. <p>
+     *         <b>Oracle</b> <p> Constraints: Must contain from 8 to 30 characters.
+     *         <p> <b>SQL Server</b> <p> Constraints: Must contain from 8 to 128
+     *         characters. <p> <b>PostgreSQL</b> <p> Constraints: Must contain from 8
+     *         to 128 characters.
      *
      * @return A reference to this updated object so that method calls can be chained
      *         together.
@@ -996,6 +1188,11 @@ public class CreateDBInstanceRequest extends AmazonWebServiceRequest implements 
     /**
      * A list of DB security groups to associate with this DB instance. <p>
      * Default: The default DB security group for the database engine.
+     * <p>
+     * <b>NOTE:</b> This method appends the values to the existing list (if
+     * any). Use {@link #setDBSecurityGroups(java.util.Collection)} or {@link
+     * #withDBSecurityGroups(java.util.Collection)} if you want to override
+     * the existing values.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *
@@ -1077,6 +1274,11 @@ public class CreateDBInstanceRequest extends AmazonWebServiceRequest implements 
      * A list of EC2 VPC security groups to associate with this DB instance.
      * <p> Default: The default EC2 VPC security group for the DB subnet
      * group's VPC.
+     * <p>
+     * <b>NOTE:</b> This method appends the values to the existing list (if
+     * any). Use {@link #setVpcSecurityGroupIds(java.util.Collection)} or
+     * {@link #withVpcSecurityGroupIds(java.util.Collection)} if you want to
+     * override the existing values.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *
@@ -1242,28 +1444,28 @@ public class CreateDBInstanceRequest extends AmazonWebServiceRequest implements 
     }
 
     /**
-     * The weekly time range (in UTC) during which system maintenance can
-     * occur. For more information, see <a
+     * The weekly time range during which system maintenance can occur, in
+     * Universal Coordinated Time (UTC). For more information, see <a
      * href="http://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/Concepts.DBMaintenance.html">DB
      * Instance Maintenance</a>. <p> Format:
      * <code>ddd:hh24:mi-ddd:hh24:mi</code> <p> Default: A 30-minute window
      * selected at random from an 8-hour block of time per region, occurring
      * on a random day of the week. To see the time blocks available, see <a
      * href="http://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/AdjustingTheMaintenanceWindow.html">
-     * Adjusting the Preferred Maintenance Window</a> in the Amazon RDS User
-     * Guide. <p>Valid Days: Mon, Tue, Wed, Thu, Fri, Sat, Sun
+     * Adjusting the Preferred Maintenance Window</a> in the <i>Amazon RDS
+     * User Guide.</i> <p>Valid Days: Mon, Tue, Wed, Thu, Fri, Sat, Sun
      * <p>Constraints: Minimum 30-minute window.
      *
-     * @return The weekly time range (in UTC) during which system maintenance can
-     *         occur. For more information, see <a
+     * @return The weekly time range during which system maintenance can occur, in
+     *         Universal Coordinated Time (UTC). For more information, see <a
      *         href="http://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/Concepts.DBMaintenance.html">DB
      *         Instance Maintenance</a>. <p> Format:
      *         <code>ddd:hh24:mi-ddd:hh24:mi</code> <p> Default: A 30-minute window
      *         selected at random from an 8-hour block of time per region, occurring
      *         on a random day of the week. To see the time blocks available, see <a
      *         href="http://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/AdjustingTheMaintenanceWindow.html">
-     *         Adjusting the Preferred Maintenance Window</a> in the Amazon RDS User
-     *         Guide. <p>Valid Days: Mon, Tue, Wed, Thu, Fri, Sat, Sun
+     *         Adjusting the Preferred Maintenance Window</a> in the <i>Amazon RDS
+     *         User Guide.</i> <p>Valid Days: Mon, Tue, Wed, Thu, Fri, Sat, Sun
      *         <p>Constraints: Minimum 30-minute window.
      */
     public String getPreferredMaintenanceWindow() {
@@ -1271,28 +1473,28 @@ public class CreateDBInstanceRequest extends AmazonWebServiceRequest implements 
     }
     
     /**
-     * The weekly time range (in UTC) during which system maintenance can
-     * occur. For more information, see <a
+     * The weekly time range during which system maintenance can occur, in
+     * Universal Coordinated Time (UTC). For more information, see <a
      * href="http://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/Concepts.DBMaintenance.html">DB
      * Instance Maintenance</a>. <p> Format:
      * <code>ddd:hh24:mi-ddd:hh24:mi</code> <p> Default: A 30-minute window
      * selected at random from an 8-hour block of time per region, occurring
      * on a random day of the week. To see the time blocks available, see <a
      * href="http://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/AdjustingTheMaintenanceWindow.html">
-     * Adjusting the Preferred Maintenance Window</a> in the Amazon RDS User
-     * Guide. <p>Valid Days: Mon, Tue, Wed, Thu, Fri, Sat, Sun
+     * Adjusting the Preferred Maintenance Window</a> in the <i>Amazon RDS
+     * User Guide.</i> <p>Valid Days: Mon, Tue, Wed, Thu, Fri, Sat, Sun
      * <p>Constraints: Minimum 30-minute window.
      *
-     * @param preferredMaintenanceWindow The weekly time range (in UTC) during which system maintenance can
-     *         occur. For more information, see <a
+     * @param preferredMaintenanceWindow The weekly time range during which system maintenance can occur, in
+     *         Universal Coordinated Time (UTC). For more information, see <a
      *         href="http://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/Concepts.DBMaintenance.html">DB
      *         Instance Maintenance</a>. <p> Format:
      *         <code>ddd:hh24:mi-ddd:hh24:mi</code> <p> Default: A 30-minute window
      *         selected at random from an 8-hour block of time per region, occurring
      *         on a random day of the week. To see the time blocks available, see <a
      *         href="http://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/AdjustingTheMaintenanceWindow.html">
-     *         Adjusting the Preferred Maintenance Window</a> in the Amazon RDS User
-     *         Guide. <p>Valid Days: Mon, Tue, Wed, Thu, Fri, Sat, Sun
+     *         Adjusting the Preferred Maintenance Window</a> in the <i>Amazon RDS
+     *         User Guide.</i> <p>Valid Days: Mon, Tue, Wed, Thu, Fri, Sat, Sun
      *         <p>Constraints: Minimum 30-minute window.
      */
     public void setPreferredMaintenanceWindow(String preferredMaintenanceWindow) {
@@ -1300,30 +1502,30 @@ public class CreateDBInstanceRequest extends AmazonWebServiceRequest implements 
     }
     
     /**
-     * The weekly time range (in UTC) during which system maintenance can
-     * occur. For more information, see <a
+     * The weekly time range during which system maintenance can occur, in
+     * Universal Coordinated Time (UTC). For more information, see <a
      * href="http://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/Concepts.DBMaintenance.html">DB
      * Instance Maintenance</a>. <p> Format:
      * <code>ddd:hh24:mi-ddd:hh24:mi</code> <p> Default: A 30-minute window
      * selected at random from an 8-hour block of time per region, occurring
      * on a random day of the week. To see the time blocks available, see <a
      * href="http://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/AdjustingTheMaintenanceWindow.html">
-     * Adjusting the Preferred Maintenance Window</a> in the Amazon RDS User
-     * Guide. <p>Valid Days: Mon, Tue, Wed, Thu, Fri, Sat, Sun
+     * Adjusting the Preferred Maintenance Window</a> in the <i>Amazon RDS
+     * User Guide.</i> <p>Valid Days: Mon, Tue, Wed, Thu, Fri, Sat, Sun
      * <p>Constraints: Minimum 30-minute window.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *
-     * @param preferredMaintenanceWindow The weekly time range (in UTC) during which system maintenance can
-     *         occur. For more information, see <a
+     * @param preferredMaintenanceWindow The weekly time range during which system maintenance can occur, in
+     *         Universal Coordinated Time (UTC). For more information, see <a
      *         href="http://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/Concepts.DBMaintenance.html">DB
      *         Instance Maintenance</a>. <p> Format:
      *         <code>ddd:hh24:mi-ddd:hh24:mi</code> <p> Default: A 30-minute window
      *         selected at random from an 8-hour block of time per region, occurring
      *         on a random day of the week. To see the time blocks available, see <a
      *         href="http://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/AdjustingTheMaintenanceWindow.html">
-     *         Adjusting the Preferred Maintenance Window</a> in the Amazon RDS User
-     *         Guide. <p>Valid Days: Mon, Tue, Wed, Thu, Fri, Sat, Sun
+     *         Adjusting the Preferred Maintenance Window</a> in the <i>Amazon RDS
+     *         User Guide.</i> <p>Valid Days: Mon, Tue, Wed, Thu, Fri, Sat, Sun
      *         <p>Constraints: Minimum 30-minute window.
      *
      * @return A reference to this updated object so that method calls can be chained
@@ -1461,12 +1663,14 @@ public class CreateDBInstanceRequest extends AmazonWebServiceRequest implements 
      * see <a
      * href="http://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/Overview.BackingUpAndRestoringAmazonRDSInstances.html">DB
      * Instance Backups</a>. <p> Default: A 30-minute window selected at
-     * random from an 8-hour block of time per region. See the Amazon RDS
-     * User Guide for the time blocks for each region from which the default
-     * backup windows are assigned. <p> Constraints: Must be in the format
-     * <code>hh24:mi-hh24:mi</code>. Times should be Universal Time
-     * Coordinated (UTC). Must not conflict with the preferred maintenance
-     * window. Must be at least 30 minutes.
+     * random from an 8-hour block of time per region. To see the time blocks
+     * available, see <a
+     * href="http://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/AdjustingTheMaintenanceWindow.html">
+     * Adjusting the Preferred Maintenance Window</a> in the <i>Amazon RDS
+     * User Guide.</i> <p>Constraints: <ul> <li>Must be in the format
+     * <code>hh24:mi-hh24:mi</code>.</li> <li>Times should be in Universal
+     * Coordinated Time (UTC).</li> <li>Must not conflict with the preferred
+     * maintenance window.</li> <li>Must be at least 30 minutes.</li> </ul>
      *
      * @return The daily time range during which automated backups are created if
      *         automated backups are enabled, using the
@@ -1474,12 +1678,14 @@ public class CreateDBInstanceRequest extends AmazonWebServiceRequest implements 
      *         see <a
      *         href="http://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/Overview.BackingUpAndRestoringAmazonRDSInstances.html">DB
      *         Instance Backups</a>. <p> Default: A 30-minute window selected at
-     *         random from an 8-hour block of time per region. See the Amazon RDS
-     *         User Guide for the time blocks for each region from which the default
-     *         backup windows are assigned. <p> Constraints: Must be in the format
-     *         <code>hh24:mi-hh24:mi</code>. Times should be Universal Time
-     *         Coordinated (UTC). Must not conflict with the preferred maintenance
-     *         window. Must be at least 30 minutes.
+     *         random from an 8-hour block of time per region. To see the time blocks
+     *         available, see <a
+     *         href="http://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/AdjustingTheMaintenanceWindow.html">
+     *         Adjusting the Preferred Maintenance Window</a> in the <i>Amazon RDS
+     *         User Guide.</i> <p>Constraints: <ul> <li>Must be in the format
+     *         <code>hh24:mi-hh24:mi</code>.</li> <li>Times should be in Universal
+     *         Coordinated Time (UTC).</li> <li>Must not conflict with the preferred
+     *         maintenance window.</li> <li>Must be at least 30 minutes.</li> </ul>
      */
     public String getPreferredBackupWindow() {
         return preferredBackupWindow;
@@ -1492,12 +1698,14 @@ public class CreateDBInstanceRequest extends AmazonWebServiceRequest implements 
      * see <a
      * href="http://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/Overview.BackingUpAndRestoringAmazonRDSInstances.html">DB
      * Instance Backups</a>. <p> Default: A 30-minute window selected at
-     * random from an 8-hour block of time per region. See the Amazon RDS
-     * User Guide for the time blocks for each region from which the default
-     * backup windows are assigned. <p> Constraints: Must be in the format
-     * <code>hh24:mi-hh24:mi</code>. Times should be Universal Time
-     * Coordinated (UTC). Must not conflict with the preferred maintenance
-     * window. Must be at least 30 minutes.
+     * random from an 8-hour block of time per region. To see the time blocks
+     * available, see <a
+     * href="http://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/AdjustingTheMaintenanceWindow.html">
+     * Adjusting the Preferred Maintenance Window</a> in the <i>Amazon RDS
+     * User Guide.</i> <p>Constraints: <ul> <li>Must be in the format
+     * <code>hh24:mi-hh24:mi</code>.</li> <li>Times should be in Universal
+     * Coordinated Time (UTC).</li> <li>Must not conflict with the preferred
+     * maintenance window.</li> <li>Must be at least 30 minutes.</li> </ul>
      *
      * @param preferredBackupWindow The daily time range during which automated backups are created if
      *         automated backups are enabled, using the
@@ -1505,12 +1713,14 @@ public class CreateDBInstanceRequest extends AmazonWebServiceRequest implements 
      *         see <a
      *         href="http://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/Overview.BackingUpAndRestoringAmazonRDSInstances.html">DB
      *         Instance Backups</a>. <p> Default: A 30-minute window selected at
-     *         random from an 8-hour block of time per region. See the Amazon RDS
-     *         User Guide for the time blocks for each region from which the default
-     *         backup windows are assigned. <p> Constraints: Must be in the format
-     *         <code>hh24:mi-hh24:mi</code>. Times should be Universal Time
-     *         Coordinated (UTC). Must not conflict with the preferred maintenance
-     *         window. Must be at least 30 minutes.
+     *         random from an 8-hour block of time per region. To see the time blocks
+     *         available, see <a
+     *         href="http://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/AdjustingTheMaintenanceWindow.html">
+     *         Adjusting the Preferred Maintenance Window</a> in the <i>Amazon RDS
+     *         User Guide.</i> <p>Constraints: <ul> <li>Must be in the format
+     *         <code>hh24:mi-hh24:mi</code>.</li> <li>Times should be in Universal
+     *         Coordinated Time (UTC).</li> <li>Must not conflict with the preferred
+     *         maintenance window.</li> <li>Must be at least 30 minutes.</li> </ul>
      */
     public void setPreferredBackupWindow(String preferredBackupWindow) {
         this.preferredBackupWindow = preferredBackupWindow;
@@ -1523,12 +1733,14 @@ public class CreateDBInstanceRequest extends AmazonWebServiceRequest implements 
      * see <a
      * href="http://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/Overview.BackingUpAndRestoringAmazonRDSInstances.html">DB
      * Instance Backups</a>. <p> Default: A 30-minute window selected at
-     * random from an 8-hour block of time per region. See the Amazon RDS
-     * User Guide for the time blocks for each region from which the default
-     * backup windows are assigned. <p> Constraints: Must be in the format
-     * <code>hh24:mi-hh24:mi</code>. Times should be Universal Time
-     * Coordinated (UTC). Must not conflict with the preferred maintenance
-     * window. Must be at least 30 minutes.
+     * random from an 8-hour block of time per region. To see the time blocks
+     * available, see <a
+     * href="http://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/AdjustingTheMaintenanceWindow.html">
+     * Adjusting the Preferred Maintenance Window</a> in the <i>Amazon RDS
+     * User Guide.</i> <p>Constraints: <ul> <li>Must be in the format
+     * <code>hh24:mi-hh24:mi</code>.</li> <li>Times should be in Universal
+     * Coordinated Time (UTC).</li> <li>Must not conflict with the preferred
+     * maintenance window.</li> <li>Must be at least 30 minutes.</li> </ul>
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *
@@ -1538,12 +1750,14 @@ public class CreateDBInstanceRequest extends AmazonWebServiceRequest implements 
      *         see <a
      *         href="http://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/Overview.BackingUpAndRestoringAmazonRDSInstances.html">DB
      *         Instance Backups</a>. <p> Default: A 30-minute window selected at
-     *         random from an 8-hour block of time per region. See the Amazon RDS
-     *         User Guide for the time blocks for each region from which the default
-     *         backup windows are assigned. <p> Constraints: Must be in the format
-     *         <code>hh24:mi-hh24:mi</code>. Times should be Universal Time
-     *         Coordinated (UTC). Must not conflict with the preferred maintenance
-     *         window. Must be at least 30 minutes.
+     *         random from an 8-hour block of time per region. To see the time blocks
+     *         available, see <a
+     *         href="http://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/AdjustingTheMaintenanceWindow.html">
+     *         Adjusting the Preferred Maintenance Window</a> in the <i>Amazon RDS
+     *         User Guide.</i> <p>Constraints: <ul> <li>Must be in the format
+     *         <code>hh24:mi-hh24:mi</code>.</li> <li>Times should be in Universal
+     *         Coordinated Time (UTC).</li> <li>Must not conflict with the preferred
+     *         maintenance window.</li> <li>Must be at least 30 minutes.</li> </ul>
      *
      * @return A reference to this updated object so that method calls can be chained
      *         together.
@@ -1554,22 +1768,22 @@ public class CreateDBInstanceRequest extends AmazonWebServiceRequest implements 
     }
 
     /**
-     * The port number on which the database accepts connections.
-     * <p><b>MySQL</b> <p> Default: <code>3306</code> <p> Valid Values:
-     * <code>1150-65535</code> <p>Type: Integer <p><b>PostgreSQL</b> <p>
+     * The port number on which the database accepts connections. <p>
+     * <b>MySQL</b> <p> Default: <code>3306</code> <p> Valid Values:
+     * <code>1150-65535</code> <p>Type: Integer <p> <b>PostgreSQL</b> <p>
      * Default: <code>5432</code> <p> Valid Values: <code>1150-65535</code>
-     * <p>Type: Integer <p><b>Oracle</b> <p> Default: <code>1521</code> <p>
-     * Valid Values: <code>1150-65535</code> <p><b>SQL Server</b> <p>
+     * <p>Type: Integer <p> <b>Oracle</b> <p> Default: <code>1521</code> <p>
+     * Valid Values: <code>1150-65535</code> <p> <b>SQL Server</b> <p>
      * Default: <code>1433</code> <p> Valid Values: <code>1150-65535</code>
      * except for <code>1434</code>, <code>3389</code>, <code>47001</code>,
      * <code>49152</code>, and <code>49152</code> through <code>49156</code>.
      *
-     * @return The port number on which the database accepts connections.
-     *         <p><b>MySQL</b> <p> Default: <code>3306</code> <p> Valid Values:
-     *         <code>1150-65535</code> <p>Type: Integer <p><b>PostgreSQL</b> <p>
+     * @return The port number on which the database accepts connections. <p>
+     *         <b>MySQL</b> <p> Default: <code>3306</code> <p> Valid Values:
+     *         <code>1150-65535</code> <p>Type: Integer <p> <b>PostgreSQL</b> <p>
      *         Default: <code>5432</code> <p> Valid Values: <code>1150-65535</code>
-     *         <p>Type: Integer <p><b>Oracle</b> <p> Default: <code>1521</code> <p>
-     *         Valid Values: <code>1150-65535</code> <p><b>SQL Server</b> <p>
+     *         <p>Type: Integer <p> <b>Oracle</b> <p> Default: <code>1521</code> <p>
+     *         Valid Values: <code>1150-65535</code> <p> <b>SQL Server</b> <p>
      *         Default: <code>1433</code> <p> Valid Values: <code>1150-65535</code>
      *         except for <code>1434</code>, <code>3389</code>, <code>47001</code>,
      *         <code>49152</code>, and <code>49152</code> through <code>49156</code>.
@@ -1579,22 +1793,22 @@ public class CreateDBInstanceRequest extends AmazonWebServiceRequest implements 
     }
     
     /**
-     * The port number on which the database accepts connections.
-     * <p><b>MySQL</b> <p> Default: <code>3306</code> <p> Valid Values:
-     * <code>1150-65535</code> <p>Type: Integer <p><b>PostgreSQL</b> <p>
+     * The port number on which the database accepts connections. <p>
+     * <b>MySQL</b> <p> Default: <code>3306</code> <p> Valid Values:
+     * <code>1150-65535</code> <p>Type: Integer <p> <b>PostgreSQL</b> <p>
      * Default: <code>5432</code> <p> Valid Values: <code>1150-65535</code>
-     * <p>Type: Integer <p><b>Oracle</b> <p> Default: <code>1521</code> <p>
-     * Valid Values: <code>1150-65535</code> <p><b>SQL Server</b> <p>
+     * <p>Type: Integer <p> <b>Oracle</b> <p> Default: <code>1521</code> <p>
+     * Valid Values: <code>1150-65535</code> <p> <b>SQL Server</b> <p>
      * Default: <code>1433</code> <p> Valid Values: <code>1150-65535</code>
      * except for <code>1434</code>, <code>3389</code>, <code>47001</code>,
      * <code>49152</code>, and <code>49152</code> through <code>49156</code>.
      *
-     * @param port The port number on which the database accepts connections.
-     *         <p><b>MySQL</b> <p> Default: <code>3306</code> <p> Valid Values:
-     *         <code>1150-65535</code> <p>Type: Integer <p><b>PostgreSQL</b> <p>
+     * @param port The port number on which the database accepts connections. <p>
+     *         <b>MySQL</b> <p> Default: <code>3306</code> <p> Valid Values:
+     *         <code>1150-65535</code> <p>Type: Integer <p> <b>PostgreSQL</b> <p>
      *         Default: <code>5432</code> <p> Valid Values: <code>1150-65535</code>
-     *         <p>Type: Integer <p><b>Oracle</b> <p> Default: <code>1521</code> <p>
-     *         Valid Values: <code>1150-65535</code> <p><b>SQL Server</b> <p>
+     *         <p>Type: Integer <p> <b>Oracle</b> <p> Default: <code>1521</code> <p>
+     *         Valid Values: <code>1150-65535</code> <p> <b>SQL Server</b> <p>
      *         Default: <code>1433</code> <p> Valid Values: <code>1150-65535</code>
      *         except for <code>1434</code>, <code>3389</code>, <code>47001</code>,
      *         <code>49152</code>, and <code>49152</code> through <code>49156</code>.
@@ -1604,24 +1818,24 @@ public class CreateDBInstanceRequest extends AmazonWebServiceRequest implements 
     }
     
     /**
-     * The port number on which the database accepts connections.
-     * <p><b>MySQL</b> <p> Default: <code>3306</code> <p> Valid Values:
-     * <code>1150-65535</code> <p>Type: Integer <p><b>PostgreSQL</b> <p>
+     * The port number on which the database accepts connections. <p>
+     * <b>MySQL</b> <p> Default: <code>3306</code> <p> Valid Values:
+     * <code>1150-65535</code> <p>Type: Integer <p> <b>PostgreSQL</b> <p>
      * Default: <code>5432</code> <p> Valid Values: <code>1150-65535</code>
-     * <p>Type: Integer <p><b>Oracle</b> <p> Default: <code>1521</code> <p>
-     * Valid Values: <code>1150-65535</code> <p><b>SQL Server</b> <p>
+     * <p>Type: Integer <p> <b>Oracle</b> <p> Default: <code>1521</code> <p>
+     * Valid Values: <code>1150-65535</code> <p> <b>SQL Server</b> <p>
      * Default: <code>1433</code> <p> Valid Values: <code>1150-65535</code>
      * except for <code>1434</code>, <code>3389</code>, <code>47001</code>,
      * <code>49152</code>, and <code>49152</code> through <code>49156</code>.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *
-     * @param port The port number on which the database accepts connections.
-     *         <p><b>MySQL</b> <p> Default: <code>3306</code> <p> Valid Values:
-     *         <code>1150-65535</code> <p>Type: Integer <p><b>PostgreSQL</b> <p>
+     * @param port The port number on which the database accepts connections. <p>
+     *         <b>MySQL</b> <p> Default: <code>3306</code> <p> Valid Values:
+     *         <code>1150-65535</code> <p>Type: Integer <p> <b>PostgreSQL</b> <p>
      *         Default: <code>5432</code> <p> Valid Values: <code>1150-65535</code>
-     *         <p>Type: Integer <p><b>Oracle</b> <p> Default: <code>1521</code> <p>
-     *         Valid Values: <code>1150-65535</code> <p><b>SQL Server</b> <p>
+     *         <p>Type: Integer <p> <b>Oracle</b> <p> Default: <code>1521</code> <p>
+     *         Valid Values: <code>1150-65535</code> <p> <b>SQL Server</b> <p>
      *         Default: <code>1433</code> <p> Valid Values: <code>1150-65535</code>
      *         except for <code>1434</code>, <code>3389</code>, <code>47001</code>,
      *         <code>49152</code>, and <code>49152</code> through <code>49156</code>.
@@ -1637,11 +1851,15 @@ public class CreateDBInstanceRequest extends AmazonWebServiceRequest implements 
     /**
      * Specifies if the DB instance is a Multi-AZ deployment. You cannot set
      * the AvailabilityZone parameter if the MultiAZ parameter is set to
-     * true.
+     * true. Do not set this value if you want a Multi-AZ deployment for a
+     * SQL Server DB instance. Multi-AZ for SQL Server is set using the
+     * Mirroring option in an option group.
      *
      * @return Specifies if the DB instance is a Multi-AZ deployment. You cannot set
      *         the AvailabilityZone parameter if the MultiAZ parameter is set to
-     *         true.
+     *         true. Do not set this value if you want a Multi-AZ deployment for a
+     *         SQL Server DB instance. Multi-AZ for SQL Server is set using the
+     *         Mirroring option in an option group.
      */
     public Boolean isMultiAZ() {
         return multiAZ;
@@ -1650,11 +1868,15 @@ public class CreateDBInstanceRequest extends AmazonWebServiceRequest implements 
     /**
      * Specifies if the DB instance is a Multi-AZ deployment. You cannot set
      * the AvailabilityZone parameter if the MultiAZ parameter is set to
-     * true.
+     * true. Do not set this value if you want a Multi-AZ deployment for a
+     * SQL Server DB instance. Multi-AZ for SQL Server is set using the
+     * Mirroring option in an option group.
      *
      * @param multiAZ Specifies if the DB instance is a Multi-AZ deployment. You cannot set
      *         the AvailabilityZone parameter if the MultiAZ parameter is set to
-     *         true.
+     *         true. Do not set this value if you want a Multi-AZ deployment for a
+     *         SQL Server DB instance. Multi-AZ for SQL Server is set using the
+     *         Mirroring option in an option group.
      */
     public void setMultiAZ(Boolean multiAZ) {
         this.multiAZ = multiAZ;
@@ -1663,13 +1885,17 @@ public class CreateDBInstanceRequest extends AmazonWebServiceRequest implements 
     /**
      * Specifies if the DB instance is a Multi-AZ deployment. You cannot set
      * the AvailabilityZone parameter if the MultiAZ parameter is set to
-     * true.
+     * true. Do not set this value if you want a Multi-AZ deployment for a
+     * SQL Server DB instance. Multi-AZ for SQL Server is set using the
+     * Mirroring option in an option group.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *
      * @param multiAZ Specifies if the DB instance is a Multi-AZ deployment. You cannot set
      *         the AvailabilityZone parameter if the MultiAZ parameter is set to
-     *         true.
+     *         true. Do not set this value if you want a Multi-AZ deployment for a
+     *         SQL Server DB instance. Multi-AZ for SQL Server is set using the
+     *         Mirroring option in an option group.
      *
      * @return A reference to this updated object so that method calls can be chained
      *         together.
@@ -1682,11 +1908,15 @@ public class CreateDBInstanceRequest extends AmazonWebServiceRequest implements 
     /**
      * Specifies if the DB instance is a Multi-AZ deployment. You cannot set
      * the AvailabilityZone parameter if the MultiAZ parameter is set to
-     * true.
+     * true. Do not set this value if you want a Multi-AZ deployment for a
+     * SQL Server DB instance. Multi-AZ for SQL Server is set using the
+     * Mirroring option in an option group.
      *
      * @return Specifies if the DB instance is a Multi-AZ deployment. You cannot set
      *         the AvailabilityZone parameter if the MultiAZ parameter is set to
-     *         true.
+     *         true. Do not set this value if you want a Multi-AZ deployment for a
+     *         SQL Server DB instance. Multi-AZ for SQL Server is set using the
+     *         Mirroring option in an option group.
      */
     public Boolean getMultiAZ() {
         return multiAZ;
@@ -1696,68 +1926,336 @@ public class CreateDBInstanceRequest extends AmazonWebServiceRequest implements 
      * The version number of the database engine to use. <p> The following
      * are the database engines and major and minor versions that are
      * available with Amazon RDS. Not every database engine is available for
-     * every AWS region. <p><b>MySQL</b> <ul> <li><b>Version 5.1:</b> <code>
-     * 5.1.45 | 5.1.49 | 5.1.50 | 5.1.57 | 5.1.61 | 5.1.62 | 5.1.63 | 5.1.69
-     * | 5.1.71 | 5.1.73</code></li> <li><b>Version 5.5:</b> <code> 5.5.12 |
-     * 5.5.20 | 5.5.23 | 5.5.25a | 5.5.27 | 5.5.31 | 5.5.33 | 5.5.37 | 5.5.38
-     * | 5.5.8</code></li> <li><b>Version 5.6:</b> <code> 5.6.12 | 5.6.13 |
-     * 5.6.17 | 5.6.19 | 5.6.21</code></li> </ul> <p><b>Oracle Database
-     * Enterprise Edition (oracle-ee)</b> <ul> <li><b>Version 11.2:</b>
-     * <code> 11.2.0.2.v3 | 11.2.0.2.v4 | 11.2.0.2.v5 | 11.2.0.2.v6 |
-     * 11.2.0.2.v7 | 11.2.0.3.v1 | 11.2.0.4.v1</code></li> </ul> <p><b>Oracle
-     * Database Standard Edition (oracle-se)</b> <ul> <li><b>Version
-     * 11.2:</b> <code> 11.2.0.2.v3 | 11.2.0.2.v4 | 11.2.0.2.v5 | 11.2.0.2.v6
-     * | 11.2.0.2.v7 | 11.2.0.3.v1 | 11.2.0.4.v1</code></li> </ul>
-     * <p><b>Oracle Database Standard Edition One (oracle-se1)</b> <ul>
-     * <li><b>Version 11.2:</b> <code> 11.2.0.2.v3 | 11.2.0.2.v4 |
-     * 11.2.0.2.v5 | 11.2.0.2.v6 | 11.2.0.2.v7 | 11.2.0.3.v1 |
-     * 11.2.0.4.v1</code></li> </ul> <p><b>PostgreSQL</b> <ul> <li><b>Version
-     * 9.3:</b> <code> 9.3.1 | 9.3.2 | 9.3.3</code></li> </ul>
+     * every AWS region. <p><b>MySQL</b> <ul> <li><b>Version 5.1 (Only
+     * available in the following regions: ap-northeast-1, ap-southeast-1,
+     * ap-southeast-2, eu-west-1, sa-east-1, us-west-1, us-west-2):</b>
+     * <code> 5.1.73a | 5.1.73b</code></li> <li><b>Version 5.5 (Only
+     * available in the following regions: ap-northeast-1, ap-southeast-1,
+     * ap-southeast-2, eu-west-1, sa-east-1, us-west-1, us-west-2):</b>
+     * <code> 5.5.40 | 5.5.40a</code></li> <li><b>Version 5.5 (Available in
+     * all regions):</b> <code> 5.5.40b | 5.5.41 | 5.5.42</code></li>
+     * <li><b>Version 5.6 (Available in all regions):</b> <code> 5.6.19a |
+     * 5.6.19b | 5.6.21 | 5.6.21b | 5.6.22 | 5.6.23</code></li> </ul>
+     * <p><b>MySQL</b> <ul> <li><b>Version 5.1 (Only available in the
+     * following regions: ap-northeast-1, ap-southeast-1, ap-southeast-2,
+     * eu-west-1, sa-east-1, us-west-1, us-west-2):</b> <code> 5.1.73a |
+     * 5.1.73b</code></li> <li><b>Version 5.5 (Only available in the
+     * following regions: ap-northeast-1, ap-southeast-1, ap-southeast-2,
+     * eu-west-1, sa-east-1, us-west-1, us-west-2):</b> <code> 5.5.40 |
+     * 5.5.40a</code></li> <li><b>Version 5.5 (Available in all regions):</b>
+     * <code> 5.5.40b | 5.5.41 | 5.5.42</code></li> <li><b>Version 5.6
+     * (Available in all regions):</b> <code> 5.6.19a | 5.6.19b | 5.6.21 |
+     * 5.6.21b | 5.6.22 | 5.6.23</code></li> </ul> <p><b>MySQL</b> <ul>
+     * <li><b>Version 5.1 (Only available in the following regions:
+     * ap-northeast-1, ap-southeast-1, ap-southeast-2, eu-west-1, sa-east-1,
+     * us-west-1, us-west-2):</b> <code> 5.1.73a | 5.1.73b</code></li>
+     * <li><b>Version 5.5 (Only available in the following regions:
+     * ap-northeast-1, ap-southeast-1, ap-southeast-2, eu-west-1, sa-east-1,
+     * us-west-1, us-west-2):</b> <code> 5.5.40 | 5.5.40a</code></li>
+     * <li><b>Version 5.5 (Available in all regions):</b> <code> 5.5.40b |
+     * 5.5.41 | 5.5.42</code></li> <li><b>Version 5.6 (Available in all
+     * regions):</b> <code> 5.6.19a | 5.6.19b | 5.6.21 | 5.6.21b | 5.6.22 |
+     * 5.6.23</code></li> </ul> <p><b>MySQL</b> <ul> <li><b>Version 5.1 (Only
+     * available in the following regions: ap-northeast-1, ap-southeast-1,
+     * ap-southeast-2, eu-west-1, sa-east-1, us-west-1, us-west-2):</b>
+     * <code> 5.1.73a | 5.1.73b</code></li> <li><b>Version 5.5 (Only
+     * available in the following regions: ap-northeast-1, ap-southeast-1,
+     * ap-southeast-2, eu-west-1, sa-east-1, us-west-1, us-west-2):</b>
+     * <code> 5.5.40 | 5.5.40a</code></li> <li><b>Version 5.5 (Available in
+     * all regions):</b> <code> 5.5.40b | 5.5.41 | 5.5.42</code></li>
+     * <li><b>Version 5.6 (Available in all regions):</b> <code> 5.6.19a |
+     * 5.6.19b | 5.6.21 | 5.6.21b | 5.6.22 | 5.6.23</code></li> </ul>
+     * <p><b>Oracle Database Enterprise Edition (oracle-ee)</b> <ul>
+     * <li><b>Version 11.2 (Only available in the following regions:
+     * ap-northeast-1, ap-southeast-1, ap-southeast-2, eu-west-1, sa-east-1,
+     * us-west-1, us-west-2):</b> <code> 11.2.0.2.v3 | 11.2.0.2.v4 |
+     * 11.2.0.2.v5 | 11.2.0.2.v6 | 11.2.0.2.v7</code></li> <li><b>Version
+     * 11.2 (Available in all regions):</b> <code> 11.2.0.3.v1 | 11.2.0.3.v2
+     * | 11.2.0.4.v1 | 11.2.0.4.v3</code></li> <li><b>Version 12.1 (Available
+     * in all regions):</b> <code> 12.1.0.1.v1</code></li> </ul> <p><b>Oracle
+     * Database Enterprise Edition (oracle-ee)</b> <ul> <li><b>Version 11.2
+     * (Only available in the following regions: ap-northeast-1,
+     * ap-southeast-1, ap-southeast-2, eu-west-1, sa-east-1, us-west-1,
+     * us-west-2):</b> <code> 11.2.0.2.v3 | 11.2.0.2.v4 | 11.2.0.2.v5 |
+     * 11.2.0.2.v6 | 11.2.0.2.v7</code></li> <li><b>Version 11.2 (Available
+     * in all regions):</b> <code> 11.2.0.3.v1 | 11.2.0.3.v2 | 11.2.0.4.v1 |
+     * 11.2.0.4.v3</code></li> <li><b>Version 12.1 (Available in all
+     * regions):</b> <code> 12.1.0.1.v1</code></li> </ul> <p><b>Oracle
+     * Database Enterprise Edition (oracle-ee)</b> <ul> <li><b>Version 11.2
+     * (Only available in the following regions: ap-northeast-1,
+     * ap-southeast-1, ap-southeast-2, eu-west-1, sa-east-1, us-west-1,
+     * us-west-2):</b> <code> 11.2.0.2.v3 | 11.2.0.2.v4 | 11.2.0.2.v5 |
+     * 11.2.0.2.v6 | 11.2.0.2.v7</code></li> <li><b>Version 11.2 (Available
+     * in all regions):</b> <code> 11.2.0.3.v1 | 11.2.0.3.v2 | 11.2.0.4.v1 |
+     * 11.2.0.4.v3</code></li> <li><b>Version 12.1 (Available in all
+     * regions):</b> <code> 12.1.0.1.v1</code></li> </ul> <p><b>Oracle
+     * Database Standard Edition (oracle-se)</b> <ul> <li><b>Version 11.2
+     * (Only available in the following regions: us-west-1):</b> <code>
+     * 11.2.0.2.v3 | 11.2.0.2.v4 | 11.2.0.2.v5 | 11.2.0.2.v6 |
+     * 11.2.0.2.v7</code></li> <li><b>Version 11.2 (Only available in the
+     * following regions: eu-central-1, us-west-1):</b> <code> 11.2.0.3.v1 |
+     * 11.2.0.3.v2 | 11.2.0.4.v1 | 11.2.0.4.v3</code></li> <li><b>Version
+     * 12.1 (Only available in the following regions: eu-central-1,
+     * us-west-1):</b> <code> 12.1.0.1.v1</code></li> </ul> <p><b>Oracle
+     * Database Standard Edition (oracle-se)</b> <ul> <li><b>Version 11.2
+     * (Only available in the following regions: us-west-1):</b> <code>
+     * 11.2.0.2.v3 | 11.2.0.2.v4 | 11.2.0.2.v5 | 11.2.0.2.v6 |
+     * 11.2.0.2.v7</code></li> <li><b>Version 11.2 (Only available in the
+     * following regions: eu-central-1, us-west-1):</b> <code> 11.2.0.3.v1 |
+     * 11.2.0.3.v2 | 11.2.0.4.v1 | 11.2.0.4.v3</code></li> <li><b>Version
+     * 12.1 (Only available in the following regions: eu-central-1,
+     * us-west-1):</b> <code> 12.1.0.1.v1</code></li> </ul> <p><b>Oracle
+     * Database Standard Edition (oracle-se)</b> <ul> <li><b>Version 11.2
+     * (Only available in the following regions: us-west-1):</b> <code>
+     * 11.2.0.2.v3 | 11.2.0.2.v4 | 11.2.0.2.v5 | 11.2.0.2.v6 |
+     * 11.2.0.2.v7</code></li> <li><b>Version 11.2 (Only available in the
+     * following regions: eu-central-1, us-west-1):</b> <code> 11.2.0.3.v1 |
+     * 11.2.0.3.v2 | 11.2.0.4.v1 | 11.2.0.4.v3</code></li> <li><b>Version
+     * 12.1 (Only available in the following regions: eu-central-1,
+     * us-west-1):</b> <code> 12.1.0.1.v1</code></li> </ul> <p><b>Oracle
+     * Database Standard Edition One (oracle-se1)</b> <ul> <li><b>Version
+     * 11.2 (Only available in the following regions: us-west-1):</b> <code>
+     * 11.2.0.2.v3 | 11.2.0.2.v4 | 11.2.0.2.v5 | 11.2.0.2.v6 |
+     * 11.2.0.2.v7</code></li> <li><b>Version 11.2 (Only available in the
+     * following regions: eu-central-1, us-west-1):</b> <code> 11.2.0.3.v1 |
+     * 11.2.0.3.v2 | 11.2.0.4.v1 | 11.2.0.4.v3</code></li> <li><b>Version
+     * 12.1 (Only available in the following regions: eu-central-1,
+     * us-west-1):</b> <code> 12.1.0.1.v1</code></li> </ul> <p><b>Oracle
+     * Database Standard Edition One (oracle-se1)</b> <ul> <li><b>Version
+     * 11.2 (Only available in the following regions: us-west-1):</b> <code>
+     * 11.2.0.2.v3 | 11.2.0.2.v4 | 11.2.0.2.v5 | 11.2.0.2.v6 |
+     * 11.2.0.2.v7</code></li> <li><b>Version 11.2 (Only available in the
+     * following regions: eu-central-1, us-west-1):</b> <code> 11.2.0.3.v1 |
+     * 11.2.0.3.v2 | 11.2.0.4.v1 | 11.2.0.4.v3</code></li> <li><b>Version
+     * 12.1 (Only available in the following regions: eu-central-1,
+     * us-west-1):</b> <code> 12.1.0.1.v1</code></li> </ul> <p><b>Oracle
+     * Database Standard Edition One (oracle-se1)</b> <ul> <li><b>Version
+     * 11.2 (Only available in the following regions: us-west-1):</b> <code>
+     * 11.2.0.2.v3 | 11.2.0.2.v4 | 11.2.0.2.v5 | 11.2.0.2.v6 |
+     * 11.2.0.2.v7</code></li> <li><b>Version 11.2 (Only available in the
+     * following regions: eu-central-1, us-west-1):</b> <code> 11.2.0.3.v1 |
+     * 11.2.0.3.v2 | 11.2.0.4.v1 | 11.2.0.4.v3</code></li> <li><b>Version
+     * 12.1 (Only available in the following regions: eu-central-1,
+     * us-west-1):</b> <code> 12.1.0.1.v1</code></li> </ul>
+     * <p><b>PostgreSQL</b> <ul> <li><b>Version 9.3 (Only available in the
+     * following regions: ap-northeast-1, ap-southeast-1, ap-southeast-2,
+     * eu-west-1, sa-east-1, us-west-1, us-west-2):</b> <code> 9.3.1 |
+     * 9.3.2</code></li> <li><b>Version 9.3 (Available in all regions):</b>
+     * <code> 9.3.3 | 9.3.5 | 9.3.6</code></li> <li><b>Version 9.4 (Available
+     * in all regions):</b> <code> 9.4.1</code></li> </ul>
+     * <p><b>PostgreSQL</b> <ul> <li><b>Version 9.3 (Only available in the
+     * following regions: ap-northeast-1, ap-southeast-1, ap-southeast-2,
+     * eu-west-1, sa-east-1, us-west-1, us-west-2):</b> <code> 9.3.1 |
+     * 9.3.2</code></li> <li><b>Version 9.3 (Available in all regions):</b>
+     * <code> 9.3.3 | 9.3.5 | 9.3.6</code></li> <li><b>Version 9.4 (Available
+     * in all regions):</b> <code> 9.4.1</code></li> </ul>
+     * <p><b>PostgreSQL</b> <ul> <li><b>Version 9.3 (Only available in the
+     * following regions: ap-northeast-1, ap-southeast-1, ap-southeast-2,
+     * eu-west-1, sa-east-1, us-west-1, us-west-2):</b> <code> 9.3.1 |
+     * 9.3.2</code></li> <li><b>Version 9.3 (Available in all regions):</b>
+     * <code> 9.3.3 | 9.3.5 | 9.3.6</code></li> <li><b>Version 9.4 (Available
+     * in all regions):</b> <code> 9.4.1</code></li> </ul> <p><b>Microsoft
+     * SQL Server Enterprise Edition (sqlserver-ee)</b> <ul> <li><b>Version
+     * 10.50 (Only available in the following regions: eu-central-1,
+     * us-west-1):</b> <code> 10.50.2789.0.v1</code></li> <li><b>Version
+     * 11.00 (Only available in the following regions: eu-central-1,
+     * us-west-1):</b> <code> 11.00.2100.60.v1</code></li> </ul>
      * <p><b>Microsoft SQL Server Enterprise Edition (sqlserver-ee)</b> <ul>
-     * <li><b>Version 10.5:</b> <code> 10.50.2789.0.v1</code></li>
-     * <li><b>Version 11.0:</b> <code> 11.00.2100.60.v1</code></li> </ul>
+     * <li><b>Version 10.50 (Only available in the following regions:
+     * eu-central-1, us-west-1):</b> <code> 10.50.2789.0.v1</code></li>
+     * <li><b>Version 11.00 (Only available in the following regions:
+     * eu-central-1, us-west-1):</b> <code> 11.00.2100.60.v1</code></li>
+     * </ul> <p><b>Microsoft SQL Server Express Edition (sqlserver-ex)</b>
+     * <ul> <li><b>Version 10.50 (Available in all regions):</b> <code>
+     * 10.50.2789.0.v1</code></li> <li><b>Version 11.00 (Available in all
+     * regions):</b> <code> 11.00.2100.60.v1</code></li> </ul>
      * <p><b>Microsoft SQL Server Express Edition (sqlserver-ex)</b> <ul>
-     * <li><b>Version 10.5:</b> <code> 10.50.2789.0.v1</code></li>
-     * <li><b>Version 11.0:</b> <code> 11.00.2100.60.v1</code></li> </ul>
+     * <li><b>Version 10.50 (Available in all regions):</b> <code>
+     * 10.50.2789.0.v1</code></li> <li><b>Version 11.00 (Available in all
+     * regions):</b> <code> 11.00.2100.60.v1</code></li> </ul>
      * <p><b>Microsoft SQL Server Standard Edition (sqlserver-se)</b> <ul>
-     * <li><b>Version 10.5:</b> <code> 10.50.2789.0.v1</code></li>
-     * <li><b>Version 11.0:</b> <code> 11.00.2100.60.v1</code></li> </ul>
+     * <li><b>Version 10.50 (Available in all regions):</b> <code>
+     * 10.50.2789.0.v1</code></li> <li><b>Version 11.00 (Available in all
+     * regions):</b> <code> 11.00.2100.60.v1</code></li> </ul>
+     * <p><b>Microsoft SQL Server Standard Edition (sqlserver-se)</b> <ul>
+     * <li><b>Version 10.50 (Available in all regions):</b> <code>
+     * 10.50.2789.0.v1</code></li> <li><b>Version 11.00 (Available in all
+     * regions):</b> <code> 11.00.2100.60.v1</code></li> </ul>
      * <p><b>Microsoft SQL Server Web Edition (sqlserver-web)</b> <ul>
-     * <li><b>Version 10.5:</b> <code> 10.50.2789.0.v1</code></li>
-     * <li><b>Version 11.0:</b> <code> 11.00.2100.60.v1</code></li> </ul>
+     * <li><b>Version 10.50 (Available in all regions):</b> <code>
+     * 10.50.2789.0.v1</code></li> <li><b>Version 11.00 (Available in all
+     * regions):</b> <code> 11.00.2100.60.v1</code></li> </ul>
+     * <p><b>Microsoft SQL Server Web Edition (sqlserver-web)</b> <ul>
+     * <li><b>Version 10.50 (Available in all regions):</b> <code>
+     * 10.50.2789.0.v1</code></li> <li><b>Version 11.00 (Available in all
+     * regions):</b> <code> 11.00.2100.60.v1</code></li> </ul>
      *
      * @return The version number of the database engine to use. <p> The following
      *         are the database engines and major and minor versions that are
      *         available with Amazon RDS. Not every database engine is available for
-     *         every AWS region. <p><b>MySQL</b> <ul> <li><b>Version 5.1:</b> <code>
-     *         5.1.45 | 5.1.49 | 5.1.50 | 5.1.57 | 5.1.61 | 5.1.62 | 5.1.63 | 5.1.69
-     *         | 5.1.71 | 5.1.73</code></li> <li><b>Version 5.5:</b> <code> 5.5.12 |
-     *         5.5.20 | 5.5.23 | 5.5.25a | 5.5.27 | 5.5.31 | 5.5.33 | 5.5.37 | 5.5.38
-     *         | 5.5.8</code></li> <li><b>Version 5.6:</b> <code> 5.6.12 | 5.6.13 |
-     *         5.6.17 | 5.6.19 | 5.6.21</code></li> </ul> <p><b>Oracle Database
-     *         Enterprise Edition (oracle-ee)</b> <ul> <li><b>Version 11.2:</b>
-     *         <code> 11.2.0.2.v3 | 11.2.0.2.v4 | 11.2.0.2.v5 | 11.2.0.2.v6 |
-     *         11.2.0.2.v7 | 11.2.0.3.v1 | 11.2.0.4.v1</code></li> </ul> <p><b>Oracle
-     *         Database Standard Edition (oracle-se)</b> <ul> <li><b>Version
-     *         11.2:</b> <code> 11.2.0.2.v3 | 11.2.0.2.v4 | 11.2.0.2.v5 | 11.2.0.2.v6
-     *         | 11.2.0.2.v7 | 11.2.0.3.v1 | 11.2.0.4.v1</code></li> </ul>
-     *         <p><b>Oracle Database Standard Edition One (oracle-se1)</b> <ul>
-     *         <li><b>Version 11.2:</b> <code> 11.2.0.2.v3 | 11.2.0.2.v4 |
-     *         11.2.0.2.v5 | 11.2.0.2.v6 | 11.2.0.2.v7 | 11.2.0.3.v1 |
-     *         11.2.0.4.v1</code></li> </ul> <p><b>PostgreSQL</b> <ul> <li><b>Version
-     *         9.3:</b> <code> 9.3.1 | 9.3.2 | 9.3.3</code></li> </ul>
+     *         every AWS region. <p><b>MySQL</b> <ul> <li><b>Version 5.1 (Only
+     *         available in the following regions: ap-northeast-1, ap-southeast-1,
+     *         ap-southeast-2, eu-west-1, sa-east-1, us-west-1, us-west-2):</b>
+     *         <code> 5.1.73a | 5.1.73b</code></li> <li><b>Version 5.5 (Only
+     *         available in the following regions: ap-northeast-1, ap-southeast-1,
+     *         ap-southeast-2, eu-west-1, sa-east-1, us-west-1, us-west-2):</b>
+     *         <code> 5.5.40 | 5.5.40a</code></li> <li><b>Version 5.5 (Available in
+     *         all regions):</b> <code> 5.5.40b | 5.5.41 | 5.5.42</code></li>
+     *         <li><b>Version 5.6 (Available in all regions):</b> <code> 5.6.19a |
+     *         5.6.19b | 5.6.21 | 5.6.21b | 5.6.22 | 5.6.23</code></li> </ul>
+     *         <p><b>MySQL</b> <ul> <li><b>Version 5.1 (Only available in the
+     *         following regions: ap-northeast-1, ap-southeast-1, ap-southeast-2,
+     *         eu-west-1, sa-east-1, us-west-1, us-west-2):</b> <code> 5.1.73a |
+     *         5.1.73b</code></li> <li><b>Version 5.5 (Only available in the
+     *         following regions: ap-northeast-1, ap-southeast-1, ap-southeast-2,
+     *         eu-west-1, sa-east-1, us-west-1, us-west-2):</b> <code> 5.5.40 |
+     *         5.5.40a</code></li> <li><b>Version 5.5 (Available in all regions):</b>
+     *         <code> 5.5.40b | 5.5.41 | 5.5.42</code></li> <li><b>Version 5.6
+     *         (Available in all regions):</b> <code> 5.6.19a | 5.6.19b | 5.6.21 |
+     *         5.6.21b | 5.6.22 | 5.6.23</code></li> </ul> <p><b>MySQL</b> <ul>
+     *         <li><b>Version 5.1 (Only available in the following regions:
+     *         ap-northeast-1, ap-southeast-1, ap-southeast-2, eu-west-1, sa-east-1,
+     *         us-west-1, us-west-2):</b> <code> 5.1.73a | 5.1.73b</code></li>
+     *         <li><b>Version 5.5 (Only available in the following regions:
+     *         ap-northeast-1, ap-southeast-1, ap-southeast-2, eu-west-1, sa-east-1,
+     *         us-west-1, us-west-2):</b> <code> 5.5.40 | 5.5.40a</code></li>
+     *         <li><b>Version 5.5 (Available in all regions):</b> <code> 5.5.40b |
+     *         5.5.41 | 5.5.42</code></li> <li><b>Version 5.6 (Available in all
+     *         regions):</b> <code> 5.6.19a | 5.6.19b | 5.6.21 | 5.6.21b | 5.6.22 |
+     *         5.6.23</code></li> </ul> <p><b>MySQL</b> <ul> <li><b>Version 5.1 (Only
+     *         available in the following regions: ap-northeast-1, ap-southeast-1,
+     *         ap-southeast-2, eu-west-1, sa-east-1, us-west-1, us-west-2):</b>
+     *         <code> 5.1.73a | 5.1.73b</code></li> <li><b>Version 5.5 (Only
+     *         available in the following regions: ap-northeast-1, ap-southeast-1,
+     *         ap-southeast-2, eu-west-1, sa-east-1, us-west-1, us-west-2):</b>
+     *         <code> 5.5.40 | 5.5.40a</code></li> <li><b>Version 5.5 (Available in
+     *         all regions):</b> <code> 5.5.40b | 5.5.41 | 5.5.42</code></li>
+     *         <li><b>Version 5.6 (Available in all regions):</b> <code> 5.6.19a |
+     *         5.6.19b | 5.6.21 | 5.6.21b | 5.6.22 | 5.6.23</code></li> </ul>
+     *         <p><b>Oracle Database Enterprise Edition (oracle-ee)</b> <ul>
+     *         <li><b>Version 11.2 (Only available in the following regions:
+     *         ap-northeast-1, ap-southeast-1, ap-southeast-2, eu-west-1, sa-east-1,
+     *         us-west-1, us-west-2):</b> <code> 11.2.0.2.v3 | 11.2.0.2.v4 |
+     *         11.2.0.2.v5 | 11.2.0.2.v6 | 11.2.0.2.v7</code></li> <li><b>Version
+     *         11.2 (Available in all regions):</b> <code> 11.2.0.3.v1 | 11.2.0.3.v2
+     *         | 11.2.0.4.v1 | 11.2.0.4.v3</code></li> <li><b>Version 12.1 (Available
+     *         in all regions):</b> <code> 12.1.0.1.v1</code></li> </ul> <p><b>Oracle
+     *         Database Enterprise Edition (oracle-ee)</b> <ul> <li><b>Version 11.2
+     *         (Only available in the following regions: ap-northeast-1,
+     *         ap-southeast-1, ap-southeast-2, eu-west-1, sa-east-1, us-west-1,
+     *         us-west-2):</b> <code> 11.2.0.2.v3 | 11.2.0.2.v4 | 11.2.0.2.v5 |
+     *         11.2.0.2.v6 | 11.2.0.2.v7</code></li> <li><b>Version 11.2 (Available
+     *         in all regions):</b> <code> 11.2.0.3.v1 | 11.2.0.3.v2 | 11.2.0.4.v1 |
+     *         11.2.0.4.v3</code></li> <li><b>Version 12.1 (Available in all
+     *         regions):</b> <code> 12.1.0.1.v1</code></li> </ul> <p><b>Oracle
+     *         Database Enterprise Edition (oracle-ee)</b> <ul> <li><b>Version 11.2
+     *         (Only available in the following regions: ap-northeast-1,
+     *         ap-southeast-1, ap-southeast-2, eu-west-1, sa-east-1, us-west-1,
+     *         us-west-2):</b> <code> 11.2.0.2.v3 | 11.2.0.2.v4 | 11.2.0.2.v5 |
+     *         11.2.0.2.v6 | 11.2.0.2.v7</code></li> <li><b>Version 11.2 (Available
+     *         in all regions):</b> <code> 11.2.0.3.v1 | 11.2.0.3.v2 | 11.2.0.4.v1 |
+     *         11.2.0.4.v3</code></li> <li><b>Version 12.1 (Available in all
+     *         regions):</b> <code> 12.1.0.1.v1</code></li> </ul> <p><b>Oracle
+     *         Database Standard Edition (oracle-se)</b> <ul> <li><b>Version 11.2
+     *         (Only available in the following regions: us-west-1):</b> <code>
+     *         11.2.0.2.v3 | 11.2.0.2.v4 | 11.2.0.2.v5 | 11.2.0.2.v6 |
+     *         11.2.0.2.v7</code></li> <li><b>Version 11.2 (Only available in the
+     *         following regions: eu-central-1, us-west-1):</b> <code> 11.2.0.3.v1 |
+     *         11.2.0.3.v2 | 11.2.0.4.v1 | 11.2.0.4.v3</code></li> <li><b>Version
+     *         12.1 (Only available in the following regions: eu-central-1,
+     *         us-west-1):</b> <code> 12.1.0.1.v1</code></li> </ul> <p><b>Oracle
+     *         Database Standard Edition (oracle-se)</b> <ul> <li><b>Version 11.2
+     *         (Only available in the following regions: us-west-1):</b> <code>
+     *         11.2.0.2.v3 | 11.2.0.2.v4 | 11.2.0.2.v5 | 11.2.0.2.v6 |
+     *         11.2.0.2.v7</code></li> <li><b>Version 11.2 (Only available in the
+     *         following regions: eu-central-1, us-west-1):</b> <code> 11.2.0.3.v1 |
+     *         11.2.0.3.v2 | 11.2.0.4.v1 | 11.2.0.4.v3</code></li> <li><b>Version
+     *         12.1 (Only available in the following regions: eu-central-1,
+     *         us-west-1):</b> <code> 12.1.0.1.v1</code></li> </ul> <p><b>Oracle
+     *         Database Standard Edition (oracle-se)</b> <ul> <li><b>Version 11.2
+     *         (Only available in the following regions: us-west-1):</b> <code>
+     *         11.2.0.2.v3 | 11.2.0.2.v4 | 11.2.0.2.v5 | 11.2.0.2.v6 |
+     *         11.2.0.2.v7</code></li> <li><b>Version 11.2 (Only available in the
+     *         following regions: eu-central-1, us-west-1):</b> <code> 11.2.0.3.v1 |
+     *         11.2.0.3.v2 | 11.2.0.4.v1 | 11.2.0.4.v3</code></li> <li><b>Version
+     *         12.1 (Only available in the following regions: eu-central-1,
+     *         us-west-1):</b> <code> 12.1.0.1.v1</code></li> </ul> <p><b>Oracle
+     *         Database Standard Edition One (oracle-se1)</b> <ul> <li><b>Version
+     *         11.2 (Only available in the following regions: us-west-1):</b> <code>
+     *         11.2.0.2.v3 | 11.2.0.2.v4 | 11.2.0.2.v5 | 11.2.0.2.v6 |
+     *         11.2.0.2.v7</code></li> <li><b>Version 11.2 (Only available in the
+     *         following regions: eu-central-1, us-west-1):</b> <code> 11.2.0.3.v1 |
+     *         11.2.0.3.v2 | 11.2.0.4.v1 | 11.2.0.4.v3</code></li> <li><b>Version
+     *         12.1 (Only available in the following regions: eu-central-1,
+     *         us-west-1):</b> <code> 12.1.0.1.v1</code></li> </ul> <p><b>Oracle
+     *         Database Standard Edition One (oracle-se1)</b> <ul> <li><b>Version
+     *         11.2 (Only available in the following regions: us-west-1):</b> <code>
+     *         11.2.0.2.v3 | 11.2.0.2.v4 | 11.2.0.2.v5 | 11.2.0.2.v6 |
+     *         11.2.0.2.v7</code></li> <li><b>Version 11.2 (Only available in the
+     *         following regions: eu-central-1, us-west-1):</b> <code> 11.2.0.3.v1 |
+     *         11.2.0.3.v2 | 11.2.0.4.v1 | 11.2.0.4.v3</code></li> <li><b>Version
+     *         12.1 (Only available in the following regions: eu-central-1,
+     *         us-west-1):</b> <code> 12.1.0.1.v1</code></li> </ul> <p><b>Oracle
+     *         Database Standard Edition One (oracle-se1)</b> <ul> <li><b>Version
+     *         11.2 (Only available in the following regions: us-west-1):</b> <code>
+     *         11.2.0.2.v3 | 11.2.0.2.v4 | 11.2.0.2.v5 | 11.2.0.2.v6 |
+     *         11.2.0.2.v7</code></li> <li><b>Version 11.2 (Only available in the
+     *         following regions: eu-central-1, us-west-1):</b> <code> 11.2.0.3.v1 |
+     *         11.2.0.3.v2 | 11.2.0.4.v1 | 11.2.0.4.v3</code></li> <li><b>Version
+     *         12.1 (Only available in the following regions: eu-central-1,
+     *         us-west-1):</b> <code> 12.1.0.1.v1</code></li> </ul>
+     *         <p><b>PostgreSQL</b> <ul> <li><b>Version 9.3 (Only available in the
+     *         following regions: ap-northeast-1, ap-southeast-1, ap-southeast-2,
+     *         eu-west-1, sa-east-1, us-west-1, us-west-2):</b> <code> 9.3.1 |
+     *         9.3.2</code></li> <li><b>Version 9.3 (Available in all regions):</b>
+     *         <code> 9.3.3 | 9.3.5 | 9.3.6</code></li> <li><b>Version 9.4 (Available
+     *         in all regions):</b> <code> 9.4.1</code></li> </ul>
+     *         <p><b>PostgreSQL</b> <ul> <li><b>Version 9.3 (Only available in the
+     *         following regions: ap-northeast-1, ap-southeast-1, ap-southeast-2,
+     *         eu-west-1, sa-east-1, us-west-1, us-west-2):</b> <code> 9.3.1 |
+     *         9.3.2</code></li> <li><b>Version 9.3 (Available in all regions):</b>
+     *         <code> 9.3.3 | 9.3.5 | 9.3.6</code></li> <li><b>Version 9.4 (Available
+     *         in all regions):</b> <code> 9.4.1</code></li> </ul>
+     *         <p><b>PostgreSQL</b> <ul> <li><b>Version 9.3 (Only available in the
+     *         following regions: ap-northeast-1, ap-southeast-1, ap-southeast-2,
+     *         eu-west-1, sa-east-1, us-west-1, us-west-2):</b> <code> 9.3.1 |
+     *         9.3.2</code></li> <li><b>Version 9.3 (Available in all regions):</b>
+     *         <code> 9.3.3 | 9.3.5 | 9.3.6</code></li> <li><b>Version 9.4 (Available
+     *         in all regions):</b> <code> 9.4.1</code></li> </ul> <p><b>Microsoft
+     *         SQL Server Enterprise Edition (sqlserver-ee)</b> <ul> <li><b>Version
+     *         10.50 (Only available in the following regions: eu-central-1,
+     *         us-west-1):</b> <code> 10.50.2789.0.v1</code></li> <li><b>Version
+     *         11.00 (Only available in the following regions: eu-central-1,
+     *         us-west-1):</b> <code> 11.00.2100.60.v1</code></li> </ul>
      *         <p><b>Microsoft SQL Server Enterprise Edition (sqlserver-ee)</b> <ul>
-     *         <li><b>Version 10.5:</b> <code> 10.50.2789.0.v1</code></li>
-     *         <li><b>Version 11.0:</b> <code> 11.00.2100.60.v1</code></li> </ul>
+     *         <li><b>Version 10.50 (Only available in the following regions:
+     *         eu-central-1, us-west-1):</b> <code> 10.50.2789.0.v1</code></li>
+     *         <li><b>Version 11.00 (Only available in the following regions:
+     *         eu-central-1, us-west-1):</b> <code> 11.00.2100.60.v1</code></li>
+     *         </ul> <p><b>Microsoft SQL Server Express Edition (sqlserver-ex)</b>
+     *         <ul> <li><b>Version 10.50 (Available in all regions):</b> <code>
+     *         10.50.2789.0.v1</code></li> <li><b>Version 11.00 (Available in all
+     *         regions):</b> <code> 11.00.2100.60.v1</code></li> </ul>
      *         <p><b>Microsoft SQL Server Express Edition (sqlserver-ex)</b> <ul>
-     *         <li><b>Version 10.5:</b> <code> 10.50.2789.0.v1</code></li>
-     *         <li><b>Version 11.0:</b> <code> 11.00.2100.60.v1</code></li> </ul>
+     *         <li><b>Version 10.50 (Available in all regions):</b> <code>
+     *         10.50.2789.0.v1</code></li> <li><b>Version 11.00 (Available in all
+     *         regions):</b> <code> 11.00.2100.60.v1</code></li> </ul>
      *         <p><b>Microsoft SQL Server Standard Edition (sqlserver-se)</b> <ul>
-     *         <li><b>Version 10.5:</b> <code> 10.50.2789.0.v1</code></li>
-     *         <li><b>Version 11.0:</b> <code> 11.00.2100.60.v1</code></li> </ul>
+     *         <li><b>Version 10.50 (Available in all regions):</b> <code>
+     *         10.50.2789.0.v1</code></li> <li><b>Version 11.00 (Available in all
+     *         regions):</b> <code> 11.00.2100.60.v1</code></li> </ul>
+     *         <p><b>Microsoft SQL Server Standard Edition (sqlserver-se)</b> <ul>
+     *         <li><b>Version 10.50 (Available in all regions):</b> <code>
+     *         10.50.2789.0.v1</code></li> <li><b>Version 11.00 (Available in all
+     *         regions):</b> <code> 11.00.2100.60.v1</code></li> </ul>
      *         <p><b>Microsoft SQL Server Web Edition (sqlserver-web)</b> <ul>
-     *         <li><b>Version 10.5:</b> <code> 10.50.2789.0.v1</code></li>
-     *         <li><b>Version 11.0:</b> <code> 11.00.2100.60.v1</code></li> </ul>
+     *         <li><b>Version 10.50 (Available in all regions):</b> <code>
+     *         10.50.2789.0.v1</code></li> <li><b>Version 11.00 (Available in all
+     *         regions):</b> <code> 11.00.2100.60.v1</code></li> </ul>
+     *         <p><b>Microsoft SQL Server Web Edition (sqlserver-web)</b> <ul>
+     *         <li><b>Version 10.50 (Available in all regions):</b> <code>
+     *         10.50.2789.0.v1</code></li> <li><b>Version 11.00 (Available in all
+     *         regions):</b> <code> 11.00.2100.60.v1</code></li> </ul>
      */
     public String getEngineVersion() {
         return engineVersion;
@@ -1767,68 +2265,336 @@ public class CreateDBInstanceRequest extends AmazonWebServiceRequest implements 
      * The version number of the database engine to use. <p> The following
      * are the database engines and major and minor versions that are
      * available with Amazon RDS. Not every database engine is available for
-     * every AWS region. <p><b>MySQL</b> <ul> <li><b>Version 5.1:</b> <code>
-     * 5.1.45 | 5.1.49 | 5.1.50 | 5.1.57 | 5.1.61 | 5.1.62 | 5.1.63 | 5.1.69
-     * | 5.1.71 | 5.1.73</code></li> <li><b>Version 5.5:</b> <code> 5.5.12 |
-     * 5.5.20 | 5.5.23 | 5.5.25a | 5.5.27 | 5.5.31 | 5.5.33 | 5.5.37 | 5.5.38
-     * | 5.5.8</code></li> <li><b>Version 5.6:</b> <code> 5.6.12 | 5.6.13 |
-     * 5.6.17 | 5.6.19 | 5.6.21</code></li> </ul> <p><b>Oracle Database
-     * Enterprise Edition (oracle-ee)</b> <ul> <li><b>Version 11.2:</b>
-     * <code> 11.2.0.2.v3 | 11.2.0.2.v4 | 11.2.0.2.v5 | 11.2.0.2.v6 |
-     * 11.2.0.2.v7 | 11.2.0.3.v1 | 11.2.0.4.v1</code></li> </ul> <p><b>Oracle
-     * Database Standard Edition (oracle-se)</b> <ul> <li><b>Version
-     * 11.2:</b> <code> 11.2.0.2.v3 | 11.2.0.2.v4 | 11.2.0.2.v5 | 11.2.0.2.v6
-     * | 11.2.0.2.v7 | 11.2.0.3.v1 | 11.2.0.4.v1</code></li> </ul>
-     * <p><b>Oracle Database Standard Edition One (oracle-se1)</b> <ul>
-     * <li><b>Version 11.2:</b> <code> 11.2.0.2.v3 | 11.2.0.2.v4 |
-     * 11.2.0.2.v5 | 11.2.0.2.v6 | 11.2.0.2.v7 | 11.2.0.3.v1 |
-     * 11.2.0.4.v1</code></li> </ul> <p><b>PostgreSQL</b> <ul> <li><b>Version
-     * 9.3:</b> <code> 9.3.1 | 9.3.2 | 9.3.3</code></li> </ul>
+     * every AWS region. <p><b>MySQL</b> <ul> <li><b>Version 5.1 (Only
+     * available in the following regions: ap-northeast-1, ap-southeast-1,
+     * ap-southeast-2, eu-west-1, sa-east-1, us-west-1, us-west-2):</b>
+     * <code> 5.1.73a | 5.1.73b</code></li> <li><b>Version 5.5 (Only
+     * available in the following regions: ap-northeast-1, ap-southeast-1,
+     * ap-southeast-2, eu-west-1, sa-east-1, us-west-1, us-west-2):</b>
+     * <code> 5.5.40 | 5.5.40a</code></li> <li><b>Version 5.5 (Available in
+     * all regions):</b> <code> 5.5.40b | 5.5.41 | 5.5.42</code></li>
+     * <li><b>Version 5.6 (Available in all regions):</b> <code> 5.6.19a |
+     * 5.6.19b | 5.6.21 | 5.6.21b | 5.6.22 | 5.6.23</code></li> </ul>
+     * <p><b>MySQL</b> <ul> <li><b>Version 5.1 (Only available in the
+     * following regions: ap-northeast-1, ap-southeast-1, ap-southeast-2,
+     * eu-west-1, sa-east-1, us-west-1, us-west-2):</b> <code> 5.1.73a |
+     * 5.1.73b</code></li> <li><b>Version 5.5 (Only available in the
+     * following regions: ap-northeast-1, ap-southeast-1, ap-southeast-2,
+     * eu-west-1, sa-east-1, us-west-1, us-west-2):</b> <code> 5.5.40 |
+     * 5.5.40a</code></li> <li><b>Version 5.5 (Available in all regions):</b>
+     * <code> 5.5.40b | 5.5.41 | 5.5.42</code></li> <li><b>Version 5.6
+     * (Available in all regions):</b> <code> 5.6.19a | 5.6.19b | 5.6.21 |
+     * 5.6.21b | 5.6.22 | 5.6.23</code></li> </ul> <p><b>MySQL</b> <ul>
+     * <li><b>Version 5.1 (Only available in the following regions:
+     * ap-northeast-1, ap-southeast-1, ap-southeast-2, eu-west-1, sa-east-1,
+     * us-west-1, us-west-2):</b> <code> 5.1.73a | 5.1.73b</code></li>
+     * <li><b>Version 5.5 (Only available in the following regions:
+     * ap-northeast-1, ap-southeast-1, ap-southeast-2, eu-west-1, sa-east-1,
+     * us-west-1, us-west-2):</b> <code> 5.5.40 | 5.5.40a</code></li>
+     * <li><b>Version 5.5 (Available in all regions):</b> <code> 5.5.40b |
+     * 5.5.41 | 5.5.42</code></li> <li><b>Version 5.6 (Available in all
+     * regions):</b> <code> 5.6.19a | 5.6.19b | 5.6.21 | 5.6.21b | 5.6.22 |
+     * 5.6.23</code></li> </ul> <p><b>MySQL</b> <ul> <li><b>Version 5.1 (Only
+     * available in the following regions: ap-northeast-1, ap-southeast-1,
+     * ap-southeast-2, eu-west-1, sa-east-1, us-west-1, us-west-2):</b>
+     * <code> 5.1.73a | 5.1.73b</code></li> <li><b>Version 5.5 (Only
+     * available in the following regions: ap-northeast-1, ap-southeast-1,
+     * ap-southeast-2, eu-west-1, sa-east-1, us-west-1, us-west-2):</b>
+     * <code> 5.5.40 | 5.5.40a</code></li> <li><b>Version 5.5 (Available in
+     * all regions):</b> <code> 5.5.40b | 5.5.41 | 5.5.42</code></li>
+     * <li><b>Version 5.6 (Available in all regions):</b> <code> 5.6.19a |
+     * 5.6.19b | 5.6.21 | 5.6.21b | 5.6.22 | 5.6.23</code></li> </ul>
+     * <p><b>Oracle Database Enterprise Edition (oracle-ee)</b> <ul>
+     * <li><b>Version 11.2 (Only available in the following regions:
+     * ap-northeast-1, ap-southeast-1, ap-southeast-2, eu-west-1, sa-east-1,
+     * us-west-1, us-west-2):</b> <code> 11.2.0.2.v3 | 11.2.0.2.v4 |
+     * 11.2.0.2.v5 | 11.2.0.2.v6 | 11.2.0.2.v7</code></li> <li><b>Version
+     * 11.2 (Available in all regions):</b> <code> 11.2.0.3.v1 | 11.2.0.3.v2
+     * | 11.2.0.4.v1 | 11.2.0.4.v3</code></li> <li><b>Version 12.1 (Available
+     * in all regions):</b> <code> 12.1.0.1.v1</code></li> </ul> <p><b>Oracle
+     * Database Enterprise Edition (oracle-ee)</b> <ul> <li><b>Version 11.2
+     * (Only available in the following regions: ap-northeast-1,
+     * ap-southeast-1, ap-southeast-2, eu-west-1, sa-east-1, us-west-1,
+     * us-west-2):</b> <code> 11.2.0.2.v3 | 11.2.0.2.v4 | 11.2.0.2.v5 |
+     * 11.2.0.2.v6 | 11.2.0.2.v7</code></li> <li><b>Version 11.2 (Available
+     * in all regions):</b> <code> 11.2.0.3.v1 | 11.2.0.3.v2 | 11.2.0.4.v1 |
+     * 11.2.0.4.v3</code></li> <li><b>Version 12.1 (Available in all
+     * regions):</b> <code> 12.1.0.1.v1</code></li> </ul> <p><b>Oracle
+     * Database Enterprise Edition (oracle-ee)</b> <ul> <li><b>Version 11.2
+     * (Only available in the following regions: ap-northeast-1,
+     * ap-southeast-1, ap-southeast-2, eu-west-1, sa-east-1, us-west-1,
+     * us-west-2):</b> <code> 11.2.0.2.v3 | 11.2.0.2.v4 | 11.2.0.2.v5 |
+     * 11.2.0.2.v6 | 11.2.0.2.v7</code></li> <li><b>Version 11.2 (Available
+     * in all regions):</b> <code> 11.2.0.3.v1 | 11.2.0.3.v2 | 11.2.0.4.v1 |
+     * 11.2.0.4.v3</code></li> <li><b>Version 12.1 (Available in all
+     * regions):</b> <code> 12.1.0.1.v1</code></li> </ul> <p><b>Oracle
+     * Database Standard Edition (oracle-se)</b> <ul> <li><b>Version 11.2
+     * (Only available in the following regions: us-west-1):</b> <code>
+     * 11.2.0.2.v3 | 11.2.0.2.v4 | 11.2.0.2.v5 | 11.2.0.2.v6 |
+     * 11.2.0.2.v7</code></li> <li><b>Version 11.2 (Only available in the
+     * following regions: eu-central-1, us-west-1):</b> <code> 11.2.0.3.v1 |
+     * 11.2.0.3.v2 | 11.2.0.4.v1 | 11.2.0.4.v3</code></li> <li><b>Version
+     * 12.1 (Only available in the following regions: eu-central-1,
+     * us-west-1):</b> <code> 12.1.0.1.v1</code></li> </ul> <p><b>Oracle
+     * Database Standard Edition (oracle-se)</b> <ul> <li><b>Version 11.2
+     * (Only available in the following regions: us-west-1):</b> <code>
+     * 11.2.0.2.v3 | 11.2.0.2.v4 | 11.2.0.2.v5 | 11.2.0.2.v6 |
+     * 11.2.0.2.v7</code></li> <li><b>Version 11.2 (Only available in the
+     * following regions: eu-central-1, us-west-1):</b> <code> 11.2.0.3.v1 |
+     * 11.2.0.3.v2 | 11.2.0.4.v1 | 11.2.0.4.v3</code></li> <li><b>Version
+     * 12.1 (Only available in the following regions: eu-central-1,
+     * us-west-1):</b> <code> 12.1.0.1.v1</code></li> </ul> <p><b>Oracle
+     * Database Standard Edition (oracle-se)</b> <ul> <li><b>Version 11.2
+     * (Only available in the following regions: us-west-1):</b> <code>
+     * 11.2.0.2.v3 | 11.2.0.2.v4 | 11.2.0.2.v5 | 11.2.0.2.v6 |
+     * 11.2.0.2.v7</code></li> <li><b>Version 11.2 (Only available in the
+     * following regions: eu-central-1, us-west-1):</b> <code> 11.2.0.3.v1 |
+     * 11.2.0.3.v2 | 11.2.0.4.v1 | 11.2.0.4.v3</code></li> <li><b>Version
+     * 12.1 (Only available in the following regions: eu-central-1,
+     * us-west-1):</b> <code> 12.1.0.1.v1</code></li> </ul> <p><b>Oracle
+     * Database Standard Edition One (oracle-se1)</b> <ul> <li><b>Version
+     * 11.2 (Only available in the following regions: us-west-1):</b> <code>
+     * 11.2.0.2.v3 | 11.2.0.2.v4 | 11.2.0.2.v5 | 11.2.0.2.v6 |
+     * 11.2.0.2.v7</code></li> <li><b>Version 11.2 (Only available in the
+     * following regions: eu-central-1, us-west-1):</b> <code> 11.2.0.3.v1 |
+     * 11.2.0.3.v2 | 11.2.0.4.v1 | 11.2.0.4.v3</code></li> <li><b>Version
+     * 12.1 (Only available in the following regions: eu-central-1,
+     * us-west-1):</b> <code> 12.1.0.1.v1</code></li> </ul> <p><b>Oracle
+     * Database Standard Edition One (oracle-se1)</b> <ul> <li><b>Version
+     * 11.2 (Only available in the following regions: us-west-1):</b> <code>
+     * 11.2.0.2.v3 | 11.2.0.2.v4 | 11.2.0.2.v5 | 11.2.0.2.v6 |
+     * 11.2.0.2.v7</code></li> <li><b>Version 11.2 (Only available in the
+     * following regions: eu-central-1, us-west-1):</b> <code> 11.2.0.3.v1 |
+     * 11.2.0.3.v2 | 11.2.0.4.v1 | 11.2.0.4.v3</code></li> <li><b>Version
+     * 12.1 (Only available in the following regions: eu-central-1,
+     * us-west-1):</b> <code> 12.1.0.1.v1</code></li> </ul> <p><b>Oracle
+     * Database Standard Edition One (oracle-se1)</b> <ul> <li><b>Version
+     * 11.2 (Only available in the following regions: us-west-1):</b> <code>
+     * 11.2.0.2.v3 | 11.2.0.2.v4 | 11.2.0.2.v5 | 11.2.0.2.v6 |
+     * 11.2.0.2.v7</code></li> <li><b>Version 11.2 (Only available in the
+     * following regions: eu-central-1, us-west-1):</b> <code> 11.2.0.3.v1 |
+     * 11.2.0.3.v2 | 11.2.0.4.v1 | 11.2.0.4.v3</code></li> <li><b>Version
+     * 12.1 (Only available in the following regions: eu-central-1,
+     * us-west-1):</b> <code> 12.1.0.1.v1</code></li> </ul>
+     * <p><b>PostgreSQL</b> <ul> <li><b>Version 9.3 (Only available in the
+     * following regions: ap-northeast-1, ap-southeast-1, ap-southeast-2,
+     * eu-west-1, sa-east-1, us-west-1, us-west-2):</b> <code> 9.3.1 |
+     * 9.3.2</code></li> <li><b>Version 9.3 (Available in all regions):</b>
+     * <code> 9.3.3 | 9.3.5 | 9.3.6</code></li> <li><b>Version 9.4 (Available
+     * in all regions):</b> <code> 9.4.1</code></li> </ul>
+     * <p><b>PostgreSQL</b> <ul> <li><b>Version 9.3 (Only available in the
+     * following regions: ap-northeast-1, ap-southeast-1, ap-southeast-2,
+     * eu-west-1, sa-east-1, us-west-1, us-west-2):</b> <code> 9.3.1 |
+     * 9.3.2</code></li> <li><b>Version 9.3 (Available in all regions):</b>
+     * <code> 9.3.3 | 9.3.5 | 9.3.6</code></li> <li><b>Version 9.4 (Available
+     * in all regions):</b> <code> 9.4.1</code></li> </ul>
+     * <p><b>PostgreSQL</b> <ul> <li><b>Version 9.3 (Only available in the
+     * following regions: ap-northeast-1, ap-southeast-1, ap-southeast-2,
+     * eu-west-1, sa-east-1, us-west-1, us-west-2):</b> <code> 9.3.1 |
+     * 9.3.2</code></li> <li><b>Version 9.3 (Available in all regions):</b>
+     * <code> 9.3.3 | 9.3.5 | 9.3.6</code></li> <li><b>Version 9.4 (Available
+     * in all regions):</b> <code> 9.4.1</code></li> </ul> <p><b>Microsoft
+     * SQL Server Enterprise Edition (sqlserver-ee)</b> <ul> <li><b>Version
+     * 10.50 (Only available in the following regions: eu-central-1,
+     * us-west-1):</b> <code> 10.50.2789.0.v1</code></li> <li><b>Version
+     * 11.00 (Only available in the following regions: eu-central-1,
+     * us-west-1):</b> <code> 11.00.2100.60.v1</code></li> </ul>
      * <p><b>Microsoft SQL Server Enterprise Edition (sqlserver-ee)</b> <ul>
-     * <li><b>Version 10.5:</b> <code> 10.50.2789.0.v1</code></li>
-     * <li><b>Version 11.0:</b> <code> 11.00.2100.60.v1</code></li> </ul>
+     * <li><b>Version 10.50 (Only available in the following regions:
+     * eu-central-1, us-west-1):</b> <code> 10.50.2789.0.v1</code></li>
+     * <li><b>Version 11.00 (Only available in the following regions:
+     * eu-central-1, us-west-1):</b> <code> 11.00.2100.60.v1</code></li>
+     * </ul> <p><b>Microsoft SQL Server Express Edition (sqlserver-ex)</b>
+     * <ul> <li><b>Version 10.50 (Available in all regions):</b> <code>
+     * 10.50.2789.0.v1</code></li> <li><b>Version 11.00 (Available in all
+     * regions):</b> <code> 11.00.2100.60.v1</code></li> </ul>
      * <p><b>Microsoft SQL Server Express Edition (sqlserver-ex)</b> <ul>
-     * <li><b>Version 10.5:</b> <code> 10.50.2789.0.v1</code></li>
-     * <li><b>Version 11.0:</b> <code> 11.00.2100.60.v1</code></li> </ul>
+     * <li><b>Version 10.50 (Available in all regions):</b> <code>
+     * 10.50.2789.0.v1</code></li> <li><b>Version 11.00 (Available in all
+     * regions):</b> <code> 11.00.2100.60.v1</code></li> </ul>
      * <p><b>Microsoft SQL Server Standard Edition (sqlserver-se)</b> <ul>
-     * <li><b>Version 10.5:</b> <code> 10.50.2789.0.v1</code></li>
-     * <li><b>Version 11.0:</b> <code> 11.00.2100.60.v1</code></li> </ul>
+     * <li><b>Version 10.50 (Available in all regions):</b> <code>
+     * 10.50.2789.0.v1</code></li> <li><b>Version 11.00 (Available in all
+     * regions):</b> <code> 11.00.2100.60.v1</code></li> </ul>
+     * <p><b>Microsoft SQL Server Standard Edition (sqlserver-se)</b> <ul>
+     * <li><b>Version 10.50 (Available in all regions):</b> <code>
+     * 10.50.2789.0.v1</code></li> <li><b>Version 11.00 (Available in all
+     * regions):</b> <code> 11.00.2100.60.v1</code></li> </ul>
      * <p><b>Microsoft SQL Server Web Edition (sqlserver-web)</b> <ul>
-     * <li><b>Version 10.5:</b> <code> 10.50.2789.0.v1</code></li>
-     * <li><b>Version 11.0:</b> <code> 11.00.2100.60.v1</code></li> </ul>
+     * <li><b>Version 10.50 (Available in all regions):</b> <code>
+     * 10.50.2789.0.v1</code></li> <li><b>Version 11.00 (Available in all
+     * regions):</b> <code> 11.00.2100.60.v1</code></li> </ul>
+     * <p><b>Microsoft SQL Server Web Edition (sqlserver-web)</b> <ul>
+     * <li><b>Version 10.50 (Available in all regions):</b> <code>
+     * 10.50.2789.0.v1</code></li> <li><b>Version 11.00 (Available in all
+     * regions):</b> <code> 11.00.2100.60.v1</code></li> </ul>
      *
      * @param engineVersion The version number of the database engine to use. <p> The following
      *         are the database engines and major and minor versions that are
      *         available with Amazon RDS. Not every database engine is available for
-     *         every AWS region. <p><b>MySQL</b> <ul> <li><b>Version 5.1:</b> <code>
-     *         5.1.45 | 5.1.49 | 5.1.50 | 5.1.57 | 5.1.61 | 5.1.62 | 5.1.63 | 5.1.69
-     *         | 5.1.71 | 5.1.73</code></li> <li><b>Version 5.5:</b> <code> 5.5.12 |
-     *         5.5.20 | 5.5.23 | 5.5.25a | 5.5.27 | 5.5.31 | 5.5.33 | 5.5.37 | 5.5.38
-     *         | 5.5.8</code></li> <li><b>Version 5.6:</b> <code> 5.6.12 | 5.6.13 |
-     *         5.6.17 | 5.6.19 | 5.6.21</code></li> </ul> <p><b>Oracle Database
-     *         Enterprise Edition (oracle-ee)</b> <ul> <li><b>Version 11.2:</b>
-     *         <code> 11.2.0.2.v3 | 11.2.0.2.v4 | 11.2.0.2.v5 | 11.2.0.2.v6 |
-     *         11.2.0.2.v7 | 11.2.0.3.v1 | 11.2.0.4.v1</code></li> </ul> <p><b>Oracle
-     *         Database Standard Edition (oracle-se)</b> <ul> <li><b>Version
-     *         11.2:</b> <code> 11.2.0.2.v3 | 11.2.0.2.v4 | 11.2.0.2.v5 | 11.2.0.2.v6
-     *         | 11.2.0.2.v7 | 11.2.0.3.v1 | 11.2.0.4.v1</code></li> </ul>
-     *         <p><b>Oracle Database Standard Edition One (oracle-se1)</b> <ul>
-     *         <li><b>Version 11.2:</b> <code> 11.2.0.2.v3 | 11.2.0.2.v4 |
-     *         11.2.0.2.v5 | 11.2.0.2.v6 | 11.2.0.2.v7 | 11.2.0.3.v1 |
-     *         11.2.0.4.v1</code></li> </ul> <p><b>PostgreSQL</b> <ul> <li><b>Version
-     *         9.3:</b> <code> 9.3.1 | 9.3.2 | 9.3.3</code></li> </ul>
+     *         every AWS region. <p><b>MySQL</b> <ul> <li><b>Version 5.1 (Only
+     *         available in the following regions: ap-northeast-1, ap-southeast-1,
+     *         ap-southeast-2, eu-west-1, sa-east-1, us-west-1, us-west-2):</b>
+     *         <code> 5.1.73a | 5.1.73b</code></li> <li><b>Version 5.5 (Only
+     *         available in the following regions: ap-northeast-1, ap-southeast-1,
+     *         ap-southeast-2, eu-west-1, sa-east-1, us-west-1, us-west-2):</b>
+     *         <code> 5.5.40 | 5.5.40a</code></li> <li><b>Version 5.5 (Available in
+     *         all regions):</b> <code> 5.5.40b | 5.5.41 | 5.5.42</code></li>
+     *         <li><b>Version 5.6 (Available in all regions):</b> <code> 5.6.19a |
+     *         5.6.19b | 5.6.21 | 5.6.21b | 5.6.22 | 5.6.23</code></li> </ul>
+     *         <p><b>MySQL</b> <ul> <li><b>Version 5.1 (Only available in the
+     *         following regions: ap-northeast-1, ap-southeast-1, ap-southeast-2,
+     *         eu-west-1, sa-east-1, us-west-1, us-west-2):</b> <code> 5.1.73a |
+     *         5.1.73b</code></li> <li><b>Version 5.5 (Only available in the
+     *         following regions: ap-northeast-1, ap-southeast-1, ap-southeast-2,
+     *         eu-west-1, sa-east-1, us-west-1, us-west-2):</b> <code> 5.5.40 |
+     *         5.5.40a</code></li> <li><b>Version 5.5 (Available in all regions):</b>
+     *         <code> 5.5.40b | 5.5.41 | 5.5.42</code></li> <li><b>Version 5.6
+     *         (Available in all regions):</b> <code> 5.6.19a | 5.6.19b | 5.6.21 |
+     *         5.6.21b | 5.6.22 | 5.6.23</code></li> </ul> <p><b>MySQL</b> <ul>
+     *         <li><b>Version 5.1 (Only available in the following regions:
+     *         ap-northeast-1, ap-southeast-1, ap-southeast-2, eu-west-1, sa-east-1,
+     *         us-west-1, us-west-2):</b> <code> 5.1.73a | 5.1.73b</code></li>
+     *         <li><b>Version 5.5 (Only available in the following regions:
+     *         ap-northeast-1, ap-southeast-1, ap-southeast-2, eu-west-1, sa-east-1,
+     *         us-west-1, us-west-2):</b> <code> 5.5.40 | 5.5.40a</code></li>
+     *         <li><b>Version 5.5 (Available in all regions):</b> <code> 5.5.40b |
+     *         5.5.41 | 5.5.42</code></li> <li><b>Version 5.6 (Available in all
+     *         regions):</b> <code> 5.6.19a | 5.6.19b | 5.6.21 | 5.6.21b | 5.6.22 |
+     *         5.6.23</code></li> </ul> <p><b>MySQL</b> <ul> <li><b>Version 5.1 (Only
+     *         available in the following regions: ap-northeast-1, ap-southeast-1,
+     *         ap-southeast-2, eu-west-1, sa-east-1, us-west-1, us-west-2):</b>
+     *         <code> 5.1.73a | 5.1.73b</code></li> <li><b>Version 5.5 (Only
+     *         available in the following regions: ap-northeast-1, ap-southeast-1,
+     *         ap-southeast-2, eu-west-1, sa-east-1, us-west-1, us-west-2):</b>
+     *         <code> 5.5.40 | 5.5.40a</code></li> <li><b>Version 5.5 (Available in
+     *         all regions):</b> <code> 5.5.40b | 5.5.41 | 5.5.42</code></li>
+     *         <li><b>Version 5.6 (Available in all regions):</b> <code> 5.6.19a |
+     *         5.6.19b | 5.6.21 | 5.6.21b | 5.6.22 | 5.6.23</code></li> </ul>
+     *         <p><b>Oracle Database Enterprise Edition (oracle-ee)</b> <ul>
+     *         <li><b>Version 11.2 (Only available in the following regions:
+     *         ap-northeast-1, ap-southeast-1, ap-southeast-2, eu-west-1, sa-east-1,
+     *         us-west-1, us-west-2):</b> <code> 11.2.0.2.v3 | 11.2.0.2.v4 |
+     *         11.2.0.2.v5 | 11.2.0.2.v6 | 11.2.0.2.v7</code></li> <li><b>Version
+     *         11.2 (Available in all regions):</b> <code> 11.2.0.3.v1 | 11.2.0.3.v2
+     *         | 11.2.0.4.v1 | 11.2.0.4.v3</code></li> <li><b>Version 12.1 (Available
+     *         in all regions):</b> <code> 12.1.0.1.v1</code></li> </ul> <p><b>Oracle
+     *         Database Enterprise Edition (oracle-ee)</b> <ul> <li><b>Version 11.2
+     *         (Only available in the following regions: ap-northeast-1,
+     *         ap-southeast-1, ap-southeast-2, eu-west-1, sa-east-1, us-west-1,
+     *         us-west-2):</b> <code> 11.2.0.2.v3 | 11.2.0.2.v4 | 11.2.0.2.v5 |
+     *         11.2.0.2.v6 | 11.2.0.2.v7</code></li> <li><b>Version 11.2 (Available
+     *         in all regions):</b> <code> 11.2.0.3.v1 | 11.2.0.3.v2 | 11.2.0.4.v1 |
+     *         11.2.0.4.v3</code></li> <li><b>Version 12.1 (Available in all
+     *         regions):</b> <code> 12.1.0.1.v1</code></li> </ul> <p><b>Oracle
+     *         Database Enterprise Edition (oracle-ee)</b> <ul> <li><b>Version 11.2
+     *         (Only available in the following regions: ap-northeast-1,
+     *         ap-southeast-1, ap-southeast-2, eu-west-1, sa-east-1, us-west-1,
+     *         us-west-2):</b> <code> 11.2.0.2.v3 | 11.2.0.2.v4 | 11.2.0.2.v5 |
+     *         11.2.0.2.v6 | 11.2.0.2.v7</code></li> <li><b>Version 11.2 (Available
+     *         in all regions):</b> <code> 11.2.0.3.v1 | 11.2.0.3.v2 | 11.2.0.4.v1 |
+     *         11.2.0.4.v3</code></li> <li><b>Version 12.1 (Available in all
+     *         regions):</b> <code> 12.1.0.1.v1</code></li> </ul> <p><b>Oracle
+     *         Database Standard Edition (oracle-se)</b> <ul> <li><b>Version 11.2
+     *         (Only available in the following regions: us-west-1):</b> <code>
+     *         11.2.0.2.v3 | 11.2.0.2.v4 | 11.2.0.2.v5 | 11.2.0.2.v6 |
+     *         11.2.0.2.v7</code></li> <li><b>Version 11.2 (Only available in the
+     *         following regions: eu-central-1, us-west-1):</b> <code> 11.2.0.3.v1 |
+     *         11.2.0.3.v2 | 11.2.0.4.v1 | 11.2.0.4.v3</code></li> <li><b>Version
+     *         12.1 (Only available in the following regions: eu-central-1,
+     *         us-west-1):</b> <code> 12.1.0.1.v1</code></li> </ul> <p><b>Oracle
+     *         Database Standard Edition (oracle-se)</b> <ul> <li><b>Version 11.2
+     *         (Only available in the following regions: us-west-1):</b> <code>
+     *         11.2.0.2.v3 | 11.2.0.2.v4 | 11.2.0.2.v5 | 11.2.0.2.v6 |
+     *         11.2.0.2.v7</code></li> <li><b>Version 11.2 (Only available in the
+     *         following regions: eu-central-1, us-west-1):</b> <code> 11.2.0.3.v1 |
+     *         11.2.0.3.v2 | 11.2.0.4.v1 | 11.2.0.4.v3</code></li> <li><b>Version
+     *         12.1 (Only available in the following regions: eu-central-1,
+     *         us-west-1):</b> <code> 12.1.0.1.v1</code></li> </ul> <p><b>Oracle
+     *         Database Standard Edition (oracle-se)</b> <ul> <li><b>Version 11.2
+     *         (Only available in the following regions: us-west-1):</b> <code>
+     *         11.2.0.2.v3 | 11.2.0.2.v4 | 11.2.0.2.v5 | 11.2.0.2.v6 |
+     *         11.2.0.2.v7</code></li> <li><b>Version 11.2 (Only available in the
+     *         following regions: eu-central-1, us-west-1):</b> <code> 11.2.0.3.v1 |
+     *         11.2.0.3.v2 | 11.2.0.4.v1 | 11.2.0.4.v3</code></li> <li><b>Version
+     *         12.1 (Only available in the following regions: eu-central-1,
+     *         us-west-1):</b> <code> 12.1.0.1.v1</code></li> </ul> <p><b>Oracle
+     *         Database Standard Edition One (oracle-se1)</b> <ul> <li><b>Version
+     *         11.2 (Only available in the following regions: us-west-1):</b> <code>
+     *         11.2.0.2.v3 | 11.2.0.2.v4 | 11.2.0.2.v5 | 11.2.0.2.v6 |
+     *         11.2.0.2.v7</code></li> <li><b>Version 11.2 (Only available in the
+     *         following regions: eu-central-1, us-west-1):</b> <code> 11.2.0.3.v1 |
+     *         11.2.0.3.v2 | 11.2.0.4.v1 | 11.2.0.4.v3</code></li> <li><b>Version
+     *         12.1 (Only available in the following regions: eu-central-1,
+     *         us-west-1):</b> <code> 12.1.0.1.v1</code></li> </ul> <p><b>Oracle
+     *         Database Standard Edition One (oracle-se1)</b> <ul> <li><b>Version
+     *         11.2 (Only available in the following regions: us-west-1):</b> <code>
+     *         11.2.0.2.v3 | 11.2.0.2.v4 | 11.2.0.2.v5 | 11.2.0.2.v6 |
+     *         11.2.0.2.v7</code></li> <li><b>Version 11.2 (Only available in the
+     *         following regions: eu-central-1, us-west-1):</b> <code> 11.2.0.3.v1 |
+     *         11.2.0.3.v2 | 11.2.0.4.v1 | 11.2.0.4.v3</code></li> <li><b>Version
+     *         12.1 (Only available in the following regions: eu-central-1,
+     *         us-west-1):</b> <code> 12.1.0.1.v1</code></li> </ul> <p><b>Oracle
+     *         Database Standard Edition One (oracle-se1)</b> <ul> <li><b>Version
+     *         11.2 (Only available in the following regions: us-west-1):</b> <code>
+     *         11.2.0.2.v3 | 11.2.0.2.v4 | 11.2.0.2.v5 | 11.2.0.2.v6 |
+     *         11.2.0.2.v7</code></li> <li><b>Version 11.2 (Only available in the
+     *         following regions: eu-central-1, us-west-1):</b> <code> 11.2.0.3.v1 |
+     *         11.2.0.3.v2 | 11.2.0.4.v1 | 11.2.0.4.v3</code></li> <li><b>Version
+     *         12.1 (Only available in the following regions: eu-central-1,
+     *         us-west-1):</b> <code> 12.1.0.1.v1</code></li> </ul>
+     *         <p><b>PostgreSQL</b> <ul> <li><b>Version 9.3 (Only available in the
+     *         following regions: ap-northeast-1, ap-southeast-1, ap-southeast-2,
+     *         eu-west-1, sa-east-1, us-west-1, us-west-2):</b> <code> 9.3.1 |
+     *         9.3.2</code></li> <li><b>Version 9.3 (Available in all regions):</b>
+     *         <code> 9.3.3 | 9.3.5 | 9.3.6</code></li> <li><b>Version 9.4 (Available
+     *         in all regions):</b> <code> 9.4.1</code></li> </ul>
+     *         <p><b>PostgreSQL</b> <ul> <li><b>Version 9.3 (Only available in the
+     *         following regions: ap-northeast-1, ap-southeast-1, ap-southeast-2,
+     *         eu-west-1, sa-east-1, us-west-1, us-west-2):</b> <code> 9.3.1 |
+     *         9.3.2</code></li> <li><b>Version 9.3 (Available in all regions):</b>
+     *         <code> 9.3.3 | 9.3.5 | 9.3.6</code></li> <li><b>Version 9.4 (Available
+     *         in all regions):</b> <code> 9.4.1</code></li> </ul>
+     *         <p><b>PostgreSQL</b> <ul> <li><b>Version 9.3 (Only available in the
+     *         following regions: ap-northeast-1, ap-southeast-1, ap-southeast-2,
+     *         eu-west-1, sa-east-1, us-west-1, us-west-2):</b> <code> 9.3.1 |
+     *         9.3.2</code></li> <li><b>Version 9.3 (Available in all regions):</b>
+     *         <code> 9.3.3 | 9.3.5 | 9.3.6</code></li> <li><b>Version 9.4 (Available
+     *         in all regions):</b> <code> 9.4.1</code></li> </ul> <p><b>Microsoft
+     *         SQL Server Enterprise Edition (sqlserver-ee)</b> <ul> <li><b>Version
+     *         10.50 (Only available in the following regions: eu-central-1,
+     *         us-west-1):</b> <code> 10.50.2789.0.v1</code></li> <li><b>Version
+     *         11.00 (Only available in the following regions: eu-central-1,
+     *         us-west-1):</b> <code> 11.00.2100.60.v1</code></li> </ul>
      *         <p><b>Microsoft SQL Server Enterprise Edition (sqlserver-ee)</b> <ul>
-     *         <li><b>Version 10.5:</b> <code> 10.50.2789.0.v1</code></li>
-     *         <li><b>Version 11.0:</b> <code> 11.00.2100.60.v1</code></li> </ul>
+     *         <li><b>Version 10.50 (Only available in the following regions:
+     *         eu-central-1, us-west-1):</b> <code> 10.50.2789.0.v1</code></li>
+     *         <li><b>Version 11.00 (Only available in the following regions:
+     *         eu-central-1, us-west-1):</b> <code> 11.00.2100.60.v1</code></li>
+     *         </ul> <p><b>Microsoft SQL Server Express Edition (sqlserver-ex)</b>
+     *         <ul> <li><b>Version 10.50 (Available in all regions):</b> <code>
+     *         10.50.2789.0.v1</code></li> <li><b>Version 11.00 (Available in all
+     *         regions):</b> <code> 11.00.2100.60.v1</code></li> </ul>
      *         <p><b>Microsoft SQL Server Express Edition (sqlserver-ex)</b> <ul>
-     *         <li><b>Version 10.5:</b> <code> 10.50.2789.0.v1</code></li>
-     *         <li><b>Version 11.0:</b> <code> 11.00.2100.60.v1</code></li> </ul>
+     *         <li><b>Version 10.50 (Available in all regions):</b> <code>
+     *         10.50.2789.0.v1</code></li> <li><b>Version 11.00 (Available in all
+     *         regions):</b> <code> 11.00.2100.60.v1</code></li> </ul>
      *         <p><b>Microsoft SQL Server Standard Edition (sqlserver-se)</b> <ul>
-     *         <li><b>Version 10.5:</b> <code> 10.50.2789.0.v1</code></li>
-     *         <li><b>Version 11.0:</b> <code> 11.00.2100.60.v1</code></li> </ul>
+     *         <li><b>Version 10.50 (Available in all regions):</b> <code>
+     *         10.50.2789.0.v1</code></li> <li><b>Version 11.00 (Available in all
+     *         regions):</b> <code> 11.00.2100.60.v1</code></li> </ul>
+     *         <p><b>Microsoft SQL Server Standard Edition (sqlserver-se)</b> <ul>
+     *         <li><b>Version 10.50 (Available in all regions):</b> <code>
+     *         10.50.2789.0.v1</code></li> <li><b>Version 11.00 (Available in all
+     *         regions):</b> <code> 11.00.2100.60.v1</code></li> </ul>
      *         <p><b>Microsoft SQL Server Web Edition (sqlserver-web)</b> <ul>
-     *         <li><b>Version 10.5:</b> <code> 10.50.2789.0.v1</code></li>
-     *         <li><b>Version 11.0:</b> <code> 11.00.2100.60.v1</code></li> </ul>
+     *         <li><b>Version 10.50 (Available in all regions):</b> <code>
+     *         10.50.2789.0.v1</code></li> <li><b>Version 11.00 (Available in all
+     *         regions):</b> <code> 11.00.2100.60.v1</code></li> </ul>
+     *         <p><b>Microsoft SQL Server Web Edition (sqlserver-web)</b> <ul>
+     *         <li><b>Version 10.50 (Available in all regions):</b> <code>
+     *         10.50.2789.0.v1</code></li> <li><b>Version 11.00 (Available in all
+     *         regions):</b> <code> 11.00.2100.60.v1</code></li> </ul>
      */
     public void setEngineVersion(String engineVersion) {
         this.engineVersion = engineVersion;
@@ -1838,70 +2604,338 @@ public class CreateDBInstanceRequest extends AmazonWebServiceRequest implements 
      * The version number of the database engine to use. <p> The following
      * are the database engines and major and minor versions that are
      * available with Amazon RDS. Not every database engine is available for
-     * every AWS region. <p><b>MySQL</b> <ul> <li><b>Version 5.1:</b> <code>
-     * 5.1.45 | 5.1.49 | 5.1.50 | 5.1.57 | 5.1.61 | 5.1.62 | 5.1.63 | 5.1.69
-     * | 5.1.71 | 5.1.73</code></li> <li><b>Version 5.5:</b> <code> 5.5.12 |
-     * 5.5.20 | 5.5.23 | 5.5.25a | 5.5.27 | 5.5.31 | 5.5.33 | 5.5.37 | 5.5.38
-     * | 5.5.8</code></li> <li><b>Version 5.6:</b> <code> 5.6.12 | 5.6.13 |
-     * 5.6.17 | 5.6.19 | 5.6.21</code></li> </ul> <p><b>Oracle Database
-     * Enterprise Edition (oracle-ee)</b> <ul> <li><b>Version 11.2:</b>
-     * <code> 11.2.0.2.v3 | 11.2.0.2.v4 | 11.2.0.2.v5 | 11.2.0.2.v6 |
-     * 11.2.0.2.v7 | 11.2.0.3.v1 | 11.2.0.4.v1</code></li> </ul> <p><b>Oracle
-     * Database Standard Edition (oracle-se)</b> <ul> <li><b>Version
-     * 11.2:</b> <code> 11.2.0.2.v3 | 11.2.0.2.v4 | 11.2.0.2.v5 | 11.2.0.2.v6
-     * | 11.2.0.2.v7 | 11.2.0.3.v1 | 11.2.0.4.v1</code></li> </ul>
-     * <p><b>Oracle Database Standard Edition One (oracle-se1)</b> <ul>
-     * <li><b>Version 11.2:</b> <code> 11.2.0.2.v3 | 11.2.0.2.v4 |
-     * 11.2.0.2.v5 | 11.2.0.2.v6 | 11.2.0.2.v7 | 11.2.0.3.v1 |
-     * 11.2.0.4.v1</code></li> </ul> <p><b>PostgreSQL</b> <ul> <li><b>Version
-     * 9.3:</b> <code> 9.3.1 | 9.3.2 | 9.3.3</code></li> </ul>
+     * every AWS region. <p><b>MySQL</b> <ul> <li><b>Version 5.1 (Only
+     * available in the following regions: ap-northeast-1, ap-southeast-1,
+     * ap-southeast-2, eu-west-1, sa-east-1, us-west-1, us-west-2):</b>
+     * <code> 5.1.73a | 5.1.73b</code></li> <li><b>Version 5.5 (Only
+     * available in the following regions: ap-northeast-1, ap-southeast-1,
+     * ap-southeast-2, eu-west-1, sa-east-1, us-west-1, us-west-2):</b>
+     * <code> 5.5.40 | 5.5.40a</code></li> <li><b>Version 5.5 (Available in
+     * all regions):</b> <code> 5.5.40b | 5.5.41 | 5.5.42</code></li>
+     * <li><b>Version 5.6 (Available in all regions):</b> <code> 5.6.19a |
+     * 5.6.19b | 5.6.21 | 5.6.21b | 5.6.22 | 5.6.23</code></li> </ul>
+     * <p><b>MySQL</b> <ul> <li><b>Version 5.1 (Only available in the
+     * following regions: ap-northeast-1, ap-southeast-1, ap-southeast-2,
+     * eu-west-1, sa-east-1, us-west-1, us-west-2):</b> <code> 5.1.73a |
+     * 5.1.73b</code></li> <li><b>Version 5.5 (Only available in the
+     * following regions: ap-northeast-1, ap-southeast-1, ap-southeast-2,
+     * eu-west-1, sa-east-1, us-west-1, us-west-2):</b> <code> 5.5.40 |
+     * 5.5.40a</code></li> <li><b>Version 5.5 (Available in all regions):</b>
+     * <code> 5.5.40b | 5.5.41 | 5.5.42</code></li> <li><b>Version 5.6
+     * (Available in all regions):</b> <code> 5.6.19a | 5.6.19b | 5.6.21 |
+     * 5.6.21b | 5.6.22 | 5.6.23</code></li> </ul> <p><b>MySQL</b> <ul>
+     * <li><b>Version 5.1 (Only available in the following regions:
+     * ap-northeast-1, ap-southeast-1, ap-southeast-2, eu-west-1, sa-east-1,
+     * us-west-1, us-west-2):</b> <code> 5.1.73a | 5.1.73b</code></li>
+     * <li><b>Version 5.5 (Only available in the following regions:
+     * ap-northeast-1, ap-southeast-1, ap-southeast-2, eu-west-1, sa-east-1,
+     * us-west-1, us-west-2):</b> <code> 5.5.40 | 5.5.40a</code></li>
+     * <li><b>Version 5.5 (Available in all regions):</b> <code> 5.5.40b |
+     * 5.5.41 | 5.5.42</code></li> <li><b>Version 5.6 (Available in all
+     * regions):</b> <code> 5.6.19a | 5.6.19b | 5.6.21 | 5.6.21b | 5.6.22 |
+     * 5.6.23</code></li> </ul> <p><b>MySQL</b> <ul> <li><b>Version 5.1 (Only
+     * available in the following regions: ap-northeast-1, ap-southeast-1,
+     * ap-southeast-2, eu-west-1, sa-east-1, us-west-1, us-west-2):</b>
+     * <code> 5.1.73a | 5.1.73b</code></li> <li><b>Version 5.5 (Only
+     * available in the following regions: ap-northeast-1, ap-southeast-1,
+     * ap-southeast-2, eu-west-1, sa-east-1, us-west-1, us-west-2):</b>
+     * <code> 5.5.40 | 5.5.40a</code></li> <li><b>Version 5.5 (Available in
+     * all regions):</b> <code> 5.5.40b | 5.5.41 | 5.5.42</code></li>
+     * <li><b>Version 5.6 (Available in all regions):</b> <code> 5.6.19a |
+     * 5.6.19b | 5.6.21 | 5.6.21b | 5.6.22 | 5.6.23</code></li> </ul>
+     * <p><b>Oracle Database Enterprise Edition (oracle-ee)</b> <ul>
+     * <li><b>Version 11.2 (Only available in the following regions:
+     * ap-northeast-1, ap-southeast-1, ap-southeast-2, eu-west-1, sa-east-1,
+     * us-west-1, us-west-2):</b> <code> 11.2.0.2.v3 | 11.2.0.2.v4 |
+     * 11.2.0.2.v5 | 11.2.0.2.v6 | 11.2.0.2.v7</code></li> <li><b>Version
+     * 11.2 (Available in all regions):</b> <code> 11.2.0.3.v1 | 11.2.0.3.v2
+     * | 11.2.0.4.v1 | 11.2.0.4.v3</code></li> <li><b>Version 12.1 (Available
+     * in all regions):</b> <code> 12.1.0.1.v1</code></li> </ul> <p><b>Oracle
+     * Database Enterprise Edition (oracle-ee)</b> <ul> <li><b>Version 11.2
+     * (Only available in the following regions: ap-northeast-1,
+     * ap-southeast-1, ap-southeast-2, eu-west-1, sa-east-1, us-west-1,
+     * us-west-2):</b> <code> 11.2.0.2.v3 | 11.2.0.2.v4 | 11.2.0.2.v5 |
+     * 11.2.0.2.v6 | 11.2.0.2.v7</code></li> <li><b>Version 11.2 (Available
+     * in all regions):</b> <code> 11.2.0.3.v1 | 11.2.0.3.v2 | 11.2.0.4.v1 |
+     * 11.2.0.4.v3</code></li> <li><b>Version 12.1 (Available in all
+     * regions):</b> <code> 12.1.0.1.v1</code></li> </ul> <p><b>Oracle
+     * Database Enterprise Edition (oracle-ee)</b> <ul> <li><b>Version 11.2
+     * (Only available in the following regions: ap-northeast-1,
+     * ap-southeast-1, ap-southeast-2, eu-west-1, sa-east-1, us-west-1,
+     * us-west-2):</b> <code> 11.2.0.2.v3 | 11.2.0.2.v4 | 11.2.0.2.v5 |
+     * 11.2.0.2.v6 | 11.2.0.2.v7</code></li> <li><b>Version 11.2 (Available
+     * in all regions):</b> <code> 11.2.0.3.v1 | 11.2.0.3.v2 | 11.2.0.4.v1 |
+     * 11.2.0.4.v3</code></li> <li><b>Version 12.1 (Available in all
+     * regions):</b> <code> 12.1.0.1.v1</code></li> </ul> <p><b>Oracle
+     * Database Standard Edition (oracle-se)</b> <ul> <li><b>Version 11.2
+     * (Only available in the following regions: us-west-1):</b> <code>
+     * 11.2.0.2.v3 | 11.2.0.2.v4 | 11.2.0.2.v5 | 11.2.0.2.v6 |
+     * 11.2.0.2.v7</code></li> <li><b>Version 11.2 (Only available in the
+     * following regions: eu-central-1, us-west-1):</b> <code> 11.2.0.3.v1 |
+     * 11.2.0.3.v2 | 11.2.0.4.v1 | 11.2.0.4.v3</code></li> <li><b>Version
+     * 12.1 (Only available in the following regions: eu-central-1,
+     * us-west-1):</b> <code> 12.1.0.1.v1</code></li> </ul> <p><b>Oracle
+     * Database Standard Edition (oracle-se)</b> <ul> <li><b>Version 11.2
+     * (Only available in the following regions: us-west-1):</b> <code>
+     * 11.2.0.2.v3 | 11.2.0.2.v4 | 11.2.0.2.v5 | 11.2.0.2.v6 |
+     * 11.2.0.2.v7</code></li> <li><b>Version 11.2 (Only available in the
+     * following regions: eu-central-1, us-west-1):</b> <code> 11.2.0.3.v1 |
+     * 11.2.0.3.v2 | 11.2.0.4.v1 | 11.2.0.4.v3</code></li> <li><b>Version
+     * 12.1 (Only available in the following regions: eu-central-1,
+     * us-west-1):</b> <code> 12.1.0.1.v1</code></li> </ul> <p><b>Oracle
+     * Database Standard Edition (oracle-se)</b> <ul> <li><b>Version 11.2
+     * (Only available in the following regions: us-west-1):</b> <code>
+     * 11.2.0.2.v3 | 11.2.0.2.v4 | 11.2.0.2.v5 | 11.2.0.2.v6 |
+     * 11.2.0.2.v7</code></li> <li><b>Version 11.2 (Only available in the
+     * following regions: eu-central-1, us-west-1):</b> <code> 11.2.0.3.v1 |
+     * 11.2.0.3.v2 | 11.2.0.4.v1 | 11.2.0.4.v3</code></li> <li><b>Version
+     * 12.1 (Only available in the following regions: eu-central-1,
+     * us-west-1):</b> <code> 12.1.0.1.v1</code></li> </ul> <p><b>Oracle
+     * Database Standard Edition One (oracle-se1)</b> <ul> <li><b>Version
+     * 11.2 (Only available in the following regions: us-west-1):</b> <code>
+     * 11.2.0.2.v3 | 11.2.0.2.v4 | 11.2.0.2.v5 | 11.2.0.2.v6 |
+     * 11.2.0.2.v7</code></li> <li><b>Version 11.2 (Only available in the
+     * following regions: eu-central-1, us-west-1):</b> <code> 11.2.0.3.v1 |
+     * 11.2.0.3.v2 | 11.2.0.4.v1 | 11.2.0.4.v3</code></li> <li><b>Version
+     * 12.1 (Only available in the following regions: eu-central-1,
+     * us-west-1):</b> <code> 12.1.0.1.v1</code></li> </ul> <p><b>Oracle
+     * Database Standard Edition One (oracle-se1)</b> <ul> <li><b>Version
+     * 11.2 (Only available in the following regions: us-west-1):</b> <code>
+     * 11.2.0.2.v3 | 11.2.0.2.v4 | 11.2.0.2.v5 | 11.2.0.2.v6 |
+     * 11.2.0.2.v7</code></li> <li><b>Version 11.2 (Only available in the
+     * following regions: eu-central-1, us-west-1):</b> <code> 11.2.0.3.v1 |
+     * 11.2.0.3.v2 | 11.2.0.4.v1 | 11.2.0.4.v3</code></li> <li><b>Version
+     * 12.1 (Only available in the following regions: eu-central-1,
+     * us-west-1):</b> <code> 12.1.0.1.v1</code></li> </ul> <p><b>Oracle
+     * Database Standard Edition One (oracle-se1)</b> <ul> <li><b>Version
+     * 11.2 (Only available in the following regions: us-west-1):</b> <code>
+     * 11.2.0.2.v3 | 11.2.0.2.v4 | 11.2.0.2.v5 | 11.2.0.2.v6 |
+     * 11.2.0.2.v7</code></li> <li><b>Version 11.2 (Only available in the
+     * following regions: eu-central-1, us-west-1):</b> <code> 11.2.0.3.v1 |
+     * 11.2.0.3.v2 | 11.2.0.4.v1 | 11.2.0.4.v3</code></li> <li><b>Version
+     * 12.1 (Only available in the following regions: eu-central-1,
+     * us-west-1):</b> <code> 12.1.0.1.v1</code></li> </ul>
+     * <p><b>PostgreSQL</b> <ul> <li><b>Version 9.3 (Only available in the
+     * following regions: ap-northeast-1, ap-southeast-1, ap-southeast-2,
+     * eu-west-1, sa-east-1, us-west-1, us-west-2):</b> <code> 9.3.1 |
+     * 9.3.2</code></li> <li><b>Version 9.3 (Available in all regions):</b>
+     * <code> 9.3.3 | 9.3.5 | 9.3.6</code></li> <li><b>Version 9.4 (Available
+     * in all regions):</b> <code> 9.4.1</code></li> </ul>
+     * <p><b>PostgreSQL</b> <ul> <li><b>Version 9.3 (Only available in the
+     * following regions: ap-northeast-1, ap-southeast-1, ap-southeast-2,
+     * eu-west-1, sa-east-1, us-west-1, us-west-2):</b> <code> 9.3.1 |
+     * 9.3.2</code></li> <li><b>Version 9.3 (Available in all regions):</b>
+     * <code> 9.3.3 | 9.3.5 | 9.3.6</code></li> <li><b>Version 9.4 (Available
+     * in all regions):</b> <code> 9.4.1</code></li> </ul>
+     * <p><b>PostgreSQL</b> <ul> <li><b>Version 9.3 (Only available in the
+     * following regions: ap-northeast-1, ap-southeast-1, ap-southeast-2,
+     * eu-west-1, sa-east-1, us-west-1, us-west-2):</b> <code> 9.3.1 |
+     * 9.3.2</code></li> <li><b>Version 9.3 (Available in all regions):</b>
+     * <code> 9.3.3 | 9.3.5 | 9.3.6</code></li> <li><b>Version 9.4 (Available
+     * in all regions):</b> <code> 9.4.1</code></li> </ul> <p><b>Microsoft
+     * SQL Server Enterprise Edition (sqlserver-ee)</b> <ul> <li><b>Version
+     * 10.50 (Only available in the following regions: eu-central-1,
+     * us-west-1):</b> <code> 10.50.2789.0.v1</code></li> <li><b>Version
+     * 11.00 (Only available in the following regions: eu-central-1,
+     * us-west-1):</b> <code> 11.00.2100.60.v1</code></li> </ul>
      * <p><b>Microsoft SQL Server Enterprise Edition (sqlserver-ee)</b> <ul>
-     * <li><b>Version 10.5:</b> <code> 10.50.2789.0.v1</code></li>
-     * <li><b>Version 11.0:</b> <code> 11.00.2100.60.v1</code></li> </ul>
+     * <li><b>Version 10.50 (Only available in the following regions:
+     * eu-central-1, us-west-1):</b> <code> 10.50.2789.0.v1</code></li>
+     * <li><b>Version 11.00 (Only available in the following regions:
+     * eu-central-1, us-west-1):</b> <code> 11.00.2100.60.v1</code></li>
+     * </ul> <p><b>Microsoft SQL Server Express Edition (sqlserver-ex)</b>
+     * <ul> <li><b>Version 10.50 (Available in all regions):</b> <code>
+     * 10.50.2789.0.v1</code></li> <li><b>Version 11.00 (Available in all
+     * regions):</b> <code> 11.00.2100.60.v1</code></li> </ul>
      * <p><b>Microsoft SQL Server Express Edition (sqlserver-ex)</b> <ul>
-     * <li><b>Version 10.5:</b> <code> 10.50.2789.0.v1</code></li>
-     * <li><b>Version 11.0:</b> <code> 11.00.2100.60.v1</code></li> </ul>
+     * <li><b>Version 10.50 (Available in all regions):</b> <code>
+     * 10.50.2789.0.v1</code></li> <li><b>Version 11.00 (Available in all
+     * regions):</b> <code> 11.00.2100.60.v1</code></li> </ul>
      * <p><b>Microsoft SQL Server Standard Edition (sqlserver-se)</b> <ul>
-     * <li><b>Version 10.5:</b> <code> 10.50.2789.0.v1</code></li>
-     * <li><b>Version 11.0:</b> <code> 11.00.2100.60.v1</code></li> </ul>
+     * <li><b>Version 10.50 (Available in all regions):</b> <code>
+     * 10.50.2789.0.v1</code></li> <li><b>Version 11.00 (Available in all
+     * regions):</b> <code> 11.00.2100.60.v1</code></li> </ul>
+     * <p><b>Microsoft SQL Server Standard Edition (sqlserver-se)</b> <ul>
+     * <li><b>Version 10.50 (Available in all regions):</b> <code>
+     * 10.50.2789.0.v1</code></li> <li><b>Version 11.00 (Available in all
+     * regions):</b> <code> 11.00.2100.60.v1</code></li> </ul>
      * <p><b>Microsoft SQL Server Web Edition (sqlserver-web)</b> <ul>
-     * <li><b>Version 10.5:</b> <code> 10.50.2789.0.v1</code></li>
-     * <li><b>Version 11.0:</b> <code> 11.00.2100.60.v1</code></li> </ul>
+     * <li><b>Version 10.50 (Available in all regions):</b> <code>
+     * 10.50.2789.0.v1</code></li> <li><b>Version 11.00 (Available in all
+     * regions):</b> <code> 11.00.2100.60.v1</code></li> </ul>
+     * <p><b>Microsoft SQL Server Web Edition (sqlserver-web)</b> <ul>
+     * <li><b>Version 10.50 (Available in all regions):</b> <code>
+     * 10.50.2789.0.v1</code></li> <li><b>Version 11.00 (Available in all
+     * regions):</b> <code> 11.00.2100.60.v1</code></li> </ul>
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *
      * @param engineVersion The version number of the database engine to use. <p> The following
      *         are the database engines and major and minor versions that are
      *         available with Amazon RDS. Not every database engine is available for
-     *         every AWS region. <p><b>MySQL</b> <ul> <li><b>Version 5.1:</b> <code>
-     *         5.1.45 | 5.1.49 | 5.1.50 | 5.1.57 | 5.1.61 | 5.1.62 | 5.1.63 | 5.1.69
-     *         | 5.1.71 | 5.1.73</code></li> <li><b>Version 5.5:</b> <code> 5.5.12 |
-     *         5.5.20 | 5.5.23 | 5.5.25a | 5.5.27 | 5.5.31 | 5.5.33 | 5.5.37 | 5.5.38
-     *         | 5.5.8</code></li> <li><b>Version 5.6:</b> <code> 5.6.12 | 5.6.13 |
-     *         5.6.17 | 5.6.19 | 5.6.21</code></li> </ul> <p><b>Oracle Database
-     *         Enterprise Edition (oracle-ee)</b> <ul> <li><b>Version 11.2:</b>
-     *         <code> 11.2.0.2.v3 | 11.2.0.2.v4 | 11.2.0.2.v5 | 11.2.0.2.v6 |
-     *         11.2.0.2.v7 | 11.2.0.3.v1 | 11.2.0.4.v1</code></li> </ul> <p><b>Oracle
-     *         Database Standard Edition (oracle-se)</b> <ul> <li><b>Version
-     *         11.2:</b> <code> 11.2.0.2.v3 | 11.2.0.2.v4 | 11.2.0.2.v5 | 11.2.0.2.v6
-     *         | 11.2.0.2.v7 | 11.2.0.3.v1 | 11.2.0.4.v1</code></li> </ul>
-     *         <p><b>Oracle Database Standard Edition One (oracle-se1)</b> <ul>
-     *         <li><b>Version 11.2:</b> <code> 11.2.0.2.v3 | 11.2.0.2.v4 |
-     *         11.2.0.2.v5 | 11.2.0.2.v6 | 11.2.0.2.v7 | 11.2.0.3.v1 |
-     *         11.2.0.4.v1</code></li> </ul> <p><b>PostgreSQL</b> <ul> <li><b>Version
-     *         9.3:</b> <code> 9.3.1 | 9.3.2 | 9.3.3</code></li> </ul>
+     *         every AWS region. <p><b>MySQL</b> <ul> <li><b>Version 5.1 (Only
+     *         available in the following regions: ap-northeast-1, ap-southeast-1,
+     *         ap-southeast-2, eu-west-1, sa-east-1, us-west-1, us-west-2):</b>
+     *         <code> 5.1.73a | 5.1.73b</code></li> <li><b>Version 5.5 (Only
+     *         available in the following regions: ap-northeast-1, ap-southeast-1,
+     *         ap-southeast-2, eu-west-1, sa-east-1, us-west-1, us-west-2):</b>
+     *         <code> 5.5.40 | 5.5.40a</code></li> <li><b>Version 5.5 (Available in
+     *         all regions):</b> <code> 5.5.40b | 5.5.41 | 5.5.42</code></li>
+     *         <li><b>Version 5.6 (Available in all regions):</b> <code> 5.6.19a |
+     *         5.6.19b | 5.6.21 | 5.6.21b | 5.6.22 | 5.6.23</code></li> </ul>
+     *         <p><b>MySQL</b> <ul> <li><b>Version 5.1 (Only available in the
+     *         following regions: ap-northeast-1, ap-southeast-1, ap-southeast-2,
+     *         eu-west-1, sa-east-1, us-west-1, us-west-2):</b> <code> 5.1.73a |
+     *         5.1.73b</code></li> <li><b>Version 5.5 (Only available in the
+     *         following regions: ap-northeast-1, ap-southeast-1, ap-southeast-2,
+     *         eu-west-1, sa-east-1, us-west-1, us-west-2):</b> <code> 5.5.40 |
+     *         5.5.40a</code></li> <li><b>Version 5.5 (Available in all regions):</b>
+     *         <code> 5.5.40b | 5.5.41 | 5.5.42</code></li> <li><b>Version 5.6
+     *         (Available in all regions):</b> <code> 5.6.19a | 5.6.19b | 5.6.21 |
+     *         5.6.21b | 5.6.22 | 5.6.23</code></li> </ul> <p><b>MySQL</b> <ul>
+     *         <li><b>Version 5.1 (Only available in the following regions:
+     *         ap-northeast-1, ap-southeast-1, ap-southeast-2, eu-west-1, sa-east-1,
+     *         us-west-1, us-west-2):</b> <code> 5.1.73a | 5.1.73b</code></li>
+     *         <li><b>Version 5.5 (Only available in the following regions:
+     *         ap-northeast-1, ap-southeast-1, ap-southeast-2, eu-west-1, sa-east-1,
+     *         us-west-1, us-west-2):</b> <code> 5.5.40 | 5.5.40a</code></li>
+     *         <li><b>Version 5.5 (Available in all regions):</b> <code> 5.5.40b |
+     *         5.5.41 | 5.5.42</code></li> <li><b>Version 5.6 (Available in all
+     *         regions):</b> <code> 5.6.19a | 5.6.19b | 5.6.21 | 5.6.21b | 5.6.22 |
+     *         5.6.23</code></li> </ul> <p><b>MySQL</b> <ul> <li><b>Version 5.1 (Only
+     *         available in the following regions: ap-northeast-1, ap-southeast-1,
+     *         ap-southeast-2, eu-west-1, sa-east-1, us-west-1, us-west-2):</b>
+     *         <code> 5.1.73a | 5.1.73b</code></li> <li><b>Version 5.5 (Only
+     *         available in the following regions: ap-northeast-1, ap-southeast-1,
+     *         ap-southeast-2, eu-west-1, sa-east-1, us-west-1, us-west-2):</b>
+     *         <code> 5.5.40 | 5.5.40a</code></li> <li><b>Version 5.5 (Available in
+     *         all regions):</b> <code> 5.5.40b | 5.5.41 | 5.5.42</code></li>
+     *         <li><b>Version 5.6 (Available in all regions):</b> <code> 5.6.19a |
+     *         5.6.19b | 5.6.21 | 5.6.21b | 5.6.22 | 5.6.23</code></li> </ul>
+     *         <p><b>Oracle Database Enterprise Edition (oracle-ee)</b> <ul>
+     *         <li><b>Version 11.2 (Only available in the following regions:
+     *         ap-northeast-1, ap-southeast-1, ap-southeast-2, eu-west-1, sa-east-1,
+     *         us-west-1, us-west-2):</b> <code> 11.2.0.2.v3 | 11.2.0.2.v4 |
+     *         11.2.0.2.v5 | 11.2.0.2.v6 | 11.2.0.2.v7</code></li> <li><b>Version
+     *         11.2 (Available in all regions):</b> <code> 11.2.0.3.v1 | 11.2.0.3.v2
+     *         | 11.2.0.4.v1 | 11.2.0.4.v3</code></li> <li><b>Version 12.1 (Available
+     *         in all regions):</b> <code> 12.1.0.1.v1</code></li> </ul> <p><b>Oracle
+     *         Database Enterprise Edition (oracle-ee)</b> <ul> <li><b>Version 11.2
+     *         (Only available in the following regions: ap-northeast-1,
+     *         ap-southeast-1, ap-southeast-2, eu-west-1, sa-east-1, us-west-1,
+     *         us-west-2):</b> <code> 11.2.0.2.v3 | 11.2.0.2.v4 | 11.2.0.2.v5 |
+     *         11.2.0.2.v6 | 11.2.0.2.v7</code></li> <li><b>Version 11.2 (Available
+     *         in all regions):</b> <code> 11.2.0.3.v1 | 11.2.0.3.v2 | 11.2.0.4.v1 |
+     *         11.2.0.4.v3</code></li> <li><b>Version 12.1 (Available in all
+     *         regions):</b> <code> 12.1.0.1.v1</code></li> </ul> <p><b>Oracle
+     *         Database Enterprise Edition (oracle-ee)</b> <ul> <li><b>Version 11.2
+     *         (Only available in the following regions: ap-northeast-1,
+     *         ap-southeast-1, ap-southeast-2, eu-west-1, sa-east-1, us-west-1,
+     *         us-west-2):</b> <code> 11.2.0.2.v3 | 11.2.0.2.v4 | 11.2.0.2.v5 |
+     *         11.2.0.2.v6 | 11.2.0.2.v7</code></li> <li><b>Version 11.2 (Available
+     *         in all regions):</b> <code> 11.2.0.3.v1 | 11.2.0.3.v2 | 11.2.0.4.v1 |
+     *         11.2.0.4.v3</code></li> <li><b>Version 12.1 (Available in all
+     *         regions):</b> <code> 12.1.0.1.v1</code></li> </ul> <p><b>Oracle
+     *         Database Standard Edition (oracle-se)</b> <ul> <li><b>Version 11.2
+     *         (Only available in the following regions: us-west-1):</b> <code>
+     *         11.2.0.2.v3 | 11.2.0.2.v4 | 11.2.0.2.v5 | 11.2.0.2.v6 |
+     *         11.2.0.2.v7</code></li> <li><b>Version 11.2 (Only available in the
+     *         following regions: eu-central-1, us-west-1):</b> <code> 11.2.0.3.v1 |
+     *         11.2.0.3.v2 | 11.2.0.4.v1 | 11.2.0.4.v3</code></li> <li><b>Version
+     *         12.1 (Only available in the following regions: eu-central-1,
+     *         us-west-1):</b> <code> 12.1.0.1.v1</code></li> </ul> <p><b>Oracle
+     *         Database Standard Edition (oracle-se)</b> <ul> <li><b>Version 11.2
+     *         (Only available in the following regions: us-west-1):</b> <code>
+     *         11.2.0.2.v3 | 11.2.0.2.v4 | 11.2.0.2.v5 | 11.2.0.2.v6 |
+     *         11.2.0.2.v7</code></li> <li><b>Version 11.2 (Only available in the
+     *         following regions: eu-central-1, us-west-1):</b> <code> 11.2.0.3.v1 |
+     *         11.2.0.3.v2 | 11.2.0.4.v1 | 11.2.0.4.v3</code></li> <li><b>Version
+     *         12.1 (Only available in the following regions: eu-central-1,
+     *         us-west-1):</b> <code> 12.1.0.1.v1</code></li> </ul> <p><b>Oracle
+     *         Database Standard Edition (oracle-se)</b> <ul> <li><b>Version 11.2
+     *         (Only available in the following regions: us-west-1):</b> <code>
+     *         11.2.0.2.v3 | 11.2.0.2.v4 | 11.2.0.2.v5 | 11.2.0.2.v6 |
+     *         11.2.0.2.v7</code></li> <li><b>Version 11.2 (Only available in the
+     *         following regions: eu-central-1, us-west-1):</b> <code> 11.2.0.3.v1 |
+     *         11.2.0.3.v2 | 11.2.0.4.v1 | 11.2.0.4.v3</code></li> <li><b>Version
+     *         12.1 (Only available in the following regions: eu-central-1,
+     *         us-west-1):</b> <code> 12.1.0.1.v1</code></li> </ul> <p><b>Oracle
+     *         Database Standard Edition One (oracle-se1)</b> <ul> <li><b>Version
+     *         11.2 (Only available in the following regions: us-west-1):</b> <code>
+     *         11.2.0.2.v3 | 11.2.0.2.v4 | 11.2.0.2.v5 | 11.2.0.2.v6 |
+     *         11.2.0.2.v7</code></li> <li><b>Version 11.2 (Only available in the
+     *         following regions: eu-central-1, us-west-1):</b> <code> 11.2.0.3.v1 |
+     *         11.2.0.3.v2 | 11.2.0.4.v1 | 11.2.0.4.v3</code></li> <li><b>Version
+     *         12.1 (Only available in the following regions: eu-central-1,
+     *         us-west-1):</b> <code> 12.1.0.1.v1</code></li> </ul> <p><b>Oracle
+     *         Database Standard Edition One (oracle-se1)</b> <ul> <li><b>Version
+     *         11.2 (Only available in the following regions: us-west-1):</b> <code>
+     *         11.2.0.2.v3 | 11.2.0.2.v4 | 11.2.0.2.v5 | 11.2.0.2.v6 |
+     *         11.2.0.2.v7</code></li> <li><b>Version 11.2 (Only available in the
+     *         following regions: eu-central-1, us-west-1):</b> <code> 11.2.0.3.v1 |
+     *         11.2.0.3.v2 | 11.2.0.4.v1 | 11.2.0.4.v3</code></li> <li><b>Version
+     *         12.1 (Only available in the following regions: eu-central-1,
+     *         us-west-1):</b> <code> 12.1.0.1.v1</code></li> </ul> <p><b>Oracle
+     *         Database Standard Edition One (oracle-se1)</b> <ul> <li><b>Version
+     *         11.2 (Only available in the following regions: us-west-1):</b> <code>
+     *         11.2.0.2.v3 | 11.2.0.2.v4 | 11.2.0.2.v5 | 11.2.0.2.v6 |
+     *         11.2.0.2.v7</code></li> <li><b>Version 11.2 (Only available in the
+     *         following regions: eu-central-1, us-west-1):</b> <code> 11.2.0.3.v1 |
+     *         11.2.0.3.v2 | 11.2.0.4.v1 | 11.2.0.4.v3</code></li> <li><b>Version
+     *         12.1 (Only available in the following regions: eu-central-1,
+     *         us-west-1):</b> <code> 12.1.0.1.v1</code></li> </ul>
+     *         <p><b>PostgreSQL</b> <ul> <li><b>Version 9.3 (Only available in the
+     *         following regions: ap-northeast-1, ap-southeast-1, ap-southeast-2,
+     *         eu-west-1, sa-east-1, us-west-1, us-west-2):</b> <code> 9.3.1 |
+     *         9.3.2</code></li> <li><b>Version 9.3 (Available in all regions):</b>
+     *         <code> 9.3.3 | 9.3.5 | 9.3.6</code></li> <li><b>Version 9.4 (Available
+     *         in all regions):</b> <code> 9.4.1</code></li> </ul>
+     *         <p><b>PostgreSQL</b> <ul> <li><b>Version 9.3 (Only available in the
+     *         following regions: ap-northeast-1, ap-southeast-1, ap-southeast-2,
+     *         eu-west-1, sa-east-1, us-west-1, us-west-2):</b> <code> 9.3.1 |
+     *         9.3.2</code></li> <li><b>Version 9.3 (Available in all regions):</b>
+     *         <code> 9.3.3 | 9.3.5 | 9.3.6</code></li> <li><b>Version 9.4 (Available
+     *         in all regions):</b> <code> 9.4.1</code></li> </ul>
+     *         <p><b>PostgreSQL</b> <ul> <li><b>Version 9.3 (Only available in the
+     *         following regions: ap-northeast-1, ap-southeast-1, ap-southeast-2,
+     *         eu-west-1, sa-east-1, us-west-1, us-west-2):</b> <code> 9.3.1 |
+     *         9.3.2</code></li> <li><b>Version 9.3 (Available in all regions):</b>
+     *         <code> 9.3.3 | 9.3.5 | 9.3.6</code></li> <li><b>Version 9.4 (Available
+     *         in all regions):</b> <code> 9.4.1</code></li> </ul> <p><b>Microsoft
+     *         SQL Server Enterprise Edition (sqlserver-ee)</b> <ul> <li><b>Version
+     *         10.50 (Only available in the following regions: eu-central-1,
+     *         us-west-1):</b> <code> 10.50.2789.0.v1</code></li> <li><b>Version
+     *         11.00 (Only available in the following regions: eu-central-1,
+     *         us-west-1):</b> <code> 11.00.2100.60.v1</code></li> </ul>
      *         <p><b>Microsoft SQL Server Enterprise Edition (sqlserver-ee)</b> <ul>
-     *         <li><b>Version 10.5:</b> <code> 10.50.2789.0.v1</code></li>
-     *         <li><b>Version 11.0:</b> <code> 11.00.2100.60.v1</code></li> </ul>
+     *         <li><b>Version 10.50 (Only available in the following regions:
+     *         eu-central-1, us-west-1):</b> <code> 10.50.2789.0.v1</code></li>
+     *         <li><b>Version 11.00 (Only available in the following regions:
+     *         eu-central-1, us-west-1):</b> <code> 11.00.2100.60.v1</code></li>
+     *         </ul> <p><b>Microsoft SQL Server Express Edition (sqlserver-ex)</b>
+     *         <ul> <li><b>Version 10.50 (Available in all regions):</b> <code>
+     *         10.50.2789.0.v1</code></li> <li><b>Version 11.00 (Available in all
+     *         regions):</b> <code> 11.00.2100.60.v1</code></li> </ul>
      *         <p><b>Microsoft SQL Server Express Edition (sqlserver-ex)</b> <ul>
-     *         <li><b>Version 10.5:</b> <code> 10.50.2789.0.v1</code></li>
-     *         <li><b>Version 11.0:</b> <code> 11.00.2100.60.v1</code></li> </ul>
+     *         <li><b>Version 10.50 (Available in all regions):</b> <code>
+     *         10.50.2789.0.v1</code></li> <li><b>Version 11.00 (Available in all
+     *         regions):</b> <code> 11.00.2100.60.v1</code></li> </ul>
      *         <p><b>Microsoft SQL Server Standard Edition (sqlserver-se)</b> <ul>
-     *         <li><b>Version 10.5:</b> <code> 10.50.2789.0.v1</code></li>
-     *         <li><b>Version 11.0:</b> <code> 11.00.2100.60.v1</code></li> </ul>
+     *         <li><b>Version 10.50 (Available in all regions):</b> <code>
+     *         10.50.2789.0.v1</code></li> <li><b>Version 11.00 (Available in all
+     *         regions):</b> <code> 11.00.2100.60.v1</code></li> </ul>
+     *         <p><b>Microsoft SQL Server Standard Edition (sqlserver-se)</b> <ul>
+     *         <li><b>Version 10.50 (Available in all regions):</b> <code>
+     *         10.50.2789.0.v1</code></li> <li><b>Version 11.00 (Available in all
+     *         regions):</b> <code> 11.00.2100.60.v1</code></li> </ul>
      *         <p><b>Microsoft SQL Server Web Edition (sqlserver-web)</b> <ul>
-     *         <li><b>Version 10.5:</b> <code> 10.50.2789.0.v1</code></li>
-     *         <li><b>Version 11.0:</b> <code> 11.00.2100.60.v1</code></li> </ul>
+     *         <li><b>Version 10.50 (Available in all regions):</b> <code>
+     *         10.50.2789.0.v1</code></li> <li><b>Version 11.00 (Available in all
+     *         regions):</b> <code> 11.00.2100.60.v1</code></li> </ul>
+     *         <p><b>Microsoft SQL Server Web Edition (sqlserver-web)</b> <ul>
+     *         <li><b>Version 10.50 (Available in all regions):</b> <code>
+     *         10.50.2789.0.v1</code></li> <li><b>Version 11.00 (Available in all
+     *         regions):</b> <code> 11.00.2100.60.v1</code></li> </ul>
      *
      * @return A reference to this updated object so that method calls can be chained
      *         together.
@@ -2162,8 +3196,8 @@ public class CreateDBInstanceRequest extends AmazonWebServiceRequest implements 
      * specifies an internal instance with a DNS name that resolves to a
      * private IP address. <p> Default: The default behavior varies depending
      * on whether a VPC has been requested or not. The following list shows
-     * the default behavior in each case. <ul> <li><b>Default VPC:</b>
-     * true</li> <li><b>VPC:</b> false</li> </ul> <p> If no DB subnet group
+     * the default behavior in each case. <ul> <li> <b>Default VPC:</b>
+     * true</li> <li> <b>VPC:</b> false</li> </ul> <p> If no DB subnet group
      * has been specified as part of the request and the PubliclyAccessible
      * value has not been set, the DB instance will be publicly accessible.
      * If a specific DB subnet group has been specified as part of the
@@ -2176,8 +3210,8 @@ public class CreateDBInstanceRequest extends AmazonWebServiceRequest implements 
      *         specifies an internal instance with a DNS name that resolves to a
      *         private IP address. <p> Default: The default behavior varies depending
      *         on whether a VPC has been requested or not. The following list shows
-     *         the default behavior in each case. <ul> <li><b>Default VPC:</b>
-     *         true</li> <li><b>VPC:</b> false</li> </ul> <p> If no DB subnet group
+     *         the default behavior in each case. <ul> <li> <b>Default VPC:</b>
+     *         true</li> <li> <b>VPC:</b> false</li> </ul> <p> If no DB subnet group
      *         has been specified as part of the request and the PubliclyAccessible
      *         value has not been set, the DB instance will be publicly accessible.
      *         If a specific DB subnet group has been specified as part of the
@@ -2195,8 +3229,8 @@ public class CreateDBInstanceRequest extends AmazonWebServiceRequest implements 
      * specifies an internal instance with a DNS name that resolves to a
      * private IP address. <p> Default: The default behavior varies depending
      * on whether a VPC has been requested or not. The following list shows
-     * the default behavior in each case. <ul> <li><b>Default VPC:</b>
-     * true</li> <li><b>VPC:</b> false</li> </ul> <p> If no DB subnet group
+     * the default behavior in each case. <ul> <li> <b>Default VPC:</b>
+     * true</li> <li> <b>VPC:</b> false</li> </ul> <p> If no DB subnet group
      * has been specified as part of the request and the PubliclyAccessible
      * value has not been set, the DB instance will be publicly accessible.
      * If a specific DB subnet group has been specified as part of the
@@ -2209,8 +3243,8 @@ public class CreateDBInstanceRequest extends AmazonWebServiceRequest implements 
      *         specifies an internal instance with a DNS name that resolves to a
      *         private IP address. <p> Default: The default behavior varies depending
      *         on whether a VPC has been requested or not. The following list shows
-     *         the default behavior in each case. <ul> <li><b>Default VPC:</b>
-     *         true</li> <li><b>VPC:</b> false</li> </ul> <p> If no DB subnet group
+     *         the default behavior in each case. <ul> <li> <b>Default VPC:</b>
+     *         true</li> <li> <b>VPC:</b> false</li> </ul> <p> If no DB subnet group
      *         has been specified as part of the request and the PubliclyAccessible
      *         value has not been set, the DB instance will be publicly accessible.
      *         If a specific DB subnet group has been specified as part of the
@@ -2228,8 +3262,8 @@ public class CreateDBInstanceRequest extends AmazonWebServiceRequest implements 
      * specifies an internal instance with a DNS name that resolves to a
      * private IP address. <p> Default: The default behavior varies depending
      * on whether a VPC has been requested or not. The following list shows
-     * the default behavior in each case. <ul> <li><b>Default VPC:</b>
-     * true</li> <li><b>VPC:</b> false</li> </ul> <p> If no DB subnet group
+     * the default behavior in each case. <ul> <li> <b>Default VPC:</b>
+     * true</li> <li> <b>VPC:</b> false</li> </ul> <p> If no DB subnet group
      * has been specified as part of the request and the PubliclyAccessible
      * value has not been set, the DB instance will be publicly accessible.
      * If a specific DB subnet group has been specified as part of the
@@ -2244,8 +3278,8 @@ public class CreateDBInstanceRequest extends AmazonWebServiceRequest implements 
      *         specifies an internal instance with a DNS name that resolves to a
      *         private IP address. <p> Default: The default behavior varies depending
      *         on whether a VPC has been requested or not. The following list shows
-     *         the default behavior in each case. <ul> <li><b>Default VPC:</b>
-     *         true</li> <li><b>VPC:</b> false</li> </ul> <p> If no DB subnet group
+     *         the default behavior in each case. <ul> <li> <b>Default VPC:</b>
+     *         true</li> <li> <b>VPC:</b> false</li> </ul> <p> If no DB subnet group
      *         has been specified as part of the request and the PubliclyAccessible
      *         value has not been set, the DB instance will be publicly accessible.
      *         If a specific DB subnet group has been specified as part of the
@@ -2267,8 +3301,8 @@ public class CreateDBInstanceRequest extends AmazonWebServiceRequest implements 
      * specifies an internal instance with a DNS name that resolves to a
      * private IP address. <p> Default: The default behavior varies depending
      * on whether a VPC has been requested or not. The following list shows
-     * the default behavior in each case. <ul> <li><b>Default VPC:</b>
-     * true</li> <li><b>VPC:</b> false</li> </ul> <p> If no DB subnet group
+     * the default behavior in each case. <ul> <li> <b>Default VPC:</b>
+     * true</li> <li> <b>VPC:</b> false</li> </ul> <p> If no DB subnet group
      * has been specified as part of the request and the PubliclyAccessible
      * value has not been set, the DB instance will be publicly accessible.
      * If a specific DB subnet group has been specified as part of the
@@ -2281,8 +3315,8 @@ public class CreateDBInstanceRequest extends AmazonWebServiceRequest implements 
      *         specifies an internal instance with a DNS name that resolves to a
      *         private IP address. <p> Default: The default behavior varies depending
      *         on whether a VPC has been requested or not. The following list shows
-     *         the default behavior in each case. <ul> <li><b>Default VPC:</b>
-     *         true</li> <li><b>VPC:</b> false</li> </ul> <p> If no DB subnet group
+     *         the default behavior in each case. <ul> <li> <b>Default VPC:</b>
+     *         true</li> <li> <b>VPC:</b> false</li> </ul> <p> If no DB subnet group
      *         has been specified as part of the request and the PubliclyAccessible
      *         value has not been set, the DB instance will be publicly accessible.
      *         If a specific DB subnet group has been specified as part of the
@@ -2324,6 +3358,11 @@ public class CreateDBInstanceRequest extends AmazonWebServiceRequest implements 
     /**
      * A list of tags.
      * <p>
+     * <b>NOTE:</b> This method appends the values to the existing list (if
+     * any). Use {@link #setTags(java.util.Collection)} or {@link
+     * #withTags(java.util.Collection)} if you want to override the existing
+     * values.
+     * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *
      * @param tags A list of tags.
@@ -2358,6 +3397,51 @@ public class CreateDBInstanceRequest extends AmazonWebServiceRequest implements 
             this.tags = tagsCopy;
         }
 
+        return this;
+    }
+
+    /**
+     * The identifier of the DB cluster that the instance will belong to.
+     * <p>For information on creating a DB cluster, see
+     * <a>CreateDBCluster</a>. <p>Type: String
+     *
+     * @return The identifier of the DB cluster that the instance will belong to.
+     *         <p>For information on creating a DB cluster, see
+     *         <a>CreateDBCluster</a>. <p>Type: String
+     */
+    public String getDBClusterIdentifier() {
+        return dBClusterIdentifier;
+    }
+    
+    /**
+     * The identifier of the DB cluster that the instance will belong to.
+     * <p>For information on creating a DB cluster, see
+     * <a>CreateDBCluster</a>. <p>Type: String
+     *
+     * @param dBClusterIdentifier The identifier of the DB cluster that the instance will belong to.
+     *         <p>For information on creating a DB cluster, see
+     *         <a>CreateDBCluster</a>. <p>Type: String
+     */
+    public void setDBClusterIdentifier(String dBClusterIdentifier) {
+        this.dBClusterIdentifier = dBClusterIdentifier;
+    }
+    
+    /**
+     * The identifier of the DB cluster that the instance will belong to.
+     * <p>For information on creating a DB cluster, see
+     * <a>CreateDBCluster</a>. <p>Type: String
+     * <p>
+     * Returns a reference to this object so that method calls can be chained together.
+     *
+     * @param dBClusterIdentifier The identifier of the DB cluster that the instance will belong to.
+     *         <p>For information on creating a DB cluster, see
+     *         <a>CreateDBCluster</a>. <p>Type: String
+     *
+     * @return A reference to this updated object so that method calls can be chained
+     *         together.
+     */
+    public CreateDBInstanceRequest withDBClusterIdentifier(String dBClusterIdentifier) {
+        this.dBClusterIdentifier = dBClusterIdentifier;
         return this;
     }
 
@@ -2668,6 +3752,7 @@ public class CreateDBInstanceRequest extends AmazonWebServiceRequest implements 
         if (getCharacterSetName() != null) sb.append("CharacterSetName: " + getCharacterSetName() + ",");
         if (isPubliclyAccessible() != null) sb.append("PubliclyAccessible: " + isPubliclyAccessible() + ",");
         if (getTags() != null) sb.append("Tags: " + getTags() + ",");
+        if (getDBClusterIdentifier() != null) sb.append("DBClusterIdentifier: " + getDBClusterIdentifier() + ",");
         if (getStorageType() != null) sb.append("StorageType: " + getStorageType() + ",");
         if (getTdeCredentialArn() != null) sb.append("TdeCredentialArn: " + getTdeCredentialArn() + ",");
         if (getTdeCredentialPassword() != null) sb.append("TdeCredentialPassword: " + getTdeCredentialPassword() + ",");
@@ -2707,6 +3792,7 @@ public class CreateDBInstanceRequest extends AmazonWebServiceRequest implements 
         hashCode = prime * hashCode + ((getCharacterSetName() == null) ? 0 : getCharacterSetName().hashCode()); 
         hashCode = prime * hashCode + ((isPubliclyAccessible() == null) ? 0 : isPubliclyAccessible().hashCode()); 
         hashCode = prime * hashCode + ((getTags() == null) ? 0 : getTags().hashCode()); 
+        hashCode = prime * hashCode + ((getDBClusterIdentifier() == null) ? 0 : getDBClusterIdentifier().hashCode()); 
         hashCode = prime * hashCode + ((getStorageType() == null) ? 0 : getStorageType().hashCode()); 
         hashCode = prime * hashCode + ((getTdeCredentialArn() == null) ? 0 : getTdeCredentialArn().hashCode()); 
         hashCode = prime * hashCode + ((getTdeCredentialPassword() == null) ? 0 : getTdeCredentialPassword().hashCode()); 
@@ -2773,6 +3859,8 @@ public class CreateDBInstanceRequest extends AmazonWebServiceRequest implements 
         if (other.isPubliclyAccessible() != null && other.isPubliclyAccessible().equals(this.isPubliclyAccessible()) == false) return false; 
         if (other.getTags() == null ^ this.getTags() == null) return false;
         if (other.getTags() != null && other.getTags().equals(this.getTags()) == false) return false; 
+        if (other.getDBClusterIdentifier() == null ^ this.getDBClusterIdentifier() == null) return false;
+        if (other.getDBClusterIdentifier() != null && other.getDBClusterIdentifier().equals(this.getDBClusterIdentifier()) == false) return false; 
         if (other.getStorageType() == null ^ this.getStorageType() == null) return false;
         if (other.getStorageType() != null && other.getStorageType().equals(this.getStorageType()) == false) return false; 
         if (other.getTdeCredentialArn() == null ^ this.getTdeCredentialArn() == null) return false;

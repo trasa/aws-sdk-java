@@ -45,6 +45,7 @@ public class InternalConfigTest {
         serviceSignerMap.put("monitoring", DEFAULT_SIGNER_TYPE);
         serviceSignerMap.put("sts", DEFAULT_SIGNER_TYPE);
         serviceSignerMap.put("iam", DEFAULT_SIGNER_TYPE);
+        serviceSignerMap.put("route53", DEFAULT_SIGNER_TYPE);
     }
 
     /**
@@ -125,14 +126,6 @@ public class InternalConfigTest {
     }
 
     /**
-     * This test case tests the Route53 specific signers.
-     */
-    @Test
-    public void testRoute53ServiceSigners() {
-        assertSignerType("AWS3SignerType", "route53", null);
-    }
-
-    /**
      * This test cases tests the default signers for any new regions added to
      * any AWS service.
      */
@@ -167,7 +160,7 @@ public class InternalConfigTest {
 
     @Test
     public void loadFromFile() throws Exception {
-        loadFrom(InternalConfig.DEFAULT_CONFIG_RESOURCE);
+        loadFrom(InternalConfig.DEFAULT_CONFIG_RESOURCE_ABSOLUTE_PATH);
     }
 
     private void loadFrom(String resource) throws Exception {

@@ -1,5 +1,5 @@
 /*
- * Copyright 2012 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2012-2015 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License.
@@ -36,6 +36,7 @@ public class TestWorkflowContext implements WorkflowContext {
     private long executionStartToCloseTimeout;
     private String taskList;
     private int taskPriority;
+    private String lambdaRole;
     private TryCatchFinally rootTryCatch;
     
     public WorkflowExecution getWorkflowExecution() {
@@ -108,6 +109,14 @@ public class TestWorkflowContext implements WorkflowContext {
     
     public void setTaskList(String taskList) {
         this.taskList = taskList;
+    }
+
+    public String getLambdaRole() {
+        return lambdaRole;
+    }
+
+    public void setLambdaRole(String lambdaRole) {
+        this.lambdaRole = lambdaRole;
     }
     
     public boolean isCancelRequested() {

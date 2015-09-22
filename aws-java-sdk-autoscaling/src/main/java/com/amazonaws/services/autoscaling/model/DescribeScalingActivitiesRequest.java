@@ -27,24 +27,18 @@ import com.amazonaws.AmazonWebServiceRequest;
  * by the start time. Activities still in progress appear first on the
  * list.
  * </p>
- * <p>
- * You can specify a maximum number of items to be returned with a single
- * call. If there are more items to return, the call returns a token. To
- * get the next set of items, repeat the call with the returned token in
- * the <code>NextToken</code> parameter.
- * </p>
  *
  * @see com.amazonaws.services.autoscaling.AmazonAutoScaling#describeScalingActivities(DescribeScalingActivitiesRequest)
  */
 public class DescribeScalingActivitiesRequest extends AmazonWebServiceRequest implements Serializable, Cloneable {
 
     /**
-     * A list containing the activity IDs of the desired scaling activities.
-     * If this list is omitted, all activities are described. If an
-     * <code>AutoScalingGroupName</code> is provided, the results are limited
-     * to that group. The list of requested activities cannot contain more
-     * than 50 items. If unknown activities are requested, they are ignored
-     * with no error.
+     * The activity IDs of the desired scaling activities. If this list is
+     * omitted, all activities are described. If the
+     * <code>AutoScalingGroupName</code> parameter is provided, the results
+     * are limited to that group. The list of requested activities cannot
+     * contain more than 50 items. If unknown activities are requested, they
+     * are ignored with no error.
      */
     private com.amazonaws.internal.ListWithAutoConstructFlag<String> activityIds;
 
@@ -72,19 +66,19 @@ public class DescribeScalingActivitiesRequest extends AmazonWebServiceRequest im
     private String nextToken;
 
     /**
-     * A list containing the activity IDs of the desired scaling activities.
-     * If this list is omitted, all activities are described. If an
-     * <code>AutoScalingGroupName</code> is provided, the results are limited
-     * to that group. The list of requested activities cannot contain more
-     * than 50 items. If unknown activities are requested, they are ignored
-     * with no error.
+     * The activity IDs of the desired scaling activities. If this list is
+     * omitted, all activities are described. If the
+     * <code>AutoScalingGroupName</code> parameter is provided, the results
+     * are limited to that group. The list of requested activities cannot
+     * contain more than 50 items. If unknown activities are requested, they
+     * are ignored with no error.
      *
-     * @return A list containing the activity IDs of the desired scaling activities.
-     *         If this list is omitted, all activities are described. If an
-     *         <code>AutoScalingGroupName</code> is provided, the results are limited
-     *         to that group. The list of requested activities cannot contain more
-     *         than 50 items. If unknown activities are requested, they are ignored
-     *         with no error.
+     * @return The activity IDs of the desired scaling activities. If this list is
+     *         omitted, all activities are described. If the
+     *         <code>AutoScalingGroupName</code> parameter is provided, the results
+     *         are limited to that group. The list of requested activities cannot
+     *         contain more than 50 items. If unknown activities are requested, they
+     *         are ignored with no error.
      */
     public java.util.List<String> getActivityIds() {
         if (activityIds == null) {
@@ -95,19 +89,19 @@ public class DescribeScalingActivitiesRequest extends AmazonWebServiceRequest im
     }
     
     /**
-     * A list containing the activity IDs of the desired scaling activities.
-     * If this list is omitted, all activities are described. If an
-     * <code>AutoScalingGroupName</code> is provided, the results are limited
-     * to that group. The list of requested activities cannot contain more
-     * than 50 items. If unknown activities are requested, they are ignored
-     * with no error.
+     * The activity IDs of the desired scaling activities. If this list is
+     * omitted, all activities are described. If the
+     * <code>AutoScalingGroupName</code> parameter is provided, the results
+     * are limited to that group. The list of requested activities cannot
+     * contain more than 50 items. If unknown activities are requested, they
+     * are ignored with no error.
      *
-     * @param activityIds A list containing the activity IDs of the desired scaling activities.
-     *         If this list is omitted, all activities are described. If an
-     *         <code>AutoScalingGroupName</code> is provided, the results are limited
-     *         to that group. The list of requested activities cannot contain more
-     *         than 50 items. If unknown activities are requested, they are ignored
-     *         with no error.
+     * @param activityIds The activity IDs of the desired scaling activities. If this list is
+     *         omitted, all activities are described. If the
+     *         <code>AutoScalingGroupName</code> parameter is provided, the results
+     *         are limited to that group. The list of requested activities cannot
+     *         contain more than 50 items. If unknown activities are requested, they
+     *         are ignored with no error.
      */
     public void setActivityIds(java.util.Collection<String> activityIds) {
         if (activityIds == null) {
@@ -120,21 +114,26 @@ public class DescribeScalingActivitiesRequest extends AmazonWebServiceRequest im
     }
     
     /**
-     * A list containing the activity IDs of the desired scaling activities.
-     * If this list is omitted, all activities are described. If an
-     * <code>AutoScalingGroupName</code> is provided, the results are limited
-     * to that group. The list of requested activities cannot contain more
-     * than 50 items. If unknown activities are requested, they are ignored
-     * with no error.
+     * The activity IDs of the desired scaling activities. If this list is
+     * omitted, all activities are described. If the
+     * <code>AutoScalingGroupName</code> parameter is provided, the results
+     * are limited to that group. The list of requested activities cannot
+     * contain more than 50 items. If unknown activities are requested, they
+     * are ignored with no error.
+     * <p>
+     * <b>NOTE:</b> This method appends the values to the existing list (if
+     * any). Use {@link #setActivityIds(java.util.Collection)} or {@link
+     * #withActivityIds(java.util.Collection)} if you want to override the
+     * existing values.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *
-     * @param activityIds A list containing the activity IDs of the desired scaling activities.
-     *         If this list is omitted, all activities are described. If an
-     *         <code>AutoScalingGroupName</code> is provided, the results are limited
-     *         to that group. The list of requested activities cannot contain more
-     *         than 50 items. If unknown activities are requested, they are ignored
-     *         with no error.
+     * @param activityIds The activity IDs of the desired scaling activities. If this list is
+     *         omitted, all activities are described. If the
+     *         <code>AutoScalingGroupName</code> parameter is provided, the results
+     *         are limited to that group. The list of requested activities cannot
+     *         contain more than 50 items. If unknown activities are requested, they
+     *         are ignored with no error.
      *
      * @return A reference to this updated object so that method calls can be chained
      *         together.
@@ -148,21 +147,21 @@ public class DescribeScalingActivitiesRequest extends AmazonWebServiceRequest im
     }
     
     /**
-     * A list containing the activity IDs of the desired scaling activities.
-     * If this list is omitted, all activities are described. If an
-     * <code>AutoScalingGroupName</code> is provided, the results are limited
-     * to that group. The list of requested activities cannot contain more
-     * than 50 items. If unknown activities are requested, they are ignored
-     * with no error.
+     * The activity IDs of the desired scaling activities. If this list is
+     * omitted, all activities are described. If the
+     * <code>AutoScalingGroupName</code> parameter is provided, the results
+     * are limited to that group. The list of requested activities cannot
+     * contain more than 50 items. If unknown activities are requested, they
+     * are ignored with no error.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *
-     * @param activityIds A list containing the activity IDs of the desired scaling activities.
-     *         If this list is omitted, all activities are described. If an
-     *         <code>AutoScalingGroupName</code> is provided, the results are limited
-     *         to that group. The list of requested activities cannot contain more
-     *         than 50 items. If unknown activities are requested, they are ignored
-     *         with no error.
+     * @param activityIds The activity IDs of the desired scaling activities. If this list is
+     *         omitted, all activities are described. If the
+     *         <code>AutoScalingGroupName</code> parameter is provided, the results
+     *         are limited to that group. The list of requested activities cannot
+     *         contain more than 50 items. If unknown activities are requested, they
+     *         are ignored with no error.
      *
      * @return A reference to this updated object so that method calls can be chained
      *         together.

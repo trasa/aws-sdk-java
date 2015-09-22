@@ -27,10 +27,9 @@ import com.amazonaws.AmazonWebServiceRequest;
  * to the identity data.
  * </p>
  * <p>
- * <code>DescribeDataset</code> can be called with temporary user
- * credentials provided by Cognito Identity or with developer
- * credentials. You should use Cognito Identity credentials to make this
- * API call.
+ * This API can be called with temporary user credentials provided by
+ * Cognito Identity or with developer credentials. You should use Cognito
+ * Identity credentials to make this API call.
  * </p>
  *
  * @see com.amazonaws.services.cognitosync.AmazonCognitoSync#describeDataset(DescribeDatasetRequest)
@@ -43,7 +42,7 @@ public class DescribeDatasetRequest extends AmazonWebServiceRequest implements S
      * Cognito. GUID generation is unique within a region.
      * <p>
      * <b>Constraints:</b><br/>
-     * <b>Length: </b>1 - 50<br/>
+     * <b>Length: </b>1 - 55<br/>
      * <b>Pattern: </b>[\w-]+:[0-9a-f-]+<br/>
      */
     private String identityPoolId;
@@ -54,7 +53,7 @@ public class DescribeDatasetRequest extends AmazonWebServiceRequest implements S
      * Cognito. GUID generation is unique within a region.
      * <p>
      * <b>Constraints:</b><br/>
-     * <b>Length: </b>1 - 50<br/>
+     * <b>Length: </b>1 - 55<br/>
      * <b>Pattern: </b>[\w-]+:[0-9a-f-]+<br/>
      */
     private String identityId;
@@ -75,7 +74,7 @@ public class DescribeDatasetRequest extends AmazonWebServiceRequest implements S
      * Cognito. GUID generation is unique within a region.
      * <p>
      * <b>Constraints:</b><br/>
-     * <b>Length: </b>1 - 50<br/>
+     * <b>Length: </b>1 - 55<br/>
      * <b>Pattern: </b>[\w-]+:[0-9a-f-]+<br/>
      *
      * @return A name-spaced GUID (for example,
@@ -92,7 +91,7 @@ public class DescribeDatasetRequest extends AmazonWebServiceRequest implements S
      * Cognito. GUID generation is unique within a region.
      * <p>
      * <b>Constraints:</b><br/>
-     * <b>Length: </b>1 - 50<br/>
+     * <b>Length: </b>1 - 55<br/>
      * <b>Pattern: </b>[\w-]+:[0-9a-f-]+<br/>
      *
      * @param identityPoolId A name-spaced GUID (for example,
@@ -111,7 +110,7 @@ public class DescribeDatasetRequest extends AmazonWebServiceRequest implements S
      * Returns a reference to this object so that method calls can be chained together.
      * <p>
      * <b>Constraints:</b><br/>
-     * <b>Length: </b>1 - 50<br/>
+     * <b>Length: </b>1 - 55<br/>
      * <b>Pattern: </b>[\w-]+:[0-9a-f-]+<br/>
      *
      * @param identityPoolId A name-spaced GUID (for example,
@@ -132,7 +131,7 @@ public class DescribeDatasetRequest extends AmazonWebServiceRequest implements S
      * Cognito. GUID generation is unique within a region.
      * <p>
      * <b>Constraints:</b><br/>
-     * <b>Length: </b>1 - 50<br/>
+     * <b>Length: </b>1 - 55<br/>
      * <b>Pattern: </b>[\w-]+:[0-9a-f-]+<br/>
      *
      * @return A name-spaced GUID (for example,
@@ -149,7 +148,7 @@ public class DescribeDatasetRequest extends AmazonWebServiceRequest implements S
      * Cognito. GUID generation is unique within a region.
      * <p>
      * <b>Constraints:</b><br/>
-     * <b>Length: </b>1 - 50<br/>
+     * <b>Length: </b>1 - 55<br/>
      * <b>Pattern: </b>[\w-]+:[0-9a-f-]+<br/>
      *
      * @param identityId A name-spaced GUID (for example,
@@ -168,7 +167,7 @@ public class DescribeDatasetRequest extends AmazonWebServiceRequest implements S
      * Returns a reference to this object so that method calls can be chained together.
      * <p>
      * <b>Constraints:</b><br/>
-     * <b>Length: </b>1 - 50<br/>
+     * <b>Length: </b>1 - 55<br/>
      * <b>Pattern: </b>[\w-]+:[0-9a-f-]+<br/>
      *
      * @param identityId A name-spaced GUID (for example,

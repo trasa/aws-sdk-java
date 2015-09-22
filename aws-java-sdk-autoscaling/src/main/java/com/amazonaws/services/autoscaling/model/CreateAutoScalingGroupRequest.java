@@ -26,7 +26,12 @@ import com.amazonaws.AmazonWebServiceRequest;
  * <p>
  * If you exceed your maximum limit of Auto Scaling groups, which by
  * default is 20 per region, the call fails. For information about
- * viewing and updating these limits, see DescribeAccountLimits.
+ * viewing and updating this limit, see DescribeAccountLimits.
+ * </p>
+ * <p>
+ * For more information, see
+ * <a href="http://docs.aws.amazon.com/AutoScaling/latest/DeveloperGuide/AutoScalingGroup.html"> Auto Scaling Groups </a>
+ * in the <i>Auto Scaling Developer Guide</i> .
  * </p>
  *
  * @see com.amazonaws.services.autoscaling.AmazonAutoScaling#createAutoScalingGroup(CreateAutoScalingGroupRequest)
@@ -64,8 +69,8 @@ public class CreateAutoScalingGroupRequest extends AmazonWebServiceRequest imple
      * instance, with the exception of the block device mapping. <p>For more
      * information, see <a
      * href="http://docs.aws.amazon.com/AutoScaling/latest/DeveloperGuide/create-asg-from-instance.html">Create
-     * an Auto Scaling Group Using an EC2 Instance ID</a> in the <i>Auto
-     * Scaling Developer Guide</i>.
+     * an Auto Scaling Group from an EC2 Instance</a> in the <i>Auto Scaling
+     * Developer Guide</i>.
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>1 - 16<br/>
@@ -85,16 +90,15 @@ public class CreateAutoScalingGroupRequest extends AmazonWebServiceRequest imple
 
     /**
      * The number of EC2 instances that should be running in the group. This
-     * value must be greater than or equal to the minimum size of the group
+     * number must be greater than or equal to the minimum size of the group
      * and less than or equal to the maximum size of the group.
      */
     private Integer desiredCapacity;
 
     /**
      * The amount of time, in seconds, after a scaling activity completes
-     * before another scaling activity can start. <p>If
-     * <code>DefaultCooldown</code> is not specified, the default value is
-     * 300. For more information, see <a
+     * before another scaling activity can start. <p>If this parameter is not
+     * specified, the default value is 300. For more information, see <a
      * href="http://docs.aws.amazon.com/AutoScaling/latest/DeveloperGuide/Cooldown.html">Understanding
      * Auto Scaling Cooldowns</a> in the <i>Auto Scaling Developer Guide</i>.
      */
@@ -151,7 +155,7 @@ public class CreateAutoScalingGroupRequest extends AmazonWebServiceRequest imple
      * The name of the placement group into which you'll launch your
      * instances, if any. For more information, see <a
      * href="http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/placement-groups.html">Placement
-     * Groups</a>.
+     * Groups</a> in the <i>Amazon Elastic Compute Cloud User Guide</i>.
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>1 - 255<br/>
@@ -165,7 +169,8 @@ public class CreateAutoScalingGroupRequest extends AmazonWebServiceRequest imple
      * this call, ensure that the subnets' Availability Zones match the
      * Availability Zones specified. <p>For more information, see <a
      * href="http://docs.aws.amazon.com/AutoScaling/latest/DeveloperGuide/autoscalingsubnets.html">Auto
-     * Scaling and Amazon VPC</a> in the <i>Auto Scaling Developer Guide</i>.
+     * Scaling and Amazon Virtual Private Cloud</a> in the <i>Auto Scaling
+     * Developer Guide</i>.
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>1 - 255<br/>
@@ -189,9 +194,9 @@ public class CreateAutoScalingGroupRequest extends AmazonWebServiceRequest imple
      * values: key=<i>value</i>, value=<i>value</i>, propagate=<i>true</i> or
      * <i>false</i>. Value and propagate are optional parameters. <p>For more
      * information, see <a
-     * href="http://docs.aws.amazon.com/AutoScaling/latest/DeveloperGuide/ASTagging.html">Add,
-     * Modify, or Remove Auto Scaling Group Tags</a> in the <i>Auto Scaling
-     * Developer Guide</i>.
+     * href="http://docs.aws.amazon.com/AutoScaling/latest/DeveloperGuide/ASTagging.html">Tagging
+     * Auto Scaling Groups and Instances</a> in the <i>Auto Scaling Developer
+     * Guide</i>.
      */
     private com.amazonaws.internal.ListWithAutoConstructFlag<Tag> tags;
 
@@ -313,8 +318,8 @@ public class CreateAutoScalingGroupRequest extends AmazonWebServiceRequest imple
      * instance, with the exception of the block device mapping. <p>For more
      * information, see <a
      * href="http://docs.aws.amazon.com/AutoScaling/latest/DeveloperGuide/create-asg-from-instance.html">Create
-     * an Auto Scaling Group Using an EC2 Instance ID</a> in the <i>Auto
-     * Scaling Developer Guide</i>.
+     * an Auto Scaling Group from an EC2 Instance</a> in the <i>Auto Scaling
+     * Developer Guide</i>.
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>1 - 16<br/>
@@ -329,8 +334,8 @@ public class CreateAutoScalingGroupRequest extends AmazonWebServiceRequest imple
      *         instance, with the exception of the block device mapping. <p>For more
      *         information, see <a
      *         href="http://docs.aws.amazon.com/AutoScaling/latest/DeveloperGuide/create-asg-from-instance.html">Create
-     *         an Auto Scaling Group Using an EC2 Instance ID</a> in the <i>Auto
-     *         Scaling Developer Guide</i>.
+     *         an Auto Scaling Group from an EC2 Instance</a> in the <i>Auto Scaling
+     *         Developer Guide</i>.
      */
     public String getInstanceId() {
         return instanceId;
@@ -346,8 +351,8 @@ public class CreateAutoScalingGroupRequest extends AmazonWebServiceRequest imple
      * instance, with the exception of the block device mapping. <p>For more
      * information, see <a
      * href="http://docs.aws.amazon.com/AutoScaling/latest/DeveloperGuide/create-asg-from-instance.html">Create
-     * an Auto Scaling Group Using an EC2 Instance ID</a> in the <i>Auto
-     * Scaling Developer Guide</i>.
+     * an Auto Scaling Group from an EC2 Instance</a> in the <i>Auto Scaling
+     * Developer Guide</i>.
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>1 - 16<br/>
@@ -362,8 +367,8 @@ public class CreateAutoScalingGroupRequest extends AmazonWebServiceRequest imple
      *         instance, with the exception of the block device mapping. <p>For more
      *         information, see <a
      *         href="http://docs.aws.amazon.com/AutoScaling/latest/DeveloperGuide/create-asg-from-instance.html">Create
-     *         an Auto Scaling Group Using an EC2 Instance ID</a> in the <i>Auto
-     *         Scaling Developer Guide</i>.
+     *         an Auto Scaling Group from an EC2 Instance</a> in the <i>Auto Scaling
+     *         Developer Guide</i>.
      */
     public void setInstanceId(String instanceId) {
         this.instanceId = instanceId;
@@ -379,8 +384,8 @@ public class CreateAutoScalingGroupRequest extends AmazonWebServiceRequest imple
      * instance, with the exception of the block device mapping. <p>For more
      * information, see <a
      * href="http://docs.aws.amazon.com/AutoScaling/latest/DeveloperGuide/create-asg-from-instance.html">Create
-     * an Auto Scaling Group Using an EC2 Instance ID</a> in the <i>Auto
-     * Scaling Developer Guide</i>.
+     * an Auto Scaling Group from an EC2 Instance</a> in the <i>Auto Scaling
+     * Developer Guide</i>.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      * <p>
@@ -397,8 +402,8 @@ public class CreateAutoScalingGroupRequest extends AmazonWebServiceRequest imple
      *         instance, with the exception of the block device mapping. <p>For more
      *         information, see <a
      *         href="http://docs.aws.amazon.com/AutoScaling/latest/DeveloperGuide/create-asg-from-instance.html">Create
-     *         an Auto Scaling Group Using an EC2 Instance ID</a> in the <i>Auto
-     *         Scaling Developer Guide</i>.
+     *         an Auto Scaling Group from an EC2 Instance</a> in the <i>Auto Scaling
+     *         Developer Guide</i>.
      *
      * @return A reference to this updated object so that method calls can be chained
      *         together.
@@ -476,11 +481,11 @@ public class CreateAutoScalingGroupRequest extends AmazonWebServiceRequest imple
 
     /**
      * The number of EC2 instances that should be running in the group. This
-     * value must be greater than or equal to the minimum size of the group
+     * number must be greater than or equal to the minimum size of the group
      * and less than or equal to the maximum size of the group.
      *
      * @return The number of EC2 instances that should be running in the group. This
-     *         value must be greater than or equal to the minimum size of the group
+     *         number must be greater than or equal to the minimum size of the group
      *         and less than or equal to the maximum size of the group.
      */
     public Integer getDesiredCapacity() {
@@ -489,11 +494,11 @@ public class CreateAutoScalingGroupRequest extends AmazonWebServiceRequest imple
     
     /**
      * The number of EC2 instances that should be running in the group. This
-     * value must be greater than or equal to the minimum size of the group
+     * number must be greater than or equal to the minimum size of the group
      * and less than or equal to the maximum size of the group.
      *
      * @param desiredCapacity The number of EC2 instances that should be running in the group. This
-     *         value must be greater than or equal to the minimum size of the group
+     *         number must be greater than or equal to the minimum size of the group
      *         and less than or equal to the maximum size of the group.
      */
     public void setDesiredCapacity(Integer desiredCapacity) {
@@ -502,13 +507,13 @@ public class CreateAutoScalingGroupRequest extends AmazonWebServiceRequest imple
     
     /**
      * The number of EC2 instances that should be running in the group. This
-     * value must be greater than or equal to the minimum size of the group
+     * number must be greater than or equal to the minimum size of the group
      * and less than or equal to the maximum size of the group.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *
      * @param desiredCapacity The number of EC2 instances that should be running in the group. This
-     *         value must be greater than or equal to the minimum size of the group
+     *         number must be greater than or equal to the minimum size of the group
      *         and less than or equal to the maximum size of the group.
      *
      * @return A reference to this updated object so that method calls can be chained
@@ -521,16 +526,14 @@ public class CreateAutoScalingGroupRequest extends AmazonWebServiceRequest imple
 
     /**
      * The amount of time, in seconds, after a scaling activity completes
-     * before another scaling activity can start. <p>If
-     * <code>DefaultCooldown</code> is not specified, the default value is
-     * 300. For more information, see <a
+     * before another scaling activity can start. <p>If this parameter is not
+     * specified, the default value is 300. For more information, see <a
      * href="http://docs.aws.amazon.com/AutoScaling/latest/DeveloperGuide/Cooldown.html">Understanding
      * Auto Scaling Cooldowns</a> in the <i>Auto Scaling Developer Guide</i>.
      *
      * @return The amount of time, in seconds, after a scaling activity completes
-     *         before another scaling activity can start. <p>If
-     *         <code>DefaultCooldown</code> is not specified, the default value is
-     *         300. For more information, see <a
+     *         before another scaling activity can start. <p>If this parameter is not
+     *         specified, the default value is 300. For more information, see <a
      *         href="http://docs.aws.amazon.com/AutoScaling/latest/DeveloperGuide/Cooldown.html">Understanding
      *         Auto Scaling Cooldowns</a> in the <i>Auto Scaling Developer Guide</i>.
      */
@@ -540,16 +543,14 @@ public class CreateAutoScalingGroupRequest extends AmazonWebServiceRequest imple
     
     /**
      * The amount of time, in seconds, after a scaling activity completes
-     * before another scaling activity can start. <p>If
-     * <code>DefaultCooldown</code> is not specified, the default value is
-     * 300. For more information, see <a
+     * before another scaling activity can start. <p>If this parameter is not
+     * specified, the default value is 300. For more information, see <a
      * href="http://docs.aws.amazon.com/AutoScaling/latest/DeveloperGuide/Cooldown.html">Understanding
      * Auto Scaling Cooldowns</a> in the <i>Auto Scaling Developer Guide</i>.
      *
      * @param defaultCooldown The amount of time, in seconds, after a scaling activity completes
-     *         before another scaling activity can start. <p>If
-     *         <code>DefaultCooldown</code> is not specified, the default value is
-     *         300. For more information, see <a
+     *         before another scaling activity can start. <p>If this parameter is not
+     *         specified, the default value is 300. For more information, see <a
      *         href="http://docs.aws.amazon.com/AutoScaling/latest/DeveloperGuide/Cooldown.html">Understanding
      *         Auto Scaling Cooldowns</a> in the <i>Auto Scaling Developer Guide</i>.
      */
@@ -559,18 +560,16 @@ public class CreateAutoScalingGroupRequest extends AmazonWebServiceRequest imple
     
     /**
      * The amount of time, in seconds, after a scaling activity completes
-     * before another scaling activity can start. <p>If
-     * <code>DefaultCooldown</code> is not specified, the default value is
-     * 300. For more information, see <a
+     * before another scaling activity can start. <p>If this parameter is not
+     * specified, the default value is 300. For more information, see <a
      * href="http://docs.aws.amazon.com/AutoScaling/latest/DeveloperGuide/Cooldown.html">Understanding
      * Auto Scaling Cooldowns</a> in the <i>Auto Scaling Developer Guide</i>.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *
      * @param defaultCooldown The amount of time, in seconds, after a scaling activity completes
-     *         before another scaling activity can start. <p>If
-     *         <code>DefaultCooldown</code> is not specified, the default value is
-     *         300. For more information, see <a
+     *         before another scaling activity can start. <p>If this parameter is not
+     *         specified, the default value is 300. For more information, see <a
      *         href="http://docs.aws.amazon.com/AutoScaling/latest/DeveloperGuide/Cooldown.html">Understanding
      *         Auto Scaling Cooldowns</a> in the <i>Auto Scaling Developer Guide</i>.
      *
@@ -628,6 +627,11 @@ public class CreateAutoScalingGroupRequest extends AmazonWebServiceRequest imple
      * One or more Availability Zones for the group. This parameter is
      * optional if you specify subnets using the
      * <code>VPCZoneIdentifier</code> parameter.
+     * <p>
+     * <b>NOTE:</b> This method appends the values to the existing list (if
+     * any). Use {@link #setAvailabilityZones(java.util.Collection)} or
+     * {@link #withAvailabilityZones(java.util.Collection)} if you want to
+     * override the existing values.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      * <p>
@@ -723,6 +727,11 @@ public class CreateAutoScalingGroupRequest extends AmazonWebServiceRequest imple
      * href="http://docs.aws.amazon.com/AutoScaling/latest/DeveloperGuide/US_SetUpASLBApp.html">Load
      * Balance Your Auto Scaling Group</a> in the <i>Auto Scaling Developer
      * Guide</i>.
+     * <p>
+     * <b>NOTE:</b> This method appends the values to the existing list (if
+     * any). Use {@link #setLoadBalancerNames(java.util.Collection)} or
+     * {@link #withLoadBalancerNames(java.util.Collection)} if you want to
+     * override the existing values.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *
@@ -942,7 +951,7 @@ public class CreateAutoScalingGroupRequest extends AmazonWebServiceRequest imple
      * The name of the placement group into which you'll launch your
      * instances, if any. For more information, see <a
      * href="http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/placement-groups.html">Placement
-     * Groups</a>.
+     * Groups</a> in the <i>Amazon Elastic Compute Cloud User Guide</i>.
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>1 - 255<br/>
@@ -951,7 +960,7 @@ public class CreateAutoScalingGroupRequest extends AmazonWebServiceRequest imple
      * @return The name of the placement group into which you'll launch your
      *         instances, if any. For more information, see <a
      *         href="http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/placement-groups.html">Placement
-     *         Groups</a>.
+     *         Groups</a> in the <i>Amazon Elastic Compute Cloud User Guide</i>.
      */
     public String getPlacementGroup() {
         return placementGroup;
@@ -961,7 +970,7 @@ public class CreateAutoScalingGroupRequest extends AmazonWebServiceRequest imple
      * The name of the placement group into which you'll launch your
      * instances, if any. For more information, see <a
      * href="http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/placement-groups.html">Placement
-     * Groups</a>.
+     * Groups</a> in the <i>Amazon Elastic Compute Cloud User Guide</i>.
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>1 - 255<br/>
@@ -970,7 +979,7 @@ public class CreateAutoScalingGroupRequest extends AmazonWebServiceRequest imple
      * @param placementGroup The name of the placement group into which you'll launch your
      *         instances, if any. For more information, see <a
      *         href="http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/placement-groups.html">Placement
-     *         Groups</a>.
+     *         Groups</a> in the <i>Amazon Elastic Compute Cloud User Guide</i>.
      */
     public void setPlacementGroup(String placementGroup) {
         this.placementGroup = placementGroup;
@@ -980,7 +989,7 @@ public class CreateAutoScalingGroupRequest extends AmazonWebServiceRequest imple
      * The name of the placement group into which you'll launch your
      * instances, if any. For more information, see <a
      * href="http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/placement-groups.html">Placement
-     * Groups</a>.
+     * Groups</a> in the <i>Amazon Elastic Compute Cloud User Guide</i>.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      * <p>
@@ -991,7 +1000,7 @@ public class CreateAutoScalingGroupRequest extends AmazonWebServiceRequest imple
      * @param placementGroup The name of the placement group into which you'll launch your
      *         instances, if any. For more information, see <a
      *         href="http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/placement-groups.html">Placement
-     *         Groups</a>.
+     *         Groups</a> in the <i>Amazon Elastic Compute Cloud User Guide</i>.
      *
      * @return A reference to this updated object so that method calls can be chained
      *         together.
@@ -1007,7 +1016,8 @@ public class CreateAutoScalingGroupRequest extends AmazonWebServiceRequest imple
      * this call, ensure that the subnets' Availability Zones match the
      * Availability Zones specified. <p>For more information, see <a
      * href="http://docs.aws.amazon.com/AutoScaling/latest/DeveloperGuide/autoscalingsubnets.html">Auto
-     * Scaling and Amazon VPC</a> in the <i>Auto Scaling Developer Guide</i>.
+     * Scaling and Amazon Virtual Private Cloud</a> in the <i>Auto Scaling
+     * Developer Guide</i>.
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>1 - 255<br/>
@@ -1018,7 +1028,8 @@ public class CreateAutoScalingGroupRequest extends AmazonWebServiceRequest imple
      *         this call, ensure that the subnets' Availability Zones match the
      *         Availability Zones specified. <p>For more information, see <a
      *         href="http://docs.aws.amazon.com/AutoScaling/latest/DeveloperGuide/autoscalingsubnets.html">Auto
-     *         Scaling and Amazon VPC</a> in the <i>Auto Scaling Developer Guide</i>.
+     *         Scaling and Amazon Virtual Private Cloud</a> in the <i>Auto Scaling
+     *         Developer Guide</i>.
      */
     public String getVPCZoneIdentifier() {
         return vPCZoneIdentifier;
@@ -1030,7 +1041,8 @@ public class CreateAutoScalingGroupRequest extends AmazonWebServiceRequest imple
      * this call, ensure that the subnets' Availability Zones match the
      * Availability Zones specified. <p>For more information, see <a
      * href="http://docs.aws.amazon.com/AutoScaling/latest/DeveloperGuide/autoscalingsubnets.html">Auto
-     * Scaling and Amazon VPC</a> in the <i>Auto Scaling Developer Guide</i>.
+     * Scaling and Amazon Virtual Private Cloud</a> in the <i>Auto Scaling
+     * Developer Guide</i>.
      * <p>
      * <b>Constraints:</b><br/>
      * <b>Length: </b>1 - 255<br/>
@@ -1041,7 +1053,8 @@ public class CreateAutoScalingGroupRequest extends AmazonWebServiceRequest imple
      *         this call, ensure that the subnets' Availability Zones match the
      *         Availability Zones specified. <p>For more information, see <a
      *         href="http://docs.aws.amazon.com/AutoScaling/latest/DeveloperGuide/autoscalingsubnets.html">Auto
-     *         Scaling and Amazon VPC</a> in the <i>Auto Scaling Developer Guide</i>.
+     *         Scaling and Amazon Virtual Private Cloud</a> in the <i>Auto Scaling
+     *         Developer Guide</i>.
      */
     public void setVPCZoneIdentifier(String vPCZoneIdentifier) {
         this.vPCZoneIdentifier = vPCZoneIdentifier;
@@ -1053,7 +1066,8 @@ public class CreateAutoScalingGroupRequest extends AmazonWebServiceRequest imple
      * this call, ensure that the subnets' Availability Zones match the
      * Availability Zones specified. <p>For more information, see <a
      * href="http://docs.aws.amazon.com/AutoScaling/latest/DeveloperGuide/autoscalingsubnets.html">Auto
-     * Scaling and Amazon VPC</a> in the <i>Auto Scaling Developer Guide</i>.
+     * Scaling and Amazon Virtual Private Cloud</a> in the <i>Auto Scaling
+     * Developer Guide</i>.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      * <p>
@@ -1066,7 +1080,8 @@ public class CreateAutoScalingGroupRequest extends AmazonWebServiceRequest imple
      *         this call, ensure that the subnets' Availability Zones match the
      *         Availability Zones specified. <p>For more information, see <a
      *         href="http://docs.aws.amazon.com/AutoScaling/latest/DeveloperGuide/autoscalingsubnets.html">Auto
-     *         Scaling and Amazon VPC</a> in the <i>Auto Scaling Developer Guide</i>.
+     *         Scaling and Amazon Virtual Private Cloud</a> in the <i>Auto Scaling
+     *         Developer Guide</i>.
      *
      * @return A reference to this updated object so that method calls can be chained
      *         together.
@@ -1132,6 +1147,11 @@ public class CreateAutoScalingGroupRequest extends AmazonWebServiceRequest imple
      * a Termination Policy for Your Auto Scaling Group</a> in the <i>Auto
      * Scaling Developer Guide</i>.
      * <p>
+     * <b>NOTE:</b> This method appends the values to the existing list (if
+     * any). Use {@link #setTerminationPolicies(java.util.Collection)} or
+     * {@link #withTerminationPolicies(java.util.Collection)} if you want to
+     * override the existing values.
+     * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *
      * @param terminationPolicies One or more termination policies used to select the instance to
@@ -1190,18 +1210,18 @@ public class CreateAutoScalingGroupRequest extends AmazonWebServiceRequest imple
      * values: key=<i>value</i>, value=<i>value</i>, propagate=<i>true</i> or
      * <i>false</i>. Value and propagate are optional parameters. <p>For more
      * information, see <a
-     * href="http://docs.aws.amazon.com/AutoScaling/latest/DeveloperGuide/ASTagging.html">Add,
-     * Modify, or Remove Auto Scaling Group Tags</a> in the <i>Auto Scaling
-     * Developer Guide</i>.
+     * href="http://docs.aws.amazon.com/AutoScaling/latest/DeveloperGuide/ASTagging.html">Tagging
+     * Auto Scaling Groups and Instances</a> in the <i>Auto Scaling Developer
+     * Guide</i>.
      *
      * @return The tag to be created or updated. Each tag should be defined by its
      *         resource type, resource ID, key, value, and a propagate flag. Valid
      *         values: key=<i>value</i>, value=<i>value</i>, propagate=<i>true</i> or
      *         <i>false</i>. Value and propagate are optional parameters. <p>For more
      *         information, see <a
-     *         href="http://docs.aws.amazon.com/AutoScaling/latest/DeveloperGuide/ASTagging.html">Add,
-     *         Modify, or Remove Auto Scaling Group Tags</a> in the <i>Auto Scaling
-     *         Developer Guide</i>.
+     *         href="http://docs.aws.amazon.com/AutoScaling/latest/DeveloperGuide/ASTagging.html">Tagging
+     *         Auto Scaling Groups and Instances</a> in the <i>Auto Scaling Developer
+     *         Guide</i>.
      */
     public java.util.List<Tag> getTags() {
         if (tags == null) {
@@ -1217,18 +1237,18 @@ public class CreateAutoScalingGroupRequest extends AmazonWebServiceRequest imple
      * values: key=<i>value</i>, value=<i>value</i>, propagate=<i>true</i> or
      * <i>false</i>. Value and propagate are optional parameters. <p>For more
      * information, see <a
-     * href="http://docs.aws.amazon.com/AutoScaling/latest/DeveloperGuide/ASTagging.html">Add,
-     * Modify, or Remove Auto Scaling Group Tags</a> in the <i>Auto Scaling
-     * Developer Guide</i>.
+     * href="http://docs.aws.amazon.com/AutoScaling/latest/DeveloperGuide/ASTagging.html">Tagging
+     * Auto Scaling Groups and Instances</a> in the <i>Auto Scaling Developer
+     * Guide</i>.
      *
      * @param tags The tag to be created or updated. Each tag should be defined by its
      *         resource type, resource ID, key, value, and a propagate flag. Valid
      *         values: key=<i>value</i>, value=<i>value</i>, propagate=<i>true</i> or
      *         <i>false</i>. Value and propagate are optional parameters. <p>For more
      *         information, see <a
-     *         href="http://docs.aws.amazon.com/AutoScaling/latest/DeveloperGuide/ASTagging.html">Add,
-     *         Modify, or Remove Auto Scaling Group Tags</a> in the <i>Auto Scaling
-     *         Developer Guide</i>.
+     *         href="http://docs.aws.amazon.com/AutoScaling/latest/DeveloperGuide/ASTagging.html">Tagging
+     *         Auto Scaling Groups and Instances</a> in the <i>Auto Scaling Developer
+     *         Guide</i>.
      */
     public void setTags(java.util.Collection<Tag> tags) {
         if (tags == null) {
@@ -1246,9 +1266,14 @@ public class CreateAutoScalingGroupRequest extends AmazonWebServiceRequest imple
      * values: key=<i>value</i>, value=<i>value</i>, propagate=<i>true</i> or
      * <i>false</i>. Value and propagate are optional parameters. <p>For more
      * information, see <a
-     * href="http://docs.aws.amazon.com/AutoScaling/latest/DeveloperGuide/ASTagging.html">Add,
-     * Modify, or Remove Auto Scaling Group Tags</a> in the <i>Auto Scaling
-     * Developer Guide</i>.
+     * href="http://docs.aws.amazon.com/AutoScaling/latest/DeveloperGuide/ASTagging.html">Tagging
+     * Auto Scaling Groups and Instances</a> in the <i>Auto Scaling Developer
+     * Guide</i>.
+     * <p>
+     * <b>NOTE:</b> This method appends the values to the existing list (if
+     * any). Use {@link #setTags(java.util.Collection)} or {@link
+     * #withTags(java.util.Collection)} if you want to override the existing
+     * values.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *
@@ -1257,9 +1282,9 @@ public class CreateAutoScalingGroupRequest extends AmazonWebServiceRequest imple
      *         values: key=<i>value</i>, value=<i>value</i>, propagate=<i>true</i> or
      *         <i>false</i>. Value and propagate are optional parameters. <p>For more
      *         information, see <a
-     *         href="http://docs.aws.amazon.com/AutoScaling/latest/DeveloperGuide/ASTagging.html">Add,
-     *         Modify, or Remove Auto Scaling Group Tags</a> in the <i>Auto Scaling
-     *         Developer Guide</i>.
+     *         href="http://docs.aws.amazon.com/AutoScaling/latest/DeveloperGuide/ASTagging.html">Tagging
+     *         Auto Scaling Groups and Instances</a> in the <i>Auto Scaling Developer
+     *         Guide</i>.
      *
      * @return A reference to this updated object so that method calls can be chained
      *         together.
@@ -1278,9 +1303,9 @@ public class CreateAutoScalingGroupRequest extends AmazonWebServiceRequest imple
      * values: key=<i>value</i>, value=<i>value</i>, propagate=<i>true</i> or
      * <i>false</i>. Value and propagate are optional parameters. <p>For more
      * information, see <a
-     * href="http://docs.aws.amazon.com/AutoScaling/latest/DeveloperGuide/ASTagging.html">Add,
-     * Modify, or Remove Auto Scaling Group Tags</a> in the <i>Auto Scaling
-     * Developer Guide</i>.
+     * href="http://docs.aws.amazon.com/AutoScaling/latest/DeveloperGuide/ASTagging.html">Tagging
+     * Auto Scaling Groups and Instances</a> in the <i>Auto Scaling Developer
+     * Guide</i>.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *
@@ -1289,9 +1314,9 @@ public class CreateAutoScalingGroupRequest extends AmazonWebServiceRequest imple
      *         values: key=<i>value</i>, value=<i>value</i>, propagate=<i>true</i> or
      *         <i>false</i>. Value and propagate are optional parameters. <p>For more
      *         information, see <a
-     *         href="http://docs.aws.amazon.com/AutoScaling/latest/DeveloperGuide/ASTagging.html">Add,
-     *         Modify, or Remove Auto Scaling Group Tags</a> in the <i>Auto Scaling
-     *         Developer Guide</i>.
+     *         href="http://docs.aws.amazon.com/AutoScaling/latest/DeveloperGuide/ASTagging.html">Tagging
+     *         Auto Scaling Groups and Instances</a> in the <i>Auto Scaling Developer
+     *         Guide</i>.
      *
      * @return A reference to this updated object so that method calls can be chained
      *         together.

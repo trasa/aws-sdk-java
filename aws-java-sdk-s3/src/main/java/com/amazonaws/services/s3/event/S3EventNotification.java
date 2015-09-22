@@ -18,35 +18,40 @@ import java.util.List;
 
 import org.joda.time.DateTime;
 
+import com.amazonaws.internal.DateTimeJsonSerializer;
 import com.amazonaws.util.json.Jackson;
 import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
 /**
-* A helper class that represents a strongly typed S3 EventNotification item sent to SQS
+* A helper class that represents a strongly typed S3 EventNotification item sent
+* to SQS, SNS, or Lambda.
 */
 public class S3EventNotification {
+
     private final List<S3EventNotificationRecord> records;
-    
+
     @JsonCreator
     public S3EventNotification(
             @JsonProperty(value = "Records") List<S3EventNotificationRecord> records)
     {
         this.records = records;
     }
-    
+
     /**
      * <p>
      * Parse the JSON string into a S3EventNotification object.
      * </p>
      * <p>
-     * The function will try its best to parse input JSON string as best as it can. 
+     * The function will try its best to parse input JSON string as best as it can.
      * It will not fail even if the JSON string contains unknown properties.
-     * The function will throw AmazonClientException if the input JSON string is 
+     * The function will throw AmazonClientException if the input JSON string is
      * not valid JSON.
      * </p>
      * @param json
-     *         JSON string to parse. Typically this is the body of your SQS 
+     *         JSON string to parse. Typically this is the body of your SQS
      *         notification message body.
      *
      * @return The resulting S3EventNotification object.
@@ -55,29 +60,42 @@ public class S3EventNotification {
         return Jackson.fromJsonString(json, S3EventNotification.class);
     }
 
+    /**
+     * @return the records in this notification
+     */
+    @JsonProperty(value = "Records")
     public List<S3EventNotificationRecord> getRecords() {
         return records;
     }
-    
+
+    /**
+     * @return a JSON representation of this object
+     */
+    public String toJson() {
+        return Jackson.toJsonString(this);
+    }
+
     public static class UserIdentityEntity {
+
         private final String principalId;
-        
+
         @JsonCreator
         public UserIdentityEntity(
                 @JsonProperty(value = "principalId") String principalId) {
             this.principalId = principalId;
         }
-        
+
         public String getPrincipalId() {
             return principalId;
         }
     }
-    
+
     public static class S3BucketEntity {
+
         private final String name;
         private final UserIdentityEntity ownerIdentity;
         private final String arn;
-    
+
         @JsonCreator
         public S3BucketEntity(
                 @JsonProperty(value = "name") String name,
@@ -88,7 +106,7 @@ public class S3EventNotification {
             this.ownerIdentity = ownerIdentity;
             this.arn = arn;
         }
-        
+
         public String getName() {
             return name;
         }
@@ -101,17 +119,31 @@ public class S3EventNotification {
             return arn;
         }
     }
-    
+
     public static class S3ObjectEntity {
+
         private final String key;
-        private final Integer size;
+        private final Long size;
         private final String eTag;
         private final String versionId;
-        
+
+        @Deprecated
+        public S3ObjectEntity(
+                String key,
+                Integer size,
+                String eTag,
+                String versionId)
+        {
+            this.key = key;
+            this.size = size == null ? null : size.longValue();
+            this.eTag = eTag;
+            this.versionId = versionId;
+        }
+
         @JsonCreator
         public S3ObjectEntity(
                 @JsonProperty(value = "key") String key,
-                @JsonProperty(value = "size") Integer size,
+                @JsonProperty(value = "size") Long size,
                 @JsonProperty(value = "eTag") String eTag,
                 @JsonProperty(value = "versionId") String versionId)
         {
@@ -125,7 +157,17 @@ public class S3EventNotification {
             return key;
         }
 
+        /**
+         * @deprecated use {@link #getSizeAsLong()} instead.
+         */
+        @Deprecated
+        @JsonIgnore
         public Integer getSize() {
+            return size == null ? null : size.intValue();
+        }
+
+        @JsonProperty(value = "size")
+        public Long getSizeAsLong() {
             return size;
         }
 
@@ -139,11 +181,12 @@ public class S3EventNotification {
     }
 
     public static class S3Entity {
+
         private final String configurationId;
         private final S3BucketEntity bucket;
         private final S3ObjectEntity object;
         private final String s3SchemaVersion;
-        
+
         @JsonCreator
         public S3Entity(
                 @JsonProperty(value = "configurationId") String configurationId,
@@ -175,8 +218,9 @@ public class S3EventNotification {
     }
 
     public static class RequestParametersEntity {
+
         private final String sourceIPAddress;
-        
+
         @JsonCreator
         public RequestParametersEntity(
                 @JsonProperty(value = "sourceIPAddress") String sourceIPAddress)
@@ -188,11 +232,12 @@ public class S3EventNotification {
             return sourceIPAddress;
         }
     }
-    
+
     public static class ResponseElementsEntity {
+
         private final String xAmzId2;
         private final String xAmzRequestId;
-        
+
         @JsonCreator
         public ResponseElementsEntity(
                 @JsonProperty(value = "x-amz-id-2") String xAmzId2,
@@ -202,26 +247,29 @@ public class S3EventNotification {
             this.xAmzRequestId = xAmzRequestId;
         }
 
+        @JsonProperty("x-amz-id-2")
         public String getxAmzId2() {
             return xAmzId2;
         }
 
+        @JsonProperty("x-amz-request-id")
         public String getxAmzRequestId() {
             return xAmzRequestId;
         }
     }
-    
+
     public static class S3EventNotificationRecord {
+
         private final String awsRegion;
         private final String eventName;
         private final String eventSource;
-        private DateTime eventTime = null;
+        private DateTime eventTime;
         private final String eventVersion;
         private final RequestParametersEntity requestParameters;
         private final ResponseElementsEntity responseElements;
         private final S3Entity s3;
         private final UserIdentityEntity userIdentity;
-        
+
         @JsonCreator
         public S3EventNotificationRecord(
                 @JsonProperty(value = "awsRegion") String awsRegion,
@@ -237,12 +285,12 @@ public class S3EventNotification {
             this.awsRegion = awsRegion;
             this.eventName = eventName;
             this.eventSource = eventSource;
-            
+
             if (eventTime != null)
             {
                 this.eventTime = DateTime.parse(eventTime);
-            }       
-            
+            }
+
             this.eventVersion = eventVersion;
             this.requestParameters = requestParameters;
             this.responseElements = responseElements;
@@ -262,6 +310,7 @@ public class S3EventNotification {
             return eventSource;
         }
 
+        @JsonSerialize(using=DateTimeJsonSerializer.class)
         public DateTime getEventTime() {
             return eventTime;
         }

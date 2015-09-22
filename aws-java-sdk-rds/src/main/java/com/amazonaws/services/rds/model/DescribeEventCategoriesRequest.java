@@ -25,7 +25,7 @@ import com.amazonaws.AmazonWebServiceRequest;
  * specified, for a specified source type. You can see a list of the
  * event categories and source types in the
  * <a href="http://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_Events.html"> Events </a>
- * topic in the Amazon RDS User Guide.
+ * topic in the <i>Amazon RDS User Guide.</i>
  * </p>
  *
  * @see com.amazonaws.services.rds.AmazonRDS#describeEventCategories(DescribeEventCategoriesRequest)
@@ -119,6 +119,11 @@ public class DescribeEventCategoriesRequest extends AmazonWebServiceRequest impl
     
     /**
      * This parameter is not currently supported.
+     * <p>
+     * <b>NOTE:</b> This method appends the values to the existing list (if
+     * any). Use {@link #setFilters(java.util.Collection)} or {@link
+     * #withFilters(java.util.Collection)} if you want to override the
+     * existing values.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *

@@ -25,9 +25,8 @@ import com.amazonaws.AmazonWebServiceRequest;
  * and data usage.
  * </p>
  * <p>
- * <code>DescribeIdentityUsage</code> can be called with temporary user
- * credentials provided by Cognito Identity or with developer
- * credentials.
+ * This API can be called with temporary user credentials provided by
+ * Cognito Identity or with developer credentials.
  * </p>
  *
  * @see com.amazonaws.services.cognitosync.AmazonCognitoSync#describeIdentityUsage(DescribeIdentityUsageRequest)
@@ -40,7 +39,7 @@ public class DescribeIdentityUsageRequest extends AmazonWebServiceRequest implem
      * Cognito. GUID generation is unique within a region.
      * <p>
      * <b>Constraints:</b><br/>
-     * <b>Length: </b>1 - 50<br/>
+     * <b>Length: </b>1 - 55<br/>
      * <b>Pattern: </b>[\w-]+:[0-9a-f-]+<br/>
      */
     private String identityPoolId;
@@ -51,7 +50,7 @@ public class DescribeIdentityUsageRequest extends AmazonWebServiceRequest implem
      * Cognito. GUID generation is unique within a region.
      * <p>
      * <b>Constraints:</b><br/>
-     * <b>Length: </b>1 - 50<br/>
+     * <b>Length: </b>1 - 55<br/>
      * <b>Pattern: </b>[\w-]+:[0-9a-f-]+<br/>
      */
     private String identityId;
@@ -62,7 +61,7 @@ public class DescribeIdentityUsageRequest extends AmazonWebServiceRequest implem
      * Cognito. GUID generation is unique within a region.
      * <p>
      * <b>Constraints:</b><br/>
-     * <b>Length: </b>1 - 50<br/>
+     * <b>Length: </b>1 - 55<br/>
      * <b>Pattern: </b>[\w-]+:[0-9a-f-]+<br/>
      *
      * @return A name-spaced GUID (for example,
@@ -79,7 +78,7 @@ public class DescribeIdentityUsageRequest extends AmazonWebServiceRequest implem
      * Cognito. GUID generation is unique within a region.
      * <p>
      * <b>Constraints:</b><br/>
-     * <b>Length: </b>1 - 50<br/>
+     * <b>Length: </b>1 - 55<br/>
      * <b>Pattern: </b>[\w-]+:[0-9a-f-]+<br/>
      *
      * @param identityPoolId A name-spaced GUID (for example,
@@ -98,7 +97,7 @@ public class DescribeIdentityUsageRequest extends AmazonWebServiceRequest implem
      * Returns a reference to this object so that method calls can be chained together.
      * <p>
      * <b>Constraints:</b><br/>
-     * <b>Length: </b>1 - 50<br/>
+     * <b>Length: </b>1 - 55<br/>
      * <b>Pattern: </b>[\w-]+:[0-9a-f-]+<br/>
      *
      * @param identityPoolId A name-spaced GUID (for example,
@@ -119,7 +118,7 @@ public class DescribeIdentityUsageRequest extends AmazonWebServiceRequest implem
      * Cognito. GUID generation is unique within a region.
      * <p>
      * <b>Constraints:</b><br/>
-     * <b>Length: </b>1 - 50<br/>
+     * <b>Length: </b>1 - 55<br/>
      * <b>Pattern: </b>[\w-]+:[0-9a-f-]+<br/>
      *
      * @return A name-spaced GUID (for example,
@@ -136,7 +135,7 @@ public class DescribeIdentityUsageRequest extends AmazonWebServiceRequest implem
      * Cognito. GUID generation is unique within a region.
      * <p>
      * <b>Constraints:</b><br/>
-     * <b>Length: </b>1 - 50<br/>
+     * <b>Length: </b>1 - 55<br/>
      * <b>Pattern: </b>[\w-]+:[0-9a-f-]+<br/>
      *
      * @param identityId A name-spaced GUID (for example,
@@ -155,7 +154,7 @@ public class DescribeIdentityUsageRequest extends AmazonWebServiceRequest implem
      * Returns a reference to this object so that method calls can be chained together.
      * <p>
      * <b>Constraints:</b><br/>
-     * <b>Length: </b>1 - 50<br/>
+     * <b>Length: </b>1 - 55<br/>
      * <b>Pattern: </b>[\w-]+:[0-9a-f-]+<br/>
      *
      * @param identityId A name-spaced GUID (for example,

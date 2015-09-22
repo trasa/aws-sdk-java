@@ -49,7 +49,7 @@ import com.amazonaws.services.config.model.transform.*;
  * EC2) instance, an Elastic Block Store (EBS) volume, an Elastic network
  * Interface (ENI), or a security group. For a complete list of resources
  * currently supported by AWS Config, see
- * <a href="http://docs.aws.amazon.com/config/latest/developerguide/config-concepts.html"> Supported AWS Resources </a>
+ * <a href="http://docs.aws.amazon.com/config/latest/developerguide/resource-config-reference.html#supported-resources"> Supported AWS Resources </a>
  * .
  * </p>
  * <p>
@@ -254,6 +254,7 @@ public class AmazonConfigClient extends AmazonWebServiceClient implements Amazon
         jsonErrorUnmarshallers.add(new ValidationExceptionUnmarshaller());
         jsonErrorUnmarshallers.add(new InvalidS3KeyPrefixExceptionUnmarshaller());
         jsonErrorUnmarshallers.add(new InvalidRoleExceptionUnmarshaller());
+        jsonErrorUnmarshallers.add(new InvalidRecordingGroupExceptionUnmarshaller());
         jsonErrorUnmarshallers.add(new NoAvailableDeliveryChannelExceptionUnmarshaller());
         
         jsonErrorUnmarshallers.add(new JsonErrorUnmarshaller());
@@ -394,8 +395,8 @@ public class AmazonConfigClient extends AmazonWebServiceClient implements Amazon
 
     /**
      * <p>
-     * Starts recording configurations of all the resources associated with
-     * the account.
+     * Starts recording configurations of the AWS resources you have
+     * selected to record in your AWS account.
      * </p>
      * <p>
      * You must have created at least one delivery channel to successfully
@@ -561,8 +562,8 @@ public class AmazonConfigClient extends AmazonWebServiceClient implements Amazon
     
     /**
      * <p>
-     * Stops recording configurations of all the resources associated with
-     * the account.
+     * Stops recording configurations of the AWS resources you have selected
+     * to record in your AWS account.
      * </p>
      *
      * @param stopConfigurationRecorderRequest Container for the necessary
@@ -674,17 +675,20 @@ public class AmazonConfigClient extends AmazonWebServiceClient implements Amazon
 
     /**
      * <p>
-     * Creates a new configuration recorder to record the resource
+     * Creates a new configuration recorder to record the selected resource
      * configurations.
      * </p>
      * <p>
-     * You can use this action to change the role ( <code>roleARN</code> )
-     * of an existing recorder. To change the role, call the action on the
-     * existing configuration recorder and specify a role.
+     * You can use this action to change the role <code>roleARN</code>
+     * and/or the <code>recordingGroup</code> of an existing recorder. To
+     * change the role, call the action on the existing configuration
+     * recorder and specify a role.
      * </p>
      * <p>
      * <b>NOTE:</b> Currently, you can specify only one configuration
-     * recorder per account.
+     * recorder per account. If ConfigurationRecorder does not have the
+     * recordingGroup parameter specified, the default is to record all
+     * supported resource types.
      * </p>
      *
      * @param putConfigurationRecorderRequest Container for the necessary
@@ -693,6 +697,7 @@ public class AmazonConfigClient extends AmazonWebServiceClient implements Amazon
      * 
      * 
      * @throws InvalidRoleException
+     * @throws InvalidRecordingGroupException
      * @throws InvalidConfigurationRecorderNameException
      * @throws MaxNumberOfConfigurationRecordersExceededException
      *
@@ -733,16 +738,21 @@ public class AmazonConfigClient extends AmazonWebServiceClient implements Amazon
      * <p>
      * Returns a list of configuration items for the specified resource. The
      * list contains details about each state of the resource during the
-     * specified time interval. You can specify a <code>limit</code> on the
-     * number of results returned on the page. If a limit is specified, a
-     * <code>nextToken</code> is returned as part of the result that you can
-     * use to continue this request.
+     * specified time interval.
+     * </p>
+     * <p>
+     * The response is paginated, and by default, AWS Config returns a limit
+     * of 10 configuration items per page. You can customize this number with
+     * the <code>limit</code> parameter. The response includes a
+     * <code>nextToken</code> string, and to get the next page of results,
+     * run the request again and enter this string for the
+     * <code>nextToken</code> parameter.
      * </p>
      * <p>
      * <b>NOTE:</b> Each call to the API is limited to span a duration of
      * seven days. It is likely that the number of records returned is
      * smaller than the specified limit. In such cases, you can make another
-     * call, using the nextToken .
+     * call, using the nextToken.
      * </p>
      *
      * @param getResourceConfigHistoryRequest Container for the necessary
@@ -906,6 +916,80 @@ public class AmazonConfigClient extends AmazonWebServiceClient implements Amazon
                 new DescribeConfigurationRecorderStatusResultJsonUnmarshaller();
             JsonResponseHandler<DescribeConfigurationRecorderStatusResult> responseHandler =
                 new JsonResponseHandler<DescribeConfigurationRecorderStatusResult>(unmarshaller);
+
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+        } finally {
+            
+            endClientExecution(awsRequestMetrics, request, response, LOGGING_AWS_REQUEST_METRIC);
+        }
+    }
+
+    /**
+     * <p>
+     * Accepts a resource type and returns a list of resource identifiers
+     * for the resources of that type. A resource identifier includes the
+     * resource type, ID, and (if available) the custom resource name. The
+     * results consist of resources that AWS Config has discovered, including
+     * those that AWS Config is not currently recording. You can narrow the
+     * results to include only resources that have specific resource IDs or a
+     * resource name.
+     * </p>
+     * <p>
+     * <b>NOTE:</b>You can specify either resource IDs or a resource name
+     * but not both in the same request.
+     * </p>
+     * <p>
+     * The response is paginated, and by default AWS Config lists 100
+     * resource identifiers on each page. You can customize this number with
+     * the <code>limit</code> parameter. The response includes a
+     * <code>nextToken</code> string, and to get the next page of results,
+     * run the request again and enter this string for the
+     * <code>nextToken</code> parameter.
+     * </p>
+     *
+     * @param listDiscoveredResourcesRequest Container for the necessary
+     *           parameters to execute the ListDiscoveredResources service method on
+     *           AmazonConfig.
+     * 
+     * @return The response from the ListDiscoveredResources service method,
+     *         as returned by AmazonConfig.
+     * 
+     * @throws InvalidNextTokenException
+     * @throws NoAvailableConfigurationRecorderException
+     * @throws ValidationException
+     * @throws InvalidLimitException
+     *
+     * @throws AmazonClientException
+     *             If any internal errors are encountered inside the client while
+     *             attempting to make the request or handle the response.  For example
+     *             if a network connection is not available.
+     * @throws AmazonServiceException
+     *             If an error response is returned by AmazonConfig indicating
+     *             either a problem with the data in the request, or a server side issue.
+     */
+    public ListDiscoveredResourcesResult listDiscoveredResources(ListDiscoveredResourcesRequest listDiscoveredResourcesRequest) {
+        ExecutionContext executionContext = createExecutionContext(listDiscoveredResourcesRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext.getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<ListDiscoveredResourcesRequest> request = null;
+        Response<ListDiscoveredResourcesResult> response = null;
+        
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new ListDiscoveredResourcesRequestMarshaller().marshall(super.beforeMarshalling(listDiscoveredResourcesRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            Unmarshaller<ListDiscoveredResourcesResult, JsonUnmarshallerContext> unmarshaller =
+                new ListDiscoveredResourcesResultJsonUnmarshaller();
+            JsonResponseHandler<ListDiscoveredResourcesResult> responseHandler =
+                new JsonResponseHandler<ListDiscoveredResourcesResult>(unmarshaller);
 
             response = invoke(request, responseHandler, executionContext);
 

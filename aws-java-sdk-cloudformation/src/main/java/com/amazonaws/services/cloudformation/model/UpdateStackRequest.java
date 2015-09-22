@@ -46,9 +46,7 @@ import com.amazonaws.AmazonWebServiceRequest;
 public class UpdateStackRequest extends AmazonWebServiceRequest implements Serializable, Cloneable {
 
     /**
-     * The name or stack ID of the stack to update. <note> Must contain only
-     * alphanumeric characters (case sensitive) and start with an alpha
-     * character. Maximum length of the name is 255 characters. </note>
+     * The name or unique stack ID of the stack to update.
      */
     private String stackName;
 
@@ -115,7 +113,9 @@ public class UpdateStackRequest extends AmazonWebServiceRequest implements Seria
 
     /**
      * A list of <code>Parameter</code> structures that specify input
-     * parameters for the stack.
+     * parameters for the stack. For more information, see the <a
+     * href="http://docs.aws.amazon.com/AWSCloudFormation/latest/APIReference/API_Parameter.html">Parameter</a>
+     * data type.
      */
     private com.amazonaws.internal.ListWithAutoConstructFlag<Parameter> parameters;
 
@@ -127,8 +127,6 @@ public class UpdateStackRequest extends AmazonWebServiceRequest implements Seria
      * specifying this parameter. Currently, the only valid value is
      * <code>CAPABILITY_IAM</code>, which is required for the following
      * resources: <a
-     * href="http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-stack.html">
-     * AWS::CloudFormation::Stack</a>, <a
      * href="http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-iam-accesskey.html">
      * AWS::IAM::AccessKey</a>, <a
      * href="http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-iam-group.html">
@@ -187,41 +185,29 @@ public class UpdateStackRequest extends AmazonWebServiceRequest implements Seria
     private com.amazonaws.internal.ListWithAutoConstructFlag<String> notificationARNs;
 
     /**
-     * The name or stack ID of the stack to update. <note> Must contain only
-     * alphanumeric characters (case sensitive) and start with an alpha
-     * character. Maximum length of the name is 255 characters. </note>
+     * The name or unique stack ID of the stack to update.
      *
-     * @return The name or stack ID of the stack to update. <note> Must contain only
-     *         alphanumeric characters (case sensitive) and start with an alpha
-     *         character. Maximum length of the name is 255 characters. </note>
+     * @return The name or unique stack ID of the stack to update.
      */
     public String getStackName() {
         return stackName;
     }
     
     /**
-     * The name or stack ID of the stack to update. <note> Must contain only
-     * alphanumeric characters (case sensitive) and start with an alpha
-     * character. Maximum length of the name is 255 characters. </note>
+     * The name or unique stack ID of the stack to update.
      *
-     * @param stackName The name or stack ID of the stack to update. <note> Must contain only
-     *         alphanumeric characters (case sensitive) and start with an alpha
-     *         character. Maximum length of the name is 255 characters. </note>
+     * @param stackName The name or unique stack ID of the stack to update.
      */
     public void setStackName(String stackName) {
         this.stackName = stackName;
     }
     
     /**
-     * The name or stack ID of the stack to update. <note> Must contain only
-     * alphanumeric characters (case sensitive) and start with an alpha
-     * character. Maximum length of the name is 255 characters. </note>
+     * The name or unique stack ID of the stack to update.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *
-     * @param stackName The name or stack ID of the stack to update. <note> Must contain only
-     *         alphanumeric characters (case sensitive) and start with an alpha
-     *         character. Maximum length of the name is 255 characters. </note>
+     * @param stackName The name or unique stack ID of the stack to update.
      *
      * @return A reference to this updated object so that method calls can be chained
      *         together.
@@ -589,10 +575,14 @@ public class UpdateStackRequest extends AmazonWebServiceRequest implements Seria
 
     /**
      * A list of <code>Parameter</code> structures that specify input
-     * parameters for the stack.
+     * parameters for the stack. For more information, see the <a
+     * href="http://docs.aws.amazon.com/AWSCloudFormation/latest/APIReference/API_Parameter.html">Parameter</a>
+     * data type.
      *
      * @return A list of <code>Parameter</code> structures that specify input
-     *         parameters for the stack.
+     *         parameters for the stack. For more information, see the <a
+     *         href="http://docs.aws.amazon.com/AWSCloudFormation/latest/APIReference/API_Parameter.html">Parameter</a>
+     *         data type.
      */
     public java.util.List<Parameter> getParameters() {
         if (parameters == null) {
@@ -604,10 +594,14 @@ public class UpdateStackRequest extends AmazonWebServiceRequest implements Seria
     
     /**
      * A list of <code>Parameter</code> structures that specify input
-     * parameters for the stack.
+     * parameters for the stack. For more information, see the <a
+     * href="http://docs.aws.amazon.com/AWSCloudFormation/latest/APIReference/API_Parameter.html">Parameter</a>
+     * data type.
      *
      * @param parameters A list of <code>Parameter</code> structures that specify input
-     *         parameters for the stack.
+     *         parameters for the stack. For more information, see the <a
+     *         href="http://docs.aws.amazon.com/AWSCloudFormation/latest/APIReference/API_Parameter.html">Parameter</a>
+     *         data type.
      */
     public void setParameters(java.util.Collection<Parameter> parameters) {
         if (parameters == null) {
@@ -621,12 +615,21 @@ public class UpdateStackRequest extends AmazonWebServiceRequest implements Seria
     
     /**
      * A list of <code>Parameter</code> structures that specify input
-     * parameters for the stack.
+     * parameters for the stack. For more information, see the <a
+     * href="http://docs.aws.amazon.com/AWSCloudFormation/latest/APIReference/API_Parameter.html">Parameter</a>
+     * data type.
+     * <p>
+     * <b>NOTE:</b> This method appends the values to the existing list (if
+     * any). Use {@link #setParameters(java.util.Collection)} or {@link
+     * #withParameters(java.util.Collection)} if you want to override the
+     * existing values.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *
      * @param parameters A list of <code>Parameter</code> structures that specify input
-     *         parameters for the stack.
+     *         parameters for the stack. For more information, see the <a
+     *         href="http://docs.aws.amazon.com/AWSCloudFormation/latest/APIReference/API_Parameter.html">Parameter</a>
+     *         data type.
      *
      * @return A reference to this updated object so that method calls can be chained
      *         together.
@@ -641,12 +644,16 @@ public class UpdateStackRequest extends AmazonWebServiceRequest implements Seria
     
     /**
      * A list of <code>Parameter</code> structures that specify input
-     * parameters for the stack.
+     * parameters for the stack. For more information, see the <a
+     * href="http://docs.aws.amazon.com/AWSCloudFormation/latest/APIReference/API_Parameter.html">Parameter</a>
+     * data type.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *
      * @param parameters A list of <code>Parameter</code> structures that specify input
-     *         parameters for the stack.
+     *         parameters for the stack. For more information, see the <a
+     *         href="http://docs.aws.amazon.com/AWSCloudFormation/latest/APIReference/API_Parameter.html">Parameter</a>
+     *         data type.
      *
      * @return A reference to this updated object so that method calls can be chained
      *         together.
@@ -671,8 +678,6 @@ public class UpdateStackRequest extends AmazonWebServiceRequest implements Seria
      * specifying this parameter. Currently, the only valid value is
      * <code>CAPABILITY_IAM</code>, which is required for the following
      * resources: <a
-     * href="http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-stack.html">
-     * AWS::CloudFormation::Stack</a>, <a
      * href="http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-iam-accesskey.html">
      * AWS::IAM::AccessKey</a>, <a
      * href="http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-iam-group.html">
@@ -698,8 +703,6 @@ public class UpdateStackRequest extends AmazonWebServiceRequest implements Seria
      *         specifying this parameter. Currently, the only valid value is
      *         <code>CAPABILITY_IAM</code>, which is required for the following
      *         resources: <a
-     *         href="http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-stack.html">
-     *         AWS::CloudFormation::Stack</a>, <a
      *         href="http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-iam-accesskey.html">
      *         AWS::IAM::AccessKey</a>, <a
      *         href="http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-iam-group.html">
@@ -734,8 +737,6 @@ public class UpdateStackRequest extends AmazonWebServiceRequest implements Seria
      * specifying this parameter. Currently, the only valid value is
      * <code>CAPABILITY_IAM</code>, which is required for the following
      * resources: <a
-     * href="http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-stack.html">
-     * AWS::CloudFormation::Stack</a>, <a
      * href="http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-iam-accesskey.html">
      * AWS::IAM::AccessKey</a>, <a
      * href="http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-iam-group.html">
@@ -761,8 +762,6 @@ public class UpdateStackRequest extends AmazonWebServiceRequest implements Seria
      *         specifying this parameter. Currently, the only valid value is
      *         <code>CAPABILITY_IAM</code>, which is required for the following
      *         resources: <a
-     *         href="http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-stack.html">
-     *         AWS::CloudFormation::Stack</a>, <a
      *         href="http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-iam-accesskey.html">
      *         AWS::IAM::AccessKey</a>, <a
      *         href="http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-iam-group.html">
@@ -799,8 +798,6 @@ public class UpdateStackRequest extends AmazonWebServiceRequest implements Seria
      * specifying this parameter. Currently, the only valid value is
      * <code>CAPABILITY_IAM</code>, which is required for the following
      * resources: <a
-     * href="http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-stack.html">
-     * AWS::CloudFormation::Stack</a>, <a
      * href="http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-iam-accesskey.html">
      * AWS::IAM::AccessKey</a>, <a
      * href="http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-iam-group.html">
@@ -819,6 +816,11 @@ public class UpdateStackRequest extends AmazonWebServiceRequest implements Seria
      * associated with them. If you don't specify this parameter, this action
      * returns an InsufficientCapabilities error.
      * <p>
+     * <b>NOTE:</b> This method appends the values to the existing list (if
+     * any). Use {@link #setCapabilities(java.util.Collection)} or {@link
+     * #withCapabilities(java.util.Collection)} if you want to override the
+     * existing values.
+     * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *
      * @param capabilities A list of capabilities that you must specify before AWS CloudFormation
@@ -828,8 +830,6 @@ public class UpdateStackRequest extends AmazonWebServiceRequest implements Seria
      *         specifying this parameter. Currently, the only valid value is
      *         <code>CAPABILITY_IAM</code>, which is required for the following
      *         resources: <a
-     *         href="http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-stack.html">
-     *         AWS::CloudFormation::Stack</a>, <a
      *         href="http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-iam-accesskey.html">
      *         AWS::IAM::AccessKey</a>, <a
      *         href="http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-iam-group.html">
@@ -867,8 +867,6 @@ public class UpdateStackRequest extends AmazonWebServiceRequest implements Seria
      * specifying this parameter. Currently, the only valid value is
      * <code>CAPABILITY_IAM</code>, which is required for the following
      * resources: <a
-     * href="http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-stack.html">
-     * AWS::CloudFormation::Stack</a>, <a
      * href="http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-iam-accesskey.html">
      * AWS::IAM::AccessKey</a>, <a
      * href="http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-iam-group.html">
@@ -896,8 +894,6 @@ public class UpdateStackRequest extends AmazonWebServiceRequest implements Seria
      *         specifying this parameter. Currently, the only valid value is
      *         <code>CAPABILITY_IAM</code>, which is required for the following
      *         resources: <a
-     *         href="http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-stack.html">
-     *         AWS::CloudFormation::Stack</a>, <a
      *         href="http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-iam-accesskey.html">
      *         AWS::IAM::AccessKey</a>, <a
      *         href="http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-iam-group.html">
@@ -939,8 +935,6 @@ public class UpdateStackRequest extends AmazonWebServiceRequest implements Seria
      * specifying this parameter. Currently, the only valid value is
      * <code>CAPABILITY_IAM</code>, which is required for the following
      * resources: <a
-     * href="http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-stack.html">
-     * AWS::CloudFormation::Stack</a>, <a
      * href="http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-iam-accesskey.html">
      * AWS::IAM::AccessKey</a>, <a
      * href="http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-iam-group.html">
@@ -968,8 +962,6 @@ public class UpdateStackRequest extends AmazonWebServiceRequest implements Seria
      *         specifying this parameter. Currently, the only valid value is
      *         <code>CAPABILITY_IAM</code>, which is required for the following
      *         resources: <a
-     *         href="http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-stack.html">
-     *         AWS::CloudFormation::Stack</a>, <a
      *         href="http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-iam-accesskey.html">
      *         AWS::IAM::AccessKey</a>, <a
      *         href="http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-iam-group.html">
@@ -1201,6 +1193,11 @@ public class UpdateStackRequest extends AmazonWebServiceRequest implements Seria
     /**
      * Update the ARNs for the Amazon SNS topics that are associated with the
      * stack.
+     * <p>
+     * <b>NOTE:</b> This method appends the values to the existing list (if
+     * any). Use {@link #setNotificationARNs(java.util.Collection)} or {@link
+     * #withNotificationARNs(java.util.Collection)} if you want to override
+     * the existing values.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      * <p>

@@ -22,11 +22,9 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-import org.apache.http.annotation.Immutable;
-
-import com.amazonaws.regions.Regions;
+import com.amazonaws.annotation.Immutable;
+import com.amazonaws.log.InternalLogApi;
+import com.amazonaws.log.InternalLogFactory;
 import com.amazonaws.util.ClassLoaderHelper;
 import com.amazonaws.util.json.Jackson;
 import com.fasterxml.jackson.core.JsonParseException;
@@ -38,9 +36,12 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 @Immutable
 public class InternalConfig {
 
-    private static final Log log = LogFactory.getLog(InternalConfig.class);
+    private static final InternalLogApi log = InternalLogFactory.getLog(InternalConfig.class);
 
-    static final String DEFAULT_CONFIG_RESOURCE = "awssdk_config_default.json";
+    static final String DEFAULT_CONFIG_RESOURCE_RELATIVE_PATH = "awssdk_config_default.json";
+    static final String DEFAULT_CONFIG_RESOURCE_ABSOLUTE_PATH = "/com/amazonaws/internal/config/"
+            + DEFAULT_CONFIG_RESOURCE_RELATIVE_PATH;
+
     static final String CONFIG_OVERRIDE_RESOURCE = "awssdk_config_override.json";
     private static final String SERVICE_REGION_DELIMITOR = "/";
 
@@ -183,7 +184,7 @@ public class InternalConfig {
      * Returns the signer configuration for the specified service name and
      * an optional region name.
      * @param serviceName must not be null
-     * @param regionName similar to the region name in {@link Regions};
+     * @param regionName similar to the region name in <code>Regions</code>;
      * can be null.
      * @return the signer
      */
@@ -240,10 +241,11 @@ public class InternalConfig {
      */
     static InternalConfig load() throws JsonParseException,
         JsonMappingException, IOException {
-        URL url = ClassLoaderHelper.getResource("/" + DEFAULT_CONFIG_RESOURCE,
-                InternalConfig.class);
-        if (url == null) { // Try without a leading "/"
-            url = ClassLoaderHelper.getResource(DEFAULT_CONFIG_RESOURCE,
+        // First try loading via the class by using a relative path
+        URL url = ClassLoaderHelper.getResource(DEFAULT_CONFIG_RESOURCE_RELATIVE_PATH,
+                true, InternalConfig.class); // classesFirst=true
+        if (url == null) { // Then try with the absolute path
+            url = ClassLoaderHelper.getResource(DEFAULT_CONFIG_RESOURCE_ABSOLUTE_PATH,
                     InternalConfig.class);
         }
         InternalConfigJsonHelper config = loadfrom(url);
@@ -261,10 +263,32 @@ public class InternalConfig {
         } else {
             configOverride = loadfrom(overrideUrl);
         }
-        return new InternalConfig(config, configOverride);
+        InternalConfig merged = new InternalConfig(config, configOverride);
+        merged.setDefaultConfigFileLocation(url);
+        merged.setOverrideConfigFileLocation(overrideUrl);
+        return merged;
     }
 
-    // For debugging purposes
+    /*
+     *  For debugging purposes
+     */
+
+    private URL defaultConfigFileLocation;
+    private URL overrideConfigFileLocation;
+
+    public URL getDefaultConfigFileLocation() {
+        return defaultConfigFileLocation;
+    }
+    public URL getOverrideConfigFileLocation() {
+        return overrideConfigFileLocation;
+    }
+    void setDefaultConfigFileLocation(URL url) {
+        this.defaultConfigFileLocation = url;
+    }
+    void setOverrideConfigFileLocation(URL url) {
+        this.overrideConfigFileLocation = url;
+    }
+
     void dump() {
         StringBuilder sb = new StringBuilder().append("defaultSignerConfig: ")
                 .append(defaultSignerConfig).append("\n")

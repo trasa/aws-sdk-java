@@ -17,19 +17,21 @@ package com.amazonaws.services.ec2.model;
 import java.io.Serializable;
 
 /**
- * 
+ * <p>
+ * Contains the output of RequestSpotInstances.
+ * </p>
  */
 public class RequestSpotInstancesResult implements Serializable, Cloneable {
 
     /**
-     * One or more Spot Instance requests.
+     * One or more Spot instance requests.
      */
     private com.amazonaws.internal.ListWithAutoConstructFlag<SpotInstanceRequest> spotInstanceRequests;
 
     /**
-     * One or more Spot Instance requests.
+     * One or more Spot instance requests.
      *
-     * @return One or more Spot Instance requests.
+     * @return One or more Spot instance requests.
      */
     public java.util.List<SpotInstanceRequest> getSpotInstanceRequests() {
         if (spotInstanceRequests == null) {
@@ -40,9 +42,9 @@ public class RequestSpotInstancesResult implements Serializable, Cloneable {
     }
     
     /**
-     * One or more Spot Instance requests.
+     * One or more Spot instance requests.
      *
-     * @param spotInstanceRequests One or more Spot Instance requests.
+     * @param spotInstanceRequests One or more Spot instance requests.
      */
     public void setSpotInstanceRequests(java.util.Collection<SpotInstanceRequest> spotInstanceRequests) {
         if (spotInstanceRequests == null) {
@@ -55,11 +57,16 @@ public class RequestSpotInstancesResult implements Serializable, Cloneable {
     }
     
     /**
-     * One or more Spot Instance requests.
+     * One or more Spot instance requests.
+     * <p>
+     * <b>NOTE:</b> This method appends the values to the existing list (if
+     * any). Use {@link #setSpotInstanceRequests(java.util.Collection)} or
+     * {@link #withSpotInstanceRequests(java.util.Collection)} if you want to
+     * override the existing values.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *
-     * @param spotInstanceRequests One or more Spot Instance requests.
+     * @param spotInstanceRequests One or more Spot instance requests.
      *
      * @return A reference to this updated object so that method calls can be chained
      *         together.
@@ -73,11 +80,11 @@ public class RequestSpotInstancesResult implements Serializable, Cloneable {
     }
     
     /**
-     * One or more Spot Instance requests.
+     * One or more Spot instance requests.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *
-     * @param spotInstanceRequests One or more Spot Instance requests.
+     * @param spotInstanceRequests One or more Spot instance requests.
      *
      * @return A reference to this updated object so that method calls can be chained
      *         together.

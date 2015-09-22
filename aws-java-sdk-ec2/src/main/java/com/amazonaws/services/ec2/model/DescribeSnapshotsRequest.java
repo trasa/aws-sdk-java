@@ -23,11 +23,11 @@ import com.amazonaws.services.ec2.model.transform.DescribeSnapshotsRequestMarsha
 /**
  * Container for the parameters to the {@link com.amazonaws.services.ec2.AmazonEC2#describeSnapshots(DescribeSnapshotsRequest) DescribeSnapshots operation}.
  * <p>
- * Describes one or more of the Amazon EBS snapshots available to you.
- * Available snapshots include public snapshots available for any AWS
- * account to launch, private snapshots that you own, and private
- * snapshots owned by another AWS account but for which you've been given
- * explicit create volume permissions.
+ * Describes one or more of the EBS snapshots available to you. Available
+ * snapshots include public snapshots available for any AWS account to
+ * launch, private snapshots that you own, and private snapshots owned by
+ * another AWS account but for which you've been given explicit create
+ * volume permissions.
  * </p>
  * <p>
  * The create volume permissions fall into the following categories:
@@ -80,9 +80,9 @@ import com.amazonaws.services.ec2.model.transform.DescribeSnapshotsRequestMarsha
  * results.
  * </p>
  * <p>
- * For more information about Amazon EBS snapshots, see
+ * For more information about EBS snapshots, see
  * <a href="http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/EBSSnapshots.html"> Amazon EBS Snapshots </a>
- * in the <i>Amazon Elastic Compute Cloud User Guide for Linux</i> .
+ * in the <i>Amazon Elastic Compute Cloud User Guide</i> .
  * </p>
  *
  * @see com.amazonaws.services.ec2.AmazonEC2#describeSnapshots(DescribeSnapshotsRequest)
@@ -199,6 +199,11 @@ public class DescribeSnapshotsRequest extends AmazonWebServiceRequest implements
      * One or more snapshot IDs. <p>Default: Describes snapshots for which
      * you have launch permissions.
      * <p>
+     * <b>NOTE:</b> This method appends the values to the existing list (if
+     * any). Use {@link #setSnapshotIds(java.util.Collection)} or {@link
+     * #withSnapshotIds(java.util.Collection)} if you want to override the
+     * existing values.
+     * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *
      * @param snapshotIds One or more snapshot IDs. <p>Default: Describes snapshots for which
@@ -275,6 +280,11 @@ public class DescribeSnapshotsRequest extends AmazonWebServiceRequest implements
      * Returns the snapshots owned by the specified owner. Multiple owners
      * can be specified.
      * <p>
+     * <b>NOTE:</b> This method appends the values to the existing list (if
+     * any). Use {@link #setOwnerIds(java.util.Collection)} or {@link
+     * #withOwnerIds(java.util.Collection)} if you want to override the
+     * existing values.
+     * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *
      * @param ownerIds Returns the snapshots owned by the specified owner. Multiple owners
@@ -350,6 +360,11 @@ public class DescribeSnapshotsRequest extends AmazonWebServiceRequest implements
     /**
      * One or more AWS accounts IDs that can create volumes from the
      * snapshot.
+     * <p>
+     * <b>NOTE:</b> This method appends the values to the existing list (if
+     * any). Use {@link #setRestorableByUserIds(java.util.Collection)} or
+     * {@link #withRestorableByUserIds(java.util.Collection)} if you want to
+     * override the existing values.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *
@@ -546,6 +561,11 @@ public class DescribeSnapshotsRequest extends AmazonWebServiceRequest implements
      * filter. </li> <li> <p><code>volume-id</code> - The ID of the volume
      * the snapshot is for. </li> <li> <p><code>volume-size</code> - The size
      * of the volume, in GiB. </li> </ul>
+     * <p>
+     * <b>NOTE:</b> This method appends the values to the existing list (if
+     * any). Use {@link #setFilters(java.util.Collection)} or {@link
+     * #withFilters(java.util.Collection)} if you want to override the
+     * existing values.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *
