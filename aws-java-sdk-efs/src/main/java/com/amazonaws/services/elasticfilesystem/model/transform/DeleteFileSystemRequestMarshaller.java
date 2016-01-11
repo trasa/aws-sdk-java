@@ -1,5 +1,5 @@
 /*
- * Copyright 2010-2015 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2010-2016 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License.
@@ -45,6 +45,8 @@ import com.amazonaws.util.json.*;
 public class DeleteFileSystemRequestMarshaller implements
         Marshaller<Request<DeleteFileSystemRequest>, DeleteFileSystemRequest> {
 
+    private static final String DEFAULT_CONTENT_TYPE = "";
+
     public Request<DeleteFileSystemRequest> marshall(
             DeleteFileSystemRequest deleteFileSystemRequest) {
 
@@ -59,6 +61,7 @@ public class DeleteFileSystemRequestMarshaller implements
         request.setHttpMethod(HttpMethodName.DELETE);
 
         String uriResourcePath = "/2015-02-01/file-systems/{FileSystemId}";
+
         uriResourcePath = uriResourcePath.replace(
                 "{FileSystemId}",
                 (deleteFileSystemRequest.getFileSystemId() == null) ? ""
@@ -68,7 +71,7 @@ public class DeleteFileSystemRequestMarshaller implements
 
         request.setContent(new ByteArrayInputStream(new byte[0]));
         if (!request.getHeaders().containsKey("Content-Type")) {
-            request.addHeader("Content-Type", "binary/octet-stream");
+            request.addHeader("Content-Type", DEFAULT_CONTENT_TYPE);
         }
 
         return request;

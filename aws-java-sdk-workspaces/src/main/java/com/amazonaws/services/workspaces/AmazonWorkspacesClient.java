@@ -1,5 +1,5 @@
 /*
- * Copyright 2010-2015 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2010-2016 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License.
@@ -56,6 +56,9 @@ public class AmazonWorkspacesClient extends AmazonWebServiceClient implements
 
     /** Default signing name for the service. */
     private static final String DEFAULT_SIGNING_NAME = "workspaces";
+
+    /** The region metadata service name for computing region endpoints. */
+    private static final String DEFAULT_ENDPOINT_PREFIX = "workspaces";
 
     /**
      * List of exception unmarshallers for all Amazon WorkSpaces exceptions.
@@ -238,6 +241,7 @@ public class AmazonWorkspacesClient extends AmazonWebServiceClient implements
         // calling this.setEndPoint(...) will also modify the signer accordingly
         setEndpoint("https://workspaces.us-east-1.amazonaws.com");
         setServiceNameIntern(DEFAULT_SIGNING_NAME);
+        setEndpointPrefix(DEFAULT_ENDPOINT_PREFIX);
         HandlerChainFactory chainFactory = new HandlerChainFactory();
         requestHandler2s
                 .addAll(chainFactory
@@ -263,6 +267,7 @@ public class AmazonWorkspacesClient extends AmazonWebServiceClient implements
      * @return Result of the CreateWorkspaces operation returned by the service.
      * @throws ResourceLimitExceededException
      *         Your resource limits have been exceeded.
+     * @sample AmazonWorkspaces.CreateWorkspaces
      */
     @Override
     public CreateWorkspacesResult createWorkspaces(
@@ -278,16 +283,18 @@ public class AmazonWorkspacesClient extends AmazonWebServiceClient implements
             awsRequestMetrics.startEvent(Field.RequestMarshallTime);
             try {
                 request = new CreateWorkspacesRequestMarshaller()
-                        .marshall(createWorkspacesRequest);
+                        .marshall(super
+                                .beforeMarshalling(createWorkspacesRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
 
-            response = invoke(request,
-                    new CreateWorkspacesResultJsonUnmarshaller(),
-                    executionContext);
+            JsonResponseHandler<CreateWorkspacesResult> responseHandler = new JsonResponseHandler<CreateWorkspacesResult>(
+                    new CreateWorkspacesResultJsonUnmarshaller());
+            responseHandler.setIsPayloadJson(true);
+            response = invoke(request, responseHandler, executionContext);
 
             return response.getAwsResponse();
 
@@ -321,6 +328,7 @@ public class AmazonWorkspacesClient extends AmazonWebServiceClient implements
      *         service.
      * @throws InvalidParameterValuesException
      *         One or more parameter values are not valid.
+     * @sample AmazonWorkspaces.DescribeWorkspaceBundles
      */
     @Override
     public DescribeWorkspaceBundlesResult describeWorkspaceBundles(
@@ -336,16 +344,18 @@ public class AmazonWorkspacesClient extends AmazonWebServiceClient implements
             awsRequestMetrics.startEvent(Field.RequestMarshallTime);
             try {
                 request = new DescribeWorkspaceBundlesRequestMarshaller()
-                        .marshall(describeWorkspaceBundlesRequest);
+                        .marshall(super
+                                .beforeMarshalling(describeWorkspaceBundlesRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
 
-            response = invoke(request,
-                    new DescribeWorkspaceBundlesResultJsonUnmarshaller(),
-                    executionContext);
+            JsonResponseHandler<DescribeWorkspaceBundlesResult> responseHandler = new JsonResponseHandler<DescribeWorkspaceBundlesResult>(
+                    new DescribeWorkspaceBundlesResultJsonUnmarshaller());
+            responseHandler.setIsPayloadJson(true);
+            response = invoke(request, responseHandler, executionContext);
 
             return response.getAwsResponse();
 
@@ -381,6 +391,7 @@ public class AmazonWorkspacesClient extends AmazonWebServiceClient implements
      *         the service.
      * @throws InvalidParameterValuesException
      *         One or more parameter values are not valid.
+     * @sample AmazonWorkspaces.DescribeWorkspaceDirectories
      */
     @Override
     public DescribeWorkspaceDirectoriesResult describeWorkspaceDirectories(
@@ -396,16 +407,18 @@ public class AmazonWorkspacesClient extends AmazonWebServiceClient implements
             awsRequestMetrics.startEvent(Field.RequestMarshallTime);
             try {
                 request = new DescribeWorkspaceDirectoriesRequestMarshaller()
-                        .marshall(describeWorkspaceDirectoriesRequest);
+                        .marshall(super
+                                .beforeMarshalling(describeWorkspaceDirectoriesRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
 
-            response = invoke(request,
-                    new DescribeWorkspaceDirectoriesResultJsonUnmarshaller(),
-                    executionContext);
+            JsonResponseHandler<DescribeWorkspaceDirectoriesResult> responseHandler = new JsonResponseHandler<DescribeWorkspaceDirectoriesResult>(
+                    new DescribeWorkspaceDirectoriesResultJsonUnmarshaller());
+            responseHandler.setIsPayloadJson(true);
+            response = invoke(request, responseHandler, executionContext);
 
             return response.getAwsResponse();
 
@@ -445,6 +458,7 @@ public class AmazonWorkspacesClient extends AmazonWebServiceClient implements
      *         One or more parameter values are not valid.
      * @throws ResourceUnavailableException
      *         The specified resource is not available.
+     * @sample AmazonWorkspaces.DescribeWorkspaces
      */
     @Override
     public DescribeWorkspacesResult describeWorkspaces(
@@ -460,16 +474,18 @@ public class AmazonWorkspacesClient extends AmazonWebServiceClient implements
             awsRequestMetrics.startEvent(Field.RequestMarshallTime);
             try {
                 request = new DescribeWorkspacesRequestMarshaller()
-                        .marshall(describeWorkspacesRequest);
+                        .marshall(super
+                                .beforeMarshalling(describeWorkspacesRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
 
-            response = invoke(request,
-                    new DescribeWorkspacesResultJsonUnmarshaller(),
-                    executionContext);
+            JsonResponseHandler<DescribeWorkspacesResult> responseHandler = new JsonResponseHandler<DescribeWorkspacesResult>(
+                    new DescribeWorkspacesResultJsonUnmarshaller());
+            responseHandler.setIsPayloadJson(true);
+            response = invoke(request, responseHandler, executionContext);
 
             return response.getAwsResponse();
 
@@ -503,6 +519,7 @@ public class AmazonWorkspacesClient extends AmazonWebServiceClient implements
      * @param rebootWorkspacesRequest
      *        Contains the inputs for the <a>RebootWorkspaces</a> operation.
      * @return Result of the RebootWorkspaces operation returned by the service.
+     * @sample AmazonWorkspaces.RebootWorkspaces
      */
     @Override
     public RebootWorkspacesResult rebootWorkspaces(
@@ -518,16 +535,18 @@ public class AmazonWorkspacesClient extends AmazonWebServiceClient implements
             awsRequestMetrics.startEvent(Field.RequestMarshallTime);
             try {
                 request = new RebootWorkspacesRequestMarshaller()
-                        .marshall(rebootWorkspacesRequest);
+                        .marshall(super
+                                .beforeMarshalling(rebootWorkspacesRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
 
-            response = invoke(request,
-                    new RebootWorkspacesResultJsonUnmarshaller(),
-                    executionContext);
+            JsonResponseHandler<RebootWorkspacesResult> responseHandler = new JsonResponseHandler<RebootWorkspacesResult>(
+                    new RebootWorkspacesResultJsonUnmarshaller());
+            responseHandler.setIsPayloadJson(true);
+            response = invoke(request, responseHandler, executionContext);
 
             return response.getAwsResponse();
 
@@ -571,6 +590,7 @@ public class AmazonWorkspacesClient extends AmazonWebServiceClient implements
      *        Contains the inputs for the <a>RebuildWorkspaces</a> operation.
      * @return Result of the RebuildWorkspaces operation returned by the
      *         service.
+     * @sample AmazonWorkspaces.RebuildWorkspaces
      */
     @Override
     public RebuildWorkspacesResult rebuildWorkspaces(
@@ -586,16 +606,18 @@ public class AmazonWorkspacesClient extends AmazonWebServiceClient implements
             awsRequestMetrics.startEvent(Field.RequestMarshallTime);
             try {
                 request = new RebuildWorkspacesRequestMarshaller()
-                        .marshall(rebuildWorkspacesRequest);
+                        .marshall(super
+                                .beforeMarshalling(rebuildWorkspacesRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
 
-            response = invoke(request,
-                    new RebuildWorkspacesResultJsonUnmarshaller(),
-                    executionContext);
+            JsonResponseHandler<RebuildWorkspacesResult> responseHandler = new JsonResponseHandler<RebuildWorkspacesResult>(
+                    new RebuildWorkspacesResultJsonUnmarshaller());
+            responseHandler.setIsPayloadJson(true);
+            response = invoke(request, responseHandler, executionContext);
 
             return response.getAwsResponse();
 
@@ -630,6 +652,7 @@ public class AmazonWorkspacesClient extends AmazonWebServiceClient implements
      *        Contains the inputs for the <a>TerminateWorkspaces</a> operation.
      * @return Result of the TerminateWorkspaces operation returned by the
      *         service.
+     * @sample AmazonWorkspaces.TerminateWorkspaces
      */
     @Override
     public TerminateWorkspacesResult terminateWorkspaces(
@@ -645,16 +668,18 @@ public class AmazonWorkspacesClient extends AmazonWebServiceClient implements
             awsRequestMetrics.startEvent(Field.RequestMarshallTime);
             try {
                 request = new TerminateWorkspacesRequestMarshaller()
-                        .marshall(terminateWorkspacesRequest);
+                        .marshall(super
+                                .beforeMarshalling(terminateWorkspacesRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
 
-            response = invoke(request,
-                    new TerminateWorkspacesResultJsonUnmarshaller(),
-                    executionContext);
+            JsonResponseHandler<TerminateWorkspacesResult> responseHandler = new JsonResponseHandler<TerminateWorkspacesResult>(
+                    new TerminateWorkspacesResultJsonUnmarshaller());
+            responseHandler.setIsPayloadJson(true);
+            response = invoke(request, responseHandler, executionContext);
 
             return response.getAwsResponse();
 
@@ -689,7 +714,7 @@ public class AmazonWorkspacesClient extends AmazonWebServiceClient implements
 
     private <X, Y extends AmazonWebServiceRequest> Response<X> invoke(
             Request<Y> request,
-            Unmarshaller<X, JsonUnmarshallerContext> unmarshaller,
+            HttpResponseHandler<AmazonWebServiceResponse<X>> responseHandler,
             ExecutionContext executionContext) {
         request.setEndpoint(endpoint);
         request.setTimeOffset(timeOffset);
@@ -712,8 +737,6 @@ public class AmazonWorkspacesClient extends AmazonWebServiceClient implements
 
         executionContext.setCredentials(credentials);
 
-        JsonResponseHandler<X> responseHandler = new JsonResponseHandler<X>(
-                unmarshaller);
         JsonErrorResponseHandlerV2 errorResponseHandler = new JsonErrorResponseHandlerV2(
                 jsonErrorUnmarshallers);
 

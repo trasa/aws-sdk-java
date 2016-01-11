@@ -1,5 +1,5 @@
 /*
- * Copyright 2010-2015 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2010-2016 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License.
@@ -39,7 +39,7 @@ public class RunInstancesRequestMarshaller implements Marshaller<Request<RunInst
 
         Request<RunInstancesRequest> request = new DefaultRequest<RunInstancesRequest>(runInstancesRequest, "AmazonEC2");
         request.addParameter("Action", "RunInstances");
-        request.addParameter("Version", "2015-04-15");
+        request.addParameter("Version", "2015-10-01");
 
         if (runInstancesRequest.getImageId() != null) {
             request.addParameter("ImageId", StringUtils.fromString(runInstancesRequest.getImageId()));
@@ -91,6 +91,12 @@ public class RunInstancesRequestMarshaller implements Marshaller<Request<RunInst
             }
             if (placementPlacement.getTenancy() != null) {
                 request.addParameter("Placement.Tenancy", StringUtils.fromString(placementPlacement.getTenancy()));
+            }
+            if (placementPlacement.getHostId() != null) {
+                request.addParameter("Placement.HostId", StringUtils.fromString(placementPlacement.getHostId()));
+            }
+            if (placementPlacement.getAffinity() != null) {
+                request.addParameter("Placement.Affinity", StringUtils.fromString(placementPlacement.getAffinity()));
             }
         }
         if (runInstancesRequest.getKernelId() != null) {

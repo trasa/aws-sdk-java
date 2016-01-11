@@ -1,5 +1,5 @@
 /*
- * Copyright 2010-2015 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2010-2016 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License.
@@ -41,7 +41,7 @@ public class PromoteReadReplicaRequest extends AmazonWebServiceRequest implement
      * existing Read Replica DB instance</li> <li>Must contain from 1 to 63
      * alphanumeric characters or hyphens</li> <li>First character must be a
      * letter</li> <li>Cannot end with a hyphen or contain two consecutive
-     * hyphens</li> </ul> <p>Example: <copy>mydbinstance</copy>
+     * hyphens</li> </ul> <p>Example: <code>mydbinstance</code>
      */
     private String dBInstanceIdentifier;
 
@@ -74,14 +74,14 @@ public class PromoteReadReplicaRequest extends AmazonWebServiceRequest implement
      * existing Read Replica DB instance</li> <li>Must contain from 1 to 63
      * alphanumeric characters or hyphens</li> <li>First character must be a
      * letter</li> <li>Cannot end with a hyphen or contain two consecutive
-     * hyphens</li> </ul> <p>Example: <copy>mydbinstance</copy>
+     * hyphens</li> </ul> <p>Example: <code>mydbinstance</code>
      *
      * @return The DB instance identifier. This value is stored as a lowercase
      *         string. <p>Constraints: <ul> <li>Must be the identifier for an
      *         existing Read Replica DB instance</li> <li>Must contain from 1 to 63
      *         alphanumeric characters or hyphens</li> <li>First character must be a
      *         letter</li> <li>Cannot end with a hyphen or contain two consecutive
-     *         hyphens</li> </ul> <p>Example: <copy>mydbinstance</copy>
+     *         hyphens</li> </ul> <p>Example: <code>mydbinstance</code>
      */
     public String getDBInstanceIdentifier() {
         return dBInstanceIdentifier;
@@ -93,14 +93,14 @@ public class PromoteReadReplicaRequest extends AmazonWebServiceRequest implement
      * existing Read Replica DB instance</li> <li>Must contain from 1 to 63
      * alphanumeric characters or hyphens</li> <li>First character must be a
      * letter</li> <li>Cannot end with a hyphen or contain two consecutive
-     * hyphens</li> </ul> <p>Example: <copy>mydbinstance</copy>
+     * hyphens</li> </ul> <p>Example: <code>mydbinstance</code>
      *
      * @param dBInstanceIdentifier The DB instance identifier. This value is stored as a lowercase
      *         string. <p>Constraints: <ul> <li>Must be the identifier for an
      *         existing Read Replica DB instance</li> <li>Must contain from 1 to 63
      *         alphanumeric characters or hyphens</li> <li>First character must be a
      *         letter</li> <li>Cannot end with a hyphen or contain two consecutive
-     *         hyphens</li> </ul> <p>Example: <copy>mydbinstance</copy>
+     *         hyphens</li> </ul> <p>Example: <code>mydbinstance</code>
      */
     public void setDBInstanceIdentifier(String dBInstanceIdentifier) {
         this.dBInstanceIdentifier = dBInstanceIdentifier;
@@ -112,7 +112,7 @@ public class PromoteReadReplicaRequest extends AmazonWebServiceRequest implement
      * existing Read Replica DB instance</li> <li>Must contain from 1 to 63
      * alphanumeric characters or hyphens</li> <li>First character must be a
      * letter</li> <li>Cannot end with a hyphen or contain two consecutive
-     * hyphens</li> </ul> <p>Example: <copy>mydbinstance</copy>
+     * hyphens</li> </ul> <p>Example: <code>mydbinstance</code>
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *
@@ -121,7 +121,7 @@ public class PromoteReadReplicaRequest extends AmazonWebServiceRequest implement
      *         existing Read Replica DB instance</li> <li>Must contain from 1 to 63
      *         alphanumeric characters or hyphens</li> <li>First character must be a
      *         letter</li> <li>Cannot end with a hyphen or contain two consecutive
-     *         hyphens</li> </ul> <p>Example: <copy>mydbinstance</copy>
+     *         hyphens</li> </ul> <p>Example: <code>mydbinstance</code>
      *
      * @return A reference to this updated object so that method calls can be chained
      *         together.

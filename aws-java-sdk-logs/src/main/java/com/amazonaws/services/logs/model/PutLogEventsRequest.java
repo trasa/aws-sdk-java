@@ -1,5 +1,5 @@
 /*
- * Copyright 2010-2015 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2010-2016 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License.
@@ -64,7 +64,6 @@ public class PutLogEventsRequest extends AmazonWebServiceRequest implements
      * @param logStreamName
      *        The name of the log stream to put log events to.
      * @param logEvents
-     *        null
      */
     public PutLogEventsRequest(String logGroupName, String logStreamName,
             java.util.List<InputLogEvent> logEvents) {
@@ -150,9 +149,7 @@ public class PutLogEventsRequest extends AmazonWebServiceRequest implements
     }
 
     /**
-     * Returns the value of the LogEvents property for this object.
-     * 
-     * @return The value of the LogEvents property for this object.
+     * @return
      */
     public java.util.List<InputLogEvent> getLogEvents() {
         if (logEvents == null) {
@@ -162,10 +159,7 @@ public class PutLogEventsRequest extends AmazonWebServiceRequest implements
     }
 
     /**
-     * Sets the value of the LogEvents property for this object.
-     * 
      * @param logEvents
-     *        The new value for the LogEvents property for this object.
      */
     public void setLogEvents(java.util.Collection<InputLogEvent> logEvents) {
         if (logEvents == null) {
@@ -178,7 +172,6 @@ public class PutLogEventsRequest extends AmazonWebServiceRequest implements
     }
 
     /**
-     * Sets the value of the LogEvents property for this object.
      * <p>
      * <b>NOTE:</b> This method appends the values to the existing list (if
      * any). Use {@link #setLogEvents(java.util.Collection)} or
@@ -187,7 +180,6 @@ public class PutLogEventsRequest extends AmazonWebServiceRequest implements
      * </p>
      * 
      * @param logEvents
-     *        The new value for the LogEvents property for this object.
      * @return Returns a reference to this object so that method calls can be
      *         chained together.
      */
@@ -203,10 +195,7 @@ public class PutLogEventsRequest extends AmazonWebServiceRequest implements
     }
 
     /**
-     * Sets the value of the LogEvents property for this object.
-     * 
      * @param logEvents
-     *        The new value for the LogEvents property for this object.
      * @return Returns a reference to this object so that method calls can be
      *         chained together.
      */

@@ -1,5 +1,5 @@
 /*
- * Copyright 2010-2015 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2010-2016 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License.
@@ -13,6 +13,7 @@
  * permissions and limitations under the License.
  */
 package com.amazonaws.services.s3.model;
+import java.io.Serializable;
 
 import com.amazonaws.AmazonWebServiceRequest;
 import com.amazonaws.services.s3.AmazonS3;
@@ -41,7 +42,7 @@ import com.amazonaws.services.s3.AmazonS3;
  * success message, not an error message.
  * </p>
  */
-public class DeleteVersionRequest extends AmazonWebServiceRequest {
+public class DeleteVersionRequest extends AmazonWebServiceRequest implements Serializable {
 
     /**
      * The name of the Amazon S3 bucket containing the version to delete.

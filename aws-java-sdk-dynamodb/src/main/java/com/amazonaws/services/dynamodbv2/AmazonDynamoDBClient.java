@@ -1,5 +1,5 @@
 /*
- * Copyright 2010-2015 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2010-2016 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License.
@@ -227,6 +227,9 @@ public class AmazonDynamoDBClient extends AmazonWebServiceClient implements
     /** Default signing name for the service. */
     private static final String DEFAULT_SIGNING_NAME = "dynamodb";
 
+    /** The region metadata service name for computing region endpoints. */
+    private static final String DEFAULT_ENDPOINT_PREFIX = "dynamodb";
+
     /**
      * List of exception unmarshallers for all DynamoDB exceptions.
      */
@@ -417,6 +420,7 @@ public class AmazonDynamoDBClient extends AmazonWebServiceClient implements
         // calling this.setEndPoint(...) will also modify the signer accordingly
         setEndpoint("https://dynamodb.us-east-1.amazonaws.com");
         setServiceNameIntern(DEFAULT_SIGNING_NAME);
+        setEndpointPrefix(DEFAULT_ENDPOINT_PREFIX);
         HandlerChainFactory chainFactory = new HandlerChainFactory();
         requestHandler2s
                 .addAll(chainFactory
@@ -524,6 +528,7 @@ public class AmazonDynamoDBClient extends AmazonWebServiceClient implements
      *         not be <code>ACTIVE</code>.
      * @throws InternalServerErrorException
      *         An error occurred on the server side.
+     * @sample AmazonDynamoDB.BatchGetItem
      */
     @Override
     public BatchGetItemResult batchGetItem(
@@ -538,16 +543,18 @@ public class AmazonDynamoDBClient extends AmazonWebServiceClient implements
         try {
             awsRequestMetrics.startEvent(Field.RequestMarshallTime);
             try {
-                request = new BatchGetItemRequestMarshaller()
-                        .marshall(batchGetItemRequest);
+                request = new BatchGetItemRequestMarshaller().marshall(super
+                        .beforeMarshalling(batchGetItemRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
 
-            response = invoke(request,
-                    new BatchGetItemResultJsonUnmarshaller(), executionContext);
+            JsonResponseHandler<BatchGetItemResult> responseHandler = new JsonResponseHandler<BatchGetItemResult>(
+                    new BatchGetItemResultJsonUnmarshaller());
+            responseHandler.setIsPayloadJson(true);
+            response = invoke(request, responseHandler, executionContext);
 
             return response.getAwsResponse();
 
@@ -709,6 +716,7 @@ public class AmazonDynamoDBClient extends AmazonWebServiceClient implements
      *         for tables that have one or more local secondary indexes.
      * @throws InternalServerErrorException
      *         An error occurred on the server side.
+     * @sample AmazonDynamoDB.BatchWriteItem
      */
     @Override
     public BatchWriteItemResult batchWriteItem(
@@ -723,17 +731,18 @@ public class AmazonDynamoDBClient extends AmazonWebServiceClient implements
         try {
             awsRequestMetrics.startEvent(Field.RequestMarshallTime);
             try {
-                request = new BatchWriteItemRequestMarshaller()
-                        .marshall(batchWriteItemRequest);
+                request = new BatchWriteItemRequestMarshaller().marshall(super
+                        .beforeMarshalling(batchWriteItemRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
 
-            response = invoke(request,
-                    new BatchWriteItemResultJsonUnmarshaller(),
-                    executionContext);
+            JsonResponseHandler<BatchWriteItemResult> responseHandler = new JsonResponseHandler<BatchWriteItemResult>(
+                    new BatchWriteItemResultJsonUnmarshaller());
+            responseHandler.setIsPayloadJson(true);
+            response = invoke(request, responseHandler, executionContext);
 
             return response.getAwsResponse();
 
@@ -798,6 +807,7 @@ public class AmazonDynamoDBClient extends AmazonWebServiceClient implements
      *         250.
      * @throws InternalServerErrorException
      *         An error occurred on the server side.
+     * @sample AmazonDynamoDB.CreateTable
      */
     @Override
     public CreateTableResult createTable(CreateTableRequest createTableRequest) {
@@ -811,16 +821,18 @@ public class AmazonDynamoDBClient extends AmazonWebServiceClient implements
         try {
             awsRequestMetrics.startEvent(Field.RequestMarshallTime);
             try {
-                request = new CreateTableRequestMarshaller()
-                        .marshall(createTableRequest);
+                request = new CreateTableRequestMarshaller().marshall(super
+                        .beforeMarshalling(createTableRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
 
-            response = invoke(request, new CreateTableResultJsonUnmarshaller(),
-                    executionContext);
+            JsonResponseHandler<CreateTableResult> responseHandler = new JsonResponseHandler<CreateTableResult>(
+                    new CreateTableResultJsonUnmarshaller());
+            responseHandler.setIsPayloadJson(true);
+            response = invoke(request, responseHandler, executionContext);
 
             return response.getAwsResponse();
 
@@ -885,6 +897,7 @@ public class AmazonDynamoDBClient extends AmazonWebServiceClient implements
      *         for tables that have one or more local secondary indexes.
      * @throws InternalServerErrorException
      *         An error occurred on the server side.
+     * @sample AmazonDynamoDB.DeleteItem
      */
     @Override
     public DeleteItemResult deleteItem(DeleteItemRequest deleteItemRequest) {
@@ -898,16 +911,18 @@ public class AmazonDynamoDBClient extends AmazonWebServiceClient implements
         try {
             awsRequestMetrics.startEvent(Field.RequestMarshallTime);
             try {
-                request = new DeleteItemRequestMarshaller()
-                        .marshall(deleteItemRequest);
+                request = new DeleteItemRequestMarshaller().marshall(super
+                        .beforeMarshalling(deleteItemRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
 
-            response = invoke(request, new DeleteItemResultJsonUnmarshaller(),
-                    executionContext);
+            JsonResponseHandler<DeleteItemResult> responseHandler = new JsonResponseHandler<DeleteItemResult>(
+                    new DeleteItemResultJsonUnmarshaller());
+            responseHandler.setIsPayloadJson(true);
+            response = invoke(request, responseHandler, executionContext);
 
             return response.getAwsResponse();
 
@@ -988,6 +1003,7 @@ public class AmazonDynamoDBClient extends AmazonWebServiceClient implements
      *         250.
      * @throws InternalServerErrorException
      *         An error occurred on the server side.
+     * @sample AmazonDynamoDB.DeleteTable
      */
     @Override
     public DeleteTableResult deleteTable(DeleteTableRequest deleteTableRequest) {
@@ -1001,16 +1017,18 @@ public class AmazonDynamoDBClient extends AmazonWebServiceClient implements
         try {
             awsRequestMetrics.startEvent(Field.RequestMarshallTime);
             try {
-                request = new DeleteTableRequestMarshaller()
-                        .marshall(deleteTableRequest);
+                request = new DeleteTableRequestMarshaller().marshall(super
+                        .beforeMarshalling(deleteTableRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
 
-            response = invoke(request, new DeleteTableResultJsonUnmarshaller(),
-                    executionContext);
+            JsonResponseHandler<DeleteTableResult> responseHandler = new JsonResponseHandler<DeleteTableResult>(
+                    new DeleteTableResultJsonUnmarshaller());
+            responseHandler.setIsPayloadJson(true);
+            response = invoke(request, responseHandler, executionContext);
 
             return response.getAwsResponse();
 
@@ -1050,6 +1068,7 @@ public class AmazonDynamoDBClient extends AmazonWebServiceClient implements
      *         not be <code>ACTIVE</code>.
      * @throws InternalServerErrorException
      *         An error occurred on the server side.
+     * @sample AmazonDynamoDB.DescribeTable
      */
     @Override
     public DescribeTableResult describeTable(
@@ -1064,16 +1083,18 @@ public class AmazonDynamoDBClient extends AmazonWebServiceClient implements
         try {
             awsRequestMetrics.startEvent(Field.RequestMarshallTime);
             try {
-                request = new DescribeTableRequestMarshaller()
-                        .marshall(describeTableRequest);
+                request = new DescribeTableRequestMarshaller().marshall(super
+                        .beforeMarshalling(describeTableRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
 
-            response = invoke(request,
-                    new DescribeTableResultJsonUnmarshaller(), executionContext);
+            JsonResponseHandler<DescribeTableResult> responseHandler = new JsonResponseHandler<DescribeTableResult>(
+                    new DescribeTableResultJsonUnmarshaller());
+            responseHandler.setIsPayloadJson(true);
+            response = invoke(request, responseHandler, executionContext);
 
             return response.getAwsResponse();
 
@@ -1121,6 +1142,7 @@ public class AmazonDynamoDBClient extends AmazonWebServiceClient implements
      *         not be <code>ACTIVE</code>.
      * @throws InternalServerErrorException
      *         An error occurred on the server side.
+     * @sample AmazonDynamoDB.GetItem
      */
     @Override
     public GetItemResult getItem(GetItemRequest getItemRequest) {
@@ -1134,16 +1156,18 @@ public class AmazonDynamoDBClient extends AmazonWebServiceClient implements
         try {
             awsRequestMetrics.startEvent(Field.RequestMarshallTime);
             try {
-                request = new GetItemRequestMarshaller()
-                        .marshall(getItemRequest);
+                request = new GetItemRequestMarshaller().marshall(super
+                        .beforeMarshalling(getItemRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
 
-            response = invoke(request, new GetItemResultJsonUnmarshaller(),
-                    executionContext);
+            JsonResponseHandler<GetItemResult> responseHandler = new JsonResponseHandler<GetItemResult>(
+                    new GetItemResultJsonUnmarshaller());
+            responseHandler.setIsPayloadJson(true);
+            response = invoke(request, responseHandler, executionContext);
 
             return response.getAwsResponse();
 
@@ -1179,6 +1203,7 @@ public class AmazonDynamoDBClient extends AmazonWebServiceClient implements
      * @return Result of the ListTables operation returned by the service.
      * @throws InternalServerErrorException
      *         An error occurred on the server side.
+     * @sample AmazonDynamoDB.ListTables
      */
     @Override
     public ListTablesResult listTables(ListTablesRequest listTablesRequest) {
@@ -1192,16 +1217,18 @@ public class AmazonDynamoDBClient extends AmazonWebServiceClient implements
         try {
             awsRequestMetrics.startEvent(Field.RequestMarshallTime);
             try {
-                request = new ListTablesRequestMarshaller()
-                        .marshall(listTablesRequest);
+                request = new ListTablesRequestMarshaller().marshall(super
+                        .beforeMarshalling(listTablesRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
 
-            response = invoke(request, new ListTablesResultJsonUnmarshaller(),
-                    executionContext);
+            JsonResponseHandler<ListTablesResult> responseHandler = new JsonResponseHandler<ListTablesResult>(
+                    new ListTablesResultJsonUnmarshaller());
+            responseHandler.setIsPayloadJson(true);
+            response = invoke(request, responseHandler, executionContext);
 
             return response.getAwsResponse();
 
@@ -1296,6 +1323,7 @@ public class AmazonDynamoDBClient extends AmazonWebServiceClient implements
      *         for tables that have one or more local secondary indexes.
      * @throws InternalServerErrorException
      *         An error occurred on the server side.
+     * @sample AmazonDynamoDB.PutItem
      */
     @Override
     public PutItemResult putItem(PutItemRequest putItemRequest) {
@@ -1309,16 +1337,18 @@ public class AmazonDynamoDBClient extends AmazonWebServiceClient implements
         try {
             awsRequestMetrics.startEvent(Field.RequestMarshallTime);
             try {
-                request = new PutItemRequestMarshaller()
-                        .marshall(putItemRequest);
+                request = new PutItemRequestMarshaller().marshall(super
+                        .beforeMarshalling(putItemRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
 
-            response = invoke(request, new PutItemResultJsonUnmarshaller(),
-                    executionContext);
+            JsonResponseHandler<PutItemResult> responseHandler = new JsonResponseHandler<PutItemResult>(
+                    new PutItemResultJsonUnmarshaller());
+            responseHandler.setIsPayloadJson(true);
+            response = invoke(request, responseHandler, executionContext);
 
             return response.getAwsResponse();
 
@@ -1397,6 +1427,7 @@ public class AmazonDynamoDBClient extends AmazonWebServiceClient implements
      *         not be <code>ACTIVE</code>.
      * @throws InternalServerErrorException
      *         An error occurred on the server side.
+     * @sample AmazonDynamoDB.Query
      */
     @Override
     public QueryResult query(QueryRequest queryRequest) {
@@ -1410,15 +1441,18 @@ public class AmazonDynamoDBClient extends AmazonWebServiceClient implements
         try {
             awsRequestMetrics.startEvent(Field.RequestMarshallTime);
             try {
-                request = new QueryRequestMarshaller().marshall(queryRequest);
+                request = new QueryRequestMarshaller().marshall(super
+                        .beforeMarshalling(queryRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
 
-            response = invoke(request, new QueryResultJsonUnmarshaller(),
-                    executionContext);
+            JsonResponseHandler<QueryResult> responseHandler = new JsonResponseHandler<QueryResult>(
+                    new QueryResultJsonUnmarshaller());
+            responseHandler.setIsPayloadJson(true);
+            response = invoke(request, responseHandler, executionContext);
 
             return response.getAwsResponse();
 
@@ -1474,6 +1508,7 @@ public class AmazonDynamoDBClient extends AmazonWebServiceClient implements
      *         not be <code>ACTIVE</code>.
      * @throws InternalServerErrorException
      *         An error occurred on the server side.
+     * @sample AmazonDynamoDB.Scan
      */
     @Override
     public ScanResult scan(ScanRequest scanRequest) {
@@ -1487,15 +1522,18 @@ public class AmazonDynamoDBClient extends AmazonWebServiceClient implements
         try {
             awsRequestMetrics.startEvent(Field.RequestMarshallTime);
             try {
-                request = new ScanRequestMarshaller().marshall(scanRequest);
+                request = new ScanRequestMarshaller().marshall(super
+                        .beforeMarshalling(scanRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
 
-            response = invoke(request, new ScanResultJsonUnmarshaller(),
-                    executionContext);
+            JsonResponseHandler<ScanResult> responseHandler = new JsonResponseHandler<ScanResult>(
+                    new ScanResultJsonUnmarshaller());
+            responseHandler.setIsPayloadJson(true);
+            response = invoke(request, responseHandler, executionContext);
 
             return response.getAwsResponse();
 
@@ -1566,6 +1604,7 @@ public class AmazonDynamoDBClient extends AmazonWebServiceClient implements
      *         for tables that have one or more local secondary indexes.
      * @throws InternalServerErrorException
      *         An error occurred on the server side.
+     * @sample AmazonDynamoDB.UpdateItem
      */
     @Override
     public UpdateItemResult updateItem(UpdateItemRequest updateItemRequest) {
@@ -1579,16 +1618,18 @@ public class AmazonDynamoDBClient extends AmazonWebServiceClient implements
         try {
             awsRequestMetrics.startEvent(Field.RequestMarshallTime);
             try {
-                request = new UpdateItemRequestMarshaller()
-                        .marshall(updateItemRequest);
+                request = new UpdateItemRequestMarshaller().marshall(super
+                        .beforeMarshalling(updateItemRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
 
-            response = invoke(request, new UpdateItemResultJsonUnmarshaller(),
-                    executionContext);
+            JsonResponseHandler<UpdateItemResult> responseHandler = new JsonResponseHandler<UpdateItemResult>(
+                    new UpdateItemResultJsonUnmarshaller());
+            responseHandler.setIsPayloadJson(true);
+            response = invoke(request, responseHandler, executionContext);
 
             return response.getAwsResponse();
 
@@ -1681,6 +1722,7 @@ public class AmazonDynamoDBClient extends AmazonWebServiceClient implements
      *         250.
      * @throws InternalServerErrorException
      *         An error occurred on the server side.
+     * @sample AmazonDynamoDB.UpdateTable
      */
     @Override
     public UpdateTableResult updateTable(UpdateTableRequest updateTableRequest) {
@@ -1694,16 +1736,18 @@ public class AmazonDynamoDBClient extends AmazonWebServiceClient implements
         try {
             awsRequestMetrics.startEvent(Field.RequestMarshallTime);
             try {
-                request = new UpdateTableRequestMarshaller()
-                        .marshall(updateTableRequest);
+                request = new UpdateTableRequestMarshaller().marshall(super
+                        .beforeMarshalling(updateTableRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
 
-            response = invoke(request, new UpdateTableResultJsonUnmarshaller(),
-                    executionContext);
+            JsonResponseHandler<UpdateTableResult> responseHandler = new JsonResponseHandler<UpdateTableResult>(
+                    new UpdateTableResultJsonUnmarshaller());
+            responseHandler.setIsPayloadJson(true);
+            response = invoke(request, responseHandler, executionContext);
 
             return response.getAwsResponse();
 
@@ -1745,7 +1789,7 @@ public class AmazonDynamoDBClient extends AmazonWebServiceClient implements
 
     private <X, Y extends AmazonWebServiceRequest> Response<X> invoke(
             Request<Y> request,
-            Unmarshaller<X, JsonUnmarshallerContext> unmarshaller,
+            HttpResponseHandler<AmazonWebServiceResponse<X>> responseHandler,
             ExecutionContext executionContext) {
         request.setEndpoint(endpoint);
         request.setTimeOffset(timeOffset);
@@ -1768,8 +1812,6 @@ public class AmazonDynamoDBClient extends AmazonWebServiceClient implements
 
         executionContext.setCredentials(credentials);
 
-        JsonResponseHandler<X> responseHandler = new JsonResponseHandler<X>(
-                unmarshaller);
         JsonErrorResponseHandlerV2 errorResponseHandler = new JsonErrorResponseHandlerV2(
                 jsonErrorUnmarshallers);
 

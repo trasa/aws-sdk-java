@@ -1,5 +1,5 @@
 /*
- * Copyright 2010-2015 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2010-2016 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License.
@@ -49,7 +49,6 @@ public class PutRetentionPolicyRequest extends AmazonWebServiceRequest
      * @param logGroupName
      *        The name of the log group to associate the retention policy with.
      * @param retentionInDays
-     *        null
      */
     public PutRetentionPolicyRequest(String logGroupName,
             Integer retentionInDays) {
@@ -96,29 +95,21 @@ public class PutRetentionPolicyRequest extends AmazonWebServiceRequest
     }
 
     /**
-     * Sets the value of the RetentionInDays property for this object.
-     * 
      * @param retentionInDays
-     *        The new value for the RetentionInDays property for this object.
      */
     public void setRetentionInDays(Integer retentionInDays) {
         this.retentionInDays = retentionInDays;
     }
 
     /**
-     * Returns the value of the RetentionInDays property for this object.
-     * 
-     * @return The value of the RetentionInDays property for this object.
+     * @return
      */
     public Integer getRetentionInDays() {
         return this.retentionInDays;
     }
 
     /**
-     * Sets the value of the RetentionInDays property for this object.
-     * 
      * @param retentionInDays
-     *        The new value for the RetentionInDays property for this object.
      * @return Returns a reference to this object so that method calls can be
      *         chained together.
      */

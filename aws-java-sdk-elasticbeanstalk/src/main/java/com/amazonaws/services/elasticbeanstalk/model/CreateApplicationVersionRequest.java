@@ -1,5 +1,5 @@
 /*
- * Copyright 2010-2015 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2010-2016 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License.
@@ -19,8 +19,7 @@ import java.io.Serializable;
 import com.amazonaws.AmazonWebServiceRequest;
 
 /**
- * <p>
- * </p>
+ * <p/>
  */
 public class CreateApplicationVersionRequest extends AmazonWebServiceRequest
         implements Serializable, Cloneable {
@@ -75,17 +74,6 @@ public class CreateApplicationVersionRequest extends AmazonWebServiceRequest
      * Determines how the system behaves if the specified application for this
      * version does not already exist:
      * </p>
-     * <enumValues> <value name="true">
-     * <p>
-     * <code>true</code>: Automatically creates the specified application for
-     * this version if it does not already exist.
-     * </p>
-     * </value> <value name="false">
-     * <p>
-     * <code>false</code>: Returns an <code>InvalidParameterValue</code> if the
-     * specified application for this version does not already exist.
-     * </p>
-     * </value> </enumValues>
      * <ul>
      * <li> <code>true</code> : Automatically creates the specified application
      * for this release if it does not already exist.</li>
@@ -100,6 +88,14 @@ public class CreateApplicationVersionRequest extends AmazonWebServiceRequest
      * </p>
      */
     private Boolean autoCreateApplication;
+    /**
+     * <p>
+     * Preprocesses and validates the environment manifest and configuration
+     * files in the source bundle. Validating configuration files can identify
+     * issues prior to deploying the application version to an environment.
+     * </p>
+     */
+    private Boolean process;
 
     /**
      * Default constructor for CreateApplicationVersionRequest object. Callers
@@ -415,17 +411,6 @@ public class CreateApplicationVersionRequest extends AmazonWebServiceRequest
      * Determines how the system behaves if the specified application for this
      * version does not already exist:
      * </p>
-     * <enumValues> <value name="true">
-     * <p>
-     * <code>true</code>: Automatically creates the specified application for
-     * this version if it does not already exist.
-     * </p>
-     * </value> <value name="false">
-     * <p>
-     * <code>false</code>: Returns an <code>InvalidParameterValue</code> if the
-     * specified application for this version does not already exist.
-     * </p>
-     * </value> </enumValues>
      * <ul>
      * <li> <code>true</code> : Automatically creates the specified application
      * for this release if it does not already exist.</li>
@@ -441,19 +426,7 @@ public class CreateApplicationVersionRequest extends AmazonWebServiceRequest
      * 
      * @param autoCreateApplication
      *        Determines how the system behaves if the specified application for
-     *        this version does not already exist: </p> <enumValues> <value
-     *        name="true">
-     *        <p>
-     *        <code>true</code>: Automatically creates the specified application
-     *        for this version if it does not already exist.
-     *        </p>
-     *        </value> <value name="false">
-     *        <p>
-     *        <code>false</code>: Returns an <code>InvalidParameterValue</code>
-     *        if the specified application for this version does not already
-     *        exist.
-     *        </p>
-     *        </value> </enumValues>
+     *        this version does not already exist: </p>
      *        <ul>
      *        <li> <code>true</code> : Automatically creates the specified
      *        application for this release if it does not already exist.</li>
@@ -476,17 +449,6 @@ public class CreateApplicationVersionRequest extends AmazonWebServiceRequest
      * Determines how the system behaves if the specified application for this
      * version does not already exist:
      * </p>
-     * <enumValues> <value name="true">
-     * <p>
-     * <code>true</code>: Automatically creates the specified application for
-     * this version if it does not already exist.
-     * </p>
-     * </value> <value name="false">
-     * <p>
-     * <code>false</code>: Returns an <code>InvalidParameterValue</code> if the
-     * specified application for this version does not already exist.
-     * </p>
-     * </value> </enumValues>
      * <ul>
      * <li> <code>true</code> : Automatically creates the specified application
      * for this release if it does not already exist.</li>
@@ -501,19 +463,7 @@ public class CreateApplicationVersionRequest extends AmazonWebServiceRequest
      * </p>
      * 
      * @return Determines how the system behaves if the specified application
-     *         for this version does not already exist: </p> <enumValues> <value
-     *         name="true">
-     *         <p>
-     *         <code>true</code>: Automatically creates the specified
-     *         application for this version if it does not already exist.
-     *         </p>
-     *         </value> <value name="false">
-     *         <p>
-     *         <code>false</code>: Returns an <code>InvalidParameterValue</code>
-     *         if the specified application for this version does not already
-     *         exist.
-     *         </p>
-     *         </value> </enumValues>
+     *         for this version does not already exist: </p>
      *         <ul>
      *         <li> <code>true</code> : Automatically creates the specified
      *         application for this release if it does not already exist.</li>
@@ -536,17 +486,6 @@ public class CreateApplicationVersionRequest extends AmazonWebServiceRequest
      * Determines how the system behaves if the specified application for this
      * version does not already exist:
      * </p>
-     * <enumValues> <value name="true">
-     * <p>
-     * <code>true</code>: Automatically creates the specified application for
-     * this version if it does not already exist.
-     * </p>
-     * </value> <value name="false">
-     * <p>
-     * <code>false</code>: Returns an <code>InvalidParameterValue</code> if the
-     * specified application for this version does not already exist.
-     * </p>
-     * </value> </enumValues>
      * <ul>
      * <li> <code>true</code> : Automatically creates the specified application
      * for this release if it does not already exist.</li>
@@ -562,19 +501,7 @@ public class CreateApplicationVersionRequest extends AmazonWebServiceRequest
      * 
      * @param autoCreateApplication
      *        Determines how the system behaves if the specified application for
-     *        this version does not already exist: </p> <enumValues> <value
-     *        name="true">
-     *        <p>
-     *        <code>true</code>: Automatically creates the specified application
-     *        for this version if it does not already exist.
-     *        </p>
-     *        </value> <value name="false">
-     *        <p>
-     *        <code>false</code>: Returns an <code>InvalidParameterValue</code>
-     *        if the specified application for this version does not already
-     *        exist.
-     *        </p>
-     *        </value> </enumValues>
+     *        this version does not already exist: </p>
      *        <ul>
      *        <li> <code>true</code> : Automatically creates the specified
      *        application for this release if it does not already exist.</li>
@@ -601,17 +528,6 @@ public class CreateApplicationVersionRequest extends AmazonWebServiceRequest
      * Determines how the system behaves if the specified application for this
      * version does not already exist:
      * </p>
-     * <enumValues> <value name="true">
-     * <p>
-     * <code>true</code>: Automatically creates the specified application for
-     * this version if it does not already exist.
-     * </p>
-     * </value> <value name="false">
-     * <p>
-     * <code>false</code>: Returns an <code>InvalidParameterValue</code> if the
-     * specified application for this version does not already exist.
-     * </p>
-     * </value> </enumValues>
      * <ul>
      * <li> <code>true</code> : Automatically creates the specified application
      * for this release if it does not already exist.</li>
@@ -626,19 +542,7 @@ public class CreateApplicationVersionRequest extends AmazonWebServiceRequest
      * </p>
      * 
      * @return Determines how the system behaves if the specified application
-     *         for this version does not already exist: </p> <enumValues> <value
-     *         name="true">
-     *         <p>
-     *         <code>true</code>: Automatically creates the specified
-     *         application for this version if it does not already exist.
-     *         </p>
-     *         </value> <value name="false">
-     *         <p>
-     *         <code>false</code>: Returns an <code>InvalidParameterValue</code>
-     *         if the specified application for this version does not already
-     *         exist.
-     *         </p>
-     *         </value> </enumValues>
+     *         for this version does not already exist: </p>
      *         <ul>
      *         <li> <code>true</code> : Automatically creates the specified
      *         application for this release if it does not already exist.</li>
@@ -654,6 +558,75 @@ public class CreateApplicationVersionRequest extends AmazonWebServiceRequest
      */
     public Boolean isAutoCreateApplication() {
         return this.autoCreateApplication;
+    }
+
+    /**
+     * <p>
+     * Preprocesses and validates the environment manifest and configuration
+     * files in the source bundle. Validating configuration files can identify
+     * issues prior to deploying the application version to an environment.
+     * </p>
+     * 
+     * @param process
+     *        Preprocesses and validates the environment manifest and
+     *        configuration files in the source bundle. Validating configuration
+     *        files can identify issues prior to deploying the application
+     *        version to an environment.
+     */
+    public void setProcess(Boolean process) {
+        this.process = process;
+    }
+
+    /**
+     * <p>
+     * Preprocesses and validates the environment manifest and configuration
+     * files in the source bundle. Validating configuration files can identify
+     * issues prior to deploying the application version to an environment.
+     * </p>
+     * 
+     * @return Preprocesses and validates the environment manifest and
+     *         configuration files in the source bundle. Validating
+     *         configuration files can identify issues prior to deploying the
+     *         application version to an environment.
+     */
+    public Boolean getProcess() {
+        return this.process;
+    }
+
+    /**
+     * <p>
+     * Preprocesses and validates the environment manifest and configuration
+     * files in the source bundle. Validating configuration files can identify
+     * issues prior to deploying the application version to an environment.
+     * </p>
+     * 
+     * @param process
+     *        Preprocesses and validates the environment manifest and
+     *        configuration files in the source bundle. Validating configuration
+     *        files can identify issues prior to deploying the application
+     *        version to an environment.
+     * @return Returns a reference to this object so that method calls can be
+     *         chained together.
+     */
+    public CreateApplicationVersionRequest withProcess(Boolean process) {
+        setProcess(process);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Preprocesses and validates the environment manifest and configuration
+     * files in the source bundle. Validating configuration files can identify
+     * issues prior to deploying the application version to an environment.
+     * </p>
+     * 
+     * @return Preprocesses and validates the environment manifest and
+     *         configuration files in the source bundle. Validating
+     *         configuration files can identify issues prior to deploying the
+     *         application version to an environment.
+     */
+    public Boolean isProcess() {
+        return this.process;
     }
 
     /**
@@ -677,7 +650,10 @@ public class CreateApplicationVersionRequest extends AmazonWebServiceRequest
         if (getSourceBundle() != null)
             sb.append("SourceBundle: " + getSourceBundle() + ",");
         if (getAutoCreateApplication() != null)
-            sb.append("AutoCreateApplication: " + getAutoCreateApplication());
+            sb.append("AutoCreateApplication: " + getAutoCreateApplication()
+                    + ",");
+        if (getProcess() != null)
+            sb.append("Process: " + getProcess());
         sb.append("}");
         return sb.toString();
     }
@@ -720,6 +696,11 @@ public class CreateApplicationVersionRequest extends AmazonWebServiceRequest
                 && other.getAutoCreateApplication().equals(
                         this.getAutoCreateApplication()) == false)
             return false;
+        if (other.getProcess() == null ^ this.getProcess() == null)
+            return false;
+        if (other.getProcess() != null
+                && other.getProcess().equals(this.getProcess()) == false)
+            return false;
         return true;
     }
 
@@ -747,6 +728,8 @@ public class CreateApplicationVersionRequest extends AmazonWebServiceRequest
                 * hashCode
                 + ((getAutoCreateApplication() == null) ? 0
                         : getAutoCreateApplication().hashCode());
+        hashCode = prime * hashCode
+                + ((getProcess() == null) ? 0 : getProcess().hashCode());
         return hashCode;
     }
 

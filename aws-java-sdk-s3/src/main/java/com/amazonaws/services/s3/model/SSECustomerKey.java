@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2015 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2014-2016 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License.
@@ -13,6 +13,7 @@
  * permissions and limitations under the License.
  */
 package com.amazonaws.services.s3.model;
+import java.io.Serializable;
 
 import javax.crypto.SecretKey;
 
@@ -42,7 +43,7 @@ import com.amazonaws.util.Base64;
  * For more information on client-side encryption for Amazon S3 data, see:
  * http://docs.aws.amazon.com/AmazonS3/latest/dev/UsingClientSideEncryption.html
  */
-public class SSECustomerKey {
+public class SSECustomerKey implements Serializable {
     private final String base64EncodedKey;
     private String base64EncodedMd5;
     private String algorithm;

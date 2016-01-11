@@ -1,5 +1,5 @@
 /*
- * Copyright 2010-2015 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2010-2016 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License.
@@ -56,6 +56,11 @@ public class CreateEnvironmentRequestMarshaller implements
         if (createEnvironmentRequest.getEnvironmentName() != null) {
             request.addParameter("EnvironmentName", StringUtils
                     .fromString(createEnvironmentRequest.getEnvironmentName()));
+        }
+
+        if (createEnvironmentRequest.getGroupName() != null) {
+            request.addParameter("GroupName", StringUtils
+                    .fromString(createEnvironmentRequest.getGroupName()));
         }
 
         if (createEnvironmentRequest.getDescription() != null) {

@@ -1,393 +1,669 @@
 /*
- * Copyright 2010-2015 Amazon.com, Inc. or its affiliates. All Rights Reserved.
- * 
+ * Copyright 2010-2016 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ *
  * Licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License.
  * A copy of the License is located at
- * 
+ *
  *  http://aws.amazon.com/apache2.0
- * 
+ *
  * or in the "license" file accompanying this file. This file is distributed
  * on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either
  * express or implied. See the License for the specific language governing
  * permissions and limitations under the License.
  */
+
 package com.amazonaws.services.kms.model;
 
 import java.io.Serializable;
-
 import com.amazonaws.AmazonWebServiceRequest;
 
 /**
- * Container for the parameters to the {@link com.amazonaws.services.kms.AWSKMS#createGrant(CreateGrantRequest) CreateGrant operation}.
- * <p>
- * Adds a grant to a key to specify who can access the key and under what
- * conditions. Grants are alternate permission mechanisms to key
- * policies. For more information about grants, see
- * <a href="http://docs.aws.amazon.com/kms/latest/developerguide/grants.html"> Grants </a>
- * in the developer guide. If a grant is absent, access to the key is
- * evaluated based on IAM policies attached to the user. <ol> <li>
- * ListGrants </li>
- * <li> RetireGrant </li>
- * <li> RevokeGrant </li>
- * </ol>
- * </p>
- *
- * @see com.amazonaws.services.kms.AWSKMS#createGrant(CreateGrantRequest)
+ * 
  */
-public class CreateGrantRequest extends AmazonWebServiceRequest implements Serializable, Cloneable {
+public class CreateGrantRequest extends AmazonWebServiceRequest implements
+        Serializable, Cloneable {
 
     /**
-     * A unique identifier for the customer master key. This value can be a
-     * globally unique identifier or the fully specified ARN to a key. <ul>
-     * <li>Key ARN Example -
-     * arn:aws:kms:us-east-1:123456789012:key/12345678-1234-1234-1234-123456789012</li>
-     * <li>Globally Unique Key ID Example -
-     * 12345678-1234-1234-1234-123456789012</li> </ul>
      * <p>
-     * <b>Constraints:</b><br/>
-     * <b>Length: </b>1 - 256<br/>
+     * The unique identifier for the customer master key (CMK) that the grant
+     * applies to.
+     * </p>
+     * <p>
+     * To specify this value, use the globally unique key ID or the Amazon
+     * Resource Name (ARN) of the key. Examples:
+     * <ul>
+     * <li>Globally unique key ID: 12345678-1234-1234-1234-123456789012</li>
+     * <li>Key ARN:
+     * arn:aws:kms:us-west-2:123456789012:key/12345678-1234-1234-1234
+     * -123456789012</li>
+     * </ul>
+     * </p>
      */
     private String keyId;
-
     /**
-     * Principal given permission by the grant to use the key identified by
-     * the <code>keyId</code> parameter.
      * <p>
-     * <b>Constraints:</b><br/>
-     * <b>Length: </b>1 - 256<br/>
+     * The principal that is given permission to perform the operations that the
+     * grant permits.
+     * </p>
+     * <p>
+     * To specify the principal, use the <a href=
+     * "http://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html"
+     * >Amazon Resource Name (ARN)</a> of an AWS principal. Valid AWS principals
+     * include AWS accounts (root), IAM users, federated users, and assumed role
+     * users. For examples of the ARN syntax to use for specifying a principal,
+     * see <a href=
+     * "http://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html#arn-syntax-iam"
+     * >AWS Identity and Access Management (IAM)</a> in the Example ARNs section
+     * of the <i>AWS General Reference</i>.
+     * </p>
      */
     private String granteePrincipal;
-
     /**
-     * Principal given permission to retire the grant. For more information,
-     * see <a>RetireGrant</a>.
      * <p>
-     * <b>Constraints:</b><br/>
-     * <b>Length: </b>1 - 256<br/>
+     * The principal that is given permission to retire the grant by using
+     * <a>RetireGrant</a> operation.
+     * </p>
+     * <p>
+     * To specify the principal, use the <a href=
+     * "http://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html"
+     * >Amazon Resource Name (ARN)</a> of an AWS principal. Valid AWS principals
+     * include AWS accounts (root), IAM users, federated users, and assumed role
+     * users. For examples of the ARN syntax to use for specifying a principal,
+     * see <a href=
+     * "http://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html#arn-syntax-iam"
+     * >AWS Identity and Access Management (IAM)</a> in the Example ARNs section
+     * of the <i>AWS General Reference</i>.
+     * </p>
      */
     private String retiringPrincipal;
-
     /**
-     * List of operations permitted by the grant. This can be any combination
-     * of one or more of the following values: <ol> <li>Decrypt</li>
-     * <li>Encrypt</li> <li>GenerateDataKey</li>
-     * <li>GenerateDataKeyWithoutPlaintext</li> <li>ReEncryptFrom</li>
-     * <li>ReEncryptTo</li> <li>CreateGrant</li> <li>RetireGrant</li> </ol>
+     * <p>
+     * A list of operations that the grant permits. The list can contain any
+     * combination of one or more of the following values:
+     * <ul>
+     * <li>Decrypt</li>
+     * <li>Encrypt</li>
+     * <li>GenerateDataKey</li>
+     * <li>GenerateDataKeyWithoutPlaintext</li>
+     * <li>ReEncryptFrom</li>
+     * <li>ReEncryptTo</li>
+     * <li>CreateGrant</li>
+     * <li>RetireGrant</li>
+     * </ul>
+     * </p>
      */
-    private com.amazonaws.internal.ListWithAutoConstructFlag<String> operations;
-
+    private com.amazonaws.internal.SdkInternalList<String> operations;
     /**
-     * Specifies the conditions under which the actions specified by the
-     * <code>Operations</code> parameter are allowed.
+     * <p>
+     * The conditions under which the operations permitted by the grant are
+     * allowed.
+     * </p>
+     * <p>
+     * You can use this value to allow the operations permitted by the grant
+     * only when a specified encryption context is present. For more
+     * information, see <a href=
+     * "http://docs.aws.amazon.com/kms/latest/developerguide/encrypt-context.html"
+     * >Encryption Context</a> in the <i>AWS Key Management Service Developer
+     * Guide</i>.
+     * </p>
      */
     private GrantConstraints constraints;
+    /**
+     * <p>
+     * A list of grant tokens.
+     * </p>
+     * <p>
+     * For more information, go to <a href=
+     * "http://docs.aws.amazon.com/kms/latest/developerguide/concepts.html#grant_token"
+     * >Grant Tokens</a> in the <i>AWS Key Management Service Developer
+     * Guide</i>.
+     * </p>
+     */
+    private com.amazonaws.internal.SdkInternalList<String> grantTokens;
+    /**
+     * <p>
+     * A friendly name for identifying the grant. Use this value to prevent
+     * unintended creation of duplicate grants when retrying this request.
+     * </p>
+     * <p>
+     * When this value is absent, all <code>CreateGrant</code> requests result
+     * in a new grant with a unique <code>GrantId</code> even if all the
+     * supplied parameters are identical. This can result in unintended
+     * duplicates when you retry the <code>CreateGrant</code> request.
+     * </p>
+     * <p>
+     * When this value is present, you can retry a <code>CreateGrant</code>
+     * request with identical parameters; if the grant already exists, the
+     * original <code>GrantId</code> is returned without creating a new grant.
+     * Note that the returned grant token is unique with every
+     * <code>CreateGrant</code> request, even when a duplicate
+     * <code>GrantId</code> is returned. All grant tokens obtained in this way
+     * can be used interchangeably.
+     * </p>
+     */
+    private String name;
 
     /**
-     * For more information, see <a
-     * href="http://docs.aws.amazon.com/kms/latest/developerguide/concepts.html#grant_token">Grant
-     * Tokens</a>.
      * <p>
-     * <b>Constraints:</b><br/>
-     * <b>Length: </b>0 - 10<br/>
-     */
-    private com.amazonaws.internal.ListWithAutoConstructFlag<String> grantTokens;
-
-    /**
-     * A unique identifier for the customer master key. This value can be a
-     * globally unique identifier or the fully specified ARN to a key. <ul>
-     * <li>Key ARN Example -
-     * arn:aws:kms:us-east-1:123456789012:key/12345678-1234-1234-1234-123456789012</li>
-     * <li>Globally Unique Key ID Example -
-     * 12345678-1234-1234-1234-123456789012</li> </ul>
+     * The unique identifier for the customer master key (CMK) that the grant
+     * applies to.
+     * </p>
      * <p>
-     * <b>Constraints:</b><br/>
-     * <b>Length: </b>1 - 256<br/>
-     *
-     * @return A unique identifier for the customer master key. This value can be a
-     *         globally unique identifier or the fully specified ARN to a key. <ul>
-     *         <li>Key ARN Example -
-     *         arn:aws:kms:us-east-1:123456789012:key/12345678-1234-1234-1234-123456789012</li>
-     *         <li>Globally Unique Key ID Example -
-     *         12345678-1234-1234-1234-123456789012</li> </ul>
-     */
-    public String getKeyId() {
-        return keyId;
-    }
-    
-    /**
-     * A unique identifier for the customer master key. This value can be a
-     * globally unique identifier or the fully specified ARN to a key. <ul>
-     * <li>Key ARN Example -
-     * arn:aws:kms:us-east-1:123456789012:key/12345678-1234-1234-1234-123456789012</li>
-     * <li>Globally Unique Key ID Example -
-     * 12345678-1234-1234-1234-123456789012</li> </ul>
-     * <p>
-     * <b>Constraints:</b><br/>
-     * <b>Length: </b>1 - 256<br/>
-     *
-     * @param keyId A unique identifier for the customer master key. This value can be a
-     *         globally unique identifier or the fully specified ARN to a key. <ul>
-     *         <li>Key ARN Example -
-     *         arn:aws:kms:us-east-1:123456789012:key/12345678-1234-1234-1234-123456789012</li>
-     *         <li>Globally Unique Key ID Example -
-     *         12345678-1234-1234-1234-123456789012</li> </ul>
+     * To specify this value, use the globally unique key ID or the Amazon
+     * Resource Name (ARN) of the key. Examples:
+     * <ul>
+     * <li>Globally unique key ID: 12345678-1234-1234-1234-123456789012</li>
+     * <li>Key ARN:
+     * arn:aws:kms:us-west-2:123456789012:key/12345678-1234-1234-1234
+     * -123456789012</li>
+     * </ul>
+     * </p>
+     * 
+     * @param keyId
+     *        The unique identifier for the customer master key (CMK) that the
+     *        grant applies to.</p>
+     *        <p>
+     *        To specify this value, use the globally unique key ID or the
+     *        Amazon Resource Name (ARN) of the key. Examples:
+     *        <ul>
+     *        <li>Globally unique key ID: 12345678-1234-1234-1234-123456789012</li>
+     *        <li>Key ARN:
+     *        arn:aws:kms:us-west-2:123456789012:key/12345678-1234-1234
+     *        -1234-123456789012</li>
+     *        </ul>
      */
     public void setKeyId(String keyId) {
         this.keyId = keyId;
     }
-    
+
     /**
-     * A unique identifier for the customer master key. This value can be a
-     * globally unique identifier or the fully specified ARN to a key. <ul>
-     * <li>Key ARN Example -
-     * arn:aws:kms:us-east-1:123456789012:key/12345678-1234-1234-1234-123456789012</li>
-     * <li>Globally Unique Key ID Example -
-     * 12345678-1234-1234-1234-123456789012</li> </ul>
      * <p>
-     * Returns a reference to this object so that method calls can be chained together.
+     * The unique identifier for the customer master key (CMK) that the grant
+     * applies to.
+     * </p>
      * <p>
-     * <b>Constraints:</b><br/>
-     * <b>Length: </b>1 - 256<br/>
-     *
-     * @param keyId A unique identifier for the customer master key. This value can be a
-     *         globally unique identifier or the fully specified ARN to a key. <ul>
-     *         <li>Key ARN Example -
-     *         arn:aws:kms:us-east-1:123456789012:key/12345678-1234-1234-1234-123456789012</li>
-     *         <li>Globally Unique Key ID Example -
-     *         12345678-1234-1234-1234-123456789012</li> </ul>
-     *
-     * @return A reference to this updated object so that method calls can be chained
-     *         together.
+     * To specify this value, use the globally unique key ID or the Amazon
+     * Resource Name (ARN) of the key. Examples:
+     * <ul>
+     * <li>Globally unique key ID: 12345678-1234-1234-1234-123456789012</li>
+     * <li>Key ARN:
+     * arn:aws:kms:us-west-2:123456789012:key/12345678-1234-1234-1234
+     * -123456789012</li>
+     * </ul>
+     * </p>
+     * 
+     * @return The unique identifier for the customer master key (CMK) that the
+     *         grant applies to.</p>
+     *         <p>
+     *         To specify this value, use the globally unique key ID or the
+     *         Amazon Resource Name (ARN) of the key. Examples:
+     *         <ul>
+     *         <li>Globally unique key ID: 12345678-1234-1234-1234-123456789012</li>
+     *         <li>Key ARN:
+     *         arn:aws:kms:us-west-2:123456789012:key/12345678-1234-
+     *         1234-1234-123456789012</li>
+     *         </ul>
+     */
+    public String getKeyId() {
+        return this.keyId;
+    }
+
+    /**
+     * <p>
+     * The unique identifier for the customer master key (CMK) that the grant
+     * applies to.
+     * </p>
+     * <p>
+     * To specify this value, use the globally unique key ID or the Amazon
+     * Resource Name (ARN) of the key. Examples:
+     * <ul>
+     * <li>Globally unique key ID: 12345678-1234-1234-1234-123456789012</li>
+     * <li>Key ARN:
+     * arn:aws:kms:us-west-2:123456789012:key/12345678-1234-1234-1234
+     * -123456789012</li>
+     * </ul>
+     * </p>
+     * 
+     * @param keyId
+     *        The unique identifier for the customer master key (CMK) that the
+     *        grant applies to.</p>
+     *        <p>
+     *        To specify this value, use the globally unique key ID or the
+     *        Amazon Resource Name (ARN) of the key. Examples:
+     *        <ul>
+     *        <li>Globally unique key ID: 12345678-1234-1234-1234-123456789012</li>
+     *        <li>Key ARN:
+     *        arn:aws:kms:us-west-2:123456789012:key/12345678-1234-1234
+     *        -1234-123456789012</li>
+     *        </ul>
+     * @return Returns a reference to this object so that method calls can be
+     *         chained together.
      */
     public CreateGrantRequest withKeyId(String keyId) {
-        this.keyId = keyId;
+        setKeyId(keyId);
         return this;
     }
 
     /**
-     * Principal given permission by the grant to use the key identified by
-     * the <code>keyId</code> parameter.
      * <p>
-     * <b>Constraints:</b><br/>
-     * <b>Length: </b>1 - 256<br/>
-     *
-     * @return Principal given permission by the grant to use the key identified by
-     *         the <code>keyId</code> parameter.
-     */
-    public String getGranteePrincipal() {
-        return granteePrincipal;
-    }
-    
-    /**
-     * Principal given permission by the grant to use the key identified by
-     * the <code>keyId</code> parameter.
+     * The principal that is given permission to perform the operations that the
+     * grant permits.
+     * </p>
      * <p>
-     * <b>Constraints:</b><br/>
-     * <b>Length: </b>1 - 256<br/>
-     *
-     * @param granteePrincipal Principal given permission by the grant to use the key identified by
-     *         the <code>keyId</code> parameter.
+     * To specify the principal, use the <a href=
+     * "http://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html"
+     * >Amazon Resource Name (ARN)</a> of an AWS principal. Valid AWS principals
+     * include AWS accounts (root), IAM users, federated users, and assumed role
+     * users. For examples of the ARN syntax to use for specifying a principal,
+     * see <a href=
+     * "http://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html#arn-syntax-iam"
+     * >AWS Identity and Access Management (IAM)</a> in the Example ARNs section
+     * of the <i>AWS General Reference</i>.
+     * </p>
+     * 
+     * @param granteePrincipal
+     *        The principal that is given permission to perform the operations
+     *        that the grant permits.</p>
+     *        <p>
+     *        To specify the principal, use the <a href=
+     *        "http://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html"
+     *        >Amazon Resource Name (ARN)</a> of an AWS principal. Valid AWS
+     *        principals include AWS accounts (root), IAM users, federated
+     *        users, and assumed role users. For examples of the ARN syntax to
+     *        use for specifying a principal, see <a href=
+     *        "http://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html#arn-syntax-iam"
+     *        >AWS Identity and Access Management (IAM)</a> in the Example ARNs
+     *        section of the <i>AWS General Reference</i>.
      */
     public void setGranteePrincipal(String granteePrincipal) {
         this.granteePrincipal = granteePrincipal;
     }
-    
+
     /**
-     * Principal given permission by the grant to use the key identified by
-     * the <code>keyId</code> parameter.
      * <p>
-     * Returns a reference to this object so that method calls can be chained together.
+     * The principal that is given permission to perform the operations that the
+     * grant permits.
+     * </p>
      * <p>
-     * <b>Constraints:</b><br/>
-     * <b>Length: </b>1 - 256<br/>
-     *
-     * @param granteePrincipal Principal given permission by the grant to use the key identified by
-     *         the <code>keyId</code> parameter.
-     *
-     * @return A reference to this updated object so that method calls can be chained
-     *         together.
+     * To specify the principal, use the <a href=
+     * "http://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html"
+     * >Amazon Resource Name (ARN)</a> of an AWS principal. Valid AWS principals
+     * include AWS accounts (root), IAM users, federated users, and assumed role
+     * users. For examples of the ARN syntax to use for specifying a principal,
+     * see <a href=
+     * "http://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html#arn-syntax-iam"
+     * >AWS Identity and Access Management (IAM)</a> in the Example ARNs section
+     * of the <i>AWS General Reference</i>.
+     * </p>
+     * 
+     * @return The principal that is given permission to perform the operations
+     *         that the grant permits.</p>
+     *         <p>
+     *         To specify the principal, use the <a href=
+     *         "http://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html"
+     *         >Amazon Resource Name (ARN)</a> of an AWS principal. Valid AWS
+     *         principals include AWS accounts (root), IAM users, federated
+     *         users, and assumed role users. For examples of the ARN syntax to
+     *         use for specifying a principal, see <a href=
+     *         "http://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html#arn-syntax-iam"
+     *         >AWS Identity and Access Management (IAM)</a> in the Example ARNs
+     *         section of the <i>AWS General Reference</i>.
+     */
+    public String getGranteePrincipal() {
+        return this.granteePrincipal;
+    }
+
+    /**
+     * <p>
+     * The principal that is given permission to perform the operations that the
+     * grant permits.
+     * </p>
+     * <p>
+     * To specify the principal, use the <a href=
+     * "http://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html"
+     * >Amazon Resource Name (ARN)</a> of an AWS principal. Valid AWS principals
+     * include AWS accounts (root), IAM users, federated users, and assumed role
+     * users. For examples of the ARN syntax to use for specifying a principal,
+     * see <a href=
+     * "http://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html#arn-syntax-iam"
+     * >AWS Identity and Access Management (IAM)</a> in the Example ARNs section
+     * of the <i>AWS General Reference</i>.
+     * </p>
+     * 
+     * @param granteePrincipal
+     *        The principal that is given permission to perform the operations
+     *        that the grant permits.</p>
+     *        <p>
+     *        To specify the principal, use the <a href=
+     *        "http://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html"
+     *        >Amazon Resource Name (ARN)</a> of an AWS principal. Valid AWS
+     *        principals include AWS accounts (root), IAM users, federated
+     *        users, and assumed role users. For examples of the ARN syntax to
+     *        use for specifying a principal, see <a href=
+     *        "http://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html#arn-syntax-iam"
+     *        >AWS Identity and Access Management (IAM)</a> in the Example ARNs
+     *        section of the <i>AWS General Reference</i>.
+     * @return Returns a reference to this object so that method calls can be
+     *         chained together.
      */
     public CreateGrantRequest withGranteePrincipal(String granteePrincipal) {
-        this.granteePrincipal = granteePrincipal;
+        setGranteePrincipal(granteePrincipal);
         return this;
     }
 
     /**
-     * Principal given permission to retire the grant. For more information,
-     * see <a>RetireGrant</a>.
      * <p>
-     * <b>Constraints:</b><br/>
-     * <b>Length: </b>1 - 256<br/>
-     *
-     * @return Principal given permission to retire the grant. For more information,
-     *         see <a>RetireGrant</a>.
-     */
-    public String getRetiringPrincipal() {
-        return retiringPrincipal;
-    }
-    
-    /**
-     * Principal given permission to retire the grant. For more information,
-     * see <a>RetireGrant</a>.
+     * The principal that is given permission to retire the grant by using
+     * <a>RetireGrant</a> operation.
+     * </p>
      * <p>
-     * <b>Constraints:</b><br/>
-     * <b>Length: </b>1 - 256<br/>
-     *
-     * @param retiringPrincipal Principal given permission to retire the grant. For more information,
-     *         see <a>RetireGrant</a>.
+     * To specify the principal, use the <a href=
+     * "http://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html"
+     * >Amazon Resource Name (ARN)</a> of an AWS principal. Valid AWS principals
+     * include AWS accounts (root), IAM users, federated users, and assumed role
+     * users. For examples of the ARN syntax to use for specifying a principal,
+     * see <a href=
+     * "http://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html#arn-syntax-iam"
+     * >AWS Identity and Access Management (IAM)</a> in the Example ARNs section
+     * of the <i>AWS General Reference</i>.
+     * </p>
+     * 
+     * @param retiringPrincipal
+     *        The principal that is given permission to retire the grant by
+     *        using <a>RetireGrant</a> operation.</p>
+     *        <p>
+     *        To specify the principal, use the <a href=
+     *        "http://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html"
+     *        >Amazon Resource Name (ARN)</a> of an AWS principal. Valid AWS
+     *        principals include AWS accounts (root), IAM users, federated
+     *        users, and assumed role users. For examples of the ARN syntax to
+     *        use for specifying a principal, see <a href=
+     *        "http://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html#arn-syntax-iam"
+     *        >AWS Identity and Access Management (IAM)</a> in the Example ARNs
+     *        section of the <i>AWS General Reference</i>.
      */
     public void setRetiringPrincipal(String retiringPrincipal) {
         this.retiringPrincipal = retiringPrincipal;
     }
-    
+
     /**
-     * Principal given permission to retire the grant. For more information,
-     * see <a>RetireGrant</a>.
      * <p>
-     * Returns a reference to this object so that method calls can be chained together.
+     * The principal that is given permission to retire the grant by using
+     * <a>RetireGrant</a> operation.
+     * </p>
      * <p>
-     * <b>Constraints:</b><br/>
-     * <b>Length: </b>1 - 256<br/>
-     *
-     * @param retiringPrincipal Principal given permission to retire the grant. For more information,
-     *         see <a>RetireGrant</a>.
-     *
-     * @return A reference to this updated object so that method calls can be chained
-     *         together.
+     * To specify the principal, use the <a href=
+     * "http://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html"
+     * >Amazon Resource Name (ARN)</a> of an AWS principal. Valid AWS principals
+     * include AWS accounts (root), IAM users, federated users, and assumed role
+     * users. For examples of the ARN syntax to use for specifying a principal,
+     * see <a href=
+     * "http://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html#arn-syntax-iam"
+     * >AWS Identity and Access Management (IAM)</a> in the Example ARNs section
+     * of the <i>AWS General Reference</i>.
+     * </p>
+     * 
+     * @return The principal that is given permission to retire the grant by
+     *         using <a>RetireGrant</a> operation.</p>
+     *         <p>
+     *         To specify the principal, use the <a href=
+     *         "http://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html"
+     *         >Amazon Resource Name (ARN)</a> of an AWS principal. Valid AWS
+     *         principals include AWS accounts (root), IAM users, federated
+     *         users, and assumed role users. For examples of the ARN syntax to
+     *         use for specifying a principal, see <a href=
+     *         "http://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html#arn-syntax-iam"
+     *         >AWS Identity and Access Management (IAM)</a> in the Example ARNs
+     *         section of the <i>AWS General Reference</i>.
+     */
+    public String getRetiringPrincipal() {
+        return this.retiringPrincipal;
+    }
+
+    /**
+     * <p>
+     * The principal that is given permission to retire the grant by using
+     * <a>RetireGrant</a> operation.
+     * </p>
+     * <p>
+     * To specify the principal, use the <a href=
+     * "http://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html"
+     * >Amazon Resource Name (ARN)</a> of an AWS principal. Valid AWS principals
+     * include AWS accounts (root), IAM users, federated users, and assumed role
+     * users. For examples of the ARN syntax to use for specifying a principal,
+     * see <a href=
+     * "http://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html#arn-syntax-iam"
+     * >AWS Identity and Access Management (IAM)</a> in the Example ARNs section
+     * of the <i>AWS General Reference</i>.
+     * </p>
+     * 
+     * @param retiringPrincipal
+     *        The principal that is given permission to retire the grant by
+     *        using <a>RetireGrant</a> operation.</p>
+     *        <p>
+     *        To specify the principal, use the <a href=
+     *        "http://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html"
+     *        >Amazon Resource Name (ARN)</a> of an AWS principal. Valid AWS
+     *        principals include AWS accounts (root), IAM users, federated
+     *        users, and assumed role users. For examples of the ARN syntax to
+     *        use for specifying a principal, see <a href=
+     *        "http://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html#arn-syntax-iam"
+     *        >AWS Identity and Access Management (IAM)</a> in the Example ARNs
+     *        section of the <i>AWS General Reference</i>.
+     * @return Returns a reference to this object so that method calls can be
+     *         chained together.
      */
     public CreateGrantRequest withRetiringPrincipal(String retiringPrincipal) {
-        this.retiringPrincipal = retiringPrincipal;
+        setRetiringPrincipal(retiringPrincipal);
         return this;
     }
 
     /**
-     * List of operations permitted by the grant. This can be any combination
-     * of one or more of the following values: <ol> <li>Decrypt</li>
-     * <li>Encrypt</li> <li>GenerateDataKey</li>
-     * <li>GenerateDataKeyWithoutPlaintext</li> <li>ReEncryptFrom</li>
-     * <li>ReEncryptTo</li> <li>CreateGrant</li> <li>RetireGrant</li> </ol>
-     *
-     * @return List of operations permitted by the grant. This can be any combination
-     *         of one or more of the following values: <ol> <li>Decrypt</li>
-     *         <li>Encrypt</li> <li>GenerateDataKey</li>
-     *         <li>GenerateDataKeyWithoutPlaintext</li> <li>ReEncryptFrom</li>
-     *         <li>ReEncryptTo</li> <li>CreateGrant</li> <li>RetireGrant</li> </ol>
+     * <p>
+     * A list of operations that the grant permits. The list can contain any
+     * combination of one or more of the following values:
+     * <ul>
+     * <li>Decrypt</li>
+     * <li>Encrypt</li>
+     * <li>GenerateDataKey</li>
+     * <li>GenerateDataKeyWithoutPlaintext</li>
+     * <li>ReEncryptFrom</li>
+     * <li>ReEncryptTo</li>
+     * <li>CreateGrant</li>
+     * <li>RetireGrant</li>
+     * </ul>
+     * </p>
+     * 
+     * @return A list of operations that the grant permits. The list can contain
+     *         any combination of one or more of the following values:
+     *         <ul>
+     *         <li>Decrypt</li>
+     *         <li>Encrypt</li>
+     *         <li>GenerateDataKey</li>
+     *         <li>GenerateDataKeyWithoutPlaintext</li>
+     *         <li>ReEncryptFrom</li>
+     *         <li>ReEncryptTo</li>
+     *         <li>CreateGrant</li>
+     *         <li>RetireGrant</li>
+     *         </ul>
+     * @see GrantOperation
      */
     public java.util.List<String> getOperations() {
         if (operations == null) {
-              operations = new com.amazonaws.internal.ListWithAutoConstructFlag<String>();
-              operations.setAutoConstruct(true);
+            operations = new com.amazonaws.internal.SdkInternalList<String>();
         }
         return operations;
     }
-    
+
     /**
-     * List of operations permitted by the grant. This can be any combination
-     * of one or more of the following values: <ol> <li>Decrypt</li>
-     * <li>Encrypt</li> <li>GenerateDataKey</li>
-     * <li>GenerateDataKeyWithoutPlaintext</li> <li>ReEncryptFrom</li>
-     * <li>ReEncryptTo</li> <li>CreateGrant</li> <li>RetireGrant</li> </ol>
-     *
-     * @param operations List of operations permitted by the grant. This can be any combination
-     *         of one or more of the following values: <ol> <li>Decrypt</li>
-     *         <li>Encrypt</li> <li>GenerateDataKey</li>
-     *         <li>GenerateDataKeyWithoutPlaintext</li> <li>ReEncryptFrom</li>
-     *         <li>ReEncryptTo</li> <li>CreateGrant</li> <li>RetireGrant</li> </ol>
+     * <p>
+     * A list of operations that the grant permits. The list can contain any
+     * combination of one or more of the following values:
+     * <ul>
+     * <li>Decrypt</li>
+     * <li>Encrypt</li>
+     * <li>GenerateDataKey</li>
+     * <li>GenerateDataKeyWithoutPlaintext</li>
+     * <li>ReEncryptFrom</li>
+     * <li>ReEncryptTo</li>
+     * <li>CreateGrant</li>
+     * <li>RetireGrant</li>
+     * </ul>
+     * </p>
+     * 
+     * @param operations
+     *        A list of operations that the grant permits. The list can contain
+     *        any combination of one or more of the following values:
+     *        <ul>
+     *        <li>Decrypt</li>
+     *        <li>Encrypt</li>
+     *        <li>GenerateDataKey</li>
+     *        <li>GenerateDataKeyWithoutPlaintext</li>
+     *        <li>ReEncryptFrom</li>
+     *        <li>ReEncryptTo</li>
+     *        <li>CreateGrant</li>
+     *        <li>RetireGrant</li>
+     *        </ul>
+     * @see GrantOperation
      */
     public void setOperations(java.util.Collection<String> operations) {
         if (operations == null) {
             this.operations = null;
             return;
         }
-        com.amazonaws.internal.ListWithAutoConstructFlag<String> operationsCopy = new com.amazonaws.internal.ListWithAutoConstructFlag<String>(operations.size());
-        operationsCopy.addAll(operations);
-        this.operations = operationsCopy;
+
+        this.operations = new com.amazonaws.internal.SdkInternalList<String>(
+                operations);
     }
-    
+
     /**
-     * List of operations permitted by the grant. This can be any combination
-     * of one or more of the following values: <ol> <li>Decrypt</li>
-     * <li>Encrypt</li> <li>GenerateDataKey</li>
-     * <li>GenerateDataKeyWithoutPlaintext</li> <li>ReEncryptFrom</li>
-     * <li>ReEncryptTo</li> <li>CreateGrant</li> <li>RetireGrant</li> </ol>
+     * <p>
+     * A list of operations that the grant permits. The list can contain any
+     * combination of one or more of the following values:
+     * <ul>
+     * <li>Decrypt</li>
+     * <li>Encrypt</li>
+     * <li>GenerateDataKey</li>
+     * <li>GenerateDataKeyWithoutPlaintext</li>
+     * <li>ReEncryptFrom</li>
+     * <li>ReEncryptTo</li>
+     * <li>CreateGrant</li>
+     * <li>RetireGrant</li>
+     * </ul>
+     * </p>
      * <p>
      * <b>NOTE:</b> This method appends the values to the existing list (if
-     * any). Use {@link #setOperations(java.util.Collection)} or {@link
-     * #withOperations(java.util.Collection)} if you want to override the
+     * any). Use {@link #setOperations(java.util.Collection)} or
+     * {@link #withOperations(java.util.Collection)} if you want to override the
      * existing values.
-     * <p>
-     * Returns a reference to this object so that method calls can be chained together.
-     *
-     * @param operations List of operations permitted by the grant. This can be any combination
-     *         of one or more of the following values: <ol> <li>Decrypt</li>
-     *         <li>Encrypt</li> <li>GenerateDataKey</li>
-     *         <li>GenerateDataKeyWithoutPlaintext</li> <li>ReEncryptFrom</li>
-     *         <li>ReEncryptTo</li> <li>CreateGrant</li> <li>RetireGrant</li> </ol>
-     *
-     * @return A reference to this updated object so that method calls can be chained
-     *         together.
+     * </p>
+     * 
+     * @param operations
+     *        A list of operations that the grant permits. The list can contain
+     *        any combination of one or more of the following values:
+     *        <ul>
+     *        <li>Decrypt</li>
+     *        <li>Encrypt</li>
+     *        <li>GenerateDataKey</li>
+     *        <li>GenerateDataKeyWithoutPlaintext</li>
+     *        <li>ReEncryptFrom</li>
+     *        <li>ReEncryptTo</li>
+     *        <li>CreateGrant</li>
+     *        <li>RetireGrant</li>
+     *        </ul>
+     * @return Returns a reference to this object so that method calls can be
+     *         chained together.
+     * @see GrantOperation
      */
     public CreateGrantRequest withOperations(String... operations) {
-        if (getOperations() == null) setOperations(new java.util.ArrayList<String>(operations.length));
-        for (String value : operations) {
-            getOperations().add(value);
+        if (this.operations == null) {
+            setOperations(new com.amazonaws.internal.SdkInternalList<String>(
+                    operations.length));
+        }
+        for (String ele : operations) {
+            this.operations.add(ele);
         }
         return this;
     }
-    
+
     /**
-     * List of operations permitted by the grant. This can be any combination
-     * of one or more of the following values: <ol> <li>Decrypt</li>
-     * <li>Encrypt</li> <li>GenerateDataKey</li>
-     * <li>GenerateDataKeyWithoutPlaintext</li> <li>ReEncryptFrom</li>
-     * <li>ReEncryptTo</li> <li>CreateGrant</li> <li>RetireGrant</li> </ol>
      * <p>
-     * Returns a reference to this object so that method calls can be chained together.
-     *
-     * @param operations List of operations permitted by the grant. This can be any combination
-     *         of one or more of the following values: <ol> <li>Decrypt</li>
-     *         <li>Encrypt</li> <li>GenerateDataKey</li>
-     *         <li>GenerateDataKeyWithoutPlaintext</li> <li>ReEncryptFrom</li>
-     *         <li>ReEncryptTo</li> <li>CreateGrant</li> <li>RetireGrant</li> </ol>
-     *
-     * @return A reference to this updated object so that method calls can be chained
-     *         together.
+     * A list of operations that the grant permits. The list can contain any
+     * combination of one or more of the following values:
+     * <ul>
+     * <li>Decrypt</li>
+     * <li>Encrypt</li>
+     * <li>GenerateDataKey</li>
+     * <li>GenerateDataKeyWithoutPlaintext</li>
+     * <li>ReEncryptFrom</li>
+     * <li>ReEncryptTo</li>
+     * <li>CreateGrant</li>
+     * <li>RetireGrant</li>
+     * </ul>
+     * </p>
+     * 
+     * @param operations
+     *        A list of operations that the grant permits. The list can contain
+     *        any combination of one or more of the following values:
+     *        <ul>
+     *        <li>Decrypt</li>
+     *        <li>Encrypt</li>
+     *        <li>GenerateDataKey</li>
+     *        <li>GenerateDataKeyWithoutPlaintext</li>
+     *        <li>ReEncryptFrom</li>
+     *        <li>ReEncryptTo</li>
+     *        <li>CreateGrant</li>
+     *        <li>RetireGrant</li>
+     *        </ul>
+     * @return Returns a reference to this object so that method calls can be
+     *         chained together.
+     * @see GrantOperation
      */
-    public CreateGrantRequest withOperations(java.util.Collection<String> operations) {
-        if (operations == null) {
-            this.operations = null;
-        } else {
-            com.amazonaws.internal.ListWithAutoConstructFlag<String> operationsCopy = new com.amazonaws.internal.ListWithAutoConstructFlag<String>(operations.size());
-            operationsCopy.addAll(operations);
-            this.operations = operationsCopy;
-        }
-
+    public CreateGrantRequest withOperations(
+            java.util.Collection<String> operations) {
+        setOperations(operations);
         return this;
     }
 
     /**
-     * List of operations permitted by the grant. This can be any combination
-     * of one or more of the following values: <ol> <li>Decrypt</li>
-     * <li>Encrypt</li> <li>GenerateDataKey</li>
-     * <li>GenerateDataKeyWithoutPlaintext</li> <li>ReEncryptFrom</li>
-     * <li>ReEncryptTo</li> <li>CreateGrant</li> <li>RetireGrant</li> </ol>
      * <p>
-     * Returns a reference to this object so that method calls can be chained together.
-     *
-     * @param operations List of operations permitted by the grant. This can be any combination
-     *         of one or more of the following values: <ol> <li>Decrypt</li>
-     *         <li>Encrypt</li> <li>GenerateDataKey</li>
-     *         <li>GenerateDataKeyWithoutPlaintext</li> <li>ReEncryptFrom</li>
-     *         <li>ReEncryptTo</li> <li>CreateGrant</li> <li>RetireGrant</li> </ol>
-     *
-     * @return A reference to this updated object so that method calls can be chained
-     *         together.
+     * A list of operations that the grant permits. The list can contain any
+     * combination of one or more of the following values:
+     * <ul>
+     * <li>Decrypt</li>
+     * <li>Encrypt</li>
+     * <li>GenerateDataKey</li>
+     * <li>GenerateDataKeyWithoutPlaintext</li>
+     * <li>ReEncryptFrom</li>
+     * <li>ReEncryptTo</li>
+     * <li>CreateGrant</li>
+     * <li>RetireGrant</li>
+     * </ul>
+     * </p>
+     * 
+     * @param operations
+     *        A list of operations that the grant permits. The list can contain
+     *        any combination of one or more of the following values:
+     *        <ul>
+     *        <li>Decrypt</li>
+     *        <li>Encrypt</li>
+     *        <li>GenerateDataKey</li>
+     *        <li>GenerateDataKeyWithoutPlaintext</li>
+     *        <li>ReEncryptFrom</li>
+     *        <li>ReEncryptTo</li>
+     *        <li>CreateGrant</li>
+     *        <li>RetireGrant</li>
+     *        </ul>
+     * @return Returns a reference to this object so that method calls can be
+     *         chained together.
+     * @see GrantOperation
      */
     public CreateGrantRequest withOperations(GrantOperation... operations) {
-        java.util.ArrayList<String> operationsCopy = new java.util.ArrayList<String>(operations.length);
-        for (GrantOperation member : operations) {
-            operationsCopy.add(member.toString());
+        com.amazonaws.internal.SdkInternalList<String> operationsCopy = new com.amazonaws.internal.SdkInternalList<String>(
+                operations.length);
+        for (GrantOperation value : operations) {
+            operationsCopy.add(value.toString());
         }
         if (getOperations() == null) {
             setOperations(operationsCopy);
@@ -398,142 +674,348 @@ public class CreateGrantRequest extends AmazonWebServiceRequest implements Seria
     }
 
     /**
-     * Specifies the conditions under which the actions specified by the
-     * <code>Operations</code> parameter are allowed.
-     *
-     * @return Specifies the conditions under which the actions specified by the
-     *         <code>Operations</code> parameter are allowed.
-     */
-    public GrantConstraints getConstraints() {
-        return constraints;
-    }
-    
-    /**
-     * Specifies the conditions under which the actions specified by the
-     * <code>Operations</code> parameter are allowed.
-     *
-     * @param constraints Specifies the conditions under which the actions specified by the
-     *         <code>Operations</code> parameter are allowed.
+     * <p>
+     * The conditions under which the operations permitted by the grant are
+     * allowed.
+     * </p>
+     * <p>
+     * You can use this value to allow the operations permitted by the grant
+     * only when a specified encryption context is present. For more
+     * information, see <a href=
+     * "http://docs.aws.amazon.com/kms/latest/developerguide/encrypt-context.html"
+     * >Encryption Context</a> in the <i>AWS Key Management Service Developer
+     * Guide</i>.
+     * </p>
+     * 
+     * @param constraints
+     *        The conditions under which the operations permitted by the grant
+     *        are allowed.</p>
+     *        <p>
+     *        You can use this value to allow the operations permitted by the
+     *        grant only when a specified encryption context is present. For
+     *        more information, see <a href=
+     *        "http://docs.aws.amazon.com/kms/latest/developerguide/encrypt-context.html"
+     *        >Encryption Context</a> in the <i>AWS Key Management Service
+     *        Developer Guide</i>.
      */
     public void setConstraints(GrantConstraints constraints) {
         this.constraints = constraints;
     }
-    
+
     /**
-     * Specifies the conditions under which the actions specified by the
-     * <code>Operations</code> parameter are allowed.
      * <p>
-     * Returns a reference to this object so that method calls can be chained together.
-     *
-     * @param constraints Specifies the conditions under which the actions specified by the
-     *         <code>Operations</code> parameter are allowed.
-     *
-     * @return A reference to this updated object so that method calls can be chained
-     *         together.
+     * The conditions under which the operations permitted by the grant are
+     * allowed.
+     * </p>
+     * <p>
+     * You can use this value to allow the operations permitted by the grant
+     * only when a specified encryption context is present. For more
+     * information, see <a href=
+     * "http://docs.aws.amazon.com/kms/latest/developerguide/encrypt-context.html"
+     * >Encryption Context</a> in the <i>AWS Key Management Service Developer
+     * Guide</i>.
+     * </p>
+     * 
+     * @return The conditions under which the operations permitted by the grant
+     *         are allowed.</p>
+     *         <p>
+     *         You can use this value to allow the operations permitted by the
+     *         grant only when a specified encryption context is present. For
+     *         more information, see <a href=
+     *         "http://docs.aws.amazon.com/kms/latest/developerguide/encrypt-context.html"
+     *         >Encryption Context</a> in the <i>AWS Key Management Service
+     *         Developer Guide</i>.
+     */
+    public GrantConstraints getConstraints() {
+        return this.constraints;
+    }
+
+    /**
+     * <p>
+     * The conditions under which the operations permitted by the grant are
+     * allowed.
+     * </p>
+     * <p>
+     * You can use this value to allow the operations permitted by the grant
+     * only when a specified encryption context is present. For more
+     * information, see <a href=
+     * "http://docs.aws.amazon.com/kms/latest/developerguide/encrypt-context.html"
+     * >Encryption Context</a> in the <i>AWS Key Management Service Developer
+     * Guide</i>.
+     * </p>
+     * 
+     * @param constraints
+     *        The conditions under which the operations permitted by the grant
+     *        are allowed.</p>
+     *        <p>
+     *        You can use this value to allow the operations permitted by the
+     *        grant only when a specified encryption context is present. For
+     *        more information, see <a href=
+     *        "http://docs.aws.amazon.com/kms/latest/developerguide/encrypt-context.html"
+     *        >Encryption Context</a> in the <i>AWS Key Management Service
+     *        Developer Guide</i>.
+     * @return Returns a reference to this object so that method calls can be
+     *         chained together.
      */
     public CreateGrantRequest withConstraints(GrantConstraints constraints) {
-        this.constraints = constraints;
+        setConstraints(constraints);
         return this;
     }
 
     /**
-     * For more information, see <a
-     * href="http://docs.aws.amazon.com/kms/latest/developerguide/concepts.html#grant_token">Grant
-     * Tokens</a>.
      * <p>
-     * <b>Constraints:</b><br/>
-     * <b>Length: </b>0 - 10<br/>
-     *
-     * @return For more information, see <a
-     *         href="http://docs.aws.amazon.com/kms/latest/developerguide/concepts.html#grant_token">Grant
-     *         Tokens</a>.
+     * A list of grant tokens.
+     * </p>
+     * <p>
+     * For more information, go to <a href=
+     * "http://docs.aws.amazon.com/kms/latest/developerguide/concepts.html#grant_token"
+     * >Grant Tokens</a> in the <i>AWS Key Management Service Developer
+     * Guide</i>.
+     * </p>
+     * 
+     * @return A list of grant tokens.</p>
+     *         <p>
+     *         For more information, go to <a href=
+     *         "http://docs.aws.amazon.com/kms/latest/developerguide/concepts.html#grant_token"
+     *         >Grant Tokens</a> in the <i>AWS Key Management Service Developer
+     *         Guide</i>.
      */
     public java.util.List<String> getGrantTokens() {
         if (grantTokens == null) {
-              grantTokens = new com.amazonaws.internal.ListWithAutoConstructFlag<String>();
-              grantTokens.setAutoConstruct(true);
+            grantTokens = new com.amazonaws.internal.SdkInternalList<String>();
         }
         return grantTokens;
     }
-    
+
     /**
-     * For more information, see <a
-     * href="http://docs.aws.amazon.com/kms/latest/developerguide/concepts.html#grant_token">Grant
-     * Tokens</a>.
      * <p>
-     * <b>Constraints:</b><br/>
-     * <b>Length: </b>0 - 10<br/>
-     *
-     * @param grantTokens For more information, see <a
-     *         href="http://docs.aws.amazon.com/kms/latest/developerguide/concepts.html#grant_token">Grant
-     *         Tokens</a>.
+     * A list of grant tokens.
+     * </p>
+     * <p>
+     * For more information, go to <a href=
+     * "http://docs.aws.amazon.com/kms/latest/developerguide/concepts.html#grant_token"
+     * >Grant Tokens</a> in the <i>AWS Key Management Service Developer
+     * Guide</i>.
+     * </p>
+     * 
+     * @param grantTokens
+     *        A list of grant tokens.</p>
+     *        <p>
+     *        For more information, go to <a href=
+     *        "http://docs.aws.amazon.com/kms/latest/developerguide/concepts.html#grant_token"
+     *        >Grant Tokens</a> in the <i>AWS Key Management Service Developer
+     *        Guide</i>.
      */
     public void setGrantTokens(java.util.Collection<String> grantTokens) {
         if (grantTokens == null) {
             this.grantTokens = null;
             return;
         }
-        com.amazonaws.internal.ListWithAutoConstructFlag<String> grantTokensCopy = new com.amazonaws.internal.ListWithAutoConstructFlag<String>(grantTokens.size());
-        grantTokensCopy.addAll(grantTokens);
-        this.grantTokens = grantTokensCopy;
+
+        this.grantTokens = new com.amazonaws.internal.SdkInternalList<String>(
+                grantTokens);
     }
-    
+
     /**
-     * For more information, see <a
-     * href="http://docs.aws.amazon.com/kms/latest/developerguide/concepts.html#grant_token">Grant
-     * Tokens</a>.
+     * <p>
+     * A list of grant tokens.
+     * </p>
+     * <p>
+     * For more information, go to <a href=
+     * "http://docs.aws.amazon.com/kms/latest/developerguide/concepts.html#grant_token"
+     * >Grant Tokens</a> in the <i>AWS Key Management Service Developer
+     * Guide</i>.
+     * </p>
      * <p>
      * <b>NOTE:</b> This method appends the values to the existing list (if
-     * any). Use {@link #setGrantTokens(java.util.Collection)} or {@link
-     * #withGrantTokens(java.util.Collection)} if you want to override the
-     * existing values.
-     * <p>
-     * Returns a reference to this object so that method calls can be chained together.
-     * <p>
-     * <b>Constraints:</b><br/>
-     * <b>Length: </b>0 - 10<br/>
-     *
-     * @param grantTokens For more information, see <a
-     *         href="http://docs.aws.amazon.com/kms/latest/developerguide/concepts.html#grant_token">Grant
-     *         Tokens</a>.
-     *
-     * @return A reference to this updated object so that method calls can be chained
-     *         together.
+     * any). Use {@link #setGrantTokens(java.util.Collection)} or
+     * {@link #withGrantTokens(java.util.Collection)} if you want to override
+     * the existing values.
+     * </p>
+     * 
+     * @param grantTokens
+     *        A list of grant tokens.</p>
+     *        <p>
+     *        For more information, go to <a href=
+     *        "http://docs.aws.amazon.com/kms/latest/developerguide/concepts.html#grant_token"
+     *        >Grant Tokens</a> in the <i>AWS Key Management Service Developer
+     *        Guide</i>.
+     * @return Returns a reference to this object so that method calls can be
+     *         chained together.
      */
     public CreateGrantRequest withGrantTokens(String... grantTokens) {
-        if (getGrantTokens() == null) setGrantTokens(new java.util.ArrayList<String>(grantTokens.length));
-        for (String value : grantTokens) {
-            getGrantTokens().add(value);
+        if (this.grantTokens == null) {
+            setGrantTokens(new com.amazonaws.internal.SdkInternalList<String>(
+                    grantTokens.length));
+        }
+        for (String ele : grantTokens) {
+            this.grantTokens.add(ele);
         }
         return this;
     }
-    
-    /**
-     * For more information, see <a
-     * href="http://docs.aws.amazon.com/kms/latest/developerguide/concepts.html#grant_token">Grant
-     * Tokens</a>.
-     * <p>
-     * Returns a reference to this object so that method calls can be chained together.
-     * <p>
-     * <b>Constraints:</b><br/>
-     * <b>Length: </b>0 - 10<br/>
-     *
-     * @param grantTokens For more information, see <a
-     *         href="http://docs.aws.amazon.com/kms/latest/developerguide/concepts.html#grant_token">Grant
-     *         Tokens</a>.
-     *
-     * @return A reference to this updated object so that method calls can be chained
-     *         together.
-     */
-    public CreateGrantRequest withGrantTokens(java.util.Collection<String> grantTokens) {
-        if (grantTokens == null) {
-            this.grantTokens = null;
-        } else {
-            com.amazonaws.internal.ListWithAutoConstructFlag<String> grantTokensCopy = new com.amazonaws.internal.ListWithAutoConstructFlag<String>(grantTokens.size());
-            grantTokensCopy.addAll(grantTokens);
-            this.grantTokens = grantTokensCopy;
-        }
 
+    /**
+     * <p>
+     * A list of grant tokens.
+     * </p>
+     * <p>
+     * For more information, go to <a href=
+     * "http://docs.aws.amazon.com/kms/latest/developerguide/concepts.html#grant_token"
+     * >Grant Tokens</a> in the <i>AWS Key Management Service Developer
+     * Guide</i>.
+     * </p>
+     * 
+     * @param grantTokens
+     *        A list of grant tokens.</p>
+     *        <p>
+     *        For more information, go to <a href=
+     *        "http://docs.aws.amazon.com/kms/latest/developerguide/concepts.html#grant_token"
+     *        >Grant Tokens</a> in the <i>AWS Key Management Service Developer
+     *        Guide</i>.
+     * @return Returns a reference to this object so that method calls can be
+     *         chained together.
+     */
+    public CreateGrantRequest withGrantTokens(
+            java.util.Collection<String> grantTokens) {
+        setGrantTokens(grantTokens);
+        return this;
+    }
+
+    /**
+     * <p>
+     * A friendly name for identifying the grant. Use this value to prevent
+     * unintended creation of duplicate grants when retrying this request.
+     * </p>
+     * <p>
+     * When this value is absent, all <code>CreateGrant</code> requests result
+     * in a new grant with a unique <code>GrantId</code> even if all the
+     * supplied parameters are identical. This can result in unintended
+     * duplicates when you retry the <code>CreateGrant</code> request.
+     * </p>
+     * <p>
+     * When this value is present, you can retry a <code>CreateGrant</code>
+     * request with identical parameters; if the grant already exists, the
+     * original <code>GrantId</code> is returned without creating a new grant.
+     * Note that the returned grant token is unique with every
+     * <code>CreateGrant</code> request, even when a duplicate
+     * <code>GrantId</code> is returned. All grant tokens obtained in this way
+     * can be used interchangeably.
+     * </p>
+     * 
+     * @param name
+     *        A friendly name for identifying the grant. Use this value to
+     *        prevent unintended creation of duplicate grants when retrying this
+     *        request.</p>
+     *        <p>
+     *        When this value is absent, all <code>CreateGrant</code> requests
+     *        result in a new grant with a unique <code>GrantId</code> even if
+     *        all the supplied parameters are identical. This can result in
+     *        unintended duplicates when you retry the <code>CreateGrant</code>
+     *        request.
+     *        </p>
+     *        <p>
+     *        When this value is present, you can retry a
+     *        <code>CreateGrant</code> request with identical parameters; if the
+     *        grant already exists, the original <code>GrantId</code> is
+     *        returned without creating a new grant. Note that the returned
+     *        grant token is unique with every <code>CreateGrant</code> request,
+     *        even when a duplicate <code>GrantId</code> is returned. All grant
+     *        tokens obtained in this way can be used interchangeably.
+     */
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    /**
+     * <p>
+     * A friendly name for identifying the grant. Use this value to prevent
+     * unintended creation of duplicate grants when retrying this request.
+     * </p>
+     * <p>
+     * When this value is absent, all <code>CreateGrant</code> requests result
+     * in a new grant with a unique <code>GrantId</code> even if all the
+     * supplied parameters are identical. This can result in unintended
+     * duplicates when you retry the <code>CreateGrant</code> request.
+     * </p>
+     * <p>
+     * When this value is present, you can retry a <code>CreateGrant</code>
+     * request with identical parameters; if the grant already exists, the
+     * original <code>GrantId</code> is returned without creating a new grant.
+     * Note that the returned grant token is unique with every
+     * <code>CreateGrant</code> request, even when a duplicate
+     * <code>GrantId</code> is returned. All grant tokens obtained in this way
+     * can be used interchangeably.
+     * </p>
+     * 
+     * @return A friendly name for identifying the grant. Use this value to
+     *         prevent unintended creation of duplicate grants when retrying
+     *         this request.</p>
+     *         <p>
+     *         When this value is absent, all <code>CreateGrant</code> requests
+     *         result in a new grant with a unique <code>GrantId</code> even if
+     *         all the supplied parameters are identical. This can result in
+     *         unintended duplicates when you retry the <code>CreateGrant</code>
+     *         request.
+     *         </p>
+     *         <p>
+     *         When this value is present, you can retry a
+     *         <code>CreateGrant</code> request with identical parameters; if
+     *         the grant already exists, the original <code>GrantId</code> is
+     *         returned without creating a new grant. Note that the returned
+     *         grant token is unique with every <code>CreateGrant</code>
+     *         request, even when a duplicate <code>GrantId</code> is returned.
+     *         All grant tokens obtained in this way can be used
+     *         interchangeably.
+     */
+    public String getName() {
+        return this.name;
+    }
+
+    /**
+     * <p>
+     * A friendly name for identifying the grant. Use this value to prevent
+     * unintended creation of duplicate grants when retrying this request.
+     * </p>
+     * <p>
+     * When this value is absent, all <code>CreateGrant</code> requests result
+     * in a new grant with a unique <code>GrantId</code> even if all the
+     * supplied parameters are identical. This can result in unintended
+     * duplicates when you retry the <code>CreateGrant</code> request.
+     * </p>
+     * <p>
+     * When this value is present, you can retry a <code>CreateGrant</code>
+     * request with identical parameters; if the grant already exists, the
+     * original <code>GrantId</code> is returned without creating a new grant.
+     * Note that the returned grant token is unique with every
+     * <code>CreateGrant</code> request, even when a duplicate
+     * <code>GrantId</code> is returned. All grant tokens obtained in this way
+     * can be used interchangeably.
+     * </p>
+     * 
+     * @param name
+     *        A friendly name for identifying the grant. Use this value to
+     *        prevent unintended creation of duplicate grants when retrying this
+     *        request.</p>
+     *        <p>
+     *        When this value is absent, all <code>CreateGrant</code> requests
+     *        result in a new grant with a unique <code>GrantId</code> even if
+     *        all the supplied parameters are identical. This can result in
+     *        unintended duplicates when you retry the <code>CreateGrant</code>
+     *        request.
+     *        </p>
+     *        <p>
+     *        When this value is present, you can retry a
+     *        <code>CreateGrant</code> request with identical parameters; if the
+     *        grant already exists, the original <code>GrantId</code> is
+     *        returned without creating a new grant. Note that the returned
+     *        grant token is unique with every <code>CreateGrant</code> request,
+     *        even when a duplicate <code>GrantId</code> is returned. All grant
+     *        tokens obtained in this way can be used interchangeably.
+     * @return Returns a reference to this object so that method calls can be
+     *         chained together.
+     */
+    public CreateGrantRequest withName(String name) {
+        setName(name);
         return this;
     }
 
@@ -549,58 +1031,106 @@ public class CreateGrantRequest extends AmazonWebServiceRequest implements Seria
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("{");
-        if (getKeyId() != null) sb.append("KeyId: " + getKeyId() + ",");
-        if (getGranteePrincipal() != null) sb.append("GranteePrincipal: " + getGranteePrincipal() + ",");
-        if (getRetiringPrincipal() != null) sb.append("RetiringPrincipal: " + getRetiringPrincipal() + ",");
-        if (getOperations() != null) sb.append("Operations: " + getOperations() + ",");
-        if (getConstraints() != null) sb.append("Constraints: " + getConstraints() + ",");
-        if (getGrantTokens() != null) sb.append("GrantTokens: " + getGrantTokens() );
+        if (getKeyId() != null)
+            sb.append("KeyId: " + getKeyId() + ",");
+        if (getGranteePrincipal() != null)
+            sb.append("GranteePrincipal: " + getGranteePrincipal() + ",");
+        if (getRetiringPrincipal() != null)
+            sb.append("RetiringPrincipal: " + getRetiringPrincipal() + ",");
+        if (getOperations() != null)
+            sb.append("Operations: " + getOperations() + ",");
+        if (getConstraints() != null)
+            sb.append("Constraints: " + getConstraints() + ",");
+        if (getGrantTokens() != null)
+            sb.append("GrantTokens: " + getGrantTokens() + ",");
+        if (getName() != null)
+            sb.append("Name: " + getName());
         sb.append("}");
         return sb.toString();
     }
-    
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+
+        if (obj instanceof CreateGrantRequest == false)
+            return false;
+        CreateGrantRequest other = (CreateGrantRequest) obj;
+        if (other.getKeyId() == null ^ this.getKeyId() == null)
+            return false;
+        if (other.getKeyId() != null
+                && other.getKeyId().equals(this.getKeyId()) == false)
+            return false;
+        if (other.getGranteePrincipal() == null
+                ^ this.getGranteePrincipal() == null)
+            return false;
+        if (other.getGranteePrincipal() != null
+                && other.getGranteePrincipal().equals(
+                        this.getGranteePrincipal()) == false)
+            return false;
+        if (other.getRetiringPrincipal() == null
+                ^ this.getRetiringPrincipal() == null)
+            return false;
+        if (other.getRetiringPrincipal() != null
+                && other.getRetiringPrincipal().equals(
+                        this.getRetiringPrincipal()) == false)
+            return false;
+        if (other.getOperations() == null ^ this.getOperations() == null)
+            return false;
+        if (other.getOperations() != null
+                && other.getOperations().equals(this.getOperations()) == false)
+            return false;
+        if (other.getConstraints() == null ^ this.getConstraints() == null)
+            return false;
+        if (other.getConstraints() != null
+                && other.getConstraints().equals(this.getConstraints()) == false)
+            return false;
+        if (other.getGrantTokens() == null ^ this.getGrantTokens() == null)
+            return false;
+        if (other.getGrantTokens() != null
+                && other.getGrantTokens().equals(this.getGrantTokens()) == false)
+            return false;
+        if (other.getName() == null ^ this.getName() == null)
+            return false;
+        if (other.getName() != null
+                && other.getName().equals(this.getName()) == false)
+            return false;
+        return true;
+    }
+
     @Override
     public int hashCode() {
         final int prime = 31;
         int hashCode = 1;
-        
-        hashCode = prime * hashCode + ((getKeyId() == null) ? 0 : getKeyId().hashCode()); 
-        hashCode = prime * hashCode + ((getGranteePrincipal() == null) ? 0 : getGranteePrincipal().hashCode()); 
-        hashCode = prime * hashCode + ((getRetiringPrincipal() == null) ? 0 : getRetiringPrincipal().hashCode()); 
-        hashCode = prime * hashCode + ((getOperations() == null) ? 0 : getOperations().hashCode()); 
-        hashCode = prime * hashCode + ((getConstraints() == null) ? 0 : getConstraints().hashCode()); 
-        hashCode = prime * hashCode + ((getGrantTokens() == null) ? 0 : getGrantTokens().hashCode()); 
+
+        hashCode = prime * hashCode
+                + ((getKeyId() == null) ? 0 : getKeyId().hashCode());
+        hashCode = prime
+                * hashCode
+                + ((getGranteePrincipal() == null) ? 0 : getGranteePrincipal()
+                        .hashCode());
+        hashCode = prime
+                * hashCode
+                + ((getRetiringPrincipal() == null) ? 0
+                        : getRetiringPrincipal().hashCode());
+        hashCode = prime * hashCode
+                + ((getOperations() == null) ? 0 : getOperations().hashCode());
+        hashCode = prime
+                * hashCode
+                + ((getConstraints() == null) ? 0 : getConstraints().hashCode());
+        hashCode = prime
+                * hashCode
+                + ((getGrantTokens() == null) ? 0 : getGrantTokens().hashCode());
+        hashCode = prime * hashCode
+                + ((getName() == null) ? 0 : getName().hashCode());
         return hashCode;
     }
-    
-    @Override
-    public boolean equals(Object obj) {
-        if (this == obj) return true;
-        if (obj == null) return false;
 
-        if (obj instanceof CreateGrantRequest == false) return false;
-        CreateGrantRequest other = (CreateGrantRequest)obj;
-        
-        if (other.getKeyId() == null ^ this.getKeyId() == null) return false;
-        if (other.getKeyId() != null && other.getKeyId().equals(this.getKeyId()) == false) return false; 
-        if (other.getGranteePrincipal() == null ^ this.getGranteePrincipal() == null) return false;
-        if (other.getGranteePrincipal() != null && other.getGranteePrincipal().equals(this.getGranteePrincipal()) == false) return false; 
-        if (other.getRetiringPrincipal() == null ^ this.getRetiringPrincipal() == null) return false;
-        if (other.getRetiringPrincipal() != null && other.getRetiringPrincipal().equals(this.getRetiringPrincipal()) == false) return false; 
-        if (other.getOperations() == null ^ this.getOperations() == null) return false;
-        if (other.getOperations() != null && other.getOperations().equals(this.getOperations()) == false) return false; 
-        if (other.getConstraints() == null ^ this.getConstraints() == null) return false;
-        if (other.getConstraints() != null && other.getConstraints().equals(this.getConstraints()) == false) return false; 
-        if (other.getGrantTokens() == null ^ this.getGrantTokens() == null) return false;
-        if (other.getGrantTokens() != null && other.getGrantTokens().equals(this.getGrantTokens()) == false) return false; 
-        return true;
-    }
-    
     @Override
     public CreateGrantRequest clone() {
-        
-            return (CreateGrantRequest) super.clone();
+        return (CreateGrantRequest) super.clone();
     }
-
 }
-    

@@ -1,5 +1,5 @@
 /*
- * Copyright 2015-2015 Amazon Technologies, Inc.
+ * Copyright 2015-2016 Amazon Technologies, Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,11 +14,13 @@
  */
 package com.amazonaws.services.s3.model;
 
+import java.io.Serializable;
+
 import com.amazonaws.AmazonWebServiceRequest;
 import com.amazonaws.util.json.Jackson;
 
 public class SetBucketReplicationConfigurationRequest extends
-        AmazonWebServiceRequest {
+        AmazonWebServiceRequest implements Serializable{
 
     /**
      * The name of Amazon S3 bucket to which the replication configuration is

@@ -1,5 +1,5 @@
 /*
- * Copyright 2010-2015 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2010-2016 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License.
@@ -112,15 +112,6 @@ public class CreateFunctionRequestMarshaller implements Marshaller<Request<Creat
             if (createFunctionRequest.getHandler() != null) {
                 jsonWriter.key("Handler").value(createFunctionRequest.getHandler());
             }
-            if (createFunctionRequest.getDescription() != null) {
-                jsonWriter.key("Description").value(createFunctionRequest.getDescription());
-            }
-            if (createFunctionRequest.getTimeout() != null) {
-                jsonWriter.key("Timeout").value(createFunctionRequest.getTimeout());
-            }
-            if (createFunctionRequest.getMemorySize() != null) {
-                jsonWriter.key("MemorySize").value(createFunctionRequest.getMemorySize());
-            }
             FunctionCode code = createFunctionRequest.getCode();
             if (code != null) {
 
@@ -140,6 +131,18 @@ public class CreateFunctionRequestMarshaller implements Marshaller<Request<Creat
                     jsonWriter.key("S3ObjectVersion").value(code.getS3ObjectVersion());
                 }
                 jsonWriter.endObject();
+            }
+            if (createFunctionRequest.getDescription() != null) {
+                jsonWriter.key("Description").value(createFunctionRequest.getDescription());
+            }
+            if (createFunctionRequest.getTimeout() != null) {
+                jsonWriter.key("Timeout").value(createFunctionRequest.getTimeout());
+            }
+            if (createFunctionRequest.getMemorySize() != null) {
+                jsonWriter.key("MemorySize").value(createFunctionRequest.getMemorySize());
+            }
+            if (createFunctionRequest.isPublish() != null) {
+                jsonWriter.key("Publish").value(createFunctionRequest.isPublish());
             }
 
           jsonWriter.endObject();

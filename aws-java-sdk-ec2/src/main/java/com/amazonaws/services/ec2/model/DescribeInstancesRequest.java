@@ -1,5 +1,5 @@
 /*
- * Copyright 2010-2015 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2010-2016 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License.
@@ -48,9 +48,12 @@ public class DescribeInstancesRequest extends AmazonWebServiceRequest implements
     private com.amazonaws.internal.ListWithAutoConstructFlag<String> instanceIds;
 
     /**
-     * One or more filters. <ul> <li> <p><code>architecture</code> - The
-     * instance architecture (<code>i386</code> | <code>x86_64</code>). </li>
-     * <li> <p><code>availability-zone</code> - The Availability Zone of the
+     * One or more filters. <ul> <li> <p><code>affinity</code> - The affinity
+     * setting for an instance running on a Dedicated host
+     * (<code>default</code> | <code>host</code>). </li> <li>
+     * <p><code>architecture</code> - The instance architecture
+     * (<code>i386</code> | <code>x86_64</code>). </li> <li>
+     * <p><code>availability-zone</code> - The Availability Zone of the
      * instance. </li> <li> <p><code>block-device-mapping.attach-time</code>
      * - The attach time for an EBS volume mapped to the instance, for
      * example, <code>2010-09-15T17:15:20.000Z</code>. </li> <li>
@@ -70,8 +73,10 @@ public class DescribeInstancesRequest extends AmazonWebServiceRequest implements
      * <li> <p><code>group-id</code> - The ID of the security group for the
      * instance. EC2-Classic only. </li> <li> <p><code>group-name</code> -
      * The name of the security group for the instance. EC2-Classic only.
-     * </li> <li> <p><code>hypervisor</code> - The hypervisor type of the
-     * instance (<code>ovm</code> | <code>xen</code>). </li> <li>
+     * </li> <li> <p><code>host-Id</code> - The ID of the Dedicated host on
+     * which the instance is running, if applicable. </li> <li>
+     * <p><code>hypervisor</code> - The hypervisor type of the instance
+     * (<code>ovm</code> | <code>xen</code>). </li> <li>
      * <p><code>iam-instance-profile.arn</code> - The instance profile
      * associated with the instance. Specified as an ARN. </li> <li>
      * <p><code>image-id</code> - The ID of the image used to launch the
@@ -137,7 +142,7 @@ public class DescribeInstancesRequest extends AmazonWebServiceRequest implements
      * <code>false</code> means checking is disabled. The value must be
      * <code>false</code> for the instance to perform network address
      * translation (NAT) in your VPC. </li> <li>
-     * <p><code>spot-instance-request-id</code> - The ID of the Spot Instance
+     * <p><code>spot-instance-request-id</code> - The ID of the Spot instance
      * request. </li> <li> <p><code>state-reason-code</code> - The reason
      * code for the state change. </li> <li>
      * <p><code>state-reason-message</code> - A message that describes the
@@ -157,17 +162,18 @@ public class DescribeInstancesRequest extends AmazonWebServiceRequest implements
      * <p><code>tag-value</code> - The value of a tag assigned to the
      * resource. This filter is independent of the <code>tag-key</code>
      * filter. </li> <li> <p><code>tenancy</code> - The tenancy of an
-     * instance (<code>dedicated</code> | <code>default</code>). </li> <li>
-     * <p><code>virtualization-type</code> - The virtualization type of the
-     * instance (<code>paravirtual</code> | <code>hvm</code>). </li> <li>
-     * <p><code>vpc-id</code> - The ID of the VPC that the instance is
-     * running in. </li> <li> <p><code>network-interface.description</code> -
-     * The description of the network interface. </li> <li>
+     * instance (<code>dedicated</code> | <code>default</code> |
+     * <code>host</code>). </li> <li> <p><code>virtualization-type</code> -
+     * The virtualization type of the instance (<code>paravirtual</code> |
+     * <code>hvm</code>). </li> <li> <p><code>vpc-id</code> - The ID of the
+     * VPC that the instance is running in. </li> <li>
+     * <p><code>network-interface.description</code> - The description of the
+     * network interface. </li> <li>
      * <p><code>network-interface.subnet-id</code> - The ID of the subnet for
      * the network interface. </li> <li>
      * <p><code>network-interface.vpc-id</code> - The ID of the VPC for the
      * network interface. </li> <li>
-     * <p><code>network-interface.network-interface.id</code> - The ID of the
+     * <p><code>network-interface.network-interface-id</code> - The ID of the
      * network interface. </li> <li>
      * <p><code>network-interface.owner-id</code> - The ID of the owner of
      * the network interface. </li> <li>
@@ -321,9 +327,12 @@ public class DescribeInstancesRequest extends AmazonWebServiceRequest implements
     }
 
     /**
-     * One or more filters. <ul> <li> <p><code>architecture</code> - The
-     * instance architecture (<code>i386</code> | <code>x86_64</code>). </li>
-     * <li> <p><code>availability-zone</code> - The Availability Zone of the
+     * One or more filters. <ul> <li> <p><code>affinity</code> - The affinity
+     * setting for an instance running on a Dedicated host
+     * (<code>default</code> | <code>host</code>). </li> <li>
+     * <p><code>architecture</code> - The instance architecture
+     * (<code>i386</code> | <code>x86_64</code>). </li> <li>
+     * <p><code>availability-zone</code> - The Availability Zone of the
      * instance. </li> <li> <p><code>block-device-mapping.attach-time</code>
      * - The attach time for an EBS volume mapped to the instance, for
      * example, <code>2010-09-15T17:15:20.000Z</code>. </li> <li>
@@ -343,8 +352,10 @@ public class DescribeInstancesRequest extends AmazonWebServiceRequest implements
      * <li> <p><code>group-id</code> - The ID of the security group for the
      * instance. EC2-Classic only. </li> <li> <p><code>group-name</code> -
      * The name of the security group for the instance. EC2-Classic only.
-     * </li> <li> <p><code>hypervisor</code> - The hypervisor type of the
-     * instance (<code>ovm</code> | <code>xen</code>). </li> <li>
+     * </li> <li> <p><code>host-Id</code> - The ID of the Dedicated host on
+     * which the instance is running, if applicable. </li> <li>
+     * <p><code>hypervisor</code> - The hypervisor type of the instance
+     * (<code>ovm</code> | <code>xen</code>). </li> <li>
      * <p><code>iam-instance-profile.arn</code> - The instance profile
      * associated with the instance. Specified as an ARN. </li> <li>
      * <p><code>image-id</code> - The ID of the image used to launch the
@@ -410,7 +421,7 @@ public class DescribeInstancesRequest extends AmazonWebServiceRequest implements
      * <code>false</code> means checking is disabled. The value must be
      * <code>false</code> for the instance to perform network address
      * translation (NAT) in your VPC. </li> <li>
-     * <p><code>spot-instance-request-id</code> - The ID of the Spot Instance
+     * <p><code>spot-instance-request-id</code> - The ID of the Spot instance
      * request. </li> <li> <p><code>state-reason-code</code> - The reason
      * code for the state change. </li> <li>
      * <p><code>state-reason-message</code> - A message that describes the
@@ -430,17 +441,18 @@ public class DescribeInstancesRequest extends AmazonWebServiceRequest implements
      * <p><code>tag-value</code> - The value of a tag assigned to the
      * resource. This filter is independent of the <code>tag-key</code>
      * filter. </li> <li> <p><code>tenancy</code> - The tenancy of an
-     * instance (<code>dedicated</code> | <code>default</code>). </li> <li>
-     * <p><code>virtualization-type</code> - The virtualization type of the
-     * instance (<code>paravirtual</code> | <code>hvm</code>). </li> <li>
-     * <p><code>vpc-id</code> - The ID of the VPC that the instance is
-     * running in. </li> <li> <p><code>network-interface.description</code> -
-     * The description of the network interface. </li> <li>
+     * instance (<code>dedicated</code> | <code>default</code> |
+     * <code>host</code>). </li> <li> <p><code>virtualization-type</code> -
+     * The virtualization type of the instance (<code>paravirtual</code> |
+     * <code>hvm</code>). </li> <li> <p><code>vpc-id</code> - The ID of the
+     * VPC that the instance is running in. </li> <li>
+     * <p><code>network-interface.description</code> - The description of the
+     * network interface. </li> <li>
      * <p><code>network-interface.subnet-id</code> - The ID of the subnet for
      * the network interface. </li> <li>
      * <p><code>network-interface.vpc-id</code> - The ID of the VPC for the
      * network interface. </li> <li>
-     * <p><code>network-interface.network-interface.id</code> - The ID of the
+     * <p><code>network-interface.network-interface-id</code> - The ID of the
      * network interface. </li> <li>
      * <p><code>network-interface.owner-id</code> - The ID of the owner of
      * the network interface. </li> <li>
@@ -502,9 +514,12 @@ public class DescribeInstancesRequest extends AmazonWebServiceRequest implements
      * association ID returned when the network interface was associated with
      * an IP address. </li> </ul>
      *
-     * @return One or more filters. <ul> <li> <p><code>architecture</code> - The
-     *         instance architecture (<code>i386</code> | <code>x86_64</code>). </li>
-     *         <li> <p><code>availability-zone</code> - The Availability Zone of the
+     * @return One or more filters. <ul> <li> <p><code>affinity</code> - The affinity
+     *         setting for an instance running on a Dedicated host
+     *         (<code>default</code> | <code>host</code>). </li> <li>
+     *         <p><code>architecture</code> - The instance architecture
+     *         (<code>i386</code> | <code>x86_64</code>). </li> <li>
+     *         <p><code>availability-zone</code> - The Availability Zone of the
      *         instance. </li> <li> <p><code>block-device-mapping.attach-time</code>
      *         - The attach time for an EBS volume mapped to the instance, for
      *         example, <code>2010-09-15T17:15:20.000Z</code>. </li> <li>
@@ -524,8 +539,10 @@ public class DescribeInstancesRequest extends AmazonWebServiceRequest implements
      *         <li> <p><code>group-id</code> - The ID of the security group for the
      *         instance. EC2-Classic only. </li> <li> <p><code>group-name</code> -
      *         The name of the security group for the instance. EC2-Classic only.
-     *         </li> <li> <p><code>hypervisor</code> - The hypervisor type of the
-     *         instance (<code>ovm</code> | <code>xen</code>). </li> <li>
+     *         </li> <li> <p><code>host-Id</code> - The ID of the Dedicated host on
+     *         which the instance is running, if applicable. </li> <li>
+     *         <p><code>hypervisor</code> - The hypervisor type of the instance
+     *         (<code>ovm</code> | <code>xen</code>). </li> <li>
      *         <p><code>iam-instance-profile.arn</code> - The instance profile
      *         associated with the instance. Specified as an ARN. </li> <li>
      *         <p><code>image-id</code> - The ID of the image used to launch the
@@ -591,7 +608,7 @@ public class DescribeInstancesRequest extends AmazonWebServiceRequest implements
      *         <code>false</code> means checking is disabled. The value must be
      *         <code>false</code> for the instance to perform network address
      *         translation (NAT) in your VPC. </li> <li>
-     *         <p><code>spot-instance-request-id</code> - The ID of the Spot Instance
+     *         <p><code>spot-instance-request-id</code> - The ID of the Spot instance
      *         request. </li> <li> <p><code>state-reason-code</code> - The reason
      *         code for the state change. </li> <li>
      *         <p><code>state-reason-message</code> - A message that describes the
@@ -611,17 +628,18 @@ public class DescribeInstancesRequest extends AmazonWebServiceRequest implements
      *         <p><code>tag-value</code> - The value of a tag assigned to the
      *         resource. This filter is independent of the <code>tag-key</code>
      *         filter. </li> <li> <p><code>tenancy</code> - The tenancy of an
-     *         instance (<code>dedicated</code> | <code>default</code>). </li> <li>
-     *         <p><code>virtualization-type</code> - The virtualization type of the
-     *         instance (<code>paravirtual</code> | <code>hvm</code>). </li> <li>
-     *         <p><code>vpc-id</code> - The ID of the VPC that the instance is
-     *         running in. </li> <li> <p><code>network-interface.description</code> -
-     *         The description of the network interface. </li> <li>
+     *         instance (<code>dedicated</code> | <code>default</code> |
+     *         <code>host</code>). </li> <li> <p><code>virtualization-type</code> -
+     *         The virtualization type of the instance (<code>paravirtual</code> |
+     *         <code>hvm</code>). </li> <li> <p><code>vpc-id</code> - The ID of the
+     *         VPC that the instance is running in. </li> <li>
+     *         <p><code>network-interface.description</code> - The description of the
+     *         network interface. </li> <li>
      *         <p><code>network-interface.subnet-id</code> - The ID of the subnet for
      *         the network interface. </li> <li>
      *         <p><code>network-interface.vpc-id</code> - The ID of the VPC for the
      *         network interface. </li> <li>
-     *         <p><code>network-interface.network-interface.id</code> - The ID of the
+     *         <p><code>network-interface.network-interface-id</code> - The ID of the
      *         network interface. </li> <li>
      *         <p><code>network-interface.owner-id</code> - The ID of the owner of
      *         the network interface. </li> <li>
@@ -692,9 +710,12 @@ public class DescribeInstancesRequest extends AmazonWebServiceRequest implements
     }
     
     /**
-     * One or more filters. <ul> <li> <p><code>architecture</code> - The
-     * instance architecture (<code>i386</code> | <code>x86_64</code>). </li>
-     * <li> <p><code>availability-zone</code> - The Availability Zone of the
+     * One or more filters. <ul> <li> <p><code>affinity</code> - The affinity
+     * setting for an instance running on a Dedicated host
+     * (<code>default</code> | <code>host</code>). </li> <li>
+     * <p><code>architecture</code> - The instance architecture
+     * (<code>i386</code> | <code>x86_64</code>). </li> <li>
+     * <p><code>availability-zone</code> - The Availability Zone of the
      * instance. </li> <li> <p><code>block-device-mapping.attach-time</code>
      * - The attach time for an EBS volume mapped to the instance, for
      * example, <code>2010-09-15T17:15:20.000Z</code>. </li> <li>
@@ -714,8 +735,10 @@ public class DescribeInstancesRequest extends AmazonWebServiceRequest implements
      * <li> <p><code>group-id</code> - The ID of the security group for the
      * instance. EC2-Classic only. </li> <li> <p><code>group-name</code> -
      * The name of the security group for the instance. EC2-Classic only.
-     * </li> <li> <p><code>hypervisor</code> - The hypervisor type of the
-     * instance (<code>ovm</code> | <code>xen</code>). </li> <li>
+     * </li> <li> <p><code>host-Id</code> - The ID of the Dedicated host on
+     * which the instance is running, if applicable. </li> <li>
+     * <p><code>hypervisor</code> - The hypervisor type of the instance
+     * (<code>ovm</code> | <code>xen</code>). </li> <li>
      * <p><code>iam-instance-profile.arn</code> - The instance profile
      * associated with the instance. Specified as an ARN. </li> <li>
      * <p><code>image-id</code> - The ID of the image used to launch the
@@ -781,7 +804,7 @@ public class DescribeInstancesRequest extends AmazonWebServiceRequest implements
      * <code>false</code> means checking is disabled. The value must be
      * <code>false</code> for the instance to perform network address
      * translation (NAT) in your VPC. </li> <li>
-     * <p><code>spot-instance-request-id</code> - The ID of the Spot Instance
+     * <p><code>spot-instance-request-id</code> - The ID of the Spot instance
      * request. </li> <li> <p><code>state-reason-code</code> - The reason
      * code for the state change. </li> <li>
      * <p><code>state-reason-message</code> - A message that describes the
@@ -801,17 +824,18 @@ public class DescribeInstancesRequest extends AmazonWebServiceRequest implements
      * <p><code>tag-value</code> - The value of a tag assigned to the
      * resource. This filter is independent of the <code>tag-key</code>
      * filter. </li> <li> <p><code>tenancy</code> - The tenancy of an
-     * instance (<code>dedicated</code> | <code>default</code>). </li> <li>
-     * <p><code>virtualization-type</code> - The virtualization type of the
-     * instance (<code>paravirtual</code> | <code>hvm</code>). </li> <li>
-     * <p><code>vpc-id</code> - The ID of the VPC that the instance is
-     * running in. </li> <li> <p><code>network-interface.description</code> -
-     * The description of the network interface. </li> <li>
+     * instance (<code>dedicated</code> | <code>default</code> |
+     * <code>host</code>). </li> <li> <p><code>virtualization-type</code> -
+     * The virtualization type of the instance (<code>paravirtual</code> |
+     * <code>hvm</code>). </li> <li> <p><code>vpc-id</code> - The ID of the
+     * VPC that the instance is running in. </li> <li>
+     * <p><code>network-interface.description</code> - The description of the
+     * network interface. </li> <li>
      * <p><code>network-interface.subnet-id</code> - The ID of the subnet for
      * the network interface. </li> <li>
      * <p><code>network-interface.vpc-id</code> - The ID of the VPC for the
      * network interface. </li> <li>
-     * <p><code>network-interface.network-interface.id</code> - The ID of the
+     * <p><code>network-interface.network-interface-id</code> - The ID of the
      * network interface. </li> <li>
      * <p><code>network-interface.owner-id</code> - The ID of the owner of
      * the network interface. </li> <li>
@@ -873,9 +897,12 @@ public class DescribeInstancesRequest extends AmazonWebServiceRequest implements
      * association ID returned when the network interface was associated with
      * an IP address. </li> </ul>
      *
-     * @param filters One or more filters. <ul> <li> <p><code>architecture</code> - The
-     *         instance architecture (<code>i386</code> | <code>x86_64</code>). </li>
-     *         <li> <p><code>availability-zone</code> - The Availability Zone of the
+     * @param filters One or more filters. <ul> <li> <p><code>affinity</code> - The affinity
+     *         setting for an instance running on a Dedicated host
+     *         (<code>default</code> | <code>host</code>). </li> <li>
+     *         <p><code>architecture</code> - The instance architecture
+     *         (<code>i386</code> | <code>x86_64</code>). </li> <li>
+     *         <p><code>availability-zone</code> - The Availability Zone of the
      *         instance. </li> <li> <p><code>block-device-mapping.attach-time</code>
      *         - The attach time for an EBS volume mapped to the instance, for
      *         example, <code>2010-09-15T17:15:20.000Z</code>. </li> <li>
@@ -895,8 +922,10 @@ public class DescribeInstancesRequest extends AmazonWebServiceRequest implements
      *         <li> <p><code>group-id</code> - The ID of the security group for the
      *         instance. EC2-Classic only. </li> <li> <p><code>group-name</code> -
      *         The name of the security group for the instance. EC2-Classic only.
-     *         </li> <li> <p><code>hypervisor</code> - The hypervisor type of the
-     *         instance (<code>ovm</code> | <code>xen</code>). </li> <li>
+     *         </li> <li> <p><code>host-Id</code> - The ID of the Dedicated host on
+     *         which the instance is running, if applicable. </li> <li>
+     *         <p><code>hypervisor</code> - The hypervisor type of the instance
+     *         (<code>ovm</code> | <code>xen</code>). </li> <li>
      *         <p><code>iam-instance-profile.arn</code> - The instance profile
      *         associated with the instance. Specified as an ARN. </li> <li>
      *         <p><code>image-id</code> - The ID of the image used to launch the
@@ -962,7 +991,7 @@ public class DescribeInstancesRequest extends AmazonWebServiceRequest implements
      *         <code>false</code> means checking is disabled. The value must be
      *         <code>false</code> for the instance to perform network address
      *         translation (NAT) in your VPC. </li> <li>
-     *         <p><code>spot-instance-request-id</code> - The ID of the Spot Instance
+     *         <p><code>spot-instance-request-id</code> - The ID of the Spot instance
      *         request. </li> <li> <p><code>state-reason-code</code> - The reason
      *         code for the state change. </li> <li>
      *         <p><code>state-reason-message</code> - A message that describes the
@@ -982,17 +1011,18 @@ public class DescribeInstancesRequest extends AmazonWebServiceRequest implements
      *         <p><code>tag-value</code> - The value of a tag assigned to the
      *         resource. This filter is independent of the <code>tag-key</code>
      *         filter. </li> <li> <p><code>tenancy</code> - The tenancy of an
-     *         instance (<code>dedicated</code> | <code>default</code>). </li> <li>
-     *         <p><code>virtualization-type</code> - The virtualization type of the
-     *         instance (<code>paravirtual</code> | <code>hvm</code>). </li> <li>
-     *         <p><code>vpc-id</code> - The ID of the VPC that the instance is
-     *         running in. </li> <li> <p><code>network-interface.description</code> -
-     *         The description of the network interface. </li> <li>
+     *         instance (<code>dedicated</code> | <code>default</code> |
+     *         <code>host</code>). </li> <li> <p><code>virtualization-type</code> -
+     *         The virtualization type of the instance (<code>paravirtual</code> |
+     *         <code>hvm</code>). </li> <li> <p><code>vpc-id</code> - The ID of the
+     *         VPC that the instance is running in. </li> <li>
+     *         <p><code>network-interface.description</code> - The description of the
+     *         network interface. </li> <li>
      *         <p><code>network-interface.subnet-id</code> - The ID of the subnet for
      *         the network interface. </li> <li>
      *         <p><code>network-interface.vpc-id</code> - The ID of the VPC for the
      *         network interface. </li> <li>
-     *         <p><code>network-interface.network-interface.id</code> - The ID of the
+     *         <p><code>network-interface.network-interface-id</code> - The ID of the
      *         network interface. </li> <li>
      *         <p><code>network-interface.owner-id</code> - The ID of the owner of
      *         the network interface. </li> <li>
@@ -1065,9 +1095,12 @@ public class DescribeInstancesRequest extends AmazonWebServiceRequest implements
     }
     
     /**
-     * One or more filters. <ul> <li> <p><code>architecture</code> - The
-     * instance architecture (<code>i386</code> | <code>x86_64</code>). </li>
-     * <li> <p><code>availability-zone</code> - The Availability Zone of the
+     * One or more filters. <ul> <li> <p><code>affinity</code> - The affinity
+     * setting for an instance running on a Dedicated host
+     * (<code>default</code> | <code>host</code>). </li> <li>
+     * <p><code>architecture</code> - The instance architecture
+     * (<code>i386</code> | <code>x86_64</code>). </li> <li>
+     * <p><code>availability-zone</code> - The Availability Zone of the
      * instance. </li> <li> <p><code>block-device-mapping.attach-time</code>
      * - The attach time for an EBS volume mapped to the instance, for
      * example, <code>2010-09-15T17:15:20.000Z</code>. </li> <li>
@@ -1087,8 +1120,10 @@ public class DescribeInstancesRequest extends AmazonWebServiceRequest implements
      * <li> <p><code>group-id</code> - The ID of the security group for the
      * instance. EC2-Classic only. </li> <li> <p><code>group-name</code> -
      * The name of the security group for the instance. EC2-Classic only.
-     * </li> <li> <p><code>hypervisor</code> - The hypervisor type of the
-     * instance (<code>ovm</code> | <code>xen</code>). </li> <li>
+     * </li> <li> <p><code>host-Id</code> - The ID of the Dedicated host on
+     * which the instance is running, if applicable. </li> <li>
+     * <p><code>hypervisor</code> - The hypervisor type of the instance
+     * (<code>ovm</code> | <code>xen</code>). </li> <li>
      * <p><code>iam-instance-profile.arn</code> - The instance profile
      * associated with the instance. Specified as an ARN. </li> <li>
      * <p><code>image-id</code> - The ID of the image used to launch the
@@ -1154,7 +1189,7 @@ public class DescribeInstancesRequest extends AmazonWebServiceRequest implements
      * <code>false</code> means checking is disabled. The value must be
      * <code>false</code> for the instance to perform network address
      * translation (NAT) in your VPC. </li> <li>
-     * <p><code>spot-instance-request-id</code> - The ID of the Spot Instance
+     * <p><code>spot-instance-request-id</code> - The ID of the Spot instance
      * request. </li> <li> <p><code>state-reason-code</code> - The reason
      * code for the state change. </li> <li>
      * <p><code>state-reason-message</code> - A message that describes the
@@ -1174,17 +1209,18 @@ public class DescribeInstancesRequest extends AmazonWebServiceRequest implements
      * <p><code>tag-value</code> - The value of a tag assigned to the
      * resource. This filter is independent of the <code>tag-key</code>
      * filter. </li> <li> <p><code>tenancy</code> - The tenancy of an
-     * instance (<code>dedicated</code> | <code>default</code>). </li> <li>
-     * <p><code>virtualization-type</code> - The virtualization type of the
-     * instance (<code>paravirtual</code> | <code>hvm</code>). </li> <li>
-     * <p><code>vpc-id</code> - The ID of the VPC that the instance is
-     * running in. </li> <li> <p><code>network-interface.description</code> -
-     * The description of the network interface. </li> <li>
+     * instance (<code>dedicated</code> | <code>default</code> |
+     * <code>host</code>). </li> <li> <p><code>virtualization-type</code> -
+     * The virtualization type of the instance (<code>paravirtual</code> |
+     * <code>hvm</code>). </li> <li> <p><code>vpc-id</code> - The ID of the
+     * VPC that the instance is running in. </li> <li>
+     * <p><code>network-interface.description</code> - The description of the
+     * network interface. </li> <li>
      * <p><code>network-interface.subnet-id</code> - The ID of the subnet for
      * the network interface. </li> <li>
      * <p><code>network-interface.vpc-id</code> - The ID of the VPC for the
      * network interface. </li> <li>
-     * <p><code>network-interface.network-interface.id</code> - The ID of the
+     * <p><code>network-interface.network-interface-id</code> - The ID of the
      * network interface. </li> <li>
      * <p><code>network-interface.owner-id</code> - The ID of the owner of
      * the network interface. </li> <li>
@@ -1253,9 +1289,12 @@ public class DescribeInstancesRequest extends AmazonWebServiceRequest implements
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *
-     * @param filters One or more filters. <ul> <li> <p><code>architecture</code> - The
-     *         instance architecture (<code>i386</code> | <code>x86_64</code>). </li>
-     *         <li> <p><code>availability-zone</code> - The Availability Zone of the
+     * @param filters One or more filters. <ul> <li> <p><code>affinity</code> - The affinity
+     *         setting for an instance running on a Dedicated host
+     *         (<code>default</code> | <code>host</code>). </li> <li>
+     *         <p><code>architecture</code> - The instance architecture
+     *         (<code>i386</code> | <code>x86_64</code>). </li> <li>
+     *         <p><code>availability-zone</code> - The Availability Zone of the
      *         instance. </li> <li> <p><code>block-device-mapping.attach-time</code>
      *         - The attach time for an EBS volume mapped to the instance, for
      *         example, <code>2010-09-15T17:15:20.000Z</code>. </li> <li>
@@ -1275,8 +1314,10 @@ public class DescribeInstancesRequest extends AmazonWebServiceRequest implements
      *         <li> <p><code>group-id</code> - The ID of the security group for the
      *         instance. EC2-Classic only. </li> <li> <p><code>group-name</code> -
      *         The name of the security group for the instance. EC2-Classic only.
-     *         </li> <li> <p><code>hypervisor</code> - The hypervisor type of the
-     *         instance (<code>ovm</code> | <code>xen</code>). </li> <li>
+     *         </li> <li> <p><code>host-Id</code> - The ID of the Dedicated host on
+     *         which the instance is running, if applicable. </li> <li>
+     *         <p><code>hypervisor</code> - The hypervisor type of the instance
+     *         (<code>ovm</code> | <code>xen</code>). </li> <li>
      *         <p><code>iam-instance-profile.arn</code> - The instance profile
      *         associated with the instance. Specified as an ARN. </li> <li>
      *         <p><code>image-id</code> - The ID of the image used to launch the
@@ -1342,7 +1383,7 @@ public class DescribeInstancesRequest extends AmazonWebServiceRequest implements
      *         <code>false</code> means checking is disabled. The value must be
      *         <code>false</code> for the instance to perform network address
      *         translation (NAT) in your VPC. </li> <li>
-     *         <p><code>spot-instance-request-id</code> - The ID of the Spot Instance
+     *         <p><code>spot-instance-request-id</code> - The ID of the Spot instance
      *         request. </li> <li> <p><code>state-reason-code</code> - The reason
      *         code for the state change. </li> <li>
      *         <p><code>state-reason-message</code> - A message that describes the
@@ -1362,17 +1403,18 @@ public class DescribeInstancesRequest extends AmazonWebServiceRequest implements
      *         <p><code>tag-value</code> - The value of a tag assigned to the
      *         resource. This filter is independent of the <code>tag-key</code>
      *         filter. </li> <li> <p><code>tenancy</code> - The tenancy of an
-     *         instance (<code>dedicated</code> | <code>default</code>). </li> <li>
-     *         <p><code>virtualization-type</code> - The virtualization type of the
-     *         instance (<code>paravirtual</code> | <code>hvm</code>). </li> <li>
-     *         <p><code>vpc-id</code> - The ID of the VPC that the instance is
-     *         running in. </li> <li> <p><code>network-interface.description</code> -
-     *         The description of the network interface. </li> <li>
+     *         instance (<code>dedicated</code> | <code>default</code> |
+     *         <code>host</code>). </li> <li> <p><code>virtualization-type</code> -
+     *         The virtualization type of the instance (<code>paravirtual</code> |
+     *         <code>hvm</code>). </li> <li> <p><code>vpc-id</code> - The ID of the
+     *         VPC that the instance is running in. </li> <li>
+     *         <p><code>network-interface.description</code> - The description of the
+     *         network interface. </li> <li>
      *         <p><code>network-interface.subnet-id</code> - The ID of the subnet for
      *         the network interface. </li> <li>
      *         <p><code>network-interface.vpc-id</code> - The ID of the VPC for the
      *         network interface. </li> <li>
-     *         <p><code>network-interface.network-interface.id</code> - The ID of the
+     *         <p><code>network-interface.network-interface-id</code> - The ID of the
      *         network interface. </li> <li>
      *         <p><code>network-interface.owner-id</code> - The ID of the owner of
      *         the network interface. </li> <li>
@@ -1446,9 +1488,12 @@ public class DescribeInstancesRequest extends AmazonWebServiceRequest implements
     }
     
     /**
-     * One or more filters. <ul> <li> <p><code>architecture</code> - The
-     * instance architecture (<code>i386</code> | <code>x86_64</code>). </li>
-     * <li> <p><code>availability-zone</code> - The Availability Zone of the
+     * One or more filters. <ul> <li> <p><code>affinity</code> - The affinity
+     * setting for an instance running on a Dedicated host
+     * (<code>default</code> | <code>host</code>). </li> <li>
+     * <p><code>architecture</code> - The instance architecture
+     * (<code>i386</code> | <code>x86_64</code>). </li> <li>
+     * <p><code>availability-zone</code> - The Availability Zone of the
      * instance. </li> <li> <p><code>block-device-mapping.attach-time</code>
      * - The attach time for an EBS volume mapped to the instance, for
      * example, <code>2010-09-15T17:15:20.000Z</code>. </li> <li>
@@ -1468,8 +1513,10 @@ public class DescribeInstancesRequest extends AmazonWebServiceRequest implements
      * <li> <p><code>group-id</code> - The ID of the security group for the
      * instance. EC2-Classic only. </li> <li> <p><code>group-name</code> -
      * The name of the security group for the instance. EC2-Classic only.
-     * </li> <li> <p><code>hypervisor</code> - The hypervisor type of the
-     * instance (<code>ovm</code> | <code>xen</code>). </li> <li>
+     * </li> <li> <p><code>host-Id</code> - The ID of the Dedicated host on
+     * which the instance is running, if applicable. </li> <li>
+     * <p><code>hypervisor</code> - The hypervisor type of the instance
+     * (<code>ovm</code> | <code>xen</code>). </li> <li>
      * <p><code>iam-instance-profile.arn</code> - The instance profile
      * associated with the instance. Specified as an ARN. </li> <li>
      * <p><code>image-id</code> - The ID of the image used to launch the
@@ -1535,7 +1582,7 @@ public class DescribeInstancesRequest extends AmazonWebServiceRequest implements
      * <code>false</code> means checking is disabled. The value must be
      * <code>false</code> for the instance to perform network address
      * translation (NAT) in your VPC. </li> <li>
-     * <p><code>spot-instance-request-id</code> - The ID of the Spot Instance
+     * <p><code>spot-instance-request-id</code> - The ID of the Spot instance
      * request. </li> <li> <p><code>state-reason-code</code> - The reason
      * code for the state change. </li> <li>
      * <p><code>state-reason-message</code> - A message that describes the
@@ -1555,17 +1602,18 @@ public class DescribeInstancesRequest extends AmazonWebServiceRequest implements
      * <p><code>tag-value</code> - The value of a tag assigned to the
      * resource. This filter is independent of the <code>tag-key</code>
      * filter. </li> <li> <p><code>tenancy</code> - The tenancy of an
-     * instance (<code>dedicated</code> | <code>default</code>). </li> <li>
-     * <p><code>virtualization-type</code> - The virtualization type of the
-     * instance (<code>paravirtual</code> | <code>hvm</code>). </li> <li>
-     * <p><code>vpc-id</code> - The ID of the VPC that the instance is
-     * running in. </li> <li> <p><code>network-interface.description</code> -
-     * The description of the network interface. </li> <li>
+     * instance (<code>dedicated</code> | <code>default</code> |
+     * <code>host</code>). </li> <li> <p><code>virtualization-type</code> -
+     * The virtualization type of the instance (<code>paravirtual</code> |
+     * <code>hvm</code>). </li> <li> <p><code>vpc-id</code> - The ID of the
+     * VPC that the instance is running in. </li> <li>
+     * <p><code>network-interface.description</code> - The description of the
+     * network interface. </li> <li>
      * <p><code>network-interface.subnet-id</code> - The ID of the subnet for
      * the network interface. </li> <li>
      * <p><code>network-interface.vpc-id</code> - The ID of the VPC for the
      * network interface. </li> <li>
-     * <p><code>network-interface.network-interface.id</code> - The ID of the
+     * <p><code>network-interface.network-interface-id</code> - The ID of the
      * network interface. </li> <li>
      * <p><code>network-interface.owner-id</code> - The ID of the owner of
      * the network interface. </li> <li>
@@ -1629,9 +1677,12 @@ public class DescribeInstancesRequest extends AmazonWebServiceRequest implements
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *
-     * @param filters One or more filters. <ul> <li> <p><code>architecture</code> - The
-     *         instance architecture (<code>i386</code> | <code>x86_64</code>). </li>
-     *         <li> <p><code>availability-zone</code> - The Availability Zone of the
+     * @param filters One or more filters. <ul> <li> <p><code>affinity</code> - The affinity
+     *         setting for an instance running on a Dedicated host
+     *         (<code>default</code> | <code>host</code>). </li> <li>
+     *         <p><code>architecture</code> - The instance architecture
+     *         (<code>i386</code> | <code>x86_64</code>). </li> <li>
+     *         <p><code>availability-zone</code> - The Availability Zone of the
      *         instance. </li> <li> <p><code>block-device-mapping.attach-time</code>
      *         - The attach time for an EBS volume mapped to the instance, for
      *         example, <code>2010-09-15T17:15:20.000Z</code>. </li> <li>
@@ -1651,8 +1702,10 @@ public class DescribeInstancesRequest extends AmazonWebServiceRequest implements
      *         <li> <p><code>group-id</code> - The ID of the security group for the
      *         instance. EC2-Classic only. </li> <li> <p><code>group-name</code> -
      *         The name of the security group for the instance. EC2-Classic only.
-     *         </li> <li> <p><code>hypervisor</code> - The hypervisor type of the
-     *         instance (<code>ovm</code> | <code>xen</code>). </li> <li>
+     *         </li> <li> <p><code>host-Id</code> - The ID of the Dedicated host on
+     *         which the instance is running, if applicable. </li> <li>
+     *         <p><code>hypervisor</code> - The hypervisor type of the instance
+     *         (<code>ovm</code> | <code>xen</code>). </li> <li>
      *         <p><code>iam-instance-profile.arn</code> - The instance profile
      *         associated with the instance. Specified as an ARN. </li> <li>
      *         <p><code>image-id</code> - The ID of the image used to launch the
@@ -1718,7 +1771,7 @@ public class DescribeInstancesRequest extends AmazonWebServiceRequest implements
      *         <code>false</code> means checking is disabled. The value must be
      *         <code>false</code> for the instance to perform network address
      *         translation (NAT) in your VPC. </li> <li>
-     *         <p><code>spot-instance-request-id</code> - The ID of the Spot Instance
+     *         <p><code>spot-instance-request-id</code> - The ID of the Spot instance
      *         request. </li> <li> <p><code>state-reason-code</code> - The reason
      *         code for the state change. </li> <li>
      *         <p><code>state-reason-message</code> - A message that describes the
@@ -1738,17 +1791,18 @@ public class DescribeInstancesRequest extends AmazonWebServiceRequest implements
      *         <p><code>tag-value</code> - The value of a tag assigned to the
      *         resource. This filter is independent of the <code>tag-key</code>
      *         filter. </li> <li> <p><code>tenancy</code> - The tenancy of an
-     *         instance (<code>dedicated</code> | <code>default</code>). </li> <li>
-     *         <p><code>virtualization-type</code> - The virtualization type of the
-     *         instance (<code>paravirtual</code> | <code>hvm</code>). </li> <li>
-     *         <p><code>vpc-id</code> - The ID of the VPC that the instance is
-     *         running in. </li> <li> <p><code>network-interface.description</code> -
-     *         The description of the network interface. </li> <li>
+     *         instance (<code>dedicated</code> | <code>default</code> |
+     *         <code>host</code>). </li> <li> <p><code>virtualization-type</code> -
+     *         The virtualization type of the instance (<code>paravirtual</code> |
+     *         <code>hvm</code>). </li> <li> <p><code>vpc-id</code> - The ID of the
+     *         VPC that the instance is running in. </li> <li>
+     *         <p><code>network-interface.description</code> - The description of the
+     *         network interface. </li> <li>
      *         <p><code>network-interface.subnet-id</code> - The ID of the subnet for
      *         the network interface. </li> <li>
      *         <p><code>network-interface.vpc-id</code> - The ID of the VPC for the
      *         network interface. </li> <li>
-     *         <p><code>network-interface.network-interface.id</code> - The ID of the
+     *         <p><code>network-interface.network-interface-id</code> - The ID of the
      *         network interface. </li> <li>
      *         <p><code>network-interface.owner-id</code> - The ID of the owner of
      *         the network interface. </li> <li>

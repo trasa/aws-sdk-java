@@ -1,5 +1,5 @@
 /*
- * Copyright 2010-2015 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2010-2016 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License.
@@ -46,6 +46,8 @@ public class ModifyMountTargetSecurityGroupsRequestMarshaller
         implements
         Marshaller<Request<ModifyMountTargetSecurityGroupsRequest>, ModifyMountTargetSecurityGroupsRequest> {
 
+    private static final String DEFAULT_CONTENT_TYPE = "";
+
     public Request<ModifyMountTargetSecurityGroupsRequest> marshall(
             ModifyMountTargetSecurityGroupsRequest modifyMountTargetSecurityGroupsRequest) {
 
@@ -61,6 +63,7 @@ public class ModifyMountTargetSecurityGroupsRequestMarshaller
         request.setHttpMethod(HttpMethodName.PUT);
 
         String uriResourcePath = "/2015-02-01/mount-targets/{MountTargetId}/security-groups";
+
         uriResourcePath = uriResourcePath
                 .replace(
                         "{MountTargetId}",
@@ -99,7 +102,7 @@ public class ModifyMountTargetSecurityGroupsRequestMarshaller
             request.addHeader("Content-Length",
                     Integer.toString(content.length));
             if (!request.getHeaders().containsKey("Content-Type")) {
-                request.addHeader("Content-Type", "application/json");
+                request.addHeader("Content-Type", DEFAULT_CONTENT_TYPE);
             }
         } catch (Throwable t) {
             throw new AmazonClientException(

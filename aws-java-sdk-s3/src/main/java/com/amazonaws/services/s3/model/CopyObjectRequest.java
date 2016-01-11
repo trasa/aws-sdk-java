@@ -1,5 +1,5 @@
 /*
- * Copyright 2010-2015 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2010-2016 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License.
@@ -14,6 +14,7 @@
  */
 package com.amazonaws.services.s3.model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -43,7 +44,7 @@ import com.amazonaws.services.s3.internal.Constants;
  * @see CopyObjectResult
  */
 public class CopyObjectRequest extends AmazonWebServiceRequest implements
-    SSEAwsKeyManagementParamsProvider {
+    SSEAwsKeyManagementParamsProvider, Serializable {
 
     /** The name of the bucket containing the object to be copied */
     private String sourceBucketName;

@@ -1,5 +1,5 @@
 /*
- * Copyright 2010-2015 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2010-2016 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License.
@@ -69,6 +69,66 @@ public class AbstractAWSDeviceFarmAsync extends AbstractAWSDeviceFarm implements
     public java.util.concurrent.Future<CreateUploadResult> createUploadAsync(
             CreateUploadRequest request,
             com.amazonaws.handlers.AsyncHandler<CreateUploadRequest, CreateUploadResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<DeleteDevicePoolResult> deleteDevicePoolAsync(
+            DeleteDevicePoolRequest request) {
+
+        return deleteDevicePoolAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DeleteDevicePoolResult> deleteDevicePoolAsync(
+            DeleteDevicePoolRequest request,
+            com.amazonaws.handlers.AsyncHandler<DeleteDevicePoolRequest, DeleteDevicePoolResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<DeleteProjectResult> deleteProjectAsync(
+            DeleteProjectRequest request) {
+
+        return deleteProjectAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DeleteProjectResult> deleteProjectAsync(
+            DeleteProjectRequest request,
+            com.amazonaws.handlers.AsyncHandler<DeleteProjectRequest, DeleteProjectResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<DeleteRunResult> deleteRunAsync(
+            DeleteRunRequest request) {
+
+        return deleteRunAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DeleteRunResult> deleteRunAsync(
+            DeleteRunRequest request,
+            com.amazonaws.handlers.AsyncHandler<DeleteRunRequest, DeleteRunResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<DeleteUploadResult> deleteUploadAsync(
+            DeleteUploadRequest request) {
+
+        return deleteUploadAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DeleteUploadResult> deleteUploadAsync(
+            DeleteUploadRequest request,
+            com.amazonaws.handlers.AsyncHandler<DeleteUploadRequest, DeleteUploadResult> asyncHandler) {
 
         throw new java.lang.UnsupportedOperationException();
     }
@@ -399,6 +459,36 @@ public class AbstractAWSDeviceFarmAsync extends AbstractAWSDeviceFarm implements
     public java.util.concurrent.Future<ScheduleRunResult> scheduleRunAsync(
             ScheduleRunRequest request,
             com.amazonaws.handlers.AsyncHandler<ScheduleRunRequest, ScheduleRunResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<UpdateDevicePoolResult> updateDevicePoolAsync(
+            UpdateDevicePoolRequest request) {
+
+        return updateDevicePoolAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<UpdateDevicePoolResult> updateDevicePoolAsync(
+            UpdateDevicePoolRequest request,
+            com.amazonaws.handlers.AsyncHandler<UpdateDevicePoolRequest, UpdateDevicePoolResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<UpdateProjectResult> updateProjectAsync(
+            UpdateProjectRequest request) {
+
+        return updateProjectAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<UpdateProjectResult> updateProjectAsync(
+            UpdateProjectRequest request,
+            com.amazonaws.handlers.AsyncHandler<UpdateProjectRequest, UpdateProjectResult> asyncHandler) {
 
         throw new java.lang.UnsupportedOperationException();
     }

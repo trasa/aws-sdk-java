@@ -1,5 +1,5 @@
 /*
- * Copyright 2011-2015 Amazon Technologies, Inc.
+ * Copyright 2011-2016 Amazon Technologies, Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -13,6 +13,7 @@
  * limitations under the License.
  */
 package com.amazonaws.services.s3.model;
+import java.io.Serializable;
 
 /**
  * Container for bucket cross origin configuration operations.
@@ -21,7 +22,7 @@ package com.amazonaws.services.s3.model;
 import java.util.Arrays;
 import java.util.List;
 
-public class BucketCrossOriginConfiguration {
+public class BucketCrossOriginConfiguration implements Serializable {
 
 	
     private List<CORSRule> rules;

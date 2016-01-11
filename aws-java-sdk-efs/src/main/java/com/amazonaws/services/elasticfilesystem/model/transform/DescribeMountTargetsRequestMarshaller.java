@@ -1,5 +1,5 @@
 /*
- * Copyright 2010-2015 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2010-2016 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License.
@@ -46,6 +46,8 @@ public class DescribeMountTargetsRequestMarshaller
         implements
         Marshaller<Request<DescribeMountTargetsRequest>, DescribeMountTargetsRequest> {
 
+    private static final String DEFAULT_CONTENT_TYPE = "";
+
     public Request<DescribeMountTargetsRequest> marshall(
             DescribeMountTargetsRequest describeMountTargetsRequest) {
 
@@ -60,12 +62,12 @@ public class DescribeMountTargetsRequestMarshaller
         request.setHttpMethod(HttpMethodName.GET);
 
         String uriResourcePath = "/2015-02-01/mount-targets";
+
         request.setResourcePath(uriResourcePath);
 
         String maxItems = (describeMountTargetsRequest.getMaxItems() == null) ? null
                 : StringUtils.fromInteger(describeMountTargetsRequest
                         .getMaxItems());
-
         if (maxItems != null) {
             request.addParameter("MaxItems", maxItems);
         }
@@ -73,7 +75,6 @@ public class DescribeMountTargetsRequestMarshaller
         String marker = (describeMountTargetsRequest.getMarker() == null) ? null
                 : StringUtils.fromString(describeMountTargetsRequest
                         .getMarker());
-
         if (marker != null) {
             request.addParameter("Marker", marker);
         }
@@ -81,7 +82,6 @@ public class DescribeMountTargetsRequestMarshaller
         String fileSystemId = (describeMountTargetsRequest.getFileSystemId() == null) ? null
                 : StringUtils.fromString(describeMountTargetsRequest
                         .getFileSystemId());
-
         if (fileSystemId != null) {
             request.addParameter("FileSystemId", fileSystemId);
         }
@@ -89,14 +89,13 @@ public class DescribeMountTargetsRequestMarshaller
         String mountTargetId = (describeMountTargetsRequest.getMountTargetId() == null) ? null
                 : StringUtils.fromString(describeMountTargetsRequest
                         .getMountTargetId());
-
         if (mountTargetId != null) {
             request.addParameter("MountTargetId", mountTargetId);
         }
 
         request.setContent(new ByteArrayInputStream(new byte[0]));
         if (!request.getHeaders().containsKey("Content-Type")) {
-            request.addHeader("Content-Type", "binary/octet-stream");
+            request.addHeader("Content-Type", DEFAULT_CONTENT_TYPE);
         }
 
         return request;

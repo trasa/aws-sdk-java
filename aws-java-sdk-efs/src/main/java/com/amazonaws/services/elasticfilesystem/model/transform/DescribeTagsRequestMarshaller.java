@@ -1,5 +1,5 @@
 /*
- * Copyright 2010-2015 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2010-2016 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License.
@@ -45,6 +45,8 @@ import com.amazonaws.util.json.*;
 public class DescribeTagsRequestMarshaller implements
         Marshaller<Request<DescribeTagsRequest>, DescribeTagsRequest> {
 
+    private static final String DEFAULT_CONTENT_TYPE = "";
+
     public Request<DescribeTagsRequest> marshall(
             DescribeTagsRequest describeTagsRequest) {
 
@@ -59,6 +61,7 @@ public class DescribeTagsRequestMarshaller implements
         request.setHttpMethod(HttpMethodName.GET);
 
         String uriResourcePath = "/2015-02-01/tags/{FileSystemId}/";
+
         uriResourcePath = uriResourcePath.replace(
                 "{FileSystemId}",
                 (describeTagsRequest.getFileSystemId() == null) ? ""
@@ -68,21 +71,19 @@ public class DescribeTagsRequestMarshaller implements
 
         String maxItems = (describeTagsRequest.getMaxItems() == null) ? null
                 : StringUtils.fromInteger(describeTagsRequest.getMaxItems());
-
         if (maxItems != null) {
             request.addParameter("MaxItems", maxItems);
         }
 
         String marker = (describeTagsRequest.getMarker() == null) ? null
                 : StringUtils.fromString(describeTagsRequest.getMarker());
-
         if (marker != null) {
             request.addParameter("Marker", marker);
         }
 
         request.setContent(new ByteArrayInputStream(new byte[0]));
         if (!request.getHeaders().containsKey("Content-Type")) {
-            request.addHeader("Content-Type", "binary/octet-stream");
+            request.addHeader("Content-Type", DEFAULT_CONTENT_TYPE);
         }
 
         return request;

@@ -1,5 +1,5 @@
 /*
- * Copyright 2010-20154 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2010-20164 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License.
@@ -13,6 +13,7 @@
  * permissions and limitations under the License.
  */
 package com.amazonaws.services.s3.model;
+import java.io.Serializable;
 
 import java.security.KeyPair;
 
@@ -24,9 +25,9 @@ import javax.crypto.SecretKey;
  * The KEK has no relevance on the client-side, as KMS only requires the CMK
  * id to be used to uniquely identify the KEK on the server side.
  */
-public class KMSEncryptionMaterials extends EncryptionMaterials {
+public class KMSEncryptionMaterials extends EncryptionMaterials implements Serializable {
     /**
-     * Name of the materail description to be persisted in S3 for the KMS's
+     * Name of the material description to be persisted in S3 for the KMS's
      * customer master key id.
      */
     public static final String CUSTOMER_MASTER_KEY_ID = "kms_cmk_id"; 

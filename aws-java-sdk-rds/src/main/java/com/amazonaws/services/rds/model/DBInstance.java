@@ -1,5 +1,5 @@
 /*
- * Copyright 2010-2015 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2010-2016 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License.
@@ -65,16 +65,16 @@ public class DBInstance implements Serializable, Cloneable {
 
     /**
      * The meaning of this parameter differs according to the database engine
-     * you use. For example, this value returns either MySQL or PostgreSQL
+     * you use. For example, this value returns MySQL, MariaDB, or PostgreSQL
      * information when returning values from CreateDBInstanceReadReplica
-     * since Read Replicas are only supported for MySQL and PostgreSQL. <p>
-     * <b>MySQL, SQL Server, PostgreSQL</b> <p> Contains the name of the
-     * initial database of this instance that was provided at create time, if
-     * one was specified when the DB instance was created. This same name is
-     * returned for the life of the DB instance. <p>Type: String <p>
-     * <b>Oracle</b> <p> Contains the Oracle System ID (SID) of the created
-     * DB instance. Not shown when the returned parameters do not apply to an
-     * Oracle DB instance.
+     * since Read Replicas are only supported for these engines. <p>
+     * <b>MySQL, MariaDB, SQL Server, PostgreSQL, Amazon Aurora</b> <p>
+     * Contains the name of the initial database of this instance that was
+     * provided at create time, if one was specified when the DB instance was
+     * created. This same name is returned for the life of the DB instance.
+     * <p>Type: String <p> <b>Oracle</b> <p> Contains the Oracle System ID
+     * (SID) of the created DB instance. Not shown when the returned
+     * parameters do not apply to an Oracle DB instance.
      */
     private String dBName;
 
@@ -282,6 +282,31 @@ public class DBInstance implements Serializable, Cloneable {
     private String cACertificateIdentifier;
 
     /**
+     * Specifies whether tags are copied from the DB instance to snapshots of
+     * the DB instance.
+     */
+    private Boolean copyTagsToSnapshot;
+
+    /**
+     * The interval, in seconds, between points when Enhanced Monitoring
+     * metrics are collected for the DB instance.
+     */
+    private Integer monitoringInterval;
+
+    /**
+     * The Amazon Resource Name (ARN) of the Amazon CloudWatch Logs log
+     * stream that receives the Enhanced Monitoring metrics data for the DB
+     * instance.
+     */
+    private String enhancedMonitoringResourceArn;
+
+    /**
+     * The ARN for the IAM role that permits RDS to send Enhanced Monitoring
+     * metrics to CloudWatch Logs.
+     */
+    private String monitoringRoleArn;
+
+    /**
      * Contains a user-supplied database identifier. This identifier is the
      * unique key that identifies a DB instance.
      *
@@ -466,28 +491,28 @@ public class DBInstance implements Serializable, Cloneable {
 
     /**
      * The meaning of this parameter differs according to the database engine
-     * you use. For example, this value returns either MySQL or PostgreSQL
+     * you use. For example, this value returns MySQL, MariaDB, or PostgreSQL
      * information when returning values from CreateDBInstanceReadReplica
-     * since Read Replicas are only supported for MySQL and PostgreSQL. <p>
-     * <b>MySQL, SQL Server, PostgreSQL</b> <p> Contains the name of the
-     * initial database of this instance that was provided at create time, if
-     * one was specified when the DB instance was created. This same name is
-     * returned for the life of the DB instance. <p>Type: String <p>
-     * <b>Oracle</b> <p> Contains the Oracle System ID (SID) of the created
-     * DB instance. Not shown when the returned parameters do not apply to an
-     * Oracle DB instance.
+     * since Read Replicas are only supported for these engines. <p>
+     * <b>MySQL, MariaDB, SQL Server, PostgreSQL, Amazon Aurora</b> <p>
+     * Contains the name of the initial database of this instance that was
+     * provided at create time, if one was specified when the DB instance was
+     * created. This same name is returned for the life of the DB instance.
+     * <p>Type: String <p> <b>Oracle</b> <p> Contains the Oracle System ID
+     * (SID) of the created DB instance. Not shown when the returned
+     * parameters do not apply to an Oracle DB instance.
      *
      * @return The meaning of this parameter differs according to the database engine
-     *         you use. For example, this value returns either MySQL or PostgreSQL
+     *         you use. For example, this value returns MySQL, MariaDB, or PostgreSQL
      *         information when returning values from CreateDBInstanceReadReplica
-     *         since Read Replicas are only supported for MySQL and PostgreSQL. <p>
-     *         <b>MySQL, SQL Server, PostgreSQL</b> <p> Contains the name of the
-     *         initial database of this instance that was provided at create time, if
-     *         one was specified when the DB instance was created. This same name is
-     *         returned for the life of the DB instance. <p>Type: String <p>
-     *         <b>Oracle</b> <p> Contains the Oracle System ID (SID) of the created
-     *         DB instance. Not shown when the returned parameters do not apply to an
-     *         Oracle DB instance.
+     *         since Read Replicas are only supported for these engines. <p>
+     *         <b>MySQL, MariaDB, SQL Server, PostgreSQL, Amazon Aurora</b> <p>
+     *         Contains the name of the initial database of this instance that was
+     *         provided at create time, if one was specified when the DB instance was
+     *         created. This same name is returned for the life of the DB instance.
+     *         <p>Type: String <p> <b>Oracle</b> <p> Contains the Oracle System ID
+     *         (SID) of the created DB instance. Not shown when the returned
+     *         parameters do not apply to an Oracle DB instance.
      */
     public String getDBName() {
         return dBName;
@@ -495,28 +520,28 @@ public class DBInstance implements Serializable, Cloneable {
     
     /**
      * The meaning of this parameter differs according to the database engine
-     * you use. For example, this value returns either MySQL or PostgreSQL
+     * you use. For example, this value returns MySQL, MariaDB, or PostgreSQL
      * information when returning values from CreateDBInstanceReadReplica
-     * since Read Replicas are only supported for MySQL and PostgreSQL. <p>
-     * <b>MySQL, SQL Server, PostgreSQL</b> <p> Contains the name of the
-     * initial database of this instance that was provided at create time, if
-     * one was specified when the DB instance was created. This same name is
-     * returned for the life of the DB instance. <p>Type: String <p>
-     * <b>Oracle</b> <p> Contains the Oracle System ID (SID) of the created
-     * DB instance. Not shown when the returned parameters do not apply to an
-     * Oracle DB instance.
+     * since Read Replicas are only supported for these engines. <p>
+     * <b>MySQL, MariaDB, SQL Server, PostgreSQL, Amazon Aurora</b> <p>
+     * Contains the name of the initial database of this instance that was
+     * provided at create time, if one was specified when the DB instance was
+     * created. This same name is returned for the life of the DB instance.
+     * <p>Type: String <p> <b>Oracle</b> <p> Contains the Oracle System ID
+     * (SID) of the created DB instance. Not shown when the returned
+     * parameters do not apply to an Oracle DB instance.
      *
      * @param dBName The meaning of this parameter differs according to the database engine
-     *         you use. For example, this value returns either MySQL or PostgreSQL
+     *         you use. For example, this value returns MySQL, MariaDB, or PostgreSQL
      *         information when returning values from CreateDBInstanceReadReplica
-     *         since Read Replicas are only supported for MySQL and PostgreSQL. <p>
-     *         <b>MySQL, SQL Server, PostgreSQL</b> <p> Contains the name of the
-     *         initial database of this instance that was provided at create time, if
-     *         one was specified when the DB instance was created. This same name is
-     *         returned for the life of the DB instance. <p>Type: String <p>
-     *         <b>Oracle</b> <p> Contains the Oracle System ID (SID) of the created
-     *         DB instance. Not shown when the returned parameters do not apply to an
-     *         Oracle DB instance.
+     *         since Read Replicas are only supported for these engines. <p>
+     *         <b>MySQL, MariaDB, SQL Server, PostgreSQL, Amazon Aurora</b> <p>
+     *         Contains the name of the initial database of this instance that was
+     *         provided at create time, if one was specified when the DB instance was
+     *         created. This same name is returned for the life of the DB instance.
+     *         <p>Type: String <p> <b>Oracle</b> <p> Contains the Oracle System ID
+     *         (SID) of the created DB instance. Not shown when the returned
+     *         parameters do not apply to an Oracle DB instance.
      */
     public void setDBName(String dBName) {
         this.dBName = dBName;
@@ -524,30 +549,30 @@ public class DBInstance implements Serializable, Cloneable {
     
     /**
      * The meaning of this parameter differs according to the database engine
-     * you use. For example, this value returns either MySQL or PostgreSQL
+     * you use. For example, this value returns MySQL, MariaDB, or PostgreSQL
      * information when returning values from CreateDBInstanceReadReplica
-     * since Read Replicas are only supported for MySQL and PostgreSQL. <p>
-     * <b>MySQL, SQL Server, PostgreSQL</b> <p> Contains the name of the
-     * initial database of this instance that was provided at create time, if
-     * one was specified when the DB instance was created. This same name is
-     * returned for the life of the DB instance. <p>Type: String <p>
-     * <b>Oracle</b> <p> Contains the Oracle System ID (SID) of the created
-     * DB instance. Not shown when the returned parameters do not apply to an
-     * Oracle DB instance.
+     * since Read Replicas are only supported for these engines. <p>
+     * <b>MySQL, MariaDB, SQL Server, PostgreSQL, Amazon Aurora</b> <p>
+     * Contains the name of the initial database of this instance that was
+     * provided at create time, if one was specified when the DB instance was
+     * created. This same name is returned for the life of the DB instance.
+     * <p>Type: String <p> <b>Oracle</b> <p> Contains the Oracle System ID
+     * (SID) of the created DB instance. Not shown when the returned
+     * parameters do not apply to an Oracle DB instance.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *
      * @param dBName The meaning of this parameter differs according to the database engine
-     *         you use. For example, this value returns either MySQL or PostgreSQL
+     *         you use. For example, this value returns MySQL, MariaDB, or PostgreSQL
      *         information when returning values from CreateDBInstanceReadReplica
-     *         since Read Replicas are only supported for MySQL and PostgreSQL. <p>
-     *         <b>MySQL, SQL Server, PostgreSQL</b> <p> Contains the name of the
-     *         initial database of this instance that was provided at create time, if
-     *         one was specified when the DB instance was created. This same name is
-     *         returned for the life of the DB instance. <p>Type: String <p>
-     *         <b>Oracle</b> <p> Contains the Oracle System ID (SID) of the created
-     *         DB instance. Not shown when the returned parameters do not apply to an
-     *         Oracle DB instance.
+     *         since Read Replicas are only supported for these engines. <p>
+     *         <b>MySQL, MariaDB, SQL Server, PostgreSQL, Amazon Aurora</b> <p>
+     *         Contains the name of the initial database of this instance that was
+     *         provided at create time, if one was specified when the DB instance was
+     *         created. This same name is returned for the life of the DB instance.
+     *         <p>Type: String <p> <b>Oracle</b> <p> Contains the Oracle System ID
+     *         (SID) of the created DB instance. Not shown when the returned
+     *         parameters do not apply to an Oracle DB instance.
      *
      * @return A reference to this updated object so that method calls can be chained
      *         together.
@@ -2186,6 +2211,179 @@ public class DBInstance implements Serializable, Cloneable {
     }
 
     /**
+     * Specifies whether tags are copied from the DB instance to snapshots of
+     * the DB instance.
+     *
+     * @return Specifies whether tags are copied from the DB instance to snapshots of
+     *         the DB instance.
+     */
+    public Boolean isCopyTagsToSnapshot() {
+        return copyTagsToSnapshot;
+    }
+    
+    /**
+     * Specifies whether tags are copied from the DB instance to snapshots of
+     * the DB instance.
+     *
+     * @param copyTagsToSnapshot Specifies whether tags are copied from the DB instance to snapshots of
+     *         the DB instance.
+     */
+    public void setCopyTagsToSnapshot(Boolean copyTagsToSnapshot) {
+        this.copyTagsToSnapshot = copyTagsToSnapshot;
+    }
+    
+    /**
+     * Specifies whether tags are copied from the DB instance to snapshots of
+     * the DB instance.
+     * <p>
+     * Returns a reference to this object so that method calls can be chained together.
+     *
+     * @param copyTagsToSnapshot Specifies whether tags are copied from the DB instance to snapshots of
+     *         the DB instance.
+     *
+     * @return A reference to this updated object so that method calls can be chained
+     *         together.
+     */
+    public DBInstance withCopyTagsToSnapshot(Boolean copyTagsToSnapshot) {
+        this.copyTagsToSnapshot = copyTagsToSnapshot;
+        return this;
+    }
+
+    /**
+     * Specifies whether tags are copied from the DB instance to snapshots of
+     * the DB instance.
+     *
+     * @return Specifies whether tags are copied from the DB instance to snapshots of
+     *         the DB instance.
+     */
+    public Boolean getCopyTagsToSnapshot() {
+        return copyTagsToSnapshot;
+    }
+
+    /**
+     * The interval, in seconds, between points when Enhanced Monitoring
+     * metrics are collected for the DB instance.
+     *
+     * @return The interval, in seconds, between points when Enhanced Monitoring
+     *         metrics are collected for the DB instance.
+     */
+    public Integer getMonitoringInterval() {
+        return monitoringInterval;
+    }
+    
+    /**
+     * The interval, in seconds, between points when Enhanced Monitoring
+     * metrics are collected for the DB instance.
+     *
+     * @param monitoringInterval The interval, in seconds, between points when Enhanced Monitoring
+     *         metrics are collected for the DB instance.
+     */
+    public void setMonitoringInterval(Integer monitoringInterval) {
+        this.monitoringInterval = monitoringInterval;
+    }
+    
+    /**
+     * The interval, in seconds, between points when Enhanced Monitoring
+     * metrics are collected for the DB instance.
+     * <p>
+     * Returns a reference to this object so that method calls can be chained together.
+     *
+     * @param monitoringInterval The interval, in seconds, between points when Enhanced Monitoring
+     *         metrics are collected for the DB instance.
+     *
+     * @return A reference to this updated object so that method calls can be chained
+     *         together.
+     */
+    public DBInstance withMonitoringInterval(Integer monitoringInterval) {
+        this.monitoringInterval = monitoringInterval;
+        return this;
+    }
+
+    /**
+     * The Amazon Resource Name (ARN) of the Amazon CloudWatch Logs log
+     * stream that receives the Enhanced Monitoring metrics data for the DB
+     * instance.
+     *
+     * @return The Amazon Resource Name (ARN) of the Amazon CloudWatch Logs log
+     *         stream that receives the Enhanced Monitoring metrics data for the DB
+     *         instance.
+     */
+    public String getEnhancedMonitoringResourceArn() {
+        return enhancedMonitoringResourceArn;
+    }
+    
+    /**
+     * The Amazon Resource Name (ARN) of the Amazon CloudWatch Logs log
+     * stream that receives the Enhanced Monitoring metrics data for the DB
+     * instance.
+     *
+     * @param enhancedMonitoringResourceArn The Amazon Resource Name (ARN) of the Amazon CloudWatch Logs log
+     *         stream that receives the Enhanced Monitoring metrics data for the DB
+     *         instance.
+     */
+    public void setEnhancedMonitoringResourceArn(String enhancedMonitoringResourceArn) {
+        this.enhancedMonitoringResourceArn = enhancedMonitoringResourceArn;
+    }
+    
+    /**
+     * The Amazon Resource Name (ARN) of the Amazon CloudWatch Logs log
+     * stream that receives the Enhanced Monitoring metrics data for the DB
+     * instance.
+     * <p>
+     * Returns a reference to this object so that method calls can be chained together.
+     *
+     * @param enhancedMonitoringResourceArn The Amazon Resource Name (ARN) of the Amazon CloudWatch Logs log
+     *         stream that receives the Enhanced Monitoring metrics data for the DB
+     *         instance.
+     *
+     * @return A reference to this updated object so that method calls can be chained
+     *         together.
+     */
+    public DBInstance withEnhancedMonitoringResourceArn(String enhancedMonitoringResourceArn) {
+        this.enhancedMonitoringResourceArn = enhancedMonitoringResourceArn;
+        return this;
+    }
+
+    /**
+     * The ARN for the IAM role that permits RDS to send Enhanced Monitoring
+     * metrics to CloudWatch Logs.
+     *
+     * @return The ARN for the IAM role that permits RDS to send Enhanced Monitoring
+     *         metrics to CloudWatch Logs.
+     */
+    public String getMonitoringRoleArn() {
+        return monitoringRoleArn;
+    }
+    
+    /**
+     * The ARN for the IAM role that permits RDS to send Enhanced Monitoring
+     * metrics to CloudWatch Logs.
+     *
+     * @param monitoringRoleArn The ARN for the IAM role that permits RDS to send Enhanced Monitoring
+     *         metrics to CloudWatch Logs.
+     */
+    public void setMonitoringRoleArn(String monitoringRoleArn) {
+        this.monitoringRoleArn = monitoringRoleArn;
+    }
+    
+    /**
+     * The ARN for the IAM role that permits RDS to send Enhanced Monitoring
+     * metrics to CloudWatch Logs.
+     * <p>
+     * Returns a reference to this object so that method calls can be chained together.
+     *
+     * @param monitoringRoleArn The ARN for the IAM role that permits RDS to send Enhanced Monitoring
+     *         metrics to CloudWatch Logs.
+     *
+     * @return A reference to this updated object so that method calls can be chained
+     *         together.
+     */
+    public DBInstance withMonitoringRoleArn(String monitoringRoleArn) {
+        this.monitoringRoleArn = monitoringRoleArn;
+        return this;
+    }
+
+    /**
      * Returns a string representation of this object; useful for testing and
      * debugging.
      *
@@ -2235,7 +2433,11 @@ public class DBInstance implements Serializable, Cloneable {
         if (isStorageEncrypted() != null) sb.append("StorageEncrypted: " + isStorageEncrypted() + ",");
         if (getKmsKeyId() != null) sb.append("KmsKeyId: " + getKmsKeyId() + ",");
         if (getDbiResourceId() != null) sb.append("DbiResourceId: " + getDbiResourceId() + ",");
-        if (getCACertificateIdentifier() != null) sb.append("CACertificateIdentifier: " + getCACertificateIdentifier() );
+        if (getCACertificateIdentifier() != null) sb.append("CACertificateIdentifier: " + getCACertificateIdentifier() + ",");
+        if (isCopyTagsToSnapshot() != null) sb.append("CopyTagsToSnapshot: " + isCopyTagsToSnapshot() + ",");
+        if (getMonitoringInterval() != null) sb.append("MonitoringInterval: " + getMonitoringInterval() + ",");
+        if (getEnhancedMonitoringResourceArn() != null) sb.append("EnhancedMonitoringResourceArn: " + getEnhancedMonitoringResourceArn() + ",");
+        if (getMonitoringRoleArn() != null) sb.append("MonitoringRoleArn: " + getMonitoringRoleArn() );
         sb.append("}");
         return sb.toString();
     }
@@ -2284,6 +2486,10 @@ public class DBInstance implements Serializable, Cloneable {
         hashCode = prime * hashCode + ((getKmsKeyId() == null) ? 0 : getKmsKeyId().hashCode()); 
         hashCode = prime * hashCode + ((getDbiResourceId() == null) ? 0 : getDbiResourceId().hashCode()); 
         hashCode = prime * hashCode + ((getCACertificateIdentifier() == null) ? 0 : getCACertificateIdentifier().hashCode()); 
+        hashCode = prime * hashCode + ((isCopyTagsToSnapshot() == null) ? 0 : isCopyTagsToSnapshot().hashCode()); 
+        hashCode = prime * hashCode + ((getMonitoringInterval() == null) ? 0 : getMonitoringInterval().hashCode()); 
+        hashCode = prime * hashCode + ((getEnhancedMonitoringResourceArn() == null) ? 0 : getEnhancedMonitoringResourceArn().hashCode()); 
+        hashCode = prime * hashCode + ((getMonitoringRoleArn() == null) ? 0 : getMonitoringRoleArn().hashCode()); 
         return hashCode;
     }
     
@@ -2373,6 +2579,14 @@ public class DBInstance implements Serializable, Cloneable {
         if (other.getDbiResourceId() != null && other.getDbiResourceId().equals(this.getDbiResourceId()) == false) return false; 
         if (other.getCACertificateIdentifier() == null ^ this.getCACertificateIdentifier() == null) return false;
         if (other.getCACertificateIdentifier() != null && other.getCACertificateIdentifier().equals(this.getCACertificateIdentifier()) == false) return false; 
+        if (other.isCopyTagsToSnapshot() == null ^ this.isCopyTagsToSnapshot() == null) return false;
+        if (other.isCopyTagsToSnapshot() != null && other.isCopyTagsToSnapshot().equals(this.isCopyTagsToSnapshot()) == false) return false; 
+        if (other.getMonitoringInterval() == null ^ this.getMonitoringInterval() == null) return false;
+        if (other.getMonitoringInterval() != null && other.getMonitoringInterval().equals(this.getMonitoringInterval()) == false) return false; 
+        if (other.getEnhancedMonitoringResourceArn() == null ^ this.getEnhancedMonitoringResourceArn() == null) return false;
+        if (other.getEnhancedMonitoringResourceArn() != null && other.getEnhancedMonitoringResourceArn().equals(this.getEnhancedMonitoringResourceArn()) == false) return false; 
+        if (other.getMonitoringRoleArn() == null ^ this.getMonitoringRoleArn() == null) return false;
+        if (other.getMonitoringRoleArn() != null && other.getMonitoringRoleArn().equals(this.getMonitoringRoleArn()) == false) return false; 
         return true;
     }
     

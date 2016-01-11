@@ -1,5 +1,5 @@
 /*
- * Copyright 2010-2015 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2010-2016 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License.
@@ -39,7 +39,7 @@ public class CopyImageRequestMarshaller implements Marshaller<Request<CopyImageR
 
         Request<CopyImageRequest> request = new DefaultRequest<CopyImageRequest>(copyImageRequest, "AmazonEC2");
         request.addParameter("Action", "CopyImage");
-        request.addParameter("Version", "2015-04-15");
+        request.addParameter("Version", "2015-10-01");
 
         if (copyImageRequest.getSourceRegion() != null) {
             request.addParameter("SourceRegion", StringUtils.fromString(copyImageRequest.getSourceRegion()));
@@ -55,6 +55,12 @@ public class CopyImageRequestMarshaller implements Marshaller<Request<CopyImageR
         }
         if (copyImageRequest.getClientToken() != null) {
             request.addParameter("ClientToken", StringUtils.fromString(copyImageRequest.getClientToken()));
+        }
+        if (copyImageRequest.isEncrypted() != null) {
+            request.addParameter("Encrypted", StringUtils.fromBoolean(copyImageRequest.isEncrypted()));
+        }
+        if (copyImageRequest.getKmsKeyId() != null) {
+            request.addParameter("KmsKeyId", StringUtils.fromString(copyImageRequest.getKmsKeyId()));
         }
 
         return request;

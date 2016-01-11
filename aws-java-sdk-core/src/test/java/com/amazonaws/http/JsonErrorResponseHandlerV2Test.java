@@ -1,5 +1,5 @@
 /*
- * Copyright 2015-2015 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2015-2016 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License.
@@ -60,7 +60,8 @@ public class JsonErrorResponseHandlerV2Test {
         httpResponse = new HttpResponse(new DefaultRequest<String>(SERVICE_NAME), null);
         httpResponse.setContent(new StringInputStream("{}"));
 
-        responseHandler = new JsonErrorResponseHandlerV2(Arrays.asList(unmarshaller), errorCodeParser);
+        responseHandler = new JsonErrorResponseHandlerV2(
+                Arrays.asList(unmarshaller), errorCodeParser);
     }
 
     @Test

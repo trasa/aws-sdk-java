@@ -1,5 +1,5 @@
 /*
- * Copyright 2010-2015 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2010-2016 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License.
@@ -27,29 +27,21 @@ public class GetProjectResult implements Serializable, Cloneable {
     private Project project;
 
     /**
-     * Sets the value of the Project property for this object.
-     * 
      * @param project
-     *        The new value for the Project property for this object.
      */
     public void setProject(Project project) {
         this.project = project;
     }
 
     /**
-     * Returns the value of the Project property for this object.
-     * 
-     * @return The value of the Project property for this object.
+     * @return
      */
     public Project getProject() {
         return this.project;
     }
 
     /**
-     * Sets the value of the Project property for this object.
-     * 
      * @param project
-     *        The new value for the Project property for this object.
      * @return Returns a reference to this object so that method calls can be
      *         chained together.
      */

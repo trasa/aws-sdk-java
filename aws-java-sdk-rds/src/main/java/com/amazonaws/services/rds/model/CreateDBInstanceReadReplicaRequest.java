@@ -1,5 +1,5 @@
 /*
- * Copyright 2010-2015 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2010-2016 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License.
@@ -21,8 +21,8 @@ import com.amazonaws.AmazonWebServiceRequest;
 /**
  * Container for the parameters to the {@link com.amazonaws.services.rds.AmazonRDS#createDBInstanceReadReplica(CreateDBInstanceReadReplicaRequest) CreateDBInstanceReadReplica operation}.
  * <p>
- * Creates a DB instance for a DB instance running MySQL or PostgreSQL
- * that acts as a Read Replica of a source DB instance.
+ * Creates a DB instance for a DB instance running MySQL, MariaDB, or
+ * PostgreSQL that acts as a Read Replica of a source DB instance.
  * </p>
  * <p>
  * All Read Replica DB instances are created as Single-AZ deployments
@@ -49,16 +49,17 @@ public class CreateDBInstanceReadReplicaRequest extends AmazonWebServiceRequest 
     /**
      * The identifier of the DB instance that will act as the source for the
      * Read Replica. Each DB instance can have up to five Read Replicas.
-     * <p>Constraints: <ul> <li>Must be the identifier of an existing DB
-     * instance.</li> <li>Can specify a DB instance that is a MySQL Read
-     * Replica only if the source is running MySQL 5.6.</li> <li>Can specify
-     * a DB instance that is a PostgreSQL Read Replica only if the source is
-     * running PostgreSQL 9.3.5.</li> <li>The specified DB instance must have
-     * automatic backups enabled, its backup retention period must be greater
-     * than 0.</li> <li>If the source DB instance is in the same region as
-     * the Read Replica, specify a valid DB instance identifier.</li> <li>If
-     * the source DB instance is in a different region than the Read Replica,
-     * specify a valid DB instance ARN. For more information, go to <a
+     * <p>Constraints: <ul> <li>Must be the identifier of an existing MySQL,
+     * MariaDB, or PostgreSQL DB instance.</li> <li>Can specify a DB instance
+     * that is a MySQL Read Replica only if the source is running MySQL
+     * 5.6.</li> <li>Can specify a DB instance that is a PostgreSQL Read
+     * Replica only if the source is running PostgreSQL 9.3.5.</li> <li>The
+     * specified DB instance must have automatic backups enabled, its backup
+     * retention period must be greater than 0.</li> <li>If the source DB
+     * instance is in the same region as the Read Replica, specify a valid DB
+     * instance identifier.</li> <li>If the source DB instance is in a
+     * different region than the Read Replica, specify a valid DB instance
+     * ARN. For more information, go to <a
      * href="http://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_Tagging.html#USER_Tagging.ARN">
      * Constructing a Amazon RDS Amazon Resource Name (ARN)</a>.</li> </ul>
      */
@@ -68,10 +69,11 @@ public class CreateDBInstanceReadReplicaRequest extends AmazonWebServiceRequest 
      * The compute and memory capacity of the Read Replica. <p> Valid Values:
      * <code>db.m1.small | db.m1.medium | db.m1.large | db.m1.xlarge |
      * db.m2.xlarge |db.m2.2xlarge | db.m2.4xlarge | db.m3.medium |
-     * db.m3.large | db.m3.xlarge | db.m3.2xlarge | db.r3.large |
-     * db.r3.xlarge | db.r3.2xlarge | db.r3.4xlarge | db.r3.8xlarge |
-     * db.t2.micro | db.t2.small | db.t2.medium</code> <p>Default: Inherits
-     * from the source DB instance.
+     * db.m3.large | db.m3.xlarge | db.m3.2xlarge | db.m4.large |
+     * db.m4.xlarge | db.m4.2xlarge | db.m4.4xlarge | db.m4.10xlarge |
+     * db.r3.large | db.r3.xlarge | db.r3.2xlarge | db.r3.4xlarge |
+     * db.r3.8xlarge | db.t2.micro | db.t2.small | db.t2.medium |
+     * db.t2.large</code> <p>Default: Inherits from the source DB instance.
      */
     private String dBInstanceClass;
 
@@ -157,6 +159,34 @@ public class CreateDBInstanceReadReplicaRequest extends AmazonWebServiceRequest 
     private String storageType;
 
     /**
+     * True to copy all tags from the Read Replica to snapshots of the Read
+     * Replica; otherwise false. The default is false.
+     */
+    private Boolean copyTagsToSnapshot;
+
+    /**
+     * The interval, in seconds, between points when Enhanced Monitoring
+     * metrics are collected for the Read Replica. To disable collecting
+     * Enhanced Monitoring metrics, specify 0. The default is 60. <p>If
+     * <code>MonitoringRoleArn</code> is specified, then you must also set
+     * <code>MonitoringInterval</code> to a value other than 0. <p>Valid
+     * Values: <code>0, 1, 5, 10, 15, 30, 60</code>
+     */
+    private Integer monitoringInterval;
+
+    /**
+     * The ARN for the IAM role that permits RDS to send enhanced monitoring
+     * metrics to CloudWatch Logs. For example,
+     * <code>arn:aws:iam:123456789012:role/emaccess</code>. For information
+     * on creating a monitoring role, go to <a
+     * href="http://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_Monitoring.html#USER_Monitoring.OS.IAMRole">To
+     * create an IAM role for Amazon RDS Enhanced Monitoring</a>. <p>If
+     * <code>MonitoringInterval</code> is set to a value other than 0, then
+     * you must supply a <code>MonitoringRoleArn</code> value.
+     */
+    private String monitoringRoleArn;
+
+    /**
      * Default constructor for a new CreateDBInstanceReadReplicaRequest object.  Callers should use the
      * setter or fluent setter (with...) methods to initialize this object after creating it.
      */
@@ -173,16 +203,16 @@ public class CreateDBInstanceReadReplicaRequest extends AmazonWebServiceRequest 
      * @param sourceDBInstanceIdentifier The identifier of the DB instance
      * that will act as the source for the Read Replica. Each DB instance can
      * have up to five Read Replicas. <p>Constraints: <ul> <li>Must be the
-     * identifier of an existing DB instance.</li> <li>Can specify a DB
-     * instance that is a MySQL Read Replica only if the source is running
-     * MySQL 5.6.</li> <li>Can specify a DB instance that is a PostgreSQL
-     * Read Replica only if the source is running PostgreSQL 9.3.5.</li>
-     * <li>The specified DB instance must have automatic backups enabled, its
-     * backup retention period must be greater than 0.</li> <li>If the source
-     * DB instance is in the same region as the Read Replica, specify a valid
-     * DB instance identifier.</li> <li>If the source DB instance is in a
-     * different region than the Read Replica, specify a valid DB instance
-     * ARN. For more information, go to <a
+     * identifier of an existing MySQL, MariaDB, or PostgreSQL DB
+     * instance.</li> <li>Can specify a DB instance that is a MySQL Read
+     * Replica only if the source is running MySQL 5.6.</li> <li>Can specify
+     * a DB instance that is a PostgreSQL Read Replica only if the source is
+     * running PostgreSQL 9.3.5.</li> <li>The specified DB instance must have
+     * automatic backups enabled, its backup retention period must be greater
+     * than 0.</li> <li>If the source DB instance is in the same region as
+     * the Read Replica, specify a valid DB instance identifier.</li> <li>If
+     * the source DB instance is in a different region than the Read Replica,
+     * specify a valid DB instance ARN. For more information, go to <a
      * href="http://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_Tagging.html#USER_Tagging.ARN">
      * Constructing a Amazon RDS Amazon Resource Name (ARN)</a>.</li> </ul>
      */
@@ -239,31 +269,33 @@ public class CreateDBInstanceReadReplicaRequest extends AmazonWebServiceRequest 
     /**
      * The identifier of the DB instance that will act as the source for the
      * Read Replica. Each DB instance can have up to five Read Replicas.
-     * <p>Constraints: <ul> <li>Must be the identifier of an existing DB
-     * instance.</li> <li>Can specify a DB instance that is a MySQL Read
-     * Replica only if the source is running MySQL 5.6.</li> <li>Can specify
-     * a DB instance that is a PostgreSQL Read Replica only if the source is
-     * running PostgreSQL 9.3.5.</li> <li>The specified DB instance must have
-     * automatic backups enabled, its backup retention period must be greater
-     * than 0.</li> <li>If the source DB instance is in the same region as
-     * the Read Replica, specify a valid DB instance identifier.</li> <li>If
-     * the source DB instance is in a different region than the Read Replica,
-     * specify a valid DB instance ARN. For more information, go to <a
+     * <p>Constraints: <ul> <li>Must be the identifier of an existing MySQL,
+     * MariaDB, or PostgreSQL DB instance.</li> <li>Can specify a DB instance
+     * that is a MySQL Read Replica only if the source is running MySQL
+     * 5.6.</li> <li>Can specify a DB instance that is a PostgreSQL Read
+     * Replica only if the source is running PostgreSQL 9.3.5.</li> <li>The
+     * specified DB instance must have automatic backups enabled, its backup
+     * retention period must be greater than 0.</li> <li>If the source DB
+     * instance is in the same region as the Read Replica, specify a valid DB
+     * instance identifier.</li> <li>If the source DB instance is in a
+     * different region than the Read Replica, specify a valid DB instance
+     * ARN. For more information, go to <a
      * href="http://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_Tagging.html#USER_Tagging.ARN">
      * Constructing a Amazon RDS Amazon Resource Name (ARN)</a>.</li> </ul>
      *
      * @return The identifier of the DB instance that will act as the source for the
      *         Read Replica. Each DB instance can have up to five Read Replicas.
-     *         <p>Constraints: <ul> <li>Must be the identifier of an existing DB
-     *         instance.</li> <li>Can specify a DB instance that is a MySQL Read
-     *         Replica only if the source is running MySQL 5.6.</li> <li>Can specify
-     *         a DB instance that is a PostgreSQL Read Replica only if the source is
-     *         running PostgreSQL 9.3.5.</li> <li>The specified DB instance must have
-     *         automatic backups enabled, its backup retention period must be greater
-     *         than 0.</li> <li>If the source DB instance is in the same region as
-     *         the Read Replica, specify a valid DB instance identifier.</li> <li>If
-     *         the source DB instance is in a different region than the Read Replica,
-     *         specify a valid DB instance ARN. For more information, go to <a
+     *         <p>Constraints: <ul> <li>Must be the identifier of an existing MySQL,
+     *         MariaDB, or PostgreSQL DB instance.</li> <li>Can specify a DB instance
+     *         that is a MySQL Read Replica only if the source is running MySQL
+     *         5.6.</li> <li>Can specify a DB instance that is a PostgreSQL Read
+     *         Replica only if the source is running PostgreSQL 9.3.5.</li> <li>The
+     *         specified DB instance must have automatic backups enabled, its backup
+     *         retention period must be greater than 0.</li> <li>If the source DB
+     *         instance is in the same region as the Read Replica, specify a valid DB
+     *         instance identifier.</li> <li>If the source DB instance is in a
+     *         different region than the Read Replica, specify a valid DB instance
+     *         ARN. For more information, go to <a
      *         href="http://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_Tagging.html#USER_Tagging.ARN">
      *         Constructing a Amazon RDS Amazon Resource Name (ARN)</a>.</li> </ul>
      */
@@ -274,31 +306,33 @@ public class CreateDBInstanceReadReplicaRequest extends AmazonWebServiceRequest 
     /**
      * The identifier of the DB instance that will act as the source for the
      * Read Replica. Each DB instance can have up to five Read Replicas.
-     * <p>Constraints: <ul> <li>Must be the identifier of an existing DB
-     * instance.</li> <li>Can specify a DB instance that is a MySQL Read
-     * Replica only if the source is running MySQL 5.6.</li> <li>Can specify
-     * a DB instance that is a PostgreSQL Read Replica only if the source is
-     * running PostgreSQL 9.3.5.</li> <li>The specified DB instance must have
-     * automatic backups enabled, its backup retention period must be greater
-     * than 0.</li> <li>If the source DB instance is in the same region as
-     * the Read Replica, specify a valid DB instance identifier.</li> <li>If
-     * the source DB instance is in a different region than the Read Replica,
-     * specify a valid DB instance ARN. For more information, go to <a
+     * <p>Constraints: <ul> <li>Must be the identifier of an existing MySQL,
+     * MariaDB, or PostgreSQL DB instance.</li> <li>Can specify a DB instance
+     * that is a MySQL Read Replica only if the source is running MySQL
+     * 5.6.</li> <li>Can specify a DB instance that is a PostgreSQL Read
+     * Replica only if the source is running PostgreSQL 9.3.5.</li> <li>The
+     * specified DB instance must have automatic backups enabled, its backup
+     * retention period must be greater than 0.</li> <li>If the source DB
+     * instance is in the same region as the Read Replica, specify a valid DB
+     * instance identifier.</li> <li>If the source DB instance is in a
+     * different region than the Read Replica, specify a valid DB instance
+     * ARN. For more information, go to <a
      * href="http://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_Tagging.html#USER_Tagging.ARN">
      * Constructing a Amazon RDS Amazon Resource Name (ARN)</a>.</li> </ul>
      *
      * @param sourceDBInstanceIdentifier The identifier of the DB instance that will act as the source for the
      *         Read Replica. Each DB instance can have up to five Read Replicas.
-     *         <p>Constraints: <ul> <li>Must be the identifier of an existing DB
-     *         instance.</li> <li>Can specify a DB instance that is a MySQL Read
-     *         Replica only if the source is running MySQL 5.6.</li> <li>Can specify
-     *         a DB instance that is a PostgreSQL Read Replica only if the source is
-     *         running PostgreSQL 9.3.5.</li> <li>The specified DB instance must have
-     *         automatic backups enabled, its backup retention period must be greater
-     *         than 0.</li> <li>If the source DB instance is in the same region as
-     *         the Read Replica, specify a valid DB instance identifier.</li> <li>If
-     *         the source DB instance is in a different region than the Read Replica,
-     *         specify a valid DB instance ARN. For more information, go to <a
+     *         <p>Constraints: <ul> <li>Must be the identifier of an existing MySQL,
+     *         MariaDB, or PostgreSQL DB instance.</li> <li>Can specify a DB instance
+     *         that is a MySQL Read Replica only if the source is running MySQL
+     *         5.6.</li> <li>Can specify a DB instance that is a PostgreSQL Read
+     *         Replica only if the source is running PostgreSQL 9.3.5.</li> <li>The
+     *         specified DB instance must have automatic backups enabled, its backup
+     *         retention period must be greater than 0.</li> <li>If the source DB
+     *         instance is in the same region as the Read Replica, specify a valid DB
+     *         instance identifier.</li> <li>If the source DB instance is in a
+     *         different region than the Read Replica, specify a valid DB instance
+     *         ARN. For more information, go to <a
      *         href="http://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_Tagging.html#USER_Tagging.ARN">
      *         Constructing a Amazon RDS Amazon Resource Name (ARN)</a>.</li> </ul>
      */
@@ -309,16 +343,17 @@ public class CreateDBInstanceReadReplicaRequest extends AmazonWebServiceRequest 
     /**
      * The identifier of the DB instance that will act as the source for the
      * Read Replica. Each DB instance can have up to five Read Replicas.
-     * <p>Constraints: <ul> <li>Must be the identifier of an existing DB
-     * instance.</li> <li>Can specify a DB instance that is a MySQL Read
-     * Replica only if the source is running MySQL 5.6.</li> <li>Can specify
-     * a DB instance that is a PostgreSQL Read Replica only if the source is
-     * running PostgreSQL 9.3.5.</li> <li>The specified DB instance must have
-     * automatic backups enabled, its backup retention period must be greater
-     * than 0.</li> <li>If the source DB instance is in the same region as
-     * the Read Replica, specify a valid DB instance identifier.</li> <li>If
-     * the source DB instance is in a different region than the Read Replica,
-     * specify a valid DB instance ARN. For more information, go to <a
+     * <p>Constraints: <ul> <li>Must be the identifier of an existing MySQL,
+     * MariaDB, or PostgreSQL DB instance.</li> <li>Can specify a DB instance
+     * that is a MySQL Read Replica only if the source is running MySQL
+     * 5.6.</li> <li>Can specify a DB instance that is a PostgreSQL Read
+     * Replica only if the source is running PostgreSQL 9.3.5.</li> <li>The
+     * specified DB instance must have automatic backups enabled, its backup
+     * retention period must be greater than 0.</li> <li>If the source DB
+     * instance is in the same region as the Read Replica, specify a valid DB
+     * instance identifier.</li> <li>If the source DB instance is in a
+     * different region than the Read Replica, specify a valid DB instance
+     * ARN. For more information, go to <a
      * href="http://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_Tagging.html#USER_Tagging.ARN">
      * Constructing a Amazon RDS Amazon Resource Name (ARN)</a>.</li> </ul>
      * <p>
@@ -326,16 +361,17 @@ public class CreateDBInstanceReadReplicaRequest extends AmazonWebServiceRequest 
      *
      * @param sourceDBInstanceIdentifier The identifier of the DB instance that will act as the source for the
      *         Read Replica. Each DB instance can have up to five Read Replicas.
-     *         <p>Constraints: <ul> <li>Must be the identifier of an existing DB
-     *         instance.</li> <li>Can specify a DB instance that is a MySQL Read
-     *         Replica only if the source is running MySQL 5.6.</li> <li>Can specify
-     *         a DB instance that is a PostgreSQL Read Replica only if the source is
-     *         running PostgreSQL 9.3.5.</li> <li>The specified DB instance must have
-     *         automatic backups enabled, its backup retention period must be greater
-     *         than 0.</li> <li>If the source DB instance is in the same region as
-     *         the Read Replica, specify a valid DB instance identifier.</li> <li>If
-     *         the source DB instance is in a different region than the Read Replica,
-     *         specify a valid DB instance ARN. For more information, go to <a
+     *         <p>Constraints: <ul> <li>Must be the identifier of an existing MySQL,
+     *         MariaDB, or PostgreSQL DB instance.</li> <li>Can specify a DB instance
+     *         that is a MySQL Read Replica only if the source is running MySQL
+     *         5.6.</li> <li>Can specify a DB instance that is a PostgreSQL Read
+     *         Replica only if the source is running PostgreSQL 9.3.5.</li> <li>The
+     *         specified DB instance must have automatic backups enabled, its backup
+     *         retention period must be greater than 0.</li> <li>If the source DB
+     *         instance is in the same region as the Read Replica, specify a valid DB
+     *         instance identifier.</li> <li>If the source DB instance is in a
+     *         different region than the Read Replica, specify a valid DB instance
+     *         ARN. For more information, go to <a
      *         href="http://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_Tagging.html#USER_Tagging.ARN">
      *         Constructing a Amazon RDS Amazon Resource Name (ARN)</a>.</li> </ul>
      *
@@ -351,18 +387,20 @@ public class CreateDBInstanceReadReplicaRequest extends AmazonWebServiceRequest 
      * The compute and memory capacity of the Read Replica. <p> Valid Values:
      * <code>db.m1.small | db.m1.medium | db.m1.large | db.m1.xlarge |
      * db.m2.xlarge |db.m2.2xlarge | db.m2.4xlarge | db.m3.medium |
-     * db.m3.large | db.m3.xlarge | db.m3.2xlarge | db.r3.large |
-     * db.r3.xlarge | db.r3.2xlarge | db.r3.4xlarge | db.r3.8xlarge |
-     * db.t2.micro | db.t2.small | db.t2.medium</code> <p>Default: Inherits
-     * from the source DB instance.
+     * db.m3.large | db.m3.xlarge | db.m3.2xlarge | db.m4.large |
+     * db.m4.xlarge | db.m4.2xlarge | db.m4.4xlarge | db.m4.10xlarge |
+     * db.r3.large | db.r3.xlarge | db.r3.2xlarge | db.r3.4xlarge |
+     * db.r3.8xlarge | db.t2.micro | db.t2.small | db.t2.medium |
+     * db.t2.large</code> <p>Default: Inherits from the source DB instance.
      *
      * @return The compute and memory capacity of the Read Replica. <p> Valid Values:
      *         <code>db.m1.small | db.m1.medium | db.m1.large | db.m1.xlarge |
      *         db.m2.xlarge |db.m2.2xlarge | db.m2.4xlarge | db.m3.medium |
-     *         db.m3.large | db.m3.xlarge | db.m3.2xlarge | db.r3.large |
-     *         db.r3.xlarge | db.r3.2xlarge | db.r3.4xlarge | db.r3.8xlarge |
-     *         db.t2.micro | db.t2.small | db.t2.medium</code> <p>Default: Inherits
-     *         from the source DB instance.
+     *         db.m3.large | db.m3.xlarge | db.m3.2xlarge | db.m4.large |
+     *         db.m4.xlarge | db.m4.2xlarge | db.m4.4xlarge | db.m4.10xlarge |
+     *         db.r3.large | db.r3.xlarge | db.r3.2xlarge | db.r3.4xlarge |
+     *         db.r3.8xlarge | db.t2.micro | db.t2.small | db.t2.medium |
+     *         db.t2.large</code> <p>Default: Inherits from the source DB instance.
      */
     public String getDBInstanceClass() {
         return dBInstanceClass;
@@ -372,18 +410,20 @@ public class CreateDBInstanceReadReplicaRequest extends AmazonWebServiceRequest 
      * The compute and memory capacity of the Read Replica. <p> Valid Values:
      * <code>db.m1.small | db.m1.medium | db.m1.large | db.m1.xlarge |
      * db.m2.xlarge |db.m2.2xlarge | db.m2.4xlarge | db.m3.medium |
-     * db.m3.large | db.m3.xlarge | db.m3.2xlarge | db.r3.large |
-     * db.r3.xlarge | db.r3.2xlarge | db.r3.4xlarge | db.r3.8xlarge |
-     * db.t2.micro | db.t2.small | db.t2.medium</code> <p>Default: Inherits
-     * from the source DB instance.
+     * db.m3.large | db.m3.xlarge | db.m3.2xlarge | db.m4.large |
+     * db.m4.xlarge | db.m4.2xlarge | db.m4.4xlarge | db.m4.10xlarge |
+     * db.r3.large | db.r3.xlarge | db.r3.2xlarge | db.r3.4xlarge |
+     * db.r3.8xlarge | db.t2.micro | db.t2.small | db.t2.medium |
+     * db.t2.large</code> <p>Default: Inherits from the source DB instance.
      *
      * @param dBInstanceClass The compute and memory capacity of the Read Replica. <p> Valid Values:
      *         <code>db.m1.small | db.m1.medium | db.m1.large | db.m1.xlarge |
      *         db.m2.xlarge |db.m2.2xlarge | db.m2.4xlarge | db.m3.medium |
-     *         db.m3.large | db.m3.xlarge | db.m3.2xlarge | db.r3.large |
-     *         db.r3.xlarge | db.r3.2xlarge | db.r3.4xlarge | db.r3.8xlarge |
-     *         db.t2.micro | db.t2.small | db.t2.medium</code> <p>Default: Inherits
-     *         from the source DB instance.
+     *         db.m3.large | db.m3.xlarge | db.m3.2xlarge | db.m4.large |
+     *         db.m4.xlarge | db.m4.2xlarge | db.m4.4xlarge | db.m4.10xlarge |
+     *         db.r3.large | db.r3.xlarge | db.r3.2xlarge | db.r3.4xlarge |
+     *         db.r3.8xlarge | db.t2.micro | db.t2.small | db.t2.medium |
+     *         db.t2.large</code> <p>Default: Inherits from the source DB instance.
      */
     public void setDBInstanceClass(String dBInstanceClass) {
         this.dBInstanceClass = dBInstanceClass;
@@ -393,20 +433,22 @@ public class CreateDBInstanceReadReplicaRequest extends AmazonWebServiceRequest 
      * The compute and memory capacity of the Read Replica. <p> Valid Values:
      * <code>db.m1.small | db.m1.medium | db.m1.large | db.m1.xlarge |
      * db.m2.xlarge |db.m2.2xlarge | db.m2.4xlarge | db.m3.medium |
-     * db.m3.large | db.m3.xlarge | db.m3.2xlarge | db.r3.large |
-     * db.r3.xlarge | db.r3.2xlarge | db.r3.4xlarge | db.r3.8xlarge |
-     * db.t2.micro | db.t2.small | db.t2.medium</code> <p>Default: Inherits
-     * from the source DB instance.
+     * db.m3.large | db.m3.xlarge | db.m3.2xlarge | db.m4.large |
+     * db.m4.xlarge | db.m4.2xlarge | db.m4.4xlarge | db.m4.10xlarge |
+     * db.r3.large | db.r3.xlarge | db.r3.2xlarge | db.r3.4xlarge |
+     * db.r3.8xlarge | db.t2.micro | db.t2.small | db.t2.medium |
+     * db.t2.large</code> <p>Default: Inherits from the source DB instance.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *
      * @param dBInstanceClass The compute and memory capacity of the Read Replica. <p> Valid Values:
      *         <code>db.m1.small | db.m1.medium | db.m1.large | db.m1.xlarge |
      *         db.m2.xlarge |db.m2.2xlarge | db.m2.4xlarge | db.m3.medium |
-     *         db.m3.large | db.m3.xlarge | db.m3.2xlarge | db.r3.large |
-     *         db.r3.xlarge | db.r3.2xlarge | db.r3.4xlarge | db.r3.8xlarge |
-     *         db.t2.micro | db.t2.small | db.t2.medium</code> <p>Default: Inherits
-     *         from the source DB instance.
+     *         db.m3.large | db.m3.xlarge | db.m3.2xlarge | db.m4.large |
+     *         db.m4.xlarge | db.m4.2xlarge | db.m4.4xlarge | db.m4.10xlarge |
+     *         db.r3.large | db.r3.xlarge | db.r3.2xlarge | db.r3.4xlarge |
+     *         db.r3.8xlarge | db.t2.micro | db.t2.small | db.t2.medium |
+     *         db.t2.large</code> <p>Default: Inherits from the source DB instance.
      *
      * @return A reference to this updated object so that method calls can be chained
      *         together.
@@ -1016,6 +1058,194 @@ public class CreateDBInstanceReadReplicaRequest extends AmazonWebServiceRequest 
     }
 
     /**
+     * True to copy all tags from the Read Replica to snapshots of the Read
+     * Replica; otherwise false. The default is false.
+     *
+     * @return True to copy all tags from the Read Replica to snapshots of the Read
+     *         Replica; otherwise false. The default is false.
+     */
+    public Boolean isCopyTagsToSnapshot() {
+        return copyTagsToSnapshot;
+    }
+    
+    /**
+     * True to copy all tags from the Read Replica to snapshots of the Read
+     * Replica; otherwise false. The default is false.
+     *
+     * @param copyTagsToSnapshot True to copy all tags from the Read Replica to snapshots of the Read
+     *         Replica; otherwise false. The default is false.
+     */
+    public void setCopyTagsToSnapshot(Boolean copyTagsToSnapshot) {
+        this.copyTagsToSnapshot = copyTagsToSnapshot;
+    }
+    
+    /**
+     * True to copy all tags from the Read Replica to snapshots of the Read
+     * Replica; otherwise false. The default is false.
+     * <p>
+     * Returns a reference to this object so that method calls can be chained together.
+     *
+     * @param copyTagsToSnapshot True to copy all tags from the Read Replica to snapshots of the Read
+     *         Replica; otherwise false. The default is false.
+     *
+     * @return A reference to this updated object so that method calls can be chained
+     *         together.
+     */
+    public CreateDBInstanceReadReplicaRequest withCopyTagsToSnapshot(Boolean copyTagsToSnapshot) {
+        this.copyTagsToSnapshot = copyTagsToSnapshot;
+        return this;
+    }
+
+    /**
+     * True to copy all tags from the Read Replica to snapshots of the Read
+     * Replica; otherwise false. The default is false.
+     *
+     * @return True to copy all tags from the Read Replica to snapshots of the Read
+     *         Replica; otherwise false. The default is false.
+     */
+    public Boolean getCopyTagsToSnapshot() {
+        return copyTagsToSnapshot;
+    }
+
+    /**
+     * The interval, in seconds, between points when Enhanced Monitoring
+     * metrics are collected for the Read Replica. To disable collecting
+     * Enhanced Monitoring metrics, specify 0. The default is 60. <p>If
+     * <code>MonitoringRoleArn</code> is specified, then you must also set
+     * <code>MonitoringInterval</code> to a value other than 0. <p>Valid
+     * Values: <code>0, 1, 5, 10, 15, 30, 60</code>
+     *
+     * @return The interval, in seconds, between points when Enhanced Monitoring
+     *         metrics are collected for the Read Replica. To disable collecting
+     *         Enhanced Monitoring metrics, specify 0. The default is 60. <p>If
+     *         <code>MonitoringRoleArn</code> is specified, then you must also set
+     *         <code>MonitoringInterval</code> to a value other than 0. <p>Valid
+     *         Values: <code>0, 1, 5, 10, 15, 30, 60</code>
+     */
+    public Integer getMonitoringInterval() {
+        return monitoringInterval;
+    }
+    
+    /**
+     * The interval, in seconds, between points when Enhanced Monitoring
+     * metrics are collected for the Read Replica. To disable collecting
+     * Enhanced Monitoring metrics, specify 0. The default is 60. <p>If
+     * <code>MonitoringRoleArn</code> is specified, then you must also set
+     * <code>MonitoringInterval</code> to a value other than 0. <p>Valid
+     * Values: <code>0, 1, 5, 10, 15, 30, 60</code>
+     *
+     * @param monitoringInterval The interval, in seconds, between points when Enhanced Monitoring
+     *         metrics are collected for the Read Replica. To disable collecting
+     *         Enhanced Monitoring metrics, specify 0. The default is 60. <p>If
+     *         <code>MonitoringRoleArn</code> is specified, then you must also set
+     *         <code>MonitoringInterval</code> to a value other than 0. <p>Valid
+     *         Values: <code>0, 1, 5, 10, 15, 30, 60</code>
+     */
+    public void setMonitoringInterval(Integer monitoringInterval) {
+        this.monitoringInterval = monitoringInterval;
+    }
+    
+    /**
+     * The interval, in seconds, between points when Enhanced Monitoring
+     * metrics are collected for the Read Replica. To disable collecting
+     * Enhanced Monitoring metrics, specify 0. The default is 60. <p>If
+     * <code>MonitoringRoleArn</code> is specified, then you must also set
+     * <code>MonitoringInterval</code> to a value other than 0. <p>Valid
+     * Values: <code>0, 1, 5, 10, 15, 30, 60</code>
+     * <p>
+     * Returns a reference to this object so that method calls can be chained together.
+     *
+     * @param monitoringInterval The interval, in seconds, between points when Enhanced Monitoring
+     *         metrics are collected for the Read Replica. To disable collecting
+     *         Enhanced Monitoring metrics, specify 0. The default is 60. <p>If
+     *         <code>MonitoringRoleArn</code> is specified, then you must also set
+     *         <code>MonitoringInterval</code> to a value other than 0. <p>Valid
+     *         Values: <code>0, 1, 5, 10, 15, 30, 60</code>
+     *
+     * @return A reference to this updated object so that method calls can be chained
+     *         together.
+     */
+    public CreateDBInstanceReadReplicaRequest withMonitoringInterval(Integer monitoringInterval) {
+        this.monitoringInterval = monitoringInterval;
+        return this;
+    }
+
+    /**
+     * The ARN for the IAM role that permits RDS to send enhanced monitoring
+     * metrics to CloudWatch Logs. For example,
+     * <code>arn:aws:iam:123456789012:role/emaccess</code>. For information
+     * on creating a monitoring role, go to <a
+     * href="http://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_Monitoring.html#USER_Monitoring.OS.IAMRole">To
+     * create an IAM role for Amazon RDS Enhanced Monitoring</a>. <p>If
+     * <code>MonitoringInterval</code> is set to a value other than 0, then
+     * you must supply a <code>MonitoringRoleArn</code> value.
+     *
+     * @return The ARN for the IAM role that permits RDS to send enhanced monitoring
+     *         metrics to CloudWatch Logs. For example,
+     *         <code>arn:aws:iam:123456789012:role/emaccess</code>. For information
+     *         on creating a monitoring role, go to <a
+     *         href="http://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_Monitoring.html#USER_Monitoring.OS.IAMRole">To
+     *         create an IAM role for Amazon RDS Enhanced Monitoring</a>. <p>If
+     *         <code>MonitoringInterval</code> is set to a value other than 0, then
+     *         you must supply a <code>MonitoringRoleArn</code> value.
+     */
+    public String getMonitoringRoleArn() {
+        return monitoringRoleArn;
+    }
+    
+    /**
+     * The ARN for the IAM role that permits RDS to send enhanced monitoring
+     * metrics to CloudWatch Logs. For example,
+     * <code>arn:aws:iam:123456789012:role/emaccess</code>. For information
+     * on creating a monitoring role, go to <a
+     * href="http://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_Monitoring.html#USER_Monitoring.OS.IAMRole">To
+     * create an IAM role for Amazon RDS Enhanced Monitoring</a>. <p>If
+     * <code>MonitoringInterval</code> is set to a value other than 0, then
+     * you must supply a <code>MonitoringRoleArn</code> value.
+     *
+     * @param monitoringRoleArn The ARN for the IAM role that permits RDS to send enhanced monitoring
+     *         metrics to CloudWatch Logs. For example,
+     *         <code>arn:aws:iam:123456789012:role/emaccess</code>. For information
+     *         on creating a monitoring role, go to <a
+     *         href="http://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_Monitoring.html#USER_Monitoring.OS.IAMRole">To
+     *         create an IAM role for Amazon RDS Enhanced Monitoring</a>. <p>If
+     *         <code>MonitoringInterval</code> is set to a value other than 0, then
+     *         you must supply a <code>MonitoringRoleArn</code> value.
+     */
+    public void setMonitoringRoleArn(String monitoringRoleArn) {
+        this.monitoringRoleArn = monitoringRoleArn;
+    }
+    
+    /**
+     * The ARN for the IAM role that permits RDS to send enhanced monitoring
+     * metrics to CloudWatch Logs. For example,
+     * <code>arn:aws:iam:123456789012:role/emaccess</code>. For information
+     * on creating a monitoring role, go to <a
+     * href="http://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_Monitoring.html#USER_Monitoring.OS.IAMRole">To
+     * create an IAM role for Amazon RDS Enhanced Monitoring</a>. <p>If
+     * <code>MonitoringInterval</code> is set to a value other than 0, then
+     * you must supply a <code>MonitoringRoleArn</code> value.
+     * <p>
+     * Returns a reference to this object so that method calls can be chained together.
+     *
+     * @param monitoringRoleArn The ARN for the IAM role that permits RDS to send enhanced monitoring
+     *         metrics to CloudWatch Logs. For example,
+     *         <code>arn:aws:iam:123456789012:role/emaccess</code>. For information
+     *         on creating a monitoring role, go to <a
+     *         href="http://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_Monitoring.html#USER_Monitoring.OS.IAMRole">To
+     *         create an IAM role for Amazon RDS Enhanced Monitoring</a>. <p>If
+     *         <code>MonitoringInterval</code> is set to a value other than 0, then
+     *         you must supply a <code>MonitoringRoleArn</code> value.
+     *
+     * @return A reference to this updated object so that method calls can be chained
+     *         together.
+     */
+    public CreateDBInstanceReadReplicaRequest withMonitoringRoleArn(String monitoringRoleArn) {
+        this.monitoringRoleArn = monitoringRoleArn;
+        return this;
+    }
+
+    /**
      * Returns a string representation of this object; useful for testing and
      * debugging.
      *
@@ -1038,7 +1268,10 @@ public class CreateDBInstanceReadReplicaRequest extends AmazonWebServiceRequest 
         if (isPubliclyAccessible() != null) sb.append("PubliclyAccessible: " + isPubliclyAccessible() + ",");
         if (getTags() != null) sb.append("Tags: " + getTags() + ",");
         if (getDBSubnetGroupName() != null) sb.append("DBSubnetGroupName: " + getDBSubnetGroupName() + ",");
-        if (getStorageType() != null) sb.append("StorageType: " + getStorageType() );
+        if (getStorageType() != null) sb.append("StorageType: " + getStorageType() + ",");
+        if (isCopyTagsToSnapshot() != null) sb.append("CopyTagsToSnapshot: " + isCopyTagsToSnapshot() + ",");
+        if (getMonitoringInterval() != null) sb.append("MonitoringInterval: " + getMonitoringInterval() + ",");
+        if (getMonitoringRoleArn() != null) sb.append("MonitoringRoleArn: " + getMonitoringRoleArn() );
         sb.append("}");
         return sb.toString();
     }
@@ -1060,6 +1293,9 @@ public class CreateDBInstanceReadReplicaRequest extends AmazonWebServiceRequest 
         hashCode = prime * hashCode + ((getTags() == null) ? 0 : getTags().hashCode()); 
         hashCode = prime * hashCode + ((getDBSubnetGroupName() == null) ? 0 : getDBSubnetGroupName().hashCode()); 
         hashCode = prime * hashCode + ((getStorageType() == null) ? 0 : getStorageType().hashCode()); 
+        hashCode = prime * hashCode + ((isCopyTagsToSnapshot() == null) ? 0 : isCopyTagsToSnapshot().hashCode()); 
+        hashCode = prime * hashCode + ((getMonitoringInterval() == null) ? 0 : getMonitoringInterval().hashCode()); 
+        hashCode = prime * hashCode + ((getMonitoringRoleArn() == null) ? 0 : getMonitoringRoleArn().hashCode()); 
         return hashCode;
     }
     
@@ -1095,6 +1331,12 @@ public class CreateDBInstanceReadReplicaRequest extends AmazonWebServiceRequest 
         if (other.getDBSubnetGroupName() != null && other.getDBSubnetGroupName().equals(this.getDBSubnetGroupName()) == false) return false; 
         if (other.getStorageType() == null ^ this.getStorageType() == null) return false;
         if (other.getStorageType() != null && other.getStorageType().equals(this.getStorageType()) == false) return false; 
+        if (other.isCopyTagsToSnapshot() == null ^ this.isCopyTagsToSnapshot() == null) return false;
+        if (other.isCopyTagsToSnapshot() != null && other.isCopyTagsToSnapshot().equals(this.isCopyTagsToSnapshot()) == false) return false; 
+        if (other.getMonitoringInterval() == null ^ this.getMonitoringInterval() == null) return false;
+        if (other.getMonitoringInterval() != null && other.getMonitoringInterval().equals(this.getMonitoringInterval()) == false) return false; 
+        if (other.getMonitoringRoleArn() == null ^ this.getMonitoringRoleArn() == null) return false;
+        if (other.getMonitoringRoleArn() != null && other.getMonitoringRoleArn().equals(this.getMonitoringRoleArn()) == false) return false; 
         return true;
     }
     

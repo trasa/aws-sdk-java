@@ -1,5 +1,5 @@
 /*
- * Copyright 2010-2015 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2010-2016 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License.
@@ -13,6 +13,7 @@
  * permissions and limitations under the License.
  */
 package com.amazonaws.services.s3.model;
+import java.io.Serializable;
 
 import java.security.KeyPair;
 import java.util.HashMap;
@@ -25,7 +26,7 @@ import javax.crypto.SecretKey;
  * materials may be either an asymmetric key pair or a symmetric key but not
  * both.
  */
-public class EncryptionMaterials {
+public class EncryptionMaterials implements Serializable {
     private final KeyPair keyPair;
     private final SecretKey symmetricKey;
     private final Map<String, String> desc = new HashMap<String,String>();

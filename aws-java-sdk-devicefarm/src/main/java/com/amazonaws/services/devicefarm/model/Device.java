@@ -1,5 +1,5 @@
 /*
- * Copyright 2010-2015 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2010-2016 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License.
@@ -798,29 +798,21 @@ public class Device implements Serializable, Cloneable {
     }
 
     /**
-     * Sets the value of the Resolution property for this object.
-     * 
      * @param resolution
-     *        The new value for the Resolution property for this object.
      */
     public void setResolution(Resolution resolution) {
         this.resolution = resolution;
     }
 
     /**
-     * Returns the value of the Resolution property for this object.
-     * 
-     * @return The value of the Resolution property for this object.
+     * @return
      */
     public Resolution getResolution() {
         return this.resolution;
     }
 
     /**
-     * Sets the value of the Resolution property for this object.
-     * 
      * @param resolution
-     *        The new value for the Resolution property for this object.
      * @return Returns a reference to this object so that method calls can be
      *         chained together.
      */

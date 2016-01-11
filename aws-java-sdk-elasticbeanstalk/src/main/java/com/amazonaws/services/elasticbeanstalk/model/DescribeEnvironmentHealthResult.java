@@ -1,5 +1,5 @@
 /*
- * Copyright 2010-2015 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2010-2016 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License.
@@ -388,29 +388,21 @@ public class DescribeEnvironmentHealthResult implements Serializable, Cloneable 
     }
 
     /**
-     * Sets the value of the ApplicationMetrics property for this object.
-     * 
      * @param applicationMetrics
-     *        The new value for the ApplicationMetrics property for this object.
      */
     public void setApplicationMetrics(ApplicationMetrics applicationMetrics) {
         this.applicationMetrics = applicationMetrics;
     }
 
     /**
-     * Returns the value of the ApplicationMetrics property for this object.
-     * 
-     * @return The value of the ApplicationMetrics property for this object.
+     * @return
      */
     public ApplicationMetrics getApplicationMetrics() {
         return this.applicationMetrics;
     }
 
     /**
-     * Sets the value of the ApplicationMetrics property for this object.
-     * 
      * @param applicationMetrics
-     *        The new value for the ApplicationMetrics property for this object.
      * @return Returns a reference to this object so that method calls can be
      *         chained together.
      */
@@ -421,29 +413,21 @@ public class DescribeEnvironmentHealthResult implements Serializable, Cloneable 
     }
 
     /**
-     * Sets the value of the InstancesHealth property for this object.
-     * 
      * @param instancesHealth
-     *        The new value for the InstancesHealth property for this object.
      */
     public void setInstancesHealth(InstanceHealthSummary instancesHealth) {
         this.instancesHealth = instancesHealth;
     }
 
     /**
-     * Returns the value of the InstancesHealth property for this object.
-     * 
-     * @return The value of the InstancesHealth property for this object.
+     * @return
      */
     public InstanceHealthSummary getInstancesHealth() {
         return this.instancesHealth;
     }
 
     /**
-     * Sets the value of the InstancesHealth property for this object.
-     * 
      * @param instancesHealth
-     *        The new value for the InstancesHealth property for this object.
      * @return Returns a reference to this object so that method calls can be
      *         chained together.
      */

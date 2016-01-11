@@ -1,5 +1,5 @@
 /*
- * Copyright 2010-2015 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2010-2016 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License.
@@ -87,29 +87,21 @@ public class FilteredLogEvent implements Serializable, Cloneable {
     }
 
     /**
-     * Sets the value of the Timestamp property for this object.
-     * 
      * @param timestamp
-     *        The new value for the Timestamp property for this object.
      */
     public void setTimestamp(Long timestamp) {
         this.timestamp = timestamp;
     }
 
     /**
-     * Returns the value of the Timestamp property for this object.
-     * 
-     * @return The value of the Timestamp property for this object.
+     * @return
      */
     public Long getTimestamp() {
         return this.timestamp;
     }
 
     /**
-     * Sets the value of the Timestamp property for this object.
-     * 
      * @param timestamp
-     *        The new value for the Timestamp property for this object.
      * @return Returns a reference to this object so that method calls can be
      *         chained together.
      */
@@ -157,29 +149,21 @@ public class FilteredLogEvent implements Serializable, Cloneable {
     }
 
     /**
-     * Sets the value of the IngestionTime property for this object.
-     * 
      * @param ingestionTime
-     *        The new value for the IngestionTime property for this object.
      */
     public void setIngestionTime(Long ingestionTime) {
         this.ingestionTime = ingestionTime;
     }
 
     /**
-     * Returns the value of the IngestionTime property for this object.
-     * 
-     * @return The value of the IngestionTime property for this object.
+     * @return
      */
     public Long getIngestionTime() {
         return this.ingestionTime;
     }
 
     /**
-     * Sets the value of the IngestionTime property for this object.
-     * 
      * @param ingestionTime
-     *        The new value for the IngestionTime property for this object.
      * @return Returns a reference to this object so that method calls can be
      *         chained together.
      */

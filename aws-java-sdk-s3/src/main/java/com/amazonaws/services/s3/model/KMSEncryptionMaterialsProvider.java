@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2015 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2014-2016 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License.
@@ -13,8 +13,9 @@
  * permissions and limitations under the License.
  */
 package com.amazonaws.services.s3.model;
+import java.io.Serializable;
 
-public class KMSEncryptionMaterialsProvider extends StaticEncryptionMaterialsProvider {
+public class KMSEncryptionMaterialsProvider extends StaticEncryptionMaterialsProvider implements Serializable {
     public KMSEncryptionMaterialsProvider(String defaultCustomerMasterKeyId) {
         this(new KMSEncryptionMaterials(defaultCustomerMasterKeyId));
     }

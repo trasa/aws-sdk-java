@@ -1,5 +1,5 @@
 /*
- * Copyright 2010-2015 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2010-2016 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License.
@@ -96,6 +96,9 @@ public class AmazonCognitoIdentityClient extends AmazonWebServiceClient
 
     /** Default signing name for the service. */
     private static final String DEFAULT_SIGNING_NAME = "cognito-identity";
+
+    /** The region metadata service name for computing region endpoints. */
+    private static final String DEFAULT_ENDPOINT_PREFIX = "cognito-identity";
 
     /**
      * List of exception unmarshallers for all Amazon Cognito Identity
@@ -312,6 +315,7 @@ public class AmazonCognitoIdentityClient extends AmazonWebServiceClient
         // calling this.setEndPoint(...) will also modify the signer accordingly
         setEndpoint("https://cognito-identity.us-east-1.amazonaws.com");
         setServiceNameIntern(DEFAULT_SIGNING_NAME);
+        setEndpointPrefix(DEFAULT_ENDPOINT_PREFIX);
         HandlerChainFactory chainFactory = new HandlerChainFactory();
         requestHandler2s
                 .addAll(chainFactory
@@ -357,6 +361,7 @@ public class AmazonCognitoIdentityClient extends AmazonWebServiceClient
      * @throws LimitExceededException
      *         Thrown when the total number of user pools has exceeded a preset
      *         limit.
+     * @sample AmazonCognitoIdentity.CreateIdentityPool
      */
     @Override
     public CreateIdentityPoolResult createIdentityPool(
@@ -372,16 +377,18 @@ public class AmazonCognitoIdentityClient extends AmazonWebServiceClient
             awsRequestMetrics.startEvent(Field.RequestMarshallTime);
             try {
                 request = new CreateIdentityPoolRequestMarshaller()
-                        .marshall(createIdentityPoolRequest);
+                        .marshall(super
+                                .beforeMarshalling(createIdentityPoolRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
 
-            response = invoke(request,
-                    new CreateIdentityPoolResultJsonUnmarshaller(),
-                    executionContext);
+            JsonResponseHandler<CreateIdentityPoolResult> responseHandler = new JsonResponseHandler<CreateIdentityPoolResult>(
+                    new CreateIdentityPoolResultJsonUnmarshaller());
+            responseHandler.setIsPayloadJson(true);
+            response = invoke(request, responseHandler, executionContext);
 
             return response.getAwsResponse();
 
@@ -410,6 +417,7 @@ public class AmazonCognitoIdentityClient extends AmazonWebServiceClient
      * @throws InternalErrorException
      *         Thrown when the service encounters an error during processing the
      *         request.
+     * @sample AmazonCognitoIdentity.DeleteIdentities
      */
     @Override
     public DeleteIdentitiesResult deleteIdentities(
@@ -425,16 +433,18 @@ public class AmazonCognitoIdentityClient extends AmazonWebServiceClient
             awsRequestMetrics.startEvent(Field.RequestMarshallTime);
             try {
                 request = new DeleteIdentitiesRequestMarshaller()
-                        .marshall(deleteIdentitiesRequest);
+                        .marshall(super
+                                .beforeMarshalling(deleteIdentitiesRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
 
-            response = invoke(request,
-                    new DeleteIdentitiesResultJsonUnmarshaller(),
-                    executionContext);
+            JsonResponseHandler<DeleteIdentitiesResult> responseHandler = new JsonResponseHandler<DeleteIdentitiesResult>(
+                    new DeleteIdentitiesResultJsonUnmarshaller());
+            responseHandler.setIsPayloadJson(true);
+            response = invoke(request, responseHandler, executionContext);
 
             return response.getAwsResponse();
 
@@ -468,6 +478,7 @@ public class AmazonCognitoIdentityClient extends AmazonWebServiceClient
      * @throws InternalErrorException
      *         Thrown when the service encounters an error during processing the
      *         request.
+     * @sample AmazonCognitoIdentity.DeleteIdentityPool
      */
     @Override
     public void deleteIdentityPool(
@@ -483,14 +494,18 @@ public class AmazonCognitoIdentityClient extends AmazonWebServiceClient
             awsRequestMetrics.startEvent(Field.RequestMarshallTime);
             try {
                 request = new DeleteIdentityPoolRequestMarshaller()
-                        .marshall(deleteIdentityPoolRequest);
+                        .marshall(super
+                                .beforeMarshalling(deleteIdentityPoolRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
 
-            invoke(request, null, executionContext);
+            JsonResponseHandler<Void> responseHandler = new JsonResponseHandler<Void>(
+                    null);
+            responseHandler.setIsPayloadJson(true);
+            invoke(request, responseHandler, executionContext);
 
         } finally {
 
@@ -523,6 +538,7 @@ public class AmazonCognitoIdentityClient extends AmazonWebServiceClient
      * @throws InternalErrorException
      *         Thrown when the service encounters an error during processing the
      *         request.
+     * @sample AmazonCognitoIdentity.DescribeIdentity
      */
     @Override
     public DescribeIdentityResult describeIdentity(
@@ -538,16 +554,18 @@ public class AmazonCognitoIdentityClient extends AmazonWebServiceClient
             awsRequestMetrics.startEvent(Field.RequestMarshallTime);
             try {
                 request = new DescribeIdentityRequestMarshaller()
-                        .marshall(describeIdentityRequest);
+                        .marshall(super
+                                .beforeMarshalling(describeIdentityRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
 
-            response = invoke(request,
-                    new DescribeIdentityResultJsonUnmarshaller(),
-                    executionContext);
+            JsonResponseHandler<DescribeIdentityResult> responseHandler = new JsonResponseHandler<DescribeIdentityResult>(
+                    new DescribeIdentityResultJsonUnmarshaller());
+            responseHandler.setIsPayloadJson(true);
+            response = invoke(request, responseHandler, executionContext);
 
             return response.getAwsResponse();
 
@@ -583,6 +601,7 @@ public class AmazonCognitoIdentityClient extends AmazonWebServiceClient
      * @throws InternalErrorException
      *         Thrown when the service encounters an error during processing the
      *         request.
+     * @sample AmazonCognitoIdentity.DescribeIdentityPool
      */
     @Override
     public DescribeIdentityPoolResult describeIdentityPool(
@@ -598,16 +617,18 @@ public class AmazonCognitoIdentityClient extends AmazonWebServiceClient
             awsRequestMetrics.startEvent(Field.RequestMarshallTime);
             try {
                 request = new DescribeIdentityPoolRequestMarshaller()
-                        .marshall(describeIdentityPoolRequest);
+                        .marshall(super
+                                .beforeMarshalling(describeIdentityPoolRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
 
-            response = invoke(request,
-                    new DescribeIdentityPoolResultJsonUnmarshaller(),
-                    executionContext);
+            JsonResponseHandler<DescribeIdentityPoolResult> responseHandler = new JsonResponseHandler<DescribeIdentityPoolResult>(
+                    new DescribeIdentityPoolResultJsonUnmarshaller());
+            responseHandler.setIsPayloadJson(true);
+            response = invoke(request, responseHandler, executionContext);
 
             return response.getAwsResponse();
 
@@ -654,6 +675,7 @@ public class AmazonCognitoIdentityClient extends AmazonWebServiceClient
      * @throws ExternalServiceException
      *         An exception thrown when a dependent service such as Facebook or
      *         Twitter is not responding
+     * @sample AmazonCognitoIdentity.GetCredentialsForIdentity
      */
     @Override
     public GetCredentialsForIdentityResult getCredentialsForIdentity(
@@ -669,16 +691,18 @@ public class AmazonCognitoIdentityClient extends AmazonWebServiceClient
             awsRequestMetrics.startEvent(Field.RequestMarshallTime);
             try {
                 request = new GetCredentialsForIdentityRequestMarshaller()
-                        .marshall(getCredentialsForIdentityRequest);
+                        .marshall(super
+                                .beforeMarshalling(getCredentialsForIdentityRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
 
-            response = invoke(request,
-                    new GetCredentialsForIdentityResultJsonUnmarshaller(),
-                    executionContext);
+            JsonResponseHandler<GetCredentialsForIdentityResult> responseHandler = new JsonResponseHandler<GetCredentialsForIdentityResult>(
+                    new GetCredentialsForIdentityResultJsonUnmarshaller());
+            responseHandler.setIsPayloadJson(true);
+            response = invoke(request, responseHandler, executionContext);
 
             return response.getAwsResponse();
 
@@ -722,6 +746,7 @@ public class AmazonCognitoIdentityClient extends AmazonWebServiceClient
      * @throws ExternalServiceException
      *         An exception thrown when a dependent service such as Facebook or
      *         Twitter is not responding
+     * @sample AmazonCognitoIdentity.GetId
      */
     @Override
     public GetIdResult getId(GetIdRequest getIdRequest) {
@@ -735,15 +760,18 @@ public class AmazonCognitoIdentityClient extends AmazonWebServiceClient
         try {
             awsRequestMetrics.startEvent(Field.RequestMarshallTime);
             try {
-                request = new GetIdRequestMarshaller().marshall(getIdRequest);
+                request = new GetIdRequestMarshaller().marshall(super
+                        .beforeMarshalling(getIdRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
 
-            response = invoke(request, new GetIdResultJsonUnmarshaller(),
-                    executionContext);
+            JsonResponseHandler<GetIdResult> responseHandler = new JsonResponseHandler<GetIdResult>(
+                    new GetIdResultJsonUnmarshaller());
+            responseHandler.setIsPayloadJson(true);
+            response = invoke(request, responseHandler, executionContext);
 
             return response.getAwsResponse();
 
@@ -781,6 +809,7 @@ public class AmazonCognitoIdentityClient extends AmazonWebServiceClient
      * @throws InternalErrorException
      *         Thrown when the service encounters an error during processing the
      *         request.
+     * @sample AmazonCognitoIdentity.GetIdentityPoolRoles
      */
     @Override
     public GetIdentityPoolRolesResult getIdentityPoolRoles(
@@ -796,16 +825,18 @@ public class AmazonCognitoIdentityClient extends AmazonWebServiceClient
             awsRequestMetrics.startEvent(Field.RequestMarshallTime);
             try {
                 request = new GetIdentityPoolRolesRequestMarshaller()
-                        .marshall(getIdentityPoolRolesRequest);
+                        .marshall(super
+                                .beforeMarshalling(getIdentityPoolRolesRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
 
-            response = invoke(request,
-                    new GetIdentityPoolRolesResultJsonUnmarshaller(),
-                    executionContext);
+            JsonResponseHandler<GetIdentityPoolRolesResult> responseHandler = new JsonResponseHandler<GetIdentityPoolRolesResult>(
+                    new GetIdentityPoolRolesResultJsonUnmarshaller());
+            responseHandler.setIsPayloadJson(true);
+            response = invoke(request, responseHandler, executionContext);
 
             return response.getAwsResponse();
 
@@ -850,6 +881,7 @@ public class AmazonCognitoIdentityClient extends AmazonWebServiceClient
      * @throws ExternalServiceException
      *         An exception thrown when a dependent service such as Facebook or
      *         Twitter is not responding
+     * @sample AmazonCognitoIdentity.GetOpenIdToken
      */
     @Override
     public GetOpenIdTokenResult getOpenIdToken(
@@ -864,17 +896,18 @@ public class AmazonCognitoIdentityClient extends AmazonWebServiceClient
         try {
             awsRequestMetrics.startEvent(Field.RequestMarshallTime);
             try {
-                request = new GetOpenIdTokenRequestMarshaller()
-                        .marshall(getOpenIdTokenRequest);
+                request = new GetOpenIdTokenRequestMarshaller().marshall(super
+                        .beforeMarshalling(getOpenIdTokenRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
 
-            response = invoke(request,
-                    new GetOpenIdTokenResultJsonUnmarshaller(),
-                    executionContext);
+            JsonResponseHandler<GetOpenIdTokenResult> responseHandler = new JsonResponseHandler<GetOpenIdTokenResult>(
+                    new GetOpenIdTokenResultJsonUnmarshaller());
+            responseHandler.setIsPayloadJson(true);
+            response = invoke(request, responseHandler, executionContext);
 
             return response.getAwsResponse();
 
@@ -932,6 +965,7 @@ public class AmazonCognitoIdentityClient extends AmazonWebServiceClient
      * @throws DeveloperUserAlreadyRegisteredException
      *         The provided developer user identifier is already registered with
      *         Cognito under a different identity ID.
+     * @sample AmazonCognitoIdentity.GetOpenIdTokenForDeveloperIdentity
      */
     @Override
     public GetOpenIdTokenForDeveloperIdentityResult getOpenIdTokenForDeveloperIdentity(
@@ -947,17 +981,18 @@ public class AmazonCognitoIdentityClient extends AmazonWebServiceClient
             awsRequestMetrics.startEvent(Field.RequestMarshallTime);
             try {
                 request = new GetOpenIdTokenForDeveloperIdentityRequestMarshaller()
-                        .marshall(getOpenIdTokenForDeveloperIdentityRequest);
+                        .marshall(super
+                                .beforeMarshalling(getOpenIdTokenForDeveloperIdentityRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
 
-            response = invoke(
-                    request,
-                    new GetOpenIdTokenForDeveloperIdentityResultJsonUnmarshaller(),
-                    executionContext);
+            JsonResponseHandler<GetOpenIdTokenForDeveloperIdentityResult> responseHandler = new JsonResponseHandler<GetOpenIdTokenForDeveloperIdentityResult>(
+                    new GetOpenIdTokenForDeveloperIdentityResultJsonUnmarshaller());
+            responseHandler.setIsPayloadJson(true);
+            response = invoke(request, responseHandler, executionContext);
 
             return response.getAwsResponse();
 
@@ -991,6 +1026,7 @@ public class AmazonCognitoIdentityClient extends AmazonWebServiceClient
      * @throws InternalErrorException
      *         Thrown when the service encounters an error during processing the
      *         request.
+     * @sample AmazonCognitoIdentity.ListIdentities
      */
     @Override
     public ListIdentitiesResult listIdentities(
@@ -1005,17 +1041,18 @@ public class AmazonCognitoIdentityClient extends AmazonWebServiceClient
         try {
             awsRequestMetrics.startEvent(Field.RequestMarshallTime);
             try {
-                request = new ListIdentitiesRequestMarshaller()
-                        .marshall(listIdentitiesRequest);
+                request = new ListIdentitiesRequestMarshaller().marshall(super
+                        .beforeMarshalling(listIdentitiesRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
 
-            response = invoke(request,
-                    new ListIdentitiesResultJsonUnmarshaller(),
-                    executionContext);
+            JsonResponseHandler<ListIdentitiesResult> responseHandler = new JsonResponseHandler<ListIdentitiesResult>(
+                    new ListIdentitiesResultJsonUnmarshaller());
+            responseHandler.setIsPayloadJson(true);
+            response = invoke(request, responseHandler, executionContext);
 
             return response.getAwsResponse();
 
@@ -1047,6 +1084,7 @@ public class AmazonCognitoIdentityClient extends AmazonWebServiceClient
      * @throws InternalErrorException
      *         Thrown when the service encounters an error during processing the
      *         request.
+     * @sample AmazonCognitoIdentity.ListIdentityPools
      */
     @Override
     public ListIdentityPoolsResult listIdentityPools(
@@ -1062,16 +1100,18 @@ public class AmazonCognitoIdentityClient extends AmazonWebServiceClient
             awsRequestMetrics.startEvent(Field.RequestMarshallTime);
             try {
                 request = new ListIdentityPoolsRequestMarshaller()
-                        .marshall(listIdentityPoolsRequest);
+                        .marshall(super
+                                .beforeMarshalling(listIdentityPoolsRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
 
-            response = invoke(request,
-                    new ListIdentityPoolsResultJsonUnmarshaller(),
-                    executionContext);
+            JsonResponseHandler<ListIdentityPoolsResult> responseHandler = new JsonResponseHandler<ListIdentityPoolsResult>(
+                    new ListIdentityPoolsResultJsonUnmarshaller());
+            responseHandler.setIsPayloadJson(true);
+            response = invoke(request, responseHandler, executionContext);
 
             return response.getAwsResponse();
 
@@ -1119,6 +1159,7 @@ public class AmazonCognitoIdentityClient extends AmazonWebServiceClient
      * @throws InternalErrorException
      *         Thrown when the service encounters an error during processing the
      *         request.
+     * @sample AmazonCognitoIdentity.LookupDeveloperIdentity
      */
     @Override
     public LookupDeveloperIdentityResult lookupDeveloperIdentity(
@@ -1134,16 +1175,18 @@ public class AmazonCognitoIdentityClient extends AmazonWebServiceClient
             awsRequestMetrics.startEvent(Field.RequestMarshallTime);
             try {
                 request = new LookupDeveloperIdentityRequestMarshaller()
-                        .marshall(lookupDeveloperIdentityRequest);
+                        .marshall(super
+                                .beforeMarshalling(lookupDeveloperIdentityRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
 
-            response = invoke(request,
-                    new LookupDeveloperIdentityResultJsonUnmarshaller(),
-                    executionContext);
+            JsonResponseHandler<LookupDeveloperIdentityResult> responseHandler = new JsonResponseHandler<LookupDeveloperIdentityResult>(
+                    new LookupDeveloperIdentityResultJsonUnmarshaller());
+            responseHandler.setIsPayloadJson(true);
+            response = invoke(request, responseHandler, executionContext);
 
             return response.getAwsResponse();
 
@@ -1189,6 +1232,7 @@ public class AmazonCognitoIdentityClient extends AmazonWebServiceClient
      * @throws InternalErrorException
      *         Thrown when the service encounters an error during processing the
      *         request.
+     * @sample AmazonCognitoIdentity.MergeDeveloperIdentities
      */
     @Override
     public MergeDeveloperIdentitiesResult mergeDeveloperIdentities(
@@ -1204,16 +1248,18 @@ public class AmazonCognitoIdentityClient extends AmazonWebServiceClient
             awsRequestMetrics.startEvent(Field.RequestMarshallTime);
             try {
                 request = new MergeDeveloperIdentitiesRequestMarshaller()
-                        .marshall(mergeDeveloperIdentitiesRequest);
+                        .marshall(super
+                                .beforeMarshalling(mergeDeveloperIdentitiesRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
 
-            response = invoke(request,
-                    new MergeDeveloperIdentitiesResultJsonUnmarshaller(),
-                    executionContext);
+            JsonResponseHandler<MergeDeveloperIdentitiesResult> responseHandler = new JsonResponseHandler<MergeDeveloperIdentitiesResult>(
+                    new MergeDeveloperIdentitiesResultJsonUnmarshaller());
+            responseHandler.setIsPayloadJson(true);
+            response = invoke(request, responseHandler, executionContext);
 
             return response.getAwsResponse();
 
@@ -1252,6 +1298,7 @@ public class AmazonCognitoIdentityClient extends AmazonWebServiceClient
      *         request.
      * @throws ConcurrentModificationException
      *         Thrown if there are parallel requests to modify a resource.
+     * @sample AmazonCognitoIdentity.SetIdentityPoolRoles
      */
     @Override
     public void setIdentityPoolRoles(
@@ -1267,14 +1314,18 @@ public class AmazonCognitoIdentityClient extends AmazonWebServiceClient
             awsRequestMetrics.startEvent(Field.RequestMarshallTime);
             try {
                 request = new SetIdentityPoolRolesRequestMarshaller()
-                        .marshall(setIdentityPoolRolesRequest);
+                        .marshall(super
+                                .beforeMarshalling(setIdentityPoolRolesRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
 
-            invoke(request, null, executionContext);
+            JsonResponseHandler<Void> responseHandler = new JsonResponseHandler<Void>(
+                    null);
+            responseHandler.setIsPayloadJson(true);
+            invoke(request, responseHandler, executionContext);
 
         } finally {
 
@@ -1312,6 +1363,7 @@ public class AmazonCognitoIdentityClient extends AmazonWebServiceClient
      * @throws InternalErrorException
      *         Thrown when the service encounters an error during processing the
      *         request.
+     * @sample AmazonCognitoIdentity.UnlinkDeveloperIdentity
      */
     @Override
     public void unlinkDeveloperIdentity(
@@ -1327,14 +1379,18 @@ public class AmazonCognitoIdentityClient extends AmazonWebServiceClient
             awsRequestMetrics.startEvent(Field.RequestMarshallTime);
             try {
                 request = new UnlinkDeveloperIdentityRequestMarshaller()
-                        .marshall(unlinkDeveloperIdentityRequest);
+                        .marshall(super
+                                .beforeMarshalling(unlinkDeveloperIdentityRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
 
-            invoke(request, null, executionContext);
+            JsonResponseHandler<Void> responseHandler = new JsonResponseHandler<Void>(
+                    null);
+            responseHandler.setIsPayloadJson(true);
+            invoke(request, responseHandler, executionContext);
 
         } finally {
 
@@ -1373,6 +1429,7 @@ public class AmazonCognitoIdentityClient extends AmazonWebServiceClient
      * @throws ExternalServiceException
      *         An exception thrown when a dependent service such as Facebook or
      *         Twitter is not responding
+     * @sample AmazonCognitoIdentity.UnlinkIdentity
      */
     @Override
     public void unlinkIdentity(UnlinkIdentityRequest unlinkIdentityRequest) {
@@ -1386,15 +1443,18 @@ public class AmazonCognitoIdentityClient extends AmazonWebServiceClient
         try {
             awsRequestMetrics.startEvent(Field.RequestMarshallTime);
             try {
-                request = new UnlinkIdentityRequestMarshaller()
-                        .marshall(unlinkIdentityRequest);
+                request = new UnlinkIdentityRequestMarshaller().marshall(super
+                        .beforeMarshalling(unlinkIdentityRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
 
-            invoke(request, null, executionContext);
+            JsonResponseHandler<Void> responseHandler = new JsonResponseHandler<Void>(
+                    null);
+            responseHandler.setIsPayloadJson(true);
+            invoke(request, responseHandler, executionContext);
 
         } finally {
 
@@ -1432,6 +1492,7 @@ public class AmazonCognitoIdentityClient extends AmazonWebServiceClient
      *         request.
      * @throws ConcurrentModificationException
      *         Thrown if there are parallel requests to modify a resource.
+     * @sample AmazonCognitoIdentity.UpdateIdentityPool
      */
     @Override
     public UpdateIdentityPoolResult updateIdentityPool(
@@ -1447,16 +1508,18 @@ public class AmazonCognitoIdentityClient extends AmazonWebServiceClient
             awsRequestMetrics.startEvent(Field.RequestMarshallTime);
             try {
                 request = new UpdateIdentityPoolRequestMarshaller()
-                        .marshall(updateIdentityPoolRequest);
+                        .marshall(super
+                                .beforeMarshalling(updateIdentityPoolRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
 
-            response = invoke(request,
-                    new UpdateIdentityPoolResultJsonUnmarshaller(),
-                    executionContext);
+            JsonResponseHandler<UpdateIdentityPoolResult> responseHandler = new JsonResponseHandler<UpdateIdentityPoolResult>(
+                    new UpdateIdentityPoolResultJsonUnmarshaller());
+            responseHandler.setIsPayloadJson(true);
+            response = invoke(request, responseHandler, executionContext);
 
             return response.getAwsResponse();
 
@@ -1491,7 +1554,7 @@ public class AmazonCognitoIdentityClient extends AmazonWebServiceClient
 
     private <X, Y extends AmazonWebServiceRequest> Response<X> invoke(
             Request<Y> request,
-            Unmarshaller<X, JsonUnmarshallerContext> unmarshaller,
+            HttpResponseHandler<AmazonWebServiceResponse<X>> responseHandler,
             ExecutionContext executionContext) {
         request.setEndpoint(endpoint);
         request.setTimeOffset(timeOffset);
@@ -1514,8 +1577,6 @@ public class AmazonCognitoIdentityClient extends AmazonWebServiceClient
 
         executionContext.setCredentials(credentials);
 
-        JsonResponseHandler<X> responseHandler = new JsonResponseHandler<X>(
-                unmarshaller);
         JsonErrorResponseHandlerV2 errorResponseHandler = new JsonErrorResponseHandlerV2(
                 jsonErrorUnmarshallers);
 

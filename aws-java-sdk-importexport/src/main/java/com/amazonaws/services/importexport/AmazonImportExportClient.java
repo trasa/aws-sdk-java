@@ -1,5 +1,5 @@
 /*
- * Copyright 2010-2015 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2010-2016 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License.
@@ -57,6 +57,9 @@ public class AmazonImportExportClient extends AmazonWebServiceClient implements
 
     /** Default signing name for the service. */
     private static final String DEFAULT_SIGNING_NAME = "importexport";
+
+    /** The region metadata service name for computing region endpoints. */
+    private static final String DEFAULT_ENDPOINT_PREFIX = "importexport";
 
     /**
      * List of exception unmarshallers for all AWS Import/Export exceptions.
@@ -255,6 +258,7 @@ public class AmazonImportExportClient extends AmazonWebServiceClient implements
         // calling this.setEndPoint(...) will also modify the signer accordingly
         this.setEndpoint("https://importexport.amazonaws.com");
         setServiceNameIntern(DEFAULT_SIGNING_NAME);
+        setEndpointPrefix(DEFAULT_ENDPOINT_PREFIX);
         HandlerChainFactory chainFactory = new HandlerChainFactory();
         requestHandler2s
                 .addAll(chainFactory
@@ -286,6 +290,7 @@ public class AmazonImportExportClient extends AmazonWebServiceClient implements
      *         authentication must use the same AWS Access Key ID.
      * @throws InvalidVersionException
      *         The client tool version is invalid.
+     * @sample AmazonImportExport.CancelJob
      */
     @Override
     public CancelJobResult cancelJob(CancelJobRequest cancelJobRequest) {
@@ -299,16 +304,17 @@ public class AmazonImportExportClient extends AmazonWebServiceClient implements
         try {
             awsRequestMetrics.startEvent(Field.RequestMarshallTime);
             try {
-                request = new CancelJobRequestMarshaller()
-                        .marshall(cancelJobRequest);
+                request = new CancelJobRequestMarshaller().marshall(super
+                        .beforeMarshalling(cancelJobRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
 
-            response = invoke(request, new CancelJobResultStaxUnmarshaller(),
-                    executionContext);
+            StaxResponseHandler<CancelJobResult> responseHandler = new StaxResponseHandler<CancelJobResult>(
+                    new CancelJobResultStaxUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
 
             return response.getAwsResponse();
 
@@ -376,6 +382,7 @@ public class AmazonImportExportClient extends AmazonWebServiceClient implements
      *         account.
      * @throws InvalidVersionException
      *         The client tool version is invalid.
+     * @sample AmazonImportExport.CreateJob
      */
     @Override
     public CreateJobResult createJob(CreateJobRequest createJobRequest) {
@@ -389,16 +396,17 @@ public class AmazonImportExportClient extends AmazonWebServiceClient implements
         try {
             awsRequestMetrics.startEvent(Field.RequestMarshallTime);
             try {
-                request = new CreateJobRequestMarshaller()
-                        .marshall(createJobRequest);
+                request = new CreateJobRequestMarshaller().marshall(super
+                        .beforeMarshalling(createJobRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
 
-            response = invoke(request, new CreateJobResultStaxUnmarshaller(),
-                    executionContext);
+            StaxResponseHandler<CreateJobResult> responseHandler = new StaxResponseHandler<CreateJobResult>(
+                    new CreateJobResultStaxUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
 
             return response.getAwsResponse();
 
@@ -413,7 +421,6 @@ public class AmazonImportExportClient extends AmazonWebServiceClient implements
      * to ship your device to AWS for processing.
      * 
      * @param getShippingLabelRequest
-     *        null
      * @return Result of the GetShippingLabel operation returned by the service.
      * @throws InvalidJobIdException
      *         The JOBID was missing, not found, or not associated with the AWS
@@ -432,6 +439,7 @@ public class AmazonImportExportClient extends AmazonWebServiceClient implements
      *         The client tool version is invalid.
      * @throws InvalidParameterException
      *         One or more parameters had an invalid value.
+     * @sample AmazonImportExport.GetShippingLabel
      */
     @Override
     public GetShippingLabelResult getShippingLabel(
@@ -447,16 +455,17 @@ public class AmazonImportExportClient extends AmazonWebServiceClient implements
             awsRequestMetrics.startEvent(Field.RequestMarshallTime);
             try {
                 request = new GetShippingLabelRequestMarshaller()
-                        .marshall(getShippingLabelRequest);
+                        .marshall(super
+                                .beforeMarshalling(getShippingLabelRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
 
-            response = invoke(request,
-                    new GetShippingLabelResultStaxUnmarshaller(),
-                    executionContext);
+            StaxResponseHandler<GetShippingLabelResult> responseHandler = new StaxResponseHandler<GetShippingLabelResult>(
+                    new GetShippingLabelResultStaxUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
 
             return response.getAwsResponse();
 
@@ -488,6 +497,7 @@ public class AmazonImportExportClient extends AmazonWebServiceClient implements
      *         authentication must use the same AWS Access Key ID.
      * @throws InvalidVersionException
      *         The client tool version is invalid.
+     * @sample AmazonImportExport.GetStatus
      */
     @Override
     public GetStatusResult getStatus(GetStatusRequest getStatusRequest) {
@@ -501,16 +511,17 @@ public class AmazonImportExportClient extends AmazonWebServiceClient implements
         try {
             awsRequestMetrics.startEvent(Field.RequestMarshallTime);
             try {
-                request = new GetStatusRequestMarshaller()
-                        .marshall(getStatusRequest);
+                request = new GetStatusRequestMarshaller().marshall(super
+                        .beforeMarshalling(getStatusRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
 
-            response = invoke(request, new GetStatusResultStaxUnmarshaller(),
-                    executionContext);
+            StaxResponseHandler<GetStatusResult> responseHandler = new StaxResponseHandler<GetStatusResult>(
+                    new GetStatusResultStaxUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
 
             return response.getAwsResponse();
 
@@ -538,6 +549,7 @@ public class AmazonImportExportClient extends AmazonWebServiceClient implements
      *         authentication must use the same AWS Access Key ID.
      * @throws InvalidVersionException
      *         The client tool version is invalid.
+     * @sample AmazonImportExport.ListJobs
      */
     @Override
     public ListJobsResult listJobs(ListJobsRequest listJobsRequest) {
@@ -551,16 +563,17 @@ public class AmazonImportExportClient extends AmazonWebServiceClient implements
         try {
             awsRequestMetrics.startEvent(Field.RequestMarshallTime);
             try {
-                request = new ListJobsRequestMarshaller()
-                        .marshall(listJobsRequest);
+                request = new ListJobsRequestMarshaller().marshall(super
+                        .beforeMarshalling(listJobsRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
 
-            response = invoke(request, new ListJobsResultStaxUnmarshaller(),
-                    executionContext);
+            StaxResponseHandler<ListJobsResult> responseHandler = new StaxResponseHandler<ListJobsResult>(
+                    new ListJobsResultStaxUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
 
             return response.getAwsResponse();
 
@@ -634,6 +647,7 @@ public class AmazonImportExportClient extends AmazonWebServiceClient implements
      *         AWS Import/Export cannot update the job
      * @throws InvalidVersionException
      *         The client tool version is invalid.
+     * @sample AmazonImportExport.UpdateJob
      */
     @Override
     public UpdateJobResult updateJob(UpdateJobRequest updateJobRequest) {
@@ -647,16 +661,17 @@ public class AmazonImportExportClient extends AmazonWebServiceClient implements
         try {
             awsRequestMetrics.startEvent(Field.RequestMarshallTime);
             try {
-                request = new UpdateJobRequestMarshaller()
-                        .marshall(updateJobRequest);
+                request = new UpdateJobRequestMarshaller().marshall(super
+                        .beforeMarshalling(updateJobRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
 
-            response = invoke(request, new UpdateJobResultStaxUnmarshaller(),
-                    executionContext);
+            StaxResponseHandler<UpdateJobResult> responseHandler = new StaxResponseHandler<UpdateJobResult>(
+                    new UpdateJobResultStaxUnmarshaller());
+            response = invoke(request, responseHandler, executionContext);
 
             return response.getAwsResponse();
 
@@ -691,7 +706,7 @@ public class AmazonImportExportClient extends AmazonWebServiceClient implements
 
     private <X, Y extends AmazonWebServiceRequest> Response<X> invoke(
             Request<Y> request,
-            Unmarshaller<X, StaxUnmarshallerContext> unmarshaller,
+            HttpResponseHandler<AmazonWebServiceResponse<X>> responseHandler,
             ExecutionContext executionContext) {
         request.setEndpoint(endpoint);
         request.setTimeOffset(timeOffset);
@@ -714,8 +729,6 @@ public class AmazonImportExportClient extends AmazonWebServiceClient implements
 
         executionContext.setCredentials(credentials);
 
-        StaxResponseHandler<X> responseHandler = new StaxResponseHandler<X>(
-                unmarshaller);
         DefaultErrorResponseHandler errorResponseHandler = new DefaultErrorResponseHandler(
                 exceptionUnmarshallers);
 

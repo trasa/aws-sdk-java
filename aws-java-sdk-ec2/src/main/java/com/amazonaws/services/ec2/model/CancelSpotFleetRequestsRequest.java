@@ -1,5 +1,5 @@
 /*
- * Copyright 2010-2015 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2010-2016 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License.
@@ -24,6 +24,15 @@ import com.amazonaws.services.ec2.model.transform.CancelSpotFleetRequestsRequest
  * Container for the parameters to the {@link com.amazonaws.services.ec2.AmazonEC2#cancelSpotFleetRequests(CancelSpotFleetRequestsRequest) CancelSpotFleetRequests operation}.
  * <p>
  * Cancels the specified Spot fleet requests.
+ * </p>
+ * <p>
+ * After you cancel a Spot fleet request, the Spot fleet launches no new
+ * Spot instances. You must specify whether the Spot fleet should also
+ * terminate its Spot instances. If you terminate the instances, the Spot
+ * fleet request enters the <code>cancelled_terminating</code> state.
+ * Otherwise, the Spot fleet request enters the
+ * <code>cancelled_running</code> state and the instances continue to run
+ * until they are interrupted or you terminate them manually.
  * </p>
  *
  * @see com.amazonaws.services.ec2.AmazonEC2#cancelSpotFleetRequests(CancelSpotFleetRequestsRequest)

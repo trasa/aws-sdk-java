@@ -1,5 +1,5 @@
 /*
- * Copyright 2011-2015 Amazon Technologies, Inc.
+ * Copyright 2011-2016 Amazon Technologies, Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -13,6 +13,7 @@
  * limitations under the License.
  */
 package com.amazonaws.services.s3.model;
+import java.io.Serializable;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -25,7 +26,7 @@ import com.amazonaws.services.s3.model.DeleteObjectsResult.DeletedObject;
  * including the errors that occurred. For successfully deleted objects, refer
  * to {@link MultiObjectDeleteException#getDeletedObjects()}.
  */
-public class MultiObjectDeleteException extends AmazonS3Exception {
+public class MultiObjectDeleteException extends AmazonS3Exception implements Serializable {
 
     private static final long serialVersionUID = -2004213552302446866L;
 
@@ -68,7 +69,7 @@ public class MultiObjectDeleteException extends AmazonS3Exception {
     /**
      * An error that occurred when deleting an object.
      */
-    public static class DeleteError {
+    public static class DeleteError implements Serializable {
 
         private String key;
         private String versionId;

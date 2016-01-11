@@ -1,5 +1,5 @@
 /*
- * Copyright 2010-2015 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2010-2016 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License.
@@ -19,7 +19,10 @@ package com.amazonaws.services.ec2.model;
  */
 public enum AvailabilityZoneState {
     
-    Available("available");
+    Available("available"),
+    Information("information"),
+    Impaired("impaired"),
+    Unavailable("unavailable");
 
     private String value;
 
@@ -45,6 +48,12 @@ public enum AvailabilityZoneState {
         
         } else if ("available".equals(value)) {
             return AvailabilityZoneState.Available;
+        } else if ("information".equals(value)) {
+            return AvailabilityZoneState.Information;
+        } else if ("impaired".equals(value)) {
+            return AvailabilityZoneState.Impaired;
+        } else if ("unavailable".equals(value)) {
+            return AvailabilityZoneState.Unavailable;
         } else {
             throw new IllegalArgumentException("Cannot create enum from " + value + " value!");
         }

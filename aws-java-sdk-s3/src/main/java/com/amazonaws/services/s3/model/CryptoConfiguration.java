@@ -1,5 +1,5 @@
 /*
- * Copyright 2010-2015 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2010-2016 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License.
@@ -13,6 +13,7 @@
  * permissions and limitations under the License.
  */
 package com.amazonaws.services.s3.model;
+import java.io.Serializable;
 
 import java.security.Provider;
 
@@ -26,7 +27,7 @@ import com.amazonaws.services.s3.internal.crypto.CryptoRuntime;
  * encryption information. You can also specify your own crypto provider to be
  * used during encryption and decryption.
  */
-public class CryptoConfiguration implements Cloneable {
+public class CryptoConfiguration implements Cloneable,Serializable {
     private CryptoMode cryptoMode;
     private CryptoStorageMode storageMode;
     private Provider cryptoProvider;

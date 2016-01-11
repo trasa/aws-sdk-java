@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2015 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2014-2016 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * Portions copyright 2006-2009 James Murty. Please see LICENSE.txt
  * for applicable license terms and NOTICE.txt for applicable notices.
@@ -17,13 +17,15 @@
  */
 package com.amazonaws.services.s3.internal.crypto;
 
+import java.util.Map;
+
 final class KMSSecuredCEK extends SecuredCEK {
     static final String KEY_PROTECTION_MECHANISM = "kms";
 
-    KMSSecuredCEK(byte[] encryptedKeyBlob) {
-        super(encryptedKeyBlob, KEY_PROTECTION_MECHANISM);
+    KMSSecuredCEK(byte[] encryptedKeyBlob, Map<String, String> matdesc) {
+        super(encryptedKeyBlob, KEY_PROTECTION_MECHANISM, matdesc);
     }
-    
+
     /**
      * Returns true if the specified key wrapping algorithm is
      * {@value #KEY_PROTECTION_MECHANISM}; false otherwise.

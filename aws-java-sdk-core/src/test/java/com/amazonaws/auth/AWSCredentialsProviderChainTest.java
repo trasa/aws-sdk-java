@@ -1,5 +1,5 @@
 /*
- * Copyright 2010-2015 Amazon.com, Inc. or its affiliates. All Rights
+ * Copyright 2010-2016 Amazon.com, Inc. or its affiliates. All Rights
  * Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License").
@@ -19,6 +19,8 @@
 package com.amazonaws.auth;
 
 import static org.junit.Assert.assertEquals;
+
+import java.util.Arrays;
 
 import org.junit.Test;
 
@@ -64,7 +66,7 @@ public class AWSCredentialsProviderChainTest {
         MockCredentialsProvider provider1 = new MockCredentialsProvider();
         provider1.throwException = true;
         MockCredentialsProvider provider2 = new MockCredentialsProvider();
-        AWSCredentialsProviderChain chain = new AWSCredentialsProviderChain(provider1, provider2);
+        AWSCredentialsProviderChain chain = new AWSCredentialsProviderChain(Arrays.asList(provider1, provider2));
         chain.setReuseLastProvider(false);
 
         assertEquals(0, provider1.getCredentialsCallCount);

@@ -1,5 +1,5 @@
 /*
- * Copyright 2010-2015 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2010-2016 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License.
@@ -39,7 +39,7 @@ public class CancelImportTaskRequestMarshaller implements Marshaller<Request<Can
 
         Request<CancelImportTaskRequest> request = new DefaultRequest<CancelImportTaskRequest>(cancelImportTaskRequest, "AmazonEC2");
         request.addParameter("Action", "CancelImportTask");
-        request.addParameter("Version", "2015-04-15");
+        request.addParameter("Version", "2015-10-01");
 
         if (cancelImportTaskRequest.getImportTaskId() != null) {
             request.addParameter("ImportTaskId", StringUtils.fromString(cancelImportTaskRequest.getImportTaskId()));

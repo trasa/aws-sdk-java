@@ -1,5 +1,5 @@
 /*
- * Copyright 2010-2015 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2010-2016 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * Portions copyright 2006-2009 James Murty. Please see LICENSE.txt
  * for applicable license terms and NOTICE.txt for applicable notices.
@@ -52,7 +52,7 @@ public class DateUtils {
 
     /** RFC 822 format */
     protected static final DateTimeFormatter rfc822DateFormat =
-        DateTimeFormat.forPattern("EEE, dd MMM yyyy HH:mm:ss z")
+        DateTimeFormat.forPattern("EEE, dd MMM yyyy HH:mm:ss 'GMT'")
                       .withLocale(Locale.US)
                       .withZone(GMT);
 

@@ -1,5 +1,5 @@
 /*
- * Copyright 2010-2015 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2010-2016 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License.
@@ -63,6 +63,21 @@ public class WorkspaceRequestJsonMarshaller {
             if (workspaceRequest.getBundleId() != null) {
                 jsonWriter.key("BundleId")
                         .value(workspaceRequest.getBundleId());
+            }
+
+            if (workspaceRequest.getVolumeEncryptionKey() != null) {
+                jsonWriter.key("VolumeEncryptionKey").value(
+                        workspaceRequest.getVolumeEncryptionKey());
+            }
+
+            if (workspaceRequest.getUserVolumeEncryptionEnabled() != null) {
+                jsonWriter.key("UserVolumeEncryptionEnabled").value(
+                        workspaceRequest.getUserVolumeEncryptionEnabled());
+            }
+
+            if (workspaceRequest.getRootVolumeEncryptionEnabled() != null) {
+                jsonWriter.key("RootVolumeEncryptionEnabled").value(
+                        workspaceRequest.getRootVolumeEncryptionEnabled());
             }
 
             jsonWriter.endObject();

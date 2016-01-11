@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2015 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2014-2016 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License.
@@ -13,6 +13,7 @@
  * permissions and limitations under the License.
  */
 package com.amazonaws.services.s3.model;
+import java.io.Serializable;
 import static com.amazonaws.services.s3.model.ExtraMaterialsDescription.NONE;
 
 import java.util.Map;
@@ -36,7 +37,7 @@ import com.amazonaws.services.s3.KeyWrapException;
  * The additional material description must not conflict with the existing one
  * saved in S3 or else will cause the get request to fail fast later on.
  */
-public class EncryptedGetObjectRequest extends GetObjectRequest {
+public class EncryptedGetObjectRequest extends GetObjectRequest implements Serializable {
     /**
      * Request specific additional material description; never null.
      */

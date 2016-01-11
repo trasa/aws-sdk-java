@@ -1,5 +1,5 @@
 /*
- * Copyright 2010-2015 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2010-2016 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License.
@@ -112,6 +112,7 @@ public interface AmazonImportExport {
      *         authentication must use the same AWS Access Key ID.
      * @throws InvalidVersionException
      *         The client tool version is invalid.
+     * @sample AmazonImportExport.CancelJob
      */
     CancelJobResult cancelJob(CancelJobRequest cancelJobRequest);
 
@@ -173,6 +174,7 @@ public interface AmazonImportExport {
      *         account.
      * @throws InvalidVersionException
      *         The client tool version is invalid.
+     * @sample AmazonImportExport.CreateJob
      */
     CreateJobResult createJob(CreateJobRequest createJobRequest);
 
@@ -181,7 +183,6 @@ public interface AmazonImportExport {
      * to ship your device to AWS for processing.
      * 
      * @param getShippingLabelRequest
-     *        null
      * @return Result of the GetShippingLabel operation returned by the service.
      * @throws InvalidJobIdException
      *         The JOBID was missing, not found, or not associated with the AWS
@@ -200,6 +201,7 @@ public interface AmazonImportExport {
      *         The client tool version is invalid.
      * @throws InvalidParameterException
      *         One or more parameters had an invalid value.
+     * @sample AmazonImportExport.GetShippingLabel
      */
     GetShippingLabelResult getShippingLabel(
             GetShippingLabelRequest getShippingLabelRequest);
@@ -226,6 +228,7 @@ public interface AmazonImportExport {
      *         authentication must use the same AWS Access Key ID.
      * @throws InvalidVersionException
      *         The client tool version is invalid.
+     * @sample AmazonImportExport.GetStatus
      */
     GetStatusResult getStatus(GetStatusRequest getStatusRequest);
 
@@ -247,6 +250,7 @@ public interface AmazonImportExport {
      *         authentication must use the same AWS Access Key ID.
      * @throws InvalidVersionException
      *         The client tool version is invalid.
+     * @sample AmazonImportExport.ListJobs
      */
     ListJobsResult listJobs(ListJobsRequest listJobsRequest);
 
@@ -316,6 +320,7 @@ public interface AmazonImportExport {
      *         AWS Import/Export cannot update the job
      * @throws InvalidVersionException
      *         The client tool version is invalid.
+     * @sample AmazonImportExport.UpdateJob
      */
     UpdateJobResult updateJob(UpdateJobRequest updateJobRequest);
 

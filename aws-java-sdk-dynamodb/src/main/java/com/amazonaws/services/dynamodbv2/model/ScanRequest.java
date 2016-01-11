@@ -1,5 +1,5 @@
 /*
- * Copyright 2010-2015 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2010-2016 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License.
@@ -2390,11 +2390,7 @@ public class ScanRequest extends AmazonWebServiceRequest implements
     }
 
     /**
-     * Sets the value of the ReturnConsumedCapacity property for this object.
-     * 
      * @param returnConsumedCapacity
-     *        The new value for the ReturnConsumedCapacity property for this
-     *        object.
      * @see ReturnConsumedCapacity
      */
     public void setReturnConsumedCapacity(String returnConsumedCapacity) {
@@ -2402,9 +2398,7 @@ public class ScanRequest extends AmazonWebServiceRequest implements
     }
 
     /**
-     * Returns the value of the ReturnConsumedCapacity property for this object.
-     * 
-     * @return The value of the ReturnConsumedCapacity property for this object.
+     * @return
      * @see ReturnConsumedCapacity
      */
     public String getReturnConsumedCapacity() {
@@ -2412,11 +2406,7 @@ public class ScanRequest extends AmazonWebServiceRequest implements
     }
 
     /**
-     * Sets the value of the ReturnConsumedCapacity property for this object.
-     * 
      * @param returnConsumedCapacity
-     *        The new value for the ReturnConsumedCapacity property for this
-     *        object.
      * @return Returns a reference to this object so that method calls can be
      *         chained together.
      * @see ReturnConsumedCapacity
@@ -2427,11 +2417,7 @@ public class ScanRequest extends AmazonWebServiceRequest implements
     }
 
     /**
-     * Sets the value of the ReturnConsumedCapacity property for this object.
-     * 
      * @param returnConsumedCapacity
-     *        The new value for the ReturnConsumedCapacity property for this
-     *        object.
      * @return Returns a reference to this object so that method calls can be
      *         chained together.
      * @see ReturnConsumedCapacity
@@ -2442,11 +2428,7 @@ public class ScanRequest extends AmazonWebServiceRequest implements
     }
 
     /**
-     * Sets the value of the ReturnConsumedCapacity property for this object.
-     * 
      * @param returnConsumedCapacity
-     *        The new value for the ReturnConsumedCapacity property for this
-     *        object.
      * @return Returns a reference to this object so that method calls can be
      *         chained together.
      * @see ReturnConsumedCapacity

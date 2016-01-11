@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2015 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2014-2016 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License.
@@ -13,6 +13,7 @@
  * permissions and limitations under the License.
  */
 package com.amazonaws.services.s3.model;
+import java.io.Serializable;
 
 import static com.amazonaws.services.s3.model.InstructionFileId.DEFAULT_INSTRUCTION_FILE_SUFFIX;
 import static com.amazonaws.services.s3.model.InstructionFileId.DOT;
@@ -25,7 +26,7 @@ import org.apache.http.annotation.Immutable;
  * {@link S3ObjectIdBuilder}.
  */
 @Immutable
-public class S3ObjectId {
+public class S3ObjectId implements Serializable {
     private final String bucket;
     private final String key;
     /**

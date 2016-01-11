@@ -1,5 +1,5 @@
 /*
- * Copyright 2010-2015 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2010-2016 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License.
@@ -176,29 +176,21 @@ public class PutActionRevisionRequest extends AmazonWebServiceRequest implements
     }
 
     /**
-     * Sets the value of the ActionRevision property for this object.
-     * 
      * @param actionRevision
-     *        The new value for the ActionRevision property for this object.
      */
     public void setActionRevision(ActionRevision actionRevision) {
         this.actionRevision = actionRevision;
     }
 
     /**
-     * Returns the value of the ActionRevision property for this object.
-     * 
-     * @return The value of the ActionRevision property for this object.
+     * @return
      */
     public ActionRevision getActionRevision() {
         return this.actionRevision;
     }
 
     /**
-     * Sets the value of the ActionRevision property for this object.
-     * 
      * @param actionRevision
-     *        The new value for the ActionRevision property for this object.
      * @return Returns a reference to this object so that method calls can be
      *         chained together.
      */

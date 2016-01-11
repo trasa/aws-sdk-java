@@ -1,5 +1,5 @@
 /*
- * Copyright 2010-2015 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2010-2016 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License.
@@ -100,6 +100,27 @@ public class RestoreDBClusterToPointInTimeRequest extends AmazonWebServiceReques
      * A list of tags.
      */
     private com.amazonaws.internal.ListWithAutoConstructFlag<Tag> tags;
+
+    /**
+     * The KMS key identifier to use when restoring an encrypted DB cluster
+     * from an encrypted DB cluster. <p>The KMS key identifier is the Amazon
+     * Resource Name (ARN) for the KMS encryption key. If you are restoring a
+     * DB cluster with the same AWS account that owns the KMS encryption key
+     * used to encrypt the new DB cluster, then you can use the KMS key alias
+     * instead of the ARN for the KMS encryption key. <p>You can restore to a
+     * new DB cluster and encrypt the new DB cluster with a KMS key that is
+     * different than the KMS key used to encrypt the source DB cluster. The
+     * new DB cluster will be encrypted with the KMS key identified by the
+     * <code>KmsKeyId</code> parameter. <p>If you do not specify a value for
+     * the <code>KmsKeyId</code> parameter, then the following will occur:
+     * <ul> <li>If the DB cluster is encrypted, then the restored DB cluster
+     * is encrypted using the KMS key that was used to encrypt the source DB
+     * cluster.</li> </ul> <li>If the DB cluster is not encrypted, then the
+     * restored DB cluster is not encrypted.</li> <p>If
+     * <code>DBClusterIdentifier</code> refers to a DB cluster that is note
+     * encrypted, then the restore request is rejected.
+     */
+    private String kmsKeyId;
 
     /**
      * The name of the new DB cluster to be created. <p>Constraints: <ul>
@@ -602,6 +623,135 @@ public class RestoreDBClusterToPointInTimeRequest extends AmazonWebServiceReques
     }
 
     /**
+     * The KMS key identifier to use when restoring an encrypted DB cluster
+     * from an encrypted DB cluster. <p>The KMS key identifier is the Amazon
+     * Resource Name (ARN) for the KMS encryption key. If you are restoring a
+     * DB cluster with the same AWS account that owns the KMS encryption key
+     * used to encrypt the new DB cluster, then you can use the KMS key alias
+     * instead of the ARN for the KMS encryption key. <p>You can restore to a
+     * new DB cluster and encrypt the new DB cluster with a KMS key that is
+     * different than the KMS key used to encrypt the source DB cluster. The
+     * new DB cluster will be encrypted with the KMS key identified by the
+     * <code>KmsKeyId</code> parameter. <p>If you do not specify a value for
+     * the <code>KmsKeyId</code> parameter, then the following will occur:
+     * <ul> <li>If the DB cluster is encrypted, then the restored DB cluster
+     * is encrypted using the KMS key that was used to encrypt the source DB
+     * cluster.</li> </ul> <li>If the DB cluster is not encrypted, then the
+     * restored DB cluster is not encrypted.</li> <p>If
+     * <code>DBClusterIdentifier</code> refers to a DB cluster that is note
+     * encrypted, then the restore request is rejected.
+     *
+     * @return The KMS key identifier to use when restoring an encrypted DB cluster
+     *         from an encrypted DB cluster. <p>The KMS key identifier is the Amazon
+     *         Resource Name (ARN) for the KMS encryption key. If you are restoring a
+     *         DB cluster with the same AWS account that owns the KMS encryption key
+     *         used to encrypt the new DB cluster, then you can use the KMS key alias
+     *         instead of the ARN for the KMS encryption key. <p>You can restore to a
+     *         new DB cluster and encrypt the new DB cluster with a KMS key that is
+     *         different than the KMS key used to encrypt the source DB cluster. The
+     *         new DB cluster will be encrypted with the KMS key identified by the
+     *         <code>KmsKeyId</code> parameter. <p>If you do not specify a value for
+     *         the <code>KmsKeyId</code> parameter, then the following will occur:
+     *         <ul> <li>If the DB cluster is encrypted, then the restored DB cluster
+     *         is encrypted using the KMS key that was used to encrypt the source DB
+     *         cluster.</li> </ul> <li>If the DB cluster is not encrypted, then the
+     *         restored DB cluster is not encrypted.</li> <p>If
+     *         <code>DBClusterIdentifier</code> refers to a DB cluster that is note
+     *         encrypted, then the restore request is rejected.
+     */
+    public String getKmsKeyId() {
+        return kmsKeyId;
+    }
+    
+    /**
+     * The KMS key identifier to use when restoring an encrypted DB cluster
+     * from an encrypted DB cluster. <p>The KMS key identifier is the Amazon
+     * Resource Name (ARN) for the KMS encryption key. If you are restoring a
+     * DB cluster with the same AWS account that owns the KMS encryption key
+     * used to encrypt the new DB cluster, then you can use the KMS key alias
+     * instead of the ARN for the KMS encryption key. <p>You can restore to a
+     * new DB cluster and encrypt the new DB cluster with a KMS key that is
+     * different than the KMS key used to encrypt the source DB cluster. The
+     * new DB cluster will be encrypted with the KMS key identified by the
+     * <code>KmsKeyId</code> parameter. <p>If you do not specify a value for
+     * the <code>KmsKeyId</code> parameter, then the following will occur:
+     * <ul> <li>If the DB cluster is encrypted, then the restored DB cluster
+     * is encrypted using the KMS key that was used to encrypt the source DB
+     * cluster.</li> </ul> <li>If the DB cluster is not encrypted, then the
+     * restored DB cluster is not encrypted.</li> <p>If
+     * <code>DBClusterIdentifier</code> refers to a DB cluster that is note
+     * encrypted, then the restore request is rejected.
+     *
+     * @param kmsKeyId The KMS key identifier to use when restoring an encrypted DB cluster
+     *         from an encrypted DB cluster. <p>The KMS key identifier is the Amazon
+     *         Resource Name (ARN) for the KMS encryption key. If you are restoring a
+     *         DB cluster with the same AWS account that owns the KMS encryption key
+     *         used to encrypt the new DB cluster, then you can use the KMS key alias
+     *         instead of the ARN for the KMS encryption key. <p>You can restore to a
+     *         new DB cluster and encrypt the new DB cluster with a KMS key that is
+     *         different than the KMS key used to encrypt the source DB cluster. The
+     *         new DB cluster will be encrypted with the KMS key identified by the
+     *         <code>KmsKeyId</code> parameter. <p>If you do not specify a value for
+     *         the <code>KmsKeyId</code> parameter, then the following will occur:
+     *         <ul> <li>If the DB cluster is encrypted, then the restored DB cluster
+     *         is encrypted using the KMS key that was used to encrypt the source DB
+     *         cluster.</li> </ul> <li>If the DB cluster is not encrypted, then the
+     *         restored DB cluster is not encrypted.</li> <p>If
+     *         <code>DBClusterIdentifier</code> refers to a DB cluster that is note
+     *         encrypted, then the restore request is rejected.
+     */
+    public void setKmsKeyId(String kmsKeyId) {
+        this.kmsKeyId = kmsKeyId;
+    }
+    
+    /**
+     * The KMS key identifier to use when restoring an encrypted DB cluster
+     * from an encrypted DB cluster. <p>The KMS key identifier is the Amazon
+     * Resource Name (ARN) for the KMS encryption key. If you are restoring a
+     * DB cluster with the same AWS account that owns the KMS encryption key
+     * used to encrypt the new DB cluster, then you can use the KMS key alias
+     * instead of the ARN for the KMS encryption key. <p>You can restore to a
+     * new DB cluster and encrypt the new DB cluster with a KMS key that is
+     * different than the KMS key used to encrypt the source DB cluster. The
+     * new DB cluster will be encrypted with the KMS key identified by the
+     * <code>KmsKeyId</code> parameter. <p>If you do not specify a value for
+     * the <code>KmsKeyId</code> parameter, then the following will occur:
+     * <ul> <li>If the DB cluster is encrypted, then the restored DB cluster
+     * is encrypted using the KMS key that was used to encrypt the source DB
+     * cluster.</li> </ul> <li>If the DB cluster is not encrypted, then the
+     * restored DB cluster is not encrypted.</li> <p>If
+     * <code>DBClusterIdentifier</code> refers to a DB cluster that is note
+     * encrypted, then the restore request is rejected.
+     * <p>
+     * Returns a reference to this object so that method calls can be chained together.
+     *
+     * @param kmsKeyId The KMS key identifier to use when restoring an encrypted DB cluster
+     *         from an encrypted DB cluster. <p>The KMS key identifier is the Amazon
+     *         Resource Name (ARN) for the KMS encryption key. If you are restoring a
+     *         DB cluster with the same AWS account that owns the KMS encryption key
+     *         used to encrypt the new DB cluster, then you can use the KMS key alias
+     *         instead of the ARN for the KMS encryption key. <p>You can restore to a
+     *         new DB cluster and encrypt the new DB cluster with a KMS key that is
+     *         different than the KMS key used to encrypt the source DB cluster. The
+     *         new DB cluster will be encrypted with the KMS key identified by the
+     *         <code>KmsKeyId</code> parameter. <p>If you do not specify a value for
+     *         the <code>KmsKeyId</code> parameter, then the following will occur:
+     *         <ul> <li>If the DB cluster is encrypted, then the restored DB cluster
+     *         is encrypted using the KMS key that was used to encrypt the source DB
+     *         cluster.</li> </ul> <li>If the DB cluster is not encrypted, then the
+     *         restored DB cluster is not encrypted.</li> <p>If
+     *         <code>DBClusterIdentifier</code> refers to a DB cluster that is note
+     *         encrypted, then the restore request is rejected.
+     *
+     * @return A reference to this updated object so that method calls can be chained
+     *         together.
+     */
+    public RestoreDBClusterToPointInTimeRequest withKmsKeyId(String kmsKeyId) {
+        this.kmsKeyId = kmsKeyId;
+        return this;
+    }
+
+    /**
      * Returns a string representation of this object; useful for testing and
      * debugging.
      *
@@ -621,7 +771,8 @@ public class RestoreDBClusterToPointInTimeRequest extends AmazonWebServiceReques
         if (getDBSubnetGroupName() != null) sb.append("DBSubnetGroupName: " + getDBSubnetGroupName() + ",");
         if (getOptionGroupName() != null) sb.append("OptionGroupName: " + getOptionGroupName() + ",");
         if (getVpcSecurityGroupIds() != null) sb.append("VpcSecurityGroupIds: " + getVpcSecurityGroupIds() + ",");
-        if (getTags() != null) sb.append("Tags: " + getTags() );
+        if (getTags() != null) sb.append("Tags: " + getTags() + ",");
+        if (getKmsKeyId() != null) sb.append("KmsKeyId: " + getKmsKeyId() );
         sb.append("}");
         return sb.toString();
     }
@@ -640,6 +791,7 @@ public class RestoreDBClusterToPointInTimeRequest extends AmazonWebServiceReques
         hashCode = prime * hashCode + ((getOptionGroupName() == null) ? 0 : getOptionGroupName().hashCode()); 
         hashCode = prime * hashCode + ((getVpcSecurityGroupIds() == null) ? 0 : getVpcSecurityGroupIds().hashCode()); 
         hashCode = prime * hashCode + ((getTags() == null) ? 0 : getTags().hashCode()); 
+        hashCode = prime * hashCode + ((getKmsKeyId() == null) ? 0 : getKmsKeyId().hashCode()); 
         return hashCode;
     }
     
@@ -669,6 +821,8 @@ public class RestoreDBClusterToPointInTimeRequest extends AmazonWebServiceReques
         if (other.getVpcSecurityGroupIds() != null && other.getVpcSecurityGroupIds().equals(this.getVpcSecurityGroupIds()) == false) return false; 
         if (other.getTags() == null ^ this.getTags() == null) return false;
         if (other.getTags() != null && other.getTags().equals(this.getTags()) == false) return false; 
+        if (other.getKmsKeyId() == null ^ this.getKmsKeyId() == null) return false;
+        if (other.getKmsKeyId() != null && other.getKmsKeyId().equals(this.getKmsKeyId()) == false) return false; 
         return true;
     }
     

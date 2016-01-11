@@ -1,5 +1,5 @@
 /*
- * Copyright 2010-2015 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2010-2016 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License.
@@ -23,39 +23,108 @@ import com.amazonaws.services.simplesystemsmanagement.model.*;
  * notification when an asynchronous operation completes.
  * <p>
  * <p>
- * Amazon EC2 Simple Systems Manager (SSM) enables you to configure and manage
- * your EC2 instances. You can create a configuration document and then
- * associate it with one or more running instances.
+ * Simple Systems Manager (SSM) enables you to remotely manage the configuration
+ * of your Amazon EC2 instance. Using SSM, you can run scripts or commands using
+ * either EC2 Run Command or SSM Config. (SSM Config is currently available only
+ * for Windows instances.)
  * </p>
  * <p>
- * You can use a configuration document to automate the following tasks for your
- * Windows instances:
  * </p>
- * <ul>
- * <li>
+ * <b>Run Command</b>
  * <p>
- * Join an AWS Directory
+ * Run Command provides an on-demand experience for executing commands. You can
+ * use pre-defined Amazon SSM documents to perform the actions listed later in
+ * this section, or you can create your own documents. With these documents, you
+ * can remotely configure your instances by sending commands using the
+ * <b>Commands</b> page in the <a
+ * href="http://console.aws.amazon.com/ec2/">Amazon EC2 console</a>, <a href=
+ * "http://docs.aws.amazon.com/powershell/latest/reference/items/Amazon_Simple_Systems_Management_cmdlets.html"
+ * >AWS Tools for Windows PowerShell</a>, or the <a
+ * href="http://docs.aws.amazon.com/cli/latest/reference/ssm/index.html">AWS
+ * CLI</a>.
  * </p>
- * </li>
- * <li>
  * <p>
- * Install, repair, or uninstall software using an MSI package
+ * Run Command reports the status of the command execution for each instance
+ * targeted by a command. You can also audit the command execution to understand
+ * who executed commands, when, and what changes were made. By switching between
+ * different SSM documents, you can quickly configure your instances with
+ * different types of commands. To get started with Run Command, verify that
+ * your environment meets the prerequisites for remotely running commands on EC2
+ * instances (<a href=
+ * "http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/remote-commands-prereq.html"
+ * >Linux</a> or <a href=
+ * "http://docs.aws.amazon.com/AWSEC2/latest/WindowsGuide/remote-commands-prereq.html"
+ * >Windows</a>).
  * </p>
- * </li>
- * <li>
  * <p>
- * Run PowerShell scripts
  * </p>
- * </li>
- * <li>
+ * <b>SSM Config</b>
  * <p>
- * Configure CloudWatch Logs to monitor applications and systems
+ * SSM Config is a lightweight instance configuration solution. SSM Config is
+ * currently only available for Windows instances. With SSM Config, you can
+ * specify a setup configuration for your instances. SSM Config is similar to
+ * EC2 User Data, which is another way of running one-time scripts or applying
+ * settings during instance launch. SSM Config is an extension of this
+ * capability. Using SSM documents, you can specify which actions the system
+ * should perform on your instances, including which applications to install,
+ * which AWS Directory Service directory to join, which Microsoft PowerShell
+ * modules to install, etc. If an instance is missing one or more of these
+ * configurations, the system makes those changes. By default, the system checks
+ * every five minutes to see if there is a new configuration to apply as defined
+ * in a new SSM document. If so, the system updates the instances accordingly.
+ * In this way, you can remotely maintain a consistent configuration baseline on
+ * your instances. SSM Config is available using the AWS CLI or the AWS Tools
+ * for Windows PowerShell. For more information, see <a href=
+ * "http://docs.aws.amazon.com/AWSEC2/latest/WindowsGuide/ec2-configuration-manage.html"
+ * >Managing Windows Instance Configuration</a>.
  * </p>
- * </li>
- * </ul>
- * <p>
- * Note that configuration documents are not supported on Linux instances.
- * </p>
+ * <para>SSM Config and Run Command include the following pre-defined
+ * documents.</para>
+ * <table>
+ * <title>Amazon Pre-defined SSM Documents</title> <tgroup cols="3"> <colspec
+ * colnum="1" colname="col1" colwidth="1*"></colspec> <colspec colnum="2"
+ * colname="col2" colwidth="1*"></colspec> <colspec colnum="3" colname="col3"
+ * colwidth="1*"></colspec> <thead> <row> <entry>Name</entry>
+ * <entry>Description</entry> <entry>Platform</entry> </row> </thead> <tbody>
+ * <row> <entry> <para>AWS-RunShellScript</para> </entry> <entry> <para>Run
+ * shell scripts</para> </entry> <entry> <para>Linux</para> </entry> </row>
+ * <row> <entry> <para>AWS-UpdateSSMAgent</para> </entry> <entry> <para>Update
+ * the Amazon SSM agent</para> </entry> <entry> <para>Linux</para> </entry>
+ * </row> <row> <entry> <para>AWS-JoinDirectoryServiceDomain </para> </entry>
+ * <entry> <para>Join an AWS Directory </para> </entry> <entry>
+ * <para>Windows</para> </entry> </row> <row> <entry>
+ * <para>AWS-RunPowerShellScript</para> </entry> <entry> <para>Run PowerShell
+ * commands or scripts</para> </entry> <entry> <para>Windows</para> </entry>
+ * </row> <row> <entry> <para>AWS-UpdateEC2Config</para> </entry> <entry>
+ * <para>Update the EC2Config service </para> </entry> <entry>
+ * <para>Windows</para> </entry> </row> <row> <entry>
+ * <para>AWS-ConfigureWindowsUpdate</para> </entry> <entry> <para>Configure
+ * Windows Update settings</para> </entry> <entry> <para>Windows</para> </entry>
+ * </row> <row> <entry> <para>AWS-InstallApplication</para> </entry> <entry>
+ * <para>Install, repair, or uninstall software using an MSI package</para>
+ * </entry> <entry> <para>Windows</para> </entry> </row> <row> <entry>
+ * <para>AWS-InstallPowerShellModule</para> </entry> <entry> <para>Install
+ * PowerShell modules </para> </entry> <entry> <para>Windows</para> </entry>
+ * </row> <row> <entry> <para>AWS-ConfigureCloudWatch</para> </entry> <entry>
+ * <para>Configure Amazon CloudWatch Logs to monitor applications and
+ * systems</para> </entry> <entry> <para>Windows</para> </entry> </row> </tbody>
+ * </tgroup>
+ * </table>
+ * <important> <simpara>The commands or scripts specified in SSM documents run
+ * with administrative privilege on your instances because the Amazon SSM agent
+ * runs as root on Linux and the EC2Config service runs in the Local System
+ * account on Windows. If a user has permission to execute any of the
+ * pre-defined SSM documents (any document that begins with AWS-*) then that
+ * user also has administrator access to the instance. Delegate access to SSM
+ * and Run Command judiciously. This becomes extremely important if you create
+ * your own SSM documents. Amazon Web Services does not provide guidance about
+ * how to create secure SSM documents. You create SSM documents and delegate
+ * access to Run Command at your own risk. As a security best practice, we
+ * recommend that you assign access to "AWS-*" documents, especially the
+ * AWS-RunShellScript document on Linux and the AWS-RunPowerShellScript document
+ * on Windows, to trusted administrators only. You can create SSM documents for
+ * specific tasks and delegate access to non-administrators.</simpara>
+ * </important>
  */
 public class AWSSimpleSystemsManagementAsyncClient extends
         AWSSimpleSystemsManagementClient implements
@@ -286,6 +355,41 @@ public class AWSSimpleSystemsManagementAsyncClient extends
      */
     public java.util.concurrent.ExecutorService getExecutorService() {
         return executorService;
+    }
+
+    @Override
+    public java.util.concurrent.Future<CancelCommandResult> cancelCommandAsync(
+            CancelCommandRequest request) {
+
+        return cancelCommandAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<CancelCommandResult> cancelCommandAsync(
+            final CancelCommandRequest request,
+            final com.amazonaws.handlers.AsyncHandler<CancelCommandRequest, CancelCommandResult> asyncHandler) {
+
+        return executorService
+                .submit(new java.util.concurrent.Callable<CancelCommandResult>() {
+                    @Override
+                    public CancelCommandResult call() throws Exception {
+                        CancelCommandResult result;
+
+                        try {
+                            result = cancelCommand(request);
+                        } catch (Exception ex) {
+                            if (asyncHandler != null) {
+                                asyncHandler.onError(ex);
+                            }
+                            throw ex;
+                        }
+
+                        if (asyncHandler != null) {
+                            asyncHandler.onSuccess(request, result);
+                        }
+                        return result;
+                    }
+                });
     }
 
     @Override
@@ -534,6 +638,42 @@ public class AWSSimpleSystemsManagementAsyncClient extends
     }
 
     @Override
+    public java.util.concurrent.Future<DescribeInstanceInformationResult> describeInstanceInformationAsync(
+            DescribeInstanceInformationRequest request) {
+
+        return describeInstanceInformationAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<DescribeInstanceInformationResult> describeInstanceInformationAsync(
+            final DescribeInstanceInformationRequest request,
+            final com.amazonaws.handlers.AsyncHandler<DescribeInstanceInformationRequest, DescribeInstanceInformationResult> asyncHandler) {
+
+        return executorService
+                .submit(new java.util.concurrent.Callable<DescribeInstanceInformationResult>() {
+                    @Override
+                    public DescribeInstanceInformationResult call()
+                            throws Exception {
+                        DescribeInstanceInformationResult result;
+
+                        try {
+                            result = describeInstanceInformation(request);
+                        } catch (Exception ex) {
+                            if (asyncHandler != null) {
+                                asyncHandler.onError(ex);
+                            }
+                            throw ex;
+                        }
+
+                        if (asyncHandler != null) {
+                            asyncHandler.onSuccess(request, result);
+                        }
+                        return result;
+                    }
+                });
+    }
+
+    @Override
     public java.util.concurrent.Future<GetDocumentResult> getDocumentAsync(
             GetDocumentRequest request) {
 
@@ -588,6 +728,76 @@ public class AWSSimpleSystemsManagementAsyncClient extends
 
                         try {
                             result = listAssociations(request);
+                        } catch (Exception ex) {
+                            if (asyncHandler != null) {
+                                asyncHandler.onError(ex);
+                            }
+                            throw ex;
+                        }
+
+                        if (asyncHandler != null) {
+                            asyncHandler.onSuccess(request, result);
+                        }
+                        return result;
+                    }
+                });
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListCommandInvocationsResult> listCommandInvocationsAsync(
+            ListCommandInvocationsRequest request) {
+
+        return listCommandInvocationsAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListCommandInvocationsResult> listCommandInvocationsAsync(
+            final ListCommandInvocationsRequest request,
+            final com.amazonaws.handlers.AsyncHandler<ListCommandInvocationsRequest, ListCommandInvocationsResult> asyncHandler) {
+
+        return executorService
+                .submit(new java.util.concurrent.Callable<ListCommandInvocationsResult>() {
+                    @Override
+                    public ListCommandInvocationsResult call() throws Exception {
+                        ListCommandInvocationsResult result;
+
+                        try {
+                            result = listCommandInvocations(request);
+                        } catch (Exception ex) {
+                            if (asyncHandler != null) {
+                                asyncHandler.onError(ex);
+                            }
+                            throw ex;
+                        }
+
+                        if (asyncHandler != null) {
+                            asyncHandler.onSuccess(request, result);
+                        }
+                        return result;
+                    }
+                });
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListCommandsResult> listCommandsAsync(
+            ListCommandsRequest request) {
+
+        return listCommandsAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<ListCommandsResult> listCommandsAsync(
+            final ListCommandsRequest request,
+            final com.amazonaws.handlers.AsyncHandler<ListCommandsRequest, ListCommandsResult> asyncHandler) {
+
+        return executorService
+                .submit(new java.util.concurrent.Callable<ListCommandsResult>() {
+                    @Override
+                    public ListCommandsResult call() throws Exception {
+                        ListCommandsResult result;
+
+                        try {
+                            result = listCommands(request);
                         } catch (Exception ex) {
                             if (asyncHandler != null) {
                                 asyncHandler.onError(ex);
@@ -660,6 +870,41 @@ public class AWSSimpleSystemsManagementAsyncClient extends
             com.amazonaws.handlers.AsyncHandler<ListDocumentsRequest, ListDocumentsResult> asyncHandler) {
 
         return listDocumentsAsync(new ListDocumentsRequest(), asyncHandler);
+    }
+
+    @Override
+    public java.util.concurrent.Future<SendCommandResult> sendCommandAsync(
+            SendCommandRequest request) {
+
+        return sendCommandAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<SendCommandResult> sendCommandAsync(
+            final SendCommandRequest request,
+            final com.amazonaws.handlers.AsyncHandler<SendCommandRequest, SendCommandResult> asyncHandler) {
+
+        return executorService
+                .submit(new java.util.concurrent.Callable<SendCommandResult>() {
+                    @Override
+                    public SendCommandResult call() throws Exception {
+                        SendCommandResult result;
+
+                        try {
+                            result = sendCommand(request);
+                        } catch (Exception ex) {
+                            if (asyncHandler != null) {
+                                asyncHandler.onError(ex);
+                            }
+                            throw ex;
+                        }
+
+                        if (asyncHandler != null) {
+                            asyncHandler.onSuccess(request, result);
+                        }
+                        return result;
+                    }
+                });
     }
 
     @Override

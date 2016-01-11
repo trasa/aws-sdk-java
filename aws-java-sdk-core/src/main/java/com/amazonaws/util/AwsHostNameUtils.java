@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2015 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2012-2016 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License.
@@ -55,6 +55,9 @@ public class AwsHostNameUtils {
     public static String parseRegionName(final String host,
                                          final String serviceHint) {
 
+        if (host == null) {
+            throw new IllegalArgumentException("hostname cannot be null");
+        }
         String regionNameInInternalConfig = parseRegionNameByInternalConfig(host);
         if (regionNameInInternalConfig != null) {
             return regionNameInInternalConfig;
@@ -162,7 +165,14 @@ public class AwsHostNameUtils {
     /**
      * Parses the service name from an endpoint. Can only handle endpoints of
      * the form 'service.[region.]amazonaws.com'.
+     *
+     * @Deprecated This method currently doesn't support BJS endpoints. This
+     * method is used only in AWS4Signer to identify the service name from an
+     * endpoint. This method is broken as it no longer returns the service
+     * name to used for signing for all AWS services. This method will be
+     * removed as part of next major version upgrade.
      */
+    @Deprecated
     public static String parseServiceName(URI endpoint) {
         String host = endpoint.getHost();
 

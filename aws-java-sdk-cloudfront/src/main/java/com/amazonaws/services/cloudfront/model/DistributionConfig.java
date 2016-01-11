@@ -1,5 +1,5 @@
 /*
- * Copyright 2010-2015 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2010-2016 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License.
@@ -121,6 +121,12 @@ public class DistributionConfig implements Serializable, Cloneable {
      * distribution of your content.
      */
     private Restrictions restrictions;
+
+    /**
+     * (Optional) If you're using AWS WAF to filter CloudFront requests, the
+     * Id of the AWS WAF web ACL that is associated with the distribution.
+     */
+    private String webACLId;
 
     /**
      * Default constructor for a new DistributionConfig object.  Callers should use the
@@ -832,6 +838,45 @@ public class DistributionConfig implements Serializable, Cloneable {
     }
 
     /**
+     * (Optional) If you're using AWS WAF to filter CloudFront requests, the
+     * Id of the AWS WAF web ACL that is associated with the distribution.
+     *
+     * @return (Optional) If you're using AWS WAF to filter CloudFront requests, the
+     *         Id of the AWS WAF web ACL that is associated with the distribution.
+     */
+    public String getWebACLId() {
+        return webACLId;
+    }
+    
+    /**
+     * (Optional) If you're using AWS WAF to filter CloudFront requests, the
+     * Id of the AWS WAF web ACL that is associated with the distribution.
+     *
+     * @param webACLId (Optional) If you're using AWS WAF to filter CloudFront requests, the
+     *         Id of the AWS WAF web ACL that is associated with the distribution.
+     */
+    public void setWebACLId(String webACLId) {
+        this.webACLId = webACLId;
+    }
+    
+    /**
+     * (Optional) If you're using AWS WAF to filter CloudFront requests, the
+     * Id of the AWS WAF web ACL that is associated with the distribution.
+     * <p>
+     * Returns a reference to this object so that method calls can be chained together.
+     *
+     * @param webACLId (Optional) If you're using AWS WAF to filter CloudFront requests, the
+     *         Id of the AWS WAF web ACL that is associated with the distribution.
+     *
+     * @return A reference to this updated object so that method calls can be chained
+     *         together.
+     */
+    public DistributionConfig withWebACLId(String webACLId) {
+        this.webACLId = webACLId;
+        return this;
+    }
+
+    /**
      * Returns a string representation of this object; useful for testing and
      * debugging.
      *
@@ -855,7 +900,8 @@ public class DistributionConfig implements Serializable, Cloneable {
         if (getPriceClass() != null) sb.append("PriceClass: " + getPriceClass() + ",");
         if (isEnabled() != null) sb.append("Enabled: " + isEnabled() + ",");
         if (getViewerCertificate() != null) sb.append("ViewerCertificate: " + getViewerCertificate() + ",");
-        if (getRestrictions() != null) sb.append("Restrictions: " + getRestrictions() );
+        if (getRestrictions() != null) sb.append("Restrictions: " + getRestrictions() + ",");
+        if (getWebACLId() != null) sb.append("WebACLId: " + getWebACLId() );
         sb.append("}");
         return sb.toString();
     }
@@ -878,6 +924,7 @@ public class DistributionConfig implements Serializable, Cloneable {
         hashCode = prime * hashCode + ((isEnabled() == null) ? 0 : isEnabled().hashCode()); 
         hashCode = prime * hashCode + ((getViewerCertificate() == null) ? 0 : getViewerCertificate().hashCode()); 
         hashCode = prime * hashCode + ((getRestrictions() == null) ? 0 : getRestrictions().hashCode()); 
+        hashCode = prime * hashCode + ((getWebACLId() == null) ? 0 : getWebACLId().hashCode()); 
         return hashCode;
     }
     
@@ -915,6 +962,8 @@ public class DistributionConfig implements Serializable, Cloneable {
         if (other.getViewerCertificate() != null && other.getViewerCertificate().equals(this.getViewerCertificate()) == false) return false; 
         if (other.getRestrictions() == null ^ this.getRestrictions() == null) return false;
         if (other.getRestrictions() != null && other.getRestrictions().equals(this.getRestrictions()) == false) return false; 
+        if (other.getWebACLId() == null ^ this.getWebACLId() == null) return false;
+        if (other.getWebACLId() != null && other.getWebACLId().equals(this.getWebACLId()) == false) return false; 
         return true;
     }
     

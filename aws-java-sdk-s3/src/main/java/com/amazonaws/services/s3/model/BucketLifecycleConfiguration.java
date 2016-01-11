@@ -1,5 +1,5 @@
 /*
- * Copyright 2011-2015 Amazon Technologies, Inc.
+ * Copyright 2011-2016 Amazon Technologies, Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -13,6 +13,7 @@
  * limitations under the License.
  */
 package com.amazonaws.services.s3.model;
+import java.io.Serializable;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -22,7 +23,7 @@ import java.util.List;
 /**
  * Container for bucket lifecycle configuration operations.
  */
-public class BucketLifecycleConfiguration {
+public class BucketLifecycleConfiguration implements Serializable {
 
     /**
      * Constant for an enabled rule.
@@ -86,7 +87,7 @@ public class BucketLifecycleConfiguration {
         super();
     }
 
-    public static class Rule {
+    public static class Rule implements Serializable {
 
         private String id;
         private String prefix;
@@ -458,7 +459,7 @@ public class BucketLifecycleConfiguration {
      * The transition attribute of the rule describing how this object will move
      * between different storage classes in Amazon S3.
      */
-    public static class Transition {
+    public static class Transition implements Serializable {
 
         /**
          * The time, in days, between when the object is uploaded to the bucket
@@ -473,11 +474,11 @@ public class BucketLifecycleConfiguration {
          */
         private Date date;
 
-        private StorageClass storageClass;
+        private String storageClass;
 
         /**
-         * Sets the time, in days, between when an object is uploaded to the
-         * bucket and when it expires.
+         * Sets the time, in days, between when an object is uploaded to the bucket and when it
+         * expires.
          */
         public void setDays(int expirationInDays) {
             this.days = expirationInDays;
@@ -506,22 +507,57 @@ public class BucketLifecycleConfiguration {
          * Sets the storage class of this object.
          */
         public void setStorageClass(StorageClass storageClass) {
+            if (storageClass == null) {
+                setStorageClass((String) null);
+            } else {
+                setStorageClass(storageClass.toString());
+            }
+        }
+
+        /**
+         * Sets the storage class of this object.
+         */
+        public void setStorageClass(String storageClass) {
             this.storageClass = storageClass;
         }
 
         /**
          * Returns the storage class of this object.
+         * 
+         * @deprecated This method should not be used. Use {@link #getStorageClassAsString()}
+         *             instead.
          */
+        @Deprecated
         public StorageClass getStorageClass() {
+            try {
+                return StorageClass.fromValue(this.storageClass);
+            } catch (IllegalArgumentException ignored) {
+                return null;
+            }
+        }
+
+        /**
+         * Returns the storage class of this object.
+         */
+        public String getStorageClassAsString() {
             return this.storageClass;
         }
 
         /**
-         * Sets the storage class of this object and returns a reference to this
-         * object(Transition) for method chaining.
+         * Sets the storage class of this object and returns a reference to this object for method
+         * chaining.
          */
         public Transition withStorageClass(StorageClass storageClass) {
-            this.storageClass = storageClass;
+            setStorageClass(storageClass);
+            return this;
+        }
+
+        /**
+         * Sets the storage class of this object and returns a reference to this object for method
+         * chaining.
+         */
+        public Transition withStorageClass(String storageClass) {
+            setStorageClass(storageClass);
             return this;
         }
 
@@ -555,7 +591,7 @@ public class BucketLifecycleConfiguration {
      * how non-current versions of objects will move between different storage
      * classes in Amazon S3.
      */
-    public static class NoncurrentVersionTransition {
+    public static class NoncurrentVersionTransition implements Serializable {
 
         /**
          * The time, in days, between when a new version of the object is
@@ -563,7 +599,7 @@ public class BucketLifecycleConfiguration {
          */
         private int days = -1;
 
-        private StorageClass storageClass;
+        private String storageClass;
 
         /**
          * Sets the time, in days, between when a new version of the object
@@ -595,24 +631,57 @@ public class BucketLifecycleConfiguration {
          * Sets the storage class of this object.
          */
         public void setStorageClass(StorageClass storageClass) {
+            if (storageClass == null) {
+                setStorageClass((String) null);
+            } else {
+                setStorageClass(storageClass.toString());
+            }
+        }
+
+        /**
+         * Sets the storage class of this object.
+         */
+        public void setStorageClass(String storageClass) {
             this.storageClass = storageClass;
         }
 
         /**
          * Returns the storage class of this object.
+         * 
+         * @deprecated This method should not be used. Use {@link #getStorageClassAsString()}
+         *             instead.
          */
+        @Deprecated
         public StorageClass getStorageClass() {
+            try {
+                return StorageClass.fromValue(this.storageClass);
+            } catch (IllegalArgumentException ignored) {
+                return null;
+            }
+        }
+
+        /**
+         * Returns the storage class of this object.
+         */
+        public String getStorageClassAsString() {
             return this.storageClass;
         }
 
         /**
-         * Sets the storage class of this object and returns a reference to
-         * this object for method chaining.
+         * Sets the storage class of this object and returns a reference to this object for method
+         * chaining.
          */
-        public NoncurrentVersionTransition withStorageClass(
-                StorageClass storageClass) {
+        public NoncurrentVersionTransition withStorageClass(StorageClass storageClass) {
+            setStorageClass(storageClass);
+            return this;
+        }
 
-            this.storageClass = storageClass;
+        /**
+         * Sets the storage class of this object and returns a reference to this object for method
+         * chaining.
+         */
+        public NoncurrentVersionTransition withStorageClass(String storageClass) {
+            setStorageClass(storageClass);
             return this;
         }
     }

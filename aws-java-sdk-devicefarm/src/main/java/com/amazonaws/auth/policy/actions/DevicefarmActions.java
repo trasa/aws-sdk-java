@@ -1,5 +1,5 @@
 /*
- * Copyright 2010-2015 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2010-2016 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License.
@@ -32,6 +32,14 @@ public enum DevicefarmActions implements Action {
     CreateProject("devicefarm:CreateProject"),
     /** Action for the CreateUpload operation. */
     CreateUpload("devicefarm:CreateUpload"),
+    /** Action for the DeleteDevicePool operation. */
+    DeleteDevicePool("devicefarm:DeleteDevicePool"),
+    /** Action for the DeleteProject operation. */
+    DeleteProject("devicefarm:DeleteProject"),
+    /** Action for the DeleteRun operation. */
+    DeleteRun("devicefarm:DeleteRun"),
+    /** Action for the DeleteUpload operation. */
+    DeleteUpload("devicefarm:DeleteUpload"),
     /** Action for the GetAccountSettings operation. */
     GetAccountSettings("devicefarm:GetAccountSettings"),
     /** Action for the GetDevice operation. */
@@ -76,6 +84,10 @@ public enum DevicefarmActions implements Action {
     ListUploads("devicefarm:ListUploads"),
     /** Action for the ScheduleRun operation. */
     ScheduleRun("devicefarm:ScheduleRun"),
+    /** Action for the UpdateDevicePool operation. */
+    UpdateDevicePool("devicefarm:UpdateDevicePool"),
+    /** Action for the UpdateProject operation. */
+    UpdateProject("devicefarm:UpdateProject"),
 
     ;
 

@@ -1,5 +1,5 @@
 /*
- * Copyright 2011-2015 Amazon Technologies, Inc.
+ * Copyright 2011-2016 Amazon Technologies, Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -13,13 +13,14 @@
  * limitations under the License.
  */
 package com.amazonaws.services.s3.model;
+import java.io.Serializable;
 
 import com.amazonaws.AmazonWebServiceRequest;
 
 /**
  * Generic request container for web service requests on buckets.
  */
-public class GenericBucketRequest extends AmazonWebServiceRequest {
+public class GenericBucketRequest extends AmazonWebServiceRequest implements Serializable {
 
     private String bucketName;
 

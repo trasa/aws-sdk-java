@@ -1,5 +1,5 @@
 /*
- * Copyright 2010-2015 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2010-2016 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License.
@@ -270,15 +270,15 @@ public class AmazonCloudFrontAsyncClient extends AmazonCloudFrontClient
             
     /**
      * <p>
-     * Get the information about a streaming distribution.
+     * Delete an origin access identity.
      * </p>
      *
-     * @param getStreamingDistributionRequest Container for the necessary
-     *           parameters to execute the GetStreamingDistribution operation on
-     *           AmazonCloudFront.
+     * @param deleteCloudFrontOriginAccessIdentityRequest Container for the
+     *           necessary parameters to execute the
+     *           DeleteCloudFrontOriginAccessIdentity operation on AmazonCloudFront.
      * 
      * @return A Java Future object containing the response from the
-     *         GetStreamingDistribution service method, as returned by
+     *         DeleteCloudFrontOriginAccessIdentity service method, as returned by
      *         AmazonCloudFront.
      * 
      *
@@ -290,22 +290,98 @@ public class AmazonCloudFrontAsyncClient extends AmazonCloudFrontClient
      *             If an error response is returned by AmazonCloudFront indicating
      *             either a problem with the data in the request, or a server side issue.
      */
-    public Future<GetStreamingDistributionResult> getStreamingDistributionAsync(final GetStreamingDistributionRequest getStreamingDistributionRequest) 
+    public Future<Void> deleteCloudFrontOriginAccessIdentityAsync(final DeleteCloudFrontOriginAccessIdentityRequest deleteCloudFrontOriginAccessIdentityRequest) 
             throws AmazonServiceException, AmazonClientException {
-        return executorService.submit(new Callable<GetStreamingDistributionResult>() {
-            public GetStreamingDistributionResult call() throws Exception {
-                return getStreamingDistribution(getStreamingDistributionRequest);
+        return executorService.submit(new Callable<Void>() {
+            public Void call() throws Exception {
+                deleteCloudFrontOriginAccessIdentity(deleteCloudFrontOriginAccessIdentityRequest);
+                return null;
         }
     });
     }
 
     /**
      * <p>
-     * Get the information about a streaming distribution.
+     * Delete an origin access identity.
      * </p>
      *
-     * @param getStreamingDistributionRequest Container for the necessary
-     *           parameters to execute the GetStreamingDistribution operation on
+     * @param deleteCloudFrontOriginAccessIdentityRequest Container for the
+     *           necessary parameters to execute the
+     *           DeleteCloudFrontOriginAccessIdentity operation on AmazonCloudFront.
+     * @param asyncHandler Asynchronous callback handler for events in the
+     *           life-cycle of the request. Users could provide the implementation of
+     *           the four callback methods in this interface to process the operation
+     *           result or handle the exception.
+     * 
+     * @return A Java Future object containing the response from the
+     *         DeleteCloudFrontOriginAccessIdentity service method, as returned by
+     *         AmazonCloudFront.
+     * 
+     *
+     * @throws AmazonClientException
+     *             If any internal errors are encountered inside the client while
+     *             attempting to make the request or handle the response.  For example
+     *             if a network connection is not available.
+     * @throws AmazonServiceException
+     *             If an error response is returned by AmazonCloudFront indicating
+     *             either a problem with the data in the request, or a server side issue.
+     */
+    public Future<Void> deleteCloudFrontOriginAccessIdentityAsync(
+            final DeleteCloudFrontOriginAccessIdentityRequest deleteCloudFrontOriginAccessIdentityRequest,
+            final AsyncHandler<DeleteCloudFrontOriginAccessIdentityRequest, Void> asyncHandler)
+                    throws AmazonServiceException, AmazonClientException {
+        return executorService.submit(new Callable<Void>() {
+            public Void call() throws Exception {
+              try {
+                deleteCloudFrontOriginAccessIdentity(deleteCloudFrontOriginAccessIdentityRequest);
+              } catch (Exception ex) {
+                  asyncHandler.onError(ex);
+            throw ex;
+              }
+              asyncHandler.onSuccess(deleteCloudFrontOriginAccessIdentityRequest, null);
+                 return null;
+        }
+    });
+    }
+    
+    /**
+     * <p>
+     * Delete a distribution.
+     * </p>
+     *
+     * @param deleteDistributionRequest Container for the necessary
+     *           parameters to execute the DeleteDistribution operation on
+     *           AmazonCloudFront.
+     * 
+     * @return A Java Future object containing the response from the
+     *         DeleteDistribution service method, as returned by AmazonCloudFront.
+     * 
+     *
+     * @throws AmazonClientException
+     *             If any internal errors are encountered inside the client while
+     *             attempting to make the request or handle the response.  For example
+     *             if a network connection is not available.
+     * @throws AmazonServiceException
+     *             If an error response is returned by AmazonCloudFront indicating
+     *             either a problem with the data in the request, or a server side issue.
+     */
+    public Future<Void> deleteDistributionAsync(final DeleteDistributionRequest deleteDistributionRequest) 
+            throws AmazonServiceException, AmazonClientException {
+        return executorService.submit(new Callable<Void>() {
+            public Void call() throws Exception {
+                deleteDistribution(deleteDistributionRequest);
+                return null;
+        }
+    });
+    }
+
+    /**
+     * <p>
+     * Delete a distribution.
+     * </p>
+     *
+     * @param deleteDistributionRequest Container for the necessary
+     *           parameters to execute the DeleteDistribution operation on
      *           AmazonCloudFront.
      * @param asyncHandler Asynchronous callback handler for events in the
      *           life-cycle of the request. Users could provide the implementation of
@@ -313,8 +389,7 @@ public class AmazonCloudFrontAsyncClient extends AmazonCloudFrontClient
      *           result or handle the exception.
      * 
      * @return A Java Future object containing the response from the
-     *         GetStreamingDistribution service method, as returned by
-     *         AmazonCloudFront.
+     *         DeleteDistribution service method, as returned by AmazonCloudFront.
      * 
      *
      * @throws AmazonClientException
@@ -325,20 +400,91 @@ public class AmazonCloudFrontAsyncClient extends AmazonCloudFrontClient
      *             If an error response is returned by AmazonCloudFront indicating
      *             either a problem with the data in the request, or a server side issue.
      */
-    public Future<GetStreamingDistributionResult> getStreamingDistributionAsync(
-            final GetStreamingDistributionRequest getStreamingDistributionRequest,
-            final AsyncHandler<GetStreamingDistributionRequest, GetStreamingDistributionResult> asyncHandler)
+    public Future<Void> deleteDistributionAsync(
+            final DeleteDistributionRequest deleteDistributionRequest,
+            final AsyncHandler<DeleteDistributionRequest, Void> asyncHandler)
                     throws AmazonServiceException, AmazonClientException {
-        return executorService.submit(new Callable<GetStreamingDistributionResult>() {
-            public GetStreamingDistributionResult call() throws Exception {
-              GetStreamingDistributionResult result;
-                try {
-                result = getStreamingDistribution(getStreamingDistributionRequest);
+        return executorService.submit(new Callable<Void>() {
+            public Void call() throws Exception {
+              try {
+                deleteDistribution(deleteDistributionRequest);
               } catch (Exception ex) {
                   asyncHandler.onError(ex);
             throw ex;
               }
-              asyncHandler.onSuccess(getStreamingDistributionRequest, result);
+              asyncHandler.onSuccess(deleteDistributionRequest, null);
+                 return null;
+        }
+    });
+    }
+    
+    /**
+     * <p>
+     * List distributions.
+     * </p>
+     *
+     * @param listDistributionsRequest Container for the necessary parameters
+     *           to execute the ListDistributions operation on AmazonCloudFront.
+     * 
+     * @return A Java Future object containing the response from the
+     *         ListDistributions service method, as returned by AmazonCloudFront.
+     * 
+     *
+     * @throws AmazonClientException
+     *             If any internal errors are encountered inside the client while
+     *             attempting to make the request or handle the response.  For example
+     *             if a network connection is not available.
+     * @throws AmazonServiceException
+     *             If an error response is returned by AmazonCloudFront indicating
+     *             either a problem with the data in the request, or a server side issue.
+     */
+    public Future<ListDistributionsResult> listDistributionsAsync(final ListDistributionsRequest listDistributionsRequest) 
+            throws AmazonServiceException, AmazonClientException {
+        return executorService.submit(new Callable<ListDistributionsResult>() {
+            public ListDistributionsResult call() throws Exception {
+                return listDistributions(listDistributionsRequest);
+        }
+    });
+    }
+
+    /**
+     * <p>
+     * List distributions.
+     * </p>
+     *
+     * @param listDistributionsRequest Container for the necessary parameters
+     *           to execute the ListDistributions operation on AmazonCloudFront.
+     * @param asyncHandler Asynchronous callback handler for events in the
+     *           life-cycle of the request. Users could provide the implementation of
+     *           the four callback methods in this interface to process the operation
+     *           result or handle the exception.
+     * 
+     * @return A Java Future object containing the response from the
+     *         ListDistributions service method, as returned by AmazonCloudFront.
+     * 
+     *
+     * @throws AmazonClientException
+     *             If any internal errors are encountered inside the client while
+     *             attempting to make the request or handle the response.  For example
+     *             if a network connection is not available.
+     * @throws AmazonServiceException
+     *             If an error response is returned by AmazonCloudFront indicating
+     *             either a problem with the data in the request, or a server side issue.
+     */
+    public Future<ListDistributionsResult> listDistributionsAsync(
+            final ListDistributionsRequest listDistributionsRequest,
+            final AsyncHandler<ListDistributionsRequest, ListDistributionsResult> asyncHandler)
+                    throws AmazonServiceException, AmazonClientException {
+        return executorService.submit(new Callable<ListDistributionsResult>() {
+            public ListDistributionsResult call() throws Exception {
+              ListDistributionsResult result;
+                try {
+                result = listDistributions(listDistributionsRequest);
+              } catch (Exception ex) {
+                  asyncHandler.onError(ex);
+            throw ex;
+              }
+              asyncHandler.onSuccess(listDistributionsRequest, result);
                  return result;
         }
     });
@@ -422,16 +568,15 @@ public class AmazonCloudFrontAsyncClient extends AmazonCloudFrontClient
     
     /**
      * <p>
-     * Create a new origin access identity.
+     * Create a new distribution.
      * </p>
      *
-     * @param createCloudFrontOriginAccessIdentityRequest Container for the
-     *           necessary parameters to execute the
-     *           CreateCloudFrontOriginAccessIdentity operation on AmazonCloudFront.
+     * @param createDistributionRequest Container for the necessary
+     *           parameters to execute the CreateDistribution operation on
+     *           AmazonCloudFront.
      * 
      * @return A Java Future object containing the response from the
-     *         CreateCloudFrontOriginAccessIdentity service method, as returned by
-     *         AmazonCloudFront.
+     *         CreateDistribution service method, as returned by AmazonCloudFront.
      * 
      *
      * @throws AmazonClientException
@@ -442,31 +587,30 @@ public class AmazonCloudFrontAsyncClient extends AmazonCloudFrontClient
      *             If an error response is returned by AmazonCloudFront indicating
      *             either a problem with the data in the request, or a server side issue.
      */
-    public Future<CreateCloudFrontOriginAccessIdentityResult> createCloudFrontOriginAccessIdentityAsync(final CreateCloudFrontOriginAccessIdentityRequest createCloudFrontOriginAccessIdentityRequest) 
+    public Future<CreateDistributionResult> createDistributionAsync(final CreateDistributionRequest createDistributionRequest) 
             throws AmazonServiceException, AmazonClientException {
-        return executorService.submit(new Callable<CreateCloudFrontOriginAccessIdentityResult>() {
-            public CreateCloudFrontOriginAccessIdentityResult call() throws Exception {
-                return createCloudFrontOriginAccessIdentity(createCloudFrontOriginAccessIdentityRequest);
+        return executorService.submit(new Callable<CreateDistributionResult>() {
+            public CreateDistributionResult call() throws Exception {
+                return createDistribution(createDistributionRequest);
         }
     });
     }
 
     /**
      * <p>
-     * Create a new origin access identity.
+     * Create a new distribution.
      * </p>
      *
-     * @param createCloudFrontOriginAccessIdentityRequest Container for the
-     *           necessary parameters to execute the
-     *           CreateCloudFrontOriginAccessIdentity operation on AmazonCloudFront.
+     * @param createDistributionRequest Container for the necessary
+     *           parameters to execute the CreateDistribution operation on
+     *           AmazonCloudFront.
      * @param asyncHandler Asynchronous callback handler for events in the
      *           life-cycle of the request. Users could provide the implementation of
      *           the four callback methods in this interface to process the operation
      *           result or handle the exception.
      * 
      * @return A Java Future object containing the response from the
-     *         CreateCloudFrontOriginAccessIdentity service method, as returned by
-     *         AmazonCloudFront.
+     *         CreateDistribution service method, as returned by AmazonCloudFront.
      * 
      *
      * @throws AmazonClientException
@@ -477,20 +621,20 @@ public class AmazonCloudFrontAsyncClient extends AmazonCloudFrontClient
      *             If an error response is returned by AmazonCloudFront indicating
      *             either a problem with the data in the request, or a server side issue.
      */
-    public Future<CreateCloudFrontOriginAccessIdentityResult> createCloudFrontOriginAccessIdentityAsync(
-            final CreateCloudFrontOriginAccessIdentityRequest createCloudFrontOriginAccessIdentityRequest,
-            final AsyncHandler<CreateCloudFrontOriginAccessIdentityRequest, CreateCloudFrontOriginAccessIdentityResult> asyncHandler)
+    public Future<CreateDistributionResult> createDistributionAsync(
+            final CreateDistributionRequest createDistributionRequest,
+            final AsyncHandler<CreateDistributionRequest, CreateDistributionResult> asyncHandler)
                     throws AmazonServiceException, AmazonClientException {
-        return executorService.submit(new Callable<CreateCloudFrontOriginAccessIdentityResult>() {
-            public CreateCloudFrontOriginAccessIdentityResult call() throws Exception {
-              CreateCloudFrontOriginAccessIdentityResult result;
+        return executorService.submit(new Callable<CreateDistributionResult>() {
+            public CreateDistributionResult call() throws Exception {
+              CreateDistributionResult result;
                 try {
-                result = createCloudFrontOriginAccessIdentity(createCloudFrontOriginAccessIdentityRequest);
+                result = createDistribution(createDistributionRequest);
               } catch (Exception ex) {
                   asyncHandler.onError(ex);
             throw ex;
               }
-              asyncHandler.onSuccess(createCloudFrontOriginAccessIdentityRequest, result);
+              asyncHandler.onSuccess(createDistributionRequest, result);
                  return result;
         }
     });
@@ -498,15 +642,15 @@ public class AmazonCloudFrontAsyncClient extends AmazonCloudFrontClient
     
     /**
      * <p>
-     * Get the configuration information about a streaming distribution.
+     * Update an origin access identity.
      * </p>
      *
-     * @param getStreamingDistributionConfigRequest Container for the
-     *           necessary parameters to execute the GetStreamingDistributionConfig
-     *           operation on AmazonCloudFront.
+     * @param updateCloudFrontOriginAccessIdentityRequest Container for the
+     *           necessary parameters to execute the
+     *           UpdateCloudFrontOriginAccessIdentity operation on AmazonCloudFront.
      * 
      * @return A Java Future object containing the response from the
-     *         GetStreamingDistributionConfig service method, as returned by
+     *         UpdateCloudFrontOriginAccessIdentity service method, as returned by
      *         AmazonCloudFront.
      * 
      *
@@ -518,30 +662,30 @@ public class AmazonCloudFrontAsyncClient extends AmazonCloudFrontClient
      *             If an error response is returned by AmazonCloudFront indicating
      *             either a problem with the data in the request, or a server side issue.
      */
-    public Future<GetStreamingDistributionConfigResult> getStreamingDistributionConfigAsync(final GetStreamingDistributionConfigRequest getStreamingDistributionConfigRequest) 
+    public Future<UpdateCloudFrontOriginAccessIdentityResult> updateCloudFrontOriginAccessIdentityAsync(final UpdateCloudFrontOriginAccessIdentityRequest updateCloudFrontOriginAccessIdentityRequest) 
             throws AmazonServiceException, AmazonClientException {
-        return executorService.submit(new Callable<GetStreamingDistributionConfigResult>() {
-            public GetStreamingDistributionConfigResult call() throws Exception {
-                return getStreamingDistributionConfig(getStreamingDistributionConfigRequest);
+        return executorService.submit(new Callable<UpdateCloudFrontOriginAccessIdentityResult>() {
+            public UpdateCloudFrontOriginAccessIdentityResult call() throws Exception {
+                return updateCloudFrontOriginAccessIdentity(updateCloudFrontOriginAccessIdentityRequest);
         }
     });
     }
 
     /**
      * <p>
-     * Get the configuration information about a streaming distribution.
+     * Update an origin access identity.
      * </p>
      *
-     * @param getStreamingDistributionConfigRequest Container for the
-     *           necessary parameters to execute the GetStreamingDistributionConfig
-     *           operation on AmazonCloudFront.
+     * @param updateCloudFrontOriginAccessIdentityRequest Container for the
+     *           necessary parameters to execute the
+     *           UpdateCloudFrontOriginAccessIdentity operation on AmazonCloudFront.
      * @param asyncHandler Asynchronous callback handler for events in the
      *           life-cycle of the request. Users could provide the implementation of
      *           the four callback methods in this interface to process the operation
      *           result or handle the exception.
      * 
      * @return A Java Future object containing the response from the
-     *         GetStreamingDistributionConfig service method, as returned by
+     *         UpdateCloudFrontOriginAccessIdentity service method, as returned by
      *         AmazonCloudFront.
      * 
      *
@@ -553,20 +697,20 @@ public class AmazonCloudFrontAsyncClient extends AmazonCloudFrontClient
      *             If an error response is returned by AmazonCloudFront indicating
      *             either a problem with the data in the request, or a server side issue.
      */
-    public Future<GetStreamingDistributionConfigResult> getStreamingDistributionConfigAsync(
-            final GetStreamingDistributionConfigRequest getStreamingDistributionConfigRequest,
-            final AsyncHandler<GetStreamingDistributionConfigRequest, GetStreamingDistributionConfigResult> asyncHandler)
+    public Future<UpdateCloudFrontOriginAccessIdentityResult> updateCloudFrontOriginAccessIdentityAsync(
+            final UpdateCloudFrontOriginAccessIdentityRequest updateCloudFrontOriginAccessIdentityRequest,
+            final AsyncHandler<UpdateCloudFrontOriginAccessIdentityRequest, UpdateCloudFrontOriginAccessIdentityResult> asyncHandler)
                     throws AmazonServiceException, AmazonClientException {
-        return executorService.submit(new Callable<GetStreamingDistributionConfigResult>() {
-            public GetStreamingDistributionConfigResult call() throws Exception {
-              GetStreamingDistributionConfigResult result;
+        return executorService.submit(new Callable<UpdateCloudFrontOriginAccessIdentityResult>() {
+            public UpdateCloudFrontOriginAccessIdentityResult call() throws Exception {
+              UpdateCloudFrontOriginAccessIdentityResult result;
                 try {
-                result = getStreamingDistributionConfig(getStreamingDistributionConfigRequest);
+                result = updateCloudFrontOriginAccessIdentity(updateCloudFrontOriginAccessIdentityRequest);
               } catch (Exception ex) {
                   asyncHandler.onError(ex);
             throw ex;
               }
-              asyncHandler.onSuccess(getStreamingDistributionConfigRequest, result);
+              asyncHandler.onSuccess(updateCloudFrontOriginAccessIdentityRequest, result);
                  return result;
         }
     });
@@ -646,15 +790,16 @@ public class AmazonCloudFrontAsyncClient extends AmazonCloudFrontClient
     
     /**
      * <p>
-     * Update a distribution.
+     * Delete a streaming distribution.
      * </p>
      *
-     * @param updateDistributionRequest Container for the necessary
-     *           parameters to execute the UpdateDistribution operation on
+     * @param deleteStreamingDistributionRequest Container for the necessary
+     *           parameters to execute the DeleteStreamingDistribution operation on
      *           AmazonCloudFront.
      * 
      * @return A Java Future object containing the response from the
-     *         UpdateDistribution service method, as returned by AmazonCloudFront.
+     *         DeleteStreamingDistribution service method, as returned by
+     *         AmazonCloudFront.
      * 
      *
      * @throws AmazonClientException
@@ -665,22 +810,23 @@ public class AmazonCloudFrontAsyncClient extends AmazonCloudFrontClient
      *             If an error response is returned by AmazonCloudFront indicating
      *             either a problem with the data in the request, or a server side issue.
      */
-    public Future<UpdateDistributionResult> updateDistributionAsync(final UpdateDistributionRequest updateDistributionRequest) 
+    public Future<Void> deleteStreamingDistributionAsync(final DeleteStreamingDistributionRequest deleteStreamingDistributionRequest) 
             throws AmazonServiceException, AmazonClientException {
-        return executorService.submit(new Callable<UpdateDistributionResult>() {
-            public UpdateDistributionResult call() throws Exception {
-                return updateDistribution(updateDistributionRequest);
+        return executorService.submit(new Callable<Void>() {
+            public Void call() throws Exception {
+                deleteStreamingDistribution(deleteStreamingDistributionRequest);
+                return null;
         }
     });
     }
 
     /**
      * <p>
-     * Update a distribution.
+     * Delete a streaming distribution.
      * </p>
      *
-     * @param updateDistributionRequest Container for the necessary
-     *           parameters to execute the UpdateDistribution operation on
+     * @param deleteStreamingDistributionRequest Container for the necessary
+     *           parameters to execute the DeleteStreamingDistribution operation on
      *           AmazonCloudFront.
      * @param asyncHandler Asynchronous callback handler for events in the
      *           life-cycle of the request. Users could provide the implementation of
@@ -688,7 +834,8 @@ public class AmazonCloudFrontAsyncClient extends AmazonCloudFrontClient
      *           result or handle the exception.
      * 
      * @return A Java Future object containing the response from the
-     *         UpdateDistribution service method, as returned by AmazonCloudFront.
+     *         DeleteStreamingDistribution service method, as returned by
+     *         AmazonCloudFront.
      * 
      *
      * @throws AmazonClientException
@@ -699,20 +846,171 @@ public class AmazonCloudFrontAsyncClient extends AmazonCloudFrontClient
      *             If an error response is returned by AmazonCloudFront indicating
      *             either a problem with the data in the request, or a server side issue.
      */
-    public Future<UpdateDistributionResult> updateDistributionAsync(
-            final UpdateDistributionRequest updateDistributionRequest,
-            final AsyncHandler<UpdateDistributionRequest, UpdateDistributionResult> asyncHandler)
+    public Future<Void> deleteStreamingDistributionAsync(
+            final DeleteStreamingDistributionRequest deleteStreamingDistributionRequest,
+            final AsyncHandler<DeleteStreamingDistributionRequest, Void> asyncHandler)
                     throws AmazonServiceException, AmazonClientException {
-        return executorService.submit(new Callable<UpdateDistributionResult>() {
-            public UpdateDistributionResult call() throws Exception {
-              UpdateDistributionResult result;
-                try {
-                result = updateDistribution(updateDistributionRequest);
+        return executorService.submit(new Callable<Void>() {
+            public Void call() throws Exception {
+              try {
+                deleteStreamingDistribution(deleteStreamingDistributionRequest);
               } catch (Exception ex) {
                   asyncHandler.onError(ex);
             throw ex;
               }
-              asyncHandler.onSuccess(updateDistributionRequest, result);
+              asyncHandler.onSuccess(deleteStreamingDistributionRequest, null);
+                 return null;
+        }
+    });
+    }
+    
+    /**
+     * <p>
+     * List origin access identities.
+     * </p>
+     *
+     * @param listCloudFrontOriginAccessIdentitiesRequest Container for the
+     *           necessary parameters to execute the
+     *           ListCloudFrontOriginAccessIdentities operation on AmazonCloudFront.
+     * 
+     * @return A Java Future object containing the response from the
+     *         ListCloudFrontOriginAccessIdentities service method, as returned by
+     *         AmazonCloudFront.
+     * 
+     *
+     * @throws AmazonClientException
+     *             If any internal errors are encountered inside the client while
+     *             attempting to make the request or handle the response.  For example
+     *             if a network connection is not available.
+     * @throws AmazonServiceException
+     *             If an error response is returned by AmazonCloudFront indicating
+     *             either a problem with the data in the request, or a server side issue.
+     */
+    public Future<ListCloudFrontOriginAccessIdentitiesResult> listCloudFrontOriginAccessIdentitiesAsync(final ListCloudFrontOriginAccessIdentitiesRequest listCloudFrontOriginAccessIdentitiesRequest) 
+            throws AmazonServiceException, AmazonClientException {
+        return executorService.submit(new Callable<ListCloudFrontOriginAccessIdentitiesResult>() {
+            public ListCloudFrontOriginAccessIdentitiesResult call() throws Exception {
+                return listCloudFrontOriginAccessIdentities(listCloudFrontOriginAccessIdentitiesRequest);
+        }
+    });
+    }
+
+    /**
+     * <p>
+     * List origin access identities.
+     * </p>
+     *
+     * @param listCloudFrontOriginAccessIdentitiesRequest Container for the
+     *           necessary parameters to execute the
+     *           ListCloudFrontOriginAccessIdentities operation on AmazonCloudFront.
+     * @param asyncHandler Asynchronous callback handler for events in the
+     *           life-cycle of the request. Users could provide the implementation of
+     *           the four callback methods in this interface to process the operation
+     *           result or handle the exception.
+     * 
+     * @return A Java Future object containing the response from the
+     *         ListCloudFrontOriginAccessIdentities service method, as returned by
+     *         AmazonCloudFront.
+     * 
+     *
+     * @throws AmazonClientException
+     *             If any internal errors are encountered inside the client while
+     *             attempting to make the request or handle the response.  For example
+     *             if a network connection is not available.
+     * @throws AmazonServiceException
+     *             If an error response is returned by AmazonCloudFront indicating
+     *             either a problem with the data in the request, or a server side issue.
+     */
+    public Future<ListCloudFrontOriginAccessIdentitiesResult> listCloudFrontOriginAccessIdentitiesAsync(
+            final ListCloudFrontOriginAccessIdentitiesRequest listCloudFrontOriginAccessIdentitiesRequest,
+            final AsyncHandler<ListCloudFrontOriginAccessIdentitiesRequest, ListCloudFrontOriginAccessIdentitiesResult> asyncHandler)
+                    throws AmazonServiceException, AmazonClientException {
+        return executorService.submit(new Callable<ListCloudFrontOriginAccessIdentitiesResult>() {
+            public ListCloudFrontOriginAccessIdentitiesResult call() throws Exception {
+              ListCloudFrontOriginAccessIdentitiesResult result;
+                try {
+                result = listCloudFrontOriginAccessIdentities(listCloudFrontOriginAccessIdentitiesRequest);
+              } catch (Exception ex) {
+                  asyncHandler.onError(ex);
+            throw ex;
+              }
+              asyncHandler.onSuccess(listCloudFrontOriginAccessIdentitiesRequest, result);
+                 return result;
+        }
+    });
+    }
+    
+    /**
+     * <p>
+     * Get the information about a streaming distribution.
+     * </p>
+     *
+     * @param getStreamingDistributionRequest Container for the necessary
+     *           parameters to execute the GetStreamingDistribution operation on
+     *           AmazonCloudFront.
+     * 
+     * @return A Java Future object containing the response from the
+     *         GetStreamingDistribution service method, as returned by
+     *         AmazonCloudFront.
+     * 
+     *
+     * @throws AmazonClientException
+     *             If any internal errors are encountered inside the client while
+     *             attempting to make the request or handle the response.  For example
+     *             if a network connection is not available.
+     * @throws AmazonServiceException
+     *             If an error response is returned by AmazonCloudFront indicating
+     *             either a problem with the data in the request, or a server side issue.
+     */
+    public Future<GetStreamingDistributionResult> getStreamingDistributionAsync(final GetStreamingDistributionRequest getStreamingDistributionRequest) 
+            throws AmazonServiceException, AmazonClientException {
+        return executorService.submit(new Callable<GetStreamingDistributionResult>() {
+            public GetStreamingDistributionResult call() throws Exception {
+                return getStreamingDistribution(getStreamingDistributionRequest);
+        }
+    });
+    }
+
+    /**
+     * <p>
+     * Get the information about a streaming distribution.
+     * </p>
+     *
+     * @param getStreamingDistributionRequest Container for the necessary
+     *           parameters to execute the GetStreamingDistribution operation on
+     *           AmazonCloudFront.
+     * @param asyncHandler Asynchronous callback handler for events in the
+     *           life-cycle of the request. Users could provide the implementation of
+     *           the four callback methods in this interface to process the operation
+     *           result or handle the exception.
+     * 
+     * @return A Java Future object containing the response from the
+     *         GetStreamingDistribution service method, as returned by
+     *         AmazonCloudFront.
+     * 
+     *
+     * @throws AmazonClientException
+     *             If any internal errors are encountered inside the client while
+     *             attempting to make the request or handle the response.  For example
+     *             if a network connection is not available.
+     * @throws AmazonServiceException
+     *             If an error response is returned by AmazonCloudFront indicating
+     *             either a problem with the data in the request, or a server side issue.
+     */
+    public Future<GetStreamingDistributionResult> getStreamingDistributionAsync(
+            final GetStreamingDistributionRequest getStreamingDistributionRequest,
+            final AsyncHandler<GetStreamingDistributionRequest, GetStreamingDistributionResult> asyncHandler)
+                    throws AmazonServiceException, AmazonClientException {
+        return executorService.submit(new Callable<GetStreamingDistributionResult>() {
+            public GetStreamingDistributionResult call() throws Exception {
+              GetStreamingDistributionResult result;
+                try {
+                result = getStreamingDistribution(getStreamingDistributionRequest);
+              } catch (Exception ex) {
+                  asyncHandler.onError(ex);
+            throw ex;
+              }
+              asyncHandler.onSuccess(getStreamingDistributionRequest, result);
                  return result;
         }
     });
@@ -796,14 +1094,15 @@ public class AmazonCloudFrontAsyncClient extends AmazonCloudFrontClient
     
     /**
      * <p>
-     * Get the information about an invalidation.
+     * Update a distribution.
      * </p>
      *
-     * @param getInvalidationRequest Container for the necessary parameters
-     *           to execute the GetInvalidation operation on AmazonCloudFront.
+     * @param updateDistributionRequest Container for the necessary
+     *           parameters to execute the UpdateDistribution operation on
+     *           AmazonCloudFront.
      * 
      * @return A Java Future object containing the response from the
-     *         GetInvalidation service method, as returned by AmazonCloudFront.
+     *         UpdateDistribution service method, as returned by AmazonCloudFront.
      * 
      *
      * @throws AmazonClientException
@@ -814,29 +1113,30 @@ public class AmazonCloudFrontAsyncClient extends AmazonCloudFrontClient
      *             If an error response is returned by AmazonCloudFront indicating
      *             either a problem with the data in the request, or a server side issue.
      */
-    public Future<GetInvalidationResult> getInvalidationAsync(final GetInvalidationRequest getInvalidationRequest) 
+    public Future<UpdateDistributionResult> updateDistributionAsync(final UpdateDistributionRequest updateDistributionRequest) 
             throws AmazonServiceException, AmazonClientException {
-        return executorService.submit(new Callable<GetInvalidationResult>() {
-            public GetInvalidationResult call() throws Exception {
-                return getInvalidation(getInvalidationRequest);
+        return executorService.submit(new Callable<UpdateDistributionResult>() {
+            public UpdateDistributionResult call() throws Exception {
+                return updateDistribution(updateDistributionRequest);
         }
     });
     }
 
     /**
      * <p>
-     * Get the information about an invalidation.
+     * Update a distribution.
      * </p>
      *
-     * @param getInvalidationRequest Container for the necessary parameters
-     *           to execute the GetInvalidation operation on AmazonCloudFront.
+     * @param updateDistributionRequest Container for the necessary
+     *           parameters to execute the UpdateDistribution operation on
+     *           AmazonCloudFront.
      * @param asyncHandler Asynchronous callback handler for events in the
      *           life-cycle of the request. Users could provide the implementation of
      *           the four callback methods in this interface to process the operation
      *           result or handle the exception.
      * 
      * @return A Java Future object containing the response from the
-     *         GetInvalidation service method, as returned by AmazonCloudFront.
+     *         UpdateDistribution service method, as returned by AmazonCloudFront.
      * 
      *
      * @throws AmazonClientException
@@ -847,20 +1147,96 @@ public class AmazonCloudFrontAsyncClient extends AmazonCloudFrontClient
      *             If an error response is returned by AmazonCloudFront indicating
      *             either a problem with the data in the request, or a server side issue.
      */
-    public Future<GetInvalidationResult> getInvalidationAsync(
-            final GetInvalidationRequest getInvalidationRequest,
-            final AsyncHandler<GetInvalidationRequest, GetInvalidationResult> asyncHandler)
+    public Future<UpdateDistributionResult> updateDistributionAsync(
+            final UpdateDistributionRequest updateDistributionRequest,
+            final AsyncHandler<UpdateDistributionRequest, UpdateDistributionResult> asyncHandler)
                     throws AmazonServiceException, AmazonClientException {
-        return executorService.submit(new Callable<GetInvalidationResult>() {
-            public GetInvalidationResult call() throws Exception {
-              GetInvalidationResult result;
+        return executorService.submit(new Callable<UpdateDistributionResult>() {
+            public UpdateDistributionResult call() throws Exception {
+              UpdateDistributionResult result;
                 try {
-                result = getInvalidation(getInvalidationRequest);
+                result = updateDistribution(updateDistributionRequest);
               } catch (Exception ex) {
                   asyncHandler.onError(ex);
             throw ex;
               }
-              asyncHandler.onSuccess(getInvalidationRequest, result);
+              asyncHandler.onSuccess(updateDistributionRequest, result);
+                 return result;
+        }
+    });
+    }
+    
+    /**
+     * <p>
+     * Get the configuration information about an origin access identity.
+     * </p>
+     *
+     * @param getCloudFrontOriginAccessIdentityConfigRequest Container for
+     *           the necessary parameters to execute the
+     *           GetCloudFrontOriginAccessIdentityConfig operation on AmazonCloudFront.
+     * 
+     * @return A Java Future object containing the response from the
+     *         GetCloudFrontOriginAccessIdentityConfig service method, as returned by
+     *         AmazonCloudFront.
+     * 
+     *
+     * @throws AmazonClientException
+     *             If any internal errors are encountered inside the client while
+     *             attempting to make the request or handle the response.  For example
+     *             if a network connection is not available.
+     * @throws AmazonServiceException
+     *             If an error response is returned by AmazonCloudFront indicating
+     *             either a problem with the data in the request, or a server side issue.
+     */
+    public Future<GetCloudFrontOriginAccessIdentityConfigResult> getCloudFrontOriginAccessIdentityConfigAsync(final GetCloudFrontOriginAccessIdentityConfigRequest getCloudFrontOriginAccessIdentityConfigRequest) 
+            throws AmazonServiceException, AmazonClientException {
+        return executorService.submit(new Callable<GetCloudFrontOriginAccessIdentityConfigResult>() {
+            public GetCloudFrontOriginAccessIdentityConfigResult call() throws Exception {
+                return getCloudFrontOriginAccessIdentityConfig(getCloudFrontOriginAccessIdentityConfigRequest);
+        }
+    });
+    }
+
+    /**
+     * <p>
+     * Get the configuration information about an origin access identity.
+     * </p>
+     *
+     * @param getCloudFrontOriginAccessIdentityConfigRequest Container for
+     *           the necessary parameters to execute the
+     *           GetCloudFrontOriginAccessIdentityConfig operation on AmazonCloudFront.
+     * @param asyncHandler Asynchronous callback handler for events in the
+     *           life-cycle of the request. Users could provide the implementation of
+     *           the four callback methods in this interface to process the operation
+     *           result or handle the exception.
+     * 
+     * @return A Java Future object containing the response from the
+     *         GetCloudFrontOriginAccessIdentityConfig service method, as returned by
+     *         AmazonCloudFront.
+     * 
+     *
+     * @throws AmazonClientException
+     *             If any internal errors are encountered inside the client while
+     *             attempting to make the request or handle the response.  For example
+     *             if a network connection is not available.
+     * @throws AmazonServiceException
+     *             If an error response is returned by AmazonCloudFront indicating
+     *             either a problem with the data in the request, or a server side issue.
+     */
+    public Future<GetCloudFrontOriginAccessIdentityConfigResult> getCloudFrontOriginAccessIdentityConfigAsync(
+            final GetCloudFrontOriginAccessIdentityConfigRequest getCloudFrontOriginAccessIdentityConfigRequest,
+            final AsyncHandler<GetCloudFrontOriginAccessIdentityConfigRequest, GetCloudFrontOriginAccessIdentityConfigResult> asyncHandler)
+                    throws AmazonServiceException, AmazonClientException {
+        return executorService.submit(new Callable<GetCloudFrontOriginAccessIdentityConfigResult>() {
+            public GetCloudFrontOriginAccessIdentityConfigResult call() throws Exception {
+              GetCloudFrontOriginAccessIdentityConfigResult result;
+                try {
+                result = getCloudFrontOriginAccessIdentityConfig(getCloudFrontOriginAccessIdentityConfigRequest);
+              } catch (Exception ex) {
+                  asyncHandler.onError(ex);
+            throw ex;
+              }
+              asyncHandler.onSuccess(getCloudFrontOriginAccessIdentityConfigRequest, result);
                  return result;
         }
     });
@@ -937,6 +1313,232 @@ public class AmazonCloudFrontAsyncClient extends AmazonCloudFrontClient
             throw ex;
               }
               asyncHandler.onSuccess(getCloudFrontOriginAccessIdentityRequest, result);
+                 return result;
+        }
+    });
+    }
+    
+    /**
+     * <p>
+     * Get the information about an invalidation.
+     * </p>
+     *
+     * @param getInvalidationRequest Container for the necessary parameters
+     *           to execute the GetInvalidation operation on AmazonCloudFront.
+     * 
+     * @return A Java Future object containing the response from the
+     *         GetInvalidation service method, as returned by AmazonCloudFront.
+     * 
+     *
+     * @throws AmazonClientException
+     *             If any internal errors are encountered inside the client while
+     *             attempting to make the request or handle the response.  For example
+     *             if a network connection is not available.
+     * @throws AmazonServiceException
+     *             If an error response is returned by AmazonCloudFront indicating
+     *             either a problem with the data in the request, or a server side issue.
+     */
+    public Future<GetInvalidationResult> getInvalidationAsync(final GetInvalidationRequest getInvalidationRequest) 
+            throws AmazonServiceException, AmazonClientException {
+        return executorService.submit(new Callable<GetInvalidationResult>() {
+            public GetInvalidationResult call() throws Exception {
+                return getInvalidation(getInvalidationRequest);
+        }
+    });
+    }
+
+    /**
+     * <p>
+     * Get the information about an invalidation.
+     * </p>
+     *
+     * @param getInvalidationRequest Container for the necessary parameters
+     *           to execute the GetInvalidation operation on AmazonCloudFront.
+     * @param asyncHandler Asynchronous callback handler for events in the
+     *           life-cycle of the request. Users could provide the implementation of
+     *           the four callback methods in this interface to process the operation
+     *           result or handle the exception.
+     * 
+     * @return A Java Future object containing the response from the
+     *         GetInvalidation service method, as returned by AmazonCloudFront.
+     * 
+     *
+     * @throws AmazonClientException
+     *             If any internal errors are encountered inside the client while
+     *             attempting to make the request or handle the response.  For example
+     *             if a network connection is not available.
+     * @throws AmazonServiceException
+     *             If an error response is returned by AmazonCloudFront indicating
+     *             either a problem with the data in the request, or a server side issue.
+     */
+    public Future<GetInvalidationResult> getInvalidationAsync(
+            final GetInvalidationRequest getInvalidationRequest,
+            final AsyncHandler<GetInvalidationRequest, GetInvalidationResult> asyncHandler)
+                    throws AmazonServiceException, AmazonClientException {
+        return executorService.submit(new Callable<GetInvalidationResult>() {
+            public GetInvalidationResult call() throws Exception {
+              GetInvalidationResult result;
+                try {
+                result = getInvalidation(getInvalidationRequest);
+              } catch (Exception ex) {
+                  asyncHandler.onError(ex);
+            throw ex;
+              }
+              asyncHandler.onSuccess(getInvalidationRequest, result);
+                 return result;
+        }
+    });
+    }
+    
+    /**
+     * <p>
+     * Create a new origin access identity.
+     * </p>
+     *
+     * @param createCloudFrontOriginAccessIdentityRequest Container for the
+     *           necessary parameters to execute the
+     *           CreateCloudFrontOriginAccessIdentity operation on AmazonCloudFront.
+     * 
+     * @return A Java Future object containing the response from the
+     *         CreateCloudFrontOriginAccessIdentity service method, as returned by
+     *         AmazonCloudFront.
+     * 
+     *
+     * @throws AmazonClientException
+     *             If any internal errors are encountered inside the client while
+     *             attempting to make the request or handle the response.  For example
+     *             if a network connection is not available.
+     * @throws AmazonServiceException
+     *             If an error response is returned by AmazonCloudFront indicating
+     *             either a problem with the data in the request, or a server side issue.
+     */
+    public Future<CreateCloudFrontOriginAccessIdentityResult> createCloudFrontOriginAccessIdentityAsync(final CreateCloudFrontOriginAccessIdentityRequest createCloudFrontOriginAccessIdentityRequest) 
+            throws AmazonServiceException, AmazonClientException {
+        return executorService.submit(new Callable<CreateCloudFrontOriginAccessIdentityResult>() {
+            public CreateCloudFrontOriginAccessIdentityResult call() throws Exception {
+                return createCloudFrontOriginAccessIdentity(createCloudFrontOriginAccessIdentityRequest);
+        }
+    });
+    }
+
+    /**
+     * <p>
+     * Create a new origin access identity.
+     * </p>
+     *
+     * @param createCloudFrontOriginAccessIdentityRequest Container for the
+     *           necessary parameters to execute the
+     *           CreateCloudFrontOriginAccessIdentity operation on AmazonCloudFront.
+     * @param asyncHandler Asynchronous callback handler for events in the
+     *           life-cycle of the request. Users could provide the implementation of
+     *           the four callback methods in this interface to process the operation
+     *           result or handle the exception.
+     * 
+     * @return A Java Future object containing the response from the
+     *         CreateCloudFrontOriginAccessIdentity service method, as returned by
+     *         AmazonCloudFront.
+     * 
+     *
+     * @throws AmazonClientException
+     *             If any internal errors are encountered inside the client while
+     *             attempting to make the request or handle the response.  For example
+     *             if a network connection is not available.
+     * @throws AmazonServiceException
+     *             If an error response is returned by AmazonCloudFront indicating
+     *             either a problem with the data in the request, or a server side issue.
+     */
+    public Future<CreateCloudFrontOriginAccessIdentityResult> createCloudFrontOriginAccessIdentityAsync(
+            final CreateCloudFrontOriginAccessIdentityRequest createCloudFrontOriginAccessIdentityRequest,
+            final AsyncHandler<CreateCloudFrontOriginAccessIdentityRequest, CreateCloudFrontOriginAccessIdentityResult> asyncHandler)
+                    throws AmazonServiceException, AmazonClientException {
+        return executorService.submit(new Callable<CreateCloudFrontOriginAccessIdentityResult>() {
+            public CreateCloudFrontOriginAccessIdentityResult call() throws Exception {
+              CreateCloudFrontOriginAccessIdentityResult result;
+                try {
+                result = createCloudFrontOriginAccessIdentity(createCloudFrontOriginAccessIdentityRequest);
+              } catch (Exception ex) {
+                  asyncHandler.onError(ex);
+            throw ex;
+              }
+              asyncHandler.onSuccess(createCloudFrontOriginAccessIdentityRequest, result);
+                 return result;
+        }
+    });
+    }
+    
+    /**
+     * <p>
+     * List the distributions that are associated with a specified AWS WAF
+     * web ACL.
+     * </p>
+     *
+     * @param listDistributionsByWebACLIdRequest Container for the necessary
+     *           parameters to execute the ListDistributionsByWebACLId operation on
+     *           AmazonCloudFront.
+     * 
+     * @return A Java Future object containing the response from the
+     *         ListDistributionsByWebACLId service method, as returned by
+     *         AmazonCloudFront.
+     * 
+     *
+     * @throws AmazonClientException
+     *             If any internal errors are encountered inside the client while
+     *             attempting to make the request or handle the response.  For example
+     *             if a network connection is not available.
+     * @throws AmazonServiceException
+     *             If an error response is returned by AmazonCloudFront indicating
+     *             either a problem with the data in the request, or a server side issue.
+     */
+    public Future<ListDistributionsByWebACLIdResult> listDistributionsByWebACLIdAsync(final ListDistributionsByWebACLIdRequest listDistributionsByWebACLIdRequest) 
+            throws AmazonServiceException, AmazonClientException {
+        return executorService.submit(new Callable<ListDistributionsByWebACLIdResult>() {
+            public ListDistributionsByWebACLIdResult call() throws Exception {
+                return listDistributionsByWebACLId(listDistributionsByWebACLIdRequest);
+        }
+    });
+    }
+
+    /**
+     * <p>
+     * List the distributions that are associated with a specified AWS WAF
+     * web ACL.
+     * </p>
+     *
+     * @param listDistributionsByWebACLIdRequest Container for the necessary
+     *           parameters to execute the ListDistributionsByWebACLId operation on
+     *           AmazonCloudFront.
+     * @param asyncHandler Asynchronous callback handler for events in the
+     *           life-cycle of the request. Users could provide the implementation of
+     *           the four callback methods in this interface to process the operation
+     *           result or handle the exception.
+     * 
+     * @return A Java Future object containing the response from the
+     *         ListDistributionsByWebACLId service method, as returned by
+     *         AmazonCloudFront.
+     * 
+     *
+     * @throws AmazonClientException
+     *             If any internal errors are encountered inside the client while
+     *             attempting to make the request or handle the response.  For example
+     *             if a network connection is not available.
+     * @throws AmazonServiceException
+     *             If an error response is returned by AmazonCloudFront indicating
+     *             either a problem with the data in the request, or a server side issue.
+     */
+    public Future<ListDistributionsByWebACLIdResult> listDistributionsByWebACLIdAsync(
+            final ListDistributionsByWebACLIdRequest listDistributionsByWebACLIdRequest,
+            final AsyncHandler<ListDistributionsByWebACLIdRequest, ListDistributionsByWebACLIdResult> asyncHandler)
+                    throws AmazonServiceException, AmazonClientException {
+        return executorService.submit(new Callable<ListDistributionsByWebACLIdResult>() {
+            public ListDistributionsByWebACLIdResult call() throws Exception {
+              ListDistributionsByWebACLIdResult result;
+                try {
+                result = listDistributionsByWebACLId(listDistributionsByWebACLIdRequest);
+              } catch (Exception ex) {
+                  asyncHandler.onError(ex);
+            throw ex;
+              }
+              asyncHandler.onSuccess(listDistributionsByWebACLIdRequest, result);
                  return result;
         }
     });
@@ -1094,15 +1696,16 @@ public class AmazonCloudFrontAsyncClient extends AmazonCloudFrontClient
     
     /**
      * <p>
-     * Create a new distribution.
+     * Get the configuration information about a streaming distribution.
      * </p>
      *
-     * @param createDistributionRequest Container for the necessary
-     *           parameters to execute the CreateDistribution operation on
-     *           AmazonCloudFront.
+     * @param getStreamingDistributionConfigRequest Container for the
+     *           necessary parameters to execute the GetStreamingDistributionConfig
+     *           operation on AmazonCloudFront.
      * 
      * @return A Java Future object containing the response from the
-     *         CreateDistribution service method, as returned by AmazonCloudFront.
+     *         GetStreamingDistributionConfig service method, as returned by
+     *         AmazonCloudFront.
      * 
      *
      * @throws AmazonClientException
@@ -1113,30 +1716,31 @@ public class AmazonCloudFrontAsyncClient extends AmazonCloudFrontClient
      *             If an error response is returned by AmazonCloudFront indicating
      *             either a problem with the data in the request, or a server side issue.
      */
-    public Future<CreateDistributionResult> createDistributionAsync(final CreateDistributionRequest createDistributionRequest) 
+    public Future<GetStreamingDistributionConfigResult> getStreamingDistributionConfigAsync(final GetStreamingDistributionConfigRequest getStreamingDistributionConfigRequest) 
             throws AmazonServiceException, AmazonClientException {
-        return executorService.submit(new Callable<CreateDistributionResult>() {
-            public CreateDistributionResult call() throws Exception {
-                return createDistribution(createDistributionRequest);
+        return executorService.submit(new Callable<GetStreamingDistributionConfigResult>() {
+            public GetStreamingDistributionConfigResult call() throws Exception {
+                return getStreamingDistributionConfig(getStreamingDistributionConfigRequest);
         }
     });
     }
 
     /**
      * <p>
-     * Create a new distribution.
+     * Get the configuration information about a streaming distribution.
      * </p>
      *
-     * @param createDistributionRequest Container for the necessary
-     *           parameters to execute the CreateDistribution operation on
-     *           AmazonCloudFront.
+     * @param getStreamingDistributionConfigRequest Container for the
+     *           necessary parameters to execute the GetStreamingDistributionConfig
+     *           operation on AmazonCloudFront.
      * @param asyncHandler Asynchronous callback handler for events in the
      *           life-cycle of the request. Users could provide the implementation of
      *           the four callback methods in this interface to process the operation
      *           result or handle the exception.
      * 
      * @return A Java Future object containing the response from the
-     *         CreateDistribution service method, as returned by AmazonCloudFront.
+     *         GetStreamingDistributionConfig service method, as returned by
+     *         AmazonCloudFront.
      * 
      *
      * @throws AmazonClientException
@@ -1147,94 +1751,20 @@ public class AmazonCloudFrontAsyncClient extends AmazonCloudFrontClient
      *             If an error response is returned by AmazonCloudFront indicating
      *             either a problem with the data in the request, or a server side issue.
      */
-    public Future<CreateDistributionResult> createDistributionAsync(
-            final CreateDistributionRequest createDistributionRequest,
-            final AsyncHandler<CreateDistributionRequest, CreateDistributionResult> asyncHandler)
+    public Future<GetStreamingDistributionConfigResult> getStreamingDistributionConfigAsync(
+            final GetStreamingDistributionConfigRequest getStreamingDistributionConfigRequest,
+            final AsyncHandler<GetStreamingDistributionConfigRequest, GetStreamingDistributionConfigResult> asyncHandler)
                     throws AmazonServiceException, AmazonClientException {
-        return executorService.submit(new Callable<CreateDistributionResult>() {
-            public CreateDistributionResult call() throws Exception {
-              CreateDistributionResult result;
+        return executorService.submit(new Callable<GetStreamingDistributionConfigResult>() {
+            public GetStreamingDistributionConfigResult call() throws Exception {
+              GetStreamingDistributionConfigResult result;
                 try {
-                result = createDistribution(createDistributionRequest);
+                result = getStreamingDistributionConfig(getStreamingDistributionConfigRequest);
               } catch (Exception ex) {
                   asyncHandler.onError(ex);
             throw ex;
               }
-              asyncHandler.onSuccess(createDistributionRequest, result);
-                 return result;
-        }
-    });
-    }
-    
-    /**
-     * <p>
-     * Create a new invalidation.
-     * </p>
-     *
-     * @param createInvalidationRequest Container for the necessary
-     *           parameters to execute the CreateInvalidation operation on
-     *           AmazonCloudFront.
-     * 
-     * @return A Java Future object containing the response from the
-     *         CreateInvalidation service method, as returned by AmazonCloudFront.
-     * 
-     *
-     * @throws AmazonClientException
-     *             If any internal errors are encountered inside the client while
-     *             attempting to make the request or handle the response.  For example
-     *             if a network connection is not available.
-     * @throws AmazonServiceException
-     *             If an error response is returned by AmazonCloudFront indicating
-     *             either a problem with the data in the request, or a server side issue.
-     */
-    public Future<CreateInvalidationResult> createInvalidationAsync(final CreateInvalidationRequest createInvalidationRequest) 
-            throws AmazonServiceException, AmazonClientException {
-        return executorService.submit(new Callable<CreateInvalidationResult>() {
-            public CreateInvalidationResult call() throws Exception {
-                return createInvalidation(createInvalidationRequest);
-        }
-    });
-    }
-
-    /**
-     * <p>
-     * Create a new invalidation.
-     * </p>
-     *
-     * @param createInvalidationRequest Container for the necessary
-     *           parameters to execute the CreateInvalidation operation on
-     *           AmazonCloudFront.
-     * @param asyncHandler Asynchronous callback handler for events in the
-     *           life-cycle of the request. Users could provide the implementation of
-     *           the four callback methods in this interface to process the operation
-     *           result or handle the exception.
-     * 
-     * @return A Java Future object containing the response from the
-     *         CreateInvalidation service method, as returned by AmazonCloudFront.
-     * 
-     *
-     * @throws AmazonClientException
-     *             If any internal errors are encountered inside the client while
-     *             attempting to make the request or handle the response.  For example
-     *             if a network connection is not available.
-     * @throws AmazonServiceException
-     *             If an error response is returned by AmazonCloudFront indicating
-     *             either a problem with the data in the request, or a server side issue.
-     */
-    public Future<CreateInvalidationResult> createInvalidationAsync(
-            final CreateInvalidationRequest createInvalidationRequest,
-            final AsyncHandler<CreateInvalidationRequest, CreateInvalidationResult> asyncHandler)
-                    throws AmazonServiceException, AmazonClientException {
-        return executorService.submit(new Callable<CreateInvalidationResult>() {
-            public CreateInvalidationResult call() throws Exception {
-              CreateInvalidationResult result;
-                try {
-                result = createInvalidation(createInvalidationRequest);
-              } catch (Exception ex) {
-                  asyncHandler.onError(ex);
-            throw ex;
-              }
-              asyncHandler.onSuccess(createInvalidationRequest, result);
+              asyncHandler.onSuccess(getStreamingDistributionConfigRequest, result);
                  return result;
         }
     });
@@ -1314,239 +1844,15 @@ public class AmazonCloudFrontAsyncClient extends AmazonCloudFrontClient
     
     /**
      * <p>
-     * List distributions.
+     * Create a new invalidation.
      * </p>
      *
-     * @param listDistributionsRequest Container for the necessary parameters
-     *           to execute the ListDistributions operation on AmazonCloudFront.
-     * 
-     * @return A Java Future object containing the response from the
-     *         ListDistributions service method, as returned by AmazonCloudFront.
-     * 
-     *
-     * @throws AmazonClientException
-     *             If any internal errors are encountered inside the client while
-     *             attempting to make the request or handle the response.  For example
-     *             if a network connection is not available.
-     * @throws AmazonServiceException
-     *             If an error response is returned by AmazonCloudFront indicating
-     *             either a problem with the data in the request, or a server side issue.
-     */
-    public Future<ListDistributionsResult> listDistributionsAsync(final ListDistributionsRequest listDistributionsRequest) 
-            throws AmazonServiceException, AmazonClientException {
-        return executorService.submit(new Callable<ListDistributionsResult>() {
-            public ListDistributionsResult call() throws Exception {
-                return listDistributions(listDistributionsRequest);
-        }
-    });
-    }
-
-    /**
-     * <p>
-     * List distributions.
-     * </p>
-     *
-     * @param listDistributionsRequest Container for the necessary parameters
-     *           to execute the ListDistributions operation on AmazonCloudFront.
-     * @param asyncHandler Asynchronous callback handler for events in the
-     *           life-cycle of the request. Users could provide the implementation of
-     *           the four callback methods in this interface to process the operation
-     *           result or handle the exception.
-     * 
-     * @return A Java Future object containing the response from the
-     *         ListDistributions service method, as returned by AmazonCloudFront.
-     * 
-     *
-     * @throws AmazonClientException
-     *             If any internal errors are encountered inside the client while
-     *             attempting to make the request or handle the response.  For example
-     *             if a network connection is not available.
-     * @throws AmazonServiceException
-     *             If an error response is returned by AmazonCloudFront indicating
-     *             either a problem with the data in the request, or a server side issue.
-     */
-    public Future<ListDistributionsResult> listDistributionsAsync(
-            final ListDistributionsRequest listDistributionsRequest,
-            final AsyncHandler<ListDistributionsRequest, ListDistributionsResult> asyncHandler)
-                    throws AmazonServiceException, AmazonClientException {
-        return executorService.submit(new Callable<ListDistributionsResult>() {
-            public ListDistributionsResult call() throws Exception {
-              ListDistributionsResult result;
-                try {
-                result = listDistributions(listDistributionsRequest);
-              } catch (Exception ex) {
-                  asyncHandler.onError(ex);
-            throw ex;
-              }
-              asyncHandler.onSuccess(listDistributionsRequest, result);
-                 return result;
-        }
-    });
-    }
-    
-    /**
-     * <p>
-     * Update an origin access identity.
-     * </p>
-     *
-     * @param updateCloudFrontOriginAccessIdentityRequest Container for the
-     *           necessary parameters to execute the
-     *           UpdateCloudFrontOriginAccessIdentity operation on AmazonCloudFront.
-     * 
-     * @return A Java Future object containing the response from the
-     *         UpdateCloudFrontOriginAccessIdentity service method, as returned by
-     *         AmazonCloudFront.
-     * 
-     *
-     * @throws AmazonClientException
-     *             If any internal errors are encountered inside the client while
-     *             attempting to make the request or handle the response.  For example
-     *             if a network connection is not available.
-     * @throws AmazonServiceException
-     *             If an error response is returned by AmazonCloudFront indicating
-     *             either a problem with the data in the request, or a server side issue.
-     */
-    public Future<UpdateCloudFrontOriginAccessIdentityResult> updateCloudFrontOriginAccessIdentityAsync(final UpdateCloudFrontOriginAccessIdentityRequest updateCloudFrontOriginAccessIdentityRequest) 
-            throws AmazonServiceException, AmazonClientException {
-        return executorService.submit(new Callable<UpdateCloudFrontOriginAccessIdentityResult>() {
-            public UpdateCloudFrontOriginAccessIdentityResult call() throws Exception {
-                return updateCloudFrontOriginAccessIdentity(updateCloudFrontOriginAccessIdentityRequest);
-        }
-    });
-    }
-
-    /**
-     * <p>
-     * Update an origin access identity.
-     * </p>
-     *
-     * @param updateCloudFrontOriginAccessIdentityRequest Container for the
-     *           necessary parameters to execute the
-     *           UpdateCloudFrontOriginAccessIdentity operation on AmazonCloudFront.
-     * @param asyncHandler Asynchronous callback handler for events in the
-     *           life-cycle of the request. Users could provide the implementation of
-     *           the four callback methods in this interface to process the operation
-     *           result or handle the exception.
-     * 
-     * @return A Java Future object containing the response from the
-     *         UpdateCloudFrontOriginAccessIdentity service method, as returned by
-     *         AmazonCloudFront.
-     * 
-     *
-     * @throws AmazonClientException
-     *             If any internal errors are encountered inside the client while
-     *             attempting to make the request or handle the response.  For example
-     *             if a network connection is not available.
-     * @throws AmazonServiceException
-     *             If an error response is returned by AmazonCloudFront indicating
-     *             either a problem with the data in the request, or a server side issue.
-     */
-    public Future<UpdateCloudFrontOriginAccessIdentityResult> updateCloudFrontOriginAccessIdentityAsync(
-            final UpdateCloudFrontOriginAccessIdentityRequest updateCloudFrontOriginAccessIdentityRequest,
-            final AsyncHandler<UpdateCloudFrontOriginAccessIdentityRequest, UpdateCloudFrontOriginAccessIdentityResult> asyncHandler)
-                    throws AmazonServiceException, AmazonClientException {
-        return executorService.submit(new Callable<UpdateCloudFrontOriginAccessIdentityResult>() {
-            public UpdateCloudFrontOriginAccessIdentityResult call() throws Exception {
-              UpdateCloudFrontOriginAccessIdentityResult result;
-                try {
-                result = updateCloudFrontOriginAccessIdentity(updateCloudFrontOriginAccessIdentityRequest);
-              } catch (Exception ex) {
-                  asyncHandler.onError(ex);
-            throw ex;
-              }
-              asyncHandler.onSuccess(updateCloudFrontOriginAccessIdentityRequest, result);
-                 return result;
-        }
-    });
-    }
-    
-    /**
-     * <p>
-     * Delete an origin access identity.
-     * </p>
-     *
-     * @param deleteCloudFrontOriginAccessIdentityRequest Container for the
-     *           necessary parameters to execute the
-     *           DeleteCloudFrontOriginAccessIdentity operation on AmazonCloudFront.
-     * 
-     * @return A Java Future object containing the response from the
-     *         DeleteCloudFrontOriginAccessIdentity service method, as returned by
-     *         AmazonCloudFront.
-     * 
-     *
-     * @throws AmazonClientException
-     *             If any internal errors are encountered inside the client while
-     *             attempting to make the request or handle the response.  For example
-     *             if a network connection is not available.
-     * @throws AmazonServiceException
-     *             If an error response is returned by AmazonCloudFront indicating
-     *             either a problem with the data in the request, or a server side issue.
-     */
-    public Future<Void> deleteCloudFrontOriginAccessIdentityAsync(final DeleteCloudFrontOriginAccessIdentityRequest deleteCloudFrontOriginAccessIdentityRequest) 
-            throws AmazonServiceException, AmazonClientException {
-        return executorService.submit(new Callable<Void>() {
-            public Void call() throws Exception {
-                deleteCloudFrontOriginAccessIdentity(deleteCloudFrontOriginAccessIdentityRequest);
-                return null;
-        }
-    });
-    }
-
-    /**
-     * <p>
-     * Delete an origin access identity.
-     * </p>
-     *
-     * @param deleteCloudFrontOriginAccessIdentityRequest Container for the
-     *           necessary parameters to execute the
-     *           DeleteCloudFrontOriginAccessIdentity operation on AmazonCloudFront.
-     * @param asyncHandler Asynchronous callback handler for events in the
-     *           life-cycle of the request. Users could provide the implementation of
-     *           the four callback methods in this interface to process the operation
-     *           result or handle the exception.
-     * 
-     * @return A Java Future object containing the response from the
-     *         DeleteCloudFrontOriginAccessIdentity service method, as returned by
-     *         AmazonCloudFront.
-     * 
-     *
-     * @throws AmazonClientException
-     *             If any internal errors are encountered inside the client while
-     *             attempting to make the request or handle the response.  For example
-     *             if a network connection is not available.
-     * @throws AmazonServiceException
-     *             If an error response is returned by AmazonCloudFront indicating
-     *             either a problem with the data in the request, or a server side issue.
-     */
-    public Future<Void> deleteCloudFrontOriginAccessIdentityAsync(
-            final DeleteCloudFrontOriginAccessIdentityRequest deleteCloudFrontOriginAccessIdentityRequest,
-            final AsyncHandler<DeleteCloudFrontOriginAccessIdentityRequest, Void> asyncHandler)
-                    throws AmazonServiceException, AmazonClientException {
-        return executorService.submit(new Callable<Void>() {
-            public Void call() throws Exception {
-              try {
-                deleteCloudFrontOriginAccessIdentity(deleteCloudFrontOriginAccessIdentityRequest);
-              } catch (Exception ex) {
-                  asyncHandler.onError(ex);
-            throw ex;
-              }
-              asyncHandler.onSuccess(deleteCloudFrontOriginAccessIdentityRequest, null);
-                 return null;
-        }
-    });
-    }
-    
-    /**
-     * <p>
-     * Delete a distribution.
-     * </p>
-     *
-     * @param deleteDistributionRequest Container for the necessary
-     *           parameters to execute the DeleteDistribution operation on
+     * @param createInvalidationRequest Container for the necessary
+     *           parameters to execute the CreateInvalidation operation on
      *           AmazonCloudFront.
      * 
      * @return A Java Future object containing the response from the
-     *         DeleteDistribution service method, as returned by AmazonCloudFront.
+     *         CreateInvalidation service method, as returned by AmazonCloudFront.
      * 
      *
      * @throws AmazonClientException
@@ -1557,23 +1863,22 @@ public class AmazonCloudFrontAsyncClient extends AmazonCloudFrontClient
      *             If an error response is returned by AmazonCloudFront indicating
      *             either a problem with the data in the request, or a server side issue.
      */
-    public Future<Void> deleteDistributionAsync(final DeleteDistributionRequest deleteDistributionRequest) 
+    public Future<CreateInvalidationResult> createInvalidationAsync(final CreateInvalidationRequest createInvalidationRequest) 
             throws AmazonServiceException, AmazonClientException {
-        return executorService.submit(new Callable<Void>() {
-            public Void call() throws Exception {
-                deleteDistribution(deleteDistributionRequest);
-                return null;
+        return executorService.submit(new Callable<CreateInvalidationResult>() {
+            public CreateInvalidationResult call() throws Exception {
+                return createInvalidation(createInvalidationRequest);
         }
     });
     }
 
     /**
      * <p>
-     * Delete a distribution.
+     * Create a new invalidation.
      * </p>
      *
-     * @param deleteDistributionRequest Container for the necessary
-     *           parameters to execute the DeleteDistribution operation on
+     * @param createInvalidationRequest Container for the necessary
+     *           parameters to execute the CreateInvalidation operation on
      *           AmazonCloudFront.
      * @param asyncHandler Asynchronous callback handler for events in the
      *           life-cycle of the request. Users could provide the implementation of
@@ -1581,7 +1886,7 @@ public class AmazonCloudFrontAsyncClient extends AmazonCloudFrontClient
      *           result or handle the exception.
      * 
      * @return A Java Future object containing the response from the
-     *         DeleteDistribution service method, as returned by AmazonCloudFront.
+     *         CreateInvalidation service method, as returned by AmazonCloudFront.
      * 
      *
      * @throws AmazonClientException
@@ -1592,247 +1897,20 @@ public class AmazonCloudFrontAsyncClient extends AmazonCloudFrontClient
      *             If an error response is returned by AmazonCloudFront indicating
      *             either a problem with the data in the request, or a server side issue.
      */
-    public Future<Void> deleteDistributionAsync(
-            final DeleteDistributionRequest deleteDistributionRequest,
-            final AsyncHandler<DeleteDistributionRequest, Void> asyncHandler)
+    public Future<CreateInvalidationResult> createInvalidationAsync(
+            final CreateInvalidationRequest createInvalidationRequest,
+            final AsyncHandler<CreateInvalidationRequest, CreateInvalidationResult> asyncHandler)
                     throws AmazonServiceException, AmazonClientException {
-        return executorService.submit(new Callable<Void>() {
-            public Void call() throws Exception {
-              try {
-                deleteDistribution(deleteDistributionRequest);
-              } catch (Exception ex) {
-                  asyncHandler.onError(ex);
-            throw ex;
-              }
-              asyncHandler.onSuccess(deleteDistributionRequest, null);
-                 return null;
-        }
-    });
-    }
-    
-    /**
-     * <p>
-     * Get the configuration information about an origin access identity.
-     * </p>
-     *
-     * @param getCloudFrontOriginAccessIdentityConfigRequest Container for
-     *           the necessary parameters to execute the
-     *           GetCloudFrontOriginAccessIdentityConfig operation on AmazonCloudFront.
-     * 
-     * @return A Java Future object containing the response from the
-     *         GetCloudFrontOriginAccessIdentityConfig service method, as returned by
-     *         AmazonCloudFront.
-     * 
-     *
-     * @throws AmazonClientException
-     *             If any internal errors are encountered inside the client while
-     *             attempting to make the request or handle the response.  For example
-     *             if a network connection is not available.
-     * @throws AmazonServiceException
-     *             If an error response is returned by AmazonCloudFront indicating
-     *             either a problem with the data in the request, or a server side issue.
-     */
-    public Future<GetCloudFrontOriginAccessIdentityConfigResult> getCloudFrontOriginAccessIdentityConfigAsync(final GetCloudFrontOriginAccessIdentityConfigRequest getCloudFrontOriginAccessIdentityConfigRequest) 
-            throws AmazonServiceException, AmazonClientException {
-        return executorService.submit(new Callable<GetCloudFrontOriginAccessIdentityConfigResult>() {
-            public GetCloudFrontOriginAccessIdentityConfigResult call() throws Exception {
-                return getCloudFrontOriginAccessIdentityConfig(getCloudFrontOriginAccessIdentityConfigRequest);
-        }
-    });
-    }
-
-    /**
-     * <p>
-     * Get the configuration information about an origin access identity.
-     * </p>
-     *
-     * @param getCloudFrontOriginAccessIdentityConfigRequest Container for
-     *           the necessary parameters to execute the
-     *           GetCloudFrontOriginAccessIdentityConfig operation on AmazonCloudFront.
-     * @param asyncHandler Asynchronous callback handler for events in the
-     *           life-cycle of the request. Users could provide the implementation of
-     *           the four callback methods in this interface to process the operation
-     *           result or handle the exception.
-     * 
-     * @return A Java Future object containing the response from the
-     *         GetCloudFrontOriginAccessIdentityConfig service method, as returned by
-     *         AmazonCloudFront.
-     * 
-     *
-     * @throws AmazonClientException
-     *             If any internal errors are encountered inside the client while
-     *             attempting to make the request or handle the response.  For example
-     *             if a network connection is not available.
-     * @throws AmazonServiceException
-     *             If an error response is returned by AmazonCloudFront indicating
-     *             either a problem with the data in the request, or a server side issue.
-     */
-    public Future<GetCloudFrontOriginAccessIdentityConfigResult> getCloudFrontOriginAccessIdentityConfigAsync(
-            final GetCloudFrontOriginAccessIdentityConfigRequest getCloudFrontOriginAccessIdentityConfigRequest,
-            final AsyncHandler<GetCloudFrontOriginAccessIdentityConfigRequest, GetCloudFrontOriginAccessIdentityConfigResult> asyncHandler)
-                    throws AmazonServiceException, AmazonClientException {
-        return executorService.submit(new Callable<GetCloudFrontOriginAccessIdentityConfigResult>() {
-            public GetCloudFrontOriginAccessIdentityConfigResult call() throws Exception {
-              GetCloudFrontOriginAccessIdentityConfigResult result;
+        return executorService.submit(new Callable<CreateInvalidationResult>() {
+            public CreateInvalidationResult call() throws Exception {
+              CreateInvalidationResult result;
                 try {
-                result = getCloudFrontOriginAccessIdentityConfig(getCloudFrontOriginAccessIdentityConfigRequest);
+                result = createInvalidation(createInvalidationRequest);
               } catch (Exception ex) {
                   asyncHandler.onError(ex);
             throw ex;
               }
-              asyncHandler.onSuccess(getCloudFrontOriginAccessIdentityConfigRequest, result);
-                 return result;
-        }
-    });
-    }
-    
-    /**
-     * <p>
-     * Delete a streaming distribution.
-     * </p>
-     *
-     * @param deleteStreamingDistributionRequest Container for the necessary
-     *           parameters to execute the DeleteStreamingDistribution operation on
-     *           AmazonCloudFront.
-     * 
-     * @return A Java Future object containing the response from the
-     *         DeleteStreamingDistribution service method, as returned by
-     *         AmazonCloudFront.
-     * 
-     *
-     * @throws AmazonClientException
-     *             If any internal errors are encountered inside the client while
-     *             attempting to make the request or handle the response.  For example
-     *             if a network connection is not available.
-     * @throws AmazonServiceException
-     *             If an error response is returned by AmazonCloudFront indicating
-     *             either a problem with the data in the request, or a server side issue.
-     */
-    public Future<Void> deleteStreamingDistributionAsync(final DeleteStreamingDistributionRequest deleteStreamingDistributionRequest) 
-            throws AmazonServiceException, AmazonClientException {
-        return executorService.submit(new Callable<Void>() {
-            public Void call() throws Exception {
-                deleteStreamingDistribution(deleteStreamingDistributionRequest);
-                return null;
-        }
-    });
-    }
-
-    /**
-     * <p>
-     * Delete a streaming distribution.
-     * </p>
-     *
-     * @param deleteStreamingDistributionRequest Container for the necessary
-     *           parameters to execute the DeleteStreamingDistribution operation on
-     *           AmazonCloudFront.
-     * @param asyncHandler Asynchronous callback handler for events in the
-     *           life-cycle of the request. Users could provide the implementation of
-     *           the four callback methods in this interface to process the operation
-     *           result or handle the exception.
-     * 
-     * @return A Java Future object containing the response from the
-     *         DeleteStreamingDistribution service method, as returned by
-     *         AmazonCloudFront.
-     * 
-     *
-     * @throws AmazonClientException
-     *             If any internal errors are encountered inside the client while
-     *             attempting to make the request or handle the response.  For example
-     *             if a network connection is not available.
-     * @throws AmazonServiceException
-     *             If an error response is returned by AmazonCloudFront indicating
-     *             either a problem with the data in the request, or a server side issue.
-     */
-    public Future<Void> deleteStreamingDistributionAsync(
-            final DeleteStreamingDistributionRequest deleteStreamingDistributionRequest,
-            final AsyncHandler<DeleteStreamingDistributionRequest, Void> asyncHandler)
-                    throws AmazonServiceException, AmazonClientException {
-        return executorService.submit(new Callable<Void>() {
-            public Void call() throws Exception {
-              try {
-                deleteStreamingDistribution(deleteStreamingDistributionRequest);
-              } catch (Exception ex) {
-                  asyncHandler.onError(ex);
-            throw ex;
-              }
-              asyncHandler.onSuccess(deleteStreamingDistributionRequest, null);
-                 return null;
-        }
-    });
-    }
-    
-    /**
-     * <p>
-     * List origin access identities.
-     * </p>
-     *
-     * @param listCloudFrontOriginAccessIdentitiesRequest Container for the
-     *           necessary parameters to execute the
-     *           ListCloudFrontOriginAccessIdentities operation on AmazonCloudFront.
-     * 
-     * @return A Java Future object containing the response from the
-     *         ListCloudFrontOriginAccessIdentities service method, as returned by
-     *         AmazonCloudFront.
-     * 
-     *
-     * @throws AmazonClientException
-     *             If any internal errors are encountered inside the client while
-     *             attempting to make the request or handle the response.  For example
-     *             if a network connection is not available.
-     * @throws AmazonServiceException
-     *             If an error response is returned by AmazonCloudFront indicating
-     *             either a problem with the data in the request, or a server side issue.
-     */
-    public Future<ListCloudFrontOriginAccessIdentitiesResult> listCloudFrontOriginAccessIdentitiesAsync(final ListCloudFrontOriginAccessIdentitiesRequest listCloudFrontOriginAccessIdentitiesRequest) 
-            throws AmazonServiceException, AmazonClientException {
-        return executorService.submit(new Callable<ListCloudFrontOriginAccessIdentitiesResult>() {
-            public ListCloudFrontOriginAccessIdentitiesResult call() throws Exception {
-                return listCloudFrontOriginAccessIdentities(listCloudFrontOriginAccessIdentitiesRequest);
-        }
-    });
-    }
-
-    /**
-     * <p>
-     * List origin access identities.
-     * </p>
-     *
-     * @param listCloudFrontOriginAccessIdentitiesRequest Container for the
-     *           necessary parameters to execute the
-     *           ListCloudFrontOriginAccessIdentities operation on AmazonCloudFront.
-     * @param asyncHandler Asynchronous callback handler for events in the
-     *           life-cycle of the request. Users could provide the implementation of
-     *           the four callback methods in this interface to process the operation
-     *           result or handle the exception.
-     * 
-     * @return A Java Future object containing the response from the
-     *         ListCloudFrontOriginAccessIdentities service method, as returned by
-     *         AmazonCloudFront.
-     * 
-     *
-     * @throws AmazonClientException
-     *             If any internal errors are encountered inside the client while
-     *             attempting to make the request or handle the response.  For example
-     *             if a network connection is not available.
-     * @throws AmazonServiceException
-     *             If an error response is returned by AmazonCloudFront indicating
-     *             either a problem with the data in the request, or a server side issue.
-     */
-    public Future<ListCloudFrontOriginAccessIdentitiesResult> listCloudFrontOriginAccessIdentitiesAsync(
-            final ListCloudFrontOriginAccessIdentitiesRequest listCloudFrontOriginAccessIdentitiesRequest,
-            final AsyncHandler<ListCloudFrontOriginAccessIdentitiesRequest, ListCloudFrontOriginAccessIdentitiesResult> asyncHandler)
-                    throws AmazonServiceException, AmazonClientException {
-        return executorService.submit(new Callable<ListCloudFrontOriginAccessIdentitiesResult>() {
-            public ListCloudFrontOriginAccessIdentitiesResult call() throws Exception {
-              ListCloudFrontOriginAccessIdentitiesResult result;
-                try {
-                result = listCloudFrontOriginAccessIdentities(listCloudFrontOriginAccessIdentitiesRequest);
-              } catch (Exception ex) {
-                  asyncHandler.onError(ex);
-            throw ex;
-              }
-              asyncHandler.onSuccess(listCloudFrontOriginAccessIdentitiesRequest, result);
+              asyncHandler.onSuccess(createInvalidationRequest, result);
                  return result;
         }
     });

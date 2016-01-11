@@ -1,5 +1,5 @@
 /*
- * Copyright 2010-2015 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2010-2016 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License.
@@ -22,7 +22,9 @@ public enum SourceType {
     DbInstance("db-instance"),
     DbParameterGroup("db-parameter-group"),
     DbSecurityGroup("db-security-group"),
-    DbSnapshot("db-snapshot");
+    DbSnapshot("db-snapshot"),
+    DbCluster("db-cluster"),
+    DbClusterSnapshot("db-cluster-snapshot");
 
     private String value;
 
@@ -54,6 +56,10 @@ public enum SourceType {
             return SourceType.DbSecurityGroup;
         } else if ("db-snapshot".equals(value)) {
             return SourceType.DbSnapshot;
+        } else if ("db-cluster".equals(value)) {
+            return SourceType.DbCluster;
+        } else if ("db-cluster-snapshot".equals(value)) {
+            return SourceType.DbClusterSnapshot;
         } else {
             throw new IllegalArgumentException("Cannot create enum from " + value + " value!");
         }

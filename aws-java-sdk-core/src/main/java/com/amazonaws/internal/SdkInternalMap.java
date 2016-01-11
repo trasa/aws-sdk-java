@@ -1,5 +1,5 @@
 /*
- * Copyright 2015-2015 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2015-2016 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License.
@@ -110,5 +110,21 @@ public class SdkInternalMap<K,V> implements Map<K,V>, Serializable {
     @Override
     public Set<Map.Entry<K, V>> entrySet() {
         return map.entrySet();
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (map == null ) return o == null;
+        if (!(o instanceof Map<?,?>)) return false;
+        
+        Map<?, ?> that = (Map<?, ?>) o;
+
+        return map.equals(that);
+    }
+
+    @Override
+    public int hashCode() {
+        return map == null ? 0 : map.hashCode();
     }
 }

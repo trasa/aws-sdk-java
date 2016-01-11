@@ -1,5 +1,5 @@
 /*
- * Copyright 2010-2015 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2010-2016 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License.
@@ -46,6 +46,8 @@ public class DescribeFileSystemsRequestMarshaller
         implements
         Marshaller<Request<DescribeFileSystemsRequest>, DescribeFileSystemsRequest> {
 
+    private static final String DEFAULT_CONTENT_TYPE = "";
+
     public Request<DescribeFileSystemsRequest> marshall(
             DescribeFileSystemsRequest describeFileSystemsRequest) {
 
@@ -60,12 +62,12 @@ public class DescribeFileSystemsRequestMarshaller
         request.setHttpMethod(HttpMethodName.GET);
 
         String uriResourcePath = "/2015-02-01/file-systems";
+
         request.setResourcePath(uriResourcePath);
 
         String maxItems = (describeFileSystemsRequest.getMaxItems() == null) ? null
                 : StringUtils.fromInteger(describeFileSystemsRequest
                         .getMaxItems());
-
         if (maxItems != null) {
             request.addParameter("MaxItems", maxItems);
         }
@@ -73,7 +75,6 @@ public class DescribeFileSystemsRequestMarshaller
         String marker = (describeFileSystemsRequest.getMarker() == null) ? null
                 : StringUtils
                         .fromString(describeFileSystemsRequest.getMarker());
-
         if (marker != null) {
             request.addParameter("Marker", marker);
         }
@@ -81,7 +82,6 @@ public class DescribeFileSystemsRequestMarshaller
         String creationToken = (describeFileSystemsRequest.getCreationToken() == null) ? null
                 : StringUtils.fromString(describeFileSystemsRequest
                         .getCreationToken());
-
         if (creationToken != null) {
             request.addParameter("CreationToken", creationToken);
         }
@@ -89,14 +89,13 @@ public class DescribeFileSystemsRequestMarshaller
         String fileSystemId = (describeFileSystemsRequest.getFileSystemId() == null) ? null
                 : StringUtils.fromString(describeFileSystemsRequest
                         .getFileSystemId());
-
         if (fileSystemId != null) {
             request.addParameter("FileSystemId", fileSystemId);
         }
 
         request.setContent(new ByteArrayInputStream(new byte[0]));
         if (!request.getHeaders().containsKey("Content-Type")) {
-            request.addHeader("Content-Type", "binary/octet-stream");
+            request.addHeader("Content-Type", DEFAULT_CONTENT_TYPE);
         }
 
         return request;

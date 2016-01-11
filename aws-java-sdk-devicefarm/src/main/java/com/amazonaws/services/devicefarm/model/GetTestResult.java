@@ -1,5 +1,5 @@
 /*
- * Copyright 2010-2015 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2010-2016 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License.
@@ -27,29 +27,21 @@ public class GetTestResult implements Serializable, Cloneable {
     private Test test;
 
     /**
-     * Sets the value of the Test property for this object.
-     * 
      * @param test
-     *        The new value for the Test property for this object.
      */
     public void setTest(Test test) {
         this.test = test;
     }
 
     /**
-     * Returns the value of the Test property for this object.
-     * 
-     * @return The value of the Test property for this object.
+     * @return
      */
     public Test getTest() {
         return this.test;
     }
 
     /**
-     * Sets the value of the Test property for this object.
-     * 
      * @param test
-     *        The new value for the Test property for this object.
      * @return Returns a reference to this object so that method calls can be
      *         chained together.
      */

@@ -1,5 +1,5 @@
 /*
- * Copyright 2010-2015 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2010-2016 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License.
@@ -25,29 +25,21 @@ public class PutDestinationResult implements Serializable, Cloneable {
     private Destination destination;
 
     /**
-     * Sets the value of the Destination property for this object.
-     * 
      * @param destination
-     *        The new value for the Destination property for this object.
      */
     public void setDestination(Destination destination) {
         this.destination = destination;
     }
 
     /**
-     * Returns the value of the Destination property for this object.
-     * 
-     * @return The value of the Destination property for this object.
+     * @return
      */
     public Destination getDestination() {
         return this.destination;
     }
 
     /**
-     * Sets the value of the Destination property for this object.
-     * 
      * @param destination
-     *        The new value for the Destination property for this object.
      * @return Returns a reference to this object so that method calls can be
      *         chained together.
      */

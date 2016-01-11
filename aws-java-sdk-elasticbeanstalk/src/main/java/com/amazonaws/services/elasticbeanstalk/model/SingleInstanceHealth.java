@@ -1,5 +1,5 @@
 /*
- * Copyright 2010-2015 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2010-2016 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License.
@@ -37,7 +37,7 @@ public class SingleInstanceHealth implements Serializable, Cloneable {
      * Returns the health status of the specified instance. For more
      * information, see <a href=
      * "http://docs.aws.amazon.com/elasticbeanstalk/latest/dg/health-enhanced-status.html"
-     * ></a>.
+     * >Health Colors and Statuses</a>.
      * </p>
      */
     private String healthStatus;
@@ -111,14 +111,14 @@ public class SingleInstanceHealth implements Serializable, Cloneable {
      * Returns the health status of the specified instance. For more
      * information, see <a href=
      * "http://docs.aws.amazon.com/elasticbeanstalk/latest/dg/health-enhanced-status.html"
-     * ></a>.
+     * >Health Colors and Statuses</a>.
      * </p>
      * 
      * @param healthStatus
      *        Returns the health status of the specified instance. For more
      *        information, see <a href=
      *        "http://docs.aws.amazon.com/elasticbeanstalk/latest/dg/health-enhanced-status.html"
-     *        ></a>.
+     *        >Health Colors and Statuses</a>.
      */
     public void setHealthStatus(String healthStatus) {
         this.healthStatus = healthStatus;
@@ -129,13 +129,13 @@ public class SingleInstanceHealth implements Serializable, Cloneable {
      * Returns the health status of the specified instance. For more
      * information, see <a href=
      * "http://docs.aws.amazon.com/elasticbeanstalk/latest/dg/health-enhanced-status.html"
-     * ></a>.
+     * >Health Colors and Statuses</a>.
      * </p>
      * 
      * @return Returns the health status of the specified instance. For more
      *         information, see <a href=
      *         "http://docs.aws.amazon.com/elasticbeanstalk/latest/dg/health-enhanced-status.html"
-     *         ></a>.
+     *         >Health Colors and Statuses</a>.
      */
     public String getHealthStatus() {
         return this.healthStatus;
@@ -146,14 +146,14 @@ public class SingleInstanceHealth implements Serializable, Cloneable {
      * Returns the health status of the specified instance. For more
      * information, see <a href=
      * "http://docs.aws.amazon.com/elasticbeanstalk/latest/dg/health-enhanced-status.html"
-     * ></a>.
+     * >Health Colors and Statuses</a>.
      * </p>
      * 
      * @param healthStatus
      *        Returns the health status of the specified instance. For more
      *        information, see <a href=
      *        "http://docs.aws.amazon.com/elasticbeanstalk/latest/dg/health-enhanced-status.html"
-     *        ></a>.
+     *        >Health Colors and Statuses</a>.
      * @return Returns a reference to this object so that method calls can be
      *         chained together.
      */
@@ -339,29 +339,21 @@ public class SingleInstanceHealth implements Serializable, Cloneable {
     }
 
     /**
-     * Sets the value of the ApplicationMetrics property for this object.
-     * 
      * @param applicationMetrics
-     *        The new value for the ApplicationMetrics property for this object.
      */
     public void setApplicationMetrics(ApplicationMetrics applicationMetrics) {
         this.applicationMetrics = applicationMetrics;
     }
 
     /**
-     * Returns the value of the ApplicationMetrics property for this object.
-     * 
-     * @return The value of the ApplicationMetrics property for this object.
+     * @return
      */
     public ApplicationMetrics getApplicationMetrics() {
         return this.applicationMetrics;
     }
 
     /**
-     * Sets the value of the ApplicationMetrics property for this object.
-     * 
      * @param applicationMetrics
-     *        The new value for the ApplicationMetrics property for this object.
      * @return Returns a reference to this object so that method calls can be
      *         chained together.
      */
@@ -372,29 +364,21 @@ public class SingleInstanceHealth implements Serializable, Cloneable {
     }
 
     /**
-     * Sets the value of the System property for this object.
-     * 
      * @param system
-     *        The new value for the System property for this object.
      */
     public void setSystem(SystemStatus system) {
         this.system = system;
     }
 
     /**
-     * Returns the value of the System property for this object.
-     * 
-     * @return The value of the System property for this object.
+     * @return
      */
     public SystemStatus getSystem() {
         return this.system;
     }
 
     /**
-     * Sets the value of the System property for this object.
-     * 
      * @param system
-     *        The new value for the System property for this object.
      * @return Returns a reference to this object so that method calls can be
      *         chained together.
      */

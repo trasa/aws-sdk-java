@@ -1,12 +1,12 @@
 /*
- * Copyright 2010-2015 Amazon.com, Inc. or its affiliates. All Rights Reserved.
- * 
+ * Copyright 2010-2016 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ *
  * Licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License.
  * A copy of the License is located at
- * 
+ *
  *  http://aws.amazon.com/apache2.0
- * 
+ *
  * or in the "license" file accompanying this file. This file is distributed
  * on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either
  * express or implied. See the License for the specific language governing
@@ -14,74 +14,73 @@
  */
 package com.amazonaws.services.kms;
 
-import java.util.concurrent.Future;
-
-import com.amazonaws.AmazonClientException;
-import com.amazonaws.AmazonServiceException;
-import com.amazonaws.handlers.AsyncHandler;
 import com.amazonaws.services.kms.model.*;
 
 /**
- * Interface for accessing AWSKMS asynchronously.
- * Each asynchronous method will return a Java Future object, and users are also allowed
- * to provide a callback handler.
- * AWS Key Management Service <p>
- * AWS Key Management Service (KMS) is an encryption and key management
- * web service. This guide describes the KMS actions that you can call
- * programmatically. For general information about KMS, see the
- * <a href="http://docs.aws.amazon.com/kms/latest/developerguide/overview.html"> AWS Key Management Service Developer Guide </a>
- * 
+ * Interface for accessing KMS asynchronously. Each asynchronous method will
+ * return a Java Future object representing the asynchronous operation;
+ * overloads which accept an {@code AsyncHandler} can be used to receive
+ * notification when an asynchronous operation completes.
+ * <p>
+ * <fullname>AWS Key Management Service</fullname>
+ * <p>
+ * AWS Key Management Service (AWS KMS) is an encryption and key management web
+ * service. This guide describes the AWS KMS operations that you can call
+ * programmatically. For general information about AWS KMS, see the <a
+ * href="http://docs.aws.amazon.com/kms/latest/developerguide/">AWS Key
+ * Management Service Developer Guide</a>.
+ * </p>
+ * <note>
+ * <p>
+ * AWS provides SDKs that consist of libraries and sample code for various
+ * programming languages and platforms (Java, Ruby, .Net, iOS, Android, etc.).
+ * The SDKs provide a convenient way to create programmatic access to AWS KMS
+ * and other AWS services. For example, the SDKs take care of tasks such as
+ * signing requests (see below), managing errors, and retrying requests
+ * automatically. For more information about the AWS SDKs, including how to
+ * download and install them, see <a href="http://aws.amazon.com/tools/">Tools
+ * for Amazon Web Services</a>.
+ * </p>
+ * </note>
+ * <p>
+ * We recommend that you use the AWS SDKs to make programmatic API calls to AWS
+ * KMS.
  * </p>
  * <p>
- * <b>NOTE:</b> AWS provides SDKs that consist of libraries and sample
- * code for various programming languages and platforms (Java, Ruby,
- * .Net, iOS, Android, etc.). The SDKs provide a convenient way to create
- * programmatic access to KMS and AWS. For example, the SDKs take care of
- * tasks such as signing requests (see below), managing errors, and
- * retrying requests automatically. For more information about the AWS
- * SDKs, including how to download and install them, see Tools for Amazon
- * Web Services.
- * </p>
- * <p>
- * We recommend that you use the AWS SDKs to make programmatic API calls
- * to KMS.
- * </p>
- * <p>
- * Clients must support TLS (Transport Layer Security) 1.0. We recommend
- * TLS 1.2. Clients must also support cipher suites with Perfect Forward
- * Secrecy (PFS) such as Ephemeral Diffie-Hellman (DHE) or Elliptic Curve
- * Ephemeral Diffie-Hellman (ECDHE). Most modern systems such as Java 7
- * and later support these modes.
+ * Clients must support TLS (Transport Layer Security) 1.0. We recommend TLS
+ * 1.2. Clients must also support cipher suites with Perfect Forward Secrecy
+ * (PFS) such as Ephemeral Diffie-Hellman (DHE) or Elliptic Curve Ephemeral
+ * Diffie-Hellman (ECDHE). Most modern systems such as Java 7 and later support
+ * these modes.
  * </p>
  * <p>
  * <b>Signing Requests</b>
  * </p>
  * <p>
- * Requests must be signed by using an access key ID and a secret access
- * key. We strongly recommend that you do not use your AWS account access
- * key ID and secret key for everyday work with KMS. Instead, use the
- * access key ID and secret access key for an IAM user, or you can use
- * the AWS Security Token Service to generate temporary security
- * credentials that you can use to sign requests.
+ * Requests must be signed by using an access key ID and a secret access key. We
+ * strongly recommend that you <i>do not</i> use your AWS account access key ID
+ * and secret key for everyday work with AWS KMS. Instead, use the access key ID
+ * and secret access key for an IAM user, or you can use the AWS Security Token
+ * Service to generate temporary security credentials that you can use to sign
+ * requests.
  * </p>
  * <p>
- * All KMS operations require
- * <a href="http://docs.aws.amazon.com/general/latest/gr/signature-version-4.html"> Signature Version 4 </a>
- * .
+ * All AWS KMS operations require <a href=
+ * "http://docs.aws.amazon.com/general/latest/gr/signature-version-4.html"
+ * >Signature Version 4</a>.
  * </p>
  * <p>
- * <b>Recording API Requests</b>
+ * <b>Logging API Requests</b>
  * </p>
  * <p>
- * KMS supports AWS CloudTrail, a service that records AWS API calls and
- * related events for your AWS account and delivers them to an Amazon S3
- * bucket that you specify. By using the information collected by
- * CloudTrail, you can determine what requests were made to KMS, who made
- * the request, when it was made, and so on. To learn more about
- * CloudTrail, including how to turn it on and find your log files, see
- * the
- * <a href="http://docs.aws.amazon.com/awscloudtrail/latest/userguide/whatiscloudtrail.html"> AWS CloudTrail User Guide </a>
- * 
+ * AWS KMS supports AWS CloudTrail, a service that logs AWS API calls and
+ * related events for your AWS account and delivers them to an Amazon S3 bucket
+ * that you specify. By using the information collected by CloudTrail, you can
+ * determine what requests were made to AWS KMS, who made the request, when it
+ * was made, and so on. To learn more about CloudTrail, including how to turn it
+ * on and find your log files, see the <a
+ * href="http://docs.aws.amazon.com/awscloudtrail/latest/userguide/">AWS
+ * CloudTrail User Guide</a>.
  * </p>
  * <p>
  * <b>Additional Resources</b>
@@ -90,856 +89,1122 @@ import com.amazonaws.services.kms.model.*;
  * For more information about credentials and request signing, see the
  * following:
  * </p>
- * 
  * <ul>
- * <li>
- * <a href="http://docs.aws.amazon.com/general/latest/gr/aws-security-credentials.html"> AWS Security Credentials </a>
- * . This topic provides general information about the types of
- * credentials used for accessing AWS. </li>
- * <li>
- * <a href="http://docs.aws.amazon.com/STS/latest/UsingSTS/"> AWS Security Token Service </a>
- * . This guide describes how to create and use temporary security
- * credentials. </li>
- * <li>
- * <a href="http://docs.aws.amazon.com/general/latest/gr/signing_aws_api_requests.html"> Signing AWS API Requests </a>
- * . This set of topics walks you through the process of signing a
- * request using an access key ID and a secret access key. </li>
- * 
+ * <li><a href=
+ * "http://docs.aws.amazon.com/general/latest/gr/aws-security-credentials.html"
+ * >AWS Security Credentials</a> - This topic provides general information about
+ * the types of credentials used for accessing AWS.</li>
+ * <li><a href="http://docs.aws.amazon.com/STS/latest/UsingSTS/">AWS Security
+ * Token Service</a> - This guide describes how to create and use temporary
+ * security credentials.</li>
+ * <li><a href=
+ * "http://docs.aws.amazon.com/general/latest/gr/signing_aws_api_requests.html"
+ * >Signing AWS API Requests</a> - This set of topics walks you through the
+ * process of signing a request using an access key ID and a secret access key.</li>
  * </ul>
  * <p>
  * <b>Commonly Used APIs</b>
  * </p>
  * <p>
- * Of the APIs discussed in this guide, the following will prove the
- * most useful for most applications. You will likely perform actions
- * other than these, such as creating keys and assigning policies, by
- * using the console.
- * <ul>
- * <li> Encrypt </li>
- * <li> Decrypt </li>
- * <li> GenerateDataKey </li>
- * <li> GenerateDataKeyWithoutPlaintext </li>
- * 
- * </ul>
- * 
+ * Of the APIs discussed in this guide, the following will prove the most useful
+ * for most applications. You will likely perform actions other than these, such
+ * as creating keys and assigning policies, by using the console.
  * </p>
+ * <ul>
+ * <li><a>Encrypt</a></li>
+ * <li><a>Decrypt</a></li>
+ * <li><a>GenerateDataKey</a></li>
+ * <li><a>GenerateDataKeyWithoutPlaintext</a></li>
+ * </ul>
  */
 public interface AWSKMSAsync extends AWSKMS {
+
     /**
      * <p>
-     * Creates a customer master key. Customer master keys can be used to
-     * encrypt small amounts of data (less than 4K) directly, but they are
-     * most commonly used to encrypt or envelope data keys that are then used
-     * to encrypt customer data. For more information about data keys, see
-     * GenerateDataKey and GenerateDataKeyWithoutPlaintext.
+     * Cancels the deletion of a customer master key (CMK). When this operation
+     * is successful, the CMK is set to the <code>Disabled</code> state. To
+     * enable a CMK, use <a>EnableKey</a>.
      * </p>
-     *
-     * @param createKeyRequest Container for the necessary parameters to
-     *           execute the CreateKey operation on AWSKMS.
+     * <p>
+     * For more information about scheduling and canceling deletion of a CMK, go
+     * to <a href=
+     * "http://docs.aws.amazon.com/kms/latest/developerguide/deleting-keys.html"
+     * >Deleting Customer Master Keys</a> in the <i>AWS Key Management Service
+     * Developer Guide</i>.
+     * </p>
      * 
-     * @return A Java Future object containing the response from the
-     *         CreateKey service method, as returned by AWSKMS.
-     * 
-     *
-     * @throws AmazonClientException
-     *             If any internal errors are encountered inside the client while
-     *             attempting to make the request or handle the response.  For example
-     *             if a network connection is not available.
-     * @throws AmazonServiceException
-     *             If an error response is returned by AWSKMS indicating
-     *             either a problem with the data in the request, or a server side issue.
+     * @param cancelKeyDeletionRequest
+     * @return A Java Future containing the result of the CancelKeyDeletion
+     *         operation returned by the service.
+     * @sample AWSKMSAsync.CancelKeyDeletion
      */
-    public Future<CreateKeyResult> createKeyAsync(CreateKeyRequest createKeyRequest) 
-            throws AmazonServiceException, AmazonClientException;
+    java.util.concurrent.Future<CancelKeyDeletionResult> cancelKeyDeletionAsync(
+            CancelKeyDeletionRequest cancelKeyDeletionRequest);
+
+    /**
+     * <p>
+     * Cancels the deletion of a customer master key (CMK). When this operation
+     * is successful, the CMK is set to the <code>Disabled</code> state. To
+     * enable a CMK, use <a>EnableKey</a>.
+     * </p>
+     * <p>
+     * For more information about scheduling and canceling deletion of a CMK, go
+     * to <a href=
+     * "http://docs.aws.amazon.com/kms/latest/developerguide/deleting-keys.html"
+     * >Deleting Customer Master Keys</a> in the <i>AWS Key Management Service
+     * Developer Guide</i>.
+     * </p>
+     * 
+     * @param cancelKeyDeletionRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the
+     *        request. Users can provide an implementation of the callback
+     *        methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the CancelKeyDeletion
+     *         operation returned by the service.
+     * @sample AWSKMSAsyncHandler.CancelKeyDeletion
+     */
+    java.util.concurrent.Future<CancelKeyDeletionResult> cancelKeyDeletionAsync(
+            CancelKeyDeletionRequest cancelKeyDeletionRequest,
+            com.amazonaws.handlers.AsyncHandler<CancelKeyDeletionRequest, CancelKeyDeletionResult> asyncHandler);
+
+    /**
+     * <p>
+     * Creates a display name for a customer master key. An alias can be used to
+     * identify a key and should be unique. The console enforces a one-to-one
+     * mapping between the alias and a key. An alias name can contain only
+     * alphanumeric characters, forward slashes (/), underscores (_), and dashes
+     * (-). An alias must start with the word "alias" followed by a forward
+     * slash (alias/). An alias that begins with "aws" after the forward slash
+     * (alias/aws...) is reserved by Amazon Web Services (AWS).
+     * </p>
+     * <p>
+     * The alias and the key it is mapped to must be in the same AWS account and
+     * the same region.
+     * </p>
+     * <p>
+     * To map an alias to a different key, call <a>UpdateAlias</a>.
+     * </p>
+     * 
+     * @param createAliasRequest
+     * @sample AWSKMSAsync.CreateAlias
+     */
+    java.util.concurrent.Future<Void> createAliasAsync(
+            CreateAliasRequest createAliasRequest);
+
+    /**
+     * <p>
+     * Creates a display name for a customer master key. An alias can be used to
+     * identify a key and should be unique. The console enforces a one-to-one
+     * mapping between the alias and a key. An alias name can contain only
+     * alphanumeric characters, forward slashes (/), underscores (_), and dashes
+     * (-). An alias must start with the word "alias" followed by a forward
+     * slash (alias/). An alias that begins with "aws" after the forward slash
+     * (alias/aws...) is reserved by Amazon Web Services (AWS).
+     * </p>
+     * <p>
+     * The alias and the key it is mapped to must be in the same AWS account and
+     * the same region.
+     * </p>
+     * <p>
+     * To map an alias to a different key, call <a>UpdateAlias</a>.
+     * </p>
+     * 
+     * @param createAliasRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the
+     *        request. Users can provide an implementation of the callback
+     *        methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @sample AWSKMSAsyncHandler.CreateAlias
+     */
+    java.util.concurrent.Future<Void> createAliasAsync(
+            CreateAliasRequest createAliasRequest,
+            com.amazonaws.handlers.AsyncHandler<CreateAliasRequest, Void> asyncHandler);
+
+    /**
+     * <p>
+     * Adds a grant to a key to specify who can use the key and under what
+     * conditions. Grants are alternate permission mechanisms to key policies.
+     * </p>
+     * <p>
+     * For more information about grants, see <a
+     * href="http://docs.aws.amazon.com/kms/latest/developerguide/grants.html"
+     * >Grants</a> in the <i>AWS Key Management Service Developer Guide</i>.
+     * </p>
+     * 
+     * @param createGrantRequest
+     * @return A Java Future containing the result of the CreateGrant operation
+     *         returned by the service.
+     * @sample AWSKMSAsync.CreateGrant
+     */
+    java.util.concurrent.Future<CreateGrantResult> createGrantAsync(
+            CreateGrantRequest createGrantRequest);
+
+    /**
+     * <p>
+     * Adds a grant to a key to specify who can use the key and under what
+     * conditions. Grants are alternate permission mechanisms to key policies.
+     * </p>
+     * <p>
+     * For more information about grants, see <a
+     * href="http://docs.aws.amazon.com/kms/latest/developerguide/grants.html"
+     * >Grants</a> in the <i>AWS Key Management Service Developer Guide</i>.
+     * </p>
+     * 
+     * @param createGrantRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the
+     *        request. Users can provide an implementation of the callback
+     *        methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the CreateGrant operation
+     *         returned by the service.
+     * @sample AWSKMSAsyncHandler.CreateGrant
+     */
+    java.util.concurrent.Future<CreateGrantResult> createGrantAsync(
+            CreateGrantRequest createGrantRequest,
+            com.amazonaws.handlers.AsyncHandler<CreateGrantRequest, CreateGrantResult> asyncHandler);
 
     /**
      * <p>
      * Creates a customer master key. Customer master keys can be used to
-     * encrypt small amounts of data (less than 4K) directly, but they are
-     * most commonly used to encrypt or envelope data keys that are then used
-     * to encrypt customer data. For more information about data keys, see
-     * GenerateDataKey and GenerateDataKeyWithoutPlaintext.
+     * encrypt small amounts of data (less than 4K) directly, but they are most
+     * commonly used to encrypt or envelope data keys that are then used to
+     * encrypt customer data. For more information about data keys, see
+     * <a>GenerateDataKey</a> and <a>GenerateDataKeyWithoutPlaintext</a>.
      * </p>
-     *
-     * @param createKeyRequest Container for the necessary parameters to
-     *           execute the CreateKey operation on AWSKMS.
-     * @param asyncHandler Asynchronous callback handler for events in the
-     *           life-cycle of the request. Users could provide the implementation of
-     *           the four callback methods in this interface to process the operation
-     *           result or handle the exception.
      * 
-     * @return A Java Future object containing the response from the
-     *         CreateKey service method, as returned by AWSKMS.
-     * 
-     *
-     * @throws AmazonClientException
-     *             If any internal errors are encountered inside the client while
-     *             attempting to make the request or handle the response.  For example
-     *             if a network connection is not available.
-     * @throws AmazonServiceException
-     *             If an error response is returned by AWSKMS indicating
-     *             either a problem with the data in the request, or a server side issue.
+     * @param createKeyRequest
+     * @return A Java Future containing the result of the CreateKey operation
+     *         returned by the service.
+     * @sample AWSKMSAsync.CreateKey
      */
-    public Future<CreateKeyResult> createKeyAsync(CreateKeyRequest createKeyRequest,
-            AsyncHandler<CreateKeyRequest, CreateKeyResult> asyncHandler)
-                    throws AmazonServiceException, AmazonClientException;
+    java.util.concurrent.Future<CreateKeyResult> createKeyAsync(
+            CreateKeyRequest createKeyRequest);
 
     /**
      * <p>
-     * Encrypts plaintext into ciphertext by using a customer master key.
-     * The <code>Encrypt</code> function has two primary use cases:
+     * Creates a customer master key. Customer master keys can be used to
+     * encrypt small amounts of data (less than 4K) directly, but they are most
+     * commonly used to encrypt or envelope data keys that are then used to
+     * encrypt customer data. For more information about data keys, see
+     * <a>GenerateDataKey</a> and <a>GenerateDataKeyWithoutPlaintext</a>.
+     * </p>
+     * 
+     * @param createKeyRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the
+     *        request. Users can provide an implementation of the callback
+     *        methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the CreateKey operation
+     *         returned by the service.
+     * @sample AWSKMSAsyncHandler.CreateKey
+     */
+    java.util.concurrent.Future<CreateKeyResult> createKeyAsync(
+            CreateKeyRequest createKeyRequest,
+            com.amazonaws.handlers.AsyncHandler<CreateKeyRequest, CreateKeyResult> asyncHandler);
+
+    /**
+     * Simplified method form for invoking the CreateKey operation.
+     *
+     * @see #createKeyAsync(CreateKeyRequest)
+     */
+    java.util.concurrent.Future<CreateKeyResult> createKeyAsync();
+
+    /**
+     * Simplified method form for invoking the CreateKey operation with an
+     * AsyncHandler.
+     *
+     * @see #createKeyAsync(CreateKeyRequest,
+     *      com.amazonaws.handlers.AsyncHandler)
+     */
+    java.util.concurrent.Future<CreateKeyResult> createKeyAsync(
+            com.amazonaws.handlers.AsyncHandler<CreateKeyRequest, CreateKeyResult> asyncHandler);
+
+    /**
+     * <p>
+     * Decrypts ciphertext. Ciphertext is plaintext that has been previously
+     * encrypted by using any of the following functions:
      * <ul>
-     * <li>You can encrypt up to 4 KB of arbitrary data such as an RSA key,
-     * a database password, or other sensitive customer information.</li>
-     * <li>If you are moving encrypted data from one region to another, you
-     * can use this API to encrypt in the new region the plaintext data key
-     * that was used to encrypt the data in the original region. This
-     * provides you with an encrypted copy of the data key that can be
-     * decrypted in the new region and used there to decrypt the encrypted
-     * data. </li>
-     * 
+     * <li><a>GenerateDataKey</a></li>
+     * <li><a>GenerateDataKeyWithoutPlaintext</a></li>
+     * <li><a>Encrypt</a></li>
      * </ul>
-     * 
      * </p>
      * <p>
-     * Unless you are moving encrypted data from one region to another, you
-     * don't use this function to encrypt a generated data key within a
-     * region. You retrieve data keys already encrypted by calling the
-     * GenerateDataKey or GenerateDataKeyWithoutPlaintext function. Data keys
-     * don't need to be encrypted again by calling <code>Encrypt</code> .
+     * Note that if a caller has been granted access permissions to all keys
+     * (through, for example, IAM user policies that grant <code>Decrypt</code>
+     * permission on all resources), then ciphertext encrypted by using keys in
+     * other accounts where the key grants access to the caller can be
+     * decrypted. To remedy this, we recommend that you do not grant
+     * <code>Decrypt</code> access in an IAM user policy. Instead grant
+     * <code>Decrypt</code> access only in key policies. If you must grant
+     * <code>Decrypt</code> access in an IAM user policy, you should scope the
+     * resource to specific keys or to specific trusted accounts.
      * </p>
-     * <p>
-     * If you want to encrypt data locally in your application, you can use
-     * the <code>GenerateDataKey</code> function to return a plaintext data
-     * encryption key and a copy of the key encrypted under the customer
-     * master key (CMK) of your choosing.
-     * </p>
-     *
-     * @param encryptRequest Container for the necessary parameters to
-     *           execute the Encrypt operation on AWSKMS.
      * 
-     * @return A Java Future object containing the response from the Encrypt
-     *         service method, as returned by AWSKMS.
-     * 
-     *
-     * @throws AmazonClientException
-     *             If any internal errors are encountered inside the client while
-     *             attempting to make the request or handle the response.  For example
-     *             if a network connection is not available.
-     * @throws AmazonServiceException
-     *             If an error response is returned by AWSKMS indicating
-     *             either a problem with the data in the request, or a server side issue.
+     * @param decryptRequest
+     * @return A Java Future containing the result of the Decrypt operation
+     *         returned by the service.
+     * @sample AWSKMSAsync.Decrypt
      */
-    public Future<EncryptResult> encryptAsync(EncryptRequest encryptRequest) 
-            throws AmazonServiceException, AmazonClientException;
+    java.util.concurrent.Future<DecryptResult> decryptAsync(
+            DecryptRequest decryptRequest);
 
     /**
      * <p>
-     * Encrypts plaintext into ciphertext by using a customer master key.
-     * The <code>Encrypt</code> function has two primary use cases:
+     * Decrypts ciphertext. Ciphertext is plaintext that has been previously
+     * encrypted by using any of the following functions:
      * <ul>
-     * <li>You can encrypt up to 4 KB of arbitrary data such as an RSA key,
-     * a database password, or other sensitive customer information.</li>
-     * <li>If you are moving encrypted data from one region to another, you
-     * can use this API to encrypt in the new region the plaintext data key
-     * that was used to encrypt the data in the original region. This
-     * provides you with an encrypted copy of the data key that can be
-     * decrypted in the new region and used there to decrypt the encrypted
-     * data. </li>
-     * 
+     * <li><a>GenerateDataKey</a></li>
+     * <li><a>GenerateDataKeyWithoutPlaintext</a></li>
+     * <li><a>Encrypt</a></li>
      * </ul>
-     * 
      * </p>
      * <p>
-     * Unless you are moving encrypted data from one region to another, you
-     * don't use this function to encrypt a generated data key within a
-     * region. You retrieve data keys already encrypted by calling the
-     * GenerateDataKey or GenerateDataKeyWithoutPlaintext function. Data keys
-     * don't need to be encrypted again by calling <code>Encrypt</code> .
+     * Note that if a caller has been granted access permissions to all keys
+     * (through, for example, IAM user policies that grant <code>Decrypt</code>
+     * permission on all resources), then ciphertext encrypted by using keys in
+     * other accounts where the key grants access to the caller can be
+     * decrypted. To remedy this, we recommend that you do not grant
+     * <code>Decrypt</code> access in an IAM user policy. Instead grant
+     * <code>Decrypt</code> access only in key policies. If you must grant
+     * <code>Decrypt</code> access in an IAM user policy, you should scope the
+     * resource to specific keys or to specific trusted accounts.
      * </p>
-     * <p>
-     * If you want to encrypt data locally in your application, you can use
-     * the <code>GenerateDataKey</code> function to return a plaintext data
-     * encryption key and a copy of the key encrypted under the customer
-     * master key (CMK) of your choosing.
-     * </p>
-     *
-     * @param encryptRequest Container for the necessary parameters to
-     *           execute the Encrypt operation on AWSKMS.
-     * @param asyncHandler Asynchronous callback handler for events in the
-     *           life-cycle of the request. Users could provide the implementation of
-     *           the four callback methods in this interface to process the operation
-     *           result or handle the exception.
      * 
-     * @return A Java Future object containing the response from the Encrypt
-     *         service method, as returned by AWSKMS.
-     * 
-     *
-     * @throws AmazonClientException
-     *             If any internal errors are encountered inside the client while
-     *             attempting to make the request or handle the response.  For example
-     *             if a network connection is not available.
-     * @throws AmazonServiceException
-     *             If an error response is returned by AWSKMS indicating
-     *             either a problem with the data in the request, or a server side issue.
+     * @param decryptRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the
+     *        request. Users can provide an implementation of the callback
+     *        methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the Decrypt operation
+     *         returned by the service.
+     * @sample AWSKMSAsyncHandler.Decrypt
      */
-    public Future<EncryptResult> encryptAsync(EncryptRequest encryptRequest,
-            AsyncHandler<EncryptRequest, EncryptResult> asyncHandler)
-                    throws AmazonServiceException, AmazonClientException;
+    java.util.concurrent.Future<DecryptResult> decryptAsync(
+            DecryptRequest decryptRequest,
+            com.amazonaws.handlers.AsyncHandler<DecryptRequest, DecryptResult> asyncHandler);
 
     /**
      * <p>
-     * Retrieves a policy attached to the specified key.
+     * Deletes the specified alias. To map an alias to a different key, call
+     * <a>UpdateAlias</a>.
      * </p>
-     *
-     * @param getKeyPolicyRequest Container for the necessary parameters to
-     *           execute the GetKeyPolicy operation on AWSKMS.
      * 
-     * @return A Java Future object containing the response from the
-     *         GetKeyPolicy service method, as returned by AWSKMS.
-     * 
-     *
-     * @throws AmazonClientException
-     *             If any internal errors are encountered inside the client while
-     *             attempting to make the request or handle the response.  For example
-     *             if a network connection is not available.
-     * @throws AmazonServiceException
-     *             If an error response is returned by AWSKMS indicating
-     *             either a problem with the data in the request, or a server side issue.
+     * @param deleteAliasRequest
+     * @sample AWSKMSAsync.DeleteAlias
      */
-    public Future<GetKeyPolicyResult> getKeyPolicyAsync(GetKeyPolicyRequest getKeyPolicyRequest) 
-            throws AmazonServiceException, AmazonClientException;
+    java.util.concurrent.Future<Void> deleteAliasAsync(
+            DeleteAliasRequest deleteAliasRequest);
 
     /**
      * <p>
-     * Retrieves a policy attached to the specified key.
+     * Deletes the specified alias. To map an alias to a different key, call
+     * <a>UpdateAlias</a>.
      * </p>
-     *
-     * @param getKeyPolicyRequest Container for the necessary parameters to
-     *           execute the GetKeyPolicy operation on AWSKMS.
-     * @param asyncHandler Asynchronous callback handler for events in the
-     *           life-cycle of the request. Users could provide the implementation of
-     *           the four callback methods in this interface to process the operation
-     *           result or handle the exception.
      * 
-     * @return A Java Future object containing the response from the
-     *         GetKeyPolicy service method, as returned by AWSKMS.
-     * 
-     *
-     * @throws AmazonClientException
-     *             If any internal errors are encountered inside the client while
-     *             attempting to make the request or handle the response.  For example
-     *             if a network connection is not available.
-     * @throws AmazonServiceException
-     *             If an error response is returned by AWSKMS indicating
-     *             either a problem with the data in the request, or a server side issue.
+     * @param deleteAliasRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the
+     *        request. Users can provide an implementation of the callback
+     *        methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @sample AWSKMSAsyncHandler.DeleteAlias
      */
-    public Future<GetKeyPolicyResult> getKeyPolicyAsync(GetKeyPolicyRequest getKeyPolicyRequest,
-            AsyncHandler<GetKeyPolicyRequest, GetKeyPolicyResult> asyncHandler)
-                    throws AmazonServiceException, AmazonClientException;
+    java.util.concurrent.Future<Void> deleteAliasAsync(
+            DeleteAliasRequest deleteAliasRequest,
+            com.amazonaws.handlers.AsyncHandler<DeleteAliasRequest, Void> asyncHandler);
 
     /**
      * <p>
-     * Updates the description of a key.
+     * Provides detailed information about the specified customer master key.
      * </p>
-     *
-     * @param updateKeyDescriptionRequest Container for the necessary
-     *           parameters to execute the UpdateKeyDescription operation on AWSKMS.
      * 
-     * @return A Java Future object containing the response from the
-     *         UpdateKeyDescription service method, as returned by AWSKMS.
-     * 
-     *
-     * @throws AmazonClientException
-     *             If any internal errors are encountered inside the client while
-     *             attempting to make the request or handle the response.  For example
-     *             if a network connection is not available.
-     * @throws AmazonServiceException
-     *             If an error response is returned by AWSKMS indicating
-     *             either a problem with the data in the request, or a server side issue.
+     * @param describeKeyRequest
+     * @return A Java Future containing the result of the DescribeKey operation
+     *         returned by the service.
+     * @sample AWSKMSAsync.DescribeKey
      */
-    public Future<Void> updateKeyDescriptionAsync(UpdateKeyDescriptionRequest updateKeyDescriptionRequest) 
-            throws AmazonServiceException, AmazonClientException;
+    java.util.concurrent.Future<DescribeKeyResult> describeKeyAsync(
+            DescribeKeyRequest describeKeyRequest);
 
     /**
      * <p>
-     * Updates the description of a key.
+     * Provides detailed information about the specified customer master key.
      * </p>
-     *
-     * @param updateKeyDescriptionRequest Container for the necessary
-     *           parameters to execute the UpdateKeyDescription operation on AWSKMS.
-     * @param asyncHandler Asynchronous callback handler for events in the
-     *           life-cycle of the request. Users could provide the implementation of
-     *           the four callback methods in this interface to process the operation
-     *           result or handle the exception.
      * 
-     * @return A Java Future object containing the response from the
-     *         UpdateKeyDescription service method, as returned by AWSKMS.
-     * 
-     *
-     * @throws AmazonClientException
-     *             If any internal errors are encountered inside the client while
-     *             attempting to make the request or handle the response.  For example
-     *             if a network connection is not available.
-     * @throws AmazonServiceException
-     *             If an error response is returned by AWSKMS indicating
-     *             either a problem with the data in the request, or a server side issue.
+     * @param describeKeyRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the
+     *        request. Users can provide an implementation of the callback
+     *        methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the DescribeKey operation
+     *         returned by the service.
+     * @sample AWSKMSAsyncHandler.DescribeKey
      */
-    public Future<Void> updateKeyDescriptionAsync(UpdateKeyDescriptionRequest updateKeyDescriptionRequest,
-            AsyncHandler<UpdateKeyDescriptionRequest, Void> asyncHandler)
-                    throws AmazonServiceException, AmazonClientException;
+    java.util.concurrent.Future<DescribeKeyResult> describeKeyAsync(
+            DescribeKeyRequest describeKeyRequest,
+            com.amazonaws.handlers.AsyncHandler<DescribeKeyRequest, DescribeKeyResult> asyncHandler);
 
     /**
      * <p>
-     * Lists the customer master keys.
+     * Sets the state of a master key to disabled, thereby preventing its use
+     * for cryptographic operations. For more information about how key state
+     * affects the use of a master key, go to <a href=
+     * "http://docs.aws.amazon.com/kms/latest/developerguide/key-state.html">How
+     * Key State Affects the Use of a Customer Master Key</a> in the <i>AWS Key
+     * Management Service Developer Guide</i>.
      * </p>
-     *
-     * @param listKeysRequest Container for the necessary parameters to
-     *           execute the ListKeys operation on AWSKMS.
      * 
-     * @return A Java Future object containing the response from the ListKeys
-     *         service method, as returned by AWSKMS.
-     * 
-     *
-     * @throws AmazonClientException
-     *             If any internal errors are encountered inside the client while
-     *             attempting to make the request or handle the response.  For example
-     *             if a network connection is not available.
-     * @throws AmazonServiceException
-     *             If an error response is returned by AWSKMS indicating
-     *             either a problem with the data in the request, or a server side issue.
+     * @param disableKeyRequest
+     * @sample AWSKMSAsync.DisableKey
      */
-    public Future<ListKeysResult> listKeysAsync(ListKeysRequest listKeysRequest) 
-            throws AmazonServiceException, AmazonClientException;
+    java.util.concurrent.Future<Void> disableKeyAsync(
+            DisableKeyRequest disableKeyRequest);
 
     /**
      * <p>
-     * Lists the customer master keys.
+     * Sets the state of a master key to disabled, thereby preventing its use
+     * for cryptographic operations. For more information about how key state
+     * affects the use of a master key, go to <a href=
+     * "http://docs.aws.amazon.com/kms/latest/developerguide/key-state.html">How
+     * Key State Affects the Use of a Customer Master Key</a> in the <i>AWS Key
+     * Management Service Developer Guide</i>.
      * </p>
-     *
-     * @param listKeysRequest Container for the necessary parameters to
-     *           execute the ListKeys operation on AWSKMS.
-     * @param asyncHandler Asynchronous callback handler for events in the
-     *           life-cycle of the request. Users could provide the implementation of
-     *           the four callback methods in this interface to process the operation
-     *           result or handle the exception.
      * 
-     * @return A Java Future object containing the response from the ListKeys
-     *         service method, as returned by AWSKMS.
-     * 
-     *
-     * @throws AmazonClientException
-     *             If any internal errors are encountered inside the client while
-     *             attempting to make the request or handle the response.  For example
-     *             if a network connection is not available.
-     * @throws AmazonServiceException
-     *             If an error response is returned by AWSKMS indicating
-     *             either a problem with the data in the request, or a server side issue.
+     * @param disableKeyRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the
+     *        request. Users can provide an implementation of the callback
+     *        methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @sample AWSKMSAsyncHandler.DisableKey
      */
-    public Future<ListKeysResult> listKeysAsync(ListKeysRequest listKeysRequest,
-            AsyncHandler<ListKeysRequest, ListKeysResult> asyncHandler)
-                    throws AmazonServiceException, AmazonClientException;
+    java.util.concurrent.Future<Void> disableKeyAsync(
+            DisableKeyRequest disableKeyRequest,
+            com.amazonaws.handlers.AsyncHandler<DisableKeyRequest, Void> asyncHandler);
 
     /**
      * <p>
-     * Generates a data key that you can use in your application to locally
-     * encrypt data. This call returns a plaintext version of the key in the
-     * <code>Plaintext</code> field of the response object and an encrypted
-     * copy of the key in the <code>CiphertextBlob</code> field. The key is
-     * encrypted by using the master key specified by the <code>KeyId</code>
-     * field. To decrypt the encrypted key, pass it to the
-     * <code>Decrypt</code> API.
+     * Disables rotation of the specified key.
      * </p>
-     * <p>
-     * We recommend that you use the following pattern to locally encrypt
-     * data: call the <code>GenerateDataKey</code> API, use the key returned
-     * in the <code>Plaintext</code> response field to locally encrypt data,
-     * and then erase the plaintext data key from memory. Store the encrypted
-     * data key (contained in the <code>CiphertextBlob</code> field)
-     * alongside of the locally encrypted data.
-     * </p>
-     * <p>
-     * <b>NOTE:</b>You should not call the Encrypt function to re-encrypt
-     * your data keys within a region. GenerateDataKey always returns the
-     * data key encrypted and tied to the customer master key that will be
-     * used to decrypt it. There is no need to decrypt it twice.
-     * </p>
-     * <p>
-     * If you decide to use the optional <code>EncryptionContext</code>
-     * parameter, you must also store the context in full or at least store
-     * enough information along with the encrypted data to be able to
-     * reconstruct the context when submitting the ciphertext to the
-     * <code>Decrypt</code> API. It is a good practice to choose a context
-     * that you can reconstruct on the fly to better secure the ciphertext.
-     * For more information about how this parameter is used, see
-     * <a href="http://docs.aws.amazon.com/kms/latest/developerguide/encrypt-context.html"> Encryption Context </a>
-     * .
-     * </p>
-     * <p>
-     * To decrypt data, pass the encrypted data key to the
-     * <code>Decrypt</code> API. <code>Decrypt</code> uses the associated
-     * master key to decrypt the encrypted data key and returns it as
-     * plaintext. Use the plaintext data key to locally decrypt your data and
-     * then erase the key from memory. You must specify the encryption
-     * context, if any, that you specified when you generated the key. The
-     * encryption context is logged by CloudTrail, and you can use this log
-     * to help track the use of particular data.
-     * </p>
-     *
-     * @param generateDataKeyRequest Container for the necessary parameters
-     *           to execute the GenerateDataKey operation on AWSKMS.
      * 
-     * @return A Java Future object containing the response from the
-     *         GenerateDataKey service method, as returned by AWSKMS.
-     * 
-     *
-     * @throws AmazonClientException
-     *             If any internal errors are encountered inside the client while
-     *             attempting to make the request or handle the response.  For example
-     *             if a network connection is not available.
-     * @throws AmazonServiceException
-     *             If an error response is returned by AWSKMS indicating
-     *             either a problem with the data in the request, or a server side issue.
+     * @param disableKeyRotationRequest
+     * @sample AWSKMSAsync.DisableKeyRotation
      */
-    public Future<GenerateDataKeyResult> generateDataKeyAsync(GenerateDataKeyRequest generateDataKeyRequest) 
-            throws AmazonServiceException, AmazonClientException;
+    java.util.concurrent.Future<Void> disableKeyRotationAsync(
+            DisableKeyRotationRequest disableKeyRotationRequest);
 
     /**
      * <p>
-     * Generates a data key that you can use in your application to locally
-     * encrypt data. This call returns a plaintext version of the key in the
-     * <code>Plaintext</code> field of the response object and an encrypted
-     * copy of the key in the <code>CiphertextBlob</code> field. The key is
-     * encrypted by using the master key specified by the <code>KeyId</code>
-     * field. To decrypt the encrypted key, pass it to the
-     * <code>Decrypt</code> API.
+     * Disables rotation of the specified key.
      * </p>
-     * <p>
-     * We recommend that you use the following pattern to locally encrypt
-     * data: call the <code>GenerateDataKey</code> API, use the key returned
-     * in the <code>Plaintext</code> response field to locally encrypt data,
-     * and then erase the plaintext data key from memory. Store the encrypted
-     * data key (contained in the <code>CiphertextBlob</code> field)
-     * alongside of the locally encrypted data.
-     * </p>
-     * <p>
-     * <b>NOTE:</b>You should not call the Encrypt function to re-encrypt
-     * your data keys within a region. GenerateDataKey always returns the
-     * data key encrypted and tied to the customer master key that will be
-     * used to decrypt it. There is no need to decrypt it twice.
-     * </p>
-     * <p>
-     * If you decide to use the optional <code>EncryptionContext</code>
-     * parameter, you must also store the context in full or at least store
-     * enough information along with the encrypted data to be able to
-     * reconstruct the context when submitting the ciphertext to the
-     * <code>Decrypt</code> API. It is a good practice to choose a context
-     * that you can reconstruct on the fly to better secure the ciphertext.
-     * For more information about how this parameter is used, see
-     * <a href="http://docs.aws.amazon.com/kms/latest/developerguide/encrypt-context.html"> Encryption Context </a>
-     * .
-     * </p>
-     * <p>
-     * To decrypt data, pass the encrypted data key to the
-     * <code>Decrypt</code> API. <code>Decrypt</code> uses the associated
-     * master key to decrypt the encrypted data key and returns it as
-     * plaintext. Use the plaintext data key to locally decrypt your data and
-     * then erase the key from memory. You must specify the encryption
-     * context, if any, that you specified when you generated the key. The
-     * encryption context is logged by CloudTrail, and you can use this log
-     * to help track the use of particular data.
-     * </p>
-     *
-     * @param generateDataKeyRequest Container for the necessary parameters
-     *           to execute the GenerateDataKey operation on AWSKMS.
-     * @param asyncHandler Asynchronous callback handler for events in the
-     *           life-cycle of the request. Users could provide the implementation of
-     *           the four callback methods in this interface to process the operation
-     *           result or handle the exception.
      * 
-     * @return A Java Future object containing the response from the
-     *         GenerateDataKey service method, as returned by AWSKMS.
-     * 
-     *
-     * @throws AmazonClientException
-     *             If any internal errors are encountered inside the client while
-     *             attempting to make the request or handle the response.  For example
-     *             if a network connection is not available.
-     * @throws AmazonServiceException
-     *             If an error response is returned by AWSKMS indicating
-     *             either a problem with the data in the request, or a server side issue.
+     * @param disableKeyRotationRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the
+     *        request. Users can provide an implementation of the callback
+     *        methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @sample AWSKMSAsyncHandler.DisableKeyRotation
      */
-    public Future<GenerateDataKeyResult> generateDataKeyAsync(GenerateDataKeyRequest generateDataKeyRequest,
-            AsyncHandler<GenerateDataKeyRequest, GenerateDataKeyResult> asyncHandler)
-                    throws AmazonServiceException, AmazonClientException;
+    java.util.concurrent.Future<Void> disableKeyRotationAsync(
+            DisableKeyRotationRequest disableKeyRotationRequest,
+            com.amazonaws.handlers.AsyncHandler<DisableKeyRotationRequest, Void> asyncHandler);
 
     /**
      * <p>
-     * Adds a grant to a key to specify who can access the key and under
-     * what conditions. Grants are alternate permission mechanisms to key
-     * policies. For more information about grants, see
-     * <a href="http://docs.aws.amazon.com/kms/latest/developerguide/grants.html"> Grants </a>
-     * in the developer guide. If a grant is absent, access to the key is
-     * evaluated based on IAM policies attached to the user. <ol> <li>
-     * ListGrants </li>
-     * <li> RetireGrant </li>
-     * <li> RevokeGrant </li>
-     * </ol>
+     * Marks a key as enabled, thereby permitting its use.
      * </p>
-     *
-     * @param createGrantRequest Container for the necessary parameters to
-     *           execute the CreateGrant operation on AWSKMS.
      * 
-     * @return A Java Future object containing the response from the
-     *         CreateGrant service method, as returned by AWSKMS.
-     * 
-     *
-     * @throws AmazonClientException
-     *             If any internal errors are encountered inside the client while
-     *             attempting to make the request or handle the response.  For example
-     *             if a network connection is not available.
-     * @throws AmazonServiceException
-     *             If an error response is returned by AWSKMS indicating
-     *             either a problem with the data in the request, or a server side issue.
+     * @param enableKeyRequest
+     * @sample AWSKMSAsync.EnableKey
      */
-    public Future<CreateGrantResult> createGrantAsync(CreateGrantRequest createGrantRequest) 
-            throws AmazonServiceException, AmazonClientException;
+    java.util.concurrent.Future<Void> enableKeyAsync(
+            EnableKeyRequest enableKeyRequest);
 
     /**
      * <p>
-     * Adds a grant to a key to specify who can access the key and under
-     * what conditions. Grants are alternate permission mechanisms to key
-     * policies. For more information about grants, see
-     * <a href="http://docs.aws.amazon.com/kms/latest/developerguide/grants.html"> Grants </a>
-     * in the developer guide. If a grant is absent, access to the key is
-     * evaluated based on IAM policies attached to the user. <ol> <li>
-     * ListGrants </li>
-     * <li> RetireGrant </li>
-     * <li> RevokeGrant </li>
-     * </ol>
+     * Marks a key as enabled, thereby permitting its use.
      * </p>
-     *
-     * @param createGrantRequest Container for the necessary parameters to
-     *           execute the CreateGrant operation on AWSKMS.
-     * @param asyncHandler Asynchronous callback handler for events in the
-     *           life-cycle of the request. Users could provide the implementation of
-     *           the four callback methods in this interface to process the operation
-     *           result or handle the exception.
      * 
-     * @return A Java Future object containing the response from the
-     *         CreateGrant service method, as returned by AWSKMS.
-     * 
-     *
-     * @throws AmazonClientException
-     *             If any internal errors are encountered inside the client while
-     *             attempting to make the request or handle the response.  For example
-     *             if a network connection is not available.
-     * @throws AmazonServiceException
-     *             If an error response is returned by AWSKMS indicating
-     *             either a problem with the data in the request, or a server side issue.
+     * @param enableKeyRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the
+     *        request. Users can provide an implementation of the callback
+     *        methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @sample AWSKMSAsyncHandler.EnableKey
      */
-    public Future<CreateGrantResult> createGrantAsync(CreateGrantRequest createGrantRequest,
-            AsyncHandler<CreateGrantRequest, CreateGrantResult> asyncHandler)
-                    throws AmazonServiceException, AmazonClientException;
-
-    /**
-     * <p>
-     * Lists all of the key aliases in the account.
-     * </p>
-     *
-     * @param listAliasesRequest Container for the necessary parameters to
-     *           execute the ListAliases operation on AWSKMS.
-     * 
-     * @return A Java Future object containing the response from the
-     *         ListAliases service method, as returned by AWSKMS.
-     * 
-     *
-     * @throws AmazonClientException
-     *             If any internal errors are encountered inside the client while
-     *             attempting to make the request or handle the response.  For example
-     *             if a network connection is not available.
-     * @throws AmazonServiceException
-     *             If an error response is returned by AWSKMS indicating
-     *             either a problem with the data in the request, or a server side issue.
-     */
-    public Future<ListAliasesResult> listAliasesAsync(ListAliasesRequest listAliasesRequest) 
-            throws AmazonServiceException, AmazonClientException;
-
-    /**
-     * <p>
-     * Lists all of the key aliases in the account.
-     * </p>
-     *
-     * @param listAliasesRequest Container for the necessary parameters to
-     *           execute the ListAliases operation on AWSKMS.
-     * @param asyncHandler Asynchronous callback handler for events in the
-     *           life-cycle of the request. Users could provide the implementation of
-     *           the four callback methods in this interface to process the operation
-     *           result or handle the exception.
-     * 
-     * @return A Java Future object containing the response from the
-     *         ListAliases service method, as returned by AWSKMS.
-     * 
-     *
-     * @throws AmazonClientException
-     *             If any internal errors are encountered inside the client while
-     *             attempting to make the request or handle the response.  For example
-     *             if a network connection is not available.
-     * @throws AmazonServiceException
-     *             If an error response is returned by AWSKMS indicating
-     *             either a problem with the data in the request, or a server side issue.
-     */
-    public Future<ListAliasesResult> listAliasesAsync(ListAliasesRequest listAliasesRequest,
-            AsyncHandler<ListAliasesRequest, ListAliasesResult> asyncHandler)
-                    throws AmazonServiceException, AmazonClientException;
-
-    /**
-     * <p>
-     * Returns a data key encrypted by a customer master key without the
-     * plaintext copy of that key. Otherwise, this API functions exactly like
-     * GenerateDataKey. You can use this API to, for example, satisfy an
-     * audit requirement that an encrypted key be made available without
-     * exposing the plaintext copy of that key.
-     * </p>
-     *
-     * @param generateDataKeyWithoutPlaintextRequest Container for the
-     *           necessary parameters to execute the GenerateDataKeyWithoutPlaintext
-     *           operation on AWSKMS.
-     * 
-     * @return A Java Future object containing the response from the
-     *         GenerateDataKeyWithoutPlaintext service method, as returned by AWSKMS.
-     * 
-     *
-     * @throws AmazonClientException
-     *             If any internal errors are encountered inside the client while
-     *             attempting to make the request or handle the response.  For example
-     *             if a network connection is not available.
-     * @throws AmazonServiceException
-     *             If an error response is returned by AWSKMS indicating
-     *             either a problem with the data in the request, or a server side issue.
-     */
-    public Future<GenerateDataKeyWithoutPlaintextResult> generateDataKeyWithoutPlaintextAsync(GenerateDataKeyWithoutPlaintextRequest generateDataKeyWithoutPlaintextRequest) 
-            throws AmazonServiceException, AmazonClientException;
-
-    /**
-     * <p>
-     * Returns a data key encrypted by a customer master key without the
-     * plaintext copy of that key. Otherwise, this API functions exactly like
-     * GenerateDataKey. You can use this API to, for example, satisfy an
-     * audit requirement that an encrypted key be made available without
-     * exposing the plaintext copy of that key.
-     * </p>
-     *
-     * @param generateDataKeyWithoutPlaintextRequest Container for the
-     *           necessary parameters to execute the GenerateDataKeyWithoutPlaintext
-     *           operation on AWSKMS.
-     * @param asyncHandler Asynchronous callback handler for events in the
-     *           life-cycle of the request. Users could provide the implementation of
-     *           the four callback methods in this interface to process the operation
-     *           result or handle the exception.
-     * 
-     * @return A Java Future object containing the response from the
-     *         GenerateDataKeyWithoutPlaintext service method, as returned by AWSKMS.
-     * 
-     *
-     * @throws AmazonClientException
-     *             If any internal errors are encountered inside the client while
-     *             attempting to make the request or handle the response.  For example
-     *             if a network connection is not available.
-     * @throws AmazonServiceException
-     *             If an error response is returned by AWSKMS indicating
-     *             either a problem with the data in the request, or a server side issue.
-     */
-    public Future<GenerateDataKeyWithoutPlaintextResult> generateDataKeyWithoutPlaintextAsync(GenerateDataKeyWithoutPlaintextRequest generateDataKeyWithoutPlaintextRequest,
-            AsyncHandler<GenerateDataKeyWithoutPlaintextRequest, GenerateDataKeyWithoutPlaintextResult> asyncHandler)
-                    throws AmazonServiceException, AmazonClientException;
-
-    /**
-     * <p>
-     * Deletes the specified alias. To associate an alias with a different
-     * key, call UpdateAlias.
-     * </p>
-     *
-     * @param deleteAliasRequest Container for the necessary parameters to
-     *           execute the DeleteAlias operation on AWSKMS.
-     * 
-     * @return A Java Future object containing the response from the
-     *         DeleteAlias service method, as returned by AWSKMS.
-     * 
-     *
-     * @throws AmazonClientException
-     *             If any internal errors are encountered inside the client while
-     *             attempting to make the request or handle the response.  For example
-     *             if a network connection is not available.
-     * @throws AmazonServiceException
-     *             If an error response is returned by AWSKMS indicating
-     *             either a problem with the data in the request, or a server side issue.
-     */
-    public Future<Void> deleteAliasAsync(DeleteAliasRequest deleteAliasRequest) 
-            throws AmazonServiceException, AmazonClientException;
-
-    /**
-     * <p>
-     * Deletes the specified alias. To associate an alias with a different
-     * key, call UpdateAlias.
-     * </p>
-     *
-     * @param deleteAliasRequest Container for the necessary parameters to
-     *           execute the DeleteAlias operation on AWSKMS.
-     * @param asyncHandler Asynchronous callback handler for events in the
-     *           life-cycle of the request. Users could provide the implementation of
-     *           the four callback methods in this interface to process the operation
-     *           result or handle the exception.
-     * 
-     * @return A Java Future object containing the response from the
-     *         DeleteAlias service method, as returned by AWSKMS.
-     * 
-     *
-     * @throws AmazonClientException
-     *             If any internal errors are encountered inside the client while
-     *             attempting to make the request or handle the response.  For example
-     *             if a network connection is not available.
-     * @throws AmazonServiceException
-     *             If an error response is returned by AWSKMS indicating
-     *             either a problem with the data in the request, or a server side issue.
-     */
-    public Future<Void> deleteAliasAsync(DeleteAliasRequest deleteAliasRequest,
-            AsyncHandler<DeleteAliasRequest, Void> asyncHandler)
-                    throws AmazonServiceException, AmazonClientException;
-
-    /**
-     * <p>
-     * Updates an alias to associate it with a different key.
-     * </p>
-     * <p>
-     * An alias name can contain only alphanumeric characters, forward
-     * slashes (/), underscores (_), and dashes (-). An alias must start with
-     * the word "alias" followed by a forward slash (alias/). An alias that
-     * begins with "aws" after the forward slash (alias/aws...) is reserved
-     * by Amazon Web Services (AWS).
-     * </p>
-     * <p>
-     * An alias is not a property of a key. Therefore, an alias can be
-     * associated with and disassociated from an existing key without
-     * changing the properties of the key.
-     * </p>
-     * <p>
-     * Note that you cannot create or update an alias that represents a key
-     * in another account.
-     * </p>
-     *
-     * @param updateAliasRequest Container for the necessary parameters to
-     *           execute the UpdateAlias operation on AWSKMS.
-     * 
-     * @return A Java Future object containing the response from the
-     *         UpdateAlias service method, as returned by AWSKMS.
-     * 
-     *
-     * @throws AmazonClientException
-     *             If any internal errors are encountered inside the client while
-     *             attempting to make the request or handle the response.  For example
-     *             if a network connection is not available.
-     * @throws AmazonServiceException
-     *             If an error response is returned by AWSKMS indicating
-     *             either a problem with the data in the request, or a server side issue.
-     */
-    public Future<Void> updateAliasAsync(UpdateAliasRequest updateAliasRequest) 
-            throws AmazonServiceException, AmazonClientException;
-
-    /**
-     * <p>
-     * Updates an alias to associate it with a different key.
-     * </p>
-     * <p>
-     * An alias name can contain only alphanumeric characters, forward
-     * slashes (/), underscores (_), and dashes (-). An alias must start with
-     * the word "alias" followed by a forward slash (alias/). An alias that
-     * begins with "aws" after the forward slash (alias/aws...) is reserved
-     * by Amazon Web Services (AWS).
-     * </p>
-     * <p>
-     * An alias is not a property of a key. Therefore, an alias can be
-     * associated with and disassociated from an existing key without
-     * changing the properties of the key.
-     * </p>
-     * <p>
-     * Note that you cannot create or update an alias that represents a key
-     * in another account.
-     * </p>
-     *
-     * @param updateAliasRequest Container for the necessary parameters to
-     *           execute the UpdateAlias operation on AWSKMS.
-     * @param asyncHandler Asynchronous callback handler for events in the
-     *           life-cycle of the request. Users could provide the implementation of
-     *           the four callback methods in this interface to process the operation
-     *           result or handle the exception.
-     * 
-     * @return A Java Future object containing the response from the
-     *         UpdateAlias service method, as returned by AWSKMS.
-     * 
-     *
-     * @throws AmazonClientException
-     *             If any internal errors are encountered inside the client while
-     *             attempting to make the request or handle the response.  For example
-     *             if a network connection is not available.
-     * @throws AmazonServiceException
-     *             If an error response is returned by AWSKMS indicating
-     *             either a problem with the data in the request, or a server side issue.
-     */
-    public Future<Void> updateAliasAsync(UpdateAliasRequest updateAliasRequest,
-            AsyncHandler<UpdateAliasRequest, Void> asyncHandler)
-                    throws AmazonServiceException, AmazonClientException;
+    java.util.concurrent.Future<Void> enableKeyAsync(
+            EnableKeyRequest enableKeyRequest,
+            com.amazonaws.handlers.AsyncHandler<EnableKeyRequest, Void> asyncHandler);
 
     /**
      * <p>
      * Enables rotation of the specified customer master key.
      * </p>
-     *
-     * @param enableKeyRotationRequest Container for the necessary parameters
-     *           to execute the EnableKeyRotation operation on AWSKMS.
      * 
-     * @return A Java Future object containing the response from the
-     *         EnableKeyRotation service method, as returned by AWSKMS.
-     * 
-     *
-     * @throws AmazonClientException
-     *             If any internal errors are encountered inside the client while
-     *             attempting to make the request or handle the response.  For example
-     *             if a network connection is not available.
-     * @throws AmazonServiceException
-     *             If an error response is returned by AWSKMS indicating
-     *             either a problem with the data in the request, or a server side issue.
+     * @param enableKeyRotationRequest
+     * @sample AWSKMSAsync.EnableKeyRotation
      */
-    public Future<Void> enableKeyRotationAsync(EnableKeyRotationRequest enableKeyRotationRequest) 
-            throws AmazonServiceException, AmazonClientException;
+    java.util.concurrent.Future<Void> enableKeyRotationAsync(
+            EnableKeyRotationRequest enableKeyRotationRequest);
 
     /**
      * <p>
      * Enables rotation of the specified customer master key.
      * </p>
-     *
-     * @param enableKeyRotationRequest Container for the necessary parameters
-     *           to execute the EnableKeyRotation operation on AWSKMS.
-     * @param asyncHandler Asynchronous callback handler for events in the
-     *           life-cycle of the request. Users could provide the implementation of
-     *           the four callback methods in this interface to process the operation
-     *           result or handle the exception.
      * 
-     * @return A Java Future object containing the response from the
-     *         EnableKeyRotation service method, as returned by AWSKMS.
-     * 
-     *
-     * @throws AmazonClientException
-     *             If any internal errors are encountered inside the client while
-     *             attempting to make the request or handle the response.  For example
-     *             if a network connection is not available.
-     * @throws AmazonServiceException
-     *             If an error response is returned by AWSKMS indicating
-     *             either a problem with the data in the request, or a server side issue.
+     * @param enableKeyRotationRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the
+     *        request. Users can provide an implementation of the callback
+     *        methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @sample AWSKMSAsyncHandler.EnableKeyRotation
      */
-    public Future<Void> enableKeyRotationAsync(EnableKeyRotationRequest enableKeyRotationRequest,
-            AsyncHandler<EnableKeyRotationRequest, Void> asyncHandler)
-                    throws AmazonServiceException, AmazonClientException;
+    java.util.concurrent.Future<Void> enableKeyRotationAsync(
+            EnableKeyRotationRequest enableKeyRotationRequest,
+            com.amazonaws.handlers.AsyncHandler<EnableKeyRotationRequest, Void> asyncHandler);
+
+    /**
+     * <p>
+     * Encrypts plaintext into ciphertext by using a customer master key. The
+     * <code>Encrypt</code> function has two primary use cases:
+     * <ul>
+     * <li>You can encrypt up to 4 KB of arbitrary data such as an RSA key, a
+     * database password, or other sensitive customer information.</li>
+     * <li>If you are moving encrypted data from one region to another, you can
+     * use this API to encrypt in the new region the plaintext data key that was
+     * used to encrypt the data in the original region. This provides you with
+     * an encrypted copy of the data key that can be decrypted in the new region
+     * and used there to decrypt the encrypted data.</li>
+     * </ul>
+     * </p>
+     * <p>
+     * Unless you are moving encrypted data from one region to another, you
+     * don't use this function to encrypt a generated data key within a region.
+     * You retrieve data keys already encrypted by calling the
+     * <a>GenerateDataKey</a> or <a>GenerateDataKeyWithoutPlaintext</a>
+     * function. Data keys don't need to be encrypted again by calling
+     * <code>Encrypt</code>.
+     * </p>
+     * <p>
+     * If you want to encrypt data locally in your application, you can use the
+     * <code>GenerateDataKey</code> function to return a plaintext data
+     * encryption key and a copy of the key encrypted under the customer master
+     * key (CMK) of your choosing.
+     * </p>
+     * 
+     * @param encryptRequest
+     * @return A Java Future containing the result of the Encrypt operation
+     *         returned by the service.
+     * @sample AWSKMSAsync.Encrypt
+     */
+    java.util.concurrent.Future<EncryptResult> encryptAsync(
+            EncryptRequest encryptRequest);
+
+    /**
+     * <p>
+     * Encrypts plaintext into ciphertext by using a customer master key. The
+     * <code>Encrypt</code> function has two primary use cases:
+     * <ul>
+     * <li>You can encrypt up to 4 KB of arbitrary data such as an RSA key, a
+     * database password, or other sensitive customer information.</li>
+     * <li>If you are moving encrypted data from one region to another, you can
+     * use this API to encrypt in the new region the plaintext data key that was
+     * used to encrypt the data in the original region. This provides you with
+     * an encrypted copy of the data key that can be decrypted in the new region
+     * and used there to decrypt the encrypted data.</li>
+     * </ul>
+     * </p>
+     * <p>
+     * Unless you are moving encrypted data from one region to another, you
+     * don't use this function to encrypt a generated data key within a region.
+     * You retrieve data keys already encrypted by calling the
+     * <a>GenerateDataKey</a> or <a>GenerateDataKeyWithoutPlaintext</a>
+     * function. Data keys don't need to be encrypted again by calling
+     * <code>Encrypt</code>.
+     * </p>
+     * <p>
+     * If you want to encrypt data locally in your application, you can use the
+     * <code>GenerateDataKey</code> function to return a plaintext data
+     * encryption key and a copy of the key encrypted under the customer master
+     * key (CMK) of your choosing.
+     * </p>
+     * 
+     * @param encryptRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the
+     *        request. Users can provide an implementation of the callback
+     *        methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the Encrypt operation
+     *         returned by the service.
+     * @sample AWSKMSAsyncHandler.Encrypt
+     */
+    java.util.concurrent.Future<EncryptResult> encryptAsync(
+            EncryptRequest encryptRequest,
+            com.amazonaws.handlers.AsyncHandler<EncryptRequest, EncryptResult> asyncHandler);
+
+    /**
+     * <p>
+     * Generates a data key that you can use in your application to locally
+     * encrypt data. This call returns a plaintext version of the key in the
+     * <code>Plaintext</code> field of the response object and an encrypted copy
+     * of the key in the <code>CiphertextBlob</code> field. The key is encrypted
+     * by using the master key specified by the <code>KeyId</code> field. To
+     * decrypt the encrypted key, pass it to the <code>Decrypt</code> API.
+     * </p>
+     * <p>
+     * We recommend that you use the following pattern to locally encrypt data:
+     * call the <code>GenerateDataKey</code> API, use the key returned in the
+     * <code>Plaintext</code> response field to locally encrypt data, and then
+     * erase the plaintext data key from memory. Store the encrypted data key
+     * (contained in the <code>CiphertextBlob</code> field) alongside of the
+     * locally encrypted data.
+     * </p>
+     * <note>You should not call the <code>Encrypt</code> function to re-encrypt
+     * your data keys within a region. <code>GenerateDataKey</code> always
+     * returns the data key encrypted and tied to the customer master key that
+     * will be used to decrypt it. There is no need to decrypt it twice. </note>
+     * <p>
+     * If you decide to use the optional <code>EncryptionContext</code>
+     * parameter, you must also store the context in full or at least store
+     * enough information along with the encrypted data to be able to
+     * reconstruct the context when submitting the ciphertext to the
+     * <code>Decrypt</code> API. It is a good practice to choose a context that
+     * you can reconstruct on the fly to better secure the ciphertext. For more
+     * information about how this parameter is used, see <a href=
+     * "http://docs.aws.amazon.com/kms/latest/developerguide/encrypt-context.html"
+     * >Encryption Context</a>.
+     * </p>
+     * <p>
+     * To decrypt data, pass the encrypted data key to the <code>Decrypt</code>
+     * API. <code>Decrypt</code> uses the associated master key to decrypt the
+     * encrypted data key and returns it as plaintext. Use the plaintext data
+     * key to locally decrypt your data and then erase the key from memory. You
+     * must specify the encryption context, if any, that you specified when you
+     * generated the key. The encryption context is logged by CloudTrail, and
+     * you can use this log to help track the use of particular data.
+     * </p>
+     * 
+     * @param generateDataKeyRequest
+     * @return A Java Future containing the result of the GenerateDataKey
+     *         operation returned by the service.
+     * @sample AWSKMSAsync.GenerateDataKey
+     */
+    java.util.concurrent.Future<GenerateDataKeyResult> generateDataKeyAsync(
+            GenerateDataKeyRequest generateDataKeyRequest);
+
+    /**
+     * <p>
+     * Generates a data key that you can use in your application to locally
+     * encrypt data. This call returns a plaintext version of the key in the
+     * <code>Plaintext</code> field of the response object and an encrypted copy
+     * of the key in the <code>CiphertextBlob</code> field. The key is encrypted
+     * by using the master key specified by the <code>KeyId</code> field. To
+     * decrypt the encrypted key, pass it to the <code>Decrypt</code> API.
+     * </p>
+     * <p>
+     * We recommend that you use the following pattern to locally encrypt data:
+     * call the <code>GenerateDataKey</code> API, use the key returned in the
+     * <code>Plaintext</code> response field to locally encrypt data, and then
+     * erase the plaintext data key from memory. Store the encrypted data key
+     * (contained in the <code>CiphertextBlob</code> field) alongside of the
+     * locally encrypted data.
+     * </p>
+     * <note>You should not call the <code>Encrypt</code> function to re-encrypt
+     * your data keys within a region. <code>GenerateDataKey</code> always
+     * returns the data key encrypted and tied to the customer master key that
+     * will be used to decrypt it. There is no need to decrypt it twice. </note>
+     * <p>
+     * If you decide to use the optional <code>EncryptionContext</code>
+     * parameter, you must also store the context in full or at least store
+     * enough information along with the encrypted data to be able to
+     * reconstruct the context when submitting the ciphertext to the
+     * <code>Decrypt</code> API. It is a good practice to choose a context that
+     * you can reconstruct on the fly to better secure the ciphertext. For more
+     * information about how this parameter is used, see <a href=
+     * "http://docs.aws.amazon.com/kms/latest/developerguide/encrypt-context.html"
+     * >Encryption Context</a>.
+     * </p>
+     * <p>
+     * To decrypt data, pass the encrypted data key to the <code>Decrypt</code>
+     * API. <code>Decrypt</code> uses the associated master key to decrypt the
+     * encrypted data key and returns it as plaintext. Use the plaintext data
+     * key to locally decrypt your data and then erase the key from memory. You
+     * must specify the encryption context, if any, that you specified when you
+     * generated the key. The encryption context is logged by CloudTrail, and
+     * you can use this log to help track the use of particular data.
+     * </p>
+     * 
+     * @param generateDataKeyRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the
+     *        request. Users can provide an implementation of the callback
+     *        methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the GenerateDataKey
+     *         operation returned by the service.
+     * @sample AWSKMSAsyncHandler.GenerateDataKey
+     */
+    java.util.concurrent.Future<GenerateDataKeyResult> generateDataKeyAsync(
+            GenerateDataKeyRequest generateDataKeyRequest,
+            com.amazonaws.handlers.AsyncHandler<GenerateDataKeyRequest, GenerateDataKeyResult> asyncHandler);
+
+    /**
+     * <p>
+     * Returns a data key encrypted by a customer master key without the
+     * plaintext copy of that key. Otherwise, this API functions exactly like
+     * <a>GenerateDataKey</a>. You can use this API to, for example, satisfy an
+     * audit requirement that an encrypted key be made available without
+     * exposing the plaintext copy of that key.
+     * </p>
+     * 
+     * @param generateDataKeyWithoutPlaintextRequest
+     * @return A Java Future containing the result of the
+     *         GenerateDataKeyWithoutPlaintext operation returned by the
+     *         service.
+     * @sample AWSKMSAsync.GenerateDataKeyWithoutPlaintext
+     */
+    java.util.concurrent.Future<GenerateDataKeyWithoutPlaintextResult> generateDataKeyWithoutPlaintextAsync(
+            GenerateDataKeyWithoutPlaintextRequest generateDataKeyWithoutPlaintextRequest);
+
+    /**
+     * <p>
+     * Returns a data key encrypted by a customer master key without the
+     * plaintext copy of that key. Otherwise, this API functions exactly like
+     * <a>GenerateDataKey</a>. You can use this API to, for example, satisfy an
+     * audit requirement that an encrypted key be made available without
+     * exposing the plaintext copy of that key.
+     * </p>
+     * 
+     * @param generateDataKeyWithoutPlaintextRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the
+     *        request. Users can provide an implementation of the callback
+     *        methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the
+     *         GenerateDataKeyWithoutPlaintext operation returned by the
+     *         service.
+     * @sample AWSKMSAsyncHandler.GenerateDataKeyWithoutPlaintext
+     */
+    java.util.concurrent.Future<GenerateDataKeyWithoutPlaintextResult> generateDataKeyWithoutPlaintextAsync(
+            GenerateDataKeyWithoutPlaintextRequest generateDataKeyWithoutPlaintextRequest,
+            com.amazonaws.handlers.AsyncHandler<GenerateDataKeyWithoutPlaintextRequest, GenerateDataKeyWithoutPlaintextResult> asyncHandler);
+
+    /**
+     * <p>
+     * Generates an unpredictable byte string.
+     * </p>
+     * 
+     * @param generateRandomRequest
+     * @return A Java Future containing the result of the GenerateRandom
+     *         operation returned by the service.
+     * @sample AWSKMSAsync.GenerateRandom
+     */
+    java.util.concurrent.Future<GenerateRandomResult> generateRandomAsync(
+            GenerateRandomRequest generateRandomRequest);
+
+    /**
+     * <p>
+     * Generates an unpredictable byte string.
+     * </p>
+     * 
+     * @param generateRandomRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the
+     *        request. Users can provide an implementation of the callback
+     *        methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the GenerateRandom
+     *         operation returned by the service.
+     * @sample AWSKMSAsyncHandler.GenerateRandom
+     */
+    java.util.concurrent.Future<GenerateRandomResult> generateRandomAsync(
+            GenerateRandomRequest generateRandomRequest,
+            com.amazonaws.handlers.AsyncHandler<GenerateRandomRequest, GenerateRandomResult> asyncHandler);
+
+    /**
+     * Simplified method form for invoking the GenerateRandom operation.
+     *
+     * @see #generateRandomAsync(GenerateRandomRequest)
+     */
+    java.util.concurrent.Future<GenerateRandomResult> generateRandomAsync();
+
+    /**
+     * Simplified method form for invoking the GenerateRandom operation with an
+     * AsyncHandler.
+     *
+     * @see #generateRandomAsync(GenerateRandomRequest,
+     *      com.amazonaws.handlers.AsyncHandler)
+     */
+    java.util.concurrent.Future<GenerateRandomResult> generateRandomAsync(
+            com.amazonaws.handlers.AsyncHandler<GenerateRandomRequest, GenerateRandomResult> asyncHandler);
+
+    /**
+     * <p>
+     * Retrieves a policy attached to the specified key.
+     * </p>
+     * 
+     * @param getKeyPolicyRequest
+     * @return A Java Future containing the result of the GetKeyPolicy operation
+     *         returned by the service.
+     * @sample AWSKMSAsync.GetKeyPolicy
+     */
+    java.util.concurrent.Future<GetKeyPolicyResult> getKeyPolicyAsync(
+            GetKeyPolicyRequest getKeyPolicyRequest);
+
+    /**
+     * <p>
+     * Retrieves a policy attached to the specified key.
+     * </p>
+     * 
+     * @param getKeyPolicyRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the
+     *        request. Users can provide an implementation of the callback
+     *        methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the GetKeyPolicy operation
+     *         returned by the service.
+     * @sample AWSKMSAsyncHandler.GetKeyPolicy
+     */
+    java.util.concurrent.Future<GetKeyPolicyResult> getKeyPolicyAsync(
+            GetKeyPolicyRequest getKeyPolicyRequest,
+            com.amazonaws.handlers.AsyncHandler<GetKeyPolicyRequest, GetKeyPolicyResult> asyncHandler);
+
+    /**
+     * <p>
+     * Retrieves a Boolean value that indicates whether key rotation is enabled
+     * for the specified key.
+     * </p>
+     * 
+     * @param getKeyRotationStatusRequest
+     * @return A Java Future containing the result of the GetKeyRotationStatus
+     *         operation returned by the service.
+     * @sample AWSKMSAsync.GetKeyRotationStatus
+     */
+    java.util.concurrent.Future<GetKeyRotationStatusResult> getKeyRotationStatusAsync(
+            GetKeyRotationStatusRequest getKeyRotationStatusRequest);
+
+    /**
+     * <p>
+     * Retrieves a Boolean value that indicates whether key rotation is enabled
+     * for the specified key.
+     * </p>
+     * 
+     * @param getKeyRotationStatusRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the
+     *        request. Users can provide an implementation of the callback
+     *        methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the GetKeyRotationStatus
+     *         operation returned by the service.
+     * @sample AWSKMSAsyncHandler.GetKeyRotationStatus
+     */
+    java.util.concurrent.Future<GetKeyRotationStatusResult> getKeyRotationStatusAsync(
+            GetKeyRotationStatusRequest getKeyRotationStatusRequest,
+            com.amazonaws.handlers.AsyncHandler<GetKeyRotationStatusRequest, GetKeyRotationStatusResult> asyncHandler);
+
+    /**
+     * <p>
+     * Lists all of the key aliases in the account.
+     * </p>
+     * 
+     * @param listAliasesRequest
+     * @return A Java Future containing the result of the ListAliases operation
+     *         returned by the service.
+     * @sample AWSKMSAsync.ListAliases
+     */
+    java.util.concurrent.Future<ListAliasesResult> listAliasesAsync(
+            ListAliasesRequest listAliasesRequest);
+
+    /**
+     * <p>
+     * Lists all of the key aliases in the account.
+     * </p>
+     * 
+     * @param listAliasesRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the
+     *        request. Users can provide an implementation of the callback
+     *        methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the ListAliases operation
+     *         returned by the service.
+     * @sample AWSKMSAsyncHandler.ListAliases
+     */
+    java.util.concurrent.Future<ListAliasesResult> listAliasesAsync(
+            ListAliasesRequest listAliasesRequest,
+            com.amazonaws.handlers.AsyncHandler<ListAliasesRequest, ListAliasesResult> asyncHandler);
+
+    /**
+     * Simplified method form for invoking the ListAliases operation.
+     *
+     * @see #listAliasesAsync(ListAliasesRequest)
+     */
+    java.util.concurrent.Future<ListAliasesResult> listAliasesAsync();
+
+    /**
+     * Simplified method form for invoking the ListAliases operation with an
+     * AsyncHandler.
+     *
+     * @see #listAliasesAsync(ListAliasesRequest,
+     *      com.amazonaws.handlers.AsyncHandler)
+     */
+    java.util.concurrent.Future<ListAliasesResult> listAliasesAsync(
+            com.amazonaws.handlers.AsyncHandler<ListAliasesRequest, ListAliasesResult> asyncHandler);
+
+    /**
+     * <p>
+     * List the grants for a specified key.
+     * </p>
+     * 
+     * @param listGrantsRequest
+     * @return A Java Future containing the result of the ListGrants operation
+     *         returned by the service.
+     * @sample AWSKMSAsync.ListGrants
+     */
+    java.util.concurrent.Future<ListGrantsResult> listGrantsAsync(
+            ListGrantsRequest listGrantsRequest);
+
+    /**
+     * <p>
+     * List the grants for a specified key.
+     * </p>
+     * 
+     * @param listGrantsRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the
+     *        request. Users can provide an implementation of the callback
+     *        methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the ListGrants operation
+     *         returned by the service.
+     * @sample AWSKMSAsyncHandler.ListGrants
+     */
+    java.util.concurrent.Future<ListGrantsResult> listGrantsAsync(
+            ListGrantsRequest listGrantsRequest,
+            com.amazonaws.handlers.AsyncHandler<ListGrantsRequest, ListGrantsResult> asyncHandler);
+
+    /**
+     * <p>
+     * Retrieves a list of policies attached to a key.
+     * </p>
+     * 
+     * @param listKeyPoliciesRequest
+     * @return A Java Future containing the result of the ListKeyPolicies
+     *         operation returned by the service.
+     * @sample AWSKMSAsync.ListKeyPolicies
+     */
+    java.util.concurrent.Future<ListKeyPoliciesResult> listKeyPoliciesAsync(
+            ListKeyPoliciesRequest listKeyPoliciesRequest);
+
+    /**
+     * <p>
+     * Retrieves a list of policies attached to a key.
+     * </p>
+     * 
+     * @param listKeyPoliciesRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the
+     *        request. Users can provide an implementation of the callback
+     *        methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the ListKeyPolicies
+     *         operation returned by the service.
+     * @sample AWSKMSAsyncHandler.ListKeyPolicies
+     */
+    java.util.concurrent.Future<ListKeyPoliciesResult> listKeyPoliciesAsync(
+            ListKeyPoliciesRequest listKeyPoliciesRequest,
+            com.amazonaws.handlers.AsyncHandler<ListKeyPoliciesRequest, ListKeyPoliciesResult> asyncHandler);
+
+    /**
+     * <p>
+     * Lists the customer master keys.
+     * </p>
+     * 
+     * @param listKeysRequest
+     * @return A Java Future containing the result of the ListKeys operation
+     *         returned by the service.
+     * @sample AWSKMSAsync.ListKeys
+     */
+    java.util.concurrent.Future<ListKeysResult> listKeysAsync(
+            ListKeysRequest listKeysRequest);
+
+    /**
+     * <p>
+     * Lists the customer master keys.
+     * </p>
+     * 
+     * @param listKeysRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the
+     *        request. Users can provide an implementation of the callback
+     *        methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the ListKeys operation
+     *         returned by the service.
+     * @sample AWSKMSAsyncHandler.ListKeys
+     */
+    java.util.concurrent.Future<ListKeysResult> listKeysAsync(
+            ListKeysRequest listKeysRequest,
+            com.amazonaws.handlers.AsyncHandler<ListKeysRequest, ListKeysResult> asyncHandler);
+
+    /**
+     * Simplified method form for invoking the ListKeys operation.
+     *
+     * @see #listKeysAsync(ListKeysRequest)
+     */
+    java.util.concurrent.Future<ListKeysResult> listKeysAsync();
+
+    /**
+     * Simplified method form for invoking the ListKeys operation with an
+     * AsyncHandler.
+     *
+     * @see #listKeysAsync(ListKeysRequest, com.amazonaws.handlers.AsyncHandler)
+     */
+    java.util.concurrent.Future<ListKeysResult> listKeysAsync(
+            com.amazonaws.handlers.AsyncHandler<ListKeysRequest, ListKeysResult> asyncHandler);
+
+    /**
+     * <p>
+     * Returns a list of all grants for which the grant's
+     * <code>RetiringPrincipal</code> matches the one specified.
+     * </p>
+     * <p>
+     * A typical use is to list all grants that you are able to retire. To
+     * retire a grant, use <a>RetireGrant</a>.
+     * </p>
+     * 
+     * @param listRetirableGrantsRequest
+     * @return A Java Future containing the result of the ListRetirableGrants
+     *         operation returned by the service.
+     * @sample AWSKMSAsync.ListRetirableGrants
+     */
+    java.util.concurrent.Future<ListRetirableGrantsResult> listRetirableGrantsAsync(
+            ListRetirableGrantsRequest listRetirableGrantsRequest);
+
+    /**
+     * <p>
+     * Returns a list of all grants for which the grant's
+     * <code>RetiringPrincipal</code> matches the one specified.
+     * </p>
+     * <p>
+     * A typical use is to list all grants that you are able to retire. To
+     * retire a grant, use <a>RetireGrant</a>.
+     * </p>
+     * 
+     * @param listRetirableGrantsRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the
+     *        request. Users can provide an implementation of the callback
+     *        methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the ListRetirableGrants
+     *         operation returned by the service.
+     * @sample AWSKMSAsyncHandler.ListRetirableGrants
+     */
+    java.util.concurrent.Future<ListRetirableGrantsResult> listRetirableGrantsAsync(
+            ListRetirableGrantsRequest listRetirableGrantsRequest,
+            com.amazonaws.handlers.AsyncHandler<ListRetirableGrantsRequest, ListRetirableGrantsResult> asyncHandler);
+
+    /**
+     * <p>
+     * Attaches a policy to the specified key.
+     * </p>
+     * 
+     * @param putKeyPolicyRequest
+     * @sample AWSKMSAsync.PutKeyPolicy
+     */
+    java.util.concurrent.Future<Void> putKeyPolicyAsync(
+            PutKeyPolicyRequest putKeyPolicyRequest);
+
+    /**
+     * <p>
+     * Attaches a policy to the specified key.
+     * </p>
+     * 
+     * @param putKeyPolicyRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the
+     *        request. Users can provide an implementation of the callback
+     *        methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @sample AWSKMSAsyncHandler.PutKeyPolicy
+     */
+    java.util.concurrent.Future<Void> putKeyPolicyAsync(
+            PutKeyPolicyRequest putKeyPolicyRequest,
+            com.amazonaws.handlers.AsyncHandler<PutKeyPolicyRequest, Void> asyncHandler);
+
+    /**
+     * <p>
+     * Encrypts data on the server side with a new customer master key without
+     * exposing the plaintext of the data on the client side. The data is first
+     * decrypted and then encrypted. This operation can also be used to change
+     * the encryption context of a ciphertext.
+     * </p>
+     * <p>
+     * Unlike other actions, <code>ReEncrypt</code> is authorized twice - once
+     * as <code>ReEncryptFrom</code> on the source key and once as
+     * <code>ReEncryptTo</code> on the destination key. We therefore recommend
+     * that you include the <code>"action":"kms:ReEncrypt*"</code> statement in
+     * your key policies to permit re-encryption from or to the key. The
+     * statement is included automatically when you authorize use of the key
+     * through the console but must be included manually when you set a policy
+     * by using the <a>PutKeyPolicy</a> function.
+     * </p>
+     * 
+     * @param reEncryptRequest
+     * @return A Java Future containing the result of the ReEncrypt operation
+     *         returned by the service.
+     * @sample AWSKMSAsync.ReEncrypt
+     */
+    java.util.concurrent.Future<ReEncryptResult> reEncryptAsync(
+            ReEncryptRequest reEncryptRequest);
+
+    /**
+     * <p>
+     * Encrypts data on the server side with a new customer master key without
+     * exposing the plaintext of the data on the client side. The data is first
+     * decrypted and then encrypted. This operation can also be used to change
+     * the encryption context of a ciphertext.
+     * </p>
+     * <p>
+     * Unlike other actions, <code>ReEncrypt</code> is authorized twice - once
+     * as <code>ReEncryptFrom</code> on the source key and once as
+     * <code>ReEncryptTo</code> on the destination key. We therefore recommend
+     * that you include the <code>"action":"kms:ReEncrypt*"</code> statement in
+     * your key policies to permit re-encryption from or to the key. The
+     * statement is included automatically when you authorize use of the key
+     * through the console but must be included manually when you set a policy
+     * by using the <a>PutKeyPolicy</a> function.
+     * </p>
+     * 
+     * @param reEncryptRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the
+     *        request. Users can provide an implementation of the callback
+     *        methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the ReEncrypt operation
+     *         returned by the service.
+     * @sample AWSKMSAsyncHandler.ReEncrypt
+     */
+    java.util.concurrent.Future<ReEncryptResult> reEncryptAsync(
+            ReEncryptRequest reEncryptRequest,
+            com.amazonaws.handlers.AsyncHandler<ReEncryptRequest, ReEncryptResult> asyncHandler);
 
     /**
      * <p>
@@ -949,10 +1214,9 @@ public interface AWSKMSAsync extends AWSKMS {
      * API:
      * <ul>
      * <li>The account that created the grant</li>
-     * <li>The <code>RetiringPrincipal</code> , if present</li>
-     * <li>The <code>GranteePrincipal</code> , if <code>RetireGrant</code>
-     * is a grantee operation</li>
-     * 
+     * <li>The <code>RetiringPrincipal</code>, if present</li>
+     * <li>The <code>GranteePrincipal</code>, if <code>RetireGrant</code> is a
+     * grantee operation</li>
      * </ul>
      * The grant to retire must be identified by its grant token or by a
      * combination of the key ARN and the grant ID. A grant token is a unique
@@ -960,24 +1224,12 @@ public interface AWSKMSAsync extends AWSKMS {
      * unique identifier of a grant. Both are returned by the
      * <code>CreateGrant</code> function.
      * </p>
-     *
-     * @param retireGrantRequest Container for the necessary parameters to
-     *           execute the RetireGrant operation on AWSKMS.
      * 
-     * @return A Java Future object containing the response from the
-     *         RetireGrant service method, as returned by AWSKMS.
-     * 
-     *
-     * @throws AmazonClientException
-     *             If any internal errors are encountered inside the client while
-     *             attempting to make the request or handle the response.  For example
-     *             if a network connection is not available.
-     * @throws AmazonServiceException
-     *             If an error response is returned by AWSKMS indicating
-     *             either a problem with the data in the request, or a server side issue.
+     * @param retireGrantRequest
+     * @sample AWSKMSAsync.RetireGrant
      */
-    public Future<Void> retireGrantAsync(RetireGrantRequest retireGrantRequest) 
-            throws AmazonServiceException, AmazonClientException;
+    java.util.concurrent.Future<Void> retireGrantAsync(
+            RetireGrantRequest retireGrantRequest);
 
     /**
      * <p>
@@ -987,10 +1239,9 @@ public interface AWSKMSAsync extends AWSKMS {
      * API:
      * <ul>
      * <li>The account that created the grant</li>
-     * <li>The <code>RetiringPrincipal</code> , if present</li>
-     * <li>The <code>GranteePrincipal</code> , if <code>RetireGrant</code>
-     * is a grantee operation</li>
-     * 
+     * <li>The <code>RetiringPrincipal</code>, if present</li>
+     * <li>The <code>GranteePrincipal</code>, if <code>RetireGrant</code> is a
+     * grantee operation</li>
      * </ul>
      * The grant to retire must be identified by its grant token or by a
      * combination of the key ARN and the grant ID. A grant token is a unique
@@ -998,793 +1249,226 @@ public interface AWSKMSAsync extends AWSKMS {
      * unique identifier of a grant. Both are returned by the
      * <code>CreateGrant</code> function.
      * </p>
-     *
-     * @param retireGrantRequest Container for the necessary parameters to
-     *           execute the RetireGrant operation on AWSKMS.
-     * @param asyncHandler Asynchronous callback handler for events in the
-     *           life-cycle of the request. Users could provide the implementation of
-     *           the four callback methods in this interface to process the operation
-     *           result or handle the exception.
      * 
-     * @return A Java Future object containing the response from the
-     *         RetireGrant service method, as returned by AWSKMS.
-     * 
-     *
-     * @throws AmazonClientException
-     *             If any internal errors are encountered inside the client while
-     *             attempting to make the request or handle the response.  For example
-     *             if a network connection is not available.
-     * @throws AmazonServiceException
-     *             If an error response is returned by AWSKMS indicating
-     *             either a problem with the data in the request, or a server side issue.
+     * @param retireGrantRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the
+     *        request. Users can provide an implementation of the callback
+     *        methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @sample AWSKMSAsyncHandler.RetireGrant
      */
-    public Future<Void> retireGrantAsync(RetireGrantRequest retireGrantRequest,
-            AsyncHandler<RetireGrantRequest, Void> asyncHandler)
-                    throws AmazonServiceException, AmazonClientException;
+    java.util.concurrent.Future<Void> retireGrantAsync(
+            RetireGrantRequest retireGrantRequest,
+            com.amazonaws.handlers.AsyncHandler<RetireGrantRequest, Void> asyncHandler);
+
+    /**
+     * Simplified method form for invoking the RetireGrant operation.
+     *
+     * @see #retireGrantAsync(RetireGrantRequest)
+     */
+    java.util.concurrent.Future<Void> retireGrantAsync();
+
+    /**
+     * Simplified method form for invoking the RetireGrant operation with an
+     * AsyncHandler.
+     *
+     * @see #retireGrantAsync(RetireGrantRequest,
+     *      com.amazonaws.handlers.AsyncHandler)
+     */
+    java.util.concurrent.Future<Void> retireGrantAsync(
+            com.amazonaws.handlers.AsyncHandler<RetireGrantRequest, Void> asyncHandler);
 
     /**
      * <p>
-     * Provides detailed information about the specified customer master
+     * Revokes a grant. You can revoke a grant to actively deny operations that
+     * depend on it.
+     * </p>
+     * 
+     * @param revokeGrantRequest
+     * @sample AWSKMSAsync.RevokeGrant
+     */
+    java.util.concurrent.Future<Void> revokeGrantAsync(
+            RevokeGrantRequest revokeGrantRequest);
+
+    /**
+     * <p>
+     * Revokes a grant. You can revoke a grant to actively deny operations that
+     * depend on it.
+     * </p>
+     * 
+     * @param revokeGrantRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the
+     *        request. Users can provide an implementation of the callback
+     *        methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @sample AWSKMSAsyncHandler.RevokeGrant
+     */
+    java.util.concurrent.Future<Void> revokeGrantAsync(
+            RevokeGrantRequest revokeGrantRequest,
+            com.amazonaws.handlers.AsyncHandler<RevokeGrantRequest, Void> asyncHandler);
+
+    /**
+     * <p>
+     * Schedules the deletion of a customer master key (CMK). You may provide a
+     * waiting period, specified in days, before deletion occurs. If you do not
+     * provide a waiting period, the default period of 30 days is used. When
+     * this operation is successful, the state of the CMK changes to
+     * <code>PendingDeletion</code>. Before the waiting period ends, you can use
+     * <a>CancelKeyDeletion</a> to cancel the deletion of the CMK. After the
+     * waiting period ends, AWS KMS deletes the CMK and all AWS KMS data
+     * associated with it, including all aliases that point to it.
+     * </p>
+     * <important>
+     * <p>
+     * Deleting a CMK is a destructive and potentially dangerous operation. When
+     * a CMK is deleted, all data that was encrypted under the CMK is rendered
+     * unrecoverable. To restrict the use of a CMK without deleting it, use
+     * <a>DisableKey</a>.
+     * </p>
+     * </important>
+     * <p>
+     * For more information about scheduling a CMK for deletion, go to <a href=
+     * "http://docs.aws.amazon.com/kms/latest/developerguide/deleting-keys.html"
+     * >Deleting Customer Master Keys</a> in the <i>AWS Key Management Service
+     * Developer Guide</i>.
+     * </p>
+     * 
+     * @param scheduleKeyDeletionRequest
+     * @return A Java Future containing the result of the ScheduleKeyDeletion
+     *         operation returned by the service.
+     * @sample AWSKMSAsync.ScheduleKeyDeletion
+     */
+    java.util.concurrent.Future<ScheduleKeyDeletionResult> scheduleKeyDeletionAsync(
+            ScheduleKeyDeletionRequest scheduleKeyDeletionRequest);
+
+    /**
+     * <p>
+     * Schedules the deletion of a customer master key (CMK). You may provide a
+     * waiting period, specified in days, before deletion occurs. If you do not
+     * provide a waiting period, the default period of 30 days is used. When
+     * this operation is successful, the state of the CMK changes to
+     * <code>PendingDeletion</code>. Before the waiting period ends, you can use
+     * <a>CancelKeyDeletion</a> to cancel the deletion of the CMK. After the
+     * waiting period ends, AWS KMS deletes the CMK and all AWS KMS data
+     * associated with it, including all aliases that point to it.
+     * </p>
+     * <important>
+     * <p>
+     * Deleting a CMK is a destructive and potentially dangerous operation. When
+     * a CMK is deleted, all data that was encrypted under the CMK is rendered
+     * unrecoverable. To restrict the use of a CMK without deleting it, use
+     * <a>DisableKey</a>.
+     * </p>
+     * </important>
+     * <p>
+     * For more information about scheduling a CMK for deletion, go to <a href=
+     * "http://docs.aws.amazon.com/kms/latest/developerguide/deleting-keys.html"
+     * >Deleting Customer Master Keys</a> in the <i>AWS Key Management Service
+     * Developer Guide</i>.
+     * </p>
+     * 
+     * @param scheduleKeyDeletionRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the
+     *        request. Users can provide an implementation of the callback
+     *        methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @return A Java Future containing the result of the ScheduleKeyDeletion
+     *         operation returned by the service.
+     * @sample AWSKMSAsyncHandler.ScheduleKeyDeletion
+     */
+    java.util.concurrent.Future<ScheduleKeyDeletionResult> scheduleKeyDeletionAsync(
+            ScheduleKeyDeletionRequest scheduleKeyDeletionRequest,
+            com.amazonaws.handlers.AsyncHandler<ScheduleKeyDeletionRequest, ScheduleKeyDeletionResult> asyncHandler);
+
+    /**
+     * <p>
+     * Updates an alias to map it to a different key.
+     * </p>
+     * <p>
+     * An alias is not a property of a key. Therefore, an alias can be mapped to
+     * and unmapped from an existing key without changing the properties of the
      * key.
      * </p>
-     *
-     * @param describeKeyRequest Container for the necessary parameters to
-     *           execute the DescribeKey operation on AWSKMS.
-     * 
-     * @return A Java Future object containing the response from the
-     *         DescribeKey service method, as returned by AWSKMS.
-     * 
-     *
-     * @throws AmazonClientException
-     *             If any internal errors are encountered inside the client while
-     *             attempting to make the request or handle the response.  For example
-     *             if a network connection is not available.
-     * @throws AmazonServiceException
-     *             If an error response is returned by AWSKMS indicating
-     *             either a problem with the data in the request, or a server side issue.
-     */
-    public Future<DescribeKeyResult> describeKeyAsync(DescribeKeyRequest describeKeyRequest) 
-            throws AmazonServiceException, AmazonClientException;
-
-    /**
      * <p>
-     * Provides detailed information about the specified customer master
-     * key.
-     * </p>
-     *
-     * @param describeKeyRequest Container for the necessary parameters to
-     *           execute the DescribeKey operation on AWSKMS.
-     * @param asyncHandler Asynchronous callback handler for events in the
-     *           life-cycle of the request. Users could provide the implementation of
-     *           the four callback methods in this interface to process the operation
-     *           result or handle the exception.
-     * 
-     * @return A Java Future object containing the response from the
-     *         DescribeKey service method, as returned by AWSKMS.
-     * 
-     *
-     * @throws AmazonClientException
-     *             If any internal errors are encountered inside the client while
-     *             attempting to make the request or handle the response.  For example
-     *             if a network connection is not available.
-     * @throws AmazonServiceException
-     *             If an error response is returned by AWSKMS indicating
-     *             either a problem with the data in the request, or a server side issue.
-     */
-    public Future<DescribeKeyResult> describeKeyAsync(DescribeKeyRequest describeKeyRequest,
-            AsyncHandler<DescribeKeyRequest, DescribeKeyResult> asyncHandler)
-                    throws AmazonServiceException, AmazonClientException;
-
-    /**
-     * <p>
-     * List the grants for a specified key.
-     * </p>
-     *
-     * @param listGrantsRequest Container for the necessary parameters to
-     *           execute the ListGrants operation on AWSKMS.
-     * 
-     * @return A Java Future object containing the response from the
-     *         ListGrants service method, as returned by AWSKMS.
-     * 
-     *
-     * @throws AmazonClientException
-     *             If any internal errors are encountered inside the client while
-     *             attempting to make the request or handle the response.  For example
-     *             if a network connection is not available.
-     * @throws AmazonServiceException
-     *             If an error response is returned by AWSKMS indicating
-     *             either a problem with the data in the request, or a server side issue.
-     */
-    public Future<ListGrantsResult> listGrantsAsync(ListGrantsRequest listGrantsRequest) 
-            throws AmazonServiceException, AmazonClientException;
-
-    /**
-     * <p>
-     * List the grants for a specified key.
-     * </p>
-     *
-     * @param listGrantsRequest Container for the necessary parameters to
-     *           execute the ListGrants operation on AWSKMS.
-     * @param asyncHandler Asynchronous callback handler for events in the
-     *           life-cycle of the request. Users could provide the implementation of
-     *           the four callback methods in this interface to process the operation
-     *           result or handle the exception.
-     * 
-     * @return A Java Future object containing the response from the
-     *         ListGrants service method, as returned by AWSKMS.
-     * 
-     *
-     * @throws AmazonClientException
-     *             If any internal errors are encountered inside the client while
-     *             attempting to make the request or handle the response.  For example
-     *             if a network connection is not available.
-     * @throws AmazonServiceException
-     *             If an error response is returned by AWSKMS indicating
-     *             either a problem with the data in the request, or a server side issue.
-     */
-    public Future<ListGrantsResult> listGrantsAsync(ListGrantsRequest listGrantsRequest,
-            AsyncHandler<ListGrantsRequest, ListGrantsResult> asyncHandler)
-                    throws AmazonServiceException, AmazonClientException;
-
-    /**
-     * <p>
-     * Decrypts ciphertext. Ciphertext is plaintext that has been previously
-     * encrypted by using any of the following functions:
-     * <ul>
-     * <li> GenerateDataKey </li>
-     * <li> GenerateDataKeyWithoutPlaintext </li>
-     * <li> Encrypt </li>
-     * 
-     * </ul>
-     * 
-     * </p>
-     * <p>
-     * Note that if a caller has been granted access permissions to all keys
-     * (through, for example, IAM user policies that grant
-     * <code>Decrypt</code> permission on all resources), then ciphertext
-     * encrypted by using keys in other accounts where the key grants access
-     * to the caller can be decrypted. To remedy this, we recommend that you
-     * do not grant <code>Decrypt</code> access in an IAM user policy.
-     * Instead grant <code>Decrypt</code> access only in key policies. If you
-     * must grant <code>Decrypt</code> access in an IAM user policy, you
-     * should scope the resource to specific keys or to specific trusted
-     * accounts.
-     * </p>
-     *
-     * @param decryptRequest Container for the necessary parameters to
-     *           execute the Decrypt operation on AWSKMS.
-     * 
-     * @return A Java Future object containing the response from the Decrypt
-     *         service method, as returned by AWSKMS.
-     * 
-     *
-     * @throws AmazonClientException
-     *             If any internal errors are encountered inside the client while
-     *             attempting to make the request or handle the response.  For example
-     *             if a network connection is not available.
-     * @throws AmazonServiceException
-     *             If an error response is returned by AWSKMS indicating
-     *             either a problem with the data in the request, or a server side issue.
-     */
-    public Future<DecryptResult> decryptAsync(DecryptRequest decryptRequest) 
-            throws AmazonServiceException, AmazonClientException;
-
-    /**
-     * <p>
-     * Decrypts ciphertext. Ciphertext is plaintext that has been previously
-     * encrypted by using any of the following functions:
-     * <ul>
-     * <li> GenerateDataKey </li>
-     * <li> GenerateDataKeyWithoutPlaintext </li>
-     * <li> Encrypt </li>
-     * 
-     * </ul>
-     * 
-     * </p>
-     * <p>
-     * Note that if a caller has been granted access permissions to all keys
-     * (through, for example, IAM user policies that grant
-     * <code>Decrypt</code> permission on all resources), then ciphertext
-     * encrypted by using keys in other accounts where the key grants access
-     * to the caller can be decrypted. To remedy this, we recommend that you
-     * do not grant <code>Decrypt</code> access in an IAM user policy.
-     * Instead grant <code>Decrypt</code> access only in key policies. If you
-     * must grant <code>Decrypt</code> access in an IAM user policy, you
-     * should scope the resource to specific keys or to specific trusted
-     * accounts.
-     * </p>
-     *
-     * @param decryptRequest Container for the necessary parameters to
-     *           execute the Decrypt operation on AWSKMS.
-     * @param asyncHandler Asynchronous callback handler for events in the
-     *           life-cycle of the request. Users could provide the implementation of
-     *           the four callback methods in this interface to process the operation
-     *           result or handle the exception.
-     * 
-     * @return A Java Future object containing the response from the Decrypt
-     *         service method, as returned by AWSKMS.
-     * 
-     *
-     * @throws AmazonClientException
-     *             If any internal errors are encountered inside the client while
-     *             attempting to make the request or handle the response.  For example
-     *             if a network connection is not available.
-     * @throws AmazonServiceException
-     *             If an error response is returned by AWSKMS indicating
-     *             either a problem with the data in the request, or a server side issue.
-     */
-    public Future<DecryptResult> decryptAsync(DecryptRequest decryptRequest,
-            AsyncHandler<DecryptRequest, DecryptResult> asyncHandler)
-                    throws AmazonServiceException, AmazonClientException;
-
-    /**
-     * <p>
-     * Generates an unpredictable byte string.
-     * </p>
-     *
-     * @param generateRandomRequest Container for the necessary parameters to
-     *           execute the GenerateRandom operation on AWSKMS.
-     * 
-     * @return A Java Future object containing the response from the
-     *         GenerateRandom service method, as returned by AWSKMS.
-     * 
-     *
-     * @throws AmazonClientException
-     *             If any internal errors are encountered inside the client while
-     *             attempting to make the request or handle the response.  For example
-     *             if a network connection is not available.
-     * @throws AmazonServiceException
-     *             If an error response is returned by AWSKMS indicating
-     *             either a problem with the data in the request, or a server side issue.
-     */
-    public Future<GenerateRandomResult> generateRandomAsync(GenerateRandomRequest generateRandomRequest) 
-            throws AmazonServiceException, AmazonClientException;
-
-    /**
-     * <p>
-     * Generates an unpredictable byte string.
-     * </p>
-     *
-     * @param generateRandomRequest Container for the necessary parameters to
-     *           execute the GenerateRandom operation on AWSKMS.
-     * @param asyncHandler Asynchronous callback handler for events in the
-     *           life-cycle of the request. Users could provide the implementation of
-     *           the four callback methods in this interface to process the operation
-     *           result or handle the exception.
-     * 
-     * @return A Java Future object containing the response from the
-     *         GenerateRandom service method, as returned by AWSKMS.
-     * 
-     *
-     * @throws AmazonClientException
-     *             If any internal errors are encountered inside the client while
-     *             attempting to make the request or handle the response.  For example
-     *             if a network connection is not available.
-     * @throws AmazonServiceException
-     *             If an error response is returned by AWSKMS indicating
-     *             either a problem with the data in the request, or a server side issue.
-     */
-    public Future<GenerateRandomResult> generateRandomAsync(GenerateRandomRequest generateRandomRequest,
-            AsyncHandler<GenerateRandomRequest, GenerateRandomResult> asyncHandler)
-                    throws AmazonServiceException, AmazonClientException;
-
-    /**
-     * <p>
-     * Retrieves a Boolean value that indicates whether key rotation is
-     * enabled for the specified key.
-     * </p>
-     *
-     * @param getKeyRotationStatusRequest Container for the necessary
-     *           parameters to execute the GetKeyRotationStatus operation on AWSKMS.
-     * 
-     * @return A Java Future object containing the response from the
-     *         GetKeyRotationStatus service method, as returned by AWSKMS.
-     * 
-     *
-     * @throws AmazonClientException
-     *             If any internal errors are encountered inside the client while
-     *             attempting to make the request or handle the response.  For example
-     *             if a network connection is not available.
-     * @throws AmazonServiceException
-     *             If an error response is returned by AWSKMS indicating
-     *             either a problem with the data in the request, or a server side issue.
-     */
-    public Future<GetKeyRotationStatusResult> getKeyRotationStatusAsync(GetKeyRotationStatusRequest getKeyRotationStatusRequest) 
-            throws AmazonServiceException, AmazonClientException;
-
-    /**
-     * <p>
-     * Retrieves a Boolean value that indicates whether key rotation is
-     * enabled for the specified key.
-     * </p>
-     *
-     * @param getKeyRotationStatusRequest Container for the necessary
-     *           parameters to execute the GetKeyRotationStatus operation on AWSKMS.
-     * @param asyncHandler Asynchronous callback handler for events in the
-     *           life-cycle of the request. Users could provide the implementation of
-     *           the four callback methods in this interface to process the operation
-     *           result or handle the exception.
-     * 
-     * @return A Java Future object containing the response from the
-     *         GetKeyRotationStatus service method, as returned by AWSKMS.
-     * 
-     *
-     * @throws AmazonClientException
-     *             If any internal errors are encountered inside the client while
-     *             attempting to make the request or handle the response.  For example
-     *             if a network connection is not available.
-     * @throws AmazonServiceException
-     *             If an error response is returned by AWSKMS indicating
-     *             either a problem with the data in the request, or a server side issue.
-     */
-    public Future<GetKeyRotationStatusResult> getKeyRotationStatusAsync(GetKeyRotationStatusRequest getKeyRotationStatusRequest,
-            AsyncHandler<GetKeyRotationStatusRequest, GetKeyRotationStatusResult> asyncHandler)
-                    throws AmazonServiceException, AmazonClientException;
-
-    /**
-     * <p>
-     * Disables rotation of the specified key.
-     * </p>
-     *
-     * @param disableKeyRotationRequest Container for the necessary
-     *           parameters to execute the DisableKeyRotation operation on AWSKMS.
-     * 
-     * @return A Java Future object containing the response from the
-     *         DisableKeyRotation service method, as returned by AWSKMS.
-     * 
-     *
-     * @throws AmazonClientException
-     *             If any internal errors are encountered inside the client while
-     *             attempting to make the request or handle the response.  For example
-     *             if a network connection is not available.
-     * @throws AmazonServiceException
-     *             If an error response is returned by AWSKMS indicating
-     *             either a problem with the data in the request, or a server side issue.
-     */
-    public Future<Void> disableKeyRotationAsync(DisableKeyRotationRequest disableKeyRotationRequest) 
-            throws AmazonServiceException, AmazonClientException;
-
-    /**
-     * <p>
-     * Disables rotation of the specified key.
-     * </p>
-     *
-     * @param disableKeyRotationRequest Container for the necessary
-     *           parameters to execute the DisableKeyRotation operation on AWSKMS.
-     * @param asyncHandler Asynchronous callback handler for events in the
-     *           life-cycle of the request. Users could provide the implementation of
-     *           the four callback methods in this interface to process the operation
-     *           result or handle the exception.
-     * 
-     * @return A Java Future object containing the response from the
-     *         DisableKeyRotation service method, as returned by AWSKMS.
-     * 
-     *
-     * @throws AmazonClientException
-     *             If any internal errors are encountered inside the client while
-     *             attempting to make the request or handle the response.  For example
-     *             if a network connection is not available.
-     * @throws AmazonServiceException
-     *             If an error response is returned by AWSKMS indicating
-     *             either a problem with the data in the request, or a server side issue.
-     */
-    public Future<Void> disableKeyRotationAsync(DisableKeyRotationRequest disableKeyRotationRequest,
-            AsyncHandler<DisableKeyRotationRequest, Void> asyncHandler)
-                    throws AmazonServiceException, AmazonClientException;
-
-    /**
-     * <p>
-     * Retrieves a list of policies attached to a key.
-     * </p>
-     *
-     * @param listKeyPoliciesRequest Container for the necessary parameters
-     *           to execute the ListKeyPolicies operation on AWSKMS.
-     * 
-     * @return A Java Future object containing the response from the
-     *         ListKeyPolicies service method, as returned by AWSKMS.
-     * 
-     *
-     * @throws AmazonClientException
-     *             If any internal errors are encountered inside the client while
-     *             attempting to make the request or handle the response.  For example
-     *             if a network connection is not available.
-     * @throws AmazonServiceException
-     *             If an error response is returned by AWSKMS indicating
-     *             either a problem with the data in the request, or a server side issue.
-     */
-    public Future<ListKeyPoliciesResult> listKeyPoliciesAsync(ListKeyPoliciesRequest listKeyPoliciesRequest) 
-            throws AmazonServiceException, AmazonClientException;
-
-    /**
-     * <p>
-     * Retrieves a list of policies attached to a key.
-     * </p>
-     *
-     * @param listKeyPoliciesRequest Container for the necessary parameters
-     *           to execute the ListKeyPolicies operation on AWSKMS.
-     * @param asyncHandler Asynchronous callback handler for events in the
-     *           life-cycle of the request. Users could provide the implementation of
-     *           the four callback methods in this interface to process the operation
-     *           result or handle the exception.
-     * 
-     * @return A Java Future object containing the response from the
-     *         ListKeyPolicies service method, as returned by AWSKMS.
-     * 
-     *
-     * @throws AmazonClientException
-     *             If any internal errors are encountered inside the client while
-     *             attempting to make the request or handle the response.  For example
-     *             if a network connection is not available.
-     * @throws AmazonServiceException
-     *             If an error response is returned by AWSKMS indicating
-     *             either a problem with the data in the request, or a server side issue.
-     */
-    public Future<ListKeyPoliciesResult> listKeyPoliciesAsync(ListKeyPoliciesRequest listKeyPoliciesRequest,
-            AsyncHandler<ListKeyPoliciesRequest, ListKeyPoliciesResult> asyncHandler)
-                    throws AmazonServiceException, AmazonClientException;
-
-    /**
-     * <p>
-     * Creates a display name for a customer master key. An alias can be
-     * used to identify a key and should be unique. The console enforces a
-     * one-to-one mapping between the alias and a key. An alias name can
-     * contain only alphanumeric characters, forward slashes (/), underscores
-     * (_), and dashes (-). An alias must start with the word "alias"
-     * followed by a forward slash (alias/). An alias that begins with "aws"
-     * after the forward slash (alias/aws...) is reserved by Amazon Web
+     * An alias name can contain only alphanumeric characters, forward slashes
+     * (/), underscores (_), and dashes (-). An alias must start with the word
+     * "alias" followed by a forward slash (alias/). An alias that begins with
+     * "aws" after the forward slash (alias/aws...) is reserved by Amazon Web
      * Services (AWS).
      * </p>
      * <p>
-     * To associate an alias with a different key, call UpdateAlias.
+     * The alias and the key it is mapped to must be in the same AWS account and
+     * the same region.
      * </p>
-     * <p>
-     * Note that you cannot create or update an alias that represents a key
-     * in another account.
-     * </p>
-     *
-     * @param createAliasRequest Container for the necessary parameters to
-     *           execute the CreateAlias operation on AWSKMS.
      * 
-     * @return A Java Future object containing the response from the
-     *         CreateAlias service method, as returned by AWSKMS.
-     * 
-     *
-     * @throws AmazonClientException
-     *             If any internal errors are encountered inside the client while
-     *             attempting to make the request or handle the response.  For example
-     *             if a network connection is not available.
-     * @throws AmazonServiceException
-     *             If an error response is returned by AWSKMS indicating
-     *             either a problem with the data in the request, or a server side issue.
+     * @param updateAliasRequest
+     * @sample AWSKMSAsync.UpdateAlias
      */
-    public Future<Void> createAliasAsync(CreateAliasRequest createAliasRequest) 
-            throws AmazonServiceException, AmazonClientException;
+    java.util.concurrent.Future<Void> updateAliasAsync(
+            UpdateAliasRequest updateAliasRequest);
 
     /**
      * <p>
-     * Creates a display name for a customer master key. An alias can be
-     * used to identify a key and should be unique. The console enforces a
-     * one-to-one mapping between the alias and a key. An alias name can
-     * contain only alphanumeric characters, forward slashes (/), underscores
-     * (_), and dashes (-). An alias must start with the word "alias"
-     * followed by a forward slash (alias/). An alias that begins with "aws"
-     * after the forward slash (alias/aws...) is reserved by Amazon Web
+     * Updates an alias to map it to a different key.
+     * </p>
+     * <p>
+     * An alias is not a property of a key. Therefore, an alias can be mapped to
+     * and unmapped from an existing key without changing the properties of the
+     * key.
+     * </p>
+     * <p>
+     * An alias name can contain only alphanumeric characters, forward slashes
+     * (/), underscores (_), and dashes (-). An alias must start with the word
+     * "alias" followed by a forward slash (alias/). An alias that begins with
+     * "aws" after the forward slash (alias/aws...) is reserved by Amazon Web
      * Services (AWS).
      * </p>
      * <p>
-     * To associate an alias with a different key, call UpdateAlias.
+     * The alias and the key it is mapped to must be in the same AWS account and
+     * the same region.
      * </p>
-     * <p>
-     * Note that you cannot create or update an alias that represents a key
-     * in another account.
-     * </p>
-     *
-     * @param createAliasRequest Container for the necessary parameters to
-     *           execute the CreateAlias operation on AWSKMS.
-     * @param asyncHandler Asynchronous callback handler for events in the
-     *           life-cycle of the request. Users could provide the implementation of
-     *           the four callback methods in this interface to process the operation
-     *           result or handle the exception.
      * 
-     * @return A Java Future object containing the response from the
-     *         CreateAlias service method, as returned by AWSKMS.
-     * 
-     *
-     * @throws AmazonClientException
-     *             If any internal errors are encountered inside the client while
-     *             attempting to make the request or handle the response.  For example
-     *             if a network connection is not available.
-     * @throws AmazonServiceException
-     *             If an error response is returned by AWSKMS indicating
-     *             either a problem with the data in the request, or a server side issue.
+     * @param updateAliasRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the
+     *        request. Users can provide an implementation of the callback
+     *        methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @sample AWSKMSAsyncHandler.UpdateAlias
      */
-    public Future<Void> createAliasAsync(CreateAliasRequest createAliasRequest,
-            AsyncHandler<CreateAliasRequest, Void> asyncHandler)
-                    throws AmazonServiceException, AmazonClientException;
+    java.util.concurrent.Future<Void> updateAliasAsync(
+            UpdateAliasRequest updateAliasRequest,
+            com.amazonaws.handlers.AsyncHandler<UpdateAliasRequest, Void> asyncHandler);
 
     /**
      * <p>
-     * Attaches a policy to the specified key.
+     * Updates the description of a key.
      * </p>
-     *
-     * @param putKeyPolicyRequest Container for the necessary parameters to
-     *           execute the PutKeyPolicy operation on AWSKMS.
      * 
-     * @return A Java Future object containing the response from the
-     *         PutKeyPolicy service method, as returned by AWSKMS.
-     * 
-     *
-     * @throws AmazonClientException
-     *             If any internal errors are encountered inside the client while
-     *             attempting to make the request or handle the response.  For example
-     *             if a network connection is not available.
-     * @throws AmazonServiceException
-     *             If an error response is returned by AWSKMS indicating
-     *             either a problem with the data in the request, or a server side issue.
+     * @param updateKeyDescriptionRequest
+     * @sample AWSKMSAsync.UpdateKeyDescription
      */
-    public Future<Void> putKeyPolicyAsync(PutKeyPolicyRequest putKeyPolicyRequest) 
-            throws AmazonServiceException, AmazonClientException;
+    java.util.concurrent.Future<Void> updateKeyDescriptionAsync(
+            UpdateKeyDescriptionRequest updateKeyDescriptionRequest);
 
     /**
      * <p>
-     * Attaches a policy to the specified key.
+     * Updates the description of a key.
      * </p>
-     *
-     * @param putKeyPolicyRequest Container for the necessary parameters to
-     *           execute the PutKeyPolicy operation on AWSKMS.
-     * @param asyncHandler Asynchronous callback handler for events in the
-     *           life-cycle of the request. Users could provide the implementation of
-     *           the four callback methods in this interface to process the operation
-     *           result or handle the exception.
      * 
-     * @return A Java Future object containing the response from the
-     *         PutKeyPolicy service method, as returned by AWSKMS.
-     * 
-     *
-     * @throws AmazonClientException
-     *             If any internal errors are encountered inside the client while
-     *             attempting to make the request or handle the response.  For example
-     *             if a network connection is not available.
-     * @throws AmazonServiceException
-     *             If an error response is returned by AWSKMS indicating
-     *             either a problem with the data in the request, or a server side issue.
+     * @param updateKeyDescriptionRequest
+     * @param asyncHandler
+     *        Asynchronous callback handler for events in the lifecycle of the
+     *        request. Users can provide an implementation of the callback
+     *        methods in this interface to receive notification of successful or
+     *        unsuccessful completion of the operation.
+     * @sample AWSKMSAsyncHandler.UpdateKeyDescription
      */
-    public Future<Void> putKeyPolicyAsync(PutKeyPolicyRequest putKeyPolicyRequest,
-            AsyncHandler<PutKeyPolicyRequest, Void> asyncHandler)
-                    throws AmazonServiceException, AmazonClientException;
+    java.util.concurrent.Future<Void> updateKeyDescriptionAsync(
+            UpdateKeyDescriptionRequest updateKeyDescriptionRequest,
+            com.amazonaws.handlers.AsyncHandler<UpdateKeyDescriptionRequest, Void> asyncHandler);
 
-    /**
-     * <p>
-     * Marks a key as disabled, thereby preventing its use.
-     * </p>
-     *
-     * @param disableKeyRequest Container for the necessary parameters to
-     *           execute the DisableKey operation on AWSKMS.
-     * 
-     * @return A Java Future object containing the response from the
-     *         DisableKey service method, as returned by AWSKMS.
-     * 
-     *
-     * @throws AmazonClientException
-     *             If any internal errors are encountered inside the client while
-     *             attempting to make the request or handle the response.  For example
-     *             if a network connection is not available.
-     * @throws AmazonServiceException
-     *             If an error response is returned by AWSKMS indicating
-     *             either a problem with the data in the request, or a server side issue.
-     */
-    public Future<Void> disableKeyAsync(DisableKeyRequest disableKeyRequest) 
-            throws AmazonServiceException, AmazonClientException;
-
-    /**
-     * <p>
-     * Marks a key as disabled, thereby preventing its use.
-     * </p>
-     *
-     * @param disableKeyRequest Container for the necessary parameters to
-     *           execute the DisableKey operation on AWSKMS.
-     * @param asyncHandler Asynchronous callback handler for events in the
-     *           life-cycle of the request. Users could provide the implementation of
-     *           the four callback methods in this interface to process the operation
-     *           result or handle the exception.
-     * 
-     * @return A Java Future object containing the response from the
-     *         DisableKey service method, as returned by AWSKMS.
-     * 
-     *
-     * @throws AmazonClientException
-     *             If any internal errors are encountered inside the client while
-     *             attempting to make the request or handle the response.  For example
-     *             if a network connection is not available.
-     * @throws AmazonServiceException
-     *             If an error response is returned by AWSKMS indicating
-     *             either a problem with the data in the request, or a server side issue.
-     */
-    public Future<Void> disableKeyAsync(DisableKeyRequest disableKeyRequest,
-            AsyncHandler<DisableKeyRequest, Void> asyncHandler)
-                    throws AmazonServiceException, AmazonClientException;
-
-    /**
-     * <p>
-     * Encrypts data on the server side with a new customer master key
-     * without exposing the plaintext of the data on the client side. The
-     * data is first decrypted and then encrypted. This operation can also be
-     * used to change the encryption context of a ciphertext.
-     * </p>
-     * <p>
-     * Unlike other actions, <code>ReEncrypt</code> is authorized twice -
-     * once as <code>ReEncryptFrom</code> on the source key and once as
-     * <code>ReEncryptTo</code> on the destination key. We therefore
-     * recommend that you include the <code>"action":"kms:ReEncrypt*"</code>
-     * statement in your key policies to permit re-encryption from or to the
-     * key. The statement is included automatically when you authorize use of
-     * the key through the console but must be included manually when you set
-     * a policy by using the PutKeyPolicy function.
-     * </p>
-     *
-     * @param reEncryptRequest Container for the necessary parameters to
-     *           execute the ReEncrypt operation on AWSKMS.
-     * 
-     * @return A Java Future object containing the response from the
-     *         ReEncrypt service method, as returned by AWSKMS.
-     * 
-     *
-     * @throws AmazonClientException
-     *             If any internal errors are encountered inside the client while
-     *             attempting to make the request or handle the response.  For example
-     *             if a network connection is not available.
-     * @throws AmazonServiceException
-     *             If an error response is returned by AWSKMS indicating
-     *             either a problem with the data in the request, or a server side issue.
-     */
-    public Future<ReEncryptResult> reEncryptAsync(ReEncryptRequest reEncryptRequest) 
-            throws AmazonServiceException, AmazonClientException;
-
-    /**
-     * <p>
-     * Encrypts data on the server side with a new customer master key
-     * without exposing the plaintext of the data on the client side. The
-     * data is first decrypted and then encrypted. This operation can also be
-     * used to change the encryption context of a ciphertext.
-     * </p>
-     * <p>
-     * Unlike other actions, <code>ReEncrypt</code> is authorized twice -
-     * once as <code>ReEncryptFrom</code> on the source key and once as
-     * <code>ReEncryptTo</code> on the destination key. We therefore
-     * recommend that you include the <code>"action":"kms:ReEncrypt*"</code>
-     * statement in your key policies to permit re-encryption from or to the
-     * key. The statement is included automatically when you authorize use of
-     * the key through the console but must be included manually when you set
-     * a policy by using the PutKeyPolicy function.
-     * </p>
-     *
-     * @param reEncryptRequest Container for the necessary parameters to
-     *           execute the ReEncrypt operation on AWSKMS.
-     * @param asyncHandler Asynchronous callback handler for events in the
-     *           life-cycle of the request. Users could provide the implementation of
-     *           the four callback methods in this interface to process the operation
-     *           result or handle the exception.
-     * 
-     * @return A Java Future object containing the response from the
-     *         ReEncrypt service method, as returned by AWSKMS.
-     * 
-     *
-     * @throws AmazonClientException
-     *             If any internal errors are encountered inside the client while
-     *             attempting to make the request or handle the response.  For example
-     *             if a network connection is not available.
-     * @throws AmazonServiceException
-     *             If an error response is returned by AWSKMS indicating
-     *             either a problem with the data in the request, or a server side issue.
-     */
-    public Future<ReEncryptResult> reEncryptAsync(ReEncryptRequest reEncryptRequest,
-            AsyncHandler<ReEncryptRequest, ReEncryptResult> asyncHandler)
-                    throws AmazonServiceException, AmazonClientException;
-
-    /**
-     * <p>
-     * Revokes a grant. You can revoke a grant to actively deny operations
-     * that depend on it.
-     * </p>
-     *
-     * @param revokeGrantRequest Container for the necessary parameters to
-     *           execute the RevokeGrant operation on AWSKMS.
-     * 
-     * @return A Java Future object containing the response from the
-     *         RevokeGrant service method, as returned by AWSKMS.
-     * 
-     *
-     * @throws AmazonClientException
-     *             If any internal errors are encountered inside the client while
-     *             attempting to make the request or handle the response.  For example
-     *             if a network connection is not available.
-     * @throws AmazonServiceException
-     *             If an error response is returned by AWSKMS indicating
-     *             either a problem with the data in the request, or a server side issue.
-     */
-    public Future<Void> revokeGrantAsync(RevokeGrantRequest revokeGrantRequest) 
-            throws AmazonServiceException, AmazonClientException;
-
-    /**
-     * <p>
-     * Revokes a grant. You can revoke a grant to actively deny operations
-     * that depend on it.
-     * </p>
-     *
-     * @param revokeGrantRequest Container for the necessary parameters to
-     *           execute the RevokeGrant operation on AWSKMS.
-     * @param asyncHandler Asynchronous callback handler for events in the
-     *           life-cycle of the request. Users could provide the implementation of
-     *           the four callback methods in this interface to process the operation
-     *           result or handle the exception.
-     * 
-     * @return A Java Future object containing the response from the
-     *         RevokeGrant service method, as returned by AWSKMS.
-     * 
-     *
-     * @throws AmazonClientException
-     *             If any internal errors are encountered inside the client while
-     *             attempting to make the request or handle the response.  For example
-     *             if a network connection is not available.
-     * @throws AmazonServiceException
-     *             If an error response is returned by AWSKMS indicating
-     *             either a problem with the data in the request, or a server side issue.
-     */
-    public Future<Void> revokeGrantAsync(RevokeGrantRequest revokeGrantRequest,
-            AsyncHandler<RevokeGrantRequest, Void> asyncHandler)
-                    throws AmazonServiceException, AmazonClientException;
-
-    /**
-     * <p>
-     * Marks a key as enabled, thereby permitting its use. You can have up
-     * to 25 enabled keys at one time.
-     * </p>
-     *
-     * @param enableKeyRequest Container for the necessary parameters to
-     *           execute the EnableKey operation on AWSKMS.
-     * 
-     * @return A Java Future object containing the response from the
-     *         EnableKey service method, as returned by AWSKMS.
-     * 
-     *
-     * @throws AmazonClientException
-     *             If any internal errors are encountered inside the client while
-     *             attempting to make the request or handle the response.  For example
-     *             if a network connection is not available.
-     * @throws AmazonServiceException
-     *             If an error response is returned by AWSKMS indicating
-     *             either a problem with the data in the request, or a server side issue.
-     */
-    public Future<Void> enableKeyAsync(EnableKeyRequest enableKeyRequest) 
-            throws AmazonServiceException, AmazonClientException;
-
-    /**
-     * <p>
-     * Marks a key as enabled, thereby permitting its use. You can have up
-     * to 25 enabled keys at one time.
-     * </p>
-     *
-     * @param enableKeyRequest Container for the necessary parameters to
-     *           execute the EnableKey operation on AWSKMS.
-     * @param asyncHandler Asynchronous callback handler for events in the
-     *           life-cycle of the request. Users could provide the implementation of
-     *           the four callback methods in this interface to process the operation
-     *           result or handle the exception.
-     * 
-     * @return A Java Future object containing the response from the
-     *         EnableKey service method, as returned by AWSKMS.
-     * 
-     *
-     * @throws AmazonClientException
-     *             If any internal errors are encountered inside the client while
-     *             attempting to make the request or handle the response.  For example
-     *             if a network connection is not available.
-     * @throws AmazonServiceException
-     *             If an error response is returned by AWSKMS indicating
-     *             either a problem with the data in the request, or a server side issue.
-     */
-    public Future<Void> enableKeyAsync(EnableKeyRequest enableKeyRequest,
-            AsyncHandler<EnableKeyRequest, Void> asyncHandler)
-                    throws AmazonServiceException, AmazonClientException;
 }
-        

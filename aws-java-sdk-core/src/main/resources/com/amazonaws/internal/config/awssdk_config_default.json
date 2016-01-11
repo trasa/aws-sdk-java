@@ -147,7 +147,8 @@
   }, {
     "key" : "AmazonSimpleEmailServiceClient",
     "config" : {
-      "serviceName" : "email"
+      "serviceName" : "email",
+      "regionMetadataServiceName": "email" // for region metadata
     }
   }, {
     "key" : "AWSSecurityTokenServiceClient",
@@ -184,6 +185,11 @@
     "config" : {
       "serviceName": "dynamodb", // for v4 signing
       "regionMetadataServiceName": "streams.dynamodb" // for region metadata
+    }
+  }, {
+    "key" : "AWSIotClient",
+    "config" : {
+      "regionMetadataServiceName": "iot" // for region metadata
     }
   } ],
   "hostRegexToRegionMappings" : [ {

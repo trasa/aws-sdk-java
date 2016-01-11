@@ -1,5 +1,5 @@
 /*
- * Copyright 2010-2015 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2010-2016 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License.
@@ -31,29 +31,21 @@ public class ListJobsRequest extends AmazonWebServiceRequest implements
     private String aPIVersion;
 
     /**
-     * Sets the value of the MaxJobs property for this object.
-     * 
      * @param maxJobs
-     *        The new value for the MaxJobs property for this object.
      */
     public void setMaxJobs(Integer maxJobs) {
         this.maxJobs = maxJobs;
     }
 
     /**
-     * Returns the value of the MaxJobs property for this object.
-     * 
-     * @return The value of the MaxJobs property for this object.
+     * @return
      */
     public Integer getMaxJobs() {
         return this.maxJobs;
     }
 
     /**
-     * Sets the value of the MaxJobs property for this object.
-     * 
      * @param maxJobs
-     *        The new value for the MaxJobs property for this object.
      * @return Returns a reference to this object so that method calls can be
      *         chained together.
      */
@@ -63,29 +55,21 @@ public class ListJobsRequest extends AmazonWebServiceRequest implements
     }
 
     /**
-     * Sets the value of the Marker property for this object.
-     * 
      * @param marker
-     *        The new value for the Marker property for this object.
      */
     public void setMarker(String marker) {
         this.marker = marker;
     }
 
     /**
-     * Returns the value of the Marker property for this object.
-     * 
-     * @return The value of the Marker property for this object.
+     * @return
      */
     public String getMarker() {
         return this.marker;
     }
 
     /**
-     * Sets the value of the Marker property for this object.
-     * 
      * @param marker
-     *        The new value for the Marker property for this object.
      * @return Returns a reference to this object so that method calls can be
      *         chained together.
      */
@@ -95,29 +79,21 @@ public class ListJobsRequest extends AmazonWebServiceRequest implements
     }
 
     /**
-     * Sets the value of the APIVersion property for this object.
-     * 
      * @param aPIVersion
-     *        The new value for the APIVersion property for this object.
      */
     public void setAPIVersion(String aPIVersion) {
         this.aPIVersion = aPIVersion;
     }
 
     /**
-     * Returns the value of the APIVersion property for this object.
-     * 
-     * @return The value of the APIVersion property for this object.
+     * @return
      */
     public String getAPIVersion() {
         return this.aPIVersion;
     }
 
     /**
-     * Sets the value of the APIVersion property for this object.
-     * 
      * @param aPIVersion
-     *        The new value for the APIVersion property for this object.
      * @return Returns a reference to this object so that method calls can be
      *         chained together.
      */

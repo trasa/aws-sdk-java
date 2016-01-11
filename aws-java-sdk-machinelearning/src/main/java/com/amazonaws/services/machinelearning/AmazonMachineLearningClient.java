@@ -1,5 +1,5 @@
 /*
- * Copyright 2010-2015 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2010-2016 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License.
@@ -53,6 +53,9 @@ public class AmazonMachineLearningClient extends AmazonWebServiceClient
 
     /** Default signing name for the service. */
     private static final String DEFAULT_SIGNING_NAME = "machinelearning";
+
+    /** The region metadata service name for computing region endpoints. */
+    private static final String DEFAULT_ENDPOINT_PREFIX = "machinelearning";
 
     /**
      * List of exception unmarshallers for all Amazon Machine Learning
@@ -249,6 +252,7 @@ public class AmazonMachineLearningClient extends AmazonWebServiceClient
         // calling this.setEndPoint(...) will also modify the signer accordingly
         setEndpoint("https://machinelearning.us-east-1.amazonaws.com");
         setServiceNameIntern(DEFAULT_SIGNING_NAME);
+        setEndpointPrefix(DEFAULT_ENDPOINT_PREFIX);
         HandlerChainFactory chainFactory = new HandlerChainFactory();
         requestHandler2s
                 .addAll(chainFactory
@@ -283,7 +287,6 @@ public class AmazonMachineLearningClient extends AmazonWebServiceClient
      * </p>
      * 
      * @param createBatchPredictionRequest
-     *        null
      * @return Result of the CreateBatchPrediction operation returned by the
      *         service.
      * @throws InvalidInputException
@@ -295,6 +298,7 @@ public class AmazonMachineLearningClient extends AmazonWebServiceClient
      *         A second request to use or change an object was not allowed. This
      *         can result from retrying a request using a parameter that was not
      *         present in the original request.
+     * @sample AmazonMachineLearning.CreateBatchPrediction
      */
     @Override
     public CreateBatchPredictionResult createBatchPrediction(
@@ -310,16 +314,18 @@ public class AmazonMachineLearningClient extends AmazonWebServiceClient
             awsRequestMetrics.startEvent(Field.RequestMarshallTime);
             try {
                 request = new CreateBatchPredictionRequestMarshaller()
-                        .marshall(createBatchPredictionRequest);
+                        .marshall(super
+                                .beforeMarshalling(createBatchPredictionRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
 
-            response = invoke(request,
-                    new CreateBatchPredictionResultJsonUnmarshaller(),
-                    executionContext);
+            JsonResponseHandler<CreateBatchPredictionResult> responseHandler = new JsonResponseHandler<CreateBatchPredictionResult>(
+                    new CreateBatchPredictionResultJsonUnmarshaller());
+            responseHandler.setIsPayloadJson(true);
+            response = invoke(request, responseHandler, executionContext);
 
             return response.getAwsResponse();
 
@@ -356,7 +362,6 @@ public class AmazonMachineLearningClient extends AmazonWebServiceClient
      * </p>
      * 
      * @param createDataSourceFromRDSRequest
-     *        null
      * @return Result of the CreateDataSourceFromRDS operation returned by the
      *         service.
      * @throws InvalidInputException
@@ -368,6 +373,7 @@ public class AmazonMachineLearningClient extends AmazonWebServiceClient
      *         A second request to use or change an object was not allowed. This
      *         can result from retrying a request using a parameter that was not
      *         present in the original request.
+     * @sample AmazonMachineLearning.CreateDataSourceFromRDS
      */
     @Override
     public CreateDataSourceFromRDSResult createDataSourceFromRDS(
@@ -383,16 +389,18 @@ public class AmazonMachineLearningClient extends AmazonWebServiceClient
             awsRequestMetrics.startEvent(Field.RequestMarshallTime);
             try {
                 request = new CreateDataSourceFromRDSRequestMarshaller()
-                        .marshall(createDataSourceFromRDSRequest);
+                        .marshall(super
+                                .beforeMarshalling(createDataSourceFromRDSRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
 
-            response = invoke(request,
-                    new CreateDataSourceFromRDSResultJsonUnmarshaller(),
-                    executionContext);
+            JsonResponseHandler<CreateDataSourceFromRDSResult> responseHandler = new JsonResponseHandler<CreateDataSourceFromRDSResult>(
+                    new CreateDataSourceFromRDSResultJsonUnmarshaller());
+            responseHandler.setIsPayloadJson(true);
+            response = invoke(request, responseHandler, executionContext);
 
             return response.getAwsResponse();
 
@@ -450,7 +458,6 @@ public class AmazonMachineLearningClient extends AmazonWebServiceClient
      * </p>
      * 
      * @param createDataSourceFromRedshiftRequest
-     *        null
      * @return Result of the CreateDataSourceFromRedshift operation returned by
      *         the service.
      * @throws InvalidInputException
@@ -462,6 +469,7 @@ public class AmazonMachineLearningClient extends AmazonWebServiceClient
      *         A second request to use or change an object was not allowed. This
      *         can result from retrying a request using a parameter that was not
      *         present in the original request.
+     * @sample AmazonMachineLearning.CreateDataSourceFromRedshift
      */
     @Override
     public CreateDataSourceFromRedshiftResult createDataSourceFromRedshift(
@@ -477,16 +485,18 @@ public class AmazonMachineLearningClient extends AmazonWebServiceClient
             awsRequestMetrics.startEvent(Field.RequestMarshallTime);
             try {
                 request = new CreateDataSourceFromRedshiftRequestMarshaller()
-                        .marshall(createDataSourceFromRedshiftRequest);
+                        .marshall(super
+                                .beforeMarshalling(createDataSourceFromRedshiftRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
 
-            response = invoke(request,
-                    new CreateDataSourceFromRedshiftResultJsonUnmarshaller(),
-                    executionContext);
+            JsonResponseHandler<CreateDataSourceFromRedshiftResult> responseHandler = new JsonResponseHandler<CreateDataSourceFromRedshiftResult>(
+                    new CreateDataSourceFromRedshiftResultJsonUnmarshaller());
+            responseHandler.setIsPayloadJson(true);
+            response = invoke(request, responseHandler, executionContext);
 
             return response.getAwsResponse();
 
@@ -544,7 +554,6 @@ public class AmazonMachineLearningClient extends AmazonWebServiceClient
      * </p>
      * 
      * @param createDataSourceFromS3Request
-     *        null
      * @return Result of the CreateDataSourceFromS3 operation returned by the
      *         service.
      * @throws InvalidInputException
@@ -556,6 +565,7 @@ public class AmazonMachineLearningClient extends AmazonWebServiceClient
      *         A second request to use or change an object was not allowed. This
      *         can result from retrying a request using a parameter that was not
      *         present in the original request.
+     * @sample AmazonMachineLearning.CreateDataSourceFromS3
      */
     @Override
     public CreateDataSourceFromS3Result createDataSourceFromS3(
@@ -571,16 +581,18 @@ public class AmazonMachineLearningClient extends AmazonWebServiceClient
             awsRequestMetrics.startEvent(Field.RequestMarshallTime);
             try {
                 request = new CreateDataSourceFromS3RequestMarshaller()
-                        .marshall(createDataSourceFromS3Request);
+                        .marshall(super
+                                .beforeMarshalling(createDataSourceFromS3Request));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
 
-            response = invoke(request,
-                    new CreateDataSourceFromS3ResultJsonUnmarshaller(),
-                    executionContext);
+            JsonResponseHandler<CreateDataSourceFromS3Result> responseHandler = new JsonResponseHandler<CreateDataSourceFromS3Result>(
+                    new CreateDataSourceFromS3ResultJsonUnmarshaller());
+            responseHandler.setIsPayloadJson(true);
+            response = invoke(request, responseHandler, executionContext);
 
             return response.getAwsResponse();
 
@@ -618,7 +630,6 @@ public class AmazonMachineLearningClient extends AmazonWebServiceClient
      * </p>
      * 
      * @param createEvaluationRequest
-     *        null
      * @return Result of the CreateEvaluation operation returned by the service.
      * @throws InvalidInputException
      *         An error on the client occurred. Typically, the cause is an
@@ -629,6 +640,7 @@ public class AmazonMachineLearningClient extends AmazonWebServiceClient
      *         A second request to use or change an object was not allowed. This
      *         can result from retrying a request using a parameter that was not
      *         present in the original request.
+     * @sample AmazonMachineLearning.CreateEvaluation
      */
     @Override
     public CreateEvaluationResult createEvaluation(
@@ -644,16 +656,18 @@ public class AmazonMachineLearningClient extends AmazonWebServiceClient
             awsRequestMetrics.startEvent(Field.RequestMarshallTime);
             try {
                 request = new CreateEvaluationRequestMarshaller()
-                        .marshall(createEvaluationRequest);
+                        .marshall(super
+                                .beforeMarshalling(createEvaluationRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
 
-            response = invoke(request,
-                    new CreateEvaluationResultJsonUnmarshaller(),
-                    executionContext);
+            JsonResponseHandler<CreateEvaluationResult> responseHandler = new JsonResponseHandler<CreateEvaluationResult>(
+                    new CreateEvaluationResultJsonUnmarshaller());
+            responseHandler.setIsPayloadJson(true);
+            response = invoke(request, responseHandler, executionContext);
 
             return response.getAwsResponse();
 
@@ -693,7 +707,6 @@ public class AmazonMachineLearningClient extends AmazonWebServiceClient
      * </p>
      * 
      * @param createMLModelRequest
-     *        null
      * @return Result of the CreateMLModel operation returned by the service.
      * @throws InvalidInputException
      *         An error on the client occurred. Typically, the cause is an
@@ -704,6 +717,7 @@ public class AmazonMachineLearningClient extends AmazonWebServiceClient
      *         A second request to use or change an object was not allowed. This
      *         can result from retrying a request using a parameter that was not
      *         present in the original request.
+     * @sample AmazonMachineLearning.CreateMLModel
      */
     @Override
     public CreateMLModelResult createMLModel(
@@ -718,16 +732,18 @@ public class AmazonMachineLearningClient extends AmazonWebServiceClient
         try {
             awsRequestMetrics.startEvent(Field.RequestMarshallTime);
             try {
-                request = new CreateMLModelRequestMarshaller()
-                        .marshall(createMLModelRequest);
+                request = new CreateMLModelRequestMarshaller().marshall(super
+                        .beforeMarshalling(createMLModelRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
 
-            response = invoke(request,
-                    new CreateMLModelResultJsonUnmarshaller(), executionContext);
+            JsonResponseHandler<CreateMLModelResult> responseHandler = new JsonResponseHandler<CreateMLModelResult>(
+                    new CreateMLModelResultJsonUnmarshaller());
+            responseHandler.setIsPayloadJson(true);
+            response = invoke(request, responseHandler, executionContext);
 
             return response.getAwsResponse();
 
@@ -746,7 +762,6 @@ public class AmazonMachineLearningClient extends AmazonWebServiceClient
      * </p>
      * 
      * @param createRealtimeEndpointRequest
-     *        null
      * @return Result of the CreateRealtimeEndpoint operation returned by the
      *         service.
      * @throws InvalidInputException
@@ -756,6 +771,7 @@ public class AmazonMachineLearningClient extends AmazonWebServiceClient
      *         A specified resource cannot be located.
      * @throws InternalServerException
      *         An error on the server occurred when trying to process a request.
+     * @sample AmazonMachineLearning.CreateRealtimeEndpoint
      */
     @Override
     public CreateRealtimeEndpointResult createRealtimeEndpoint(
@@ -771,16 +787,18 @@ public class AmazonMachineLearningClient extends AmazonWebServiceClient
             awsRequestMetrics.startEvent(Field.RequestMarshallTime);
             try {
                 request = new CreateRealtimeEndpointRequestMarshaller()
-                        .marshall(createRealtimeEndpointRequest);
+                        .marshall(super
+                                .beforeMarshalling(createRealtimeEndpointRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
 
-            response = invoke(request,
-                    new CreateRealtimeEndpointResultJsonUnmarshaller(),
-                    executionContext);
+            JsonResponseHandler<CreateRealtimeEndpointResult> responseHandler = new JsonResponseHandler<CreateRealtimeEndpointResult>(
+                    new CreateRealtimeEndpointResultJsonUnmarshaller());
+            responseHandler.setIsPayloadJson(true);
+            response = invoke(request, responseHandler, executionContext);
 
             return response.getAwsResponse();
 
@@ -806,7 +824,6 @@ public class AmazonMachineLearningClient extends AmazonWebServiceClient
      * </p>
      * 
      * @param deleteBatchPredictionRequest
-     *        null
      * @return Result of the DeleteBatchPrediction operation returned by the
      *         service.
      * @throws InvalidInputException
@@ -816,6 +833,7 @@ public class AmazonMachineLearningClient extends AmazonWebServiceClient
      *         A specified resource cannot be located.
      * @throws InternalServerException
      *         An error on the server occurred when trying to process a request.
+     * @sample AmazonMachineLearning.DeleteBatchPrediction
      */
     @Override
     public DeleteBatchPredictionResult deleteBatchPrediction(
@@ -831,16 +849,18 @@ public class AmazonMachineLearningClient extends AmazonWebServiceClient
             awsRequestMetrics.startEvent(Field.RequestMarshallTime);
             try {
                 request = new DeleteBatchPredictionRequestMarshaller()
-                        .marshall(deleteBatchPredictionRequest);
+                        .marshall(super
+                                .beforeMarshalling(deleteBatchPredictionRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
 
-            response = invoke(request,
-                    new DeleteBatchPredictionResultJsonUnmarshaller(),
-                    executionContext);
+            JsonResponseHandler<DeleteBatchPredictionResult> responseHandler = new JsonResponseHandler<DeleteBatchPredictionResult>(
+                    new DeleteBatchPredictionResultJsonUnmarshaller());
+            responseHandler.setIsPayloadJson(true);
+            response = invoke(request, responseHandler, executionContext);
 
             return response.getAwsResponse();
 
@@ -866,7 +886,6 @@ public class AmazonMachineLearningClient extends AmazonWebServiceClient
      * </p>
      * 
      * @param deleteDataSourceRequest
-     *        null
      * @return Result of the DeleteDataSource operation returned by the service.
      * @throws InvalidInputException
      *         An error on the client occurred. Typically, the cause is an
@@ -875,6 +894,7 @@ public class AmazonMachineLearningClient extends AmazonWebServiceClient
      *         A specified resource cannot be located.
      * @throws InternalServerException
      *         An error on the server occurred when trying to process a request.
+     * @sample AmazonMachineLearning.DeleteDataSource
      */
     @Override
     public DeleteDataSourceResult deleteDataSource(
@@ -890,16 +910,18 @@ public class AmazonMachineLearningClient extends AmazonWebServiceClient
             awsRequestMetrics.startEvent(Field.RequestMarshallTime);
             try {
                 request = new DeleteDataSourceRequestMarshaller()
-                        .marshall(deleteDataSourceRequest);
+                        .marshall(super
+                                .beforeMarshalling(deleteDataSourceRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
 
-            response = invoke(request,
-                    new DeleteDataSourceResultJsonUnmarshaller(),
-                    executionContext);
+            JsonResponseHandler<DeleteDataSourceResult> responseHandler = new JsonResponseHandler<DeleteDataSourceResult>(
+                    new DeleteDataSourceResultJsonUnmarshaller());
+            responseHandler.setIsPayloadJson(true);
+            response = invoke(request, responseHandler, executionContext);
 
             return response.getAwsResponse();
 
@@ -925,7 +947,6 @@ public class AmazonMachineLearningClient extends AmazonWebServiceClient
      * </p>
      * 
      * @param deleteEvaluationRequest
-     *        null
      * @return Result of the DeleteEvaluation operation returned by the service.
      * @throws InvalidInputException
      *         An error on the client occurred. Typically, the cause is an
@@ -934,6 +955,7 @@ public class AmazonMachineLearningClient extends AmazonWebServiceClient
      *         A specified resource cannot be located.
      * @throws InternalServerException
      *         An error on the server occurred when trying to process a request.
+     * @sample AmazonMachineLearning.DeleteEvaluation
      */
     @Override
     public DeleteEvaluationResult deleteEvaluation(
@@ -949,16 +971,18 @@ public class AmazonMachineLearningClient extends AmazonWebServiceClient
             awsRequestMetrics.startEvent(Field.RequestMarshallTime);
             try {
                 request = new DeleteEvaluationRequestMarshaller()
-                        .marshall(deleteEvaluationRequest);
+                        .marshall(super
+                                .beforeMarshalling(deleteEvaluationRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
 
-            response = invoke(request,
-                    new DeleteEvaluationResultJsonUnmarshaller(),
-                    executionContext);
+            JsonResponseHandler<DeleteEvaluationResult> responseHandler = new JsonResponseHandler<DeleteEvaluationResult>(
+                    new DeleteEvaluationResultJsonUnmarshaller());
+            responseHandler.setIsPayloadJson(true);
+            response = invoke(request, responseHandler, executionContext);
 
             return response.getAwsResponse();
 
@@ -984,7 +1008,6 @@ public class AmazonMachineLearningClient extends AmazonWebServiceClient
      * </p>
      * 
      * @param deleteMLModelRequest
-     *        null
      * @return Result of the DeleteMLModel operation returned by the service.
      * @throws InvalidInputException
      *         An error on the client occurred. Typically, the cause is an
@@ -993,6 +1016,7 @@ public class AmazonMachineLearningClient extends AmazonWebServiceClient
      *         A specified resource cannot be located.
      * @throws InternalServerException
      *         An error on the server occurred when trying to process a request.
+     * @sample AmazonMachineLearning.DeleteMLModel
      */
     @Override
     public DeleteMLModelResult deleteMLModel(
@@ -1007,16 +1031,18 @@ public class AmazonMachineLearningClient extends AmazonWebServiceClient
         try {
             awsRequestMetrics.startEvent(Field.RequestMarshallTime);
             try {
-                request = new DeleteMLModelRequestMarshaller()
-                        .marshall(deleteMLModelRequest);
+                request = new DeleteMLModelRequestMarshaller().marshall(super
+                        .beforeMarshalling(deleteMLModelRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
 
-            response = invoke(request,
-                    new DeleteMLModelResultJsonUnmarshaller(), executionContext);
+            JsonResponseHandler<DeleteMLModelResult> responseHandler = new JsonResponseHandler<DeleteMLModelResult>(
+                    new DeleteMLModelResultJsonUnmarshaller());
+            responseHandler.setIsPayloadJson(true);
+            response = invoke(request, responseHandler, executionContext);
 
             return response.getAwsResponse();
 
@@ -1032,7 +1058,6 @@ public class AmazonMachineLearningClient extends AmazonWebServiceClient
      * </p>
      * 
      * @param deleteRealtimeEndpointRequest
-     *        null
      * @return Result of the DeleteRealtimeEndpoint operation returned by the
      *         service.
      * @throws InvalidInputException
@@ -1042,6 +1067,7 @@ public class AmazonMachineLearningClient extends AmazonWebServiceClient
      *         A specified resource cannot be located.
      * @throws InternalServerException
      *         An error on the server occurred when trying to process a request.
+     * @sample AmazonMachineLearning.DeleteRealtimeEndpoint
      */
     @Override
     public DeleteRealtimeEndpointResult deleteRealtimeEndpoint(
@@ -1057,16 +1083,18 @@ public class AmazonMachineLearningClient extends AmazonWebServiceClient
             awsRequestMetrics.startEvent(Field.RequestMarshallTime);
             try {
                 request = new DeleteRealtimeEndpointRequestMarshaller()
-                        .marshall(deleteRealtimeEndpointRequest);
+                        .marshall(super
+                                .beforeMarshalling(deleteRealtimeEndpointRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
 
-            response = invoke(request,
-                    new DeleteRealtimeEndpointResultJsonUnmarshaller(),
-                    executionContext);
+            JsonResponseHandler<DeleteRealtimeEndpointResult> responseHandler = new JsonResponseHandler<DeleteRealtimeEndpointResult>(
+                    new DeleteRealtimeEndpointResultJsonUnmarshaller());
+            responseHandler.setIsPayloadJson(true);
+            response = invoke(request, responseHandler, executionContext);
 
             return response.getAwsResponse();
 
@@ -1083,7 +1111,6 @@ public class AmazonMachineLearningClient extends AmazonWebServiceClient
      * </p>
      * 
      * @param describeBatchPredictionsRequest
-     *        null
      * @return Result of the DescribeBatchPredictions operation returned by the
      *         service.
      * @throws InvalidInputException
@@ -1091,6 +1118,7 @@ public class AmazonMachineLearningClient extends AmazonWebServiceClient
      *         invalid input value.
      * @throws InternalServerException
      *         An error on the server occurred when trying to process a request.
+     * @sample AmazonMachineLearning.DescribeBatchPredictions
      */
     @Override
     public DescribeBatchPredictionsResult describeBatchPredictions(
@@ -1106,16 +1134,18 @@ public class AmazonMachineLearningClient extends AmazonWebServiceClient
             awsRequestMetrics.startEvent(Field.RequestMarshallTime);
             try {
                 request = new DescribeBatchPredictionsRequestMarshaller()
-                        .marshall(describeBatchPredictionsRequest);
+                        .marshall(super
+                                .beforeMarshalling(describeBatchPredictionsRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
 
-            response = invoke(request,
-                    new DescribeBatchPredictionsResultJsonUnmarshaller(),
-                    executionContext);
+            JsonResponseHandler<DescribeBatchPredictionsResult> responseHandler = new JsonResponseHandler<DescribeBatchPredictionsResult>(
+                    new DescribeBatchPredictionsResultJsonUnmarshaller());
+            responseHandler.setIsPayloadJson(true);
+            response = invoke(request, responseHandler, executionContext);
 
             return response.getAwsResponse();
 
@@ -1137,7 +1167,6 @@ public class AmazonMachineLearningClient extends AmazonWebServiceClient
      * </p>
      * 
      * @param describeDataSourcesRequest
-     *        null
      * @return Result of the DescribeDataSources operation returned by the
      *         service.
      * @throws InvalidInputException
@@ -1145,6 +1174,7 @@ public class AmazonMachineLearningClient extends AmazonWebServiceClient
      *         invalid input value.
      * @throws InternalServerException
      *         An error on the server occurred when trying to process a request.
+     * @sample AmazonMachineLearning.DescribeDataSources
      */
     @Override
     public DescribeDataSourcesResult describeDataSources(
@@ -1160,16 +1190,18 @@ public class AmazonMachineLearningClient extends AmazonWebServiceClient
             awsRequestMetrics.startEvent(Field.RequestMarshallTime);
             try {
                 request = new DescribeDataSourcesRequestMarshaller()
-                        .marshall(describeDataSourcesRequest);
+                        .marshall(super
+                                .beforeMarshalling(describeDataSourcesRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
 
-            response = invoke(request,
-                    new DescribeDataSourcesResultJsonUnmarshaller(),
-                    executionContext);
+            JsonResponseHandler<DescribeDataSourcesResult> responseHandler = new JsonResponseHandler<DescribeDataSourcesResult>(
+                    new DescribeDataSourcesResultJsonUnmarshaller());
+            responseHandler.setIsPayloadJson(true);
+            response = invoke(request, responseHandler, executionContext);
 
             return response.getAwsResponse();
 
@@ -1191,7 +1223,6 @@ public class AmazonMachineLearningClient extends AmazonWebServiceClient
      * </p>
      * 
      * @param describeEvaluationsRequest
-     *        null
      * @return Result of the DescribeEvaluations operation returned by the
      *         service.
      * @throws InvalidInputException
@@ -1199,6 +1230,7 @@ public class AmazonMachineLearningClient extends AmazonWebServiceClient
      *         invalid input value.
      * @throws InternalServerException
      *         An error on the server occurred when trying to process a request.
+     * @sample AmazonMachineLearning.DescribeEvaluations
      */
     @Override
     public DescribeEvaluationsResult describeEvaluations(
@@ -1214,16 +1246,18 @@ public class AmazonMachineLearningClient extends AmazonWebServiceClient
             awsRequestMetrics.startEvent(Field.RequestMarshallTime);
             try {
                 request = new DescribeEvaluationsRequestMarshaller()
-                        .marshall(describeEvaluationsRequest);
+                        .marshall(super
+                                .beforeMarshalling(describeEvaluationsRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
 
-            response = invoke(request,
-                    new DescribeEvaluationsResultJsonUnmarshaller(),
-                    executionContext);
+            JsonResponseHandler<DescribeEvaluationsResult> responseHandler = new JsonResponseHandler<DescribeEvaluationsResult>(
+                    new DescribeEvaluationsResultJsonUnmarshaller());
+            responseHandler.setIsPayloadJson(true);
+            response = invoke(request, responseHandler, executionContext);
 
             return response.getAwsResponse();
 
@@ -1245,13 +1279,13 @@ public class AmazonMachineLearningClient extends AmazonWebServiceClient
      * </p>
      * 
      * @param describeMLModelsRequest
-     *        null
      * @return Result of the DescribeMLModels operation returned by the service.
      * @throws InvalidInputException
      *         An error on the client occurred. Typically, the cause is an
      *         invalid input value.
      * @throws InternalServerException
      *         An error on the server occurred when trying to process a request.
+     * @sample AmazonMachineLearning.DescribeMLModels
      */
     @Override
     public DescribeMLModelsResult describeMLModels(
@@ -1267,16 +1301,18 @@ public class AmazonMachineLearningClient extends AmazonWebServiceClient
             awsRequestMetrics.startEvent(Field.RequestMarshallTime);
             try {
                 request = new DescribeMLModelsRequestMarshaller()
-                        .marshall(describeMLModelsRequest);
+                        .marshall(super
+                                .beforeMarshalling(describeMLModelsRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
 
-            response = invoke(request,
-                    new DescribeMLModelsResultJsonUnmarshaller(),
-                    executionContext);
+            JsonResponseHandler<DescribeMLModelsResult> responseHandler = new JsonResponseHandler<DescribeMLModelsResult>(
+                    new DescribeMLModelsResultJsonUnmarshaller());
+            responseHandler.setIsPayloadJson(true);
+            response = invoke(request, responseHandler, executionContext);
 
             return response.getAwsResponse();
 
@@ -1299,7 +1335,6 @@ public class AmazonMachineLearningClient extends AmazonWebServiceClient
      * </p>
      * 
      * @param getBatchPredictionRequest
-     *        null
      * @return Result of the GetBatchPrediction operation returned by the
      *         service.
      * @throws InvalidInputException
@@ -1309,6 +1344,7 @@ public class AmazonMachineLearningClient extends AmazonWebServiceClient
      *         A specified resource cannot be located.
      * @throws InternalServerException
      *         An error on the server occurred when trying to process a request.
+     * @sample AmazonMachineLearning.GetBatchPrediction
      */
     @Override
     public GetBatchPredictionResult getBatchPrediction(
@@ -1324,16 +1360,18 @@ public class AmazonMachineLearningClient extends AmazonWebServiceClient
             awsRequestMetrics.startEvent(Field.RequestMarshallTime);
             try {
                 request = new GetBatchPredictionRequestMarshaller()
-                        .marshall(getBatchPredictionRequest);
+                        .marshall(super
+                                .beforeMarshalling(getBatchPredictionRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
 
-            response = invoke(request,
-                    new GetBatchPredictionResultJsonUnmarshaller(),
-                    executionContext);
+            JsonResponseHandler<GetBatchPredictionResult> responseHandler = new JsonResponseHandler<GetBatchPredictionResult>(
+                    new GetBatchPredictionResultJsonUnmarshaller());
+            responseHandler.setIsPayloadJson(true);
+            response = invoke(request, responseHandler, executionContext);
 
             return response.getAwsResponse();
 
@@ -1356,7 +1394,6 @@ public class AmazonMachineLearningClient extends AmazonWebServiceClient
      * </p>
      * 
      * @param getDataSourceRequest
-     *        null
      * @return Result of the GetDataSource operation returned by the service.
      * @throws InvalidInputException
      *         An error on the client occurred. Typically, the cause is an
@@ -1365,6 +1402,7 @@ public class AmazonMachineLearningClient extends AmazonWebServiceClient
      *         A specified resource cannot be located.
      * @throws InternalServerException
      *         An error on the server occurred when trying to process a request.
+     * @sample AmazonMachineLearning.GetDataSource
      */
     @Override
     public GetDataSourceResult getDataSource(
@@ -1379,16 +1417,18 @@ public class AmazonMachineLearningClient extends AmazonWebServiceClient
         try {
             awsRequestMetrics.startEvent(Field.RequestMarshallTime);
             try {
-                request = new GetDataSourceRequestMarshaller()
-                        .marshall(getDataSourceRequest);
+                request = new GetDataSourceRequestMarshaller().marshall(super
+                        .beforeMarshalling(getDataSourceRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
 
-            response = invoke(request,
-                    new GetDataSourceResultJsonUnmarshaller(), executionContext);
+            JsonResponseHandler<GetDataSourceResult> responseHandler = new JsonResponseHandler<GetDataSourceResult>(
+                    new GetDataSourceResultJsonUnmarshaller());
+            responseHandler.setIsPayloadJson(true);
+            response = invoke(request, responseHandler, executionContext);
 
             return response.getAwsResponse();
 
@@ -1405,7 +1445,6 @@ public class AmazonMachineLearningClient extends AmazonWebServiceClient
      * </p>
      * 
      * @param getEvaluationRequest
-     *        null
      * @return Result of the GetEvaluation operation returned by the service.
      * @throws InvalidInputException
      *         An error on the client occurred. Typically, the cause is an
@@ -1414,6 +1453,7 @@ public class AmazonMachineLearningClient extends AmazonWebServiceClient
      *         A specified resource cannot be located.
      * @throws InternalServerException
      *         An error on the server occurred when trying to process a request.
+     * @sample AmazonMachineLearning.GetEvaluation
      */
     @Override
     public GetEvaluationResult getEvaluation(
@@ -1428,16 +1468,18 @@ public class AmazonMachineLearningClient extends AmazonWebServiceClient
         try {
             awsRequestMetrics.startEvent(Field.RequestMarshallTime);
             try {
-                request = new GetEvaluationRequestMarshaller()
-                        .marshall(getEvaluationRequest);
+                request = new GetEvaluationRequestMarshaller().marshall(super
+                        .beforeMarshalling(getEvaluationRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
 
-            response = invoke(request,
-                    new GetEvaluationResultJsonUnmarshaller(), executionContext);
+            JsonResponseHandler<GetEvaluationResult> responseHandler = new JsonResponseHandler<GetEvaluationResult>(
+                    new GetEvaluationResultJsonUnmarshaller());
+            responseHandler.setIsPayloadJson(true);
+            response = invoke(request, responseHandler, executionContext);
 
             return response.getAwsResponse();
 
@@ -1458,7 +1500,6 @@ public class AmazonMachineLearningClient extends AmazonWebServiceClient
      * </p>
      * 
      * @param getMLModelRequest
-     *        null
      * @return Result of the GetMLModel operation returned by the service.
      * @throws InvalidInputException
      *         An error on the client occurred. Typically, the cause is an
@@ -1467,6 +1508,7 @@ public class AmazonMachineLearningClient extends AmazonWebServiceClient
      *         A specified resource cannot be located.
      * @throws InternalServerException
      *         An error on the server occurred when trying to process a request.
+     * @sample AmazonMachineLearning.GetMLModel
      */
     @Override
     public GetMLModelResult getMLModel(GetMLModelRequest getMLModelRequest) {
@@ -1480,16 +1522,18 @@ public class AmazonMachineLearningClient extends AmazonWebServiceClient
         try {
             awsRequestMetrics.startEvent(Field.RequestMarshallTime);
             try {
-                request = new GetMLModelRequestMarshaller()
-                        .marshall(getMLModelRequest);
+                request = new GetMLModelRequestMarshaller().marshall(super
+                        .beforeMarshalling(getMLModelRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
 
-            response = invoke(request, new GetMLModelResultJsonUnmarshaller(),
-                    executionContext);
+            JsonResponseHandler<GetMLModelResult> responseHandler = new JsonResponseHandler<GetMLModelResult>(
+                    new GetMLModelResultJsonUnmarshaller());
+            responseHandler.setIsPayloadJson(true);
+            response = invoke(request, responseHandler, executionContext);
 
             return response.getAwsResponse();
 
@@ -1512,7 +1556,6 @@ public class AmazonMachineLearningClient extends AmazonWebServiceClient
      * </note>
      * 
      * @param predictRequest
-     *        null
      * @return Result of the Predict operation returned by the service.
      * @throws InvalidInputException
      *         An error on the client occurred. Typically, the cause is an
@@ -1528,6 +1571,7 @@ public class AmazonMachineLearningClient extends AmazonWebServiceClient
      * @throws PredictorNotMountedException
      *         The exception is thrown when a predict request is made to an
      *         unmounted <code>MLModel</code>.
+     * @sample AmazonMachineLearning.Predict
      */
     @Override
     public PredictResult predict(PredictRequest predictRequest) {
@@ -1541,16 +1585,18 @@ public class AmazonMachineLearningClient extends AmazonWebServiceClient
         try {
             awsRequestMetrics.startEvent(Field.RequestMarshallTime);
             try {
-                request = new PredictRequestMarshaller()
-                        .marshall(predictRequest);
+                request = new PredictRequestMarshaller().marshall(super
+                        .beforeMarshalling(predictRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
 
-            response = invoke(request, new PredictResultJsonUnmarshaller(),
-                    executionContext);
+            JsonResponseHandler<PredictResult> responseHandler = new JsonResponseHandler<PredictResult>(
+                    new PredictResultJsonUnmarshaller());
+            responseHandler.setIsPayloadJson(true);
+            response = invoke(request, responseHandler, executionContext);
 
             return response.getAwsResponse();
 
@@ -1571,7 +1617,6 @@ public class AmazonMachineLearningClient extends AmazonWebServiceClient
      * </p>
      * 
      * @param updateBatchPredictionRequest
-     *        null
      * @return Result of the UpdateBatchPrediction operation returned by the
      *         service.
      * @throws InvalidInputException
@@ -1581,6 +1626,7 @@ public class AmazonMachineLearningClient extends AmazonWebServiceClient
      *         A specified resource cannot be located.
      * @throws InternalServerException
      *         An error on the server occurred when trying to process a request.
+     * @sample AmazonMachineLearning.UpdateBatchPrediction
      */
     @Override
     public UpdateBatchPredictionResult updateBatchPrediction(
@@ -1596,16 +1642,18 @@ public class AmazonMachineLearningClient extends AmazonWebServiceClient
             awsRequestMetrics.startEvent(Field.RequestMarshallTime);
             try {
                 request = new UpdateBatchPredictionRequestMarshaller()
-                        .marshall(updateBatchPredictionRequest);
+                        .marshall(super
+                                .beforeMarshalling(updateBatchPredictionRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
 
-            response = invoke(request,
-                    new UpdateBatchPredictionResultJsonUnmarshaller(),
-                    executionContext);
+            JsonResponseHandler<UpdateBatchPredictionResult> responseHandler = new JsonResponseHandler<UpdateBatchPredictionResult>(
+                    new UpdateBatchPredictionResultJsonUnmarshaller());
+            responseHandler.setIsPayloadJson(true);
+            response = invoke(request, responseHandler, executionContext);
 
             return response.getAwsResponse();
 
@@ -1625,7 +1673,6 @@ public class AmazonMachineLearningClient extends AmazonWebServiceClient
      * </p>
      * 
      * @param updateDataSourceRequest
-     *        null
      * @return Result of the UpdateDataSource operation returned by the service.
      * @throws InvalidInputException
      *         An error on the client occurred. Typically, the cause is an
@@ -1634,6 +1681,7 @@ public class AmazonMachineLearningClient extends AmazonWebServiceClient
      *         A specified resource cannot be located.
      * @throws InternalServerException
      *         An error on the server occurred when trying to process a request.
+     * @sample AmazonMachineLearning.UpdateDataSource
      */
     @Override
     public UpdateDataSourceResult updateDataSource(
@@ -1649,16 +1697,18 @@ public class AmazonMachineLearningClient extends AmazonWebServiceClient
             awsRequestMetrics.startEvent(Field.RequestMarshallTime);
             try {
                 request = new UpdateDataSourceRequestMarshaller()
-                        .marshall(updateDataSourceRequest);
+                        .marshall(super
+                                .beforeMarshalling(updateDataSourceRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
 
-            response = invoke(request,
-                    new UpdateDataSourceResultJsonUnmarshaller(),
-                    executionContext);
+            JsonResponseHandler<UpdateDataSourceResult> responseHandler = new JsonResponseHandler<UpdateDataSourceResult>(
+                    new UpdateDataSourceResultJsonUnmarshaller());
+            responseHandler.setIsPayloadJson(true);
+            response = invoke(request, responseHandler, executionContext);
 
             return response.getAwsResponse();
 
@@ -1678,7 +1728,6 @@ public class AmazonMachineLearningClient extends AmazonWebServiceClient
      * </p>
      * 
      * @param updateEvaluationRequest
-     *        null
      * @return Result of the UpdateEvaluation operation returned by the service.
      * @throws InvalidInputException
      *         An error on the client occurred. Typically, the cause is an
@@ -1687,6 +1736,7 @@ public class AmazonMachineLearningClient extends AmazonWebServiceClient
      *         A specified resource cannot be located.
      * @throws InternalServerException
      *         An error on the server occurred when trying to process a request.
+     * @sample AmazonMachineLearning.UpdateEvaluation
      */
     @Override
     public UpdateEvaluationResult updateEvaluation(
@@ -1702,16 +1752,18 @@ public class AmazonMachineLearningClient extends AmazonWebServiceClient
             awsRequestMetrics.startEvent(Field.RequestMarshallTime);
             try {
                 request = new UpdateEvaluationRequestMarshaller()
-                        .marshall(updateEvaluationRequest);
+                        .marshall(super
+                                .beforeMarshalling(updateEvaluationRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
 
-            response = invoke(request,
-                    new UpdateEvaluationResultJsonUnmarshaller(),
-                    executionContext);
+            JsonResponseHandler<UpdateEvaluationResult> responseHandler = new JsonResponseHandler<UpdateEvaluationResult>(
+                    new UpdateEvaluationResultJsonUnmarshaller());
+            responseHandler.setIsPayloadJson(true);
+            response = invoke(request, responseHandler, executionContext);
 
             return response.getAwsResponse();
 
@@ -1732,7 +1784,6 @@ public class AmazonMachineLearningClient extends AmazonWebServiceClient
      * </p>
      * 
      * @param updateMLModelRequest
-     *        null
      * @return Result of the UpdateMLModel operation returned by the service.
      * @throws InvalidInputException
      *         An error on the client occurred. Typically, the cause is an
@@ -1741,6 +1792,7 @@ public class AmazonMachineLearningClient extends AmazonWebServiceClient
      *         A specified resource cannot be located.
      * @throws InternalServerException
      *         An error on the server occurred when trying to process a request.
+     * @sample AmazonMachineLearning.UpdateMLModel
      */
     @Override
     public UpdateMLModelResult updateMLModel(
@@ -1755,16 +1807,18 @@ public class AmazonMachineLearningClient extends AmazonWebServiceClient
         try {
             awsRequestMetrics.startEvent(Field.RequestMarshallTime);
             try {
-                request = new UpdateMLModelRequestMarshaller()
-                        .marshall(updateMLModelRequest);
+                request = new UpdateMLModelRequestMarshaller().marshall(super
+                        .beforeMarshalling(updateMLModelRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
 
-            response = invoke(request,
-                    new UpdateMLModelResultJsonUnmarshaller(), executionContext);
+            JsonResponseHandler<UpdateMLModelResult> responseHandler = new JsonResponseHandler<UpdateMLModelResult>(
+                    new UpdateMLModelResultJsonUnmarshaller());
+            responseHandler.setIsPayloadJson(true);
+            response = invoke(request, responseHandler, executionContext);
 
             return response.getAwsResponse();
 
@@ -1799,7 +1853,7 @@ public class AmazonMachineLearningClient extends AmazonWebServiceClient
 
     private <X, Y extends AmazonWebServiceRequest> Response<X> invoke(
             Request<Y> request,
-            Unmarshaller<X, JsonUnmarshallerContext> unmarshaller,
+            HttpResponseHandler<AmazonWebServiceResponse<X>> responseHandler,
             ExecutionContext executionContext) {
         request.setEndpoint(endpoint);
         request.setTimeOffset(timeOffset);
@@ -1822,8 +1876,6 @@ public class AmazonMachineLearningClient extends AmazonWebServiceClient
 
         executionContext.setCredentials(credentials);
 
-        JsonResponseHandler<X> responseHandler = new JsonResponseHandler<X>(
-                unmarshaller);
         JsonErrorResponseHandlerV2 errorResponseHandler = new JsonErrorResponseHandlerV2(
                 jsonErrorUnmarshallers);
 

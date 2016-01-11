@@ -1,5 +1,5 @@
 /*
- * Copyright 2010-2015 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2010-2016 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License.
@@ -24,6 +24,8 @@ public enum TestType {
     BUILTIN_EXPLORER("BUILTIN_EXPLORER"),
     APPIUM_JAVA_JUNIT("APPIUM_JAVA_JUNIT"),
     APPIUM_JAVA_TESTNG("APPIUM_JAVA_TESTNG"),
+    APPIUM_WEB_JAVA_JUNIT("APPIUM_WEB_JAVA_JUNIT"),
+    APPIUM_WEB_JAVA_TESTNG("APPIUM_WEB_JAVA_TESTNG"),
     CALABASH("CALABASH"),
     INSTRUMENTATION("INSTRUMENTATION"),
     UIAUTOMATION("UIAUTOMATION"),
@@ -59,6 +61,10 @@ public enum TestType {
             return APPIUM_JAVA_JUNIT;
         } else if ("APPIUM_JAVA_TESTNG".equals(value)) {
             return APPIUM_JAVA_TESTNG;
+        } else if ("APPIUM_WEB_JAVA_JUNIT".equals(value)) {
+            return APPIUM_WEB_JAVA_JUNIT;
+        } else if ("APPIUM_WEB_JAVA_TESTNG".equals(value)) {
+            return APPIUM_WEB_JAVA_TESTNG;
         } else if ("CALABASH".equals(value)) {
             return CALABASH;
         } else if ("INSTRUMENTATION".equals(value)) {

@@ -1,5 +1,5 @@
 /*
- * Copyright 2011-2015 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2011-2016 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License.
@@ -14,12 +14,11 @@
  */
 package com.amazonaws.http;
 
-import static com.amazonaws.SDKGlobalConfiguration.DISABLE_CERT_CHECKING_SYSTEM_PROPERTY;
-
 import java.io.IOException;
 import java.net.InetSocketAddress;
 import java.net.Socket;
 import java.net.UnknownHostException;
+import java.security.KeyManagementException;
 import java.security.NoSuchAlgorithmException;
 import java.security.cert.CertificateException;
 import java.security.cert.X509Certificate;
@@ -56,6 +55,8 @@ import org.apache.http.conn.scheme.Scheme;
 import org.apache.http.conn.scheme.SchemeLayeredSocketFactory;
 import org.apache.http.conn.scheme.SchemeRegistry;
 import org.apache.http.conn.scheme.SchemeSocketFactory;
+import org.apache.http.conn.ssl.SSLContexts;
+import org.apache.http.conn.ssl.SSLInitializationException;
 import org.apache.http.conn.ssl.SSLSocketFactory;
 import org.apache.http.impl.auth.BasicScheme;
 import org.apache.http.impl.client.BasicAuthCache;
@@ -65,25 +66,24 @@ import org.apache.http.params.HttpConnectionParams;
 import org.apache.http.params.HttpParams;
 import org.apache.http.protocol.HttpContext;
 
-import com.amazonaws.AmazonClientException;
 import com.amazonaws.ClientConfiguration;
+import com.amazonaws.SDKGlobalConfiguration;
+import com.amazonaws.annotation.SdkInternalApi;
 import com.amazonaws.http.conn.SdkConnectionKeepAliveStrategy;
 import com.amazonaws.http.conn.ssl.SdkTLSSocketFactory;
 import com.amazonaws.http.impl.client.HttpRequestNoRetryHandler;
 import com.amazonaws.http.impl.client.SdkHttpClient;
 
 /** Responsible for creating and configuring instances of Apache HttpClient4. */
-class HttpClientFactory {
-
+@SdkInternalApi
+public class HttpClientFactory {
 
     /**
-     * Creates a new HttpClient object using the specified AWS
-     * ClientConfiguration to configure the client.
+     * Creates a new HttpClient object using the specified AWS ClientConfiguration to configure the
+     * client.
      *
      * @param config
-     *            Client configuration options (ex: proxy settings, connection
-     *            limits, etc).
-     *
+     *            Client configuration options (ex: proxy settings, connection limits, etc).
      * @return The new, configured HttpClient.
      */
     public HttpClient createHttpClient(ClientConfiguration config) {
@@ -101,9 +101,17 @@ class HttpClientFactory {
             HttpConnectionParams.setSocketBufferSize(httpClientParams,
                     Math.max(socketSendBufferSizeHint, socketReceiveBufferSizeHint));
         }
+        final SSLContext sslContext = createSSLContext(config);
+        SSLSocketFactory sslSocketFactory =
+                config.getApacheHttpClientConfig().getSslSocketFactory();
+        if (sslSocketFactory == null) {
+            sslSocketFactory = new SdkTLSSocketFactory(
+                    sslContext,
+                    SSLSocketFactory.STRICT_HOSTNAME_VERIFIER);
+        }
 
         PoolingClientConnectionManager connectionManager = ConnectionManagerFactory
-                .createPoolingClientConnManager(config, httpClientParams);
+            .createPoolingClientConnManager(config, httpClientParams, sslSocketFactory);
 
         SdkHttpClient httpClient = new SdkHttpClient(connectionManager, httpClientParams);
         httpClient.setHttpRequestRetryHandler(HttpRequestNoRetryHandler.Singleton);
@@ -118,28 +126,18 @@ class HttpClientFactory {
             ConnRouteParams.setLocalAddress(httpClientParams, config.getLocalAddress());
         }
 
-        try {
-            Scheme http = new Scheme("http", 80, PlainSocketFactory.getSocketFactory());
-            SSLSocketFactory sf = config.getApacheHttpClientConfig().getSslSocketFactory();
-            if (sf == null) {
-                sf = new SdkTLSSocketFactory(
-                        SSLContext.getDefault(),
-                        SSLSocketFactory.STRICT_HOSTNAME_VERIFIER);
-            }
-            Scheme https = new Scheme("https", 443, sf);
-            SchemeRegistry sr = connectionManager.getSchemeRegistry();
-            sr.register(http);
-            sr.register(https);
-        } catch (NoSuchAlgorithmException e) {
-            throw new AmazonClientException("Unable to access default SSL context", e);
-        }
+        Scheme http = new Scheme("http", 80, PlainSocketFactory.getSocketFactory());
+        Scheme https = new Scheme("https", 443, sslSocketFactory);
+        SchemeRegistry sr = connectionManager.getSchemeRegistry();
+        sr.register(http);
+        sr.register(https);
 
         /*
          * If SSL cert checking for endpoints has been explicitly disabled,
          * register a new scheme for HTTPS that won't cause self-signed certs to
          * error out.
          */
-        if (System.getProperty(DISABLE_CERT_CHECKING_SYSTEM_PROPERTY) != null) {
+        if (SDKGlobalConfiguration.isCertCheckingDisabled()) {
             Scheme sch = new Scheme("https", 443, new TrustingSocketFactory());
             httpClient.getConnectionManager().getSchemeRegistry().register(sch);
         }
@@ -348,4 +346,21 @@ class HttpClientFactory {
         }
     }
 
+
+    /**
+     * @see SSLContexts#createDefault()
+     */
+    public static SSLContext createSSLContext(ClientConfiguration config)
+            throws SSLInitializationException {
+        try {
+            final SSLContext sslcontext = SSLContext.getInstance("TLS");
+            // http://download.java.net/jdk9/docs/technotes/guides/security/jsse/JSSERefGuide.html
+            sslcontext.init(null, null, config.getSecureRandom());
+            return sslcontext;
+        } catch (final NoSuchAlgorithmException ex) {
+            throw new SSLInitializationException(ex.getMessage(), ex);
+        } catch (final KeyManagementException ex) {
+            throw new SSLInitializationException(ex.getMessage(), ex);
+        }
+    }
 }

@@ -1,5 +1,5 @@
 /*
- * Copyright 2010-2015 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2010-2016 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License.
@@ -163,6 +163,15 @@ public class CreateDBInstanceRequestMarshaller implements Marshaller<Request<Cre
         }
         if (createDBInstanceRequest.getKmsKeyId() != null) {
             request.addParameter("KmsKeyId", StringUtils.fromString(createDBInstanceRequest.getKmsKeyId()));
+        }
+        if (createDBInstanceRequest.isCopyTagsToSnapshot() != null) {
+            request.addParameter("CopyTagsToSnapshot", StringUtils.fromBoolean(createDBInstanceRequest.isCopyTagsToSnapshot()));
+        }
+        if (createDBInstanceRequest.getMonitoringInterval() != null) {
+            request.addParameter("MonitoringInterval", StringUtils.fromInteger(createDBInstanceRequest.getMonitoringInterval()));
+        }
+        if (createDBInstanceRequest.getMonitoringRoleArn() != null) {
+            request.addParameter("MonitoringRoleArn", StringUtils.fromString(createDBInstanceRequest.getMonitoringRoleArn()));
         }
 
         return request;

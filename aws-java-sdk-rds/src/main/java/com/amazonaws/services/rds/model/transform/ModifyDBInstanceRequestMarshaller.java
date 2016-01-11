@@ -1,5 +1,5 @@
 /*
- * Copyright 2010-2015 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2010-2016 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License.
@@ -122,6 +122,21 @@ public class ModifyDBInstanceRequestMarshaller implements Marshaller<Request<Mod
         }
         if (modifyDBInstanceRequest.getCACertificateIdentifier() != null) {
             request.addParameter("CACertificateIdentifier", StringUtils.fromString(modifyDBInstanceRequest.getCACertificateIdentifier()));
+        }
+        if (modifyDBInstanceRequest.isCopyTagsToSnapshot() != null) {
+            request.addParameter("CopyTagsToSnapshot", StringUtils.fromBoolean(modifyDBInstanceRequest.isCopyTagsToSnapshot()));
+        }
+        if (modifyDBInstanceRequest.getMonitoringInterval() != null) {
+            request.addParameter("MonitoringInterval", StringUtils.fromInteger(modifyDBInstanceRequest.getMonitoringInterval()));
+        }
+        if (modifyDBInstanceRequest.getDBPortNumber() != null) {
+            request.addParameter("DBPortNumber", StringUtils.fromInteger(modifyDBInstanceRequest.getDBPortNumber()));
+        }
+        if (modifyDBInstanceRequest.isPubliclyAccessible() != null) {
+            request.addParameter("PubliclyAccessible", StringUtils.fromBoolean(modifyDBInstanceRequest.isPubliclyAccessible()));
+        }
+        if (modifyDBInstanceRequest.getMonitoringRoleArn() != null) {
+            request.addParameter("MonitoringRoleArn", StringUtils.fromString(modifyDBInstanceRequest.getMonitoringRoleArn()));
         }
 
         return request;

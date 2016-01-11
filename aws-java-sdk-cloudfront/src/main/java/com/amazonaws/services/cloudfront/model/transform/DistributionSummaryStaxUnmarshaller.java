@@ -1,5 +1,5 @@
 /*
- * Copyright 2010-2015 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2010-2016 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License.
@@ -96,6 +96,10 @@ public class DistributionSummaryStaxUnmarshaller implements Unmarshaller<Distrib
                 }
                 if (context.testExpression("Restrictions", targetDepth)) {
                     distributionSummary.setRestrictions(RestrictionsStaxUnmarshaller.getInstance().unmarshall(context));
+                    continue;
+                }
+                if (context.testExpression("WebACLId", targetDepth)) {
+                    distributionSummary.setWebACLId(StringStaxUnmarshaller.getInstance().unmarshall(context));
                     continue;
                 }
             } else if (xmlEvent.isEndElement()) {

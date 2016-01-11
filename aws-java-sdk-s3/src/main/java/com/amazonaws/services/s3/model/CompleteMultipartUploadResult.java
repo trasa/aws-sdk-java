@@ -1,5 +1,5 @@
 /*
- * Copyright 2010-2015 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2010-2016 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License.
@@ -13,6 +13,7 @@
  * permissions and limitations under the License.
  */
 package com.amazonaws.services.s3.model;
+import java.io.Serializable;
 
 import java.util.Date;
 
@@ -24,7 +25,7 @@ import com.amazonaws.services.s3.internal.SSEResultBase;
  * The CompleteMultipartUploadResult contains all the information about the
  * CompleteMultipartUpload method.
  */
-public class CompleteMultipartUploadResult extends SSEResultBase implements ObjectExpirationResult {
+public class CompleteMultipartUploadResult extends SSEResultBase implements ObjectExpirationResult,Serializable {
 
     /** The name of the bucket containing the completed multipart upload. */
     private String bucketName;

@@ -1,5 +1,5 @@
 /*
- * Copyright 2010-2015 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2010-2016 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License.
@@ -104,6 +104,7 @@ public interface AWSDeviceFarm {
      *         A limit was exceeded.
      * @throws ServiceAccountException
      *         There was a problem with the service account.
+     * @sample AWSDeviceFarm.CreateDevicePool
      */
     CreateDevicePoolResult createDevicePool(
             CreateDevicePoolRequest createDevicePoolRequest);
@@ -124,6 +125,7 @@ public interface AWSDeviceFarm {
      *         A limit was exceeded.
      * @throws ServiceAccountException
      *         There was a problem with the service account.
+     * @sample AWSDeviceFarm.CreateProject
      */
     CreateProjectResult createProject(CreateProjectRequest createProjectRequest);
 
@@ -143,8 +145,97 @@ public interface AWSDeviceFarm {
      *         A limit was exceeded.
      * @throws ServiceAccountException
      *         There was a problem with the service account.
+     * @sample AWSDeviceFarm.CreateUpload
      */
     CreateUploadResult createUpload(CreateUploadRequest createUploadRequest);
+
+    /**
+     * <p>
+     * Deletes a device pool given the pool ARN. Does not allow deletion of
+     * curated pools owned by the system.
+     * </p>
+     * 
+     * @param deleteDevicePoolRequest
+     *        Represents a request to the delete device pool operation.
+     * @return Result of the DeleteDevicePool operation returned by the service.
+     * @throws ArgumentException
+     *         An invalid argument was specified.
+     * @throws NotFoundException
+     *         The specified entity was not found.
+     * @throws LimitExceededException
+     *         A limit was exceeded.
+     * @throws ServiceAccountException
+     *         There was a problem with the service account.
+     * @sample AWSDeviceFarm.DeleteDevicePool
+     */
+    DeleteDevicePoolResult deleteDevicePool(
+            DeleteDevicePoolRequest deleteDevicePoolRequest);
+
+    /**
+     * <p>
+     * Deletes an AWS Device Farm project, given the project ARN.
+     * </p>
+     * <p>
+     * <b>Note</b> Deleting this resource does not stop an in-progress run.
+     * </p>
+     * 
+     * @param deleteProjectRequest
+     *        Represents a request to the delete project operation.
+     * @return Result of the DeleteProject operation returned by the service.
+     * @throws ArgumentException
+     *         An invalid argument was specified.
+     * @throws NotFoundException
+     *         The specified entity was not found.
+     * @throws LimitExceededException
+     *         A limit was exceeded.
+     * @throws ServiceAccountException
+     *         There was a problem with the service account.
+     * @sample AWSDeviceFarm.DeleteProject
+     */
+    DeleteProjectResult deleteProject(DeleteProjectRequest deleteProjectRequest);
+
+    /**
+     * <p>
+     * Deletes the run, given the run ARN.
+     * </p>
+     * <p>
+     * <b>Note</b> Deleting this resource does not stop an in-progress run.
+     * </p>
+     * 
+     * @param deleteRunRequest
+     *        Represents a request to the delete run operation.
+     * @return Result of the DeleteRun operation returned by the service.
+     * @throws ArgumentException
+     *         An invalid argument was specified.
+     * @throws NotFoundException
+     *         The specified entity was not found.
+     * @throws LimitExceededException
+     *         A limit was exceeded.
+     * @throws ServiceAccountException
+     *         There was a problem with the service account.
+     * @sample AWSDeviceFarm.DeleteRun
+     */
+    DeleteRunResult deleteRun(DeleteRunRequest deleteRunRequest);
+
+    /**
+     * <p>
+     * Deletes an upload given the upload ARN.
+     * </p>
+     * 
+     * @param deleteUploadRequest
+     *        Represents a request to the delete upload operation.
+     * @return Result of the DeleteUpload operation returned by the service.
+     * @throws ArgumentException
+     *         An invalid argument was specified.
+     * @throws NotFoundException
+     *         The specified entity was not found.
+     * @throws LimitExceededException
+     *         A limit was exceeded.
+     * @throws ServiceAccountException
+     *         There was a problem with the service account.
+     * @sample AWSDeviceFarm.DeleteUpload
+     */
+    DeleteUploadResult deleteUpload(DeleteUploadRequest deleteUploadRequest);
 
     /**
      * <p>
@@ -153,7 +244,6 @@ public interface AWSDeviceFarm {
      * </p>
      * 
      * @param getAccountSettingsRequest
-     *        null
      * @return Result of the GetAccountSettings operation returned by the
      *         service.
      * @throws ArgumentException
@@ -164,6 +254,7 @@ public interface AWSDeviceFarm {
      *         A limit was exceeded.
      * @throws ServiceAccountException
      *         There was a problem with the service account.
+     * @sample AWSDeviceFarm.GetAccountSettings
      */
     GetAccountSettingsResult getAccountSettings(
             GetAccountSettingsRequest getAccountSettingsRequest);
@@ -184,6 +275,7 @@ public interface AWSDeviceFarm {
      *         A limit was exceeded.
      * @throws ServiceAccountException
      *         There was a problem with the service account.
+     * @sample AWSDeviceFarm.GetDevice
      */
     GetDeviceResult getDevice(GetDeviceRequest getDeviceRequest);
 
@@ -203,6 +295,7 @@ public interface AWSDeviceFarm {
      *         A limit was exceeded.
      * @throws ServiceAccountException
      *         There was a problem with the service account.
+     * @sample AWSDeviceFarm.GetDevicePool
      */
     GetDevicePoolResult getDevicePool(GetDevicePoolRequest getDevicePoolRequest);
 
@@ -224,6 +317,7 @@ public interface AWSDeviceFarm {
      *         A limit was exceeded.
      * @throws ServiceAccountException
      *         There was a problem with the service account.
+     * @sample AWSDeviceFarm.GetDevicePoolCompatibility
      */
     GetDevicePoolCompatibilityResult getDevicePoolCompatibility(
             GetDevicePoolCompatibilityRequest getDevicePoolCompatibilityRequest);
@@ -244,6 +338,7 @@ public interface AWSDeviceFarm {
      *         A limit was exceeded.
      * @throws ServiceAccountException
      *         There was a problem with the service account.
+     * @sample AWSDeviceFarm.GetJob
      */
     GetJobResult getJob(GetJobRequest getJobRequest);
 
@@ -263,6 +358,7 @@ public interface AWSDeviceFarm {
      *         A limit was exceeded.
      * @throws ServiceAccountException
      *         There was a problem with the service account.
+     * @sample AWSDeviceFarm.GetProject
      */
     GetProjectResult getProject(GetProjectRequest getProjectRequest);
 
@@ -282,6 +378,7 @@ public interface AWSDeviceFarm {
      *         A limit was exceeded.
      * @throws ServiceAccountException
      *         There was a problem with the service account.
+     * @sample AWSDeviceFarm.GetRun
      */
     GetRunResult getRun(GetRunRequest getRunRequest);
 
@@ -301,6 +398,7 @@ public interface AWSDeviceFarm {
      *         A limit was exceeded.
      * @throws ServiceAccountException
      *         There was a problem with the service account.
+     * @sample AWSDeviceFarm.GetSuite
      */
     GetSuiteResult getSuite(GetSuiteRequest getSuiteRequest);
 
@@ -320,6 +418,7 @@ public interface AWSDeviceFarm {
      *         A limit was exceeded.
      * @throws ServiceAccountException
      *         There was a problem with the service account.
+     * @sample AWSDeviceFarm.GetTest
      */
     GetTestResult getTest(GetTestRequest getTestRequest);
 
@@ -339,6 +438,7 @@ public interface AWSDeviceFarm {
      *         A limit was exceeded.
      * @throws ServiceAccountException
      *         There was a problem with the service account.
+     * @sample AWSDeviceFarm.GetUpload
      */
     GetUploadResult getUpload(GetUploadRequest getUploadRequest);
 
@@ -358,6 +458,7 @@ public interface AWSDeviceFarm {
      *         A limit was exceeded.
      * @throws ServiceAccountException
      *         There was a problem with the service account.
+     * @sample AWSDeviceFarm.ListArtifacts
      */
     ListArtifactsResult listArtifacts(ListArtifactsRequest listArtifactsRequest);
 
@@ -377,6 +478,7 @@ public interface AWSDeviceFarm {
      *         A limit was exceeded.
      * @throws ServiceAccountException
      *         There was a problem with the service account.
+     * @sample AWSDeviceFarm.ListDevicePools
      */
     ListDevicePoolsResult listDevicePools(
             ListDevicePoolsRequest listDevicePoolsRequest);
@@ -397,6 +499,7 @@ public interface AWSDeviceFarm {
      *         A limit was exceeded.
      * @throws ServiceAccountException
      *         There was a problem with the service account.
+     * @sample AWSDeviceFarm.ListDevices
      */
     ListDevicesResult listDevices(ListDevicesRequest listDevicesRequest);
 
@@ -416,6 +519,7 @@ public interface AWSDeviceFarm {
      *         A limit was exceeded.
      * @throws ServiceAccountException
      *         There was a problem with the service account.
+     * @sample AWSDeviceFarm.ListJobs
      */
     ListJobsResult listJobs(ListJobsRequest listJobsRequest);
 
@@ -435,6 +539,7 @@ public interface AWSDeviceFarm {
      *         A limit was exceeded.
      * @throws ServiceAccountException
      *         There was a problem with the service account.
+     * @sample AWSDeviceFarm.ListProjects
      */
     ListProjectsResult listProjects(ListProjectsRequest listProjectsRequest);
 
@@ -454,6 +559,7 @@ public interface AWSDeviceFarm {
      *         A limit was exceeded.
      * @throws ServiceAccountException
      *         There was a problem with the service account.
+     * @sample AWSDeviceFarm.ListRuns
      */
     ListRunsResult listRuns(ListRunsRequest listRunsRequest);
 
@@ -473,6 +579,7 @@ public interface AWSDeviceFarm {
      *         A limit was exceeded.
      * @throws ServiceAccountException
      *         There was a problem with the service account.
+     * @sample AWSDeviceFarm.ListSamples
      */
     ListSamplesResult listSamples(ListSamplesRequest listSamplesRequest);
 
@@ -492,6 +599,7 @@ public interface AWSDeviceFarm {
      *         A limit was exceeded.
      * @throws ServiceAccountException
      *         There was a problem with the service account.
+     * @sample AWSDeviceFarm.ListSuites
      */
     ListSuitesResult listSuites(ListSuitesRequest listSuitesRequest);
 
@@ -511,6 +619,7 @@ public interface AWSDeviceFarm {
      *         A limit was exceeded.
      * @throws ServiceAccountException
      *         There was a problem with the service account.
+     * @sample AWSDeviceFarm.ListTests
      */
     ListTestsResult listTests(ListTestsRequest listTestsRequest);
 
@@ -531,6 +640,7 @@ public interface AWSDeviceFarm {
      *         A limit was exceeded.
      * @throws ServiceAccountException
      *         There was a problem with the service account.
+     * @sample AWSDeviceFarm.ListUniqueProblems
      */
     ListUniqueProblemsResult listUniqueProblems(
             ListUniqueProblemsRequest listUniqueProblemsRequest);
@@ -551,6 +661,7 @@ public interface AWSDeviceFarm {
      *         A limit was exceeded.
      * @throws ServiceAccountException
      *         There was a problem with the service account.
+     * @sample AWSDeviceFarm.ListUploads
      */
     ListUploadsResult listUploads(ListUploadsRequest listUploadsRequest);
 
@@ -572,8 +683,53 @@ public interface AWSDeviceFarm {
      *         An entity with the same name already exists.
      * @throws ServiceAccountException
      *         There was a problem with the service account.
+     * @sample AWSDeviceFarm.ScheduleRun
      */
     ScheduleRunResult scheduleRun(ScheduleRunRequest scheduleRunRequest);
+
+    /**
+     * <p>
+     * Modifies the name, description, and rules in a device pool given the
+     * attributes and the pool ARN. Rule updates are all-or-nothing, meaning
+     * they can only be updated as a whole (or not at all).
+     * </p>
+     * 
+     * @param updateDevicePoolRequest
+     *        Represents a request to the update device pool operation.
+     * @return Result of the UpdateDevicePool operation returned by the service.
+     * @throws ArgumentException
+     *         An invalid argument was specified.
+     * @throws NotFoundException
+     *         The specified entity was not found.
+     * @throws LimitExceededException
+     *         A limit was exceeded.
+     * @throws ServiceAccountException
+     *         There was a problem with the service account.
+     * @sample AWSDeviceFarm.UpdateDevicePool
+     */
+    UpdateDevicePoolResult updateDevicePool(
+            UpdateDevicePoolRequest updateDevicePoolRequest);
+
+    /**
+     * <p>
+     * Modifies the specified project name, given the project ARN and a new
+     * name.
+     * </p>
+     * 
+     * @param updateProjectRequest
+     *        Represents a request to the update project operation.
+     * @return Result of the UpdateProject operation returned by the service.
+     * @throws ArgumentException
+     *         An invalid argument was specified.
+     * @throws NotFoundException
+     *         The specified entity was not found.
+     * @throws LimitExceededException
+     *         A limit was exceeded.
+     * @throws ServiceAccountException
+     *         There was a problem with the service account.
+     * @sample AWSDeviceFarm.UpdateProject
+     */
+    UpdateProjectResult updateProject(UpdateProjectRequest updateProjectRequest);
 
     /**
      * Shuts down this client object, releasing any resources that might be held

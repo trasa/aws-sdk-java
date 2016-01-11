@@ -1,5 +1,5 @@
 /*
- * Copyright 2010-2015 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2010-2016 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License.
@@ -55,17 +55,19 @@ public class DescribeRouteTablesRequest extends AmazonWebServiceRequest implemen
      * involved in the association. </li> <li>
      * <p><code>association.subnet-id</code> - The ID of the subnet involved
      * in the association. </li> <li> <p><code>association.main</code> -
-     * Indicates whether the route table is the main route table for the VPC.
-     * </li> <li> <p><code>route-table-id</code> - The ID of the route table.
-     * </li> <li> <p><code>route.destination-cidr-block</code> - The CIDR
-     * range specified in a route in the table. </li> <li>
+     * Indicates whether the route table is the main route table for the VPC
+     * (<code>true</code> | <code>false</code>). </li> <li>
+     * <p><code>route-table-id</code> - The ID of the route table. </li> <li>
+     * <p><code>route.destination-cidr-block</code> - The CIDR range
+     * specified in a route in the table. </li> <li>
      * <p><code>route.destination-prefix-list-id</code> - The ID (prefix) of
      * the AWS service specified in a route in the table. </li> <li>
      * <p><code>route.gateway-id</code> - The ID of a gateway specified in a
      * route in the table. </li> <li> <p><code>route.instance-id</code> - The
      * ID of an instance specified in a route in the table. </li> <li>
-     * <p><code>route.origin</code> - Describes how the route was created.
-     * <code>CreateRouteTable</code> indicates that the route was
+     * <p><code>route.nat-gateway-id</code> - The ID of a NAT gateway. </li>
+     * <li> <p><code>route.origin</code> - Describes how the route was
+     * created. <code>CreateRouteTable</code> indicates that the route was
      * automatically created when the route table was created;
      * <code>CreateRoute</code> indicates that the route was manually added
      * to the route table; <code>EnableVgwRoutePropagation</code> indicates
@@ -183,17 +185,19 @@ public class DescribeRouteTablesRequest extends AmazonWebServiceRequest implemen
      * involved in the association. </li> <li>
      * <p><code>association.subnet-id</code> - The ID of the subnet involved
      * in the association. </li> <li> <p><code>association.main</code> -
-     * Indicates whether the route table is the main route table for the VPC.
-     * </li> <li> <p><code>route-table-id</code> - The ID of the route table.
-     * </li> <li> <p><code>route.destination-cidr-block</code> - The CIDR
-     * range specified in a route in the table. </li> <li>
+     * Indicates whether the route table is the main route table for the VPC
+     * (<code>true</code> | <code>false</code>). </li> <li>
+     * <p><code>route-table-id</code> - The ID of the route table. </li> <li>
+     * <p><code>route.destination-cidr-block</code> - The CIDR range
+     * specified in a route in the table. </li> <li>
      * <p><code>route.destination-prefix-list-id</code> - The ID (prefix) of
      * the AWS service specified in a route in the table. </li> <li>
      * <p><code>route.gateway-id</code> - The ID of a gateway specified in a
      * route in the table. </li> <li> <p><code>route.instance-id</code> - The
      * ID of an instance specified in a route in the table. </li> <li>
-     * <p><code>route.origin</code> - Describes how the route was created.
-     * <code>CreateRouteTable</code> indicates that the route was
+     * <p><code>route.nat-gateway-id</code> - The ID of a NAT gateway. </li>
+     * <li> <p><code>route.origin</code> - Describes how the route was
+     * created. <code>CreateRouteTable</code> indicates that the route was
      * automatically created when the route table was created;
      * <code>CreateRoute</code> indicates that the route was manually added
      * to the route table; <code>EnableVgwRoutePropagation</code> indicates
@@ -227,17 +231,19 @@ public class DescribeRouteTablesRequest extends AmazonWebServiceRequest implemen
      *         involved in the association. </li> <li>
      *         <p><code>association.subnet-id</code> - The ID of the subnet involved
      *         in the association. </li> <li> <p><code>association.main</code> -
-     *         Indicates whether the route table is the main route table for the VPC.
-     *         </li> <li> <p><code>route-table-id</code> - The ID of the route table.
-     *         </li> <li> <p><code>route.destination-cidr-block</code> - The CIDR
-     *         range specified in a route in the table. </li> <li>
+     *         Indicates whether the route table is the main route table for the VPC
+     *         (<code>true</code> | <code>false</code>). </li> <li>
+     *         <p><code>route-table-id</code> - The ID of the route table. </li> <li>
+     *         <p><code>route.destination-cidr-block</code> - The CIDR range
+     *         specified in a route in the table. </li> <li>
      *         <p><code>route.destination-prefix-list-id</code> - The ID (prefix) of
      *         the AWS service specified in a route in the table. </li> <li>
      *         <p><code>route.gateway-id</code> - The ID of a gateway specified in a
      *         route in the table. </li> <li> <p><code>route.instance-id</code> - The
      *         ID of an instance specified in a route in the table. </li> <li>
-     *         <p><code>route.origin</code> - Describes how the route was created.
-     *         <code>CreateRouteTable</code> indicates that the route was
+     *         <p><code>route.nat-gateway-id</code> - The ID of a NAT gateway. </li>
+     *         <li> <p><code>route.origin</code> - Describes how the route was
+     *         created. <code>CreateRouteTable</code> indicates that the route was
      *         automatically created when the route table was created;
      *         <code>CreateRoute</code> indicates that the route was manually added
      *         to the route table; <code>EnableVgwRoutePropagation</code> indicates
@@ -280,17 +286,19 @@ public class DescribeRouteTablesRequest extends AmazonWebServiceRequest implemen
      * involved in the association. </li> <li>
      * <p><code>association.subnet-id</code> - The ID of the subnet involved
      * in the association. </li> <li> <p><code>association.main</code> -
-     * Indicates whether the route table is the main route table for the VPC.
-     * </li> <li> <p><code>route-table-id</code> - The ID of the route table.
-     * </li> <li> <p><code>route.destination-cidr-block</code> - The CIDR
-     * range specified in a route in the table. </li> <li>
+     * Indicates whether the route table is the main route table for the VPC
+     * (<code>true</code> | <code>false</code>). </li> <li>
+     * <p><code>route-table-id</code> - The ID of the route table. </li> <li>
+     * <p><code>route.destination-cidr-block</code> - The CIDR range
+     * specified in a route in the table. </li> <li>
      * <p><code>route.destination-prefix-list-id</code> - The ID (prefix) of
      * the AWS service specified in a route in the table. </li> <li>
      * <p><code>route.gateway-id</code> - The ID of a gateway specified in a
      * route in the table. </li> <li> <p><code>route.instance-id</code> - The
      * ID of an instance specified in a route in the table. </li> <li>
-     * <p><code>route.origin</code> - Describes how the route was created.
-     * <code>CreateRouteTable</code> indicates that the route was
+     * <p><code>route.nat-gateway-id</code> - The ID of a NAT gateway. </li>
+     * <li> <p><code>route.origin</code> - Describes how the route was
+     * created. <code>CreateRouteTable</code> indicates that the route was
      * automatically created when the route table was created;
      * <code>CreateRoute</code> indicates that the route was manually added
      * to the route table; <code>EnableVgwRoutePropagation</code> indicates
@@ -324,17 +332,19 @@ public class DescribeRouteTablesRequest extends AmazonWebServiceRequest implemen
      *         involved in the association. </li> <li>
      *         <p><code>association.subnet-id</code> - The ID of the subnet involved
      *         in the association. </li> <li> <p><code>association.main</code> -
-     *         Indicates whether the route table is the main route table for the VPC.
-     *         </li> <li> <p><code>route-table-id</code> - The ID of the route table.
-     *         </li> <li> <p><code>route.destination-cidr-block</code> - The CIDR
-     *         range specified in a route in the table. </li> <li>
+     *         Indicates whether the route table is the main route table for the VPC
+     *         (<code>true</code> | <code>false</code>). </li> <li>
+     *         <p><code>route-table-id</code> - The ID of the route table. </li> <li>
+     *         <p><code>route.destination-cidr-block</code> - The CIDR range
+     *         specified in a route in the table. </li> <li>
      *         <p><code>route.destination-prefix-list-id</code> - The ID (prefix) of
      *         the AWS service specified in a route in the table. </li> <li>
      *         <p><code>route.gateway-id</code> - The ID of a gateway specified in a
      *         route in the table. </li> <li> <p><code>route.instance-id</code> - The
      *         ID of an instance specified in a route in the table. </li> <li>
-     *         <p><code>route.origin</code> - Describes how the route was created.
-     *         <code>CreateRouteTable</code> indicates that the route was
+     *         <p><code>route.nat-gateway-id</code> - The ID of a NAT gateway. </li>
+     *         <li> <p><code>route.origin</code> - Describes how the route was
+     *         created. <code>CreateRouteTable</code> indicates that the route was
      *         automatically created when the route table was created;
      *         <code>CreateRoute</code> indicates that the route was manually added
      *         to the route table; <code>EnableVgwRoutePropagation</code> indicates
@@ -379,17 +389,19 @@ public class DescribeRouteTablesRequest extends AmazonWebServiceRequest implemen
      * involved in the association. </li> <li>
      * <p><code>association.subnet-id</code> - The ID of the subnet involved
      * in the association. </li> <li> <p><code>association.main</code> -
-     * Indicates whether the route table is the main route table for the VPC.
-     * </li> <li> <p><code>route-table-id</code> - The ID of the route table.
-     * </li> <li> <p><code>route.destination-cidr-block</code> - The CIDR
-     * range specified in a route in the table. </li> <li>
+     * Indicates whether the route table is the main route table for the VPC
+     * (<code>true</code> | <code>false</code>). </li> <li>
+     * <p><code>route-table-id</code> - The ID of the route table. </li> <li>
+     * <p><code>route.destination-cidr-block</code> - The CIDR range
+     * specified in a route in the table. </li> <li>
      * <p><code>route.destination-prefix-list-id</code> - The ID (prefix) of
      * the AWS service specified in a route in the table. </li> <li>
      * <p><code>route.gateway-id</code> - The ID of a gateway specified in a
      * route in the table. </li> <li> <p><code>route.instance-id</code> - The
      * ID of an instance specified in a route in the table. </li> <li>
-     * <p><code>route.origin</code> - Describes how the route was created.
-     * <code>CreateRouteTable</code> indicates that the route was
+     * <p><code>route.nat-gateway-id</code> - The ID of a NAT gateway. </li>
+     * <li> <p><code>route.origin</code> - Describes how the route was
+     * created. <code>CreateRouteTable</code> indicates that the route was
      * automatically created when the route table was created;
      * <code>CreateRoute</code> indicates that the route was manually added
      * to the route table; <code>EnableVgwRoutePropagation</code> indicates
@@ -430,17 +442,19 @@ public class DescribeRouteTablesRequest extends AmazonWebServiceRequest implemen
      *         involved in the association. </li> <li>
      *         <p><code>association.subnet-id</code> - The ID of the subnet involved
      *         in the association. </li> <li> <p><code>association.main</code> -
-     *         Indicates whether the route table is the main route table for the VPC.
-     *         </li> <li> <p><code>route-table-id</code> - The ID of the route table.
-     *         </li> <li> <p><code>route.destination-cidr-block</code> - The CIDR
-     *         range specified in a route in the table. </li> <li>
+     *         Indicates whether the route table is the main route table for the VPC
+     *         (<code>true</code> | <code>false</code>). </li> <li>
+     *         <p><code>route-table-id</code> - The ID of the route table. </li> <li>
+     *         <p><code>route.destination-cidr-block</code> - The CIDR range
+     *         specified in a route in the table. </li> <li>
      *         <p><code>route.destination-prefix-list-id</code> - The ID (prefix) of
      *         the AWS service specified in a route in the table. </li> <li>
      *         <p><code>route.gateway-id</code> - The ID of a gateway specified in a
      *         route in the table. </li> <li> <p><code>route.instance-id</code> - The
      *         ID of an instance specified in a route in the table. </li> <li>
-     *         <p><code>route.origin</code> - Describes how the route was created.
-     *         <code>CreateRouteTable</code> indicates that the route was
+     *         <p><code>route.nat-gateway-id</code> - The ID of a NAT gateway. </li>
+     *         <li> <p><code>route.origin</code> - Describes how the route was
+     *         created. <code>CreateRouteTable</code> indicates that the route was
      *         automatically created when the route table was created;
      *         <code>CreateRoute</code> indicates that the route was manually added
      *         to the route table; <code>EnableVgwRoutePropagation</code> indicates
@@ -486,17 +500,19 @@ public class DescribeRouteTablesRequest extends AmazonWebServiceRequest implemen
      * involved in the association. </li> <li>
      * <p><code>association.subnet-id</code> - The ID of the subnet involved
      * in the association. </li> <li> <p><code>association.main</code> -
-     * Indicates whether the route table is the main route table for the VPC.
-     * </li> <li> <p><code>route-table-id</code> - The ID of the route table.
-     * </li> <li> <p><code>route.destination-cidr-block</code> - The CIDR
-     * range specified in a route in the table. </li> <li>
+     * Indicates whether the route table is the main route table for the VPC
+     * (<code>true</code> | <code>false</code>). </li> <li>
+     * <p><code>route-table-id</code> - The ID of the route table. </li> <li>
+     * <p><code>route.destination-cidr-block</code> - The CIDR range
+     * specified in a route in the table. </li> <li>
      * <p><code>route.destination-prefix-list-id</code> - The ID (prefix) of
      * the AWS service specified in a route in the table. </li> <li>
      * <p><code>route.gateway-id</code> - The ID of a gateway specified in a
      * route in the table. </li> <li> <p><code>route.instance-id</code> - The
      * ID of an instance specified in a route in the table. </li> <li>
-     * <p><code>route.origin</code> - Describes how the route was created.
-     * <code>CreateRouteTable</code> indicates that the route was
+     * <p><code>route.nat-gateway-id</code> - The ID of a NAT gateway. </li>
+     * <li> <p><code>route.origin</code> - Describes how the route was
+     * created. <code>CreateRouteTable</code> indicates that the route was
      * automatically created when the route table was created;
      * <code>CreateRoute</code> indicates that the route was manually added
      * to the route table; <code>EnableVgwRoutePropagation</code> indicates
@@ -532,17 +548,19 @@ public class DescribeRouteTablesRequest extends AmazonWebServiceRequest implemen
      *         involved in the association. </li> <li>
      *         <p><code>association.subnet-id</code> - The ID of the subnet involved
      *         in the association. </li> <li> <p><code>association.main</code> -
-     *         Indicates whether the route table is the main route table for the VPC.
-     *         </li> <li> <p><code>route-table-id</code> - The ID of the route table.
-     *         </li> <li> <p><code>route.destination-cidr-block</code> - The CIDR
-     *         range specified in a route in the table. </li> <li>
+     *         Indicates whether the route table is the main route table for the VPC
+     *         (<code>true</code> | <code>false</code>). </li> <li>
+     *         <p><code>route-table-id</code> - The ID of the route table. </li> <li>
+     *         <p><code>route.destination-cidr-block</code> - The CIDR range
+     *         specified in a route in the table. </li> <li>
      *         <p><code>route.destination-prefix-list-id</code> - The ID (prefix) of
      *         the AWS service specified in a route in the table. </li> <li>
      *         <p><code>route.gateway-id</code> - The ID of a gateway specified in a
      *         route in the table. </li> <li> <p><code>route.instance-id</code> - The
      *         ID of an instance specified in a route in the table. </li> <li>
-     *         <p><code>route.origin</code> - Describes how the route was created.
-     *         <code>CreateRouteTable</code> indicates that the route was
+     *         <p><code>route.nat-gateway-id</code> - The ID of a NAT gateway. </li>
+     *         <li> <p><code>route.origin</code> - Describes how the route was
+     *         created. <code>CreateRouteTable</code> indicates that the route was
      *         automatically created when the route table was created;
      *         <code>CreateRoute</code> indicates that the route was manually added
      *         to the route table; <code>EnableVgwRoutePropagation</code> indicates

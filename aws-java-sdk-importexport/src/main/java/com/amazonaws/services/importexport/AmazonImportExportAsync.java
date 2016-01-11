@@ -1,5 +1,5 @@
 /*
- * Copyright 2010-2015 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2010-2016 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License.
@@ -40,6 +40,7 @@ public interface AmazonImportExportAsync extends AmazonImportExport {
      *        Input structure for the CancelJob operation.
      * @return A Java Future containing the result of the CancelJob operation
      *         returned by the service.
+     * @sample AmazonImportExportAsync.CancelJob
      */
     java.util.concurrent.Future<CancelJobResult> cancelJobAsync(
             CancelJobRequest cancelJobRequest);
@@ -57,6 +58,7 @@ public interface AmazonImportExportAsync extends AmazonImportExport {
      *        unsuccessful completion of the operation.
      * @return A Java Future containing the result of the CancelJob operation
      *         returned by the service.
+     * @sample AmazonImportExportAsyncHandler.CancelJob
      */
     java.util.concurrent.Future<CancelJobResult> cancelJobAsync(
             CancelJobRequest cancelJobRequest,
@@ -74,6 +76,7 @@ public interface AmazonImportExportAsync extends AmazonImportExport {
      *        Input structure for the CreateJob operation.
      * @return A Java Future containing the result of the CreateJob operation
      *         returned by the service.
+     * @sample AmazonImportExportAsync.CreateJob
      */
     java.util.concurrent.Future<CreateJobResult> createJobAsync(
             CreateJobRequest createJobRequest);
@@ -95,6 +98,7 @@ public interface AmazonImportExportAsync extends AmazonImportExport {
      *        unsuccessful completion of the operation.
      * @return A Java Future containing the result of the CreateJob operation
      *         returned by the service.
+     * @sample AmazonImportExportAsyncHandler.CreateJob
      */
     java.util.concurrent.Future<CreateJobResult> createJobAsync(
             CreateJobRequest createJobRequest,
@@ -105,9 +109,9 @@ public interface AmazonImportExportAsync extends AmazonImportExport {
      * to ship your device to AWS for processing.
      * 
      * @param getShippingLabelRequest
-     *        null
      * @return A Java Future containing the result of the GetShippingLabel
      *         operation returned by the service.
+     * @sample AmazonImportExportAsync.GetShippingLabel
      */
     java.util.concurrent.Future<GetShippingLabelResult> getShippingLabelAsync(
             GetShippingLabelRequest getShippingLabelRequest);
@@ -117,7 +121,6 @@ public interface AmazonImportExportAsync extends AmazonImportExport {
      * to ship your device to AWS for processing.
      * 
      * @param getShippingLabelRequest
-     *        null
      * @param asyncHandler
      *        Asynchronous callback handler for events in the lifecycle of the
      *        request. Users can provide an implementation of the callback
@@ -125,6 +128,7 @@ public interface AmazonImportExportAsync extends AmazonImportExport {
      *        unsuccessful completion of the operation.
      * @return A Java Future containing the result of the GetShippingLabel
      *         operation returned by the service.
+     * @sample AmazonImportExportAsyncHandler.GetShippingLabel
      */
     java.util.concurrent.Future<GetShippingLabelResult> getShippingLabelAsync(
             GetShippingLabelRequest getShippingLabelRequest,
@@ -140,6 +144,7 @@ public interface AmazonImportExportAsync extends AmazonImportExport {
      *        Input structure for the GetStatus operation.
      * @return A Java Future containing the result of the GetStatus operation
      *         returned by the service.
+     * @sample AmazonImportExportAsync.GetStatus
      */
     java.util.concurrent.Future<GetStatusResult> getStatusAsync(
             GetStatusRequest getStatusRequest);
@@ -159,6 +164,7 @@ public interface AmazonImportExportAsync extends AmazonImportExport {
      *        unsuccessful completion of the operation.
      * @return A Java Future containing the result of the GetStatus operation
      *         returned by the service.
+     * @sample AmazonImportExportAsyncHandler.GetStatus
      */
     java.util.concurrent.Future<GetStatusResult> getStatusAsync(
             GetStatusRequest getStatusRequest,
@@ -175,6 +181,7 @@ public interface AmazonImportExportAsync extends AmazonImportExport {
      *        Input structure for the ListJobs operation.
      * @return A Java Future containing the result of the ListJobs operation
      *         returned by the service.
+     * @sample AmazonImportExportAsync.ListJobs
      */
     java.util.concurrent.Future<ListJobsResult> listJobsAsync(
             ListJobsRequest listJobsRequest);
@@ -195,6 +202,7 @@ public interface AmazonImportExportAsync extends AmazonImportExport {
      *        unsuccessful completion of the operation.
      * @return A Java Future containing the result of the ListJobs operation
      *         returned by the service.
+     * @sample AmazonImportExportAsyncHandler.ListJobs
      */
     java.util.concurrent.Future<ListJobsResult> listJobsAsync(
             ListJobsRequest listJobsRequest,
@@ -227,6 +235,7 @@ public interface AmazonImportExportAsync extends AmazonImportExport {
      *        Input structure for the UpateJob operation.
      * @return A Java Future containing the result of the UpdateJob operation
      *         returned by the service.
+     * @sample AmazonImportExportAsync.UpdateJob
      */
     java.util.concurrent.Future<UpdateJobResult> updateJobAsync(
             UpdateJobRequest updateJobRequest);
@@ -247,6 +256,7 @@ public interface AmazonImportExportAsync extends AmazonImportExport {
      *        unsuccessful completion of the operation.
      * @return A Java Future containing the result of the UpdateJob operation
      *         returned by the service.
+     * @sample AmazonImportExportAsyncHandler.UpdateJob
      */
     java.util.concurrent.Future<UpdateJobResult> updateJobAsync(
             UpdateJobRequest updateJobRequest,

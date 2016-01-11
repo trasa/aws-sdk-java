@@ -1,5 +1,5 @@
 /*
- * Copyright 2010-2015 Amazon.com, Inc. or its affiliates. All Rights
+ * Copyright 2010-2016 Amazon.com, Inc. or its affiliates. All Rights
  * Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License").
@@ -103,6 +103,7 @@ public class AWS4SignerTest {
         c.setTimeZone(TimeZone.getTimeZone("UTC"));
 
         signer.setOverrideDate(c.getTime());
+        signer.setServiceName("demo");
 
         signer.sign(request, credentials);
         assertEquals(EXPECTED_AUTHORIZATION_HEADER_WITHOUT_SHA256_HEADER,
@@ -129,7 +130,7 @@ public class AWS4SignerTest {
         Calendar c = new GregorianCalendar();
         c.set(1981, 1, 16, 6, 30, 0);
         c.setTimeZone(TimeZone.getTimeZone("UTC"));
-
+        signer.setServiceName("demo");
         signer.setOverrideDate(c.getTime());
 
         signer.sign(request, credentials);

@@ -1,5 +1,5 @@
 /*
- * Copyright 2010-2015 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2010-2016 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License.
@@ -233,10 +233,7 @@ public class TrustedAdvisorCheckSummary implements Serializable, Cloneable {
     }
 
     /**
-     * Sets the value of the ResourcesSummary property for this object.
-     * 
      * @param resourcesSummary
-     *        The new value for the ResourcesSummary property for this object.
      */
     public void setResourcesSummary(
             TrustedAdvisorResourcesSummary resourcesSummary) {
@@ -244,19 +241,14 @@ public class TrustedAdvisorCheckSummary implements Serializable, Cloneable {
     }
 
     /**
-     * Returns the value of the ResourcesSummary property for this object.
-     * 
-     * @return The value of the ResourcesSummary property for this object.
+     * @return
      */
     public TrustedAdvisorResourcesSummary getResourcesSummary() {
         return this.resourcesSummary;
     }
 
     /**
-     * Sets the value of the ResourcesSummary property for this object.
-     * 
      * @param resourcesSummary
-     *        The new value for the ResourcesSummary property for this object.
      * @return Returns a reference to this object so that method calls can be
      *         chained together.
      */

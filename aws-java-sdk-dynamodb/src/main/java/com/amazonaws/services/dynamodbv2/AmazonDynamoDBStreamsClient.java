@@ -1,5 +1,5 @@
 /*
- * Copyright 2010-2015 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2010-2016 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License.
@@ -108,6 +108,9 @@ public class AmazonDynamoDBStreamsClient extends AmazonWebServiceClient
 
     /** Default signing name for the service. */
     private static final String DEFAULT_SIGNING_NAME = "dynamodb";
+
+    /** The region metadata service name for computing region endpoints. */
+    private static final String DEFAULT_ENDPOINT_PREFIX = "streams.dynamodb";
 
     /**
      * List of exception unmarshallers for all Amazon DynamoDB Streams
@@ -300,6 +303,7 @@ public class AmazonDynamoDBStreamsClient extends AmazonWebServiceClient
         // calling this.setEndPoint(...) will also modify the signer accordingly
         setEndpoint("https://streams.dynamodb.us-east-1.amazonaws.com");
         setServiceNameIntern(DEFAULT_SIGNING_NAME);
+        setEndpointPrefix(DEFAULT_ENDPOINT_PREFIX);
         HandlerChainFactory chainFactory = new HandlerChainFactory();
         requestHandler2s
                 .addAll(chainFactory
@@ -338,6 +342,7 @@ public class AmazonDynamoDBStreamsClient extends AmazonWebServiceClient
      *         The operation tried to access a nonexistent stream.
      * @throws InternalServerErrorException
      *         An error occurred on the server side.
+     * @sample AmazonDynamoDBStreams.DescribeStream
      */
     @Override
     public DescribeStreamResult describeStream(
@@ -352,17 +357,18 @@ public class AmazonDynamoDBStreamsClient extends AmazonWebServiceClient
         try {
             awsRequestMetrics.startEvent(Field.RequestMarshallTime);
             try {
-                request = new DescribeStreamRequestMarshaller()
-                        .marshall(describeStreamRequest);
+                request = new DescribeStreamRequestMarshaller().marshall(super
+                        .beforeMarshalling(describeStreamRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
 
-            response = invoke(request,
-                    new DescribeStreamResultJsonUnmarshaller(),
-                    executionContext);
+            JsonResponseHandler<DescribeStreamResult> responseHandler = new JsonResponseHandler<DescribeStreamResult>(
+                    new DescribeStreamResultJsonUnmarshaller());
+            responseHandler.setIsPayloadJson(true);
+            response = invoke(request, responseHandler, executionContext);
 
             return response.getAwsResponse();
 
@@ -428,6 +434,7 @@ public class AmazonDynamoDBStreamsClient extends AmazonWebServiceClient
      *         in a <i>GetRecords</i> request, a stream record in the shard
      *         exceeds the 24 hour period and is trimmed. This causes the
      *         iterator to access a record that no longer exists.</li>
+     * @sample AmazonDynamoDBStreams.GetRecords
      */
     @Override
     public GetRecordsResult getRecords(GetRecordsRequest getRecordsRequest) {
@@ -441,16 +448,18 @@ public class AmazonDynamoDBStreamsClient extends AmazonWebServiceClient
         try {
             awsRequestMetrics.startEvent(Field.RequestMarshallTime);
             try {
-                request = new GetRecordsRequestMarshaller()
-                        .marshall(getRecordsRequest);
+                request = new GetRecordsRequestMarshaller().marshall(super
+                        .beforeMarshalling(getRecordsRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
 
-            response = invoke(request, new GetRecordsResultJsonUnmarshaller(),
-                    executionContext);
+            JsonResponseHandler<GetRecordsResult> responseHandler = new JsonResponseHandler<GetRecordsResult>(
+                    new GetRecordsResultJsonUnmarshaller());
+            responseHandler.setIsPayloadJson(true);
+            response = invoke(request, responseHandler, executionContext);
 
             return response.getAwsResponse();
 
@@ -497,6 +506,7 @@ public class AmazonDynamoDBStreamsClient extends AmazonWebServiceClient
      *         in a <i>GetRecords</i> request, a stream record in the shard
      *         exceeds the 24 hour period and is trimmed. This causes the
      *         iterator to access a record that no longer exists.</li>
+     * @sample AmazonDynamoDBStreams.GetShardIterator
      */
     @Override
     public GetShardIteratorResult getShardIterator(
@@ -512,16 +522,18 @@ public class AmazonDynamoDBStreamsClient extends AmazonWebServiceClient
             awsRequestMetrics.startEvent(Field.RequestMarshallTime);
             try {
                 request = new GetShardIteratorRequestMarshaller()
-                        .marshall(getShardIteratorRequest);
+                        .marshall(super
+                                .beforeMarshalling(getShardIteratorRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
 
-            response = invoke(request,
-                    new GetShardIteratorResultJsonUnmarshaller(),
-                    executionContext);
+            JsonResponseHandler<GetShardIteratorResult> responseHandler = new JsonResponseHandler<GetShardIteratorResult>(
+                    new GetShardIteratorResultJsonUnmarshaller());
+            responseHandler.setIsPayloadJson(true);
+            response = invoke(request, responseHandler, executionContext);
 
             return response.getAwsResponse();
 
@@ -550,6 +562,7 @@ public class AmazonDynamoDBStreamsClient extends AmazonWebServiceClient
      *         The operation tried to access a nonexistent stream.
      * @throws InternalServerErrorException
      *         An error occurred on the server side.
+     * @sample AmazonDynamoDBStreams.ListStreams
      */
     @Override
     public ListStreamsResult listStreams(ListStreamsRequest listStreamsRequest) {
@@ -563,16 +576,18 @@ public class AmazonDynamoDBStreamsClient extends AmazonWebServiceClient
         try {
             awsRequestMetrics.startEvent(Field.RequestMarshallTime);
             try {
-                request = new ListStreamsRequestMarshaller()
-                        .marshall(listStreamsRequest);
+                request = new ListStreamsRequestMarshaller().marshall(super
+                        .beforeMarshalling(listStreamsRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
 
-            response = invoke(request, new ListStreamsResultJsonUnmarshaller(),
-                    executionContext);
+            JsonResponseHandler<ListStreamsResult> responseHandler = new JsonResponseHandler<ListStreamsResult>(
+                    new ListStreamsResultJsonUnmarshaller());
+            responseHandler.setIsPayloadJson(true);
+            response = invoke(request, responseHandler, executionContext);
 
             return response.getAwsResponse();
 
@@ -607,7 +622,7 @@ public class AmazonDynamoDBStreamsClient extends AmazonWebServiceClient
 
     private <X, Y extends AmazonWebServiceRequest> Response<X> invoke(
             Request<Y> request,
-            Unmarshaller<X, JsonUnmarshallerContext> unmarshaller,
+            HttpResponseHandler<AmazonWebServiceResponse<X>> responseHandler,
             ExecutionContext executionContext) {
         request.setEndpoint(endpoint);
         request.setTimeOffset(timeOffset);
@@ -630,8 +645,6 @@ public class AmazonDynamoDBStreamsClient extends AmazonWebServiceClient
 
         executionContext.setCredentials(credentials);
 
-        JsonResponseHandler<X> responseHandler = new JsonResponseHandler<X>(
-                unmarshaller);
         JsonErrorResponseHandlerV2 errorResponseHandler = new JsonErrorResponseHandlerV2(
                 jsonErrorUnmarshallers);
 

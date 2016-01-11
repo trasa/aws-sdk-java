@@ -1,5 +1,5 @@
 /*
- * Copyright 2010-2015 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2010-2016 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License.
@@ -14,6 +14,7 @@
  */
 package com.amazonaws.services.s3.model;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -37,7 +38,7 @@ import com.amazonaws.services.s3.AmazonS3;
  * @see AmazonS3#generatePresignedUrl(GeneratePresignedUrlRequest)
  */
 public class GeneratePresignedUrlRequest extends AmazonWebServiceRequest
-        implements SSECustomerKeyProvider {
+        implements SSECustomerKeyProvider, Serializable {
     /** The HTTP method (GET, PUT, DELETE, HEAD) to be used in this request and when the pre-signed URL is used */
     private HttpMethod method;
 

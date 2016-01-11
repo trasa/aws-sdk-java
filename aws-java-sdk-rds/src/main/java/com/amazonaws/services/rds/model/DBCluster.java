@@ -1,5 +1,5 @@
 /*
- * Copyright 2010-2015 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2010-2016 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License.
@@ -162,6 +162,31 @@ public class DBCluster implements Serializable, Cloneable {
      * Provides a list of VPC security groups that the DB cluster belongs to.
      */
     private com.amazonaws.internal.ListWithAutoConstructFlag<VpcSecurityGroupMembership> vpcSecurityGroups;
+
+    /**
+     * Specifies the ID that Amazon Route 53 assigns when you create a hosted
+     * zone.
+     */
+    private String hostedZoneId;
+
+    /**
+     * Specifies whether the DB cluster is encrypted.
+     */
+    private Boolean storageEncrypted;
+
+    /**
+     * If <code>StorageEncrypted</code> is true, the KMS key identifier for
+     * the encrypted DB cluster.
+     */
+    private String kmsKeyId;
+
+    /**
+     * If <code>StorageEncrypted</code> is true, the region-unique, immutable
+     * identifier for the encrypted DB cluster. This identifier is found in
+     * AWS CloudTrail log entries whenever the KMS key for the DB cluster is
+     * accessed.
+     */
+    private String dbClusterResourceId;
 
     /**
      * Specifies the allocated storage size in gigabytes (GB).
@@ -1149,6 +1174,177 @@ public class DBCluster implements Serializable, Cloneable {
     }
 
     /**
+     * Specifies the ID that Amazon Route 53 assigns when you create a hosted
+     * zone.
+     *
+     * @return Specifies the ID that Amazon Route 53 assigns when you create a hosted
+     *         zone.
+     */
+    public String getHostedZoneId() {
+        return hostedZoneId;
+    }
+    
+    /**
+     * Specifies the ID that Amazon Route 53 assigns when you create a hosted
+     * zone.
+     *
+     * @param hostedZoneId Specifies the ID that Amazon Route 53 assigns when you create a hosted
+     *         zone.
+     */
+    public void setHostedZoneId(String hostedZoneId) {
+        this.hostedZoneId = hostedZoneId;
+    }
+    
+    /**
+     * Specifies the ID that Amazon Route 53 assigns when you create a hosted
+     * zone.
+     * <p>
+     * Returns a reference to this object so that method calls can be chained together.
+     *
+     * @param hostedZoneId Specifies the ID that Amazon Route 53 assigns when you create a hosted
+     *         zone.
+     *
+     * @return A reference to this updated object so that method calls can be chained
+     *         together.
+     */
+    public DBCluster withHostedZoneId(String hostedZoneId) {
+        this.hostedZoneId = hostedZoneId;
+        return this;
+    }
+
+    /**
+     * Specifies whether the DB cluster is encrypted.
+     *
+     * @return Specifies whether the DB cluster is encrypted.
+     */
+    public Boolean isStorageEncrypted() {
+        return storageEncrypted;
+    }
+    
+    /**
+     * Specifies whether the DB cluster is encrypted.
+     *
+     * @param storageEncrypted Specifies whether the DB cluster is encrypted.
+     */
+    public void setStorageEncrypted(Boolean storageEncrypted) {
+        this.storageEncrypted = storageEncrypted;
+    }
+    
+    /**
+     * Specifies whether the DB cluster is encrypted.
+     * <p>
+     * Returns a reference to this object so that method calls can be chained together.
+     *
+     * @param storageEncrypted Specifies whether the DB cluster is encrypted.
+     *
+     * @return A reference to this updated object so that method calls can be chained
+     *         together.
+     */
+    public DBCluster withStorageEncrypted(Boolean storageEncrypted) {
+        this.storageEncrypted = storageEncrypted;
+        return this;
+    }
+
+    /**
+     * Specifies whether the DB cluster is encrypted.
+     *
+     * @return Specifies whether the DB cluster is encrypted.
+     */
+    public Boolean getStorageEncrypted() {
+        return storageEncrypted;
+    }
+
+    /**
+     * If <code>StorageEncrypted</code> is true, the KMS key identifier for
+     * the encrypted DB cluster.
+     *
+     * @return If <code>StorageEncrypted</code> is true, the KMS key identifier for
+     *         the encrypted DB cluster.
+     */
+    public String getKmsKeyId() {
+        return kmsKeyId;
+    }
+    
+    /**
+     * If <code>StorageEncrypted</code> is true, the KMS key identifier for
+     * the encrypted DB cluster.
+     *
+     * @param kmsKeyId If <code>StorageEncrypted</code> is true, the KMS key identifier for
+     *         the encrypted DB cluster.
+     */
+    public void setKmsKeyId(String kmsKeyId) {
+        this.kmsKeyId = kmsKeyId;
+    }
+    
+    /**
+     * If <code>StorageEncrypted</code> is true, the KMS key identifier for
+     * the encrypted DB cluster.
+     * <p>
+     * Returns a reference to this object so that method calls can be chained together.
+     *
+     * @param kmsKeyId If <code>StorageEncrypted</code> is true, the KMS key identifier for
+     *         the encrypted DB cluster.
+     *
+     * @return A reference to this updated object so that method calls can be chained
+     *         together.
+     */
+    public DBCluster withKmsKeyId(String kmsKeyId) {
+        this.kmsKeyId = kmsKeyId;
+        return this;
+    }
+
+    /**
+     * If <code>StorageEncrypted</code> is true, the region-unique, immutable
+     * identifier for the encrypted DB cluster. This identifier is found in
+     * AWS CloudTrail log entries whenever the KMS key for the DB cluster is
+     * accessed.
+     *
+     * @return If <code>StorageEncrypted</code> is true, the region-unique, immutable
+     *         identifier for the encrypted DB cluster. This identifier is found in
+     *         AWS CloudTrail log entries whenever the KMS key for the DB cluster is
+     *         accessed.
+     */
+    public String getDbClusterResourceId() {
+        return dbClusterResourceId;
+    }
+    
+    /**
+     * If <code>StorageEncrypted</code> is true, the region-unique, immutable
+     * identifier for the encrypted DB cluster. This identifier is found in
+     * AWS CloudTrail log entries whenever the KMS key for the DB cluster is
+     * accessed.
+     *
+     * @param dbClusterResourceId If <code>StorageEncrypted</code> is true, the region-unique, immutable
+     *         identifier for the encrypted DB cluster. This identifier is found in
+     *         AWS CloudTrail log entries whenever the KMS key for the DB cluster is
+     *         accessed.
+     */
+    public void setDbClusterResourceId(String dbClusterResourceId) {
+        this.dbClusterResourceId = dbClusterResourceId;
+    }
+    
+    /**
+     * If <code>StorageEncrypted</code> is true, the region-unique, immutable
+     * identifier for the encrypted DB cluster. This identifier is found in
+     * AWS CloudTrail log entries whenever the KMS key for the DB cluster is
+     * accessed.
+     * <p>
+     * Returns a reference to this object so that method calls can be chained together.
+     *
+     * @param dbClusterResourceId If <code>StorageEncrypted</code> is true, the region-unique, immutable
+     *         identifier for the encrypted DB cluster. This identifier is found in
+     *         AWS CloudTrail log entries whenever the KMS key for the DB cluster is
+     *         accessed.
+     *
+     * @return A reference to this updated object so that method calls can be chained
+     *         together.
+     */
+    public DBCluster withDbClusterResourceId(String dbClusterResourceId) {
+        this.dbClusterResourceId = dbClusterResourceId;
+        return this;
+    }
+
+    /**
      * Returns a string representation of this object; useful for testing and
      * debugging.
      *
@@ -1181,7 +1377,11 @@ public class DBCluster implements Serializable, Cloneable {
         if (getPreferredBackupWindow() != null) sb.append("PreferredBackupWindow: " + getPreferredBackupWindow() + ",");
         if (getPreferredMaintenanceWindow() != null) sb.append("PreferredMaintenanceWindow: " + getPreferredMaintenanceWindow() + ",");
         if (getDBClusterMembers() != null) sb.append("DBClusterMembers: " + getDBClusterMembers() + ",");
-        if (getVpcSecurityGroups() != null) sb.append("VpcSecurityGroups: " + getVpcSecurityGroups() );
+        if (getVpcSecurityGroups() != null) sb.append("VpcSecurityGroups: " + getVpcSecurityGroups() + ",");
+        if (getHostedZoneId() != null) sb.append("HostedZoneId: " + getHostedZoneId() + ",");
+        if (isStorageEncrypted() != null) sb.append("StorageEncrypted: " + isStorageEncrypted() + ",");
+        if (getKmsKeyId() != null) sb.append("KmsKeyId: " + getKmsKeyId() + ",");
+        if (getDbClusterResourceId() != null) sb.append("DbClusterResourceId: " + getDbClusterResourceId() );
         sb.append("}");
         return sb.toString();
     }
@@ -1213,6 +1413,10 @@ public class DBCluster implements Serializable, Cloneable {
         hashCode = prime * hashCode + ((getPreferredMaintenanceWindow() == null) ? 0 : getPreferredMaintenanceWindow().hashCode()); 
         hashCode = prime * hashCode + ((getDBClusterMembers() == null) ? 0 : getDBClusterMembers().hashCode()); 
         hashCode = prime * hashCode + ((getVpcSecurityGroups() == null) ? 0 : getVpcSecurityGroups().hashCode()); 
+        hashCode = prime * hashCode + ((getHostedZoneId() == null) ? 0 : getHostedZoneId().hashCode()); 
+        hashCode = prime * hashCode + ((isStorageEncrypted() == null) ? 0 : isStorageEncrypted().hashCode()); 
+        hashCode = prime * hashCode + ((getKmsKeyId() == null) ? 0 : getKmsKeyId().hashCode()); 
+        hashCode = prime * hashCode + ((getDbClusterResourceId() == null) ? 0 : getDbClusterResourceId().hashCode()); 
         return hashCode;
     }
     
@@ -1268,6 +1472,14 @@ public class DBCluster implements Serializable, Cloneable {
         if (other.getDBClusterMembers() != null && other.getDBClusterMembers().equals(this.getDBClusterMembers()) == false) return false; 
         if (other.getVpcSecurityGroups() == null ^ this.getVpcSecurityGroups() == null) return false;
         if (other.getVpcSecurityGroups() != null && other.getVpcSecurityGroups().equals(this.getVpcSecurityGroups()) == false) return false; 
+        if (other.getHostedZoneId() == null ^ this.getHostedZoneId() == null) return false;
+        if (other.getHostedZoneId() != null && other.getHostedZoneId().equals(this.getHostedZoneId()) == false) return false; 
+        if (other.isStorageEncrypted() == null ^ this.isStorageEncrypted() == null) return false;
+        if (other.isStorageEncrypted() != null && other.isStorageEncrypted().equals(this.isStorageEncrypted()) == false) return false; 
+        if (other.getKmsKeyId() == null ^ this.getKmsKeyId() == null) return false;
+        if (other.getKmsKeyId() != null && other.getKmsKeyId().equals(this.getKmsKeyId()) == false) return false; 
+        if (other.getDbClusterResourceId() == null ^ this.getDbClusterResourceId() == null) return false;
+        if (other.getDbClusterResourceId() != null && other.getDbClusterResourceId().equals(this.getDbClusterResourceId()) == false) return false; 
         return true;
     }
     

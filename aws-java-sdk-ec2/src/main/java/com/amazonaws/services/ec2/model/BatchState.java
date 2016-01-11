@@ -1,5 +1,5 @@
 /*
- * Copyright 2010-2015 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2010-2016 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License.
@@ -24,7 +24,8 @@ public enum BatchState {
     Cancelled("cancelled"),
     Failed("failed"),
     Cancelled_running("cancelled_running"),
-    Cancelled_terminating("cancelled_terminating");
+    Cancelled_terminating("cancelled_terminating"),
+    Modifying("modifying");
 
     private String value;
 
@@ -60,6 +61,8 @@ public enum BatchState {
             return BatchState.Cancelled_running;
         } else if ("cancelled_terminating".equals(value)) {
             return BatchState.Cancelled_terminating;
+        } else if ("modifying".equals(value)) {
+            return BatchState.Modifying;
         } else {
             throw new IllegalArgumentException("Cannot create enum from " + value + " value!");
         }

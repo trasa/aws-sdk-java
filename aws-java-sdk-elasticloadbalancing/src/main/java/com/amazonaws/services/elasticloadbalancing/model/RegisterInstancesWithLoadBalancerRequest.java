@@ -1,5 +1,5 @@
 /*
- * Copyright 2010-2015 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2010-2016 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License.
@@ -32,8 +32,8 @@ import com.amazonaws.AmazonWebServiceRequest;
  * </p>
  * <p>
  * Note that <code>RegisterInstanceWithLoadBalancer</code> completes when
- * the request has been registered. Instance registration happens shortly
- * afterwards. To check the state of the registered instances, use
+ * the request has been registered. Instance registration takes a little
+ * time to complete. To check the state of the registered instances, use
  * DescribeLoadBalancers or DescribeInstanceHealth.
  * </p>
  * <p>

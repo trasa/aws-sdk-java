@@ -1,5 +1,5 @@
 /*
- * Copyright 2010-2015 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2010-2016 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License.
@@ -13,6 +13,7 @@
  * permissions and limitations under the License.
  */
 package com.amazonaws.services.s3.model;
+import java.io.Serializable;
 
 
 /**
@@ -35,7 +36,7 @@ package com.amazonaws.services.s3.model;
  * href="http://aws.amazon.com/mfa"/>http://aws.amazon.com/mfa</a>
  * </p>
  */
-public class MultiFactorAuthentication {
+public class MultiFactorAuthentication implements Serializable {
 
     /**
      * The serial number of the Multi-Factor Authentication device associated

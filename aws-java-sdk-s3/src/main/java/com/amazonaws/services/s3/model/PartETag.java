@@ -1,5 +1,5 @@
 /*
- * Copyright 2010-2015 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2010-2016 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License.
@@ -13,13 +13,14 @@
  * permissions and limitations under the License.
  */
 package com.amazonaws.services.s3.model;
+import java.io.Serializable;
 
 /**
  * Container for the part number and ETag of an uploaded part. After the part is
  * uploaded to Amazon S3, this data is used when completing the multipart
  * upload.
  */
-public class PartETag {
+public class PartETag implements Serializable {
 
     /** The part number of the associated part. */
     private int partNumber;

@@ -1,5 +1,5 @@
 /*
- * Copyright 2010-2015 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2010-2016 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License.
@@ -47,7 +47,7 @@ public class GetPolicyRequestMarshaller implements Marshaller<Request<GetPolicyR
     private static final Map<String, String> STATIC_QUERY_PARAMS;
     private static final Map<String, String> DYNAMIC_QUERY_PARAMS;
     static {
-        String path = "/2015-03-31/functions/{FunctionName}/versions/HEAD/policy";
+        String path = "/2015-03-31/functions/{FunctionName}/policy?Qualifier={Qualifier}";
         Map<String, String> staticMap = new HashMap<String, String>();
         Map<String, String> dynamicMap = new HashMap<String, String>();
 
@@ -99,6 +99,18 @@ public class GetPolicyRequestMarshaller implements Marshaller<Request<GetPolicyR
             
         } else {
             uriResourcePath = uriResourcePath.replace("{FunctionName}", (getPolicyRequest.getFunctionName() == null) ? "" : StringUtils.fromString(getPolicyRequest.getFunctionName())); 
+        } 
+        if (DYNAMIC_QUERY_PARAMS.containsKey("Qualifier")) {
+            String name = DYNAMIC_QUERY_PARAMS.get("Qualifier");
+
+            String value = (getPolicyRequest.getQualifier() == null) ? null : StringUtils.fromString(getPolicyRequest.getQualifier());
+
+            if (!(value == null || value.isEmpty())) {
+                request.addParameter(name, value);
+            }
+            
+        } else {
+            uriResourcePath = uriResourcePath.replace("{Qualifier}", (getPolicyRequest.getQualifier() == null) ? "" : StringUtils.fromString(getPolicyRequest.getQualifier())); 
         } 
 
         request.setResourcePath(uriResourcePath.replaceAll("//", "/"));

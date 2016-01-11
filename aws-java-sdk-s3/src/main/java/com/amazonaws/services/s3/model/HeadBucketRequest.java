@@ -1,5 +1,5 @@
 /*
- * Copyright 2010-2015 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2010-2016 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License.
@@ -13,6 +13,7 @@
  * permissions and limitations under the License.
  */
 package com.amazonaws.services.s3.model;
+import java.io.Serializable;
 
 import com.amazonaws.AmazonWebServiceRequest;
 
@@ -20,7 +21,7 @@ import com.amazonaws.AmazonWebServiceRequest;
  * Request object for checking if the bucket exists and the user has access to
  * the given bucket.
  */
-public class HeadBucketRequest extends AmazonWebServiceRequest {
+public class HeadBucketRequest extends AmazonWebServiceRequest implements Serializable {
 
     private String bucketName;
 

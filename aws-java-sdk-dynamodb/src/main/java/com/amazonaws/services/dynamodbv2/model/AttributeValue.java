@@ -1,5 +1,5 @@
 /*
- * Copyright 2010-2015 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2010-2016 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License.
@@ -203,6 +203,11 @@ public class AttributeValue implements Serializable, Cloneable {
     /**
      * <p>
      * A Binary data type.
+     * </p>
+     * <p>
+     * AWS SDK for Java performs a Base64 encoding on this field before sending
+     * this request to AWS service by default. Users of the SDK should not
+     * perform Base64 encoding on this field.
      * </p>
      * 
      * @param b

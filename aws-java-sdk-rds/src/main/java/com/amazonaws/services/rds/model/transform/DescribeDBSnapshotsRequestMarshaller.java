@@ -1,5 +1,5 @@
 /*
- * Copyright 2010-2015 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2010-2016 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License.
@@ -80,6 +80,12 @@ public class DescribeDBSnapshotsRequestMarshaller implements Marshaller<Request<
         }
         if (describeDBSnapshotsRequest.getMarker() != null) {
             request.addParameter("Marker", StringUtils.fromString(describeDBSnapshotsRequest.getMarker()));
+        }
+        if (describeDBSnapshotsRequest.isIncludeShared() != null) {
+            request.addParameter("IncludeShared", StringUtils.fromBoolean(describeDBSnapshotsRequest.isIncludeShared()));
+        }
+        if (describeDBSnapshotsRequest.isIncludePublic() != null) {
+            request.addParameter("IncludePublic", StringUtils.fromBoolean(describeDBSnapshotsRequest.isIncludePublic()));
         }
 
         return request;

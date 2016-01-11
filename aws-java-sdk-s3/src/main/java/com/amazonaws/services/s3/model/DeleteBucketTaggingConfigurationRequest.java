@@ -1,5 +1,5 @@
 /*
- * Copyright 2011-2015 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2011-2016 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License.
@@ -13,6 +13,7 @@
  * permissions and limitations under the License.
  */
 package com.amazonaws.services.s3.model;
+import java.io.Serializable;
 
 import com.amazonaws.services.s3.AmazonS3;
 
@@ -21,7 +22,7 @@ import com.amazonaws.services.s3.AmazonS3;
  *
  * @see AmazonS3#deleteBucketTaggingConfiguration(DeleteBucketTaggingConfigurationRequest)
  */
-public class DeleteBucketTaggingConfigurationRequest extends GenericBucketRequest {
+public class DeleteBucketTaggingConfigurationRequest extends GenericBucketRequest implements Serializable {
 
     /**
      * Creates a new request object, ready to be executed to delete the tagging

@@ -1,5 +1,5 @@
 /*
- * Copyright 2010-2015 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2010-2016 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License.
@@ -55,6 +55,9 @@ public class AWSDeviceFarmClient extends AmazonWebServiceClient implements
 
     /** Default signing name for the service. */
     private static final String DEFAULT_SIGNING_NAME = "devicefarm";
+
+    /** The region metadata service name for computing region endpoints. */
+    private static final String DEFAULT_ENDPOINT_PREFIX = "devicefarm";
 
     /**
      * List of exception unmarshallers for all AWS Device Farm exceptions.
@@ -220,10 +223,6 @@ public class AWSDeviceFarmClient extends AmazonWebServiceClient implements
     private void init() {
         jsonErrorUnmarshallers
                 .add(new JsonErrorUnmarshallerV2(
-                        com.amazonaws.services.devicefarm.model.ServiceAccountException.class,
-                        "ServiceAccountException"));
-        jsonErrorUnmarshallers
-                .add(new JsonErrorUnmarshallerV2(
                         com.amazonaws.services.devicefarm.model.ArgumentException.class,
                         "ArgumentException"));
         jsonErrorUnmarshallers
@@ -232,17 +231,22 @@ public class AWSDeviceFarmClient extends AmazonWebServiceClient implements
                         "NotFoundException"));
         jsonErrorUnmarshallers
                 .add(new JsonErrorUnmarshallerV2(
-                        com.amazonaws.services.devicefarm.model.IdempotencyException.class,
-                        "IdempotencyException"));
-        jsonErrorUnmarshallers
-                .add(new JsonErrorUnmarshallerV2(
                         com.amazonaws.services.devicefarm.model.LimitExceededException.class,
                         "LimitExceededException"));
+        jsonErrorUnmarshallers
+                .add(new JsonErrorUnmarshallerV2(
+                        com.amazonaws.services.devicefarm.model.ServiceAccountException.class,
+                        "ServiceAccountException"));
+        jsonErrorUnmarshallers
+                .add(new JsonErrorUnmarshallerV2(
+                        com.amazonaws.services.devicefarm.model.IdempotencyException.class,
+                        "IdempotencyException"));
         jsonErrorUnmarshallers
                 .add(JsonErrorUnmarshallerV2.DEFAULT_UNMARSHALLER);
         // calling this.setEndPoint(...) will also modify the signer accordingly
         setEndpoint("https://devicefarm.us-west-2.amazonaws.com");
         setServiceNameIntern(DEFAULT_SIGNING_NAME);
+        setEndpointPrefix(DEFAULT_ENDPOINT_PREFIX);
         HandlerChainFactory chainFactory = new HandlerChainFactory();
         requestHandler2s
                 .addAll(chainFactory
@@ -268,6 +272,7 @@ public class AWSDeviceFarmClient extends AmazonWebServiceClient implements
      *         A limit was exceeded.
      * @throws ServiceAccountException
      *         There was a problem with the service account.
+     * @sample AWSDeviceFarm.CreateDevicePool
      */
     @Override
     public CreateDevicePoolResult createDevicePool(
@@ -283,16 +288,18 @@ public class AWSDeviceFarmClient extends AmazonWebServiceClient implements
             awsRequestMetrics.startEvent(Field.RequestMarshallTime);
             try {
                 request = new CreateDevicePoolRequestMarshaller()
-                        .marshall(createDevicePoolRequest);
+                        .marshall(super
+                                .beforeMarshalling(createDevicePoolRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
 
-            response = invoke(request,
-                    new CreateDevicePoolResultJsonUnmarshaller(),
-                    executionContext);
+            JsonResponseHandler<CreateDevicePoolResult> responseHandler = new JsonResponseHandler<CreateDevicePoolResult>(
+                    new CreateDevicePoolResultJsonUnmarshaller());
+            responseHandler.setIsPayloadJson(true);
+            response = invoke(request, responseHandler, executionContext);
 
             return response.getAwsResponse();
 
@@ -318,6 +325,7 @@ public class AWSDeviceFarmClient extends AmazonWebServiceClient implements
      *         A limit was exceeded.
      * @throws ServiceAccountException
      *         There was a problem with the service account.
+     * @sample AWSDeviceFarm.CreateProject
      */
     @Override
     public CreateProjectResult createProject(
@@ -332,16 +340,18 @@ public class AWSDeviceFarmClient extends AmazonWebServiceClient implements
         try {
             awsRequestMetrics.startEvent(Field.RequestMarshallTime);
             try {
-                request = new CreateProjectRequestMarshaller()
-                        .marshall(createProjectRequest);
+                request = new CreateProjectRequestMarshaller().marshall(super
+                        .beforeMarshalling(createProjectRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
 
-            response = invoke(request,
-                    new CreateProjectResultJsonUnmarshaller(), executionContext);
+            JsonResponseHandler<CreateProjectResult> responseHandler = new JsonResponseHandler<CreateProjectResult>(
+                    new CreateProjectResultJsonUnmarshaller());
+            responseHandler.setIsPayloadJson(true);
+            response = invoke(request, responseHandler, executionContext);
 
             return response.getAwsResponse();
 
@@ -367,6 +377,7 @@ public class AWSDeviceFarmClient extends AmazonWebServiceClient implements
      *         A limit was exceeded.
      * @throws ServiceAccountException
      *         There was a problem with the service account.
+     * @sample AWSDeviceFarm.CreateUpload
      */
     @Override
     public CreateUploadResult createUpload(
@@ -381,16 +392,233 @@ public class AWSDeviceFarmClient extends AmazonWebServiceClient implements
         try {
             awsRequestMetrics.startEvent(Field.RequestMarshallTime);
             try {
-                request = new CreateUploadRequestMarshaller()
-                        .marshall(createUploadRequest);
+                request = new CreateUploadRequestMarshaller().marshall(super
+                        .beforeMarshalling(createUploadRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
 
-            response = invoke(request,
-                    new CreateUploadResultJsonUnmarshaller(), executionContext);
+            JsonResponseHandler<CreateUploadResult> responseHandler = new JsonResponseHandler<CreateUploadResult>(
+                    new CreateUploadResultJsonUnmarshaller());
+            responseHandler.setIsPayloadJson(true);
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Deletes a device pool given the pool ARN. Does not allow deletion of
+     * curated pools owned by the system.
+     * </p>
+     * 
+     * @param deleteDevicePoolRequest
+     *        Represents a request to the delete device pool operation.
+     * @return Result of the DeleteDevicePool operation returned by the service.
+     * @throws ArgumentException
+     *         An invalid argument was specified.
+     * @throws NotFoundException
+     *         The specified entity was not found.
+     * @throws LimitExceededException
+     *         A limit was exceeded.
+     * @throws ServiceAccountException
+     *         There was a problem with the service account.
+     * @sample AWSDeviceFarm.DeleteDevicePool
+     */
+    @Override
+    public DeleteDevicePoolResult deleteDevicePool(
+            DeleteDevicePoolRequest deleteDevicePoolRequest) {
+        ExecutionContext executionContext = createExecutionContext(deleteDevicePoolRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext
+                .getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<DeleteDevicePoolRequest> request = null;
+        Response<DeleteDevicePoolResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new DeleteDevicePoolRequestMarshaller()
+                        .marshall(super
+                                .beforeMarshalling(deleteDevicePoolRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            JsonResponseHandler<DeleteDevicePoolResult> responseHandler = new JsonResponseHandler<DeleteDevicePoolResult>(
+                    new DeleteDevicePoolResultJsonUnmarshaller());
+            responseHandler.setIsPayloadJson(true);
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Deletes an AWS Device Farm project, given the project ARN.
+     * </p>
+     * <p>
+     * <b>Note</b> Deleting this resource does not stop an in-progress run.
+     * </p>
+     * 
+     * @param deleteProjectRequest
+     *        Represents a request to the delete project operation.
+     * @return Result of the DeleteProject operation returned by the service.
+     * @throws ArgumentException
+     *         An invalid argument was specified.
+     * @throws NotFoundException
+     *         The specified entity was not found.
+     * @throws LimitExceededException
+     *         A limit was exceeded.
+     * @throws ServiceAccountException
+     *         There was a problem with the service account.
+     * @sample AWSDeviceFarm.DeleteProject
+     */
+    @Override
+    public DeleteProjectResult deleteProject(
+            DeleteProjectRequest deleteProjectRequest) {
+        ExecutionContext executionContext = createExecutionContext(deleteProjectRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext
+                .getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<DeleteProjectRequest> request = null;
+        Response<DeleteProjectResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new DeleteProjectRequestMarshaller().marshall(super
+                        .beforeMarshalling(deleteProjectRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            JsonResponseHandler<DeleteProjectResult> responseHandler = new JsonResponseHandler<DeleteProjectResult>(
+                    new DeleteProjectResultJsonUnmarshaller());
+            responseHandler.setIsPayloadJson(true);
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Deletes the run, given the run ARN.
+     * </p>
+     * <p>
+     * <b>Note</b> Deleting this resource does not stop an in-progress run.
+     * </p>
+     * 
+     * @param deleteRunRequest
+     *        Represents a request to the delete run operation.
+     * @return Result of the DeleteRun operation returned by the service.
+     * @throws ArgumentException
+     *         An invalid argument was specified.
+     * @throws NotFoundException
+     *         The specified entity was not found.
+     * @throws LimitExceededException
+     *         A limit was exceeded.
+     * @throws ServiceAccountException
+     *         There was a problem with the service account.
+     * @sample AWSDeviceFarm.DeleteRun
+     */
+    @Override
+    public DeleteRunResult deleteRun(DeleteRunRequest deleteRunRequest) {
+        ExecutionContext executionContext = createExecutionContext(deleteRunRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext
+                .getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<DeleteRunRequest> request = null;
+        Response<DeleteRunResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new DeleteRunRequestMarshaller().marshall(super
+                        .beforeMarshalling(deleteRunRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            JsonResponseHandler<DeleteRunResult> responseHandler = new JsonResponseHandler<DeleteRunResult>(
+                    new DeleteRunResultJsonUnmarshaller());
+            responseHandler.setIsPayloadJson(true);
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Deletes an upload given the upload ARN.
+     * </p>
+     * 
+     * @param deleteUploadRequest
+     *        Represents a request to the delete upload operation.
+     * @return Result of the DeleteUpload operation returned by the service.
+     * @throws ArgumentException
+     *         An invalid argument was specified.
+     * @throws NotFoundException
+     *         The specified entity was not found.
+     * @throws LimitExceededException
+     *         A limit was exceeded.
+     * @throws ServiceAccountException
+     *         There was a problem with the service account.
+     * @sample AWSDeviceFarm.DeleteUpload
+     */
+    @Override
+    public DeleteUploadResult deleteUpload(
+            DeleteUploadRequest deleteUploadRequest) {
+        ExecutionContext executionContext = createExecutionContext(deleteUploadRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext
+                .getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<DeleteUploadRequest> request = null;
+        Response<DeleteUploadResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new DeleteUploadRequestMarshaller().marshall(super
+                        .beforeMarshalling(deleteUploadRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            JsonResponseHandler<DeleteUploadResult> responseHandler = new JsonResponseHandler<DeleteUploadResult>(
+                    new DeleteUploadResultJsonUnmarshaller());
+            responseHandler.setIsPayloadJson(true);
+            response = invoke(request, responseHandler, executionContext);
 
             return response.getAwsResponse();
 
@@ -407,7 +635,6 @@ public class AWSDeviceFarmClient extends AmazonWebServiceClient implements
      * </p>
      * 
      * @param getAccountSettingsRequest
-     *        null
      * @return Result of the GetAccountSettings operation returned by the
      *         service.
      * @throws ArgumentException
@@ -418,6 +645,7 @@ public class AWSDeviceFarmClient extends AmazonWebServiceClient implements
      *         A limit was exceeded.
      * @throws ServiceAccountException
      *         There was a problem with the service account.
+     * @sample AWSDeviceFarm.GetAccountSettings
      */
     @Override
     public GetAccountSettingsResult getAccountSettings(
@@ -433,16 +661,18 @@ public class AWSDeviceFarmClient extends AmazonWebServiceClient implements
             awsRequestMetrics.startEvent(Field.RequestMarshallTime);
             try {
                 request = new GetAccountSettingsRequestMarshaller()
-                        .marshall(getAccountSettingsRequest);
+                        .marshall(super
+                                .beforeMarshalling(getAccountSettingsRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
 
-            response = invoke(request,
-                    new GetAccountSettingsResultJsonUnmarshaller(),
-                    executionContext);
+            JsonResponseHandler<GetAccountSettingsResult> responseHandler = new JsonResponseHandler<GetAccountSettingsResult>(
+                    new GetAccountSettingsResultJsonUnmarshaller());
+            responseHandler.setIsPayloadJson(true);
+            response = invoke(request, responseHandler, executionContext);
 
             return response.getAwsResponse();
 
@@ -468,6 +698,7 @@ public class AWSDeviceFarmClient extends AmazonWebServiceClient implements
      *         A limit was exceeded.
      * @throws ServiceAccountException
      *         There was a problem with the service account.
+     * @sample AWSDeviceFarm.GetDevice
      */
     @Override
     public GetDeviceResult getDevice(GetDeviceRequest getDeviceRequest) {
@@ -481,16 +712,18 @@ public class AWSDeviceFarmClient extends AmazonWebServiceClient implements
         try {
             awsRequestMetrics.startEvent(Field.RequestMarshallTime);
             try {
-                request = new GetDeviceRequestMarshaller()
-                        .marshall(getDeviceRequest);
+                request = new GetDeviceRequestMarshaller().marshall(super
+                        .beforeMarshalling(getDeviceRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
 
-            response = invoke(request, new GetDeviceResultJsonUnmarshaller(),
-                    executionContext);
+            JsonResponseHandler<GetDeviceResult> responseHandler = new JsonResponseHandler<GetDeviceResult>(
+                    new GetDeviceResultJsonUnmarshaller());
+            responseHandler.setIsPayloadJson(true);
+            response = invoke(request, responseHandler, executionContext);
 
             return response.getAwsResponse();
 
@@ -516,6 +749,7 @@ public class AWSDeviceFarmClient extends AmazonWebServiceClient implements
      *         A limit was exceeded.
      * @throws ServiceAccountException
      *         There was a problem with the service account.
+     * @sample AWSDeviceFarm.GetDevicePool
      */
     @Override
     public GetDevicePoolResult getDevicePool(
@@ -530,16 +764,18 @@ public class AWSDeviceFarmClient extends AmazonWebServiceClient implements
         try {
             awsRequestMetrics.startEvent(Field.RequestMarshallTime);
             try {
-                request = new GetDevicePoolRequestMarshaller()
-                        .marshall(getDevicePoolRequest);
+                request = new GetDevicePoolRequestMarshaller().marshall(super
+                        .beforeMarshalling(getDevicePoolRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
 
-            response = invoke(request,
-                    new GetDevicePoolResultJsonUnmarshaller(), executionContext);
+            JsonResponseHandler<GetDevicePoolResult> responseHandler = new JsonResponseHandler<GetDevicePoolResult>(
+                    new GetDevicePoolResultJsonUnmarshaller());
+            responseHandler.setIsPayloadJson(true);
+            response = invoke(request, responseHandler, executionContext);
 
             return response.getAwsResponse();
 
@@ -567,6 +803,7 @@ public class AWSDeviceFarmClient extends AmazonWebServiceClient implements
      *         A limit was exceeded.
      * @throws ServiceAccountException
      *         There was a problem with the service account.
+     * @sample AWSDeviceFarm.GetDevicePoolCompatibility
      */
     @Override
     public GetDevicePoolCompatibilityResult getDevicePoolCompatibility(
@@ -582,16 +819,18 @@ public class AWSDeviceFarmClient extends AmazonWebServiceClient implements
             awsRequestMetrics.startEvent(Field.RequestMarshallTime);
             try {
                 request = new GetDevicePoolCompatibilityRequestMarshaller()
-                        .marshall(getDevicePoolCompatibilityRequest);
+                        .marshall(super
+                                .beforeMarshalling(getDevicePoolCompatibilityRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
 
-            response = invoke(request,
-                    new GetDevicePoolCompatibilityResultJsonUnmarshaller(),
-                    executionContext);
+            JsonResponseHandler<GetDevicePoolCompatibilityResult> responseHandler = new JsonResponseHandler<GetDevicePoolCompatibilityResult>(
+                    new GetDevicePoolCompatibilityResultJsonUnmarshaller());
+            responseHandler.setIsPayloadJson(true);
+            response = invoke(request, responseHandler, executionContext);
 
             return response.getAwsResponse();
 
@@ -617,6 +856,7 @@ public class AWSDeviceFarmClient extends AmazonWebServiceClient implements
      *         A limit was exceeded.
      * @throws ServiceAccountException
      *         There was a problem with the service account.
+     * @sample AWSDeviceFarm.GetJob
      */
     @Override
     public GetJobResult getJob(GetJobRequest getJobRequest) {
@@ -630,15 +870,18 @@ public class AWSDeviceFarmClient extends AmazonWebServiceClient implements
         try {
             awsRequestMetrics.startEvent(Field.RequestMarshallTime);
             try {
-                request = new GetJobRequestMarshaller().marshall(getJobRequest);
+                request = new GetJobRequestMarshaller().marshall(super
+                        .beforeMarshalling(getJobRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
 
-            response = invoke(request, new GetJobResultJsonUnmarshaller(),
-                    executionContext);
+            JsonResponseHandler<GetJobResult> responseHandler = new JsonResponseHandler<GetJobResult>(
+                    new GetJobResultJsonUnmarshaller());
+            responseHandler.setIsPayloadJson(true);
+            response = invoke(request, responseHandler, executionContext);
 
             return response.getAwsResponse();
 
@@ -664,6 +907,7 @@ public class AWSDeviceFarmClient extends AmazonWebServiceClient implements
      *         A limit was exceeded.
      * @throws ServiceAccountException
      *         There was a problem with the service account.
+     * @sample AWSDeviceFarm.GetProject
      */
     @Override
     public GetProjectResult getProject(GetProjectRequest getProjectRequest) {
@@ -677,16 +921,18 @@ public class AWSDeviceFarmClient extends AmazonWebServiceClient implements
         try {
             awsRequestMetrics.startEvent(Field.RequestMarshallTime);
             try {
-                request = new GetProjectRequestMarshaller()
-                        .marshall(getProjectRequest);
+                request = new GetProjectRequestMarshaller().marshall(super
+                        .beforeMarshalling(getProjectRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
 
-            response = invoke(request, new GetProjectResultJsonUnmarshaller(),
-                    executionContext);
+            JsonResponseHandler<GetProjectResult> responseHandler = new JsonResponseHandler<GetProjectResult>(
+                    new GetProjectResultJsonUnmarshaller());
+            responseHandler.setIsPayloadJson(true);
+            response = invoke(request, responseHandler, executionContext);
 
             return response.getAwsResponse();
 
@@ -712,6 +958,7 @@ public class AWSDeviceFarmClient extends AmazonWebServiceClient implements
      *         A limit was exceeded.
      * @throws ServiceAccountException
      *         There was a problem with the service account.
+     * @sample AWSDeviceFarm.GetRun
      */
     @Override
     public GetRunResult getRun(GetRunRequest getRunRequest) {
@@ -725,15 +972,18 @@ public class AWSDeviceFarmClient extends AmazonWebServiceClient implements
         try {
             awsRequestMetrics.startEvent(Field.RequestMarshallTime);
             try {
-                request = new GetRunRequestMarshaller().marshall(getRunRequest);
+                request = new GetRunRequestMarshaller().marshall(super
+                        .beforeMarshalling(getRunRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
 
-            response = invoke(request, new GetRunResultJsonUnmarshaller(),
-                    executionContext);
+            JsonResponseHandler<GetRunResult> responseHandler = new JsonResponseHandler<GetRunResult>(
+                    new GetRunResultJsonUnmarshaller());
+            responseHandler.setIsPayloadJson(true);
+            response = invoke(request, responseHandler, executionContext);
 
             return response.getAwsResponse();
 
@@ -759,6 +1009,7 @@ public class AWSDeviceFarmClient extends AmazonWebServiceClient implements
      *         A limit was exceeded.
      * @throws ServiceAccountException
      *         There was a problem with the service account.
+     * @sample AWSDeviceFarm.GetSuite
      */
     @Override
     public GetSuiteResult getSuite(GetSuiteRequest getSuiteRequest) {
@@ -772,16 +1023,18 @@ public class AWSDeviceFarmClient extends AmazonWebServiceClient implements
         try {
             awsRequestMetrics.startEvent(Field.RequestMarshallTime);
             try {
-                request = new GetSuiteRequestMarshaller()
-                        .marshall(getSuiteRequest);
+                request = new GetSuiteRequestMarshaller().marshall(super
+                        .beforeMarshalling(getSuiteRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
 
-            response = invoke(request, new GetSuiteResultJsonUnmarshaller(),
-                    executionContext);
+            JsonResponseHandler<GetSuiteResult> responseHandler = new JsonResponseHandler<GetSuiteResult>(
+                    new GetSuiteResultJsonUnmarshaller());
+            responseHandler.setIsPayloadJson(true);
+            response = invoke(request, responseHandler, executionContext);
 
             return response.getAwsResponse();
 
@@ -807,6 +1060,7 @@ public class AWSDeviceFarmClient extends AmazonWebServiceClient implements
      *         A limit was exceeded.
      * @throws ServiceAccountException
      *         There was a problem with the service account.
+     * @sample AWSDeviceFarm.GetTest
      */
     @Override
     public GetTestResult getTest(GetTestRequest getTestRequest) {
@@ -820,16 +1074,18 @@ public class AWSDeviceFarmClient extends AmazonWebServiceClient implements
         try {
             awsRequestMetrics.startEvent(Field.RequestMarshallTime);
             try {
-                request = new GetTestRequestMarshaller()
-                        .marshall(getTestRequest);
+                request = new GetTestRequestMarshaller().marshall(super
+                        .beforeMarshalling(getTestRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
 
-            response = invoke(request, new GetTestResultJsonUnmarshaller(),
-                    executionContext);
+            JsonResponseHandler<GetTestResult> responseHandler = new JsonResponseHandler<GetTestResult>(
+                    new GetTestResultJsonUnmarshaller());
+            responseHandler.setIsPayloadJson(true);
+            response = invoke(request, responseHandler, executionContext);
 
             return response.getAwsResponse();
 
@@ -855,6 +1111,7 @@ public class AWSDeviceFarmClient extends AmazonWebServiceClient implements
      *         A limit was exceeded.
      * @throws ServiceAccountException
      *         There was a problem with the service account.
+     * @sample AWSDeviceFarm.GetUpload
      */
     @Override
     public GetUploadResult getUpload(GetUploadRequest getUploadRequest) {
@@ -868,16 +1125,18 @@ public class AWSDeviceFarmClient extends AmazonWebServiceClient implements
         try {
             awsRequestMetrics.startEvent(Field.RequestMarshallTime);
             try {
-                request = new GetUploadRequestMarshaller()
-                        .marshall(getUploadRequest);
+                request = new GetUploadRequestMarshaller().marshall(super
+                        .beforeMarshalling(getUploadRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
 
-            response = invoke(request, new GetUploadResultJsonUnmarshaller(),
-                    executionContext);
+            JsonResponseHandler<GetUploadResult> responseHandler = new JsonResponseHandler<GetUploadResult>(
+                    new GetUploadResultJsonUnmarshaller());
+            responseHandler.setIsPayloadJson(true);
+            response = invoke(request, responseHandler, executionContext);
 
             return response.getAwsResponse();
 
@@ -903,6 +1162,7 @@ public class AWSDeviceFarmClient extends AmazonWebServiceClient implements
      *         A limit was exceeded.
      * @throws ServiceAccountException
      *         There was a problem with the service account.
+     * @sample AWSDeviceFarm.ListArtifacts
      */
     @Override
     public ListArtifactsResult listArtifacts(
@@ -917,16 +1177,18 @@ public class AWSDeviceFarmClient extends AmazonWebServiceClient implements
         try {
             awsRequestMetrics.startEvent(Field.RequestMarshallTime);
             try {
-                request = new ListArtifactsRequestMarshaller()
-                        .marshall(listArtifactsRequest);
+                request = new ListArtifactsRequestMarshaller().marshall(super
+                        .beforeMarshalling(listArtifactsRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
 
-            response = invoke(request,
-                    new ListArtifactsResultJsonUnmarshaller(), executionContext);
+            JsonResponseHandler<ListArtifactsResult> responseHandler = new JsonResponseHandler<ListArtifactsResult>(
+                    new ListArtifactsResultJsonUnmarshaller());
+            responseHandler.setIsPayloadJson(true);
+            response = invoke(request, responseHandler, executionContext);
 
             return response.getAwsResponse();
 
@@ -952,6 +1214,7 @@ public class AWSDeviceFarmClient extends AmazonWebServiceClient implements
      *         A limit was exceeded.
      * @throws ServiceAccountException
      *         There was a problem with the service account.
+     * @sample AWSDeviceFarm.ListDevicePools
      */
     @Override
     public ListDevicePoolsResult listDevicePools(
@@ -966,17 +1229,18 @@ public class AWSDeviceFarmClient extends AmazonWebServiceClient implements
         try {
             awsRequestMetrics.startEvent(Field.RequestMarshallTime);
             try {
-                request = new ListDevicePoolsRequestMarshaller()
-                        .marshall(listDevicePoolsRequest);
+                request = new ListDevicePoolsRequestMarshaller().marshall(super
+                        .beforeMarshalling(listDevicePoolsRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
 
-            response = invoke(request,
-                    new ListDevicePoolsResultJsonUnmarshaller(),
-                    executionContext);
+            JsonResponseHandler<ListDevicePoolsResult> responseHandler = new JsonResponseHandler<ListDevicePoolsResult>(
+                    new ListDevicePoolsResultJsonUnmarshaller());
+            responseHandler.setIsPayloadJson(true);
+            response = invoke(request, responseHandler, executionContext);
 
             return response.getAwsResponse();
 
@@ -1002,6 +1266,7 @@ public class AWSDeviceFarmClient extends AmazonWebServiceClient implements
      *         A limit was exceeded.
      * @throws ServiceAccountException
      *         There was a problem with the service account.
+     * @sample AWSDeviceFarm.ListDevices
      */
     @Override
     public ListDevicesResult listDevices(ListDevicesRequest listDevicesRequest) {
@@ -1015,16 +1280,18 @@ public class AWSDeviceFarmClient extends AmazonWebServiceClient implements
         try {
             awsRequestMetrics.startEvent(Field.RequestMarshallTime);
             try {
-                request = new ListDevicesRequestMarshaller()
-                        .marshall(listDevicesRequest);
+                request = new ListDevicesRequestMarshaller().marshall(super
+                        .beforeMarshalling(listDevicesRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
 
-            response = invoke(request, new ListDevicesResultJsonUnmarshaller(),
-                    executionContext);
+            JsonResponseHandler<ListDevicesResult> responseHandler = new JsonResponseHandler<ListDevicesResult>(
+                    new ListDevicesResultJsonUnmarshaller());
+            responseHandler.setIsPayloadJson(true);
+            response = invoke(request, responseHandler, executionContext);
 
             return response.getAwsResponse();
 
@@ -1050,6 +1317,7 @@ public class AWSDeviceFarmClient extends AmazonWebServiceClient implements
      *         A limit was exceeded.
      * @throws ServiceAccountException
      *         There was a problem with the service account.
+     * @sample AWSDeviceFarm.ListJobs
      */
     @Override
     public ListJobsResult listJobs(ListJobsRequest listJobsRequest) {
@@ -1063,16 +1331,18 @@ public class AWSDeviceFarmClient extends AmazonWebServiceClient implements
         try {
             awsRequestMetrics.startEvent(Field.RequestMarshallTime);
             try {
-                request = new ListJobsRequestMarshaller()
-                        .marshall(listJobsRequest);
+                request = new ListJobsRequestMarshaller().marshall(super
+                        .beforeMarshalling(listJobsRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
 
-            response = invoke(request, new ListJobsResultJsonUnmarshaller(),
-                    executionContext);
+            JsonResponseHandler<ListJobsResult> responseHandler = new JsonResponseHandler<ListJobsResult>(
+                    new ListJobsResultJsonUnmarshaller());
+            responseHandler.setIsPayloadJson(true);
+            response = invoke(request, responseHandler, executionContext);
 
             return response.getAwsResponse();
 
@@ -1098,6 +1368,7 @@ public class AWSDeviceFarmClient extends AmazonWebServiceClient implements
      *         A limit was exceeded.
      * @throws ServiceAccountException
      *         There was a problem with the service account.
+     * @sample AWSDeviceFarm.ListProjects
      */
     @Override
     public ListProjectsResult listProjects(
@@ -1112,16 +1383,18 @@ public class AWSDeviceFarmClient extends AmazonWebServiceClient implements
         try {
             awsRequestMetrics.startEvent(Field.RequestMarshallTime);
             try {
-                request = new ListProjectsRequestMarshaller()
-                        .marshall(listProjectsRequest);
+                request = new ListProjectsRequestMarshaller().marshall(super
+                        .beforeMarshalling(listProjectsRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
 
-            response = invoke(request,
-                    new ListProjectsResultJsonUnmarshaller(), executionContext);
+            JsonResponseHandler<ListProjectsResult> responseHandler = new JsonResponseHandler<ListProjectsResult>(
+                    new ListProjectsResultJsonUnmarshaller());
+            responseHandler.setIsPayloadJson(true);
+            response = invoke(request, responseHandler, executionContext);
 
             return response.getAwsResponse();
 
@@ -1147,6 +1420,7 @@ public class AWSDeviceFarmClient extends AmazonWebServiceClient implements
      *         A limit was exceeded.
      * @throws ServiceAccountException
      *         There was a problem with the service account.
+     * @sample AWSDeviceFarm.ListRuns
      */
     @Override
     public ListRunsResult listRuns(ListRunsRequest listRunsRequest) {
@@ -1160,16 +1434,18 @@ public class AWSDeviceFarmClient extends AmazonWebServiceClient implements
         try {
             awsRequestMetrics.startEvent(Field.RequestMarshallTime);
             try {
-                request = new ListRunsRequestMarshaller()
-                        .marshall(listRunsRequest);
+                request = new ListRunsRequestMarshaller().marshall(super
+                        .beforeMarshalling(listRunsRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
 
-            response = invoke(request, new ListRunsResultJsonUnmarshaller(),
-                    executionContext);
+            JsonResponseHandler<ListRunsResult> responseHandler = new JsonResponseHandler<ListRunsResult>(
+                    new ListRunsResultJsonUnmarshaller());
+            responseHandler.setIsPayloadJson(true);
+            response = invoke(request, responseHandler, executionContext);
 
             return response.getAwsResponse();
 
@@ -1195,6 +1471,7 @@ public class AWSDeviceFarmClient extends AmazonWebServiceClient implements
      *         A limit was exceeded.
      * @throws ServiceAccountException
      *         There was a problem with the service account.
+     * @sample AWSDeviceFarm.ListSamples
      */
     @Override
     public ListSamplesResult listSamples(ListSamplesRequest listSamplesRequest) {
@@ -1208,16 +1485,18 @@ public class AWSDeviceFarmClient extends AmazonWebServiceClient implements
         try {
             awsRequestMetrics.startEvent(Field.RequestMarshallTime);
             try {
-                request = new ListSamplesRequestMarshaller()
-                        .marshall(listSamplesRequest);
+                request = new ListSamplesRequestMarshaller().marshall(super
+                        .beforeMarshalling(listSamplesRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
 
-            response = invoke(request, new ListSamplesResultJsonUnmarshaller(),
-                    executionContext);
+            JsonResponseHandler<ListSamplesResult> responseHandler = new JsonResponseHandler<ListSamplesResult>(
+                    new ListSamplesResultJsonUnmarshaller());
+            responseHandler.setIsPayloadJson(true);
+            response = invoke(request, responseHandler, executionContext);
 
             return response.getAwsResponse();
 
@@ -1243,6 +1522,7 @@ public class AWSDeviceFarmClient extends AmazonWebServiceClient implements
      *         A limit was exceeded.
      * @throws ServiceAccountException
      *         There was a problem with the service account.
+     * @sample AWSDeviceFarm.ListSuites
      */
     @Override
     public ListSuitesResult listSuites(ListSuitesRequest listSuitesRequest) {
@@ -1256,16 +1536,18 @@ public class AWSDeviceFarmClient extends AmazonWebServiceClient implements
         try {
             awsRequestMetrics.startEvent(Field.RequestMarshallTime);
             try {
-                request = new ListSuitesRequestMarshaller()
-                        .marshall(listSuitesRequest);
+                request = new ListSuitesRequestMarshaller().marshall(super
+                        .beforeMarshalling(listSuitesRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
 
-            response = invoke(request, new ListSuitesResultJsonUnmarshaller(),
-                    executionContext);
+            JsonResponseHandler<ListSuitesResult> responseHandler = new JsonResponseHandler<ListSuitesResult>(
+                    new ListSuitesResultJsonUnmarshaller());
+            responseHandler.setIsPayloadJson(true);
+            response = invoke(request, responseHandler, executionContext);
 
             return response.getAwsResponse();
 
@@ -1291,6 +1573,7 @@ public class AWSDeviceFarmClient extends AmazonWebServiceClient implements
      *         A limit was exceeded.
      * @throws ServiceAccountException
      *         There was a problem with the service account.
+     * @sample AWSDeviceFarm.ListTests
      */
     @Override
     public ListTestsResult listTests(ListTestsRequest listTestsRequest) {
@@ -1304,16 +1587,18 @@ public class AWSDeviceFarmClient extends AmazonWebServiceClient implements
         try {
             awsRequestMetrics.startEvent(Field.RequestMarshallTime);
             try {
-                request = new ListTestsRequestMarshaller()
-                        .marshall(listTestsRequest);
+                request = new ListTestsRequestMarshaller().marshall(super
+                        .beforeMarshalling(listTestsRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
 
-            response = invoke(request, new ListTestsResultJsonUnmarshaller(),
-                    executionContext);
+            JsonResponseHandler<ListTestsResult> responseHandler = new JsonResponseHandler<ListTestsResult>(
+                    new ListTestsResultJsonUnmarshaller());
+            responseHandler.setIsPayloadJson(true);
+            response = invoke(request, responseHandler, executionContext);
 
             return response.getAwsResponse();
 
@@ -1340,6 +1625,7 @@ public class AWSDeviceFarmClient extends AmazonWebServiceClient implements
      *         A limit was exceeded.
      * @throws ServiceAccountException
      *         There was a problem with the service account.
+     * @sample AWSDeviceFarm.ListUniqueProblems
      */
     @Override
     public ListUniqueProblemsResult listUniqueProblems(
@@ -1355,16 +1641,18 @@ public class AWSDeviceFarmClient extends AmazonWebServiceClient implements
             awsRequestMetrics.startEvent(Field.RequestMarshallTime);
             try {
                 request = new ListUniqueProblemsRequestMarshaller()
-                        .marshall(listUniqueProblemsRequest);
+                        .marshall(super
+                                .beforeMarshalling(listUniqueProblemsRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
 
-            response = invoke(request,
-                    new ListUniqueProblemsResultJsonUnmarshaller(),
-                    executionContext);
+            JsonResponseHandler<ListUniqueProblemsResult> responseHandler = new JsonResponseHandler<ListUniqueProblemsResult>(
+                    new ListUniqueProblemsResultJsonUnmarshaller());
+            responseHandler.setIsPayloadJson(true);
+            response = invoke(request, responseHandler, executionContext);
 
             return response.getAwsResponse();
 
@@ -1390,6 +1678,7 @@ public class AWSDeviceFarmClient extends AmazonWebServiceClient implements
      *         A limit was exceeded.
      * @throws ServiceAccountException
      *         There was a problem with the service account.
+     * @sample AWSDeviceFarm.ListUploads
      */
     @Override
     public ListUploadsResult listUploads(ListUploadsRequest listUploadsRequest) {
@@ -1403,16 +1692,18 @@ public class AWSDeviceFarmClient extends AmazonWebServiceClient implements
         try {
             awsRequestMetrics.startEvent(Field.RequestMarshallTime);
             try {
-                request = new ListUploadsRequestMarshaller()
-                        .marshall(listUploadsRequest);
+                request = new ListUploadsRequestMarshaller().marshall(super
+                        .beforeMarshalling(listUploadsRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
 
-            response = invoke(request, new ListUploadsResultJsonUnmarshaller(),
-                    executionContext);
+            JsonResponseHandler<ListUploadsResult> responseHandler = new JsonResponseHandler<ListUploadsResult>(
+                    new ListUploadsResultJsonUnmarshaller());
+            responseHandler.setIsPayloadJson(true);
+            response = invoke(request, responseHandler, executionContext);
 
             return response.getAwsResponse();
 
@@ -1440,6 +1731,7 @@ public class AWSDeviceFarmClient extends AmazonWebServiceClient implements
      *         An entity with the same name already exists.
      * @throws ServiceAccountException
      *         There was a problem with the service account.
+     * @sample AWSDeviceFarm.ScheduleRun
      */
     @Override
     public ScheduleRunResult scheduleRun(ScheduleRunRequest scheduleRunRequest) {
@@ -1453,16 +1745,126 @@ public class AWSDeviceFarmClient extends AmazonWebServiceClient implements
         try {
             awsRequestMetrics.startEvent(Field.RequestMarshallTime);
             try {
-                request = new ScheduleRunRequestMarshaller()
-                        .marshall(scheduleRunRequest);
+                request = new ScheduleRunRequestMarshaller().marshall(super
+                        .beforeMarshalling(scheduleRunRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
 
-            response = invoke(request, new ScheduleRunResultJsonUnmarshaller(),
-                    executionContext);
+            JsonResponseHandler<ScheduleRunResult> responseHandler = new JsonResponseHandler<ScheduleRunResult>(
+                    new ScheduleRunResultJsonUnmarshaller());
+            responseHandler.setIsPayloadJson(true);
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Modifies the name, description, and rules in a device pool given the
+     * attributes and the pool ARN. Rule updates are all-or-nothing, meaning
+     * they can only be updated as a whole (or not at all).
+     * </p>
+     * 
+     * @param updateDevicePoolRequest
+     *        Represents a request to the update device pool operation.
+     * @return Result of the UpdateDevicePool operation returned by the service.
+     * @throws ArgumentException
+     *         An invalid argument was specified.
+     * @throws NotFoundException
+     *         The specified entity was not found.
+     * @throws LimitExceededException
+     *         A limit was exceeded.
+     * @throws ServiceAccountException
+     *         There was a problem with the service account.
+     * @sample AWSDeviceFarm.UpdateDevicePool
+     */
+    @Override
+    public UpdateDevicePoolResult updateDevicePool(
+            UpdateDevicePoolRequest updateDevicePoolRequest) {
+        ExecutionContext executionContext = createExecutionContext(updateDevicePoolRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext
+                .getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<UpdateDevicePoolRequest> request = null;
+        Response<UpdateDevicePoolResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new UpdateDevicePoolRequestMarshaller()
+                        .marshall(super
+                                .beforeMarshalling(updateDevicePoolRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            JsonResponseHandler<UpdateDevicePoolResult> responseHandler = new JsonResponseHandler<UpdateDevicePoolResult>(
+                    new UpdateDevicePoolResultJsonUnmarshaller());
+            responseHandler.setIsPayloadJson(true);
+            response = invoke(request, responseHandler, executionContext);
+
+            return response.getAwsResponse();
+
+        } finally {
+
+            endClientExecution(awsRequestMetrics, request, response);
+        }
+    }
+
+    /**
+     * <p>
+     * Modifies the specified project name, given the project ARN and a new
+     * name.
+     * </p>
+     * 
+     * @param updateProjectRequest
+     *        Represents a request to the update project operation.
+     * @return Result of the UpdateProject operation returned by the service.
+     * @throws ArgumentException
+     *         An invalid argument was specified.
+     * @throws NotFoundException
+     *         The specified entity was not found.
+     * @throws LimitExceededException
+     *         A limit was exceeded.
+     * @throws ServiceAccountException
+     *         There was a problem with the service account.
+     * @sample AWSDeviceFarm.UpdateProject
+     */
+    @Override
+    public UpdateProjectResult updateProject(
+            UpdateProjectRequest updateProjectRequest) {
+        ExecutionContext executionContext = createExecutionContext(updateProjectRequest);
+        AWSRequestMetrics awsRequestMetrics = executionContext
+                .getAwsRequestMetrics();
+        awsRequestMetrics.startEvent(Field.ClientExecuteTime);
+        Request<UpdateProjectRequest> request = null;
+        Response<UpdateProjectResult> response = null;
+
+        try {
+            awsRequestMetrics.startEvent(Field.RequestMarshallTime);
+            try {
+                request = new UpdateProjectRequestMarshaller().marshall(super
+                        .beforeMarshalling(updateProjectRequest));
+                // Binds the request metrics to the current request.
+                request.setAWSRequestMetrics(awsRequestMetrics);
+            } finally {
+                awsRequestMetrics.endEvent(Field.RequestMarshallTime);
+            }
+
+            JsonResponseHandler<UpdateProjectResult> responseHandler = new JsonResponseHandler<UpdateProjectResult>(
+                    new UpdateProjectResultJsonUnmarshaller());
+            responseHandler.setIsPayloadJson(true);
+            response = invoke(request, responseHandler, executionContext);
 
             return response.getAwsResponse();
 
@@ -1497,7 +1899,7 @@ public class AWSDeviceFarmClient extends AmazonWebServiceClient implements
 
     private <X, Y extends AmazonWebServiceRequest> Response<X> invoke(
             Request<Y> request,
-            Unmarshaller<X, JsonUnmarshallerContext> unmarshaller,
+            HttpResponseHandler<AmazonWebServiceResponse<X>> responseHandler,
             ExecutionContext executionContext) {
         request.setEndpoint(endpoint);
         request.setTimeOffset(timeOffset);
@@ -1520,8 +1922,6 @@ public class AWSDeviceFarmClient extends AmazonWebServiceClient implements
 
         executionContext.setCredentials(credentials);
 
-        JsonResponseHandler<X> responseHandler = new JsonResponseHandler<X>(
-                unmarshaller);
         JsonErrorResponseHandlerV2 errorResponseHandler = new JsonErrorResponseHandlerV2(
                 jsonErrorUnmarshallers);
 

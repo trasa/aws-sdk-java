@@ -1,5 +1,5 @@
 /*
- * Copyright 2010-2015 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2010-2016 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License.
@@ -26,6 +26,7 @@ import com.amazonaws.AmazonServiceException;
 public class LimitExceededException extends AmazonServiceException {
     private static final long serialVersionUID = 1L;
 
+    @com.fasterxml.jackson.annotation.JsonProperty("code")
     private Integer code;
 
     /**
@@ -39,29 +40,21 @@ public class LimitExceededException extends AmazonServiceException {
     }
 
     /**
-     * Sets the value of the Code property for this object.
-     * 
      * @param code
-     *        The new value for the Code property for this object.
      */
     public void setCode(Integer code) {
         this.code = code;
     }
 
     /**
-     * Returns the value of the Code property for this object.
-     * 
-     * @return The value of the Code property for this object.
+     * @return
      */
     public Integer getCode() {
         return this.code;
     }
 
     /**
-     * Sets the value of the Code property for this object.
-     * 
      * @param code
-     *        The new value for the Code property for this object.
      * @return Returns a reference to this object so that method calls can be
      *         chained together.
      */

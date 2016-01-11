@@ -1,5 +1,5 @@
 /*
- * Copyright 2011-2015 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2011-2016 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License.
@@ -106,9 +106,13 @@ class HttpRequestFactory {
              * where we're potentially uploading large amounts of data and want
              * to find out as early as possible if an operation will fail. We
              * don't want to do this for all operations since it will cause
-             * extra latency in the network interaction.
+             * extra latency in the network interaction. Is set by default,
+             * unless the clients has disabled it via the ClientConfigurations.
              */
-            putMethod.getParams().setParameter(CoreProtocolPNames.USE_EXPECT_CONTINUE, true);
+            if (clientConfiguration.isUseExpectContinue()) {
+                putMethod.getParams().setParameter(
+                        CoreProtocolPNames.USE_EXPECT_CONTINUE, true);
+            }
 
             /*
              * We should never reuse the entity of the previous request, since

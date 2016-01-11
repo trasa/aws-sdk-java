@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2015 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2014-2016 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License.
@@ -13,6 +13,7 @@
  * permissions and limitations under the License.
  */
 package com.amazonaws.services.s3.model;
+import java.io.Serializable;
 
 import java.util.Collections;
 import java.util.HashMap;
@@ -23,7 +24,7 @@ import java.util.Map;
  * per-request basis and for more advanced use-case) to supplement the one
  * stored in S3 for crypto material retrieval.
  */
-public class ExtraMaterialsDescription {
+public class ExtraMaterialsDescription implements Serializable {
     @SuppressWarnings("unchecked")
     public static final ExtraMaterialsDescription NONE =
         new ExtraMaterialsDescription(Collections.EMPTY_MAP);

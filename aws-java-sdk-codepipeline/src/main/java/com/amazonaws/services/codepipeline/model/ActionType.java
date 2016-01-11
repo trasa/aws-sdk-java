@@ -1,5 +1,5 @@
 /*
- * Copyright 2010-2015 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2010-2016 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License.
@@ -51,29 +51,21 @@ public class ActionType implements Serializable, Cloneable {
     private ArtifactDetails outputArtifactDetails;
 
     /**
-     * Sets the value of the Id property for this object.
-     * 
      * @param id
-     *        The new value for the Id property for this object.
      */
     public void setId(ActionTypeId id) {
         this.id = id;
     }
 
     /**
-     * Returns the value of the Id property for this object.
-     * 
-     * @return The value of the Id property for this object.
+     * @return
      */
     public ActionTypeId getId() {
         return this.id;
     }
 
     /**
-     * Sets the value of the Id property for this object.
-     * 
      * @param id
-     *        The new value for the Id property for this object.
      * @return Returns a reference to this object so that method calls can be
      *         chained together.
      */

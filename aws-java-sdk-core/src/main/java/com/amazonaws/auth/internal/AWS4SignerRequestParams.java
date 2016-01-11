@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2015 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2014-2016 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License.
@@ -71,7 +71,7 @@ public final class AWS4SignerRequestParams {
      */
     public AWS4SignerRequestParams(SignableRequest<?> request,
             Date signingDateOverride, String regionNameOverride,
-            String serviceNameOverride, String signingAlgorithm) {
+            String serviceName, String signingAlgorithm) {
         if (request == null) {
             throw new IllegalArgumentException("Request cannot be null");
         }
@@ -84,12 +84,11 @@ public final class AWS4SignerRequestParams {
                 .getTime() : getSigningDate(request);
         this.formattedSigningDate = AWS4SignerUtils
                 .formatDateStamp(signingDateTimeMilli);
-        this.serviceName = serviceNameOverride != null ? serviceNameOverride
-                : AwsHostNameUtils.parseServiceName(request.getEndpoint());
+        this.serviceName = serviceName;
         this.regionName = regionNameOverride != null ? regionNameOverride
                 : AwsHostNameUtils.parseRegionName(request.getEndpoint()
-                        .getHost(), serviceName);
-        this.scope = generateScope(request, formattedSigningDate, serviceName,
+                        .getHost(), this.serviceName);
+        this.scope = generateScope(request, formattedSigningDate, this.serviceName,
                 regionName);
         this.formattedSigningDateTime = AWS4SignerUtils
                 .formatTimestamp(signingDateTimeMilli);

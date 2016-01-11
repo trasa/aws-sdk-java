@@ -1,5 +1,5 @@
 /*
- * Copyright 2010-2015 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2010-2016 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License.
@@ -65,6 +65,40 @@ public class DocumentDescriptionJsonMarshaller {
 
             if (documentDescription.getStatus() != null) {
                 jsonWriter.key("Status").value(documentDescription.getStatus());
+            }
+
+            if (documentDescription.getDescription() != null) {
+                jsonWriter.key("Description").value(
+                        documentDescription.getDescription());
+            }
+
+            com.amazonaws.internal.SdkInternalList<DocumentParameter> parametersList = (com.amazonaws.internal.SdkInternalList<DocumentParameter>) documentDescription
+                    .getParameters();
+            if (!parametersList.isEmpty() || !parametersList.isAutoConstruct()) {
+                jsonWriter.key("Parameters");
+                jsonWriter.array();
+                for (DocumentParameter parametersListValue : parametersList) {
+                    if (parametersListValue != null) {
+
+                        DocumentParameterJsonMarshaller.getInstance().marshall(
+                                parametersListValue, jsonWriter);
+                    }
+                }
+                jsonWriter.endArray();
+            }
+
+            com.amazonaws.internal.SdkInternalList<String> platformTypesList = (com.amazonaws.internal.SdkInternalList<String>) documentDescription
+                    .getPlatformTypes();
+            if (!platformTypesList.isEmpty()
+                    || !platformTypesList.isAutoConstruct()) {
+                jsonWriter.key("PlatformTypes");
+                jsonWriter.array();
+                for (String platformTypesListValue : platformTypesList) {
+                    if (platformTypesListValue != null) {
+                        jsonWriter.value(platformTypesListValue);
+                    }
+                }
+                jsonWriter.endArray();
             }
 
             jsonWriter.endObject();

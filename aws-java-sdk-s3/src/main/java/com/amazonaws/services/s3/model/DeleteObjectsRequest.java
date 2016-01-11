@@ -1,5 +1,5 @@
 /*
- * Copyright 2010-2015 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2010-2016 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License.
@@ -13,6 +13,7 @@
  * permissions and limitations under the License.
  */
 package com.amazonaws.services.s3.model;
+import java.io.Serializable;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,7 +30,7 @@ import com.amazonaws.services.s3.AmazonS3;
  * 
  * @see AmazonS3#deleteObjects(DeleteObjectsRequest)
  */
-public class DeleteObjectsRequest extends AmazonWebServiceRequest {
+public class DeleteObjectsRequest extends AmazonWebServiceRequest implements Serializable {
 
     /**
      * The name of the Amazon S3 bucket containing the object(s) to delete. 
@@ -259,7 +260,7 @@ public class DeleteObjectsRequest extends AmazonWebServiceRequest {
     /**
      * A key to delete, with an optional version attribute.
      */
-    public static class KeyVersion {
+    public static class KeyVersion implements Serializable {
 
         private final String key;
         private final String version;

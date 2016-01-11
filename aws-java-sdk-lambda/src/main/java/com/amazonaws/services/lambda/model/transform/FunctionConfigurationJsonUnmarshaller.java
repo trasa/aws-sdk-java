@@ -1,5 +1,5 @@
 /*
- * Copyright 2010-2015 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2010-2016 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License.
@@ -84,6 +84,14 @@ public class FunctionConfigurationJsonUnmarshaller implements Unmarshaller<Funct
                 if (context.testExpression("LastModified", targetDepth)) {
                     context.nextToken();
                     functionConfiguration.setLastModified(StringJsonUnmarshaller.getInstance().unmarshall(context));
+                }
+                if (context.testExpression("CodeSha256", targetDepth)) {
+                    context.nextToken();
+                    functionConfiguration.setCodeSha256(StringJsonUnmarshaller.getInstance().unmarshall(context));
+                }
+                if (context.testExpression("Version", targetDepth)) {
+                    context.nextToken();
+                    functionConfiguration.setVersion(StringJsonUnmarshaller.getInstance().unmarshall(context));
                 }
             } else if (token == END_ARRAY || token == END_OBJECT) {
                 if (context.getLastParsedParentElement() == null || context.getLastParsedParentElement().equals(currentParentElement)) {

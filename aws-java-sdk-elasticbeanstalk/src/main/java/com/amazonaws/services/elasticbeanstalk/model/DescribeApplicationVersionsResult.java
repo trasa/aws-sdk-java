@@ -1,5 +1,5 @@
 /*
- * Copyright 2010-2015 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2010-2016 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License.
@@ -27,17 +27,20 @@ public class DescribeApplicationVersionsResult implements Serializable,
 
     /**
      * <p>
-     * A list of <a>ApplicationVersionDescription</a> .
+     * List of <code>ApplicationVersionDescription</code> objects sorted by
+     * order of creation.
      * </p>
      */
     private com.amazonaws.internal.SdkInternalList<ApplicationVersionDescription> applicationVersions;
 
     /**
      * <p>
-     * A list of <a>ApplicationVersionDescription</a> .
+     * List of <code>ApplicationVersionDescription</code> objects sorted by
+     * order of creation.
      * </p>
      * 
-     * @return A list of <a>ApplicationVersionDescription</a> .
+     * @return List of <code>ApplicationVersionDescription</code> objects sorted
+     *         by order of creation.
      */
     public java.util.List<ApplicationVersionDescription> getApplicationVersions() {
         if (applicationVersions == null) {
@@ -48,11 +51,13 @@ public class DescribeApplicationVersionsResult implements Serializable,
 
     /**
      * <p>
-     * A list of <a>ApplicationVersionDescription</a> .
+     * List of <code>ApplicationVersionDescription</code> objects sorted by
+     * order of creation.
      * </p>
      * 
      * @param applicationVersions
-     *        A list of <a>ApplicationVersionDescription</a> .
+     *        List of <code>ApplicationVersionDescription</code> objects sorted
+     *        by order of creation.
      */
     public void setApplicationVersions(
             java.util.Collection<ApplicationVersionDescription> applicationVersions) {
@@ -67,7 +72,8 @@ public class DescribeApplicationVersionsResult implements Serializable,
 
     /**
      * <p>
-     * A list of <a>ApplicationVersionDescription</a> .
+     * List of <code>ApplicationVersionDescription</code> objects sorted by
+     * order of creation.
      * </p>
      * <p>
      * <b>NOTE:</b> This method appends the values to the existing list (if
@@ -77,7 +83,8 @@ public class DescribeApplicationVersionsResult implements Serializable,
      * </p>
      * 
      * @param applicationVersions
-     *        A list of <a>ApplicationVersionDescription</a> .
+     *        List of <code>ApplicationVersionDescription</code> objects sorted
+     *        by order of creation.
      * @return Returns a reference to this object so that method calls can be
      *         chained together.
      */
@@ -95,11 +102,13 @@ public class DescribeApplicationVersionsResult implements Serializable,
 
     /**
      * <p>
-     * A list of <a>ApplicationVersionDescription</a> .
+     * List of <code>ApplicationVersionDescription</code> objects sorted by
+     * order of creation.
      * </p>
      * 
      * @param applicationVersions
-     *        A list of <a>ApplicationVersionDescription</a> .
+     *        List of <code>ApplicationVersionDescription</code> objects sorted
+     *        by order of creation.
      * @return Returns a reference to this object so that method calls can be
      *         chained together.
      */

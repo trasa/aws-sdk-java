@@ -1,5 +1,5 @@
 /*
- * Copyright 2011-2015 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2011-2016 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License.
@@ -13,6 +13,7 @@
  * permissions and limitations under the License.
  */
 package com.amazonaws.services.s3.model;
+import java.io.Serializable;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -59,7 +60,7 @@ import com.amazonaws.services.s3.AmazonS3Client;
  * @see AmazonS3Client#getBucketWebsiteConfiguration(String)
  * @see AmazonS3Client#deleteBucketWebsiteConfiguration(String)
  */
-public class BucketWebsiteConfiguration {
+public class BucketWebsiteConfiguration implements Serializable {
 
     /**
      * The document to serve when a directory is specified (ex: index.html).

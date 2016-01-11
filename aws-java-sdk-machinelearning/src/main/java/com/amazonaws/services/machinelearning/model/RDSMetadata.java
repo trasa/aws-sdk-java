@@ -1,5 +1,5 @@
 /*
- * Copyright 2010-2015 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2010-2016 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License.
@@ -108,29 +108,21 @@ public class RDSMetadata implements Serializable, Cloneable {
     }
 
     /**
-     * Sets the value of the DatabaseUserName property for this object.
-     * 
      * @param databaseUserName
-     *        The new value for the DatabaseUserName property for this object.
      */
     public void setDatabaseUserName(String databaseUserName) {
         this.databaseUserName = databaseUserName;
     }
 
     /**
-     * Returns the value of the DatabaseUserName property for this object.
-     * 
-     * @return The value of the DatabaseUserName property for this object.
+     * @return
      */
     public String getDatabaseUserName() {
         return this.databaseUserName;
     }
 
     /**
-     * Sets the value of the DatabaseUserName property for this object.
-     * 
      * @param databaseUserName
-     *        The new value for the DatabaseUserName property for this object.
      * @return Returns a reference to this object so that method calls can be
      *         chained together.
      */

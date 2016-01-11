@@ -1,5 +1,5 @@
 /*
- * Copyright 2010-2015 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2010-2016 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License.
@@ -118,6 +118,11 @@ public class RunJsonUnmarshaller implements
                     context.nextToken();
                     run.setBillingMethod(StringJsonUnmarshaller.getInstance()
                             .unmarshall(context));
+                }
+                if (context.testExpression("deviceMinutes", targetDepth)) {
+                    context.nextToken();
+                    run.setDeviceMinutes(DeviceMinutesJsonUnmarshaller
+                            .getInstance().unmarshall(context));
                 }
             } else if (token == END_ARRAY || token == END_OBJECT) {
                 if (context.getLastParsedParentElement() == null

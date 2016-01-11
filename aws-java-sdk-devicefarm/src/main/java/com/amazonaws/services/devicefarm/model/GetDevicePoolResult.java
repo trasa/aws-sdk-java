@@ -1,5 +1,5 @@
 /*
- * Copyright 2010-2015 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2010-2016 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License.
@@ -27,29 +27,21 @@ public class GetDevicePoolResult implements Serializable, Cloneable {
     private DevicePool devicePool;
 
     /**
-     * Sets the value of the DevicePool property for this object.
-     * 
      * @param devicePool
-     *        The new value for the DevicePool property for this object.
      */
     public void setDevicePool(DevicePool devicePool) {
         this.devicePool = devicePool;
     }
 
     /**
-     * Returns the value of the DevicePool property for this object.
-     * 
-     * @return The value of the DevicePool property for this object.
+     * @return
      */
     public DevicePool getDevicePool() {
         return this.devicePool;
     }
 
     /**
-     * Sets the value of the DevicePool property for this object.
-     * 
      * @param devicePool
-     *        The new value for the DevicePool property for this object.
      * @return Returns a reference to this object so that method calls can be
      *         chained together.
      */

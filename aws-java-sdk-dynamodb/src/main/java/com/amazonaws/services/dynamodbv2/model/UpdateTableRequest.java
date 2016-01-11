@@ -1,5 +1,5 @@
 /*
- * Copyright 2010-2015 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2010-2016 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License.
@@ -104,7 +104,6 @@ public class UpdateTableRequest extends AmazonWebServiceRequest implements
      * @param tableName
      *        The name of the table to be updated.
      * @param provisionedThroughput
-     *        null
      */
     public UpdateTableRequest(String tableName,
             ProvisionedThroughput provisionedThroughput) {
@@ -249,11 +248,7 @@ public class UpdateTableRequest extends AmazonWebServiceRequest implements
     }
 
     /**
-     * Sets the value of the ProvisionedThroughput property for this object.
-     * 
      * @param provisionedThroughput
-     *        The new value for the ProvisionedThroughput property for this
-     *        object.
      */
     public void setProvisionedThroughput(
             ProvisionedThroughput provisionedThroughput) {
@@ -261,20 +256,14 @@ public class UpdateTableRequest extends AmazonWebServiceRequest implements
     }
 
     /**
-     * Returns the value of the ProvisionedThroughput property for this object.
-     * 
-     * @return The value of the ProvisionedThroughput property for this object.
+     * @return
      */
     public ProvisionedThroughput getProvisionedThroughput() {
         return this.provisionedThroughput;
     }
 
     /**
-     * Sets the value of the ProvisionedThroughput property for this object.
-     * 
      * @param provisionedThroughput
-     *        The new value for the ProvisionedThroughput property for this
-     *        object.
      * @return Returns a reference to this object so that method calls can be
      *         chained together.
      */

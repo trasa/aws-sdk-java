@@ -1,5 +1,5 @@
 /*
- * Copyright 2010-2015 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2010-2016 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License.
@@ -110,8 +110,8 @@ public class SimpleQueueServiceSample {
 
             // Delete a message
             System.out.println("Deleting a message.\n");
-            String messageRecieptHandle = messages.get(0).getReceiptHandle();
-            sqs.deleteMessage(new DeleteMessageRequest(myQueueUrl, messageRecieptHandle));
+            String messageReceiptHandle = messages.get(0).getReceiptHandle();
+            sqs.deleteMessage(new DeleteMessageRequest(myQueueUrl, messageReceiptHandle));
 
             // Delete a queue
             System.out.println("Deleting the test queue.\n");

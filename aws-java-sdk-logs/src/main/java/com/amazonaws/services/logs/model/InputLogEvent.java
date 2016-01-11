@@ -1,5 +1,5 @@
 /*
- * Copyright 2010-2015 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2010-2016 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License.
@@ -32,29 +32,21 @@ public class InputLogEvent implements Serializable, Cloneable {
     private String message;
 
     /**
-     * Sets the value of the Timestamp property for this object.
-     * 
      * @param timestamp
-     *        The new value for the Timestamp property for this object.
      */
     public void setTimestamp(Long timestamp) {
         this.timestamp = timestamp;
     }
 
     /**
-     * Returns the value of the Timestamp property for this object.
-     * 
-     * @return The value of the Timestamp property for this object.
+     * @return
      */
     public Long getTimestamp() {
         return this.timestamp;
     }
 
     /**
-     * Sets the value of the Timestamp property for this object.
-     * 
      * @param timestamp
-     *        The new value for the Timestamp property for this object.
      * @return Returns a reference to this object so that method calls can be
      *         chained together.
      */
@@ -64,29 +56,21 @@ public class InputLogEvent implements Serializable, Cloneable {
     }
 
     /**
-     * Sets the value of the Message property for this object.
-     * 
      * @param message
-     *        The new value for the Message property for this object.
      */
     public void setMessage(String message) {
         this.message = message;
     }
 
     /**
-     * Returns the value of the Message property for this object.
-     * 
-     * @return The value of the Message property for this object.
+     * @return
      */
     public String getMessage() {
         return this.message;
     }
 
     /**
-     * Sets the value of the Message property for this object.
-     * 
      * @param message
-     *        The new value for the Message property for this object.
      * @return Returns a reference to this object so that method calls can be
      *         chained together.
      */

@@ -1,5 +1,5 @@
 /*
- * Copyright 2010-2015 Amazon.com, Inc. or its affiliates. All Rights
+ * Copyright 2010-2016 Amazon.com, Inc. or its affiliates. All Rights
  * Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License").
@@ -58,6 +58,24 @@ public class StringUtilsTest {
     @Test
     public void testUTF8Charset() {
         assertEquals(UTF8.displayName(), "UTF-8");
+    }
+
+    /**
+     * @see https://github.com/aws/aws-sdk-java/pull/517
+     */
+    @Test(timeout = 10 * 1000)
+    public void replace_ReplacementStringContainsMatchString_DoesNotCauseInfiniteLoop() {
+        assertEquals("aabc", StringUtils.replace("abc", "a", "aa"));
+    }
+
+    @Test
+    public void replace_EmptyReplacementString_RemovesAllOccurencesOfMatchString() {
+        assertEquals("bbb", StringUtils.replace("ababab", "a", ""));
+    }
+
+    @Test
+    public void replace_MatchNotFound_ReturnsOriginalString() {
+        assertEquals("abc", StringUtils.replace("abc", "d", "e"));
     }
 
 }

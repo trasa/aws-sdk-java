@@ -1,5 +1,5 @@
 /*
- * Copyright 2015-2015 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2015-2016 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License.
@@ -13,13 +13,14 @@
  * permissions and limitations under the License.
  */
 package com.amazonaws.services.s3.model;
+import java.io.Serializable;
 
 import com.amazonaws.util.json.Jackson;
 
 /**
  * Rule that specifies the replication configuration.
  */
-public class ReplicationRule {
+public class ReplicationRule implements Serializable {
 
     /**
      * The Amazon S3 object prefix for the replication rule. This rule will be

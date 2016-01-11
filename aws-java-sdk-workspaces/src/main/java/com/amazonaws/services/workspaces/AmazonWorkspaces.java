@@ -1,5 +1,5 @@
 /*
- * Copyright 2010-2015 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2010-2016 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License.
@@ -105,6 +105,7 @@ public interface AmazonWorkspaces {
      * @return Result of the CreateWorkspaces operation returned by the service.
      * @throws ResourceLimitExceededException
      *         Your resource limits have been exceeded.
+     * @sample AmazonWorkspaces.CreateWorkspaces
      */
     CreateWorkspacesResult createWorkspaces(
             CreateWorkspacesRequest createWorkspacesRequest);
@@ -133,6 +134,7 @@ public interface AmazonWorkspaces {
      *         service.
      * @throws InvalidParameterValuesException
      *         One or more parameter values are not valid.
+     * @sample AmazonWorkspaces.DescribeWorkspaceBundles
      */
     DescribeWorkspaceBundlesResult describeWorkspaceBundles(
             DescribeWorkspaceBundlesRequest describeWorkspaceBundlesRequest);
@@ -166,6 +168,7 @@ public interface AmazonWorkspaces {
      *         the service.
      * @throws InvalidParameterValuesException
      *         One or more parameter values are not valid.
+     * @sample AmazonWorkspaces.DescribeWorkspaceDirectories
      */
     DescribeWorkspaceDirectoriesResult describeWorkspaceDirectories(
             DescribeWorkspaceDirectoriesRequest describeWorkspaceDirectoriesRequest);
@@ -203,6 +206,7 @@ public interface AmazonWorkspaces {
      *         One or more parameter values are not valid.
      * @throws ResourceUnavailableException
      *         The specified resource is not available.
+     * @sample AmazonWorkspaces.DescribeWorkspaces
      */
     DescribeWorkspacesResult describeWorkspaces(
             DescribeWorkspacesRequest describeWorkspacesRequest);
@@ -233,6 +237,7 @@ public interface AmazonWorkspaces {
      * @param rebootWorkspacesRequest
      *        Contains the inputs for the <a>RebootWorkspaces</a> operation.
      * @return Result of the RebootWorkspaces operation returned by the service.
+     * @sample AmazonWorkspaces.RebootWorkspaces
      */
     RebootWorkspacesResult rebootWorkspaces(
             RebootWorkspacesRequest rebootWorkspacesRequest);
@@ -271,6 +276,7 @@ public interface AmazonWorkspaces {
      *        Contains the inputs for the <a>RebuildWorkspaces</a> operation.
      * @return Result of the RebuildWorkspaces operation returned by the
      *         service.
+     * @sample AmazonWorkspaces.RebuildWorkspaces
      */
     RebuildWorkspacesResult rebuildWorkspaces(
             RebuildWorkspacesRequest rebuildWorkspacesRequest);
@@ -300,6 +306,7 @@ public interface AmazonWorkspaces {
      *        Contains the inputs for the <a>TerminateWorkspaces</a> operation.
      * @return Result of the TerminateWorkspaces operation returned by the
      *         service.
+     * @sample AmazonWorkspaces.TerminateWorkspaces
      */
     TerminateWorkspacesResult terminateWorkspaces(
             TerminateWorkspacesRequest terminateWorkspacesRequest);

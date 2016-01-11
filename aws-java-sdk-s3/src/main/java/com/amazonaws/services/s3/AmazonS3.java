@@ -1,5 +1,5 @@
 /*
- * Copyright 2010-2015 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2010-2016 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License.
@@ -50,6 +50,7 @@ import com.amazonaws.services.s3.model.CreateBucketRequest;
 import com.amazonaws.services.s3.model.DeleteBucketCrossOriginConfigurationRequest;
 import com.amazonaws.services.s3.model.DeleteBucketLifecycleConfigurationRequest;
 import com.amazonaws.services.s3.model.DeleteBucketPolicyRequest;
+import com.amazonaws.services.s3.model.DeleteBucketReplicationConfigurationRequest;
 import com.amazonaws.services.s3.model.DeleteBucketRequest;
 import com.amazonaws.services.s3.model.DeleteBucketTaggingConfigurationRequest;
 import com.amazonaws.services.s3.model.DeleteBucketWebsiteConfigurationRequest;
@@ -73,6 +74,8 @@ import com.amazonaws.services.s3.model.GetObjectMetadataRequest;
 import com.amazonaws.services.s3.model.GetObjectRequest;
 import com.amazonaws.services.s3.model.GetS3AccountOwnerRequest;
 import com.amazonaws.services.s3.model.GroupGrantee;
+import com.amazonaws.services.s3.model.HeadBucketRequest;
+import com.amazonaws.services.s3.model.HeadBucketResult;
 import com.amazonaws.services.s3.model.InitiateMultipartUploadRequest;
 import com.amazonaws.services.s3.model.InitiateMultipartUploadResult;
 import com.amazonaws.services.s3.model.ListBucketsRequest;
@@ -220,8 +223,12 @@ public interface AmazonS3 extends S3DirectSpi {
      * @throws AmazonServiceException
      *             If any errors occurred in Amazon S3 while processing the
      *             request.
+     * @deprecated this operation will not retain the ACL's or SSE parameters
+     * associated with the given Amazon S3 object. Use {@link #copyObject(CopyObjectRequest)}
+     * instead.
      */
-    public void changeObjectStorageClass(String bucketName, String key, StorageClass newStorageClass)
+    @Deprecated
+    void changeObjectStorageClass(String bucketName, String key, StorageClass newStorageClass)
         throws AmazonClientException, AmazonServiceException;
 
 
@@ -242,8 +249,12 @@ public interface AmazonS3 extends S3DirectSpi {
      * @throws AmazonServiceException
      *             If any errors occurred in Amazon S3 while processing the
      *             request.
+     * @deprecated this operation will not retain the ACL's or SSE parameters
+     * associated with the given Amazon S3 object. Use {@link #copyObject(CopyObjectRequest)}
+     * instead.
      */
-    public void setObjectRedirectLocation(String bucketName, String key, String newRedirectLocation)
+    @Deprecated
+    void setObjectRedirectLocation(String bucketName, String key, String newRedirectLocation)
             throws AmazonClientException, AmazonServiceException;
 
     /**
@@ -418,6 +429,7 @@ public interface AmazonS3 extends S3DirectSpi {
      *
      * @see AmazonS3Client#listObjects(String)
      * @see AmazonS3Client#listObjects(String, String)
+     * @sample AmazonS3.ListObjects
      */
     public ObjectListing listObjects(ListObjectsRequest listObjectsRequest)
             throws AmazonClientException, AmazonServiceException;
@@ -959,6 +971,27 @@ public interface AmazonS3 extends S3DirectSpi {
         throws AmazonClientException, AmazonServiceException;
 
     /**
+     * Performs a head bucket operation on the requested bucket name. This operation is useful to
+     * determine if a bucket exists and you have permission to access it.
+     *
+     * @param headBucketRequest
+     *            The request containing the bucket name.
+     * @return This method returns a {@link HeadBucketResult} if the bucket exists and you have
+     *         permission to access it. Otherwise, the method will throw an
+     *         {@link AmazonServiceException} with status code {@code '404 Not Found'} if the bucket
+     *         does not exist, {@code '403 Forbidden'} if the user does not have access to the
+     *         bucket, or {@code '301 Moved Permanently'} if the bucket is in a different region
+     *         than the client is configured with
+     * @throws AmazonClientException
+     *             If any errors are encountered in the client while making the request or handling
+     *             the response.
+     * @throws AmazonServiceException
+     *             If any errors occurred in Amazon S3 while processing the request.
+     */
+    public HeadBucketResult headBucket(HeadBucketRequest headBucketRequest)
+            throws AmazonClientException, AmazonServiceException;
+
+    /**
      * <p>
      * Returns a list of all Amazon S3 buckets that the
      * authenticated sender of the request owns.
@@ -980,6 +1013,7 @@ public interface AmazonS3 extends S3DirectSpi {
      *             request.
      *
      * @see AmazonS3#listBuckets(ListBucketsRequest)
+     * @sample AmazonS3.ListBuckets
      */
     public List<Bucket> listBuckets() throws AmazonClientException,
             AmazonServiceException;
@@ -1222,6 +1256,7 @@ public interface AmazonS3 extends S3DirectSpi {
      * @throws AmazonServiceException
      *             If any errors occurred in Amazon S3 while processing the
      *             request.
+     * @sample AmazonS3.CreateBucket
      */
     public Bucket createBucket(String bucketName)
             throws AmazonClientException, AmazonServiceException;
@@ -2007,6 +2042,7 @@ public interface AmazonS3 extends S3DirectSpi {
      *             request.
      * @see AmazonS3#getObject(String, String)
      * @see AmazonS3#getObject(GetObjectRequest, File)
+     * @sample AmazonS3.GetObject
      */
     public S3Object getObject(GetObjectRequest getObjectRequest)
             throws AmazonClientException, AmazonServiceException;
@@ -2099,7 +2135,6 @@ public interface AmazonS3 extends S3DirectSpi {
     public void deleteBucket(DeleteBucketRequest deleteBucketRequest)
             throws AmazonClientException, AmazonServiceException;
 
-
     /**
      * <p>
      * Deletes the specified bucket. All objects (and all object versions, if versioning
@@ -2122,6 +2157,7 @@ public interface AmazonS3 extends S3DirectSpi {
      *             request.
      *
      * @see AmazonS3#deleteBucket(String)
+     * @sample AmazonS3.DeleteBucket
      */
     public void deleteBucket(String bucketName)
             throws AmazonClientException, AmazonServiceException;
@@ -2218,6 +2254,7 @@ public interface AmazonS3 extends S3DirectSpi {
      *
      * @see AmazonS3#putObject(String, String, File)
      * @see AmazonS3#putObject(String, String, InputStream, ObjectMetadata)
+     * @sample AmazonS3.PutObject
      */
     public PutObjectResult putObject(PutObjectRequest putObjectRequest)
             throws AmazonClientException, AmazonServiceException;
@@ -2340,6 +2377,14 @@ public interface AmazonS3 extends S3DirectSpi {
      * to</b> buffer the contents of the input stream in order to calculate it
      * because Amazon S3 explicitly requires that the content length be sent in
      * the request headers before any of the data is sent.
+     * </p>
+     * <p>
+     * When using an {@link java.io.BufferedInputStream} as data source,
+     * please remember to use a buffer of size no less than
+     * {@link com.amazonaws.RequestClientOptions#DEFAULT_STREAM_BUFFER_SIZE}
+     * while initializing the BufferedInputStream.
+     * This is to ensure that the SDK can correctly mark and reset the stream with
+     * enough memory buffer during signing and retries.
      * </p>
      * <p>
      * If versioning is enabled for the specified bucket, this operation will
@@ -2601,6 +2646,7 @@ public interface AmazonS3 extends S3DirectSpi {
      *             request.
      *
      * @see AmazonS3Client#deleteObject(DeleteObjectRequest)
+     * @sample AmazonS3.DeleteObject
      */
     public void deleteObject(String bucketName, String key)
         throws AmazonClientException, AmazonServiceException;
@@ -4418,8 +4464,31 @@ public interface AmazonS3 extends S3DirectSpi {
      * @see AmazonS3#setBucketReplicationConfiguration(String,
      *      BucketReplicationConfiguration)
      * @see AmazonS3#getBucketReplicationConfiguration(String)
+     * @see AmazonS3#deleteBucketReplicationConfiguration(DeleteBucketReplicationConfigurationRequest)
      */
-    public void deleteBucketReplicationConfiguration(String bucketName)
+    void deleteBucketReplicationConfiguration(String bucketName)
+            throws AmazonServiceException, AmazonClientException;
+
+    /**
+     * Deletes the replication configuration for the given Amazon S3 bucket.
+     *
+     * @param request
+     *            The request object for delete bucket replication
+     *            configuration.
+     * @throws AmazonServiceException
+     *             If any errors occurred in Amazon S3 while processing the
+     *             request.
+     * @throws AmazonClientException
+     *             If any errors are encountered in the client while making the
+     *             request or handling the response.
+     *
+     * @see AmazonS3#setBucketReplicationConfiguration(String,
+     *      BucketReplicationConfiguration)
+     * @see AmazonS3#getBucketReplicationConfiguration(String)
+     * @see AmazonS3#deleteBucketReplicationConfiguration(String)
+     */
+    void deleteBucketReplicationConfiguration
+    (DeleteBucketReplicationConfigurationRequest request)
             throws AmazonServiceException, AmazonClientException;
 
 }

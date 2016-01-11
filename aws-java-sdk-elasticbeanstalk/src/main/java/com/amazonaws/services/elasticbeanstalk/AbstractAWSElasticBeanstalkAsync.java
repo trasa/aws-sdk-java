@@ -1,5 +1,5 @@
 /*
- * Copyright 2010-2015 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2010-2016 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License.
@@ -79,6 +79,21 @@ public class AbstractAWSElasticBeanstalkAsync extends
     public java.util.concurrent.Future<CheckDNSAvailabilityResult> checkDNSAvailabilityAsync(
             CheckDNSAvailabilityRequest request,
             com.amazonaws.handlers.AsyncHandler<CheckDNSAvailabilityRequest, CheckDNSAvailabilityResult> asyncHandler) {
+
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public java.util.concurrent.Future<ComposeEnvironmentsResult> composeEnvironmentsAsync(
+            ComposeEnvironmentsRequest request) {
+
+        return composeEnvironmentsAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<ComposeEnvironmentsResult> composeEnvironmentsAsync(
+            ComposeEnvironmentsRequest request,
+            com.amazonaws.handlers.AsyncHandler<ComposeEnvironmentsRequest, ComposeEnvironmentsResult> asyncHandler) {
 
         throw new java.lang.UnsupportedOperationException();
     }

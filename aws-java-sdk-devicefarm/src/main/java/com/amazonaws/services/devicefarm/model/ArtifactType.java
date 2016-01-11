@@ -1,5 +1,5 @@
 /*
- * Copyright 2010-2015 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2010-2016 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License.
@@ -26,6 +26,7 @@ public enum ArtifactType {
     MESSAGE_LOG("MESSAGE_LOG"),
     RESULT_LOG("RESULT_LOG"),
     SERVICE_LOG("SERVICE_LOG"),
+    WEBKIT_LOG("WEBKIT_LOG"),
     INSTRUMENTATION_OUTPUT("INSTRUMENTATION_OUTPUT"),
     EXERCISER_MONKEY_OUTPUT("EXERCISER_MONKEY_OUTPUT"),
     CALABASH_JSON_OUTPUT("CALABASH_JSON_OUTPUT"),
@@ -35,7 +36,10 @@ public enum ArtifactType {
     AUTOMATION_OUTPUT("AUTOMATION_OUTPUT"),
     APPIUM_SERVER_OUTPUT("APPIUM_SERVER_OUTPUT"),
     APPIUM_JAVA_OUTPUT("APPIUM_JAVA_OUTPUT"),
-    APPIUM_JAVA_XML_OUTPUT("APPIUM_JAVA_XML_OUTPUT");
+    APPIUM_JAVA_XML_OUTPUT("APPIUM_JAVA_XML_OUTPUT"),
+    EXPLORER_EVENT_LOG("EXPLORER_EVENT_LOG"),
+    EXPLORER_SUMMARY_LOG("EXPLORER_SUMMARY_LOG"),
+    APPLICATION_CRASH_REPORT("APPLICATION_CRASH_REPORT");
 
     private String value;
 
@@ -70,6 +74,8 @@ public enum ArtifactType {
             return RESULT_LOG;
         } else if ("SERVICE_LOG".equals(value)) {
             return SERVICE_LOG;
+        } else if ("WEBKIT_LOG".equals(value)) {
+            return WEBKIT_LOG;
         } else if ("INSTRUMENTATION_OUTPUT".equals(value)) {
             return INSTRUMENTATION_OUTPUT;
         } else if ("EXERCISER_MONKEY_OUTPUT".equals(value)) {
@@ -90,6 +96,12 @@ public enum ArtifactType {
             return APPIUM_JAVA_OUTPUT;
         } else if ("APPIUM_JAVA_XML_OUTPUT".equals(value)) {
             return APPIUM_JAVA_XML_OUTPUT;
+        } else if ("EXPLORER_EVENT_LOG".equals(value)) {
+            return EXPLORER_EVENT_LOG;
+        } else if ("EXPLORER_SUMMARY_LOG".equals(value)) {
+            return EXPLORER_SUMMARY_LOG;
+        } else if ("APPLICATION_CRASH_REPORT".equals(value)) {
+            return APPLICATION_CRASH_REPORT;
         } else {
             throw new IllegalArgumentException("Cannot create enum from "
                     + value + " value!");

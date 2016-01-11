@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2015 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2012-2016 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License.
@@ -85,6 +85,7 @@ public class EC2MetadataClient {
 
         HttpURLConnection connection = (HttpURLConnection)url.openConnection();
         connection.setConnectTimeout(1000 * 2);
+        connection.setReadTimeout(1000 * 5);
         connection.setRequestMethod("GET");
         connection.setDoOutput(true);
         connection.connect();

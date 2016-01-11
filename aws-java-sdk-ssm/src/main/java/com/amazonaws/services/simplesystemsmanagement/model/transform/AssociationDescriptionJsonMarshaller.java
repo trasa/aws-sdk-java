@@ -1,5 +1,5 @@
 /*
- * Copyright 2010-2015 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2010-2016 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License.
@@ -67,6 +67,30 @@ public class AssociationDescriptionJsonMarshaller {
                 jsonWriter.key("Status");
                 AssociationStatusJsonMarshaller.getInstance().marshall(
                         associationDescription.getStatus(), jsonWriter);
+            }
+
+            java.util.Map<String, java.util.List<String>> parametersMap = associationDescription
+                    .getParameters();
+            if (parametersMap != null) {
+                jsonWriter.key("Parameters");
+                jsonWriter.object();
+
+                for (Map.Entry<String, java.util.List<String>> parametersMapValue : parametersMap
+                        .entrySet()) {
+                    if (parametersMapValue.getValue() != null) {
+                        jsonWriter.key(parametersMapValue.getKey());
+
+                        jsonWriter.array();
+                        for (String parametersMapValueList : parametersMapValue
+                                .getValue()) {
+                            if (parametersMapValueList != null) {
+                                jsonWriter.value(parametersMapValueList);
+                            }
+                        }
+                        jsonWriter.endArray();
+                    }
+                }
+                jsonWriter.endObject();
             }
 
             jsonWriter.endObject();

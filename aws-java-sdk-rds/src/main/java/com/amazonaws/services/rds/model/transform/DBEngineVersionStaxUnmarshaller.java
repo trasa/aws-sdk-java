@@ -1,5 +1,5 @@
 /*
- * Copyright 2010-2015 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2010-2016 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License.
@@ -69,6 +69,10 @@ public class DBEngineVersionStaxUnmarshaller implements Unmarshaller<DBEngineVer
                 }
                 if (context.testExpression("SupportedCharacterSets/CharacterSet", targetDepth)) {
                     dBEngineVersion.getSupportedCharacterSets().add(CharacterSetStaxUnmarshaller.getInstance().unmarshall(context));
+                    continue;
+                }
+                if (context.testExpression("ValidUpgradeTarget/UpgradeTarget", targetDepth)) {
+                    dBEngineVersion.getValidUpgradeTarget().add(UpgradeTargetStaxUnmarshaller.getInstance().unmarshall(context));
                     continue;
                 }
             } else if (xmlEvent.isEndElement()) {

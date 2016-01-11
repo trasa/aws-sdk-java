@@ -1,5 +1,5 @@
 /*
- * Copyright 2010-2015 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2010-2016 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License.
@@ -17,7 +17,12 @@ package com.amazonaws.services.lambda.model;
 import com.amazonaws.AmazonServiceException;
 
 /**
- * AWSLambda exception
+ * <p>
+ * The request payload exceeded the <code>Invoke</code> request body JSON
+ * input limit. For more information, see
+ * <a href="http://docs.aws.amazon.com/lambda/latest/dg/limits.html"> Limits </a>
+ * 
+ * </p>
  */        
 public class RequestTooLargeException extends AmazonServiceException {
     private static final long serialVersionUID = 1L;

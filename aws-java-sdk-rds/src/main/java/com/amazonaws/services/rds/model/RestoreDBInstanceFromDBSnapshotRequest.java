@@ -1,5 +1,5 @@
 /*
- * Copyright 2010-2015 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2010-2016 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License.
@@ -42,6 +42,11 @@ import com.amazonaws.AmazonWebServiceRequest;
  * that you will replace the original DB instance with the DB instance
  * created from the snapshot.
  * </p>
+ * <p>
+ * If you are restoring from a shared manual DB snapshot, the
+ * <code>DBSnapshotIdentifier</code> must be the ARN of the shared DB
+ * snapshot.
+ * </p>
  *
  * @see com.amazonaws.services.rds.AmazonRDS#restoreDBInstanceFromDBSnapshot(RestoreDBInstanceFromDBSnapshotRequest)
  */
@@ -50,17 +55,21 @@ public class RestoreDBInstanceFromDBSnapshotRequest extends AmazonWebServiceRequ
     /**
      * Name of the DB instance to create from the DB snapshot. This parameter
      * isn't case-sensitive. <p>Constraints: <ul> <li>Must contain from 1 to
-     * 255 alphanumeric characters or hyphens</li> <li>First character must
-     * be a letter</li> <li>Cannot end with a hyphen or contain two
-     * consecutive hyphens</li> </ul> <p>Example: <code>my-snapshot-id</code>
+     * 63 alphanumeric characters or hyphens (1 to 15 for SQL Server)</li>
+     * <li>First character must be a letter</li> <li>Cannot end with a hyphen
+     * or contain two consecutive hyphens</li> </ul> <p>Example:
+     * <code>my-snapshot-id</code>
      */
     private String dBInstanceIdentifier;
 
     /**
      * The identifier for the DB snapshot to restore from. <p>Constraints:
-     * <ul> <li>Must contain from 1 to 63 alphanumeric characters or
+     * <ul> <li>Must contain from 1 to 255 alphanumeric characters or
      * hyphens</li> <li>First character must be a letter</li> <li>Cannot end
-     * with a hyphen or contain two consecutive hyphens</li> </ul>
+     * with a hyphen or contain two consecutive hyphens</li> </ul> <p>If you
+     * are restoring from a shared manual DB snapshot, the
+     * <code>DBSnapshotIdentifier</code> must be the ARN of the shared DB
+     * snapshot.
      */
     private String dBSnapshotIdentifier;
 
@@ -69,8 +78,10 @@ public class RestoreDBInstanceFromDBSnapshotRequest extends AmazonWebServiceRequ
      * <p>Valid Values: <code>db.t1.micro | db.m1.small | db.m1.medium |
      * db.m1.large | db.m1.xlarge | db.m2.2xlarge | db.m2.4xlarge |
      * db.m3.medium | db.m3.large | db.m3.xlarge | db.m3.2xlarge |
-     * db.r3.large | db.r3.xlarge | db.r3.2xlarge | db.r3.4xlarge |
-     * db.r3.8xlarge | db.t2.micro | db.t2.small | db.t2.medium</code>
+     * db.m4.large | db.m4.xlarge | db.m4.2xlarge | db.m4.4xlarge |
+     * db.m4.10xlarge | db.r3.large | db.r3.xlarge | db.r3.2xlarge |
+     * db.r3.4xlarge | db.r3.8xlarge | db.t2.micro | db.t2.small |
+     * db.t2.medium | db.t2.large</code>
      */
     private String dBInstanceClass;
 
@@ -135,18 +146,19 @@ public class RestoreDBInstanceFromDBSnapshotRequest extends AmazonWebServiceRequ
 
     /**
      * The database name for the restored DB instance. <note> <p>This
-     * parameter doesn't apply to the MySQL engine. </note>
+     * parameter doesn't apply to the MySQL or MariaDB engines. </note>
      */
     private String dBName;
 
     /**
      * The database engine to use for the new instance. <p>Default: The same
      * as source <p>Constraint: Must be compatible with the engine of the
-     * source <p> Valid Values: <code>MySQL</code> | <code>oracle-se1</code>
-     * | <code>oracle-se</code> | <code>oracle-ee</code> |
-     * <code>sqlserver-ee</code> | <code>sqlserver-se</code> |
-     * <code>sqlserver-ex</code> | <code>sqlserver-web</code> |
-     * <code>postgres</code>
+     * source <p> Valid Values: <code>MySQL</code> | <code>mariadb</code> |
+     * <code>oracle-se1</code> | <code>oracle-se</code> |
+     * <code>oracle-ee</code> | <code>sqlserver-ee</code> |
+     * <code>sqlserver-se</code> | <code>sqlserver-ex</code> |
+     * <code>sqlserver-web</code> | <code>postgres</code> |
+     * <code>aurora</code>
      */
     private String engine;
 
@@ -200,6 +212,12 @@ public class RestoreDBInstanceFromDBSnapshotRequest extends AmazonWebServiceRequ
     private String tdeCredentialPassword;
 
     /**
+     * True to copy all tags from the restored DB instance to snapshots of
+     * the DB instance; otherwise false. The default is false.
+     */
+    private Boolean copyTagsToSnapshot;
+
+    /**
      * Default constructor for a new RestoreDBInstanceFromDBSnapshotRequest object.  Callers should use the
      * setter or fluent setter (with...) methods to initialize this object after creating it.
      */
@@ -212,15 +230,17 @@ public class RestoreDBInstanceFromDBSnapshotRequest extends AmazonWebServiceRequ
      * 
      * @param dBInstanceIdentifier Name of the DB instance to create from the
      * DB snapshot. This parameter isn't case-sensitive. <p>Constraints: <ul>
-     * <li>Must contain from 1 to 255 alphanumeric characters or hyphens</li>
-     * <li>First character must be a letter</li> <li>Cannot end with a hyphen
-     * or contain two consecutive hyphens</li> </ul> <p>Example:
-     * <code>my-snapshot-id</code>
+     * <li>Must contain from 1 to 63 alphanumeric characters or hyphens (1 to
+     * 15 for SQL Server)</li> <li>First character must be a letter</li>
+     * <li>Cannot end with a hyphen or contain two consecutive hyphens</li>
+     * </ul> <p>Example: <code>my-snapshot-id</code>
      * @param dBSnapshotIdentifier The identifier for the DB snapshot to
-     * restore from. <p>Constraints: <ul> <li>Must contain from 1 to 63
+     * restore from. <p>Constraints: <ul> <li>Must contain from 1 to 255
      * alphanumeric characters or hyphens</li> <li>First character must be a
      * letter</li> <li>Cannot end with a hyphen or contain two consecutive
-     * hyphens</li> </ul>
+     * hyphens</li> </ul> <p>If you are restoring from a shared manual DB
+     * snapshot, the <code>DBSnapshotIdentifier</code> must be the ARN of the
+     * shared DB snapshot.
      */
     public RestoreDBInstanceFromDBSnapshotRequest(String dBInstanceIdentifier, String dBSnapshotIdentifier) {
         setDBInstanceIdentifier(dBInstanceIdentifier);
@@ -230,15 +250,17 @@ public class RestoreDBInstanceFromDBSnapshotRequest extends AmazonWebServiceRequ
     /**
      * Name of the DB instance to create from the DB snapshot. This parameter
      * isn't case-sensitive. <p>Constraints: <ul> <li>Must contain from 1 to
-     * 255 alphanumeric characters or hyphens</li> <li>First character must
-     * be a letter</li> <li>Cannot end with a hyphen or contain two
-     * consecutive hyphens</li> </ul> <p>Example: <code>my-snapshot-id</code>
+     * 63 alphanumeric characters or hyphens (1 to 15 for SQL Server)</li>
+     * <li>First character must be a letter</li> <li>Cannot end with a hyphen
+     * or contain two consecutive hyphens</li> </ul> <p>Example:
+     * <code>my-snapshot-id</code>
      *
      * @return Name of the DB instance to create from the DB snapshot. This parameter
      *         isn't case-sensitive. <p>Constraints: <ul> <li>Must contain from 1 to
-     *         255 alphanumeric characters or hyphens</li> <li>First character must
-     *         be a letter</li> <li>Cannot end with a hyphen or contain two
-     *         consecutive hyphens</li> </ul> <p>Example: <code>my-snapshot-id</code>
+     *         63 alphanumeric characters or hyphens (1 to 15 for SQL Server)</li>
+     *         <li>First character must be a letter</li> <li>Cannot end with a hyphen
+     *         or contain two consecutive hyphens</li> </ul> <p>Example:
+     *         <code>my-snapshot-id</code>
      */
     public String getDBInstanceIdentifier() {
         return dBInstanceIdentifier;
@@ -247,15 +269,17 @@ public class RestoreDBInstanceFromDBSnapshotRequest extends AmazonWebServiceRequ
     /**
      * Name of the DB instance to create from the DB snapshot. This parameter
      * isn't case-sensitive. <p>Constraints: <ul> <li>Must contain from 1 to
-     * 255 alphanumeric characters or hyphens</li> <li>First character must
-     * be a letter</li> <li>Cannot end with a hyphen or contain two
-     * consecutive hyphens</li> </ul> <p>Example: <code>my-snapshot-id</code>
+     * 63 alphanumeric characters or hyphens (1 to 15 for SQL Server)</li>
+     * <li>First character must be a letter</li> <li>Cannot end with a hyphen
+     * or contain two consecutive hyphens</li> </ul> <p>Example:
+     * <code>my-snapshot-id</code>
      *
      * @param dBInstanceIdentifier Name of the DB instance to create from the DB snapshot. This parameter
      *         isn't case-sensitive. <p>Constraints: <ul> <li>Must contain from 1 to
-     *         255 alphanumeric characters or hyphens</li> <li>First character must
-     *         be a letter</li> <li>Cannot end with a hyphen or contain two
-     *         consecutive hyphens</li> </ul> <p>Example: <code>my-snapshot-id</code>
+     *         63 alphanumeric characters or hyphens (1 to 15 for SQL Server)</li>
+     *         <li>First character must be a letter</li> <li>Cannot end with a hyphen
+     *         or contain two consecutive hyphens</li> </ul> <p>Example:
+     *         <code>my-snapshot-id</code>
      */
     public void setDBInstanceIdentifier(String dBInstanceIdentifier) {
         this.dBInstanceIdentifier = dBInstanceIdentifier;
@@ -264,17 +288,19 @@ public class RestoreDBInstanceFromDBSnapshotRequest extends AmazonWebServiceRequ
     /**
      * Name of the DB instance to create from the DB snapshot. This parameter
      * isn't case-sensitive. <p>Constraints: <ul> <li>Must contain from 1 to
-     * 255 alphanumeric characters or hyphens</li> <li>First character must
-     * be a letter</li> <li>Cannot end with a hyphen or contain two
-     * consecutive hyphens</li> </ul> <p>Example: <code>my-snapshot-id</code>
+     * 63 alphanumeric characters or hyphens (1 to 15 for SQL Server)</li>
+     * <li>First character must be a letter</li> <li>Cannot end with a hyphen
+     * or contain two consecutive hyphens</li> </ul> <p>Example:
+     * <code>my-snapshot-id</code>
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *
      * @param dBInstanceIdentifier Name of the DB instance to create from the DB snapshot. This parameter
      *         isn't case-sensitive. <p>Constraints: <ul> <li>Must contain from 1 to
-     *         255 alphanumeric characters or hyphens</li> <li>First character must
-     *         be a letter</li> <li>Cannot end with a hyphen or contain two
-     *         consecutive hyphens</li> </ul> <p>Example: <code>my-snapshot-id</code>
+     *         63 alphanumeric characters or hyphens (1 to 15 for SQL Server)</li>
+     *         <li>First character must be a letter</li> <li>Cannot end with a hyphen
+     *         or contain two consecutive hyphens</li> </ul> <p>Example:
+     *         <code>my-snapshot-id</code>
      *
      * @return A reference to this updated object so that method calls can be chained
      *         together.
@@ -286,14 +312,20 @@ public class RestoreDBInstanceFromDBSnapshotRequest extends AmazonWebServiceRequ
 
     /**
      * The identifier for the DB snapshot to restore from. <p>Constraints:
-     * <ul> <li>Must contain from 1 to 63 alphanumeric characters or
+     * <ul> <li>Must contain from 1 to 255 alphanumeric characters or
      * hyphens</li> <li>First character must be a letter</li> <li>Cannot end
-     * with a hyphen or contain two consecutive hyphens</li> </ul>
+     * with a hyphen or contain two consecutive hyphens</li> </ul> <p>If you
+     * are restoring from a shared manual DB snapshot, the
+     * <code>DBSnapshotIdentifier</code> must be the ARN of the shared DB
+     * snapshot.
      *
      * @return The identifier for the DB snapshot to restore from. <p>Constraints:
-     *         <ul> <li>Must contain from 1 to 63 alphanumeric characters or
+     *         <ul> <li>Must contain from 1 to 255 alphanumeric characters or
      *         hyphens</li> <li>First character must be a letter</li> <li>Cannot end
-     *         with a hyphen or contain two consecutive hyphens</li> </ul>
+     *         with a hyphen or contain two consecutive hyphens</li> </ul> <p>If you
+     *         are restoring from a shared manual DB snapshot, the
+     *         <code>DBSnapshotIdentifier</code> must be the ARN of the shared DB
+     *         snapshot.
      */
     public String getDBSnapshotIdentifier() {
         return dBSnapshotIdentifier;
@@ -301,14 +333,20 @@ public class RestoreDBInstanceFromDBSnapshotRequest extends AmazonWebServiceRequ
     
     /**
      * The identifier for the DB snapshot to restore from. <p>Constraints:
-     * <ul> <li>Must contain from 1 to 63 alphanumeric characters or
+     * <ul> <li>Must contain from 1 to 255 alphanumeric characters or
      * hyphens</li> <li>First character must be a letter</li> <li>Cannot end
-     * with a hyphen or contain two consecutive hyphens</li> </ul>
+     * with a hyphen or contain two consecutive hyphens</li> </ul> <p>If you
+     * are restoring from a shared manual DB snapshot, the
+     * <code>DBSnapshotIdentifier</code> must be the ARN of the shared DB
+     * snapshot.
      *
      * @param dBSnapshotIdentifier The identifier for the DB snapshot to restore from. <p>Constraints:
-     *         <ul> <li>Must contain from 1 to 63 alphanumeric characters or
+     *         <ul> <li>Must contain from 1 to 255 alphanumeric characters or
      *         hyphens</li> <li>First character must be a letter</li> <li>Cannot end
-     *         with a hyphen or contain two consecutive hyphens</li> </ul>
+     *         with a hyphen or contain two consecutive hyphens</li> </ul> <p>If you
+     *         are restoring from a shared manual DB snapshot, the
+     *         <code>DBSnapshotIdentifier</code> must be the ARN of the shared DB
+     *         snapshot.
      */
     public void setDBSnapshotIdentifier(String dBSnapshotIdentifier) {
         this.dBSnapshotIdentifier = dBSnapshotIdentifier;
@@ -316,16 +354,22 @@ public class RestoreDBInstanceFromDBSnapshotRequest extends AmazonWebServiceRequ
     
     /**
      * The identifier for the DB snapshot to restore from. <p>Constraints:
-     * <ul> <li>Must contain from 1 to 63 alphanumeric characters or
+     * <ul> <li>Must contain from 1 to 255 alphanumeric characters or
      * hyphens</li> <li>First character must be a letter</li> <li>Cannot end
-     * with a hyphen or contain two consecutive hyphens</li> </ul>
+     * with a hyphen or contain two consecutive hyphens</li> </ul> <p>If you
+     * are restoring from a shared manual DB snapshot, the
+     * <code>DBSnapshotIdentifier</code> must be the ARN of the shared DB
+     * snapshot.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *
      * @param dBSnapshotIdentifier The identifier for the DB snapshot to restore from. <p>Constraints:
-     *         <ul> <li>Must contain from 1 to 63 alphanumeric characters or
+     *         <ul> <li>Must contain from 1 to 255 alphanumeric characters or
      *         hyphens</li> <li>First character must be a letter</li> <li>Cannot end
-     *         with a hyphen or contain two consecutive hyphens</li> </ul>
+     *         with a hyphen or contain two consecutive hyphens</li> </ul> <p>If you
+     *         are restoring from a shared manual DB snapshot, the
+     *         <code>DBSnapshotIdentifier</code> must be the ARN of the shared DB
+     *         snapshot.
      *
      * @return A reference to this updated object so that method calls can be chained
      *         together.
@@ -340,15 +384,19 @@ public class RestoreDBInstanceFromDBSnapshotRequest extends AmazonWebServiceRequ
      * <p>Valid Values: <code>db.t1.micro | db.m1.small | db.m1.medium |
      * db.m1.large | db.m1.xlarge | db.m2.2xlarge | db.m2.4xlarge |
      * db.m3.medium | db.m3.large | db.m3.xlarge | db.m3.2xlarge |
-     * db.r3.large | db.r3.xlarge | db.r3.2xlarge | db.r3.4xlarge |
-     * db.r3.8xlarge | db.t2.micro | db.t2.small | db.t2.medium</code>
+     * db.m4.large | db.m4.xlarge | db.m4.2xlarge | db.m4.4xlarge |
+     * db.m4.10xlarge | db.r3.large | db.r3.xlarge | db.r3.2xlarge |
+     * db.r3.4xlarge | db.r3.8xlarge | db.t2.micro | db.t2.small |
+     * db.t2.medium | db.t2.large</code>
      *
      * @return The compute and memory capacity of the Amazon RDS DB instance.
      *         <p>Valid Values: <code>db.t1.micro | db.m1.small | db.m1.medium |
      *         db.m1.large | db.m1.xlarge | db.m2.2xlarge | db.m2.4xlarge |
      *         db.m3.medium | db.m3.large | db.m3.xlarge | db.m3.2xlarge |
-     *         db.r3.large | db.r3.xlarge | db.r3.2xlarge | db.r3.4xlarge |
-     *         db.r3.8xlarge | db.t2.micro | db.t2.small | db.t2.medium</code>
+     *         db.m4.large | db.m4.xlarge | db.m4.2xlarge | db.m4.4xlarge |
+     *         db.m4.10xlarge | db.r3.large | db.r3.xlarge | db.r3.2xlarge |
+     *         db.r3.4xlarge | db.r3.8xlarge | db.t2.micro | db.t2.small |
+     *         db.t2.medium | db.t2.large</code>
      */
     public String getDBInstanceClass() {
         return dBInstanceClass;
@@ -359,15 +407,19 @@ public class RestoreDBInstanceFromDBSnapshotRequest extends AmazonWebServiceRequ
      * <p>Valid Values: <code>db.t1.micro | db.m1.small | db.m1.medium |
      * db.m1.large | db.m1.xlarge | db.m2.2xlarge | db.m2.4xlarge |
      * db.m3.medium | db.m3.large | db.m3.xlarge | db.m3.2xlarge |
-     * db.r3.large | db.r3.xlarge | db.r3.2xlarge | db.r3.4xlarge |
-     * db.r3.8xlarge | db.t2.micro | db.t2.small | db.t2.medium</code>
+     * db.m4.large | db.m4.xlarge | db.m4.2xlarge | db.m4.4xlarge |
+     * db.m4.10xlarge | db.r3.large | db.r3.xlarge | db.r3.2xlarge |
+     * db.r3.4xlarge | db.r3.8xlarge | db.t2.micro | db.t2.small |
+     * db.t2.medium | db.t2.large</code>
      *
      * @param dBInstanceClass The compute and memory capacity of the Amazon RDS DB instance.
      *         <p>Valid Values: <code>db.t1.micro | db.m1.small | db.m1.medium |
      *         db.m1.large | db.m1.xlarge | db.m2.2xlarge | db.m2.4xlarge |
      *         db.m3.medium | db.m3.large | db.m3.xlarge | db.m3.2xlarge |
-     *         db.r3.large | db.r3.xlarge | db.r3.2xlarge | db.r3.4xlarge |
-     *         db.r3.8xlarge | db.t2.micro | db.t2.small | db.t2.medium</code>
+     *         db.m4.large | db.m4.xlarge | db.m4.2xlarge | db.m4.4xlarge |
+     *         db.m4.10xlarge | db.r3.large | db.r3.xlarge | db.r3.2xlarge |
+     *         db.r3.4xlarge | db.r3.8xlarge | db.t2.micro | db.t2.small |
+     *         db.t2.medium | db.t2.large</code>
      */
     public void setDBInstanceClass(String dBInstanceClass) {
         this.dBInstanceClass = dBInstanceClass;
@@ -378,8 +430,10 @@ public class RestoreDBInstanceFromDBSnapshotRequest extends AmazonWebServiceRequ
      * <p>Valid Values: <code>db.t1.micro | db.m1.small | db.m1.medium |
      * db.m1.large | db.m1.xlarge | db.m2.2xlarge | db.m2.4xlarge |
      * db.m3.medium | db.m3.large | db.m3.xlarge | db.m3.2xlarge |
-     * db.r3.large | db.r3.xlarge | db.r3.2xlarge | db.r3.4xlarge |
-     * db.r3.8xlarge | db.t2.micro | db.t2.small | db.t2.medium</code>
+     * db.m4.large | db.m4.xlarge | db.m4.2xlarge | db.m4.4xlarge |
+     * db.m4.10xlarge | db.r3.large | db.r3.xlarge | db.r3.2xlarge |
+     * db.r3.4xlarge | db.r3.8xlarge | db.t2.micro | db.t2.small |
+     * db.t2.medium | db.t2.large</code>
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *
@@ -387,8 +441,10 @@ public class RestoreDBInstanceFromDBSnapshotRequest extends AmazonWebServiceRequ
      *         <p>Valid Values: <code>db.t1.micro | db.m1.small | db.m1.medium |
      *         db.m1.large | db.m1.xlarge | db.m2.2xlarge | db.m2.4xlarge |
      *         db.m3.medium | db.m3.large | db.m3.xlarge | db.m3.2xlarge |
-     *         db.r3.large | db.r3.xlarge | db.r3.2xlarge | db.r3.4xlarge |
-     *         db.r3.8xlarge | db.t2.micro | db.t2.small | db.t2.medium</code>
+     *         db.m4.large | db.m4.xlarge | db.m4.2xlarge | db.m4.4xlarge |
+     *         db.m4.10xlarge | db.r3.large | db.r3.xlarge | db.r3.2xlarge |
+     *         db.r3.4xlarge | db.r3.8xlarge | db.t2.micro | db.t2.small |
+     *         db.t2.medium | db.t2.large</code>
      *
      * @return A reference to this updated object so that method calls can be chained
      *         together.
@@ -832,10 +888,10 @@ public class RestoreDBInstanceFromDBSnapshotRequest extends AmazonWebServiceRequ
 
     /**
      * The database name for the restored DB instance. <note> <p>This
-     * parameter doesn't apply to the MySQL engine. </note>
+     * parameter doesn't apply to the MySQL or MariaDB engines. </note>
      *
      * @return The database name for the restored DB instance. <note> <p>This
-     *         parameter doesn't apply to the MySQL engine. </note>
+     *         parameter doesn't apply to the MySQL or MariaDB engines. </note>
      */
     public String getDBName() {
         return dBName;
@@ -843,10 +899,10 @@ public class RestoreDBInstanceFromDBSnapshotRequest extends AmazonWebServiceRequ
     
     /**
      * The database name for the restored DB instance. <note> <p>This
-     * parameter doesn't apply to the MySQL engine. </note>
+     * parameter doesn't apply to the MySQL or MariaDB engines. </note>
      *
      * @param dBName The database name for the restored DB instance. <note> <p>This
-     *         parameter doesn't apply to the MySQL engine. </note>
+     *         parameter doesn't apply to the MySQL or MariaDB engines. </note>
      */
     public void setDBName(String dBName) {
         this.dBName = dBName;
@@ -854,12 +910,12 @@ public class RestoreDBInstanceFromDBSnapshotRequest extends AmazonWebServiceRequ
     
     /**
      * The database name for the restored DB instance. <note> <p>This
-     * parameter doesn't apply to the MySQL engine. </note>
+     * parameter doesn't apply to the MySQL or MariaDB engines. </note>
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *
      * @param dBName The database name for the restored DB instance. <note> <p>This
-     *         parameter doesn't apply to the MySQL engine. </note>
+     *         parameter doesn't apply to the MySQL or MariaDB engines. </note>
      *
      * @return A reference to this updated object so that method calls can be chained
      *         together.
@@ -872,19 +928,21 @@ public class RestoreDBInstanceFromDBSnapshotRequest extends AmazonWebServiceRequ
     /**
      * The database engine to use for the new instance. <p>Default: The same
      * as source <p>Constraint: Must be compatible with the engine of the
-     * source <p> Valid Values: <code>MySQL</code> | <code>oracle-se1</code>
-     * | <code>oracle-se</code> | <code>oracle-ee</code> |
-     * <code>sqlserver-ee</code> | <code>sqlserver-se</code> |
-     * <code>sqlserver-ex</code> | <code>sqlserver-web</code> |
-     * <code>postgres</code>
+     * source <p> Valid Values: <code>MySQL</code> | <code>mariadb</code> |
+     * <code>oracle-se1</code> | <code>oracle-se</code> |
+     * <code>oracle-ee</code> | <code>sqlserver-ee</code> |
+     * <code>sqlserver-se</code> | <code>sqlserver-ex</code> |
+     * <code>sqlserver-web</code> | <code>postgres</code> |
+     * <code>aurora</code>
      *
      * @return The database engine to use for the new instance. <p>Default: The same
      *         as source <p>Constraint: Must be compatible with the engine of the
-     *         source <p> Valid Values: <code>MySQL</code> | <code>oracle-se1</code>
-     *         | <code>oracle-se</code> | <code>oracle-ee</code> |
-     *         <code>sqlserver-ee</code> | <code>sqlserver-se</code> |
-     *         <code>sqlserver-ex</code> | <code>sqlserver-web</code> |
-     *         <code>postgres</code>
+     *         source <p> Valid Values: <code>MySQL</code> | <code>mariadb</code> |
+     *         <code>oracle-se1</code> | <code>oracle-se</code> |
+     *         <code>oracle-ee</code> | <code>sqlserver-ee</code> |
+     *         <code>sqlserver-se</code> | <code>sqlserver-ex</code> |
+     *         <code>sqlserver-web</code> | <code>postgres</code> |
+     *         <code>aurora</code>
      */
     public String getEngine() {
         return engine;
@@ -893,19 +951,21 @@ public class RestoreDBInstanceFromDBSnapshotRequest extends AmazonWebServiceRequ
     /**
      * The database engine to use for the new instance. <p>Default: The same
      * as source <p>Constraint: Must be compatible with the engine of the
-     * source <p> Valid Values: <code>MySQL</code> | <code>oracle-se1</code>
-     * | <code>oracle-se</code> | <code>oracle-ee</code> |
-     * <code>sqlserver-ee</code> | <code>sqlserver-se</code> |
-     * <code>sqlserver-ex</code> | <code>sqlserver-web</code> |
-     * <code>postgres</code>
+     * source <p> Valid Values: <code>MySQL</code> | <code>mariadb</code> |
+     * <code>oracle-se1</code> | <code>oracle-se</code> |
+     * <code>oracle-ee</code> | <code>sqlserver-ee</code> |
+     * <code>sqlserver-se</code> | <code>sqlserver-ex</code> |
+     * <code>sqlserver-web</code> | <code>postgres</code> |
+     * <code>aurora</code>
      *
      * @param engine The database engine to use for the new instance. <p>Default: The same
      *         as source <p>Constraint: Must be compatible with the engine of the
-     *         source <p> Valid Values: <code>MySQL</code> | <code>oracle-se1</code>
-     *         | <code>oracle-se</code> | <code>oracle-ee</code> |
-     *         <code>sqlserver-ee</code> | <code>sqlserver-se</code> |
-     *         <code>sqlserver-ex</code> | <code>sqlserver-web</code> |
-     *         <code>postgres</code>
+     *         source <p> Valid Values: <code>MySQL</code> | <code>mariadb</code> |
+     *         <code>oracle-se1</code> | <code>oracle-se</code> |
+     *         <code>oracle-ee</code> | <code>sqlserver-ee</code> |
+     *         <code>sqlserver-se</code> | <code>sqlserver-ex</code> |
+     *         <code>sqlserver-web</code> | <code>postgres</code> |
+     *         <code>aurora</code>
      */
     public void setEngine(String engine) {
         this.engine = engine;
@@ -914,21 +974,23 @@ public class RestoreDBInstanceFromDBSnapshotRequest extends AmazonWebServiceRequ
     /**
      * The database engine to use for the new instance. <p>Default: The same
      * as source <p>Constraint: Must be compatible with the engine of the
-     * source <p> Valid Values: <code>MySQL</code> | <code>oracle-se1</code>
-     * | <code>oracle-se</code> | <code>oracle-ee</code> |
-     * <code>sqlserver-ee</code> | <code>sqlserver-se</code> |
-     * <code>sqlserver-ex</code> | <code>sqlserver-web</code> |
-     * <code>postgres</code>
+     * source <p> Valid Values: <code>MySQL</code> | <code>mariadb</code> |
+     * <code>oracle-se1</code> | <code>oracle-se</code> |
+     * <code>oracle-ee</code> | <code>sqlserver-ee</code> |
+     * <code>sqlserver-se</code> | <code>sqlserver-ex</code> |
+     * <code>sqlserver-web</code> | <code>postgres</code> |
+     * <code>aurora</code>
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *
      * @param engine The database engine to use for the new instance. <p>Default: The same
      *         as source <p>Constraint: Must be compatible with the engine of the
-     *         source <p> Valid Values: <code>MySQL</code> | <code>oracle-se1</code>
-     *         | <code>oracle-se</code> | <code>oracle-ee</code> |
-     *         <code>sqlserver-ee</code> | <code>sqlserver-se</code> |
-     *         <code>sqlserver-ex</code> | <code>sqlserver-web</code> |
-     *         <code>postgres</code>
+     *         source <p> Valid Values: <code>MySQL</code> | <code>mariadb</code> |
+     *         <code>oracle-se1</code> | <code>oracle-se</code> |
+     *         <code>oracle-ee</code> | <code>sqlserver-ee</code> |
+     *         <code>sqlserver-se</code> | <code>sqlserver-ex</code> |
+     *         <code>sqlserver-web</code> | <code>postgres</code> |
+     *         <code>aurora</code>
      *
      * @return A reference to this updated object so that method calls can be chained
      *         together.
@@ -1291,6 +1353,56 @@ public class RestoreDBInstanceFromDBSnapshotRequest extends AmazonWebServiceRequ
     }
 
     /**
+     * True to copy all tags from the restored DB instance to snapshots of
+     * the DB instance; otherwise false. The default is false.
+     *
+     * @return True to copy all tags from the restored DB instance to snapshots of
+     *         the DB instance; otherwise false. The default is false.
+     */
+    public Boolean isCopyTagsToSnapshot() {
+        return copyTagsToSnapshot;
+    }
+    
+    /**
+     * True to copy all tags from the restored DB instance to snapshots of
+     * the DB instance; otherwise false. The default is false.
+     *
+     * @param copyTagsToSnapshot True to copy all tags from the restored DB instance to snapshots of
+     *         the DB instance; otherwise false. The default is false.
+     */
+    public void setCopyTagsToSnapshot(Boolean copyTagsToSnapshot) {
+        this.copyTagsToSnapshot = copyTagsToSnapshot;
+    }
+    
+    /**
+     * True to copy all tags from the restored DB instance to snapshots of
+     * the DB instance; otherwise false. The default is false.
+     * <p>
+     * Returns a reference to this object so that method calls can be chained together.
+     *
+     * @param copyTagsToSnapshot True to copy all tags from the restored DB instance to snapshots of
+     *         the DB instance; otherwise false. The default is false.
+     *
+     * @return A reference to this updated object so that method calls can be chained
+     *         together.
+     */
+    public RestoreDBInstanceFromDBSnapshotRequest withCopyTagsToSnapshot(Boolean copyTagsToSnapshot) {
+        this.copyTagsToSnapshot = copyTagsToSnapshot;
+        return this;
+    }
+
+    /**
+     * True to copy all tags from the restored DB instance to snapshots of
+     * the DB instance; otherwise false. The default is false.
+     *
+     * @return True to copy all tags from the restored DB instance to snapshots of
+     *         the DB instance; otherwise false. The default is false.
+     */
+    public Boolean getCopyTagsToSnapshot() {
+        return copyTagsToSnapshot;
+    }
+
+    /**
      * Returns a string representation of this object; useful for testing and
      * debugging.
      *
@@ -1319,7 +1431,8 @@ public class RestoreDBInstanceFromDBSnapshotRequest extends AmazonWebServiceRequ
         if (getTags() != null) sb.append("Tags: " + getTags() + ",");
         if (getStorageType() != null) sb.append("StorageType: " + getStorageType() + ",");
         if (getTdeCredentialArn() != null) sb.append("TdeCredentialArn: " + getTdeCredentialArn() + ",");
-        if (getTdeCredentialPassword() != null) sb.append("TdeCredentialPassword: " + getTdeCredentialPassword() );
+        if (getTdeCredentialPassword() != null) sb.append("TdeCredentialPassword: " + getTdeCredentialPassword() + ",");
+        if (isCopyTagsToSnapshot() != null) sb.append("CopyTagsToSnapshot: " + isCopyTagsToSnapshot() );
         sb.append("}");
         return sb.toString();
     }
@@ -1347,6 +1460,7 @@ public class RestoreDBInstanceFromDBSnapshotRequest extends AmazonWebServiceRequ
         hashCode = prime * hashCode + ((getStorageType() == null) ? 0 : getStorageType().hashCode()); 
         hashCode = prime * hashCode + ((getTdeCredentialArn() == null) ? 0 : getTdeCredentialArn().hashCode()); 
         hashCode = prime * hashCode + ((getTdeCredentialPassword() == null) ? 0 : getTdeCredentialPassword().hashCode()); 
+        hashCode = prime * hashCode + ((isCopyTagsToSnapshot() == null) ? 0 : isCopyTagsToSnapshot().hashCode()); 
         return hashCode;
     }
     
@@ -1394,6 +1508,8 @@ public class RestoreDBInstanceFromDBSnapshotRequest extends AmazonWebServiceRequ
         if (other.getTdeCredentialArn() != null && other.getTdeCredentialArn().equals(this.getTdeCredentialArn()) == false) return false; 
         if (other.getTdeCredentialPassword() == null ^ this.getTdeCredentialPassword() == null) return false;
         if (other.getTdeCredentialPassword() != null && other.getTdeCredentialPassword().equals(this.getTdeCredentialPassword()) == false) return false; 
+        if (other.isCopyTagsToSnapshot() == null ^ this.isCopyTagsToSnapshot() == null) return false;
+        if (other.isCopyTagsToSnapshot() != null && other.isCopyTagsToSnapshot().equals(this.isCopyTagsToSnapshot()) == false) return false; 
         return true;
     }
     

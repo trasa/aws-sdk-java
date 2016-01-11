@@ -1,5 +1,5 @@
 /*
- * Copyright 2010-2015 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2010-2016 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License.
@@ -109,7 +109,6 @@ public interface AmazonMachineLearning {
      * </p>
      * 
      * @param createBatchPredictionRequest
-     *        null
      * @return Result of the CreateBatchPrediction operation returned by the
      *         service.
      * @throws InvalidInputException
@@ -121,6 +120,7 @@ public interface AmazonMachineLearning {
      *         A second request to use or change an object was not allowed. This
      *         can result from retrying a request using a parameter that was not
      *         present in the original request.
+     * @sample AmazonMachineLearning.CreateBatchPrediction
      */
     CreateBatchPredictionResult createBatchPrediction(
             CreateBatchPredictionRequest createBatchPredictionRequest);
@@ -152,7 +152,6 @@ public interface AmazonMachineLearning {
      * </p>
      * 
      * @param createDataSourceFromRDSRequest
-     *        null
      * @return Result of the CreateDataSourceFromRDS operation returned by the
      *         service.
      * @throws InvalidInputException
@@ -164,6 +163,7 @@ public interface AmazonMachineLearning {
      *         A second request to use or change an object was not allowed. This
      *         can result from retrying a request using a parameter that was not
      *         present in the original request.
+     * @sample AmazonMachineLearning.CreateDataSourceFromRDS
      */
     CreateDataSourceFromRDSResult createDataSourceFromRDS(
             CreateDataSourceFromRDSRequest createDataSourceFromRDSRequest);
@@ -216,7 +216,6 @@ public interface AmazonMachineLearning {
      * </p>
      * 
      * @param createDataSourceFromRedshiftRequest
-     *        null
      * @return Result of the CreateDataSourceFromRedshift operation returned by
      *         the service.
      * @throws InvalidInputException
@@ -228,6 +227,7 @@ public interface AmazonMachineLearning {
      *         A second request to use or change an object was not allowed. This
      *         can result from retrying a request using a parameter that was not
      *         present in the original request.
+     * @sample AmazonMachineLearning.CreateDataSourceFromRedshift
      */
     CreateDataSourceFromRedshiftResult createDataSourceFromRedshift(
             CreateDataSourceFromRedshiftRequest createDataSourceFromRedshiftRequest);
@@ -280,7 +280,6 @@ public interface AmazonMachineLearning {
      * </p>
      * 
      * @param createDataSourceFromS3Request
-     *        null
      * @return Result of the CreateDataSourceFromS3 operation returned by the
      *         service.
      * @throws InvalidInputException
@@ -292,6 +291,7 @@ public interface AmazonMachineLearning {
      *         A second request to use or change an object was not allowed. This
      *         can result from retrying a request using a parameter that was not
      *         present in the original request.
+     * @sample AmazonMachineLearning.CreateDataSourceFromS3
      */
     CreateDataSourceFromS3Result createDataSourceFromS3(
             CreateDataSourceFromS3Request createDataSourceFromS3Request);
@@ -324,7 +324,6 @@ public interface AmazonMachineLearning {
      * </p>
      * 
      * @param createEvaluationRequest
-     *        null
      * @return Result of the CreateEvaluation operation returned by the service.
      * @throws InvalidInputException
      *         An error on the client occurred. Typically, the cause is an
@@ -335,6 +334,7 @@ public interface AmazonMachineLearning {
      *         A second request to use or change an object was not allowed. This
      *         can result from retrying a request using a parameter that was not
      *         present in the original request.
+     * @sample AmazonMachineLearning.CreateEvaluation
      */
     CreateEvaluationResult createEvaluation(
             CreateEvaluationRequest createEvaluationRequest);
@@ -369,7 +369,6 @@ public interface AmazonMachineLearning {
      * </p>
      * 
      * @param createMLModelRequest
-     *        null
      * @return Result of the CreateMLModel operation returned by the service.
      * @throws InvalidInputException
      *         An error on the client occurred. Typically, the cause is an
@@ -380,6 +379,7 @@ public interface AmazonMachineLearning {
      *         A second request to use or change an object was not allowed. This
      *         can result from retrying a request using a parameter that was not
      *         present in the original request.
+     * @sample AmazonMachineLearning.CreateMLModel
      */
     CreateMLModelResult createMLModel(CreateMLModelRequest createMLModelRequest);
 
@@ -392,7 +392,6 @@ public interface AmazonMachineLearning {
      * </p>
      * 
      * @param createRealtimeEndpointRequest
-     *        null
      * @return Result of the CreateRealtimeEndpoint operation returned by the
      *         service.
      * @throws InvalidInputException
@@ -402,6 +401,7 @@ public interface AmazonMachineLearning {
      *         A specified resource cannot be located.
      * @throws InternalServerException
      *         An error on the server occurred when trying to process a request.
+     * @sample AmazonMachineLearning.CreateRealtimeEndpoint
      */
     CreateRealtimeEndpointResult createRealtimeEndpoint(
             CreateRealtimeEndpointRequest createRealtimeEndpointRequest);
@@ -422,7 +422,6 @@ public interface AmazonMachineLearning {
      * </p>
      * 
      * @param deleteBatchPredictionRequest
-     *        null
      * @return Result of the DeleteBatchPrediction operation returned by the
      *         service.
      * @throws InvalidInputException
@@ -432,6 +431,7 @@ public interface AmazonMachineLearning {
      *         A specified resource cannot be located.
      * @throws InternalServerException
      *         An error on the server occurred when trying to process a request.
+     * @sample AmazonMachineLearning.DeleteBatchPrediction
      */
     DeleteBatchPredictionResult deleteBatchPrediction(
             DeleteBatchPredictionRequest deleteBatchPredictionRequest);
@@ -452,7 +452,6 @@ public interface AmazonMachineLearning {
      * </p>
      * 
      * @param deleteDataSourceRequest
-     *        null
      * @return Result of the DeleteDataSource operation returned by the service.
      * @throws InvalidInputException
      *         An error on the client occurred. Typically, the cause is an
@@ -461,6 +460,7 @@ public interface AmazonMachineLearning {
      *         A specified resource cannot be located.
      * @throws InternalServerException
      *         An error on the server occurred when trying to process a request.
+     * @sample AmazonMachineLearning.DeleteDataSource
      */
     DeleteDataSourceResult deleteDataSource(
             DeleteDataSourceRequest deleteDataSourceRequest);
@@ -481,7 +481,6 @@ public interface AmazonMachineLearning {
      * </p>
      * 
      * @param deleteEvaluationRequest
-     *        null
      * @return Result of the DeleteEvaluation operation returned by the service.
      * @throws InvalidInputException
      *         An error on the client occurred. Typically, the cause is an
@@ -490,6 +489,7 @@ public interface AmazonMachineLearning {
      *         A specified resource cannot be located.
      * @throws InternalServerException
      *         An error on the server occurred when trying to process a request.
+     * @sample AmazonMachineLearning.DeleteEvaluation
      */
     DeleteEvaluationResult deleteEvaluation(
             DeleteEvaluationRequest deleteEvaluationRequest);
@@ -510,7 +510,6 @@ public interface AmazonMachineLearning {
      * </p>
      * 
      * @param deleteMLModelRequest
-     *        null
      * @return Result of the DeleteMLModel operation returned by the service.
      * @throws InvalidInputException
      *         An error on the client occurred. Typically, the cause is an
@@ -519,6 +518,7 @@ public interface AmazonMachineLearning {
      *         A specified resource cannot be located.
      * @throws InternalServerException
      *         An error on the server occurred when trying to process a request.
+     * @sample AmazonMachineLearning.DeleteMLModel
      */
     DeleteMLModelResult deleteMLModel(DeleteMLModelRequest deleteMLModelRequest);
 
@@ -528,7 +528,6 @@ public interface AmazonMachineLearning {
      * </p>
      * 
      * @param deleteRealtimeEndpointRequest
-     *        null
      * @return Result of the DeleteRealtimeEndpoint operation returned by the
      *         service.
      * @throws InvalidInputException
@@ -538,6 +537,7 @@ public interface AmazonMachineLearning {
      *         A specified resource cannot be located.
      * @throws InternalServerException
      *         An error on the server occurred when trying to process a request.
+     * @sample AmazonMachineLearning.DeleteRealtimeEndpoint
      */
     DeleteRealtimeEndpointResult deleteRealtimeEndpoint(
             DeleteRealtimeEndpointRequest deleteRealtimeEndpointRequest);
@@ -549,7 +549,6 @@ public interface AmazonMachineLearning {
      * </p>
      * 
      * @param describeBatchPredictionsRequest
-     *        null
      * @return Result of the DescribeBatchPredictions operation returned by the
      *         service.
      * @throws InvalidInputException
@@ -557,6 +556,7 @@ public interface AmazonMachineLearning {
      *         invalid input value.
      * @throws InternalServerException
      *         An error on the server occurred when trying to process a request.
+     * @sample AmazonMachineLearning.DescribeBatchPredictions
      */
     DescribeBatchPredictionsResult describeBatchPredictions(
             DescribeBatchPredictionsRequest describeBatchPredictionsRequest);
@@ -576,7 +576,6 @@ public interface AmazonMachineLearning {
      * </p>
      * 
      * @param describeDataSourcesRequest
-     *        null
      * @return Result of the DescribeDataSources operation returned by the
      *         service.
      * @throws InvalidInputException
@@ -584,6 +583,7 @@ public interface AmazonMachineLearning {
      *         invalid input value.
      * @throws InternalServerException
      *         An error on the server occurred when trying to process a request.
+     * @sample AmazonMachineLearning.DescribeDataSources
      */
     DescribeDataSourcesResult describeDataSources(
             DescribeDataSourcesRequest describeDataSourcesRequest);
@@ -602,7 +602,6 @@ public interface AmazonMachineLearning {
      * </p>
      * 
      * @param describeEvaluationsRequest
-     *        null
      * @return Result of the DescribeEvaluations operation returned by the
      *         service.
      * @throws InvalidInputException
@@ -610,6 +609,7 @@ public interface AmazonMachineLearning {
      *         invalid input value.
      * @throws InternalServerException
      *         An error on the server occurred when trying to process a request.
+     * @sample AmazonMachineLearning.DescribeEvaluations
      */
     DescribeEvaluationsResult describeEvaluations(
             DescribeEvaluationsRequest describeEvaluationsRequest);
@@ -628,13 +628,13 @@ public interface AmazonMachineLearning {
      * </p>
      * 
      * @param describeMLModelsRequest
-     *        null
      * @return Result of the DescribeMLModels operation returned by the service.
      * @throws InvalidInputException
      *         An error on the client occurred. Typically, the cause is an
      *         invalid input value.
      * @throws InternalServerException
      *         An error on the server occurred when trying to process a request.
+     * @sample AmazonMachineLearning.DescribeMLModels
      */
     DescribeMLModelsResult describeMLModels(
             DescribeMLModelsRequest describeMLModelsRequest);
@@ -654,7 +654,6 @@ public interface AmazonMachineLearning {
      * </p>
      * 
      * @param getBatchPredictionRequest
-     *        null
      * @return Result of the GetBatchPrediction operation returned by the
      *         service.
      * @throws InvalidInputException
@@ -664,6 +663,7 @@ public interface AmazonMachineLearning {
      *         A specified resource cannot be located.
      * @throws InternalServerException
      *         An error on the server occurred when trying to process a request.
+     * @sample AmazonMachineLearning.GetBatchPrediction
      */
     GetBatchPredictionResult getBatchPrediction(
             GetBatchPredictionRequest getBatchPredictionRequest);
@@ -681,7 +681,6 @@ public interface AmazonMachineLearning {
      * </p>
      * 
      * @param getDataSourceRequest
-     *        null
      * @return Result of the GetDataSource operation returned by the service.
      * @throws InvalidInputException
      *         An error on the client occurred. Typically, the cause is an
@@ -690,6 +689,7 @@ public interface AmazonMachineLearning {
      *         A specified resource cannot be located.
      * @throws InternalServerException
      *         An error on the server occurred when trying to process a request.
+     * @sample AmazonMachineLearning.GetDataSource
      */
     GetDataSourceResult getDataSource(GetDataSourceRequest getDataSourceRequest);
 
@@ -700,7 +700,6 @@ public interface AmazonMachineLearning {
      * </p>
      * 
      * @param getEvaluationRequest
-     *        null
      * @return Result of the GetEvaluation operation returned by the service.
      * @throws InvalidInputException
      *         An error on the client occurred. Typically, the cause is an
@@ -709,6 +708,7 @@ public interface AmazonMachineLearning {
      *         A specified resource cannot be located.
      * @throws InternalServerException
      *         An error on the server occurred when trying to process a request.
+     * @sample AmazonMachineLearning.GetEvaluation
      */
     GetEvaluationResult getEvaluation(GetEvaluationRequest getEvaluationRequest);
 
@@ -723,7 +723,6 @@ public interface AmazonMachineLearning {
      * </p>
      * 
      * @param getMLModelRequest
-     *        null
      * @return Result of the GetMLModel operation returned by the service.
      * @throws InvalidInputException
      *         An error on the client occurred. Typically, the cause is an
@@ -732,6 +731,7 @@ public interface AmazonMachineLearning {
      *         A specified resource cannot be located.
      * @throws InternalServerException
      *         An error on the server occurred when trying to process a request.
+     * @sample AmazonMachineLearning.GetMLModel
      */
     GetMLModelResult getMLModel(GetMLModelRequest getMLModelRequest);
 
@@ -748,7 +748,6 @@ public interface AmazonMachineLearning {
      * </note>
      * 
      * @param predictRequest
-     *        null
      * @return Result of the Predict operation returned by the service.
      * @throws InvalidInputException
      *         An error on the client occurred. Typically, the cause is an
@@ -764,6 +763,7 @@ public interface AmazonMachineLearning {
      * @throws PredictorNotMountedException
      *         The exception is thrown when a predict request is made to an
      *         unmounted <code>MLModel</code>.
+     * @sample AmazonMachineLearning.Predict
      */
     PredictResult predict(PredictRequest predictRequest);
 
@@ -778,7 +778,6 @@ public interface AmazonMachineLearning {
      * </p>
      * 
      * @param updateBatchPredictionRequest
-     *        null
      * @return Result of the UpdateBatchPrediction operation returned by the
      *         service.
      * @throws InvalidInputException
@@ -788,6 +787,7 @@ public interface AmazonMachineLearning {
      *         A specified resource cannot be located.
      * @throws InternalServerException
      *         An error on the server occurred when trying to process a request.
+     * @sample AmazonMachineLearning.UpdateBatchPrediction
      */
     UpdateBatchPredictionResult updateBatchPrediction(
             UpdateBatchPredictionRequest updateBatchPredictionRequest);
@@ -802,7 +802,6 @@ public interface AmazonMachineLearning {
      * </p>
      * 
      * @param updateDataSourceRequest
-     *        null
      * @return Result of the UpdateDataSource operation returned by the service.
      * @throws InvalidInputException
      *         An error on the client occurred. Typically, the cause is an
@@ -811,6 +810,7 @@ public interface AmazonMachineLearning {
      *         A specified resource cannot be located.
      * @throws InternalServerException
      *         An error on the server occurred when trying to process a request.
+     * @sample AmazonMachineLearning.UpdateDataSource
      */
     UpdateDataSourceResult updateDataSource(
             UpdateDataSourceRequest updateDataSourceRequest);
@@ -825,7 +825,6 @@ public interface AmazonMachineLearning {
      * </p>
      * 
      * @param updateEvaluationRequest
-     *        null
      * @return Result of the UpdateEvaluation operation returned by the service.
      * @throws InvalidInputException
      *         An error on the client occurred. Typically, the cause is an
@@ -834,6 +833,7 @@ public interface AmazonMachineLearning {
      *         A specified resource cannot be located.
      * @throws InternalServerException
      *         An error on the server occurred when trying to process a request.
+     * @sample AmazonMachineLearning.UpdateEvaluation
      */
     UpdateEvaluationResult updateEvaluation(
             UpdateEvaluationRequest updateEvaluationRequest);
@@ -849,7 +849,6 @@ public interface AmazonMachineLearning {
      * </p>
      * 
      * @param updateMLModelRequest
-     *        null
      * @return Result of the UpdateMLModel operation returned by the service.
      * @throws InvalidInputException
      *         An error on the client occurred. Typically, the cause is an
@@ -858,6 +857,7 @@ public interface AmazonMachineLearning {
      *         A specified resource cannot be located.
      * @throws InternalServerException
      *         An error on the server occurred when trying to process a request.
+     * @sample AmazonMachineLearning.UpdateMLModel
      */
     UpdateMLModelResult updateMLModel(UpdateMLModelRequest updateMLModelRequest);
 

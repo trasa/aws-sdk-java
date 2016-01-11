@@ -1,5 +1,5 @@
 /*
- * Copyright 2010-2015 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2010-2016 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License.
@@ -15,6 +15,7 @@
 package com.amazonaws.services.devicefarm;
 
 import com.amazonaws.services.devicefarm.model.*;
+import com.amazonaws.*;
 
 /**
  * Abstract implementation of {@code AWSDeviceFarm}. Convenient method forms
@@ -49,6 +50,27 @@ public class AbstractAWSDeviceFarm implements AWSDeviceFarm {
 
     @Override
     public CreateUploadResult createUpload(CreateUploadRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public DeleteDevicePoolResult deleteDevicePool(
+            DeleteDevicePoolRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public DeleteProjectResult deleteProject(DeleteProjectRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public DeleteRunResult deleteRun(DeleteRunRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public DeleteUploadResult deleteUpload(DeleteUploadRequest request) {
         throw new java.lang.UnsupportedOperationException();
     }
 
@@ -162,6 +184,17 @@ public class AbstractAWSDeviceFarm implements AWSDeviceFarm {
 
     @Override
     public ScheduleRunResult scheduleRun(ScheduleRunRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public UpdateDevicePoolResult updateDevicePool(
+            UpdateDevicePoolRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public UpdateProjectResult updateProject(UpdateProjectRequest request) {
         throw new java.lang.UnsupportedOperationException();
     }
 

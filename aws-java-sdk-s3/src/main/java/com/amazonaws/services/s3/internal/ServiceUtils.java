@@ -1,5 +1,5 @@
 /*
- * Copyright 2010-2015 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2010-2016 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * Portions copyright 2006-2009 James Murty. Please see LICENSE.txt
  * for applicable license terms and NOTICE.txt for applicable notices.
@@ -39,14 +39,10 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 import com.amazonaws.AmazonClientException;
-import com.amazonaws.AmazonWebServiceRequest;
 import com.amazonaws.Request;
 import com.amazonaws.services.s3.AmazonS3Client;
-import com.amazonaws.services.s3.model.GetObjectRequest;
 import com.amazonaws.services.s3.model.ObjectMetadata;
-import com.amazonaws.services.s3.model.PutObjectRequest;
 import com.amazonaws.services.s3.model.S3Object;
-import com.amazonaws.services.s3.model.UploadPartRequest;
 import com.amazonaws.services.s3.transfer.exception.FileLockException;
 import com.amazonaws.util.BinaryUtils;
 import com.amazonaws.util.DateUtils;
@@ -62,6 +58,8 @@ public class ServiceUtils {
     public static final boolean APPEND_MODE = true;
 
     public static final boolean OVERWRITE_MODE = false;
+
+    private static final SkipMd5CheckStrategy skipMd5CheckStrategy = SkipMd5CheckStrategy.INSTANCE;
 
     @Deprecated
     protected static final DateUtils dateUtils = new DateUtils();
@@ -80,20 +78,6 @@ public class ServiceUtils {
 
     public static String formatRfc822Date(Date date) {
         return DateUtils.formatRFC822Date(date);
-    }
-
-    /**
-     * Returns true if the specified ETag was from a multipart upload.
-     *
-     * @param eTag
-     *            The ETag to test.
-     *
-     * @return True if the specified ETag was from a multipart upload, otherwise
-     *         false it if belongs to an object that was uploaded in a single
-     *         part.
-     */
-    public static boolean isMultipartUploadETag(String eTag) {
-        return eTag.contains("-");
     }
 
     /**
@@ -304,31 +288,24 @@ public class ServiceUtils {
             closeQuietly(s3Object.getObjectContent(), log);
         }
 
-        byte[] clientSideHash = null;
-        byte[] serverSideHash = null;
-        try {
-            // Multipart Uploads don't have an MD5 calculated on the service
-            // side
-            // Server Side encryption with AWS KMS enabled objects has MD5 of
-            // cipher text. So the MD5 validation needs to be skipped.
-            final ObjectMetadata metadata = s3Object.getObjectMetadata();
-            if (metadata != null) {
-                final String etag = metadata.getETag();
-                if (!ServiceUtils.isMultipartUploadETag(etag)
-                &&  !skipMd5CheckPerResponse(metadata))
-                {
+        if (performIntegrityCheck) {
+            byte[] clientSideHash = null;
+            byte[] serverSideHash = null;
+            try {
+                final ObjectMetadata metadata = s3Object.getObjectMetadata();
+                if (!skipMd5CheckStrategy.skipClientSideValidationPerGetResponse(metadata)) {
                     clientSideHash = Md5Utils.computeMD5Hash(new FileInputStream(dstfile));
-                    serverSideHash = BinaryUtils.fromHex(etag);
+                    serverSideHash = BinaryUtils.fromHex(metadata.getETag());
                 }
+            } catch (Exception e) {
+                log.warn("Unable to calculate MD5 hash to validate download: " + e.getMessage(), e);
             }
-        } catch (Exception e) {
-            log.warn("Unable to calculate MD5 hash to validate download: " + e.getMessage(), e);
-        }
 
-        if (performIntegrityCheck && clientSideHash != null && serverSideHash != null && !Arrays.equals(clientSideHash, serverSideHash)) {
-            throw new AmazonClientException("Unable to verify integrity of data download.  " +
-                    "Client calculated content hash didn't match hash calculated by Amazon S3.  " +
-                    "The data stored in '" + dstfile.getAbsolutePath() + "' may be corrupt.");
+            if (clientSideHash != null && serverSideHash != null && !Arrays.equals(clientSideHash, serverSideHash)) {
+                throw new AmazonClientException("Unable to verify integrity of data download.  " +
+                        "Client calculated content hash didn't match hash calculated by Amazon S3.  " +
+                        "The data stored in '" + dstfile.getAbsolutePath() + "' may be corrupt.");
+            }
         }
     }
 
@@ -384,11 +361,13 @@ public class ServiceUtils {
                         retryableS3DownloadTask.needIntegrityCheck(),
                         appendData);
             } catch (AmazonClientException ace) {
-                if (!ace.isRetryable())
+                if (!ace.isRetryable()) {
+                    s3Object.getObjectContent().abort();
                     throw ace;
+                }
                 // Determine whether an immediate retry is needed according to the captured AmazonClientException.
                 // (There are three cases when downloadObjectToFile() throws AmazonClientException:
-                //         1) SocketException or SSLProtocolException when writing to disk (e.g. when user aborts the download)
+                //        1) SocketException or SSLProtocolException when writing to disk (e.g. when user aborts the download)
                 //        2) Other IOException when writing to disk
                 //        3) MD5 hashes don't match
                 // The current code will retry the download only when case 2) or 3) happens.
@@ -396,74 +375,17 @@ public class ServiceUtils {
                     throw ace;
                 } else {
                     needRetry = true;
-                    if ( hasRetried )
+                    if ( hasRetried ) {
+                        s3Object.getObjectContent().abort();
                         throw ace;
-                    else {
+                    } else {
                         log.info("Retry the download of object " + s3Object.getKey() + " (bucket " + s3Object.getBucketName() + ")", ace);
                         hasRetried = true;
                     }
                 }
-            } finally {
-                s3Object.getObjectContent().abort();
             }
         } while ( needRetry );
         return s3Object;
     }
 
-    /**
-     * Based on the given metadata of an S3 response,
-     * Returns whether the specified request should skip MD5 check on the
-     * requested object content.  Specifically, MD5 check should be skipped if
-     * either SSE-KMS or SSE-C is involved.
-     * <p>
-     * The reason is that when SSE-KMS or SSE-C is involved, the MD5 returned
-     * from the server side is the MD5 of the ciphertext, which will by definition
-     * mismatch the MD5 on the client side which is computed based on the plaintext.
-     */
-    public static boolean skipMd5CheckPerResponse(ObjectMetadata metadata) {
-        return metadata != null
-            && (metadata.getSSEAwsKmsKeyId() != null
-            ||  metadata.getSSECustomerAlgorithm() != null);
-    }
-
-    /**
-     * Based on the given request object, returns whether the specified request
-     * should skip MD5 check on the requested object content. Specifically, MD5
-     * check should be skipped if one of the following condition is true:
-     * <ol>
-     * <li>The system property
-     *
-     * <pre>
-     * -Dcom.amazonaws.services.s3.disableGetObjectMD5Validation
-     * </pre>
-     *
-     * is specified;</li>
-     * <li>The request is a range-get operation</li>
-     * <li>The request is a GET object operation that involves SSE-C</li>
-     * <li>The request is a PUT object operation that involves SSE-C</li>
-     * <li>The request is a PUT object operation that involves SSE-KMS</li>
-     * <li>The request is an upload-part operation that involves SSE-C</li>
-     * </ol>
-     * Otherwise, MD5 check should not be skipped.
-     */
-    public static boolean skipMd5CheckPerRequest(AmazonWebServiceRequest request) {
-        if (request instanceof GetObjectRequest) {
-            if (System.getProperty("com.amazonaws.services.s3.disableGetObjectMD5Validation") != null)
-                return true;
-            GetObjectRequest getObjectRequest = (GetObjectRequest)request;
-            // Skip MD5 check for range get
-            if (getObjectRequest.getRange() != null)
-                return true;
-            if (getObjectRequest.getSSECustomerKey() != null)
-                return true;
-        } else if (request instanceof PutObjectRequest) {
-            PutObjectRequest putObjectRequest = (PutObjectRequest)request;
-            return putObjectRequest.getSSECustomerKey() != null
-                    || putObjectRequest.getSSEAwsKeyManagementParams() != null;
-        } else if (request instanceof UploadPartRequest) {
-            UploadPartRequest uploadPartRequest = (UploadPartRequest)request;
-            return uploadPartRequest.getSSECustomerKey() != null;
-        }
-        return false;
-    }
 }

@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2015 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2014-2016 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License.
@@ -40,5 +40,30 @@ public class Attribute {
     @Override
     public String toString() {
         return "{" + name + ": " + value + "}";
+    }
+
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int hashCode = 1;
+        // attribute name is never null as enforced in ctor
+        hashCode = prime * hashCode + getName().hashCode();
+        hashCode = prime * hashCode
+                + ((getValue() == null) ? 0 : getValue().hashCode());
+        return hashCode;
+    }
+
+    @Override
+    public boolean equals(Object in) {
+        if (in instanceof Attribute) {
+            Attribute that = (Attribute)in;
+            if (this.name.equals(that.name)) {
+                if (this.value == null)
+                    return that.value == null;
+                else
+                    return this.value.equals(that.value);
+            }
+        }
+        return false;
     }
 }

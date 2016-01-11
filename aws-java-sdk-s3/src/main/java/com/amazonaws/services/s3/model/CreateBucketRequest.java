@@ -1,5 +1,5 @@
 /*
- * Copyright 2010-2015 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2010-2016 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License.
@@ -13,6 +13,7 @@
  * permissions and limitations under the License.
  */
 package com.amazonaws.services.s3.model;
+import java.io.Serializable;
 
 import com.amazonaws.AmazonWebServiceRequest;
 
@@ -22,7 +23,7 @@ import com.amazonaws.AmazonWebServiceRequest;
  * @see DeleteBucketRequest
  * @see CopyObjectRequest
  */
-public class CreateBucketRequest extends AmazonWebServiceRequest {
+public class CreateBucketRequest extends AmazonWebServiceRequest implements Serializable {
 
     /** The name of the Amazon S3 bucket to create. */
     private String bucketName;
@@ -57,19 +58,22 @@ public class CreateBucketRequest extends AmazonWebServiceRequest {
         this(bucketName, Region.US_Standard);
     }
 
-    /**
-     * Constructs a new {@link CreateBucketRequest},
-     * ready to be executed to create the
-     * specified bucket in the specified region.
-     *
-     * @param bucketName
-     *            The name of the Amazon S3 bucket to create.
-     * @param region
-     *            The region in which to create this bucket.
-     *
-     * @see CreateBucketRequest#CreateBucketRequest(String)
-     * @see CreateBucketRequest#CreateBucketRequest(String, String)
-     */
+	/**
+	 * Constructs a new {@link CreateBucketRequest},
+	 * ready to be executed to create the
+	 * specified bucket in the specified region.
+	 *
+	 * @param bucketName
+	 *            The name of the Amazon S3 bucket to create.
+	 * @param region
+	 *            The region in which to create this bucket. This must match the
+	 *            region of the endpoint the client is configured against unless
+	 *            the client is configured against the US Standard endpoint
+	 *            (s3.amazonaws.com).
+	 *
+	 * @see CreateBucketRequest#CreateBucketRequest(String)
+	 * @see CreateBucketRequest#CreateBucketRequest(String, String)
+	 */
     public CreateBucketRequest(String bucketName, Region region) {
         this(bucketName, region.toString());
     }
@@ -81,8 +85,11 @@ public class CreateBucketRequest extends AmazonWebServiceRequest {
      *
      * @param bucketName
      *            The name of the Amazon S3 bucket to create.
-     * @param region
-     *            The region in which to create this bucket.
+	 * @param region
+	 *            The region in which to create this bucket. This must match the
+	 *            region of the endpoint the client is configured against unless
+	 *            the client is configured against the US Standard endpoint
+	 *            (s3.amazonaws.com).
      *
      * @see CreateBucketRequest#CreateBucketRequest(String)
      * @see CreateBucketRequest#CreateBucketRequest(String, Region)
@@ -118,8 +125,11 @@ public class CreateBucketRequest extends AmazonWebServiceRequest {
     /**
      * Sets the name of the Amazon S3 region in which this bucket will be created.
      *
-     * @param region
-     *              The name of the Amazon S3 region in which this bucket will be created.
+	 * @param region
+	 *            The region in which to create this bucket. This must match the
+	 *            region of the endpoint the client is configured against unless
+	 *            the client is configured against the US Standard endpoint
+	 *            (s3.amazonaws.com).
      *
      * @see CreateBucketRequest#getRegion()
      */

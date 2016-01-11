@@ -1,5 +1,5 @@
 /*
- * Copyright 2010-2015 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2010-2016 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License.
@@ -67,6 +67,9 @@ public class AWSCodeCommitClient extends AmazonWebServiceClient implements
 
     /** Default signing name for the service. */
     private static final String DEFAULT_SIGNING_NAME = "codecommit";
+
+    /** The region metadata service name for computing region endpoints. */
+    private static final String DEFAULT_ENDPOINT_PREFIX = "codecommit";
 
     /**
      * List of exception unmarshallers for all CodeCommit exceptions.
@@ -322,6 +325,7 @@ public class AWSCodeCommitClient extends AmazonWebServiceClient implements
         // calling this.setEndPoint(...) will also modify the signer accordingly
         setEndpoint("https://codecommit.us-east-1.amazonaws.com");
         setServiceNameIntern(DEFAULT_SIGNING_NAME);
+        setEndpointPrefix(DEFAULT_ENDPOINT_PREFIX);
         HandlerChainFactory chainFactory = new HandlerChainFactory();
         requestHandler2s
                 .addAll(chainFactory
@@ -371,6 +375,7 @@ public class AWSCodeCommitClient extends AmazonWebServiceClient implements
      *         No encryption key was found.
      * @throws EncryptionKeyUnavailableException
      *         The encryption key is not available.
+     * @sample AWSCodeCommit.BatchGetRepositories
      */
     @Override
     public BatchGetRepositoriesResult batchGetRepositories(
@@ -386,16 +391,18 @@ public class AWSCodeCommitClient extends AmazonWebServiceClient implements
             awsRequestMetrics.startEvent(Field.RequestMarshallTime);
             try {
                 request = new BatchGetRepositoriesRequestMarshaller()
-                        .marshall(batchGetRepositoriesRequest);
+                        .marshall(super
+                                .beforeMarshalling(batchGetRepositoriesRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
 
-            response = invoke(request,
-                    new BatchGetRepositoriesResultJsonUnmarshaller(),
-                    executionContext);
+            JsonResponseHandler<BatchGetRepositoriesResult> responseHandler = new JsonResponseHandler<BatchGetRepositoriesResult>(
+                    new BatchGetRepositoriesResultJsonUnmarshaller());
+            responseHandler.setIsPayloadJson(true);
+            response = invoke(request, responseHandler, executionContext);
 
             return response.getAwsResponse();
 
@@ -448,6 +455,7 @@ public class AWSCodeCommitClient extends AmazonWebServiceClient implements
      *         No encryption key was found.
      * @throws EncryptionKeyUnavailableException
      *         The encryption key is not available.
+     * @sample AWSCodeCommit.CreateBranch
      */
     @Override
     public void createBranch(CreateBranchRequest createBranchRequest) {
@@ -461,15 +469,18 @@ public class AWSCodeCommitClient extends AmazonWebServiceClient implements
         try {
             awsRequestMetrics.startEvent(Field.RequestMarshallTime);
             try {
-                request = new CreateBranchRequestMarshaller()
-                        .marshall(createBranchRequest);
+                request = new CreateBranchRequestMarshaller().marshall(super
+                        .beforeMarshalling(createBranchRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
 
-            invoke(request, null, executionContext);
+            JsonResponseHandler<Void> responseHandler = new JsonResponseHandler<Void>(
+                    null);
+            responseHandler.setIsPayloadJson(true);
+            invoke(request, responseHandler, executionContext);
 
         } finally {
 
@@ -509,6 +520,7 @@ public class AWSCodeCommitClient extends AmazonWebServiceClient implements
      *         No encryption key was found.
      * @throws EncryptionKeyUnavailableException
      *         The encryption key is not available.
+     * @sample AWSCodeCommit.CreateRepository
      */
     @Override
     public CreateRepositoryResult createRepository(
@@ -524,16 +536,18 @@ public class AWSCodeCommitClient extends AmazonWebServiceClient implements
             awsRequestMetrics.startEvent(Field.RequestMarshallTime);
             try {
                 request = new CreateRepositoryRequestMarshaller()
-                        .marshall(createRepositoryRequest);
+                        .marshall(super
+                                .beforeMarshalling(createRepositoryRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
 
-            response = invoke(request,
-                    new CreateRepositoryResultJsonUnmarshaller(),
-                    executionContext);
+            JsonResponseHandler<CreateRepositoryResult> responseHandler = new JsonResponseHandler<CreateRepositoryResult>(
+                    new CreateRepositoryResultJsonUnmarshaller());
+            responseHandler.setIsPayloadJson(true);
+            response = invoke(request, responseHandler, executionContext);
 
             return response.getAwsResponse();
 
@@ -573,6 +587,7 @@ public class AWSCodeCommitClient extends AmazonWebServiceClient implements
      *         No encryption key was found.
      * @throws EncryptionKeyUnavailableException
      *         The encryption key is not available.
+     * @sample AWSCodeCommit.DeleteRepository
      */
     @Override
     public DeleteRepositoryResult deleteRepository(
@@ -588,16 +603,18 @@ public class AWSCodeCommitClient extends AmazonWebServiceClient implements
             awsRequestMetrics.startEvent(Field.RequestMarshallTime);
             try {
                 request = new DeleteRepositoryRequestMarshaller()
-                        .marshall(deleteRepositoryRequest);
+                        .marshall(super
+                                .beforeMarshalling(deleteRepositoryRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
 
-            response = invoke(request,
-                    new DeleteRepositoryResultJsonUnmarshaller(),
-                    executionContext);
+            JsonResponseHandler<DeleteRepositoryResult> responseHandler = new JsonResponseHandler<DeleteRepositoryResult>(
+                    new DeleteRepositoryResultJsonUnmarshaller());
+            responseHandler.setIsPayloadJson(true);
+            response = invoke(request, responseHandler, executionContext);
 
             return response.getAwsResponse();
 
@@ -642,6 +659,7 @@ public class AWSCodeCommitClient extends AmazonWebServiceClient implements
      *         No encryption key was found.
      * @throws EncryptionKeyUnavailableException
      *         The encryption key is not available.
+     * @sample AWSCodeCommit.GetBranch
      */
     @Override
     public GetBranchResult getBranch(GetBranchRequest getBranchRequest) {
@@ -655,16 +673,18 @@ public class AWSCodeCommitClient extends AmazonWebServiceClient implements
         try {
             awsRequestMetrics.startEvent(Field.RequestMarshallTime);
             try {
-                request = new GetBranchRequestMarshaller()
-                        .marshall(getBranchRequest);
+                request = new GetBranchRequestMarshaller().marshall(super
+                        .beforeMarshalling(getBranchRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
 
-            response = invoke(request, new GetBranchResultJsonUnmarshaller(),
-                    executionContext);
+            JsonResponseHandler<GetBranchResult> responseHandler = new JsonResponseHandler<GetBranchResult>(
+                    new GetBranchResultJsonUnmarshaller());
+            responseHandler.setIsPayloadJson(true);
+            response = invoke(request, responseHandler, executionContext);
 
             return response.getAwsResponse();
 
@@ -712,6 +732,7 @@ public class AWSCodeCommitClient extends AmazonWebServiceClient implements
      *         No encryption key was found.
      * @throws EncryptionKeyUnavailableException
      *         The encryption key is not available.
+     * @sample AWSCodeCommit.GetRepository
      */
     @Override
     public GetRepositoryResult getRepository(
@@ -726,16 +747,18 @@ public class AWSCodeCommitClient extends AmazonWebServiceClient implements
         try {
             awsRequestMetrics.startEvent(Field.RequestMarshallTime);
             try {
-                request = new GetRepositoryRequestMarshaller()
-                        .marshall(getRepositoryRequest);
+                request = new GetRepositoryRequestMarshaller().marshall(super
+                        .beforeMarshalling(getRepositoryRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
 
-            response = invoke(request,
-                    new GetRepositoryResultJsonUnmarshaller(), executionContext);
+            JsonResponseHandler<GetRepositoryResult> responseHandler = new JsonResponseHandler<GetRepositoryResult>(
+                    new GetRepositoryResultJsonUnmarshaller());
+            responseHandler.setIsPayloadJson(true);
+            response = invoke(request, responseHandler, executionContext);
 
             return response.getAwsResponse();
 
@@ -775,6 +798,7 @@ public class AWSCodeCommitClient extends AmazonWebServiceClient implements
      *         The encryption key is not available.
      * @throws InvalidContinuationTokenException
      *         The specified continuation token is not valid.
+     * @sample AWSCodeCommit.ListBranches
      */
     @Override
     public ListBranchesResult listBranches(
@@ -789,16 +813,18 @@ public class AWSCodeCommitClient extends AmazonWebServiceClient implements
         try {
             awsRequestMetrics.startEvent(Field.RequestMarshallTime);
             try {
-                request = new ListBranchesRequestMarshaller()
-                        .marshall(listBranchesRequest);
+                request = new ListBranchesRequestMarshaller().marshall(super
+                        .beforeMarshalling(listBranchesRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
 
-            response = invoke(request,
-                    new ListBranchesResultJsonUnmarshaller(), executionContext);
+            JsonResponseHandler<ListBranchesResult> responseHandler = new JsonResponseHandler<ListBranchesResult>(
+                    new ListBranchesResultJsonUnmarshaller());
+            responseHandler.setIsPayloadJson(true);
+            response = invoke(request, responseHandler, executionContext);
 
             return response.getAwsResponse();
 
@@ -822,6 +848,7 @@ public class AWSCodeCommitClient extends AmazonWebServiceClient implements
      *         The specified sort order is not valid.
      * @throws InvalidContinuationTokenException
      *         The specified continuation token is not valid.
+     * @sample AWSCodeCommit.ListRepositories
      */
     @Override
     public ListRepositoriesResult listRepositories(
@@ -837,16 +864,18 @@ public class AWSCodeCommitClient extends AmazonWebServiceClient implements
             awsRequestMetrics.startEvent(Field.RequestMarshallTime);
             try {
                 request = new ListRepositoriesRequestMarshaller()
-                        .marshall(listRepositoriesRequest);
+                        .marshall(super
+                                .beforeMarshalling(listRepositoriesRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
 
-            response = invoke(request,
-                    new ListRepositoriesResultJsonUnmarshaller(),
-                    executionContext);
+            JsonResponseHandler<ListRepositoriesResult> responseHandler = new JsonResponseHandler<ListRepositoriesResult>(
+                    new ListRepositoriesResultJsonUnmarshaller());
+            responseHandler.setIsPayloadJson(true);
+            response = invoke(request, responseHandler, executionContext);
 
             return response.getAwsResponse();
 
@@ -892,6 +921,7 @@ public class AWSCodeCommitClient extends AmazonWebServiceClient implements
      *         No encryption key was found.
      * @throws EncryptionKeyUnavailableException
      *         The encryption key is not available.
+     * @sample AWSCodeCommit.UpdateDefaultBranch
      */
     @Override
     public void updateDefaultBranch(
@@ -907,14 +937,18 @@ public class AWSCodeCommitClient extends AmazonWebServiceClient implements
             awsRequestMetrics.startEvent(Field.RequestMarshallTime);
             try {
                 request = new UpdateDefaultBranchRequestMarshaller()
-                        .marshall(updateDefaultBranchRequest);
+                        .marshall(super
+                                .beforeMarshalling(updateDefaultBranchRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
 
-            invoke(request, null, executionContext);
+            JsonResponseHandler<Void> responseHandler = new JsonResponseHandler<Void>(
+                    null);
+            responseHandler.setIsPayloadJson(true);
+            invoke(request, responseHandler, executionContext);
 
         } finally {
 
@@ -962,6 +996,7 @@ public class AWSCodeCommitClient extends AmazonWebServiceClient implements
      *         No encryption key was found.
      * @throws EncryptionKeyUnavailableException
      *         The encryption key is not available.
+     * @sample AWSCodeCommit.UpdateRepositoryDescription
      */
     @Override
     public void updateRepositoryDescription(
@@ -977,14 +1012,18 @@ public class AWSCodeCommitClient extends AmazonWebServiceClient implements
             awsRequestMetrics.startEvent(Field.RequestMarshallTime);
             try {
                 request = new UpdateRepositoryDescriptionRequestMarshaller()
-                        .marshall(updateRepositoryDescriptionRequest);
+                        .marshall(super
+                                .beforeMarshalling(updateRepositoryDescriptionRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
 
-            invoke(request, null, executionContext);
+            JsonResponseHandler<Void> responseHandler = new JsonResponseHandler<Void>(
+                    null);
+            responseHandler.setIsPayloadJson(true);
+            invoke(request, responseHandler, executionContext);
 
         } finally {
 
@@ -1012,6 +1051,7 @@ public class AWSCodeCommitClient extends AmazonWebServiceClient implements
      *         is not valid. Other exceptions occur when a required repository
      *         parameter is missing, or when a specified repository does not
      *         exist.
+     * @sample AWSCodeCommit.UpdateRepositoryName
      */
     @Override
     public void updateRepositoryName(
@@ -1027,14 +1067,18 @@ public class AWSCodeCommitClient extends AmazonWebServiceClient implements
             awsRequestMetrics.startEvent(Field.RequestMarshallTime);
             try {
                 request = new UpdateRepositoryNameRequestMarshaller()
-                        .marshall(updateRepositoryNameRequest);
+                        .marshall(super
+                                .beforeMarshalling(updateRepositoryNameRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
 
-            invoke(request, null, executionContext);
+            JsonResponseHandler<Void> responseHandler = new JsonResponseHandler<Void>(
+                    null);
+            responseHandler.setIsPayloadJson(true);
+            invoke(request, responseHandler, executionContext);
 
         } finally {
 
@@ -1067,7 +1111,7 @@ public class AWSCodeCommitClient extends AmazonWebServiceClient implements
 
     private <X, Y extends AmazonWebServiceRequest> Response<X> invoke(
             Request<Y> request,
-            Unmarshaller<X, JsonUnmarshallerContext> unmarshaller,
+            HttpResponseHandler<AmazonWebServiceResponse<X>> responseHandler,
             ExecutionContext executionContext) {
         request.setEndpoint(endpoint);
         request.setTimeOffset(timeOffset);
@@ -1090,8 +1134,6 @@ public class AWSCodeCommitClient extends AmazonWebServiceClient implements
 
         executionContext.setCredentials(credentials);
 
-        JsonResponseHandler<X> responseHandler = new JsonResponseHandler<X>(
-                unmarshaller);
         JsonErrorResponseHandlerV2 errorResponseHandler = new JsonErrorResponseHandlerV2(
                 jsonErrorUnmarshallers);
 

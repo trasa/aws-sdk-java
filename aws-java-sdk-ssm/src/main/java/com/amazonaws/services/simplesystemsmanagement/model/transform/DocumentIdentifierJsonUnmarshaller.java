@@ -1,5 +1,5 @@
 /*
- * Copyright 2010-2015 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2010-2016 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License.
@@ -54,6 +54,13 @@ public class DocumentIdentifierJsonUnmarshaller implements
                     context.nextToken();
                     documentIdentifier.setName(StringJsonUnmarshaller
                             .getInstance().unmarshall(context));
+                }
+                if (context.testExpression("PlatformTypes", targetDepth)) {
+                    context.nextToken();
+                    documentIdentifier
+                            .setPlatformTypes(new ListUnmarshaller<String>(
+                                    StringJsonUnmarshaller.getInstance())
+                                    .unmarshall(context));
                 }
             } else if (token == END_ARRAY || token == END_OBJECT) {
                 if (context.getLastParsedParentElement() == null

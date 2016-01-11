@@ -1,5 +1,5 @@
 /*
- * Copyright 2011-2015 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2011-2016 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License.
@@ -13,6 +13,7 @@
  * permissions and limitations under the License.
  */
 package com.amazonaws.services.s3.model;
+import java.io.Serializable;
 
 /**
  * A container for describing a condition that must be met for the specified
@@ -20,7 +21,7 @@ package com.amazonaws.services.s3.model;
  * redirect to the /documents folder or if request results in HTTP error 4xx,
  * redirect request to another host where you might process the error.
  */
-public class RoutingRuleCondition {
+public class RoutingRuleCondition implements Serializable {
 
 	/**
 	 * The object key name prefix when the redirect is applied. For example, to

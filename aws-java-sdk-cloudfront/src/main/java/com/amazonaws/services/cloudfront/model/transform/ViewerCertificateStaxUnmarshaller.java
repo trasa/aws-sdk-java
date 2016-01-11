@@ -1,5 +1,5 @@
 /*
- * Copyright 2010-2015 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2010-2016 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License.
@@ -42,12 +42,12 @@ public class ViewerCertificateStaxUnmarshaller implements Unmarshaller<ViewerCer
             if (xmlEvent.isEndDocument()) return viewerCertificate;
 
             if (xmlEvent.isAttribute() || xmlEvent.isStartElement()) {
-                if (context.testExpression("IAMCertificateId", targetDepth)) {
-                    viewerCertificate.setIAMCertificateId(StringStaxUnmarshaller.getInstance().unmarshall(context));
+                if (context.testExpression("Certificate", targetDepth)) {
+                    viewerCertificate.setCertificate(StringStaxUnmarshaller.getInstance().unmarshall(context));
                     continue;
                 }
-                if (context.testExpression("CloudFrontDefaultCertificate", targetDepth)) {
-                    viewerCertificate.setCloudFrontDefaultCertificate(BooleanStaxUnmarshaller.getInstance().unmarshall(context));
+                if (context.testExpression("CertificateSource", targetDepth)) {
+                    viewerCertificate.setCertificateSource(StringStaxUnmarshaller.getInstance().unmarshall(context));
                     continue;
                 }
                 if (context.testExpression("SSLSupportMethod", targetDepth)) {
@@ -56,6 +56,14 @@ public class ViewerCertificateStaxUnmarshaller implements Unmarshaller<ViewerCer
                 }
                 if (context.testExpression("MinimumProtocolVersion", targetDepth)) {
                     viewerCertificate.setMinimumProtocolVersion(StringStaxUnmarshaller.getInstance().unmarshall(context));
+                    continue;
+                }
+                if (context.testExpression("IAMCertificateId", targetDepth)) {
+                    viewerCertificate.setIAMCertificateId(StringStaxUnmarshaller.getInstance().unmarshall(context));
+                    continue;
+                }
+                if (context.testExpression("CloudFrontDefaultCertificate", targetDepth)) {
+                    viewerCertificate.setCloudFrontDefaultCertificate(BooleanStaxUnmarshaller.getInstance().unmarshall(context));
                     continue;
                 }
             } else if (xmlEvent.isEndElement()) {

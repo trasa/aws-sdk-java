@@ -1,5 +1,5 @@
 /*
- * Copyright 2013-2015 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2013-2016 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License.
@@ -501,11 +501,10 @@ public class AmazonS3EncryptionClient extends AmazonS3Client implements
         // Delete the object
         super.deleteObject(req);
         // If it exists, delete the instruction file.
-        InstructionFileId ifid =
-            new S3ObjectId(req.getBucketName(), req.getKey())
-            .instructionFileId();
-        DeleteObjectRequest instructionDeleteRequest =
-            new DeleteObjectRequest(ifid.getBucket(), ifid.getKey());
+        InstructionFileId ifid = new S3ObjectId(req.getBucketName(), req.getKey()).instructionFileId();
+
+        DeleteObjectRequest instructionDeleteRequest = (DeleteObjectRequest) req.clone();
+        instructionDeleteRequest.withBucketName(ifid.getBucket()).withKey(ifid.getKey());
         super.deleteObject(instructionDeleteRequest);
     }
 

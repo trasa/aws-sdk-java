@@ -1,5 +1,5 @@
 /*
- * Copyright 2010-2015 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2010-2016 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License.
@@ -668,29 +668,21 @@ public class GetMLModelResult implements Serializable, Cloneable {
     }
 
     /**
-     * Sets the value of the SizeInBytes property for this object.
-     * 
      * @param sizeInBytes
-     *        The new value for the SizeInBytes property for this object.
      */
     public void setSizeInBytes(Long sizeInBytes) {
         this.sizeInBytes = sizeInBytes;
     }
 
     /**
-     * Returns the value of the SizeInBytes property for this object.
-     * 
-     * @return The value of the SizeInBytes property for this object.
+     * @return
      */
     public Long getSizeInBytes() {
         return this.sizeInBytes;
     }
 
     /**
-     * Sets the value of the SizeInBytes property for this object.
-     * 
      * @param sizeInBytes
-     *        The new value for the SizeInBytes property for this object.
      * @return Returns a reference to this object so that method calls can be
      *         chained together.
      */

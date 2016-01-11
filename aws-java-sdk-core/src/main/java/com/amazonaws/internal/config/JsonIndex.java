@@ -1,5 +1,5 @@
 /*
- * Copyright 2010-2015 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2010-2016 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License.
@@ -15,29 +15,30 @@
 package com.amazonaws.internal.config;
 
 /**
- * An internal class used to represent a key-object pair for JSON persistence
- * purposes.
+ * An internal class used to represent a key-object pair for JSON persistence purposes.
  */
-final class JsonIndex<C extends Builder<T>, T> {
+public final class JsonIndex<C extends Builder<T>, T> {
+
     private String key;
     private C config;
 
-    JsonIndex(String key, C config) {
+    public JsonIndex() {
+    }
+
+    public JsonIndex(String key) {
+        this.key = key;
+    }
+
+    public JsonIndex(String key, C config) {
         this.key = key;
         this.config = config;
     }
-
-    JsonIndex(String key) {
-        this.key = key;
-    }
-
-    JsonIndex() {}
 
     public String getKey() {
         return key;
     }
 
-    void setKey(String key) {
+    public void setKey(String key) {
         this.key = key;
     }
 
@@ -45,7 +46,11 @@ final class JsonIndex<C extends Builder<T>, T> {
         return config;
     }
 
-    T newReadOnlyConfig() {
+    public void setConfig(C config) {
+        this.config = config;
+    }
+
+    public T newReadOnlyConfig() {
         return config.build();
     }
 }

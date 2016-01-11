@@ -1,5 +1,5 @@
 /*
- * Copyright 2015-2015 Amazon Technologies, Inc.
+ * Copyright 2015-2016 Amazon Technologies, Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -13,6 +13,7 @@
  * limitations under the License.
  */
 package com.amazonaws.services.s3.model;
+import java.io.Serializable;
 
 import com.amazonaws.services.s3.AmazonS3;
 
@@ -21,7 +22,7 @@ import com.amazonaws.services.s3.AmazonS3;
  *
  * @see AmazonS3#getBucketCrossOriginConfiguration(GetBucketCrossOriginConfigurationRequest)
  */
-public class GetBucketCrossOriginConfigurationRequest extends GenericBucketRequest {
+public class GetBucketCrossOriginConfigurationRequest extends GenericBucketRequest implements Serializable {
 
     /**
      * Creates a request object, ready to be executed to fetch the cross origin

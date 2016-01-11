@@ -1,5 +1,5 @@
 /*
- * Copyright 2010-2015 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2010-2016 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License.
@@ -25,29 +25,21 @@ public class CancelJobResult implements Serializable, Cloneable {
     private Boolean success;
 
     /**
-     * Sets the value of the Success property for this object.
-     * 
      * @param success
-     *        The new value for the Success property for this object.
      */
     public void setSuccess(Boolean success) {
         this.success = success;
     }
 
     /**
-     * Returns the value of the Success property for this object.
-     * 
-     * @return The value of the Success property for this object.
+     * @return
      */
     public Boolean getSuccess() {
         return this.success;
     }
 
     /**
-     * Sets the value of the Success property for this object.
-     * 
      * @param success
-     *        The new value for the Success property for this object.
      * @return Returns a reference to this object so that method calls can be
      *         chained together.
      */
@@ -57,9 +49,7 @@ public class CancelJobResult implements Serializable, Cloneable {
     }
 
     /**
-     * Returns the value of the Success property for this object.
-     * 
-     * @return The value of the Success property for this object.
+     * @return
      */
     public Boolean isSuccess() {
         return this.success;

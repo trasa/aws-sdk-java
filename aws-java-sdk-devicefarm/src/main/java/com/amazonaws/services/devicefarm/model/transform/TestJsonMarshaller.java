@@ -1,5 +1,5 @@
 /*
- * Copyright 2010-2015 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2010-2016 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License.
@@ -89,6 +89,12 @@ public class TestJsonMarshaller {
 
             if (test.getMessage() != null) {
                 jsonWriter.key("message").value(test.getMessage());
+            }
+
+            if (test.getDeviceMinutes() != null) {
+                jsonWriter.key("deviceMinutes");
+                DeviceMinutesJsonMarshaller.getInstance().marshall(
+                        test.getDeviceMinutes(), jsonWriter);
             }
 
             jsonWriter.endObject();

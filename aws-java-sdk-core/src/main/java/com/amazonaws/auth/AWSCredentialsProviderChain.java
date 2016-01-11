@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2015 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2012-2016 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License.
@@ -40,25 +40,39 @@ public class AWSCredentialsProviderChain implements AWSCredentialsProvider {
 
     private static final Log log = LogFactory.getLog(AWSCredentialsProviderChain.class);
 
-    private List<AWSCredentialsProvider> credentialsProviders =
+    private final List<AWSCredentialsProvider> credentialsProviders =
             new LinkedList<AWSCredentialsProvider>();
 
     private boolean reuseLastProvider = true;
     private AWSCredentialsProvider lastUsedProvider;
 
+    /**
+     * Constructs a new AWSCredentialsProviderChain with the specified credential providers. When
+     * credentials are requested from this provider, it will call each of these credential providers
+     * in the same order specified here until one of them returns AWS security credentials.
+     *
+     * @param credentialsProviders
+     *            The chain of credentials providers.
+     */
+    public AWSCredentialsProviderChain(List<? extends AWSCredentialsProvider> credentialsProviders) {
+        if (credentialsProviders == null || credentialsProviders.size() == 0) {
+            throw new IllegalArgumentException("No credential providers specified");
+        }
+        this.credentialsProviders.addAll(credentialsProviders);
+    }
 
     /**
-     * Constructs a new AWSCredentialsProviderChain with the specified
-     * credential providers. When credentials are requested from this provider,
-     * it will call each of these credential providers in the same order
-     * specified here until one of them returns AWS security credentials.
+     * Constructs a new AWSCredentialsProviderChain with the specified credential providers. When
+     * credentials are requested from this provider, it will call each of these credential providers
+     * in the same order specified here until one of them returns AWS security credentials.
      *
      * @param credentialsProviders
      *            The chain of credentials providers.
      */
     public AWSCredentialsProviderChain(AWSCredentialsProvider... credentialsProviders) {
-        if (credentialsProviders == null || credentialsProviders.length == 0)
+        if (credentialsProviders == null || credentialsProviders.length == 0) {
             throw new IllegalArgumentException("No credential providers specified");
+        }
 
         for (AWSCredentialsProvider provider : credentialsProviders) {
             this.credentialsProviders.add(provider);

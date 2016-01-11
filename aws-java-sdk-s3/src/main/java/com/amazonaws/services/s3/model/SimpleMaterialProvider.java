@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2015 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2014-2016 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License.
@@ -13,11 +13,12 @@
  * permissions and limitations under the License.
  */
 package com.amazonaws.services.s3.model;
+import java.io.Serializable;
 
 import java.util.HashMap;
 import java.util.Map;
 
-public class SimpleMaterialProvider implements EncryptionMaterialsProvider {
+public class SimpleMaterialProvider implements EncryptionMaterialsProvider,Serializable {
     private final Map<Map<String, String>, EncryptionMaterials> map =
         new HashMap<Map<String, String>, EncryptionMaterials>();
     private EncryptionMaterials latest;

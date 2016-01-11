@@ -1,5 +1,5 @@
 /*
- * Copyright 2010-2015 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2010-2016 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License.
@@ -19,7 +19,8 @@ import com.amazonaws.AmazonServiceException;
 
 /**
  * <p>
- * You must specify the ID of a running instance.
+ * The instance is not in valid state. Valid states are: Running, Pending,
+ * Stopped, Stopping. Invalid states are: Shutting-down and Terminated.
  * </p>
  */
 public class InvalidInstanceIdException extends AmazonServiceException {

@@ -1,5 +1,5 @@
 /*
- * Copyright 2010-2015 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2010-2016 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License.
@@ -45,6 +45,8 @@ import com.amazonaws.util.json.*;
 public class CreateMountTargetRequestMarshaller implements
         Marshaller<Request<CreateMountTargetRequest>, CreateMountTargetRequest> {
 
+    private static final String DEFAULT_CONTENT_TYPE = "";
+
     public Request<CreateMountTargetRequest> marshall(
             CreateMountTargetRequest createMountTargetRequest) {
 
@@ -59,6 +61,7 @@ public class CreateMountTargetRequestMarshaller implements
         request.setHttpMethod(HttpMethodName.POST);
 
         String uriResourcePath = "/2015-02-01/mount-targets";
+
         request.setResourcePath(uriResourcePath);
 
         try {
@@ -104,7 +107,7 @@ public class CreateMountTargetRequestMarshaller implements
             request.addHeader("Content-Length",
                     Integer.toString(content.length));
             if (!request.getHeaders().containsKey("Content-Type")) {
-                request.addHeader("Content-Type", "application/json");
+                request.addHeader("Content-Type", DEFAULT_CONTENT_TYPE);
             }
         } catch (Throwable t) {
             throw new AmazonClientException(

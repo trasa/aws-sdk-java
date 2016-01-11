@@ -1,5 +1,5 @@
 /*
- * Copyright 2010-2015 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2010-2016 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License.
@@ -24,6 +24,7 @@ public class UnsupportedAvailabilityZoneException extends
         AmazonServiceException {
     private static final long serialVersionUID = 1L;
 
+    @com.fasterxml.jackson.annotation.JsonProperty("ErrorCode")
     private String errorCode;
 
     /**
@@ -38,29 +39,21 @@ public class UnsupportedAvailabilityZoneException extends
     }
 
     /**
-     * Sets the value of the ErrorCode property for this object.
-     * 
      * @param errorCode
-     *        The new value for the ErrorCode property for this object.
      */
     public void setErrorCode(String errorCode) {
         this.errorCode = errorCode;
     }
 
     /**
-     * Returns the value of the ErrorCode property for this object.
-     * 
-     * @return The value of the ErrorCode property for this object.
+     * @return
      */
     public String getErrorCode() {
         return this.errorCode;
     }
 
     /**
-     * Sets the value of the ErrorCode property for this object.
-     * 
      * @param errorCode
-     *        The new value for the ErrorCode property for this object.
      * @return Returns a reference to this object so that method calls can be
      *         chained together.
      */

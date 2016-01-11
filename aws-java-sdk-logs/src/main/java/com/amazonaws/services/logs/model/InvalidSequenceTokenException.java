@@ -1,5 +1,5 @@
 /*
- * Copyright 2010-2015 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2010-2016 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License.
@@ -23,6 +23,7 @@ import com.amazonaws.AmazonServiceException;
 public class InvalidSequenceTokenException extends AmazonServiceException {
     private static final long serialVersionUID = 1L;
 
+    @com.fasterxml.jackson.annotation.JsonProperty("expectedSequenceToken")
     private String expectedSequenceToken;
 
     /**
@@ -37,31 +38,21 @@ public class InvalidSequenceTokenException extends AmazonServiceException {
     }
 
     /**
-     * Sets the value of the ExpectedSequenceToken property for this object.
-     * 
      * @param expectedSequenceToken
-     *        The new value for the ExpectedSequenceToken property for this
-     *        object.
      */
     public void setExpectedSequenceToken(String expectedSequenceToken) {
         this.expectedSequenceToken = expectedSequenceToken;
     }
 
     /**
-     * Returns the value of the ExpectedSequenceToken property for this object.
-     * 
-     * @return The value of the ExpectedSequenceToken property for this object.
+     * @return
      */
     public String getExpectedSequenceToken() {
         return this.expectedSequenceToken;
     }
 
     /**
-     * Sets the value of the ExpectedSequenceToken property for this object.
-     * 
      * @param expectedSequenceToken
-     *        The new value for the ExpectedSequenceToken property for this
-     *        object.
      * @return Returns a reference to this object so that method calls can be
      *         chained together.
      */

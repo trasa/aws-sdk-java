@@ -1,5 +1,5 @@
 /*
- * Copyright 2010-2015 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2010-2016 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License.
@@ -15,6 +15,7 @@
 package com.amazonaws.services.simplesystemsmanagement;
 
 import com.amazonaws.services.simplesystemsmanagement.model.*;
+import com.amazonaws.*;
 
 /**
  * Abstract implementation of {@code AWSSimpleSystemsManagement}. Convenient
@@ -34,6 +35,11 @@ public class AbstractAWSSimpleSystemsManagement implements
 
     @Override
     public void setRegion(com.amazonaws.regions.Region region) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public CancelCommandResult cancelCommand(CancelCommandRequest request) {
         throw new java.lang.UnsupportedOperationException();
     }
 
@@ -78,6 +84,12 @@ public class AbstractAWSSimpleSystemsManagement implements
     }
 
     @Override
+    public DescribeInstanceInformationResult describeInstanceInformation(
+            DescribeInstanceInformationRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public GetDocumentResult getDocument(GetDocumentRequest request) {
         throw new java.lang.UnsupportedOperationException();
     }
@@ -89,6 +101,17 @@ public class AbstractAWSSimpleSystemsManagement implements
     }
 
     @Override
+    public ListCommandInvocationsResult listCommandInvocations(
+            ListCommandInvocationsRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
+    public ListCommandsResult listCommands(ListCommandsRequest request) {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+    @Override
     public ListDocumentsResult listDocuments(ListDocumentsRequest request) {
         throw new java.lang.UnsupportedOperationException();
     }
@@ -96,6 +119,11 @@ public class AbstractAWSSimpleSystemsManagement implements
     @Override
     public ListDocumentsResult listDocuments() {
         return listDocuments(new ListDocumentsRequest());
+    }
+
+    @Override
+    public SendCommandResult sendCommand(SendCommandRequest request) {
+        throw new java.lang.UnsupportedOperationException();
     }
 
     @Override

@@ -1,5 +1,5 @@
 /*
- * Copyright 2010-2015 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2010-2016 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License.
@@ -134,7 +134,6 @@ public interface AmazonElasticFileSystem {
      * </p>
      * 
      * @param createFileSystemRequest
-     *        null
      * @return Result of the CreateFileSystem operation returned by the service.
      * @throws BadRequestException
      *         Returned if the request is malformed or contains an error such as
@@ -147,6 +146,7 @@ public interface AmazonElasticFileSystem {
      * @throws FileSystemLimitExceededException
      *         Returned if the AWS account has already created maximum number of
      *         file systems allowed per account.
+     * @sample AmazonElasticFileSystem.CreateFileSystem
      */
     CreateFileSystemResult createFileSystem(
             CreateFileSystemRequest createFileSystemRequest);
@@ -276,7 +276,6 @@ public interface AmazonElasticFileSystem {
      * </ul>
      * 
      * @param createMountTargetRequest
-     *        null
      * @return Result of the CreateMountTarget operation returned by the
      *         service.
      * @throws BadRequestException
@@ -315,7 +314,7 @@ public interface AmazonElasticFileSystem {
      *         Returned if one of the specified security groups does not exist
      *         in the subnet's VPC.
      * @throws UnsupportedAvailabilityZoneException
-     *         null
+     * @sample AmazonElasticFileSystem.CreateMountTarget
      */
     CreateMountTargetResult createMountTarget(
             CreateMountTargetRequest createMountTargetRequest);
@@ -335,7 +334,6 @@ public interface AmazonElasticFileSystem {
      * </p>
      * 
      * @param createTagsRequest
-     *        null
      * @throws BadRequestException
      *         Returned if the request is malformed or contains an error such as
      *         an invalid parameter value or a missing required parameter.
@@ -344,6 +342,7 @@ public interface AmazonElasticFileSystem {
      * @throws FileSystemNotFoundException
      *         Returned if the specified <code>FileSystemId</code> does not
      *         exist in the requester's AWS account.
+     * @sample AmazonElasticFileSystem.CreateTags
      */
     void createTags(CreateTagsRequest createTagsRequest);
 
@@ -372,7 +371,6 @@ public interface AmazonElasticFileSystem {
      * </p>
      * 
      * @param deleteFileSystemRequest
-     *        null
      * @throws BadRequestException
      *         Returned if the request is malformed or contains an error such as
      *         an invalid parameter value or a missing required parameter.
@@ -383,6 +381,7 @@ public interface AmazonElasticFileSystem {
      *         exist in the requester's AWS account.
      * @throws FileSystemInUseException
      *         Returned if a file system has mount targets.
+     * @sample AmazonElasticFileSystem.DeleteFileSystem
      */
     void deleteFileSystem(DeleteFileSystemRequest deleteFileSystemRequest);
 
@@ -420,7 +419,6 @@ public interface AmazonElasticFileSystem {
      * </ul>
      * 
      * @param deleteMountTargetRequest
-     *        null
      * @throws BadRequestException
      *         Returned if the request is malformed or contains an error such as
      *         an invalid parameter value or a missing required parameter.
@@ -432,6 +430,7 @@ public interface AmazonElasticFileSystem {
      * @throws MountTargetNotFoundException
      *         Returned if there is no mount target with the specified ID found
      *         in the caller's account.
+     * @sample AmazonElasticFileSystem.DeleteMountTarget
      */
     void deleteMountTarget(DeleteMountTargetRequest deleteMountTargetRequest);
 
@@ -451,7 +450,6 @@ public interface AmazonElasticFileSystem {
      * </p>
      * 
      * @param deleteTagsRequest
-     *        null
      * @throws BadRequestException
      *         Returned if the request is malformed or contains an error such as
      *         an invalid parameter value or a missing required parameter.
@@ -460,6 +458,7 @@ public interface AmazonElasticFileSystem {
      * @throws FileSystemNotFoundException
      *         Returned if the specified <code>FileSystemId</code> does not
      *         exist in the requester's AWS account.
+     * @sample AmazonElasticFileSystem.DeleteTags
      */
     void deleteTags(DeleteTagsRequest deleteTagsRequest);
 
@@ -504,7 +503,6 @@ public interface AmazonElasticFileSystem {
      * </p>
      * 
      * @param describeFileSystemsRequest
-     *        null
      * @return Result of the DescribeFileSystems operation returned by the
      *         service.
      * @throws BadRequestException
@@ -515,6 +513,7 @@ public interface AmazonElasticFileSystem {
      * @throws FileSystemNotFoundException
      *         Returned if the specified <code>FileSystemId</code> does not
      *         exist in the requester's AWS account.
+     * @sample AmazonElasticFileSystem.DescribeFileSystems
      */
     DescribeFileSystemsResult describeFileSystems(
             DescribeFileSystemsRequest describeFileSystemsRequest);
@@ -544,7 +543,6 @@ public interface AmazonElasticFileSystem {
      * </ul>
      * 
      * @param describeMountTargetSecurityGroupsRequest
-     *        null
      * @return Result of the DescribeMountTargetSecurityGroups operation
      *         returned by the service.
      * @throws BadRequestException
@@ -558,6 +556,7 @@ public interface AmazonElasticFileSystem {
      * @throws IncorrectMountTargetStateException
      *         Returned if the mount target is not in the correct state for the
      *         operation.
+     * @sample AmazonElasticFileSystem.DescribeMountTargetSecurityGroups
      */
     DescribeMountTargetSecurityGroupsResult describeMountTargetSecurityGroups(
             DescribeMountTargetSecurityGroupsRequest describeMountTargetSecurityGroupsRequest);
@@ -578,7 +577,6 @@ public interface AmazonElasticFileSystem {
      * </p>
      * 
      * @param describeMountTargetsRequest
-     *        null
      * @return Result of the DescribeMountTargets operation returned by the
      *         service.
      * @throws BadRequestException
@@ -592,6 +590,7 @@ public interface AmazonElasticFileSystem {
      * @throws MountTargetNotFoundException
      *         Returned if there is no mount target with the specified ID found
      *         in the caller's account.
+     * @sample AmazonElasticFileSystem.DescribeMountTargets
      */
     DescribeMountTargetsResult describeMountTargets(
             DescribeMountTargetsRequest describeMountTargetsRequest);
@@ -609,7 +608,6 @@ public interface AmazonElasticFileSystem {
      * </p>
      * 
      * @param describeTagsRequest
-     *        null
      * @return Result of the DescribeTags operation returned by the service.
      * @throws BadRequestException
      *         Returned if the request is malformed or contains an error such as
@@ -619,6 +617,7 @@ public interface AmazonElasticFileSystem {
      * @throws FileSystemNotFoundException
      *         Returned if the specified <code>FileSystemId</code> does not
      *         exist in the requester's AWS account.
+     * @sample AmazonElasticFileSystem.DescribeTags
      */
     DescribeTagsResult describeTags(DescribeTagsRequest describeTagsRequest);
 
@@ -646,7 +645,6 @@ public interface AmazonElasticFileSystem {
      * </ul>
      * 
      * @param modifyMountTargetSecurityGroupsRequest
-     *        null
      * @throws BadRequestException
      *         Returned if the request is malformed or contains an error such as
      *         an invalid parameter value or a missing required parameter.
@@ -664,6 +662,7 @@ public interface AmazonElasticFileSystem {
      * @throws SecurityGroupNotFoundException
      *         Returned if one of the specified security groups does not exist
      *         in the subnet's VPC.
+     * @sample AmazonElasticFileSystem.ModifyMountTargetSecurityGroups
      */
     void modifyMountTargetSecurityGroups(
             ModifyMountTargetSecurityGroupsRequest modifyMountTargetSecurityGroupsRequest);

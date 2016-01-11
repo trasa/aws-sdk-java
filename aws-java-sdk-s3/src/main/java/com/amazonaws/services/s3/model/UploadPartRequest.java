@@ -1,5 +1,5 @@
 /*
- * Copyright 2010-2015 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2010-2016 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License.
@@ -16,6 +16,7 @@ package com.amazonaws.services.s3.model;
 
 import java.io.File;
 import java.io.InputStream;
+import java.io.Serializable;
 
 import com.amazonaws.AmazonWebServiceRequest;
 import com.amazonaws.event.ProgressListener;
@@ -35,8 +36,10 @@ import com.amazonaws.event.ProgressListener;
  * Required Parameters: BucketName, Key, UploadId, PartNumber
  */
 public class UploadPartRequest extends AmazonWebServiceRequest implements
-        SSECustomerKeyProvider, S3DataSource {
-    /**
+        SSECustomerKeyProvider, S3DataSource, Serializable {
+
+	private static final long serialVersionUID = 1L;
+	/**
      * Additional information about the part being uploaded, such as
      * referrer.
      */
@@ -77,7 +80,7 @@ public class UploadPartRequest extends AmazonWebServiceRequest implements
      * The stream containing the data to upload for the new part. Exactly one
      * File or InputStream must be specified as the input to this operation.
      */
-    private InputStream inputStream;
+    private transient InputStream inputStream;
 
     /**
      * The file containing the data to upload. Exactly one File or InputStream

@@ -1,5 +1,5 @@
 /*
- * Copyright 2010-2015 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2010-2016 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License.
@@ -39,7 +39,7 @@ public class DescribeFlowLogsRequestMarshaller implements Marshaller<Request<Des
 
         Request<DescribeFlowLogsRequest> request = new DefaultRequest<DescribeFlowLogsRequest>(describeFlowLogsRequest, "AmazonEC2");
         request.addParameter("Action", "DescribeFlowLogs");
-        request.addParameter("Version", "2015-04-15");
+        request.addParameter("Version", "2015-10-01");
 
         java.util.List<String> flowLogIdsList = describeFlowLogsRequest.getFlowLogIds();
         int flowLogIdsListIndex = 1;

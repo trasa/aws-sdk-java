@@ -1,5 +1,5 @@
 /*
- * Copyright 2010-2015 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2010-2016 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License.
@@ -15,26 +15,26 @@
 package com.amazonaws.internal.config;
 
 /**
- * An internal class used to build {@link SignerConfig} after this
- * class per se has been unmarshalled from JSON. This class allows us to make
- * use of Jackson without the need to write any special parser or json
- * marshaller/unmarshaller.
+ * An internal class used to build {@link SignerConfig} after this class per se has been
+ * unmarshalled from JSON. This class allows us to make use of Jackson without the need to write any
+ * special parser or json marshaller/unmarshaller.
  */
-class SignerConfigJsonHelper implements Builder<SignerConfig> {
+public class SignerConfigJsonHelper implements Builder<SignerConfig> {
 
     private String signerType;
 
-    SignerConfigJsonHelper(String signerType) {
-        this.signerType = signerType;
+    public SignerConfigJsonHelper() {
     }
 
-    SignerConfigJsonHelper() {}
+    public SignerConfigJsonHelper(String signerType) {
+        this.signerType = signerType;
+    }
 
     public String getSignerType() {
         return signerType;
     }
 
-    void setSignerType(String signerType) {
+    public void setSignerType(String signerType) {
         this.signerType = signerType;
     }
 

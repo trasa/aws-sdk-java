@@ -1,5 +1,5 @@
 /*
- * Copyright 2010-2015 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2010-2016 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License.
@@ -41,7 +41,8 @@ public class FilterLogEventsResult implements Serializable, Cloneable {
      * <p>
      * A pagination token obtained from a
      * <code class="code">FilterLogEvents</code> response to continue paginating
-     * the FilterLogEvents results.
+     * the FilterLogEvents results. This token is omitted from the response when
+     * there are no other events to display.
      * </p>
      */
     private String nextToken;
@@ -230,13 +231,15 @@ public class FilterLogEventsResult implements Serializable, Cloneable {
      * <p>
      * A pagination token obtained from a
      * <code class="code">FilterLogEvents</code> response to continue paginating
-     * the FilterLogEvents results.
+     * the FilterLogEvents results. This token is omitted from the response when
+     * there are no other events to display.
      * </p>
      * 
      * @param nextToken
      *        A pagination token obtained from a
      *        <code class="code">FilterLogEvents</code> response to continue
-     *        paginating the FilterLogEvents results.
+     *        paginating the FilterLogEvents results. This token is omitted from
+     *        the response when there are no other events to display.
      */
     public void setNextToken(String nextToken) {
         this.nextToken = nextToken;
@@ -246,12 +249,14 @@ public class FilterLogEventsResult implements Serializable, Cloneable {
      * <p>
      * A pagination token obtained from a
      * <code class="code">FilterLogEvents</code> response to continue paginating
-     * the FilterLogEvents results.
+     * the FilterLogEvents results. This token is omitted from the response when
+     * there are no other events to display.
      * </p>
      * 
      * @return A pagination token obtained from a
      *         <code class="code">FilterLogEvents</code> response to continue
-     *         paginating the FilterLogEvents results.
+     *         paginating the FilterLogEvents results. This token is omitted
+     *         from the response when there are no other events to display.
      */
     public String getNextToken() {
         return this.nextToken;
@@ -261,13 +266,15 @@ public class FilterLogEventsResult implements Serializable, Cloneable {
      * <p>
      * A pagination token obtained from a
      * <code class="code">FilterLogEvents</code> response to continue paginating
-     * the FilterLogEvents results.
+     * the FilterLogEvents results. This token is omitted from the response when
+     * there are no other events to display.
      * </p>
      * 
      * @param nextToken
      *        A pagination token obtained from a
      *        <code class="code">FilterLogEvents</code> response to continue
-     *        paginating the FilterLogEvents results.
+     *        paginating the FilterLogEvents results. This token is omitted from
+     *        the response when there are no other events to display.
      * @return Returns a reference to this object so that method calls can be
      *         chained together.
      */

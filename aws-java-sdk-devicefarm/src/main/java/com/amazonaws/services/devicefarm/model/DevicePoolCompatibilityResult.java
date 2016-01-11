@@ -1,5 +1,5 @@
 /*
- * Copyright 2010-2015 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2010-2016 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License.
@@ -39,29 +39,21 @@ public class DevicePoolCompatibilityResult implements Serializable, Cloneable {
     private java.util.List<IncompatibilityMessage> incompatibilityMessages;
 
     /**
-     * Sets the value of the Device property for this object.
-     * 
      * @param device
-     *        The new value for the Device property for this object.
      */
     public void setDevice(Device device) {
         this.device = device;
     }
 
     /**
-     * Returns the value of the Device property for this object.
-     * 
-     * @return The value of the Device property for this object.
+     * @return
      */
     public Device getDevice() {
         return this.device;
     }
 
     /**
-     * Sets the value of the Device property for this object.
-     * 
      * @param device
-     *        The new value for the Device property for this object.
      * @return Returns a reference to this object so that method calls can be
      *         chained together.
      */

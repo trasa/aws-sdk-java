@@ -1,5 +1,5 @@
 /*
- * Copyright 2010-2015 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2010-2016 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License.
@@ -49,31 +49,35 @@ public class ModifyDBInstanceRequest extends AmazonWebServiceRequest implements 
      * supplied must be at least 10% greater than the current value. Values
      * that are not at least 10% greater than the existing value are rounded
      * up so that they are 10% greater than the current value. <p>Type:
-     * Integer <p> <b>PostgreSQL</b> <p>Default: Uses existing setting
-     * <p>Valid Values: 5-6144 <p>Constraints: Value supplied must be at
-     * least 10% greater than the current value. Values that are not at least
-     * 10% greater than the existing value are rounded up so that they are
-     * 10% greater than the current value. <p>Type: Integer <p> <b>Oracle</b>
-     * <p>Default: Uses existing setting <p>Valid Values: 10-6144
+     * Integer <p> <b>MariaDB</b> <p>Default: Uses existing setting <p>Valid
+     * Values: 5-6144 <p>Constraints: Value supplied must be at least 10%
+     * greater than the current value. Values that are not at least 10%
+     * greater than the existing value are rounded up so that they are 10%
+     * greater than the current value. <p>Type: Integer <p> <b>PostgreSQL</b>
+     * <p>Default: Uses existing setting <p>Valid Values: 5-6144
      * <p>Constraints: Value supplied must be at least 10% greater than the
      * current value. Values that are not at least 10% greater than the
      * existing value are rounded up so that they are 10% greater than the
-     * current value. <p> <b>SQL Server</b> <p>Cannot be modified. <p> If you
-     * choose to migrate your DB instance from using standard storage to
-     * using Provisioned IOPS, or from using Provisioned IOPS to using
-     * standard storage, the process can take time. The duration of the
-     * migration depends on several factors such as database load, storage
-     * size, storage type (standard or Provisioned IOPS), amount of IOPS
-     * provisioned (if any), and the number of prior scale storage
-     * operations. Typical migration times are under 24 hours, but the
-     * process can take up to several days in some cases. During the
-     * migration, the DB instance will be available for use, but might
-     * experience performance degradation. While the migration takes place,
-     * nightly backups for the instance will be suspended. No other Amazon
-     * RDS operations can take place for the instance, including modifying
-     * the instance, rebooting the instance, deleting the instance, creating
-     * a Read Replica for the instance, and creating a DB snapshot of the
-     * instance.
+     * current value. <p>Type: Integer <p> <b>Oracle</b> <p>Default: Uses
+     * existing setting <p>Valid Values: 10-6144 <p>Constraints: Value
+     * supplied must be at least 10% greater than the current value. Values
+     * that are not at least 10% greater than the existing value are rounded
+     * up so that they are 10% greater than the current value. <p> <b>SQL
+     * Server</b> <p>Cannot be modified. <p> If you choose to migrate your DB
+     * instance from using standard storage to using Provisioned IOPS, or
+     * from using Provisioned IOPS to using standard storage, the process can
+     * take time. The duration of the migration depends on several factors
+     * such as database load, storage size, storage type (standard or
+     * Provisioned IOPS), amount of IOPS provisioned (if any), and the number
+     * of prior scale storage operations. Typical migration times are under
+     * 24 hours, but the process can take up to several days in some cases.
+     * During the migration, the DB instance will be available for use, but
+     * might experience performance degradation. While the migration takes
+     * place, nightly backups for the instance will be suspended. No other
+     * Amazon RDS operations can take place for the instance, including
+     * modifying the instance, rebooting the instance, deleting the instance,
+     * creating a Read Replica for the instance, and creating a DB snapshot
+     * of the instance.
      */
     private Integer allocatedStorage;
 
@@ -88,8 +92,10 @@ public class ModifyDBInstanceRequest extends AmazonWebServiceRequest implements 
      * <code>db.t1.micro | db.m1.small | db.m1.medium | db.m1.large |
      * db.m1.xlarge | db.m2.xlarge | db.m2.2xlarge | db.m2.4xlarge |
      * db.m3.medium | db.m3.large | db.m3.xlarge | db.m3.2xlarge |
-     * db.r3.large | db.r3.xlarge | db.r3.2xlarge | db.r3.4xlarge |
-     * db.r3.8xlarge | db.t2.micro | db.t2.small | db.t2.medium</code>
+     * db.m4.large | db.m4.xlarge | db.m4.2xlarge | db.m4.4xlarge |
+     * db.m4.10xlarge | db.r3.large | db.r3.xlarge | db.r3.2xlarge |
+     * db.r3.4xlarge | db.r3.8xlarge | db.t2.micro | db.t2.small |
+     * db.t2.medium | db.t2.large</code>
      */
     private String dBInstanceClass;
 
@@ -121,7 +127,7 @@ public class ModifyDBInstanceRequest extends AmazonWebServiceRequest implements 
      * window. Some parameter changes can cause an outage and will be applied
      * on the next call to <a>RebootDBInstance</a>, or the next failure
      * reboot. Review the table of parameters in <a
-     * href="http://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/Overview.DBInstance.html#Overview.DBInstance.Modifying">Modifying
+     * href="http://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/Overview.DBInstance.Modifying.html">Modifying
      * a DB Instance and Using the Apply Immediately Parameter</a> to see the
      * impact that setting <code>ApplyImmediately</code> to <code>true</code>
      * or <code>false</code> has for each modified parameter and to determine
@@ -137,12 +143,13 @@ public class ModifyDBInstanceRequest extends AmazonWebServiceRequest implements 
      * completion of the request, the <code>MasterUserPassword</code> element
      * exists in the <code>PendingModifiedValues</code> element of the
      * operation response. <p>Default: Uses existing setting <p>Constraints:
-     * Must be 8 to 41 alphanumeric characters (MySQL), 8 to 30 alphanumeric
-     * characters (Oracle), or 8 to 128 alphanumeric characters (SQL Server).
-     * <note> Amazon RDS API actions never return the password, so this
-     * action provides a way to regain access to a primary instance user if
-     * the password is lost. This includes restoring privileges that might
-     * have been accidentally revoked. </note>
+     * Must be 8 to 41 alphanumeric characters (MySQL, MariaDB, and Amazon
+     * Aurora), 8 to 30 alphanumeric characters (Oracle), or 8 to 128
+     * alphanumeric characters (SQL Server). <note> Amazon RDS API actions
+     * never return the password, so this action provides a way to regain
+     * access to a primary instance user if the password is lost. This
+     * includes restoring privileges that might have been accidentally
+     * revoked. </note>
      */
     private String masterUserPassword;
 
@@ -340,6 +347,68 @@ public class ModifyDBInstanceRequest extends AmazonWebServiceRequest implements 
     private String cACertificateIdentifier;
 
     /**
+     * True to copy all tags from the DB instance to snapshots of the DB
+     * instance; otherwise false. The default is false.
+     */
+    private Boolean copyTagsToSnapshot;
+
+    /**
+     * The interval, in seconds, between points when Enhanced Monitoring
+     * metrics are collected for the DB instance. To disable collecting
+     * Enhanced Monitoring metrics, specify 0. The default is 60. <p>If
+     * <code>MonitoringRoleArn</code> is specified, then you must also set
+     * <code>MonitoringInterval</code> to a value other than 0. <p>Valid
+     * Values: <code>0, 1, 5, 10, 15, 30, 60</code>
+     */
+    private Integer monitoringInterval;
+
+    /**
+     * The port number on which the database accepts connections. <p>The
+     * value of the <code>DBPortNumber</code> parameter must not match any of
+     * the port values specified for options in the option group for the DB
+     * instance. <p>Your database will restart when you change the
+     * <code>DBPortNumber</code> value regardless of the value of the
+     * <code>ApplyImmediately</code> parameter. <p> <b>MySQL</b> <p> Default:
+     * <code>3306</code> <p> Valid Values: <code>1150-65535</code> <p>
+     * <b>MariaDB</b> <p> Default: <code>3306</code> <p> Valid Values:
+     * <code>1150-65535</code> <p> <b>PostgreSQL</b> <p> Default:
+     * <code>5432</code> <p> Valid Values: <code>1150-65535</code> <p>
+     * <b>Oracle</b> <p> Default: <code>1521</code> <p> Valid Values:
+     * <code>1150-65535</code> <p> <b>SQL Server</b> <p> Default:
+     * <code>1433</code> <p> Valid Values: <code>1150-65535</code> except for
+     * <code>1434</code>, <code>3389</code>, <code>47001</code>,
+     * <code>49152</code>, and <code>49152</code> through <code>49156</code>.
+     * <p> <b>Amazon Aurora</b> <p> Default: <code>3306</code> <p> Valid
+     * Values: <code>1150-65535</code>
+     */
+    private Integer dBPortNumber;
+
+    /**
+     * True to make the DB instance Internet-facing with a publicly
+     * resolvable DNS name, which resolves to a public IP address. False to
+     * make the DB instance internal with a DNS name that resolves to a
+     * private IP address. <p><code>PubliclyAccessible</code> only applies to
+     * DB instances in a VPC. The DB instance must be part of a public subnet
+     * and <code>PubliclyAccessible</code> must be true in order for it to be
+     * publicly accessible. <p>Changes to the <code>PubliclyAccessible</code>
+     * parameter are applied immediately regardless of the value of the
+     * <code>ApplyImmediately</code> parameter. <p> Default: false
+     */
+    private Boolean publiclyAccessible;
+
+    /**
+     * The ARN for the IAM role that permits RDS to send enhanced monitoring
+     * metrics to CloudWatch Logs. For example,
+     * <code>arn:aws:iam:123456789012:role/emaccess</code>. For information
+     * on creating a monitoring role, go to <a
+     * href="http://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_Monitoring.html#USER_Monitoring.OS.IAMRole">To
+     * create an IAM role for Amazon RDS Enhanced Monitoring</a>. <p>If
+     * <code>MonitoringInterval</code> is set to a value other than 0, then
+     * you must supply a <code>MonitoringRoleArn</code> value.
+     */
+    private String monitoringRoleArn;
+
+    /**
      * Default constructor for a new ModifyDBInstanceRequest object.  Callers should use the
      * setter or fluent setter (with...) methods to initialize this object after creating it.
      */
@@ -433,31 +502,35 @@ public class ModifyDBInstanceRequest extends AmazonWebServiceRequest implements 
      * supplied must be at least 10% greater than the current value. Values
      * that are not at least 10% greater than the existing value are rounded
      * up so that they are 10% greater than the current value. <p>Type:
-     * Integer <p> <b>PostgreSQL</b> <p>Default: Uses existing setting
-     * <p>Valid Values: 5-6144 <p>Constraints: Value supplied must be at
-     * least 10% greater than the current value. Values that are not at least
-     * 10% greater than the existing value are rounded up so that they are
-     * 10% greater than the current value. <p>Type: Integer <p> <b>Oracle</b>
-     * <p>Default: Uses existing setting <p>Valid Values: 10-6144
+     * Integer <p> <b>MariaDB</b> <p>Default: Uses existing setting <p>Valid
+     * Values: 5-6144 <p>Constraints: Value supplied must be at least 10%
+     * greater than the current value. Values that are not at least 10%
+     * greater than the existing value are rounded up so that they are 10%
+     * greater than the current value. <p>Type: Integer <p> <b>PostgreSQL</b>
+     * <p>Default: Uses existing setting <p>Valid Values: 5-6144
      * <p>Constraints: Value supplied must be at least 10% greater than the
      * current value. Values that are not at least 10% greater than the
      * existing value are rounded up so that they are 10% greater than the
-     * current value. <p> <b>SQL Server</b> <p>Cannot be modified. <p> If you
-     * choose to migrate your DB instance from using standard storage to
-     * using Provisioned IOPS, or from using Provisioned IOPS to using
-     * standard storage, the process can take time. The duration of the
-     * migration depends on several factors such as database load, storage
-     * size, storage type (standard or Provisioned IOPS), amount of IOPS
-     * provisioned (if any), and the number of prior scale storage
-     * operations. Typical migration times are under 24 hours, but the
-     * process can take up to several days in some cases. During the
-     * migration, the DB instance will be available for use, but might
-     * experience performance degradation. While the migration takes place,
-     * nightly backups for the instance will be suspended. No other Amazon
-     * RDS operations can take place for the instance, including modifying
-     * the instance, rebooting the instance, deleting the instance, creating
-     * a Read Replica for the instance, and creating a DB snapshot of the
-     * instance.
+     * current value. <p>Type: Integer <p> <b>Oracle</b> <p>Default: Uses
+     * existing setting <p>Valid Values: 10-6144 <p>Constraints: Value
+     * supplied must be at least 10% greater than the current value. Values
+     * that are not at least 10% greater than the existing value are rounded
+     * up so that they are 10% greater than the current value. <p> <b>SQL
+     * Server</b> <p>Cannot be modified. <p> If you choose to migrate your DB
+     * instance from using standard storage to using Provisioned IOPS, or
+     * from using Provisioned IOPS to using standard storage, the process can
+     * take time. The duration of the migration depends on several factors
+     * such as database load, storage size, storage type (standard or
+     * Provisioned IOPS), amount of IOPS provisioned (if any), and the number
+     * of prior scale storage operations. Typical migration times are under
+     * 24 hours, but the process can take up to several days in some cases.
+     * During the migration, the DB instance will be available for use, but
+     * might experience performance degradation. While the migration takes
+     * place, nightly backups for the instance will be suspended. No other
+     * Amazon RDS operations can take place for the instance, including
+     * modifying the instance, rebooting the instance, deleting the instance,
+     * creating a Read Replica for the instance, and creating a DB snapshot
+     * of the instance.
      *
      * @return The new storage capacity of the RDS instance. Changing this setting
      *         does not result in an outage and the change is applied during the next
@@ -467,31 +540,35 @@ public class ModifyDBInstanceRequest extends AmazonWebServiceRequest implements 
      *         supplied must be at least 10% greater than the current value. Values
      *         that are not at least 10% greater than the existing value are rounded
      *         up so that they are 10% greater than the current value. <p>Type:
-     *         Integer <p> <b>PostgreSQL</b> <p>Default: Uses existing setting
-     *         <p>Valid Values: 5-6144 <p>Constraints: Value supplied must be at
-     *         least 10% greater than the current value. Values that are not at least
-     *         10% greater than the existing value are rounded up so that they are
-     *         10% greater than the current value. <p>Type: Integer <p> <b>Oracle</b>
-     *         <p>Default: Uses existing setting <p>Valid Values: 10-6144
+     *         Integer <p> <b>MariaDB</b> <p>Default: Uses existing setting <p>Valid
+     *         Values: 5-6144 <p>Constraints: Value supplied must be at least 10%
+     *         greater than the current value. Values that are not at least 10%
+     *         greater than the existing value are rounded up so that they are 10%
+     *         greater than the current value. <p>Type: Integer <p> <b>PostgreSQL</b>
+     *         <p>Default: Uses existing setting <p>Valid Values: 5-6144
      *         <p>Constraints: Value supplied must be at least 10% greater than the
      *         current value. Values that are not at least 10% greater than the
      *         existing value are rounded up so that they are 10% greater than the
-     *         current value. <p> <b>SQL Server</b> <p>Cannot be modified. <p> If you
-     *         choose to migrate your DB instance from using standard storage to
-     *         using Provisioned IOPS, or from using Provisioned IOPS to using
-     *         standard storage, the process can take time. The duration of the
-     *         migration depends on several factors such as database load, storage
-     *         size, storage type (standard or Provisioned IOPS), amount of IOPS
-     *         provisioned (if any), and the number of prior scale storage
-     *         operations. Typical migration times are under 24 hours, but the
-     *         process can take up to several days in some cases. During the
-     *         migration, the DB instance will be available for use, but might
-     *         experience performance degradation. While the migration takes place,
-     *         nightly backups for the instance will be suspended. No other Amazon
-     *         RDS operations can take place for the instance, including modifying
-     *         the instance, rebooting the instance, deleting the instance, creating
-     *         a Read Replica for the instance, and creating a DB snapshot of the
-     *         instance.
+     *         current value. <p>Type: Integer <p> <b>Oracle</b> <p>Default: Uses
+     *         existing setting <p>Valid Values: 10-6144 <p>Constraints: Value
+     *         supplied must be at least 10% greater than the current value. Values
+     *         that are not at least 10% greater than the existing value are rounded
+     *         up so that they are 10% greater than the current value. <p> <b>SQL
+     *         Server</b> <p>Cannot be modified. <p> If you choose to migrate your DB
+     *         instance from using standard storage to using Provisioned IOPS, or
+     *         from using Provisioned IOPS to using standard storage, the process can
+     *         take time. The duration of the migration depends on several factors
+     *         such as database load, storage size, storage type (standard or
+     *         Provisioned IOPS), amount of IOPS provisioned (if any), and the number
+     *         of prior scale storage operations. Typical migration times are under
+     *         24 hours, but the process can take up to several days in some cases.
+     *         During the migration, the DB instance will be available for use, but
+     *         might experience performance degradation. While the migration takes
+     *         place, nightly backups for the instance will be suspended. No other
+     *         Amazon RDS operations can take place for the instance, including
+     *         modifying the instance, rebooting the instance, deleting the instance,
+     *         creating a Read Replica for the instance, and creating a DB snapshot
+     *         of the instance.
      */
     public Integer getAllocatedStorage() {
         return allocatedStorage;
@@ -506,31 +583,35 @@ public class ModifyDBInstanceRequest extends AmazonWebServiceRequest implements 
      * supplied must be at least 10% greater than the current value. Values
      * that are not at least 10% greater than the existing value are rounded
      * up so that they are 10% greater than the current value. <p>Type:
-     * Integer <p> <b>PostgreSQL</b> <p>Default: Uses existing setting
-     * <p>Valid Values: 5-6144 <p>Constraints: Value supplied must be at
-     * least 10% greater than the current value. Values that are not at least
-     * 10% greater than the existing value are rounded up so that they are
-     * 10% greater than the current value. <p>Type: Integer <p> <b>Oracle</b>
-     * <p>Default: Uses existing setting <p>Valid Values: 10-6144
+     * Integer <p> <b>MariaDB</b> <p>Default: Uses existing setting <p>Valid
+     * Values: 5-6144 <p>Constraints: Value supplied must be at least 10%
+     * greater than the current value. Values that are not at least 10%
+     * greater than the existing value are rounded up so that they are 10%
+     * greater than the current value. <p>Type: Integer <p> <b>PostgreSQL</b>
+     * <p>Default: Uses existing setting <p>Valid Values: 5-6144
      * <p>Constraints: Value supplied must be at least 10% greater than the
      * current value. Values that are not at least 10% greater than the
      * existing value are rounded up so that they are 10% greater than the
-     * current value. <p> <b>SQL Server</b> <p>Cannot be modified. <p> If you
-     * choose to migrate your DB instance from using standard storage to
-     * using Provisioned IOPS, or from using Provisioned IOPS to using
-     * standard storage, the process can take time. The duration of the
-     * migration depends on several factors such as database load, storage
-     * size, storage type (standard or Provisioned IOPS), amount of IOPS
-     * provisioned (if any), and the number of prior scale storage
-     * operations. Typical migration times are under 24 hours, but the
-     * process can take up to several days in some cases. During the
-     * migration, the DB instance will be available for use, but might
-     * experience performance degradation. While the migration takes place,
-     * nightly backups for the instance will be suspended. No other Amazon
-     * RDS operations can take place for the instance, including modifying
-     * the instance, rebooting the instance, deleting the instance, creating
-     * a Read Replica for the instance, and creating a DB snapshot of the
-     * instance.
+     * current value. <p>Type: Integer <p> <b>Oracle</b> <p>Default: Uses
+     * existing setting <p>Valid Values: 10-6144 <p>Constraints: Value
+     * supplied must be at least 10% greater than the current value. Values
+     * that are not at least 10% greater than the existing value are rounded
+     * up so that they are 10% greater than the current value. <p> <b>SQL
+     * Server</b> <p>Cannot be modified. <p> If you choose to migrate your DB
+     * instance from using standard storage to using Provisioned IOPS, or
+     * from using Provisioned IOPS to using standard storage, the process can
+     * take time. The duration of the migration depends on several factors
+     * such as database load, storage size, storage type (standard or
+     * Provisioned IOPS), amount of IOPS provisioned (if any), and the number
+     * of prior scale storage operations. Typical migration times are under
+     * 24 hours, but the process can take up to several days in some cases.
+     * During the migration, the DB instance will be available for use, but
+     * might experience performance degradation. While the migration takes
+     * place, nightly backups for the instance will be suspended. No other
+     * Amazon RDS operations can take place for the instance, including
+     * modifying the instance, rebooting the instance, deleting the instance,
+     * creating a Read Replica for the instance, and creating a DB snapshot
+     * of the instance.
      *
      * @param allocatedStorage The new storage capacity of the RDS instance. Changing this setting
      *         does not result in an outage and the change is applied during the next
@@ -540,31 +621,35 @@ public class ModifyDBInstanceRequest extends AmazonWebServiceRequest implements 
      *         supplied must be at least 10% greater than the current value. Values
      *         that are not at least 10% greater than the existing value are rounded
      *         up so that they are 10% greater than the current value. <p>Type:
-     *         Integer <p> <b>PostgreSQL</b> <p>Default: Uses existing setting
-     *         <p>Valid Values: 5-6144 <p>Constraints: Value supplied must be at
-     *         least 10% greater than the current value. Values that are not at least
-     *         10% greater than the existing value are rounded up so that they are
-     *         10% greater than the current value. <p>Type: Integer <p> <b>Oracle</b>
-     *         <p>Default: Uses existing setting <p>Valid Values: 10-6144
+     *         Integer <p> <b>MariaDB</b> <p>Default: Uses existing setting <p>Valid
+     *         Values: 5-6144 <p>Constraints: Value supplied must be at least 10%
+     *         greater than the current value. Values that are not at least 10%
+     *         greater than the existing value are rounded up so that they are 10%
+     *         greater than the current value. <p>Type: Integer <p> <b>PostgreSQL</b>
+     *         <p>Default: Uses existing setting <p>Valid Values: 5-6144
      *         <p>Constraints: Value supplied must be at least 10% greater than the
      *         current value. Values that are not at least 10% greater than the
      *         existing value are rounded up so that they are 10% greater than the
-     *         current value. <p> <b>SQL Server</b> <p>Cannot be modified. <p> If you
-     *         choose to migrate your DB instance from using standard storage to
-     *         using Provisioned IOPS, or from using Provisioned IOPS to using
-     *         standard storage, the process can take time. The duration of the
-     *         migration depends on several factors such as database load, storage
-     *         size, storage type (standard or Provisioned IOPS), amount of IOPS
-     *         provisioned (if any), and the number of prior scale storage
-     *         operations. Typical migration times are under 24 hours, but the
-     *         process can take up to several days in some cases. During the
-     *         migration, the DB instance will be available for use, but might
-     *         experience performance degradation. While the migration takes place,
-     *         nightly backups for the instance will be suspended. No other Amazon
-     *         RDS operations can take place for the instance, including modifying
-     *         the instance, rebooting the instance, deleting the instance, creating
-     *         a Read Replica for the instance, and creating a DB snapshot of the
-     *         instance.
+     *         current value. <p>Type: Integer <p> <b>Oracle</b> <p>Default: Uses
+     *         existing setting <p>Valid Values: 10-6144 <p>Constraints: Value
+     *         supplied must be at least 10% greater than the current value. Values
+     *         that are not at least 10% greater than the existing value are rounded
+     *         up so that they are 10% greater than the current value. <p> <b>SQL
+     *         Server</b> <p>Cannot be modified. <p> If you choose to migrate your DB
+     *         instance from using standard storage to using Provisioned IOPS, or
+     *         from using Provisioned IOPS to using standard storage, the process can
+     *         take time. The duration of the migration depends on several factors
+     *         such as database load, storage size, storage type (standard or
+     *         Provisioned IOPS), amount of IOPS provisioned (if any), and the number
+     *         of prior scale storage operations. Typical migration times are under
+     *         24 hours, but the process can take up to several days in some cases.
+     *         During the migration, the DB instance will be available for use, but
+     *         might experience performance degradation. While the migration takes
+     *         place, nightly backups for the instance will be suspended. No other
+     *         Amazon RDS operations can take place for the instance, including
+     *         modifying the instance, rebooting the instance, deleting the instance,
+     *         creating a Read Replica for the instance, and creating a DB snapshot
+     *         of the instance.
      */
     public void setAllocatedStorage(Integer allocatedStorage) {
         this.allocatedStorage = allocatedStorage;
@@ -579,31 +664,35 @@ public class ModifyDBInstanceRequest extends AmazonWebServiceRequest implements 
      * supplied must be at least 10% greater than the current value. Values
      * that are not at least 10% greater than the existing value are rounded
      * up so that they are 10% greater than the current value. <p>Type:
-     * Integer <p> <b>PostgreSQL</b> <p>Default: Uses existing setting
-     * <p>Valid Values: 5-6144 <p>Constraints: Value supplied must be at
-     * least 10% greater than the current value. Values that are not at least
-     * 10% greater than the existing value are rounded up so that they are
-     * 10% greater than the current value. <p>Type: Integer <p> <b>Oracle</b>
-     * <p>Default: Uses existing setting <p>Valid Values: 10-6144
+     * Integer <p> <b>MariaDB</b> <p>Default: Uses existing setting <p>Valid
+     * Values: 5-6144 <p>Constraints: Value supplied must be at least 10%
+     * greater than the current value. Values that are not at least 10%
+     * greater than the existing value are rounded up so that they are 10%
+     * greater than the current value. <p>Type: Integer <p> <b>PostgreSQL</b>
+     * <p>Default: Uses existing setting <p>Valid Values: 5-6144
      * <p>Constraints: Value supplied must be at least 10% greater than the
      * current value. Values that are not at least 10% greater than the
      * existing value are rounded up so that they are 10% greater than the
-     * current value. <p> <b>SQL Server</b> <p>Cannot be modified. <p> If you
-     * choose to migrate your DB instance from using standard storage to
-     * using Provisioned IOPS, or from using Provisioned IOPS to using
-     * standard storage, the process can take time. The duration of the
-     * migration depends on several factors such as database load, storage
-     * size, storage type (standard or Provisioned IOPS), amount of IOPS
-     * provisioned (if any), and the number of prior scale storage
-     * operations. Typical migration times are under 24 hours, but the
-     * process can take up to several days in some cases. During the
-     * migration, the DB instance will be available for use, but might
-     * experience performance degradation. While the migration takes place,
-     * nightly backups for the instance will be suspended. No other Amazon
-     * RDS operations can take place for the instance, including modifying
-     * the instance, rebooting the instance, deleting the instance, creating
-     * a Read Replica for the instance, and creating a DB snapshot of the
-     * instance.
+     * current value. <p>Type: Integer <p> <b>Oracle</b> <p>Default: Uses
+     * existing setting <p>Valid Values: 10-6144 <p>Constraints: Value
+     * supplied must be at least 10% greater than the current value. Values
+     * that are not at least 10% greater than the existing value are rounded
+     * up so that they are 10% greater than the current value. <p> <b>SQL
+     * Server</b> <p>Cannot be modified. <p> If you choose to migrate your DB
+     * instance from using standard storage to using Provisioned IOPS, or
+     * from using Provisioned IOPS to using standard storage, the process can
+     * take time. The duration of the migration depends on several factors
+     * such as database load, storage size, storage type (standard or
+     * Provisioned IOPS), amount of IOPS provisioned (if any), and the number
+     * of prior scale storage operations. Typical migration times are under
+     * 24 hours, but the process can take up to several days in some cases.
+     * During the migration, the DB instance will be available for use, but
+     * might experience performance degradation. While the migration takes
+     * place, nightly backups for the instance will be suspended. No other
+     * Amazon RDS operations can take place for the instance, including
+     * modifying the instance, rebooting the instance, deleting the instance,
+     * creating a Read Replica for the instance, and creating a DB snapshot
+     * of the instance.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *
@@ -615,31 +704,35 @@ public class ModifyDBInstanceRequest extends AmazonWebServiceRequest implements 
      *         supplied must be at least 10% greater than the current value. Values
      *         that are not at least 10% greater than the existing value are rounded
      *         up so that they are 10% greater than the current value. <p>Type:
-     *         Integer <p> <b>PostgreSQL</b> <p>Default: Uses existing setting
-     *         <p>Valid Values: 5-6144 <p>Constraints: Value supplied must be at
-     *         least 10% greater than the current value. Values that are not at least
-     *         10% greater than the existing value are rounded up so that they are
-     *         10% greater than the current value. <p>Type: Integer <p> <b>Oracle</b>
-     *         <p>Default: Uses existing setting <p>Valid Values: 10-6144
+     *         Integer <p> <b>MariaDB</b> <p>Default: Uses existing setting <p>Valid
+     *         Values: 5-6144 <p>Constraints: Value supplied must be at least 10%
+     *         greater than the current value. Values that are not at least 10%
+     *         greater than the existing value are rounded up so that they are 10%
+     *         greater than the current value. <p>Type: Integer <p> <b>PostgreSQL</b>
+     *         <p>Default: Uses existing setting <p>Valid Values: 5-6144
      *         <p>Constraints: Value supplied must be at least 10% greater than the
      *         current value. Values that are not at least 10% greater than the
      *         existing value are rounded up so that they are 10% greater than the
-     *         current value. <p> <b>SQL Server</b> <p>Cannot be modified. <p> If you
-     *         choose to migrate your DB instance from using standard storage to
-     *         using Provisioned IOPS, or from using Provisioned IOPS to using
-     *         standard storage, the process can take time. The duration of the
-     *         migration depends on several factors such as database load, storage
-     *         size, storage type (standard or Provisioned IOPS), amount of IOPS
-     *         provisioned (if any), and the number of prior scale storage
-     *         operations. Typical migration times are under 24 hours, but the
-     *         process can take up to several days in some cases. During the
-     *         migration, the DB instance will be available for use, but might
-     *         experience performance degradation. While the migration takes place,
-     *         nightly backups for the instance will be suspended. No other Amazon
-     *         RDS operations can take place for the instance, including modifying
-     *         the instance, rebooting the instance, deleting the instance, creating
-     *         a Read Replica for the instance, and creating a DB snapshot of the
-     *         instance.
+     *         current value. <p>Type: Integer <p> <b>Oracle</b> <p>Default: Uses
+     *         existing setting <p>Valid Values: 10-6144 <p>Constraints: Value
+     *         supplied must be at least 10% greater than the current value. Values
+     *         that are not at least 10% greater than the existing value are rounded
+     *         up so that they are 10% greater than the current value. <p> <b>SQL
+     *         Server</b> <p>Cannot be modified. <p> If you choose to migrate your DB
+     *         instance from using standard storage to using Provisioned IOPS, or
+     *         from using Provisioned IOPS to using standard storage, the process can
+     *         take time. The duration of the migration depends on several factors
+     *         such as database load, storage size, storage type (standard or
+     *         Provisioned IOPS), amount of IOPS provisioned (if any), and the number
+     *         of prior scale storage operations. Typical migration times are under
+     *         24 hours, but the process can take up to several days in some cases.
+     *         During the migration, the DB instance will be available for use, but
+     *         might experience performance degradation. While the migration takes
+     *         place, nightly backups for the instance will be suspended. No other
+     *         Amazon RDS operations can take place for the instance, including
+     *         modifying the instance, rebooting the instance, deleting the instance,
+     *         creating a Read Replica for the instance, and creating a DB snapshot
+     *         of the instance.
      *
      * @return A reference to this updated object so that method calls can be chained
      *         together.
@@ -660,8 +753,10 @@ public class ModifyDBInstanceRequest extends AmazonWebServiceRequest implements 
      * <code>db.t1.micro | db.m1.small | db.m1.medium | db.m1.large |
      * db.m1.xlarge | db.m2.xlarge | db.m2.2xlarge | db.m2.4xlarge |
      * db.m3.medium | db.m3.large | db.m3.xlarge | db.m3.2xlarge |
-     * db.r3.large | db.r3.xlarge | db.r3.2xlarge | db.r3.4xlarge |
-     * db.r3.8xlarge | db.t2.micro | db.t2.small | db.t2.medium</code>
+     * db.m4.large | db.m4.xlarge | db.m4.2xlarge | db.m4.4xlarge |
+     * db.m4.10xlarge | db.r3.large | db.r3.xlarge | db.r3.2xlarge |
+     * db.r3.4xlarge | db.r3.8xlarge | db.t2.micro | db.t2.small |
+     * db.t2.medium | db.t2.large</code>
      *
      * @return The new compute and memory capacity of the DB instance. To determine
      *         the instance classes that are available for a particular DB engine,
@@ -673,8 +768,10 @@ public class ModifyDBInstanceRequest extends AmazonWebServiceRequest implements 
      *         <code>db.t1.micro | db.m1.small | db.m1.medium | db.m1.large |
      *         db.m1.xlarge | db.m2.xlarge | db.m2.2xlarge | db.m2.4xlarge |
      *         db.m3.medium | db.m3.large | db.m3.xlarge | db.m3.2xlarge |
-     *         db.r3.large | db.r3.xlarge | db.r3.2xlarge | db.r3.4xlarge |
-     *         db.r3.8xlarge | db.t2.micro | db.t2.small | db.t2.medium</code>
+     *         db.m4.large | db.m4.xlarge | db.m4.2xlarge | db.m4.4xlarge |
+     *         db.m4.10xlarge | db.r3.large | db.r3.xlarge | db.r3.2xlarge |
+     *         db.r3.4xlarge | db.r3.8xlarge | db.t2.micro | db.t2.small |
+     *         db.t2.medium | db.t2.large</code>
      */
     public String getDBInstanceClass() {
         return dBInstanceClass;
@@ -691,8 +788,10 @@ public class ModifyDBInstanceRequest extends AmazonWebServiceRequest implements 
      * <code>db.t1.micro | db.m1.small | db.m1.medium | db.m1.large |
      * db.m1.xlarge | db.m2.xlarge | db.m2.2xlarge | db.m2.4xlarge |
      * db.m3.medium | db.m3.large | db.m3.xlarge | db.m3.2xlarge |
-     * db.r3.large | db.r3.xlarge | db.r3.2xlarge | db.r3.4xlarge |
-     * db.r3.8xlarge | db.t2.micro | db.t2.small | db.t2.medium</code>
+     * db.m4.large | db.m4.xlarge | db.m4.2xlarge | db.m4.4xlarge |
+     * db.m4.10xlarge | db.r3.large | db.r3.xlarge | db.r3.2xlarge |
+     * db.r3.4xlarge | db.r3.8xlarge | db.t2.micro | db.t2.small |
+     * db.t2.medium | db.t2.large</code>
      *
      * @param dBInstanceClass The new compute and memory capacity of the DB instance. To determine
      *         the instance classes that are available for a particular DB engine,
@@ -704,8 +803,10 @@ public class ModifyDBInstanceRequest extends AmazonWebServiceRequest implements 
      *         <code>db.t1.micro | db.m1.small | db.m1.medium | db.m1.large |
      *         db.m1.xlarge | db.m2.xlarge | db.m2.2xlarge | db.m2.4xlarge |
      *         db.m3.medium | db.m3.large | db.m3.xlarge | db.m3.2xlarge |
-     *         db.r3.large | db.r3.xlarge | db.r3.2xlarge | db.r3.4xlarge |
-     *         db.r3.8xlarge | db.t2.micro | db.t2.small | db.t2.medium</code>
+     *         db.m4.large | db.m4.xlarge | db.m4.2xlarge | db.m4.4xlarge |
+     *         db.m4.10xlarge | db.r3.large | db.r3.xlarge | db.r3.2xlarge |
+     *         db.r3.4xlarge | db.r3.8xlarge | db.t2.micro | db.t2.small |
+     *         db.t2.medium | db.t2.large</code>
      */
     public void setDBInstanceClass(String dBInstanceClass) {
         this.dBInstanceClass = dBInstanceClass;
@@ -722,8 +823,10 @@ public class ModifyDBInstanceRequest extends AmazonWebServiceRequest implements 
      * <code>db.t1.micro | db.m1.small | db.m1.medium | db.m1.large |
      * db.m1.xlarge | db.m2.xlarge | db.m2.2xlarge | db.m2.4xlarge |
      * db.m3.medium | db.m3.large | db.m3.xlarge | db.m3.2xlarge |
-     * db.r3.large | db.r3.xlarge | db.r3.2xlarge | db.r3.4xlarge |
-     * db.r3.8xlarge | db.t2.micro | db.t2.small | db.t2.medium</code>
+     * db.m4.large | db.m4.xlarge | db.m4.2xlarge | db.m4.4xlarge |
+     * db.m4.10xlarge | db.r3.large | db.r3.xlarge | db.r3.2xlarge |
+     * db.r3.4xlarge | db.r3.8xlarge | db.t2.micro | db.t2.small |
+     * db.t2.medium | db.t2.large</code>
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *
@@ -737,8 +840,10 @@ public class ModifyDBInstanceRequest extends AmazonWebServiceRequest implements 
      *         <code>db.t1.micro | db.m1.small | db.m1.medium | db.m1.large |
      *         db.m1.xlarge | db.m2.xlarge | db.m2.2xlarge | db.m2.4xlarge |
      *         db.m3.medium | db.m3.large | db.m3.xlarge | db.m3.2xlarge |
-     *         db.r3.large | db.r3.xlarge | db.r3.2xlarge | db.r3.4xlarge |
-     *         db.r3.8xlarge | db.t2.micro | db.t2.small | db.t2.medium</code>
+     *         db.m4.large | db.m4.xlarge | db.m4.2xlarge | db.m4.4xlarge |
+     *         db.m4.10xlarge | db.r3.large | db.r3.xlarge | db.r3.2xlarge |
+     *         db.r3.4xlarge | db.r3.8xlarge | db.t2.micro | db.t2.small |
+     *         db.t2.medium | db.t2.large</code>
      *
      * @return A reference to this updated object so that method calls can be chained
      *         together.
@@ -975,7 +1080,7 @@ public class ModifyDBInstanceRequest extends AmazonWebServiceRequest implements 
      * window. Some parameter changes can cause an outage and will be applied
      * on the next call to <a>RebootDBInstance</a>, or the next failure
      * reboot. Review the table of parameters in <a
-     * href="http://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/Overview.DBInstance.html#Overview.DBInstance.Modifying">Modifying
+     * href="http://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/Overview.DBInstance.Modifying.html">Modifying
      * a DB Instance and Using the Apply Immediately Parameter</a> to see the
      * impact that setting <code>ApplyImmediately</code> to <code>true</code>
      * or <code>false</code> has for each modified parameter and to determine
@@ -989,7 +1094,7 @@ public class ModifyDBInstanceRequest extends AmazonWebServiceRequest implements 
      *         window. Some parameter changes can cause an outage and will be applied
      *         on the next call to <a>RebootDBInstance</a>, or the next failure
      *         reboot. Review the table of parameters in <a
-     *         href="http://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/Overview.DBInstance.html#Overview.DBInstance.Modifying">Modifying
+     *         href="http://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/Overview.DBInstance.Modifying.html">Modifying
      *         a DB Instance and Using the Apply Immediately Parameter</a> to see the
      *         impact that setting <code>ApplyImmediately</code> to <code>true</code>
      *         or <code>false</code> has for each modified parameter and to determine
@@ -1008,7 +1113,7 @@ public class ModifyDBInstanceRequest extends AmazonWebServiceRequest implements 
      * window. Some parameter changes can cause an outage and will be applied
      * on the next call to <a>RebootDBInstance</a>, or the next failure
      * reboot. Review the table of parameters in <a
-     * href="http://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/Overview.DBInstance.html#Overview.DBInstance.Modifying">Modifying
+     * href="http://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/Overview.DBInstance.Modifying.html">Modifying
      * a DB Instance and Using the Apply Immediately Parameter</a> to see the
      * impact that setting <code>ApplyImmediately</code> to <code>true</code>
      * or <code>false</code> has for each modified parameter and to determine
@@ -1022,7 +1127,7 @@ public class ModifyDBInstanceRequest extends AmazonWebServiceRequest implements 
      *         window. Some parameter changes can cause an outage and will be applied
      *         on the next call to <a>RebootDBInstance</a>, or the next failure
      *         reboot. Review the table of parameters in <a
-     *         href="http://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/Overview.DBInstance.html#Overview.DBInstance.Modifying">Modifying
+     *         href="http://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/Overview.DBInstance.Modifying.html">Modifying
      *         a DB Instance and Using the Apply Immediately Parameter</a> to see the
      *         impact that setting <code>ApplyImmediately</code> to <code>true</code>
      *         or <code>false</code> has for each modified parameter and to determine
@@ -1041,7 +1146,7 @@ public class ModifyDBInstanceRequest extends AmazonWebServiceRequest implements 
      * window. Some parameter changes can cause an outage and will be applied
      * on the next call to <a>RebootDBInstance</a>, or the next failure
      * reboot. Review the table of parameters in <a
-     * href="http://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/Overview.DBInstance.html#Overview.DBInstance.Modifying">Modifying
+     * href="http://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/Overview.DBInstance.Modifying.html">Modifying
      * a DB Instance and Using the Apply Immediately Parameter</a> to see the
      * impact that setting <code>ApplyImmediately</code> to <code>true</code>
      * or <code>false</code> has for each modified parameter and to determine
@@ -1057,7 +1162,7 @@ public class ModifyDBInstanceRequest extends AmazonWebServiceRequest implements 
      *         window. Some parameter changes can cause an outage and will be applied
      *         on the next call to <a>RebootDBInstance</a>, or the next failure
      *         reboot. Review the table of parameters in <a
-     *         href="http://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/Overview.DBInstance.html#Overview.DBInstance.Modifying">Modifying
+     *         href="http://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/Overview.DBInstance.Modifying.html">Modifying
      *         a DB Instance and Using the Apply Immediately Parameter</a> to see the
      *         impact that setting <code>ApplyImmediately</code> to <code>true</code>
      *         or <code>false</code> has for each modified parameter and to determine
@@ -1080,7 +1185,7 @@ public class ModifyDBInstanceRequest extends AmazonWebServiceRequest implements 
      * window. Some parameter changes can cause an outage and will be applied
      * on the next call to <a>RebootDBInstance</a>, or the next failure
      * reboot. Review the table of parameters in <a
-     * href="http://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/Overview.DBInstance.html#Overview.DBInstance.Modifying">Modifying
+     * href="http://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/Overview.DBInstance.Modifying.html">Modifying
      * a DB Instance and Using the Apply Immediately Parameter</a> to see the
      * impact that setting <code>ApplyImmediately</code> to <code>true</code>
      * or <code>false</code> has for each modified parameter and to determine
@@ -1094,7 +1199,7 @@ public class ModifyDBInstanceRequest extends AmazonWebServiceRequest implements 
      *         window. Some parameter changes can cause an outage and will be applied
      *         on the next call to <a>RebootDBInstance</a>, or the next failure
      *         reboot. Review the table of parameters in <a
-     *         href="http://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/Overview.DBInstance.html#Overview.DBInstance.Modifying">Modifying
+     *         href="http://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/Overview.DBInstance.Modifying.html">Modifying
      *         a DB Instance and Using the Apply Immediately Parameter</a> to see the
      *         impact that setting <code>ApplyImmediately</code> to <code>true</code>
      *         or <code>false</code> has for each modified parameter and to determine
@@ -1112,12 +1217,13 @@ public class ModifyDBInstanceRequest extends AmazonWebServiceRequest implements 
      * completion of the request, the <code>MasterUserPassword</code> element
      * exists in the <code>PendingModifiedValues</code> element of the
      * operation response. <p>Default: Uses existing setting <p>Constraints:
-     * Must be 8 to 41 alphanumeric characters (MySQL), 8 to 30 alphanumeric
-     * characters (Oracle), or 8 to 128 alphanumeric characters (SQL Server).
-     * <note> Amazon RDS API actions never return the password, so this
-     * action provides a way to regain access to a primary instance user if
-     * the password is lost. This includes restoring privileges that might
-     * have been accidentally revoked. </note>
+     * Must be 8 to 41 alphanumeric characters (MySQL, MariaDB, and Amazon
+     * Aurora), 8 to 30 alphanumeric characters (Oracle), or 8 to 128
+     * alphanumeric characters (SQL Server). <note> Amazon RDS API actions
+     * never return the password, so this action provides a way to regain
+     * access to a primary instance user if the password is lost. This
+     * includes restoring privileges that might have been accidentally
+     * revoked. </note>
      *
      * @return The new password for the DB instance master user. Can be any printable
      *         ASCII character except "/", """, or "@". <p> Changing this parameter
@@ -1126,12 +1232,13 @@ public class ModifyDBInstanceRequest extends AmazonWebServiceRequest implements 
      *         completion of the request, the <code>MasterUserPassword</code> element
      *         exists in the <code>PendingModifiedValues</code> element of the
      *         operation response. <p>Default: Uses existing setting <p>Constraints:
-     *         Must be 8 to 41 alphanumeric characters (MySQL), 8 to 30 alphanumeric
-     *         characters (Oracle), or 8 to 128 alphanumeric characters (SQL Server).
-     *         <note> Amazon RDS API actions never return the password, so this
-     *         action provides a way to regain access to a primary instance user if
-     *         the password is lost. This includes restoring privileges that might
-     *         have been accidentally revoked. </note>
+     *         Must be 8 to 41 alphanumeric characters (MySQL, MariaDB, and Amazon
+     *         Aurora), 8 to 30 alphanumeric characters (Oracle), or 8 to 128
+     *         alphanumeric characters (SQL Server). <note> Amazon RDS API actions
+     *         never return the password, so this action provides a way to regain
+     *         access to a primary instance user if the password is lost. This
+     *         includes restoring privileges that might have been accidentally
+     *         revoked. </note>
      */
     public String getMasterUserPassword() {
         return masterUserPassword;
@@ -1145,12 +1252,13 @@ public class ModifyDBInstanceRequest extends AmazonWebServiceRequest implements 
      * completion of the request, the <code>MasterUserPassword</code> element
      * exists in the <code>PendingModifiedValues</code> element of the
      * operation response. <p>Default: Uses existing setting <p>Constraints:
-     * Must be 8 to 41 alphanumeric characters (MySQL), 8 to 30 alphanumeric
-     * characters (Oracle), or 8 to 128 alphanumeric characters (SQL Server).
-     * <note> Amazon RDS API actions never return the password, so this
-     * action provides a way to regain access to a primary instance user if
-     * the password is lost. This includes restoring privileges that might
-     * have been accidentally revoked. </note>
+     * Must be 8 to 41 alphanumeric characters (MySQL, MariaDB, and Amazon
+     * Aurora), 8 to 30 alphanumeric characters (Oracle), or 8 to 128
+     * alphanumeric characters (SQL Server). <note> Amazon RDS API actions
+     * never return the password, so this action provides a way to regain
+     * access to a primary instance user if the password is lost. This
+     * includes restoring privileges that might have been accidentally
+     * revoked. </note>
      *
      * @param masterUserPassword The new password for the DB instance master user. Can be any printable
      *         ASCII character except "/", """, or "@". <p> Changing this parameter
@@ -1159,12 +1267,13 @@ public class ModifyDBInstanceRequest extends AmazonWebServiceRequest implements 
      *         completion of the request, the <code>MasterUserPassword</code> element
      *         exists in the <code>PendingModifiedValues</code> element of the
      *         operation response. <p>Default: Uses existing setting <p>Constraints:
-     *         Must be 8 to 41 alphanumeric characters (MySQL), 8 to 30 alphanumeric
-     *         characters (Oracle), or 8 to 128 alphanumeric characters (SQL Server).
-     *         <note> Amazon RDS API actions never return the password, so this
-     *         action provides a way to regain access to a primary instance user if
-     *         the password is lost. This includes restoring privileges that might
-     *         have been accidentally revoked. </note>
+     *         Must be 8 to 41 alphanumeric characters (MySQL, MariaDB, and Amazon
+     *         Aurora), 8 to 30 alphanumeric characters (Oracle), or 8 to 128
+     *         alphanumeric characters (SQL Server). <note> Amazon RDS API actions
+     *         never return the password, so this action provides a way to regain
+     *         access to a primary instance user if the password is lost. This
+     *         includes restoring privileges that might have been accidentally
+     *         revoked. </note>
      */
     public void setMasterUserPassword(String masterUserPassword) {
         this.masterUserPassword = masterUserPassword;
@@ -1178,12 +1287,13 @@ public class ModifyDBInstanceRequest extends AmazonWebServiceRequest implements 
      * completion of the request, the <code>MasterUserPassword</code> element
      * exists in the <code>PendingModifiedValues</code> element of the
      * operation response. <p>Default: Uses existing setting <p>Constraints:
-     * Must be 8 to 41 alphanumeric characters (MySQL), 8 to 30 alphanumeric
-     * characters (Oracle), or 8 to 128 alphanumeric characters (SQL Server).
-     * <note> Amazon RDS API actions never return the password, so this
-     * action provides a way to regain access to a primary instance user if
-     * the password is lost. This includes restoring privileges that might
-     * have been accidentally revoked. </note>
+     * Must be 8 to 41 alphanumeric characters (MySQL, MariaDB, and Amazon
+     * Aurora), 8 to 30 alphanumeric characters (Oracle), or 8 to 128
+     * alphanumeric characters (SQL Server). <note> Amazon RDS API actions
+     * never return the password, so this action provides a way to regain
+     * access to a primary instance user if the password is lost. This
+     * includes restoring privileges that might have been accidentally
+     * revoked. </note>
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *
@@ -1194,12 +1304,13 @@ public class ModifyDBInstanceRequest extends AmazonWebServiceRequest implements 
      *         completion of the request, the <code>MasterUserPassword</code> element
      *         exists in the <code>PendingModifiedValues</code> element of the
      *         operation response. <p>Default: Uses existing setting <p>Constraints:
-     *         Must be 8 to 41 alphanumeric characters (MySQL), 8 to 30 alphanumeric
-     *         characters (Oracle), or 8 to 128 alphanumeric characters (SQL Server).
-     *         <note> Amazon RDS API actions never return the password, so this
-     *         action provides a way to regain access to a primary instance user if
-     *         the password is lost. This includes restoring privileges that might
-     *         have been accidentally revoked. </note>
+     *         Must be 8 to 41 alphanumeric characters (MySQL, MariaDB, and Amazon
+     *         Aurora), 8 to 30 alphanumeric characters (Oracle), or 8 to 128
+     *         alphanumeric characters (SQL Server). <note> Amazon RDS API actions
+     *         never return the password, so this action provides a way to regain
+     *         access to a primary instance user if the password is lost. This
+     *         includes restoring privileges that might have been accidentally
+     *         revoked. </note>
      *
      * @return A reference to this updated object so that method calls can be chained
      *         together.
@@ -2478,6 +2589,429 @@ public class ModifyDBInstanceRequest extends AmazonWebServiceRequest implements 
     }
 
     /**
+     * True to copy all tags from the DB instance to snapshots of the DB
+     * instance; otherwise false. The default is false.
+     *
+     * @return True to copy all tags from the DB instance to snapshots of the DB
+     *         instance; otherwise false. The default is false.
+     */
+    public Boolean isCopyTagsToSnapshot() {
+        return copyTagsToSnapshot;
+    }
+    
+    /**
+     * True to copy all tags from the DB instance to snapshots of the DB
+     * instance; otherwise false. The default is false.
+     *
+     * @param copyTagsToSnapshot True to copy all tags from the DB instance to snapshots of the DB
+     *         instance; otherwise false. The default is false.
+     */
+    public void setCopyTagsToSnapshot(Boolean copyTagsToSnapshot) {
+        this.copyTagsToSnapshot = copyTagsToSnapshot;
+    }
+    
+    /**
+     * True to copy all tags from the DB instance to snapshots of the DB
+     * instance; otherwise false. The default is false.
+     * <p>
+     * Returns a reference to this object so that method calls can be chained together.
+     *
+     * @param copyTagsToSnapshot True to copy all tags from the DB instance to snapshots of the DB
+     *         instance; otherwise false. The default is false.
+     *
+     * @return A reference to this updated object so that method calls can be chained
+     *         together.
+     */
+    public ModifyDBInstanceRequest withCopyTagsToSnapshot(Boolean copyTagsToSnapshot) {
+        this.copyTagsToSnapshot = copyTagsToSnapshot;
+        return this;
+    }
+
+    /**
+     * True to copy all tags from the DB instance to snapshots of the DB
+     * instance; otherwise false. The default is false.
+     *
+     * @return True to copy all tags from the DB instance to snapshots of the DB
+     *         instance; otherwise false. The default is false.
+     */
+    public Boolean getCopyTagsToSnapshot() {
+        return copyTagsToSnapshot;
+    }
+
+    /**
+     * The interval, in seconds, between points when Enhanced Monitoring
+     * metrics are collected for the DB instance. To disable collecting
+     * Enhanced Monitoring metrics, specify 0. The default is 60. <p>If
+     * <code>MonitoringRoleArn</code> is specified, then you must also set
+     * <code>MonitoringInterval</code> to a value other than 0. <p>Valid
+     * Values: <code>0, 1, 5, 10, 15, 30, 60</code>
+     *
+     * @return The interval, in seconds, between points when Enhanced Monitoring
+     *         metrics are collected for the DB instance. To disable collecting
+     *         Enhanced Monitoring metrics, specify 0. The default is 60. <p>If
+     *         <code>MonitoringRoleArn</code> is specified, then you must also set
+     *         <code>MonitoringInterval</code> to a value other than 0. <p>Valid
+     *         Values: <code>0, 1, 5, 10, 15, 30, 60</code>
+     */
+    public Integer getMonitoringInterval() {
+        return monitoringInterval;
+    }
+    
+    /**
+     * The interval, in seconds, between points when Enhanced Monitoring
+     * metrics are collected for the DB instance. To disable collecting
+     * Enhanced Monitoring metrics, specify 0. The default is 60. <p>If
+     * <code>MonitoringRoleArn</code> is specified, then you must also set
+     * <code>MonitoringInterval</code> to a value other than 0. <p>Valid
+     * Values: <code>0, 1, 5, 10, 15, 30, 60</code>
+     *
+     * @param monitoringInterval The interval, in seconds, between points when Enhanced Monitoring
+     *         metrics are collected for the DB instance. To disable collecting
+     *         Enhanced Monitoring metrics, specify 0. The default is 60. <p>If
+     *         <code>MonitoringRoleArn</code> is specified, then you must also set
+     *         <code>MonitoringInterval</code> to a value other than 0. <p>Valid
+     *         Values: <code>0, 1, 5, 10, 15, 30, 60</code>
+     */
+    public void setMonitoringInterval(Integer monitoringInterval) {
+        this.monitoringInterval = monitoringInterval;
+    }
+    
+    /**
+     * The interval, in seconds, between points when Enhanced Monitoring
+     * metrics are collected for the DB instance. To disable collecting
+     * Enhanced Monitoring metrics, specify 0. The default is 60. <p>If
+     * <code>MonitoringRoleArn</code> is specified, then you must also set
+     * <code>MonitoringInterval</code> to a value other than 0. <p>Valid
+     * Values: <code>0, 1, 5, 10, 15, 30, 60</code>
+     * <p>
+     * Returns a reference to this object so that method calls can be chained together.
+     *
+     * @param monitoringInterval The interval, in seconds, between points when Enhanced Monitoring
+     *         metrics are collected for the DB instance. To disable collecting
+     *         Enhanced Monitoring metrics, specify 0. The default is 60. <p>If
+     *         <code>MonitoringRoleArn</code> is specified, then you must also set
+     *         <code>MonitoringInterval</code> to a value other than 0. <p>Valid
+     *         Values: <code>0, 1, 5, 10, 15, 30, 60</code>
+     *
+     * @return A reference to this updated object so that method calls can be chained
+     *         together.
+     */
+    public ModifyDBInstanceRequest withMonitoringInterval(Integer monitoringInterval) {
+        this.monitoringInterval = monitoringInterval;
+        return this;
+    }
+
+    /**
+     * The port number on which the database accepts connections. <p>The
+     * value of the <code>DBPortNumber</code> parameter must not match any of
+     * the port values specified for options in the option group for the DB
+     * instance. <p>Your database will restart when you change the
+     * <code>DBPortNumber</code> value regardless of the value of the
+     * <code>ApplyImmediately</code> parameter. <p> <b>MySQL</b> <p> Default:
+     * <code>3306</code> <p> Valid Values: <code>1150-65535</code> <p>
+     * <b>MariaDB</b> <p> Default: <code>3306</code> <p> Valid Values:
+     * <code>1150-65535</code> <p> <b>PostgreSQL</b> <p> Default:
+     * <code>5432</code> <p> Valid Values: <code>1150-65535</code> <p>
+     * <b>Oracle</b> <p> Default: <code>1521</code> <p> Valid Values:
+     * <code>1150-65535</code> <p> <b>SQL Server</b> <p> Default:
+     * <code>1433</code> <p> Valid Values: <code>1150-65535</code> except for
+     * <code>1434</code>, <code>3389</code>, <code>47001</code>,
+     * <code>49152</code>, and <code>49152</code> through <code>49156</code>.
+     * <p> <b>Amazon Aurora</b> <p> Default: <code>3306</code> <p> Valid
+     * Values: <code>1150-65535</code>
+     *
+     * @return The port number on which the database accepts connections. <p>The
+     *         value of the <code>DBPortNumber</code> parameter must not match any of
+     *         the port values specified for options in the option group for the DB
+     *         instance. <p>Your database will restart when you change the
+     *         <code>DBPortNumber</code> value regardless of the value of the
+     *         <code>ApplyImmediately</code> parameter. <p> <b>MySQL</b> <p> Default:
+     *         <code>3306</code> <p> Valid Values: <code>1150-65535</code> <p>
+     *         <b>MariaDB</b> <p> Default: <code>3306</code> <p> Valid Values:
+     *         <code>1150-65535</code> <p> <b>PostgreSQL</b> <p> Default:
+     *         <code>5432</code> <p> Valid Values: <code>1150-65535</code> <p>
+     *         <b>Oracle</b> <p> Default: <code>1521</code> <p> Valid Values:
+     *         <code>1150-65535</code> <p> <b>SQL Server</b> <p> Default:
+     *         <code>1433</code> <p> Valid Values: <code>1150-65535</code> except for
+     *         <code>1434</code>, <code>3389</code>, <code>47001</code>,
+     *         <code>49152</code>, and <code>49152</code> through <code>49156</code>.
+     *         <p> <b>Amazon Aurora</b> <p> Default: <code>3306</code> <p> Valid
+     *         Values: <code>1150-65535</code>
+     */
+    public Integer getDBPortNumber() {
+        return dBPortNumber;
+    }
+    
+    /**
+     * The port number on which the database accepts connections. <p>The
+     * value of the <code>DBPortNumber</code> parameter must not match any of
+     * the port values specified for options in the option group for the DB
+     * instance. <p>Your database will restart when you change the
+     * <code>DBPortNumber</code> value regardless of the value of the
+     * <code>ApplyImmediately</code> parameter. <p> <b>MySQL</b> <p> Default:
+     * <code>3306</code> <p> Valid Values: <code>1150-65535</code> <p>
+     * <b>MariaDB</b> <p> Default: <code>3306</code> <p> Valid Values:
+     * <code>1150-65535</code> <p> <b>PostgreSQL</b> <p> Default:
+     * <code>5432</code> <p> Valid Values: <code>1150-65535</code> <p>
+     * <b>Oracle</b> <p> Default: <code>1521</code> <p> Valid Values:
+     * <code>1150-65535</code> <p> <b>SQL Server</b> <p> Default:
+     * <code>1433</code> <p> Valid Values: <code>1150-65535</code> except for
+     * <code>1434</code>, <code>3389</code>, <code>47001</code>,
+     * <code>49152</code>, and <code>49152</code> through <code>49156</code>.
+     * <p> <b>Amazon Aurora</b> <p> Default: <code>3306</code> <p> Valid
+     * Values: <code>1150-65535</code>
+     *
+     * @param dBPortNumber The port number on which the database accepts connections. <p>The
+     *         value of the <code>DBPortNumber</code> parameter must not match any of
+     *         the port values specified for options in the option group for the DB
+     *         instance. <p>Your database will restart when you change the
+     *         <code>DBPortNumber</code> value regardless of the value of the
+     *         <code>ApplyImmediately</code> parameter. <p> <b>MySQL</b> <p> Default:
+     *         <code>3306</code> <p> Valid Values: <code>1150-65535</code> <p>
+     *         <b>MariaDB</b> <p> Default: <code>3306</code> <p> Valid Values:
+     *         <code>1150-65535</code> <p> <b>PostgreSQL</b> <p> Default:
+     *         <code>5432</code> <p> Valid Values: <code>1150-65535</code> <p>
+     *         <b>Oracle</b> <p> Default: <code>1521</code> <p> Valid Values:
+     *         <code>1150-65535</code> <p> <b>SQL Server</b> <p> Default:
+     *         <code>1433</code> <p> Valid Values: <code>1150-65535</code> except for
+     *         <code>1434</code>, <code>3389</code>, <code>47001</code>,
+     *         <code>49152</code>, and <code>49152</code> through <code>49156</code>.
+     *         <p> <b>Amazon Aurora</b> <p> Default: <code>3306</code> <p> Valid
+     *         Values: <code>1150-65535</code>
+     */
+    public void setDBPortNumber(Integer dBPortNumber) {
+        this.dBPortNumber = dBPortNumber;
+    }
+    
+    /**
+     * The port number on which the database accepts connections. <p>The
+     * value of the <code>DBPortNumber</code> parameter must not match any of
+     * the port values specified for options in the option group for the DB
+     * instance. <p>Your database will restart when you change the
+     * <code>DBPortNumber</code> value regardless of the value of the
+     * <code>ApplyImmediately</code> parameter. <p> <b>MySQL</b> <p> Default:
+     * <code>3306</code> <p> Valid Values: <code>1150-65535</code> <p>
+     * <b>MariaDB</b> <p> Default: <code>3306</code> <p> Valid Values:
+     * <code>1150-65535</code> <p> <b>PostgreSQL</b> <p> Default:
+     * <code>5432</code> <p> Valid Values: <code>1150-65535</code> <p>
+     * <b>Oracle</b> <p> Default: <code>1521</code> <p> Valid Values:
+     * <code>1150-65535</code> <p> <b>SQL Server</b> <p> Default:
+     * <code>1433</code> <p> Valid Values: <code>1150-65535</code> except for
+     * <code>1434</code>, <code>3389</code>, <code>47001</code>,
+     * <code>49152</code>, and <code>49152</code> through <code>49156</code>.
+     * <p> <b>Amazon Aurora</b> <p> Default: <code>3306</code> <p> Valid
+     * Values: <code>1150-65535</code>
+     * <p>
+     * Returns a reference to this object so that method calls can be chained together.
+     *
+     * @param dBPortNumber The port number on which the database accepts connections. <p>The
+     *         value of the <code>DBPortNumber</code> parameter must not match any of
+     *         the port values specified for options in the option group for the DB
+     *         instance. <p>Your database will restart when you change the
+     *         <code>DBPortNumber</code> value regardless of the value of the
+     *         <code>ApplyImmediately</code> parameter. <p> <b>MySQL</b> <p> Default:
+     *         <code>3306</code> <p> Valid Values: <code>1150-65535</code> <p>
+     *         <b>MariaDB</b> <p> Default: <code>3306</code> <p> Valid Values:
+     *         <code>1150-65535</code> <p> <b>PostgreSQL</b> <p> Default:
+     *         <code>5432</code> <p> Valid Values: <code>1150-65535</code> <p>
+     *         <b>Oracle</b> <p> Default: <code>1521</code> <p> Valid Values:
+     *         <code>1150-65535</code> <p> <b>SQL Server</b> <p> Default:
+     *         <code>1433</code> <p> Valid Values: <code>1150-65535</code> except for
+     *         <code>1434</code>, <code>3389</code>, <code>47001</code>,
+     *         <code>49152</code>, and <code>49152</code> through <code>49156</code>.
+     *         <p> <b>Amazon Aurora</b> <p> Default: <code>3306</code> <p> Valid
+     *         Values: <code>1150-65535</code>
+     *
+     * @return A reference to this updated object so that method calls can be chained
+     *         together.
+     */
+    public ModifyDBInstanceRequest withDBPortNumber(Integer dBPortNumber) {
+        this.dBPortNumber = dBPortNumber;
+        return this;
+    }
+
+    /**
+     * True to make the DB instance Internet-facing with a publicly
+     * resolvable DNS name, which resolves to a public IP address. False to
+     * make the DB instance internal with a DNS name that resolves to a
+     * private IP address. <p><code>PubliclyAccessible</code> only applies to
+     * DB instances in a VPC. The DB instance must be part of a public subnet
+     * and <code>PubliclyAccessible</code> must be true in order for it to be
+     * publicly accessible. <p>Changes to the <code>PubliclyAccessible</code>
+     * parameter are applied immediately regardless of the value of the
+     * <code>ApplyImmediately</code> parameter. <p> Default: false
+     *
+     * @return True to make the DB instance Internet-facing with a publicly
+     *         resolvable DNS name, which resolves to a public IP address. False to
+     *         make the DB instance internal with a DNS name that resolves to a
+     *         private IP address. <p><code>PubliclyAccessible</code> only applies to
+     *         DB instances in a VPC. The DB instance must be part of a public subnet
+     *         and <code>PubliclyAccessible</code> must be true in order for it to be
+     *         publicly accessible. <p>Changes to the <code>PubliclyAccessible</code>
+     *         parameter are applied immediately regardless of the value of the
+     *         <code>ApplyImmediately</code> parameter. <p> Default: false
+     */
+    public Boolean isPubliclyAccessible() {
+        return publiclyAccessible;
+    }
+    
+    /**
+     * True to make the DB instance Internet-facing with a publicly
+     * resolvable DNS name, which resolves to a public IP address. False to
+     * make the DB instance internal with a DNS name that resolves to a
+     * private IP address. <p><code>PubliclyAccessible</code> only applies to
+     * DB instances in a VPC. The DB instance must be part of a public subnet
+     * and <code>PubliclyAccessible</code> must be true in order for it to be
+     * publicly accessible. <p>Changes to the <code>PubliclyAccessible</code>
+     * parameter are applied immediately regardless of the value of the
+     * <code>ApplyImmediately</code> parameter. <p> Default: false
+     *
+     * @param publiclyAccessible True to make the DB instance Internet-facing with a publicly
+     *         resolvable DNS name, which resolves to a public IP address. False to
+     *         make the DB instance internal with a DNS name that resolves to a
+     *         private IP address. <p><code>PubliclyAccessible</code> only applies to
+     *         DB instances in a VPC. The DB instance must be part of a public subnet
+     *         and <code>PubliclyAccessible</code> must be true in order for it to be
+     *         publicly accessible. <p>Changes to the <code>PubliclyAccessible</code>
+     *         parameter are applied immediately regardless of the value of the
+     *         <code>ApplyImmediately</code> parameter. <p> Default: false
+     */
+    public void setPubliclyAccessible(Boolean publiclyAccessible) {
+        this.publiclyAccessible = publiclyAccessible;
+    }
+    
+    /**
+     * True to make the DB instance Internet-facing with a publicly
+     * resolvable DNS name, which resolves to a public IP address. False to
+     * make the DB instance internal with a DNS name that resolves to a
+     * private IP address. <p><code>PubliclyAccessible</code> only applies to
+     * DB instances in a VPC. The DB instance must be part of a public subnet
+     * and <code>PubliclyAccessible</code> must be true in order for it to be
+     * publicly accessible. <p>Changes to the <code>PubliclyAccessible</code>
+     * parameter are applied immediately regardless of the value of the
+     * <code>ApplyImmediately</code> parameter. <p> Default: false
+     * <p>
+     * Returns a reference to this object so that method calls can be chained together.
+     *
+     * @param publiclyAccessible True to make the DB instance Internet-facing with a publicly
+     *         resolvable DNS name, which resolves to a public IP address. False to
+     *         make the DB instance internal with a DNS name that resolves to a
+     *         private IP address. <p><code>PubliclyAccessible</code> only applies to
+     *         DB instances in a VPC. The DB instance must be part of a public subnet
+     *         and <code>PubliclyAccessible</code> must be true in order for it to be
+     *         publicly accessible. <p>Changes to the <code>PubliclyAccessible</code>
+     *         parameter are applied immediately regardless of the value of the
+     *         <code>ApplyImmediately</code> parameter. <p> Default: false
+     *
+     * @return A reference to this updated object so that method calls can be chained
+     *         together.
+     */
+    public ModifyDBInstanceRequest withPubliclyAccessible(Boolean publiclyAccessible) {
+        this.publiclyAccessible = publiclyAccessible;
+        return this;
+    }
+
+    /**
+     * True to make the DB instance Internet-facing with a publicly
+     * resolvable DNS name, which resolves to a public IP address. False to
+     * make the DB instance internal with a DNS name that resolves to a
+     * private IP address. <p><code>PubliclyAccessible</code> only applies to
+     * DB instances in a VPC. The DB instance must be part of a public subnet
+     * and <code>PubliclyAccessible</code> must be true in order for it to be
+     * publicly accessible. <p>Changes to the <code>PubliclyAccessible</code>
+     * parameter are applied immediately regardless of the value of the
+     * <code>ApplyImmediately</code> parameter. <p> Default: false
+     *
+     * @return True to make the DB instance Internet-facing with a publicly
+     *         resolvable DNS name, which resolves to a public IP address. False to
+     *         make the DB instance internal with a DNS name that resolves to a
+     *         private IP address. <p><code>PubliclyAccessible</code> only applies to
+     *         DB instances in a VPC. The DB instance must be part of a public subnet
+     *         and <code>PubliclyAccessible</code> must be true in order for it to be
+     *         publicly accessible. <p>Changes to the <code>PubliclyAccessible</code>
+     *         parameter are applied immediately regardless of the value of the
+     *         <code>ApplyImmediately</code> parameter. <p> Default: false
+     */
+    public Boolean getPubliclyAccessible() {
+        return publiclyAccessible;
+    }
+
+    /**
+     * The ARN for the IAM role that permits RDS to send enhanced monitoring
+     * metrics to CloudWatch Logs. For example,
+     * <code>arn:aws:iam:123456789012:role/emaccess</code>. For information
+     * on creating a monitoring role, go to <a
+     * href="http://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_Monitoring.html#USER_Monitoring.OS.IAMRole">To
+     * create an IAM role for Amazon RDS Enhanced Monitoring</a>. <p>If
+     * <code>MonitoringInterval</code> is set to a value other than 0, then
+     * you must supply a <code>MonitoringRoleArn</code> value.
+     *
+     * @return The ARN for the IAM role that permits RDS to send enhanced monitoring
+     *         metrics to CloudWatch Logs. For example,
+     *         <code>arn:aws:iam:123456789012:role/emaccess</code>. For information
+     *         on creating a monitoring role, go to <a
+     *         href="http://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_Monitoring.html#USER_Monitoring.OS.IAMRole">To
+     *         create an IAM role for Amazon RDS Enhanced Monitoring</a>. <p>If
+     *         <code>MonitoringInterval</code> is set to a value other than 0, then
+     *         you must supply a <code>MonitoringRoleArn</code> value.
+     */
+    public String getMonitoringRoleArn() {
+        return monitoringRoleArn;
+    }
+    
+    /**
+     * The ARN for the IAM role that permits RDS to send enhanced monitoring
+     * metrics to CloudWatch Logs. For example,
+     * <code>arn:aws:iam:123456789012:role/emaccess</code>. For information
+     * on creating a monitoring role, go to <a
+     * href="http://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_Monitoring.html#USER_Monitoring.OS.IAMRole">To
+     * create an IAM role for Amazon RDS Enhanced Monitoring</a>. <p>If
+     * <code>MonitoringInterval</code> is set to a value other than 0, then
+     * you must supply a <code>MonitoringRoleArn</code> value.
+     *
+     * @param monitoringRoleArn The ARN for the IAM role that permits RDS to send enhanced monitoring
+     *         metrics to CloudWatch Logs. For example,
+     *         <code>arn:aws:iam:123456789012:role/emaccess</code>. For information
+     *         on creating a monitoring role, go to <a
+     *         href="http://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_Monitoring.html#USER_Monitoring.OS.IAMRole">To
+     *         create an IAM role for Amazon RDS Enhanced Monitoring</a>. <p>If
+     *         <code>MonitoringInterval</code> is set to a value other than 0, then
+     *         you must supply a <code>MonitoringRoleArn</code> value.
+     */
+    public void setMonitoringRoleArn(String monitoringRoleArn) {
+        this.monitoringRoleArn = monitoringRoleArn;
+    }
+    
+    /**
+     * The ARN for the IAM role that permits RDS to send enhanced monitoring
+     * metrics to CloudWatch Logs. For example,
+     * <code>arn:aws:iam:123456789012:role/emaccess</code>. For information
+     * on creating a monitoring role, go to <a
+     * href="http://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_Monitoring.html#USER_Monitoring.OS.IAMRole">To
+     * create an IAM role for Amazon RDS Enhanced Monitoring</a>. <p>If
+     * <code>MonitoringInterval</code> is set to a value other than 0, then
+     * you must supply a <code>MonitoringRoleArn</code> value.
+     * <p>
+     * Returns a reference to this object so that method calls can be chained together.
+     *
+     * @param monitoringRoleArn The ARN for the IAM role that permits RDS to send enhanced monitoring
+     *         metrics to CloudWatch Logs. For example,
+     *         <code>arn:aws:iam:123456789012:role/emaccess</code>. For information
+     *         on creating a monitoring role, go to <a
+     *         href="http://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_Monitoring.html#USER_Monitoring.OS.IAMRole">To
+     *         create an IAM role for Amazon RDS Enhanced Monitoring</a>. <p>If
+     *         <code>MonitoringInterval</code> is set to a value other than 0, then
+     *         you must supply a <code>MonitoringRoleArn</code> value.
+     *
+     * @return A reference to this updated object so that method calls can be chained
+     *         together.
+     */
+    public ModifyDBInstanceRequest withMonitoringRoleArn(String monitoringRoleArn) {
+        this.monitoringRoleArn = monitoringRoleArn;
+        return this;
+    }
+
+    /**
      * Returns a string representation of this object; useful for testing and
      * debugging.
      *
@@ -2510,7 +3044,12 @@ public class ModifyDBInstanceRequest extends AmazonWebServiceRequest implements 
         if (getStorageType() != null) sb.append("StorageType: " + getStorageType() + ",");
         if (getTdeCredentialArn() != null) sb.append("TdeCredentialArn: " + getTdeCredentialArn() + ",");
         if (getTdeCredentialPassword() != null) sb.append("TdeCredentialPassword: " + getTdeCredentialPassword() + ",");
-        if (getCACertificateIdentifier() != null) sb.append("CACertificateIdentifier: " + getCACertificateIdentifier() );
+        if (getCACertificateIdentifier() != null) sb.append("CACertificateIdentifier: " + getCACertificateIdentifier() + ",");
+        if (isCopyTagsToSnapshot() != null) sb.append("CopyTagsToSnapshot: " + isCopyTagsToSnapshot() + ",");
+        if (getMonitoringInterval() != null) sb.append("MonitoringInterval: " + getMonitoringInterval() + ",");
+        if (getDBPortNumber() != null) sb.append("DBPortNumber: " + getDBPortNumber() + ",");
+        if (isPubliclyAccessible() != null) sb.append("PubliclyAccessible: " + isPubliclyAccessible() + ",");
+        if (getMonitoringRoleArn() != null) sb.append("MonitoringRoleArn: " + getMonitoringRoleArn() );
         sb.append("}");
         return sb.toString();
     }
@@ -2542,6 +3081,11 @@ public class ModifyDBInstanceRequest extends AmazonWebServiceRequest implements 
         hashCode = prime * hashCode + ((getTdeCredentialArn() == null) ? 0 : getTdeCredentialArn().hashCode()); 
         hashCode = prime * hashCode + ((getTdeCredentialPassword() == null) ? 0 : getTdeCredentialPassword().hashCode()); 
         hashCode = prime * hashCode + ((getCACertificateIdentifier() == null) ? 0 : getCACertificateIdentifier().hashCode()); 
+        hashCode = prime * hashCode + ((isCopyTagsToSnapshot() == null) ? 0 : isCopyTagsToSnapshot().hashCode()); 
+        hashCode = prime * hashCode + ((getMonitoringInterval() == null) ? 0 : getMonitoringInterval().hashCode()); 
+        hashCode = prime * hashCode + ((getDBPortNumber() == null) ? 0 : getDBPortNumber().hashCode()); 
+        hashCode = prime * hashCode + ((isPubliclyAccessible() == null) ? 0 : isPubliclyAccessible().hashCode()); 
+        hashCode = prime * hashCode + ((getMonitoringRoleArn() == null) ? 0 : getMonitoringRoleArn().hashCode()); 
         return hashCode;
     }
     
@@ -2597,6 +3141,16 @@ public class ModifyDBInstanceRequest extends AmazonWebServiceRequest implements 
         if (other.getTdeCredentialPassword() != null && other.getTdeCredentialPassword().equals(this.getTdeCredentialPassword()) == false) return false; 
         if (other.getCACertificateIdentifier() == null ^ this.getCACertificateIdentifier() == null) return false;
         if (other.getCACertificateIdentifier() != null && other.getCACertificateIdentifier().equals(this.getCACertificateIdentifier()) == false) return false; 
+        if (other.isCopyTagsToSnapshot() == null ^ this.isCopyTagsToSnapshot() == null) return false;
+        if (other.isCopyTagsToSnapshot() != null && other.isCopyTagsToSnapshot().equals(this.isCopyTagsToSnapshot()) == false) return false; 
+        if (other.getMonitoringInterval() == null ^ this.getMonitoringInterval() == null) return false;
+        if (other.getMonitoringInterval() != null && other.getMonitoringInterval().equals(this.getMonitoringInterval()) == false) return false; 
+        if (other.getDBPortNumber() == null ^ this.getDBPortNumber() == null) return false;
+        if (other.getDBPortNumber() != null && other.getDBPortNumber().equals(this.getDBPortNumber()) == false) return false; 
+        if (other.isPubliclyAccessible() == null ^ this.isPubliclyAccessible() == null) return false;
+        if (other.isPubliclyAccessible() != null && other.isPubliclyAccessible().equals(this.isPubliclyAccessible()) == false) return false; 
+        if (other.getMonitoringRoleArn() == null ^ this.getMonitoringRoleArn() == null) return false;
+        if (other.getMonitoringRoleArn() != null && other.getMonitoringRoleArn().equals(this.getMonitoringRoleArn()) == false) return false; 
         return true;
     }
     

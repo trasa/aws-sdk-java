@@ -1,5 +1,5 @@
 /*
- * Copyright 2010-2015 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2010-2016 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License.
@@ -77,9 +77,11 @@ public class RestoreDBInstanceToPointInTimeRequest extends AmazonWebServiceReque
      * <p>Valid Values: <code>db.t1.micro | db.m1.small | db.m1.medium |
      * db.m1.large | db.m1.xlarge | db.m2.2xlarge | db.m2.4xlarge |
      * db.m3.medium | db.m3.large | db.m3.xlarge | db.m3.2xlarge |
-     * db.r3.large | db.r3.xlarge | db.r3.2xlarge | db.r3.4xlarge |
-     * db.r3.8xlarge | db.t2.micro | db.t2.small | db.t2.medium</code>
-     * <p>Default: The same DBInstanceClass as the original DB instance.
+     * db.m4.large | db.m4.xlarge | db.m4.2xlarge | db.m4.4xlarge |
+     * db.m4.10xlarge | db.r3.large | db.r3.xlarge | db.r3.2xlarge |
+     * db.r3.4xlarge | db.r3.8xlarge | db.t2.micro | db.t2.small |
+     * db.t2.medium | db.t2.large</code> <p>Default: The same DBInstanceClass
+     * as the original DB instance.
      */
     private String dBInstanceClass;
 
@@ -144,18 +146,19 @@ public class RestoreDBInstanceToPointInTimeRequest extends AmazonWebServiceReque
 
     /**
      * The database name for the restored DB instance. <note> <p>This
-     * parameter is not used for the MySQL engine. </note>
+     * parameter is not used for the MySQL or MariaDB engines. </note>
      */
     private String dBName;
 
     /**
      * The database engine to use for the new instance. <p>Default: The same
      * as source <p>Constraint: Must be compatible with the engine of the
-     * source <p> Valid Values: <code>MySQL</code> | <code>oracle-se1</code>
-     * | <code>oracle-se</code> | <code>oracle-ee</code> |
-     * <code>sqlserver-ee</code> | <code>sqlserver-se</code> |
-     * <code>sqlserver-ex</code> | <code>sqlserver-web</code> |
-     * <code>postgres</code>
+     * source <p> Valid Values: <code>MySQL</code> | <code>mariadb</code> |
+     * <code>oracle-se1</code> | <code>oracle-se</code> |
+     * <code>oracle-ee</code> | <code>sqlserver-ee</code> |
+     * <code>sqlserver-se</code> | <code>sqlserver-ex</code> |
+     * <code>sqlserver-web</code> | <code>postgres</code>|
+     * <code>aurora</code>
      */
     private String engine;
 
@@ -175,6 +178,12 @@ public class RestoreDBInstanceToPointInTimeRequest extends AmazonWebServiceReque
      * a DB instance
      */
     private String optionGroupName;
+
+    /**
+     * True to copy all tags from the restored DB instance to snapshots of
+     * the DB instance; otherwise false. The default is false.
+     */
+    private Boolean copyTagsToSnapshot;
 
     /**
      * A list of tags.
@@ -473,17 +482,21 @@ public class RestoreDBInstanceToPointInTimeRequest extends AmazonWebServiceReque
      * <p>Valid Values: <code>db.t1.micro | db.m1.small | db.m1.medium |
      * db.m1.large | db.m1.xlarge | db.m2.2xlarge | db.m2.4xlarge |
      * db.m3.medium | db.m3.large | db.m3.xlarge | db.m3.2xlarge |
-     * db.r3.large | db.r3.xlarge | db.r3.2xlarge | db.r3.4xlarge |
-     * db.r3.8xlarge | db.t2.micro | db.t2.small | db.t2.medium</code>
-     * <p>Default: The same DBInstanceClass as the original DB instance.
+     * db.m4.large | db.m4.xlarge | db.m4.2xlarge | db.m4.4xlarge |
+     * db.m4.10xlarge | db.r3.large | db.r3.xlarge | db.r3.2xlarge |
+     * db.r3.4xlarge | db.r3.8xlarge | db.t2.micro | db.t2.small |
+     * db.t2.medium | db.t2.large</code> <p>Default: The same DBInstanceClass
+     * as the original DB instance.
      *
      * @return The compute and memory capacity of the Amazon RDS DB instance.
      *         <p>Valid Values: <code>db.t1.micro | db.m1.small | db.m1.medium |
      *         db.m1.large | db.m1.xlarge | db.m2.2xlarge | db.m2.4xlarge |
      *         db.m3.medium | db.m3.large | db.m3.xlarge | db.m3.2xlarge |
-     *         db.r3.large | db.r3.xlarge | db.r3.2xlarge | db.r3.4xlarge |
-     *         db.r3.8xlarge | db.t2.micro | db.t2.small | db.t2.medium</code>
-     *         <p>Default: The same DBInstanceClass as the original DB instance.
+     *         db.m4.large | db.m4.xlarge | db.m4.2xlarge | db.m4.4xlarge |
+     *         db.m4.10xlarge | db.r3.large | db.r3.xlarge | db.r3.2xlarge |
+     *         db.r3.4xlarge | db.r3.8xlarge | db.t2.micro | db.t2.small |
+     *         db.t2.medium | db.t2.large</code> <p>Default: The same DBInstanceClass
+     *         as the original DB instance.
      */
     public String getDBInstanceClass() {
         return dBInstanceClass;
@@ -494,17 +507,21 @@ public class RestoreDBInstanceToPointInTimeRequest extends AmazonWebServiceReque
      * <p>Valid Values: <code>db.t1.micro | db.m1.small | db.m1.medium |
      * db.m1.large | db.m1.xlarge | db.m2.2xlarge | db.m2.4xlarge |
      * db.m3.medium | db.m3.large | db.m3.xlarge | db.m3.2xlarge |
-     * db.r3.large | db.r3.xlarge | db.r3.2xlarge | db.r3.4xlarge |
-     * db.r3.8xlarge | db.t2.micro | db.t2.small | db.t2.medium</code>
-     * <p>Default: The same DBInstanceClass as the original DB instance.
+     * db.m4.large | db.m4.xlarge | db.m4.2xlarge | db.m4.4xlarge |
+     * db.m4.10xlarge | db.r3.large | db.r3.xlarge | db.r3.2xlarge |
+     * db.r3.4xlarge | db.r3.8xlarge | db.t2.micro | db.t2.small |
+     * db.t2.medium | db.t2.large</code> <p>Default: The same DBInstanceClass
+     * as the original DB instance.
      *
      * @param dBInstanceClass The compute and memory capacity of the Amazon RDS DB instance.
      *         <p>Valid Values: <code>db.t1.micro | db.m1.small | db.m1.medium |
      *         db.m1.large | db.m1.xlarge | db.m2.2xlarge | db.m2.4xlarge |
      *         db.m3.medium | db.m3.large | db.m3.xlarge | db.m3.2xlarge |
-     *         db.r3.large | db.r3.xlarge | db.r3.2xlarge | db.r3.4xlarge |
-     *         db.r3.8xlarge | db.t2.micro | db.t2.small | db.t2.medium</code>
-     *         <p>Default: The same DBInstanceClass as the original DB instance.
+     *         db.m4.large | db.m4.xlarge | db.m4.2xlarge | db.m4.4xlarge |
+     *         db.m4.10xlarge | db.r3.large | db.r3.xlarge | db.r3.2xlarge |
+     *         db.r3.4xlarge | db.r3.8xlarge | db.t2.micro | db.t2.small |
+     *         db.t2.medium | db.t2.large</code> <p>Default: The same DBInstanceClass
+     *         as the original DB instance.
      */
     public void setDBInstanceClass(String dBInstanceClass) {
         this.dBInstanceClass = dBInstanceClass;
@@ -515,9 +532,11 @@ public class RestoreDBInstanceToPointInTimeRequest extends AmazonWebServiceReque
      * <p>Valid Values: <code>db.t1.micro | db.m1.small | db.m1.medium |
      * db.m1.large | db.m1.xlarge | db.m2.2xlarge | db.m2.4xlarge |
      * db.m3.medium | db.m3.large | db.m3.xlarge | db.m3.2xlarge |
-     * db.r3.large | db.r3.xlarge | db.r3.2xlarge | db.r3.4xlarge |
-     * db.r3.8xlarge | db.t2.micro | db.t2.small | db.t2.medium</code>
-     * <p>Default: The same DBInstanceClass as the original DB instance.
+     * db.m4.large | db.m4.xlarge | db.m4.2xlarge | db.m4.4xlarge |
+     * db.m4.10xlarge | db.r3.large | db.r3.xlarge | db.r3.2xlarge |
+     * db.r3.4xlarge | db.r3.8xlarge | db.t2.micro | db.t2.small |
+     * db.t2.medium | db.t2.large</code> <p>Default: The same DBInstanceClass
+     * as the original DB instance.
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *
@@ -525,9 +544,11 @@ public class RestoreDBInstanceToPointInTimeRequest extends AmazonWebServiceReque
      *         <p>Valid Values: <code>db.t1.micro | db.m1.small | db.m1.medium |
      *         db.m1.large | db.m1.xlarge | db.m2.2xlarge | db.m2.4xlarge |
      *         db.m3.medium | db.m3.large | db.m3.xlarge | db.m3.2xlarge |
-     *         db.r3.large | db.r3.xlarge | db.r3.2xlarge | db.r3.4xlarge |
-     *         db.r3.8xlarge | db.t2.micro | db.t2.small | db.t2.medium</code>
-     *         <p>Default: The same DBInstanceClass as the original DB instance.
+     *         db.m4.large | db.m4.xlarge | db.m4.2xlarge | db.m4.4xlarge |
+     *         db.m4.10xlarge | db.r3.large | db.r3.xlarge | db.r3.2xlarge |
+     *         db.r3.4xlarge | db.r3.8xlarge | db.t2.micro | db.t2.small |
+     *         db.t2.medium | db.t2.large</code> <p>Default: The same DBInstanceClass
+     *         as the original DB instance.
      *
      * @return A reference to this updated object so that method calls can be chained
      *         together.
@@ -971,10 +992,10 @@ public class RestoreDBInstanceToPointInTimeRequest extends AmazonWebServiceReque
 
     /**
      * The database name for the restored DB instance. <note> <p>This
-     * parameter is not used for the MySQL engine. </note>
+     * parameter is not used for the MySQL or MariaDB engines. </note>
      *
      * @return The database name for the restored DB instance. <note> <p>This
-     *         parameter is not used for the MySQL engine. </note>
+     *         parameter is not used for the MySQL or MariaDB engines. </note>
      */
     public String getDBName() {
         return dBName;
@@ -982,10 +1003,10 @@ public class RestoreDBInstanceToPointInTimeRequest extends AmazonWebServiceReque
     
     /**
      * The database name for the restored DB instance. <note> <p>This
-     * parameter is not used for the MySQL engine. </note>
+     * parameter is not used for the MySQL or MariaDB engines. </note>
      *
      * @param dBName The database name for the restored DB instance. <note> <p>This
-     *         parameter is not used for the MySQL engine. </note>
+     *         parameter is not used for the MySQL or MariaDB engines. </note>
      */
     public void setDBName(String dBName) {
         this.dBName = dBName;
@@ -993,12 +1014,12 @@ public class RestoreDBInstanceToPointInTimeRequest extends AmazonWebServiceReque
     
     /**
      * The database name for the restored DB instance. <note> <p>This
-     * parameter is not used for the MySQL engine. </note>
+     * parameter is not used for the MySQL or MariaDB engines. </note>
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *
      * @param dBName The database name for the restored DB instance. <note> <p>This
-     *         parameter is not used for the MySQL engine. </note>
+     *         parameter is not used for the MySQL or MariaDB engines. </note>
      *
      * @return A reference to this updated object so that method calls can be chained
      *         together.
@@ -1011,19 +1032,21 @@ public class RestoreDBInstanceToPointInTimeRequest extends AmazonWebServiceReque
     /**
      * The database engine to use for the new instance. <p>Default: The same
      * as source <p>Constraint: Must be compatible with the engine of the
-     * source <p> Valid Values: <code>MySQL</code> | <code>oracle-se1</code>
-     * | <code>oracle-se</code> | <code>oracle-ee</code> |
-     * <code>sqlserver-ee</code> | <code>sqlserver-se</code> |
-     * <code>sqlserver-ex</code> | <code>sqlserver-web</code> |
-     * <code>postgres</code>
+     * source <p> Valid Values: <code>MySQL</code> | <code>mariadb</code> |
+     * <code>oracle-se1</code> | <code>oracle-se</code> |
+     * <code>oracle-ee</code> | <code>sqlserver-ee</code> |
+     * <code>sqlserver-se</code> | <code>sqlserver-ex</code> |
+     * <code>sqlserver-web</code> | <code>postgres</code>|
+     * <code>aurora</code>
      *
      * @return The database engine to use for the new instance. <p>Default: The same
      *         as source <p>Constraint: Must be compatible with the engine of the
-     *         source <p> Valid Values: <code>MySQL</code> | <code>oracle-se1</code>
-     *         | <code>oracle-se</code> | <code>oracle-ee</code> |
-     *         <code>sqlserver-ee</code> | <code>sqlserver-se</code> |
-     *         <code>sqlserver-ex</code> | <code>sqlserver-web</code> |
-     *         <code>postgres</code>
+     *         source <p> Valid Values: <code>MySQL</code> | <code>mariadb</code> |
+     *         <code>oracle-se1</code> | <code>oracle-se</code> |
+     *         <code>oracle-ee</code> | <code>sqlserver-ee</code> |
+     *         <code>sqlserver-se</code> | <code>sqlserver-ex</code> |
+     *         <code>sqlserver-web</code> | <code>postgres</code>|
+     *         <code>aurora</code>
      */
     public String getEngine() {
         return engine;
@@ -1032,19 +1055,21 @@ public class RestoreDBInstanceToPointInTimeRequest extends AmazonWebServiceReque
     /**
      * The database engine to use for the new instance. <p>Default: The same
      * as source <p>Constraint: Must be compatible with the engine of the
-     * source <p> Valid Values: <code>MySQL</code> | <code>oracle-se1</code>
-     * | <code>oracle-se</code> | <code>oracle-ee</code> |
-     * <code>sqlserver-ee</code> | <code>sqlserver-se</code> |
-     * <code>sqlserver-ex</code> | <code>sqlserver-web</code> |
-     * <code>postgres</code>
+     * source <p> Valid Values: <code>MySQL</code> | <code>mariadb</code> |
+     * <code>oracle-se1</code> | <code>oracle-se</code> |
+     * <code>oracle-ee</code> | <code>sqlserver-ee</code> |
+     * <code>sqlserver-se</code> | <code>sqlserver-ex</code> |
+     * <code>sqlserver-web</code> | <code>postgres</code>|
+     * <code>aurora</code>
      *
      * @param engine The database engine to use for the new instance. <p>Default: The same
      *         as source <p>Constraint: Must be compatible with the engine of the
-     *         source <p> Valid Values: <code>MySQL</code> | <code>oracle-se1</code>
-     *         | <code>oracle-se</code> | <code>oracle-ee</code> |
-     *         <code>sqlserver-ee</code> | <code>sqlserver-se</code> |
-     *         <code>sqlserver-ex</code> | <code>sqlserver-web</code> |
-     *         <code>postgres</code>
+     *         source <p> Valid Values: <code>MySQL</code> | <code>mariadb</code> |
+     *         <code>oracle-se1</code> | <code>oracle-se</code> |
+     *         <code>oracle-ee</code> | <code>sqlserver-ee</code> |
+     *         <code>sqlserver-se</code> | <code>sqlserver-ex</code> |
+     *         <code>sqlserver-web</code> | <code>postgres</code>|
+     *         <code>aurora</code>
      */
     public void setEngine(String engine) {
         this.engine = engine;
@@ -1053,21 +1078,23 @@ public class RestoreDBInstanceToPointInTimeRequest extends AmazonWebServiceReque
     /**
      * The database engine to use for the new instance. <p>Default: The same
      * as source <p>Constraint: Must be compatible with the engine of the
-     * source <p> Valid Values: <code>MySQL</code> | <code>oracle-se1</code>
-     * | <code>oracle-se</code> | <code>oracle-ee</code> |
-     * <code>sqlserver-ee</code> | <code>sqlserver-se</code> |
-     * <code>sqlserver-ex</code> | <code>sqlserver-web</code> |
-     * <code>postgres</code>
+     * source <p> Valid Values: <code>MySQL</code> | <code>mariadb</code> |
+     * <code>oracle-se1</code> | <code>oracle-se</code> |
+     * <code>oracle-ee</code> | <code>sqlserver-ee</code> |
+     * <code>sqlserver-se</code> | <code>sqlserver-ex</code> |
+     * <code>sqlserver-web</code> | <code>postgres</code>|
+     * <code>aurora</code>
      * <p>
      * Returns a reference to this object so that method calls can be chained together.
      *
      * @param engine The database engine to use for the new instance. <p>Default: The same
      *         as source <p>Constraint: Must be compatible with the engine of the
-     *         source <p> Valid Values: <code>MySQL</code> | <code>oracle-se1</code>
-     *         | <code>oracle-se</code> | <code>oracle-ee</code> |
-     *         <code>sqlserver-ee</code> | <code>sqlserver-se</code> |
-     *         <code>sqlserver-ex</code> | <code>sqlserver-web</code> |
-     *         <code>postgres</code>
+     *         source <p> Valid Values: <code>MySQL</code> | <code>mariadb</code> |
+     *         <code>oracle-se1</code> | <code>oracle-se</code> |
+     *         <code>oracle-ee</code> | <code>sqlserver-ee</code> |
+     *         <code>sqlserver-se</code> | <code>sqlserver-ex</code> |
+     *         <code>sqlserver-web</code> | <code>postgres</code>|
+     *         <code>aurora</code>
      *
      * @return A reference to this updated object so that method calls can be chained
      *         together.
@@ -1183,6 +1210,56 @@ public class RestoreDBInstanceToPointInTimeRequest extends AmazonWebServiceReque
     public RestoreDBInstanceToPointInTimeRequest withOptionGroupName(String optionGroupName) {
         this.optionGroupName = optionGroupName;
         return this;
+    }
+
+    /**
+     * True to copy all tags from the restored DB instance to snapshots of
+     * the DB instance; otherwise false. The default is false.
+     *
+     * @return True to copy all tags from the restored DB instance to snapshots of
+     *         the DB instance; otherwise false. The default is false.
+     */
+    public Boolean isCopyTagsToSnapshot() {
+        return copyTagsToSnapshot;
+    }
+    
+    /**
+     * True to copy all tags from the restored DB instance to snapshots of
+     * the DB instance; otherwise false. The default is false.
+     *
+     * @param copyTagsToSnapshot True to copy all tags from the restored DB instance to snapshots of
+     *         the DB instance; otherwise false. The default is false.
+     */
+    public void setCopyTagsToSnapshot(Boolean copyTagsToSnapshot) {
+        this.copyTagsToSnapshot = copyTagsToSnapshot;
+    }
+    
+    /**
+     * True to copy all tags from the restored DB instance to snapshots of
+     * the DB instance; otherwise false. The default is false.
+     * <p>
+     * Returns a reference to this object so that method calls can be chained together.
+     *
+     * @param copyTagsToSnapshot True to copy all tags from the restored DB instance to snapshots of
+     *         the DB instance; otherwise false. The default is false.
+     *
+     * @return A reference to this updated object so that method calls can be chained
+     *         together.
+     */
+    public RestoreDBInstanceToPointInTimeRequest withCopyTagsToSnapshot(Boolean copyTagsToSnapshot) {
+        this.copyTagsToSnapshot = copyTagsToSnapshot;
+        return this;
+    }
+
+    /**
+     * True to copy all tags from the restored DB instance to snapshots of
+     * the DB instance; otherwise false. The default is false.
+     *
+     * @return True to copy all tags from the restored DB instance to snapshots of
+     *         the DB instance; otherwise false. The default is false.
+     */
+    public Boolean getCopyTagsToSnapshot() {
+        return copyTagsToSnapshot;
     }
 
     /**
@@ -1427,6 +1504,7 @@ public class RestoreDBInstanceToPointInTimeRequest extends AmazonWebServiceReque
         if (getEngine() != null) sb.append("Engine: " + getEngine() + ",");
         if (getIops() != null) sb.append("Iops: " + getIops() + ",");
         if (getOptionGroupName() != null) sb.append("OptionGroupName: " + getOptionGroupName() + ",");
+        if (isCopyTagsToSnapshot() != null) sb.append("CopyTagsToSnapshot: " + isCopyTagsToSnapshot() + ",");
         if (getTags() != null) sb.append("Tags: " + getTags() + ",");
         if (getStorageType() != null) sb.append("StorageType: " + getStorageType() + ",");
         if (getTdeCredentialArn() != null) sb.append("TdeCredentialArn: " + getTdeCredentialArn() + ",");
@@ -1456,6 +1534,7 @@ public class RestoreDBInstanceToPointInTimeRequest extends AmazonWebServiceReque
         hashCode = prime * hashCode + ((getEngine() == null) ? 0 : getEngine().hashCode()); 
         hashCode = prime * hashCode + ((getIops() == null) ? 0 : getIops().hashCode()); 
         hashCode = prime * hashCode + ((getOptionGroupName() == null) ? 0 : getOptionGroupName().hashCode()); 
+        hashCode = prime * hashCode + ((isCopyTagsToSnapshot() == null) ? 0 : isCopyTagsToSnapshot().hashCode()); 
         hashCode = prime * hashCode + ((getTags() == null) ? 0 : getTags().hashCode()); 
         hashCode = prime * hashCode + ((getStorageType() == null) ? 0 : getStorageType().hashCode()); 
         hashCode = prime * hashCode + ((getTdeCredentialArn() == null) ? 0 : getTdeCredentialArn().hashCode()); 
@@ -1503,6 +1582,8 @@ public class RestoreDBInstanceToPointInTimeRequest extends AmazonWebServiceReque
         if (other.getIops() != null && other.getIops().equals(this.getIops()) == false) return false; 
         if (other.getOptionGroupName() == null ^ this.getOptionGroupName() == null) return false;
         if (other.getOptionGroupName() != null && other.getOptionGroupName().equals(this.getOptionGroupName()) == false) return false; 
+        if (other.isCopyTagsToSnapshot() == null ^ this.isCopyTagsToSnapshot() == null) return false;
+        if (other.isCopyTagsToSnapshot() != null && other.isCopyTagsToSnapshot().equals(this.isCopyTagsToSnapshot()) == false) return false; 
         if (other.getTags() == null ^ this.getTags() == null) return false;
         if (other.getTags() != null && other.getTags().equals(this.getTags()) == false) return false; 
         if (other.getStorageType() == null ^ this.getStorageType() == null) return false;

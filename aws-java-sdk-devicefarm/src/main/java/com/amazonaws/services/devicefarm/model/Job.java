@@ -1,5 +1,5 @@
 /*
- * Copyright 2010-2015 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2010-2016 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License.
@@ -208,6 +208,12 @@ public class Job implements Serializable, Cloneable {
     private String message;
 
     private Device device;
+    /**
+     * <p>
+     * Represents the total (metered or unmetered) minutes used by the job.
+     * </p>
+     */
+    private DeviceMinutes deviceMinutes;
 
     /**
      * <p>
@@ -1897,34 +1903,67 @@ public class Job implements Serializable, Cloneable {
     }
 
     /**
-     * Sets the value of the Device property for this object.
-     * 
      * @param device
-     *        The new value for the Device property for this object.
      */
     public void setDevice(Device device) {
         this.device = device;
     }
 
     /**
-     * Returns the value of the Device property for this object.
-     * 
-     * @return The value of the Device property for this object.
+     * @return
      */
     public Device getDevice() {
         return this.device;
     }
 
     /**
-     * Sets the value of the Device property for this object.
-     * 
      * @param device
-     *        The new value for the Device property for this object.
      * @return Returns a reference to this object so that method calls can be
      *         chained together.
      */
     public Job withDevice(Device device) {
         setDevice(device);
+        return this;
+    }
+
+    /**
+     * <p>
+     * Represents the total (metered or unmetered) minutes used by the job.
+     * </p>
+     * 
+     * @param deviceMinutes
+     *        Represents the total (metered or unmetered) minutes used by the
+     *        job.
+     */
+    public void setDeviceMinutes(DeviceMinutes deviceMinutes) {
+        this.deviceMinutes = deviceMinutes;
+    }
+
+    /**
+     * <p>
+     * Represents the total (metered or unmetered) minutes used by the job.
+     * </p>
+     * 
+     * @return Represents the total (metered or unmetered) minutes used by the
+     *         job.
+     */
+    public DeviceMinutes getDeviceMinutes() {
+        return this.deviceMinutes;
+    }
+
+    /**
+     * <p>
+     * Represents the total (metered or unmetered) minutes used by the job.
+     * </p>
+     * 
+     * @param deviceMinutes
+     *        Represents the total (metered or unmetered) minutes used by the
+     *        job.
+     * @return Returns a reference to this object so that method calls can be
+     *         chained together.
+     */
+    public Job withDeviceMinutes(DeviceMinutes deviceMinutes) {
+        setDeviceMinutes(deviceMinutes);
         return this;
     }
 
@@ -1961,7 +2000,9 @@ public class Job implements Serializable, Cloneable {
         if (getMessage() != null)
             sb.append("Message: " + getMessage() + ",");
         if (getDevice() != null)
-            sb.append("Device: " + getDevice());
+            sb.append("Device: " + getDevice() + ",");
+        if (getDeviceMinutes() != null)
+            sb.append("DeviceMinutes: " + getDeviceMinutes());
         sb.append("}");
         return sb.toString();
     }
@@ -2031,6 +2072,11 @@ public class Job implements Serializable, Cloneable {
         if (other.getDevice() != null
                 && other.getDevice().equals(this.getDevice()) == false)
             return false;
+        if (other.getDeviceMinutes() == null ^ this.getDeviceMinutes() == null)
+            return false;
+        if (other.getDeviceMinutes() != null
+                && other.getDeviceMinutes().equals(this.getDeviceMinutes()) == false)
+            return false;
         return true;
     }
 
@@ -2061,6 +2107,10 @@ public class Job implements Serializable, Cloneable {
                 + ((getMessage() == null) ? 0 : getMessage().hashCode());
         hashCode = prime * hashCode
                 + ((getDevice() == null) ? 0 : getDevice().hashCode());
+        hashCode = prime
+                * hashCode
+                + ((getDeviceMinutes() == null) ? 0 : getDeviceMinutes()
+                        .hashCode());
         return hashCode;
     }
 

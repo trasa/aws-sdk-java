@@ -1,5 +1,5 @@
 /*
- * Copyright 2010-2015 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2010-2016 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License.
@@ -367,6 +367,41 @@ public class AWSElasticBeanstalkAsyncClient extends AWSElasticBeanstalkClient
 
                         try {
                             result = checkDNSAvailability(request);
+                        } catch (Exception ex) {
+                            if (asyncHandler != null) {
+                                asyncHandler.onError(ex);
+                            }
+                            throw ex;
+                        }
+
+                        if (asyncHandler != null) {
+                            asyncHandler.onSuccess(request, result);
+                        }
+                        return result;
+                    }
+                });
+    }
+
+    @Override
+    public java.util.concurrent.Future<ComposeEnvironmentsResult> composeEnvironmentsAsync(
+            ComposeEnvironmentsRequest request) {
+
+        return composeEnvironmentsAsync(request, null);
+    }
+
+    @Override
+    public java.util.concurrent.Future<ComposeEnvironmentsResult> composeEnvironmentsAsync(
+            final ComposeEnvironmentsRequest request,
+            final com.amazonaws.handlers.AsyncHandler<ComposeEnvironmentsRequest, ComposeEnvironmentsResult> asyncHandler) {
+
+        return executorService
+                .submit(new java.util.concurrent.Callable<ComposeEnvironmentsResult>() {
+                    @Override
+                    public ComposeEnvironmentsResult call() throws Exception {
+                        ComposeEnvironmentsResult result;
+
+                        try {
+                            result = composeEnvironments(request);
                         } catch (Exception ex) {
                             if (asyncHandler != null) {
                                 asyncHandler.onError(ex);

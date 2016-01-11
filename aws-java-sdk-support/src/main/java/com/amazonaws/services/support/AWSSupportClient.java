@@ -1,5 +1,5 @@
 /*
- * Copyright 2010-2015 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright 2010-2016 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License.
@@ -111,6 +111,9 @@ public class AWSSupportClient extends AmazonWebServiceClient implements
 
     /** Default signing name for the service. */
     private static final String DEFAULT_SIGNING_NAME = "support";
+
+    /** The region metadata service name for computing region endpoints. */
+    private static final String DEFAULT_ENDPOINT_PREFIX = "support";
 
     /**
      * List of exception unmarshallers for all AWS Support exceptions.
@@ -310,6 +313,7 @@ public class AWSSupportClient extends AmazonWebServiceClient implements
         // calling this.setEndPoint(...) will also modify the signer accordingly
         setEndpoint("https://support.us-east-1.amazonaws.com");
         setServiceNameIntern(DEFAULT_SIGNING_NAME);
+        setEndpointPrefix(DEFAULT_ENDPOINT_PREFIX);
         HandlerChainFactory chainFactory = new HandlerChainFactory();
         requestHandler2s
                 .addAll(chainFactory
@@ -336,7 +340,6 @@ public class AWSSupportClient extends AmazonWebServiceClient implements
      * </p>
      * 
      * @param addAttachmentsToSetRequest
-     *        null
      * @return Result of the AddAttachmentsToSet operation returned by the
      *         service.
      * @throws InternalServerErrorException
@@ -352,6 +355,7 @@ public class AWSSupportClient extends AmazonWebServiceClient implements
      * @throws AttachmentLimitExceededException
      *         The limit for the number of attachment sets created in a short
      *         period of time has been exceeded.
+     * @sample AWSSupport.AddAttachmentsToSet
      */
     @Override
     public AddAttachmentsToSetResult addAttachmentsToSet(
@@ -367,16 +371,18 @@ public class AWSSupportClient extends AmazonWebServiceClient implements
             awsRequestMetrics.startEvent(Field.RequestMarshallTime);
             try {
                 request = new AddAttachmentsToSetRequestMarshaller()
-                        .marshall(addAttachmentsToSetRequest);
+                        .marshall(super
+                                .beforeMarshalling(addAttachmentsToSetRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
 
-            response = invoke(request,
-                    new AddAttachmentsToSetResultJsonUnmarshaller(),
-                    executionContext);
+            JsonResponseHandler<AddAttachmentsToSetResult> responseHandler = new JsonResponseHandler<AddAttachmentsToSetResult>(
+                    new AddAttachmentsToSetResultJsonUnmarshaller());
+            responseHandler.setIsPayloadJson(true);
+            response = invoke(request, responseHandler, executionContext);
 
             return response.getAwsResponse();
 
@@ -416,6 +422,7 @@ public class AWSSupportClient extends AmazonWebServiceClient implements
      * @throws AttachmentSetExpiredException
      *         The expiration time of the attachment set has passed. The set
      *         expires 1 hour after it is created.
+     * @sample AWSSupport.AddCommunicationToCase
      */
     @Override
     public AddCommunicationToCaseResult addCommunicationToCase(
@@ -431,16 +438,18 @@ public class AWSSupportClient extends AmazonWebServiceClient implements
             awsRequestMetrics.startEvent(Field.RequestMarshallTime);
             try {
                 request = new AddCommunicationToCaseRequestMarshaller()
-                        .marshall(addCommunicationToCaseRequest);
+                        .marshall(super
+                                .beforeMarshalling(addCommunicationToCaseRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
 
-            response = invoke(request,
-                    new AddCommunicationToCaseResultJsonUnmarshaller(),
-                    executionContext);
+            JsonResponseHandler<AddCommunicationToCaseResult> responseHandler = new JsonResponseHandler<AddCommunicationToCaseResult>(
+                    new AddCommunicationToCaseResultJsonUnmarshaller());
+            responseHandler.setIsPayloadJson(true);
+            response = invoke(request, responseHandler, executionContext);
 
             return response.getAwsResponse();
 
@@ -505,7 +514,6 @@ public class AWSSupportClient extends AmazonWebServiceClient implements
      * </p>
      * 
      * @param createCaseRequest
-     *        null
      * @return Result of the CreateCase operation returned by the service.
      * @throws InternalServerErrorException
      *         An internal server error occurred.
@@ -516,6 +524,7 @@ public class AWSSupportClient extends AmazonWebServiceClient implements
      * @throws AttachmentSetExpiredException
      *         The expiration time of the attachment set has passed. The set
      *         expires 1 hour after it is created.
+     * @sample AWSSupport.CreateCase
      */
     @Override
     public CreateCaseResult createCase(CreateCaseRequest createCaseRequest) {
@@ -529,16 +538,18 @@ public class AWSSupportClient extends AmazonWebServiceClient implements
         try {
             awsRequestMetrics.startEvent(Field.RequestMarshallTime);
             try {
-                request = new CreateCaseRequestMarshaller()
-                        .marshall(createCaseRequest);
+                request = new CreateCaseRequestMarshaller().marshall(super
+                        .beforeMarshalling(createCaseRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
 
-            response = invoke(request, new CreateCaseResultJsonUnmarshaller(),
-                    executionContext);
+            JsonResponseHandler<CreateCaseResult> responseHandler = new JsonResponseHandler<CreateCaseResult>(
+                    new CreateCaseResultJsonUnmarshaller());
+            responseHandler.setIsPayloadJson(true);
+            response = invoke(request, responseHandler, executionContext);
 
             return response.getAwsResponse();
 
@@ -558,7 +569,6 @@ public class AWSSupportClient extends AmazonWebServiceClient implements
      * </p>
      * 
      * @param describeAttachmentRequest
-     *        null
      * @return Result of the DescribeAttachment operation returned by the
      *         service.
      * @throws InternalServerErrorException
@@ -568,6 +578,7 @@ public class AWSSupportClient extends AmazonWebServiceClient implements
      *         a short period of time has been exceeded.
      * @throws AttachmentIdNotFoundException
      *         An attachment with the specified ID could not be found.
+     * @sample AWSSupport.DescribeAttachment
      */
     @Override
     public DescribeAttachmentResult describeAttachment(
@@ -583,16 +594,18 @@ public class AWSSupportClient extends AmazonWebServiceClient implements
             awsRequestMetrics.startEvent(Field.RequestMarshallTime);
             try {
                 request = new DescribeAttachmentRequestMarshaller()
-                        .marshall(describeAttachmentRequest);
+                        .marshall(super
+                                .beforeMarshalling(describeAttachmentRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
 
-            response = invoke(request,
-                    new DescribeAttachmentResultJsonUnmarshaller(),
-                    executionContext);
+            JsonResponseHandler<DescribeAttachmentResult> responseHandler = new JsonResponseHandler<DescribeAttachmentResult>(
+                    new DescribeAttachmentResultJsonUnmarshaller());
+            responseHandler.setIsPayloadJson(true);
+            response = invoke(request, responseHandler, executionContext);
 
             return response.getAwsResponse();
 
@@ -626,12 +639,12 @@ public class AWSSupportClient extends AmazonWebServiceClient implements
      * </ol>
      * 
      * @param describeCasesRequest
-     *        null
      * @return Result of the DescribeCases operation returned by the service.
      * @throws InternalServerErrorException
      *         An internal server error occurred.
      * @throws CaseIdNotFoundException
      *         The requested <code>CaseId</code> could not be located.
+     * @sample AWSSupport.DescribeCases
      */
     @Override
     public DescribeCasesResult describeCases(
@@ -646,16 +659,18 @@ public class AWSSupportClient extends AmazonWebServiceClient implements
         try {
             awsRequestMetrics.startEvent(Field.RequestMarshallTime);
             try {
-                request = new DescribeCasesRequestMarshaller()
-                        .marshall(describeCasesRequest);
+                request = new DescribeCasesRequestMarshaller().marshall(super
+                        .beforeMarshalling(describeCasesRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
 
-            response = invoke(request,
-                    new DescribeCasesResultJsonUnmarshaller(), executionContext);
+            JsonResponseHandler<DescribeCasesResult> responseHandler = new JsonResponseHandler<DescribeCasesResult>(
+                    new DescribeCasesResultJsonUnmarshaller());
+            responseHandler.setIsPayloadJson(true);
+            response = invoke(request, responseHandler, executionContext);
 
             return response.getAwsResponse();
 
@@ -690,13 +705,13 @@ public class AWSSupportClient extends AmazonWebServiceClient implements
      * </p>
      * 
      * @param describeCommunicationsRequest
-     *        null
      * @return Result of the DescribeCommunications operation returned by the
      *         service.
      * @throws InternalServerErrorException
      *         An internal server error occurred.
      * @throws CaseIdNotFoundException
      *         The requested <code>CaseId</code> could not be located.
+     * @sample AWSSupport.DescribeCommunications
      */
     @Override
     public DescribeCommunicationsResult describeCommunications(
@@ -712,16 +727,18 @@ public class AWSSupportClient extends AmazonWebServiceClient implements
             awsRequestMetrics.startEvent(Field.RequestMarshallTime);
             try {
                 request = new DescribeCommunicationsRequestMarshaller()
-                        .marshall(describeCommunicationsRequest);
+                        .marshall(super
+                                .beforeMarshalling(describeCommunicationsRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
 
-            response = invoke(request,
-                    new DescribeCommunicationsResultJsonUnmarshaller(),
-                    executionContext);
+            JsonResponseHandler<DescribeCommunicationsResult> responseHandler = new JsonResponseHandler<DescribeCommunicationsResult>(
+                    new DescribeCommunicationsResultJsonUnmarshaller());
+            responseHandler.setIsPayloadJson(true);
+            response = invoke(request, responseHandler, executionContext);
 
             return response.getAwsResponse();
 
@@ -751,10 +768,10 @@ public class AWSSupportClient extends AmazonWebServiceClient implements
      * </p>
      * 
      * @param describeServicesRequest
-     *        null
      * @return Result of the DescribeServices operation returned by the service.
      * @throws InternalServerErrorException
      *         An internal server error occurred.
+     * @sample AWSSupport.DescribeServices
      */
     @Override
     public DescribeServicesResult describeServices(
@@ -770,16 +787,18 @@ public class AWSSupportClient extends AmazonWebServiceClient implements
             awsRequestMetrics.startEvent(Field.RequestMarshallTime);
             try {
                 request = new DescribeServicesRequestMarshaller()
-                        .marshall(describeServicesRequest);
+                        .marshall(super
+                                .beforeMarshalling(describeServicesRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
 
-            response = invoke(request,
-                    new DescribeServicesResultJsonUnmarshaller(),
-                    executionContext);
+            JsonResponseHandler<DescribeServicesResult> responseHandler = new JsonResponseHandler<DescribeServicesResult>(
+                    new DescribeServicesResultJsonUnmarshaller());
+            responseHandler.setIsPayloadJson(true);
+            response = invoke(request, responseHandler, executionContext);
 
             return response.getAwsResponse();
 
@@ -802,11 +821,11 @@ public class AWSSupportClient extends AmazonWebServiceClient implements
      * </p>
      * 
      * @param describeSeverityLevelsRequest
-     *        null
      * @return Result of the DescribeSeverityLevels operation returned by the
      *         service.
      * @throws InternalServerErrorException
      *         An internal server error occurred.
+     * @sample AWSSupport.DescribeSeverityLevels
      */
     @Override
     public DescribeSeverityLevelsResult describeSeverityLevels(
@@ -822,16 +841,18 @@ public class AWSSupportClient extends AmazonWebServiceClient implements
             awsRequestMetrics.startEvent(Field.RequestMarshallTime);
             try {
                 request = new DescribeSeverityLevelsRequestMarshaller()
-                        .marshall(describeSeverityLevelsRequest);
+                        .marshall(super
+                                .beforeMarshalling(describeSeverityLevelsRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
 
-            response = invoke(request,
-                    new DescribeSeverityLevelsResultJsonUnmarshaller(),
-                    executionContext);
+            JsonResponseHandler<DescribeSeverityLevelsResult> responseHandler = new JsonResponseHandler<DescribeSeverityLevelsResult>(
+                    new DescribeSeverityLevelsResultJsonUnmarshaller());
+            responseHandler.setIsPayloadJson(true);
+            response = invoke(request, responseHandler, executionContext);
 
             return response.getAwsResponse();
 
@@ -854,11 +875,11 @@ public class AWSSupportClient extends AmazonWebServiceClient implements
      * </p>
      * 
      * @param describeTrustedAdvisorCheckRefreshStatusesRequest
-     *        null
      * @return Result of the DescribeTrustedAdvisorCheckRefreshStatuses
      *         operation returned by the service.
      * @throws InternalServerErrorException
      *         An internal server error occurred.
+     * @sample AWSSupport.DescribeTrustedAdvisorCheckRefreshStatuses
      */
     @Override
     public DescribeTrustedAdvisorCheckRefreshStatusesResult describeTrustedAdvisorCheckRefreshStatuses(
@@ -874,17 +895,18 @@ public class AWSSupportClient extends AmazonWebServiceClient implements
             awsRequestMetrics.startEvent(Field.RequestMarshallTime);
             try {
                 request = new DescribeTrustedAdvisorCheckRefreshStatusesRequestMarshaller()
-                        .marshall(describeTrustedAdvisorCheckRefreshStatusesRequest);
+                        .marshall(super
+                                .beforeMarshalling(describeTrustedAdvisorCheckRefreshStatusesRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
 
-            response = invoke(
-                    request,
-                    new DescribeTrustedAdvisorCheckRefreshStatusesResultJsonUnmarshaller(),
-                    executionContext);
+            JsonResponseHandler<DescribeTrustedAdvisorCheckRefreshStatusesResult> responseHandler = new JsonResponseHandler<DescribeTrustedAdvisorCheckRefreshStatusesResult>(
+                    new DescribeTrustedAdvisorCheckRefreshStatusesResultJsonUnmarshaller());
+            responseHandler.setIsPayloadJson(true);
+            response = invoke(request, responseHandler, executionContext);
 
             return response.getAwsResponse();
 
@@ -920,11 +942,11 @@ public class AWSSupportClient extends AmazonWebServiceClient implements
      * </ul>
      * 
      * @param describeTrustedAdvisorCheckResultRequest
-     *        null
      * @return Result of the DescribeTrustedAdvisorCheckResult operation
      *         returned by the service.
      * @throws InternalServerErrorException
      *         An internal server error occurred.
+     * @sample AWSSupport.DescribeTrustedAdvisorCheckResult
      */
     @Override
     public DescribeTrustedAdvisorCheckResultResult describeTrustedAdvisorCheckResult(
@@ -940,17 +962,18 @@ public class AWSSupportClient extends AmazonWebServiceClient implements
             awsRequestMetrics.startEvent(Field.RequestMarshallTime);
             try {
                 request = new DescribeTrustedAdvisorCheckResultRequestMarshaller()
-                        .marshall(describeTrustedAdvisorCheckResultRequest);
+                        .marshall(super
+                                .beforeMarshalling(describeTrustedAdvisorCheckResultRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
 
-            response = invoke(
-                    request,
-                    new DescribeTrustedAdvisorCheckResultResultJsonUnmarshaller(),
-                    executionContext);
+            JsonResponseHandler<DescribeTrustedAdvisorCheckResultResult> responseHandler = new JsonResponseHandler<DescribeTrustedAdvisorCheckResultResult>(
+                    new DescribeTrustedAdvisorCheckResultResultJsonUnmarshaller());
+            responseHandler.setIsPayloadJson(true);
+            response = invoke(request, responseHandler, executionContext);
 
             return response.getAwsResponse();
 
@@ -972,11 +995,11 @@ public class AWSSupportClient extends AmazonWebServiceClient implements
      * </p>
      * 
      * @param describeTrustedAdvisorCheckSummariesRequest
-     *        null
      * @return Result of the DescribeTrustedAdvisorCheckSummaries operation
      *         returned by the service.
      * @throws InternalServerErrorException
      *         An internal server error occurred.
+     * @sample AWSSupport.DescribeTrustedAdvisorCheckSummaries
      */
     @Override
     public DescribeTrustedAdvisorCheckSummariesResult describeTrustedAdvisorCheckSummaries(
@@ -992,17 +1015,18 @@ public class AWSSupportClient extends AmazonWebServiceClient implements
             awsRequestMetrics.startEvent(Field.RequestMarshallTime);
             try {
                 request = new DescribeTrustedAdvisorCheckSummariesRequestMarshaller()
-                        .marshall(describeTrustedAdvisorCheckSummariesRequest);
+                        .marshall(super
+                                .beforeMarshalling(describeTrustedAdvisorCheckSummariesRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
 
-            response = invoke(
-                    request,
-                    new DescribeTrustedAdvisorCheckSummariesResultJsonUnmarshaller(),
-                    executionContext);
+            JsonResponseHandler<DescribeTrustedAdvisorCheckSummariesResult> responseHandler = new JsonResponseHandler<DescribeTrustedAdvisorCheckSummariesResult>(
+                    new DescribeTrustedAdvisorCheckSummariesResultJsonUnmarshaller());
+            responseHandler.setIsPayloadJson(true);
+            response = invoke(request, responseHandler, executionContext);
 
             return response.getAwsResponse();
 
@@ -1022,11 +1046,11 @@ public class AWSSupportClient extends AmazonWebServiceClient implements
      * </p>
      * 
      * @param describeTrustedAdvisorChecksRequest
-     *        null
      * @return Result of the DescribeTrustedAdvisorChecks operation returned by
      *         the service.
      * @throws InternalServerErrorException
      *         An internal server error occurred.
+     * @sample AWSSupport.DescribeTrustedAdvisorChecks
      */
     @Override
     public DescribeTrustedAdvisorChecksResult describeTrustedAdvisorChecks(
@@ -1042,16 +1066,18 @@ public class AWSSupportClient extends AmazonWebServiceClient implements
             awsRequestMetrics.startEvent(Field.RequestMarshallTime);
             try {
                 request = new DescribeTrustedAdvisorChecksRequestMarshaller()
-                        .marshall(describeTrustedAdvisorChecksRequest);
+                        .marshall(super
+                                .beforeMarshalling(describeTrustedAdvisorChecksRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
 
-            response = invoke(request,
-                    new DescribeTrustedAdvisorChecksResultJsonUnmarshaller(),
-                    executionContext);
+            JsonResponseHandler<DescribeTrustedAdvisorChecksResult> responseHandler = new JsonResponseHandler<DescribeTrustedAdvisorChecksResult>(
+                    new DescribeTrustedAdvisorChecksResultJsonUnmarshaller());
+            responseHandler.setIsPayloadJson(true);
+            response = invoke(request, responseHandler, executionContext);
 
             return response.getAwsResponse();
 
@@ -1080,11 +1106,11 @@ public class AWSSupportClient extends AmazonWebServiceClient implements
      * </ul>
      * 
      * @param refreshTrustedAdvisorCheckRequest
-     *        null
      * @return Result of the RefreshTrustedAdvisorCheck operation returned by
      *         the service.
      * @throws InternalServerErrorException
      *         An internal server error occurred.
+     * @sample AWSSupport.RefreshTrustedAdvisorCheck
      */
     @Override
     public RefreshTrustedAdvisorCheckResult refreshTrustedAdvisorCheck(
@@ -1100,16 +1126,18 @@ public class AWSSupportClient extends AmazonWebServiceClient implements
             awsRequestMetrics.startEvent(Field.RequestMarshallTime);
             try {
                 request = new RefreshTrustedAdvisorCheckRequestMarshaller()
-                        .marshall(refreshTrustedAdvisorCheckRequest);
+                        .marshall(super
+                                .beforeMarshalling(refreshTrustedAdvisorCheckRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
 
-            response = invoke(request,
-                    new RefreshTrustedAdvisorCheckResultJsonUnmarshaller(),
-                    executionContext);
+            JsonResponseHandler<RefreshTrustedAdvisorCheckResult> responseHandler = new JsonResponseHandler<RefreshTrustedAdvisorCheckResult>(
+                    new RefreshTrustedAdvisorCheckResultJsonUnmarshaller());
+            responseHandler.setIsPayloadJson(true);
+            response = invoke(request, responseHandler, executionContext);
 
             return response.getAwsResponse();
 
@@ -1127,12 +1155,12 @@ public class AWSSupportClient extends AmazonWebServiceClient implements
      * </p>
      * 
      * @param resolveCaseRequest
-     *        null
      * @return Result of the ResolveCase operation returned by the service.
      * @throws InternalServerErrorException
      *         An internal server error occurred.
      * @throws CaseIdNotFoundException
      *         The requested <code>CaseId</code> could not be located.
+     * @sample AWSSupport.ResolveCase
      */
     @Override
     public ResolveCaseResult resolveCase(ResolveCaseRequest resolveCaseRequest) {
@@ -1146,16 +1174,18 @@ public class AWSSupportClient extends AmazonWebServiceClient implements
         try {
             awsRequestMetrics.startEvent(Field.RequestMarshallTime);
             try {
-                request = new ResolveCaseRequestMarshaller()
-                        .marshall(resolveCaseRequest);
+                request = new ResolveCaseRequestMarshaller().marshall(super
+                        .beforeMarshalling(resolveCaseRequest));
                 // Binds the request metrics to the current request.
                 request.setAWSRequestMetrics(awsRequestMetrics);
             } finally {
                 awsRequestMetrics.endEvent(Field.RequestMarshallTime);
             }
 
-            response = invoke(request, new ResolveCaseResultJsonUnmarshaller(),
-                    executionContext);
+            JsonResponseHandler<ResolveCaseResult> responseHandler = new JsonResponseHandler<ResolveCaseResult>(
+                    new ResolveCaseResultJsonUnmarshaller());
+            responseHandler.setIsPayloadJson(true);
+            response = invoke(request, responseHandler, executionContext);
 
             return response.getAwsResponse();
 
@@ -1195,7 +1225,7 @@ public class AWSSupportClient extends AmazonWebServiceClient implements
 
     private <X, Y extends AmazonWebServiceRequest> Response<X> invoke(
             Request<Y> request,
-            Unmarshaller<X, JsonUnmarshallerContext> unmarshaller,
+            HttpResponseHandler<AmazonWebServiceResponse<X>> responseHandler,
             ExecutionContext executionContext) {
         request.setEndpoint(endpoint);
         request.setTimeOffset(timeOffset);
@@ -1218,8 +1248,6 @@ public class AWSSupportClient extends AmazonWebServiceClient implements
 
         executionContext.setCredentials(credentials);
 
-        JsonResponseHandler<X> responseHandler = new JsonResponseHandler<X>(
-                unmarshaller);
         JsonErrorResponseHandlerV2 errorResponseHandler = new JsonErrorResponseHandlerV2(
                 jsonErrorUnmarshallers);
 
