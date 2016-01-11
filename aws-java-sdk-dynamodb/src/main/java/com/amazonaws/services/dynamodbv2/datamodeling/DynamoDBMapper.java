@@ -1339,9 +1339,108 @@ public class DynamoDBMapper extends AbstractDynamoDBMapper {
     public List<FailedBatch> batchWrite(List<? extends Object> objectsToWrite, List<? extends Object> objectsToDelete, DynamoDBMapperConfig config) {
         config = mergeConfig(config);
 
+        BatchWriteRequests batchWriteRequests = createBatchWriteRequests(objectsToWrite, objectsToDelete, config);
+
+        return writeBatchRequests(batchWriteRequests);
+    }
+
+    public List<FailedBatch> writeBatchRequests(BatchWriteRequests batchWriteRequests) {
+        Map<String, List<WriteRequest>> requestItems = batchWriteRequests.requestItems;
+
         List<FailedBatch> totalFailedBatches = new LinkedList<FailedBatch>();
 
+        // Break into chunks of 25 items and make service requests to DynamoDB
+        while ( !requestItems.isEmpty() ) {
+
+            HashMap<String, List<WriteRequest>> batch =
+                    new HashMap<String, List<WriteRequest>>();
+
+            int i = 0;
+
+            Iterator<Entry<String, List<WriteRequest>>> tableIter = requestItems.entrySet().iterator();
+            while ( tableIter.hasNext() && i < MAX_ITEMS_PER_BATCH ) {
+
+                Entry<String, List<WriteRequest>> tableRequest = tableIter.next();
+
+                batch.put(tableRequest.getKey(), new LinkedList<WriteRequest>());
+                Iterator<WriteRequest> writeRequestIter = tableRequest.getValue().iterator();
+
+                while ( writeRequestIter.hasNext() && i++ < MAX_ITEMS_PER_BATCH ) {
+                    WriteRequest writeRequest = writeRequestIter.next();
+                    batch.get(tableRequest.getKey()).add(writeRequest);
+                    writeRequestIter.remove();
+                }
+
+                // If we've processed all the write requests for this table,
+                // remove it from the parent iterator.
+                if ( !writeRequestIter.hasNext() ) {
+                    tableIter.remove();
+                }
+            }
+
+            List<FailedBatch> failedBatches = writeOneBatch(batch, config.getBatchWriteRetryStrategy());
+            if (failedBatches != null) {
+                totalFailedBatches.addAll(failedBatches);
+
+                // If contains throttling exception, we do a backoff
+                if (containsThrottlingException(failedBatches)) {
+                    try {
+                        Thread.sleep(1000 * 2);
+                    } catch (InterruptedException e) {
+                        Thread.currentThread().interrupt();
+                        throw new AmazonClientException(e.getMessage(), e);
+                    }
+                }
+            }
+        }
+
+
+
+        // Once the entire batch is processed, update assigned keys in memory
+        for ( ValueUpdate update : batchWriteRequests.inMemoryUpdates ) {
+            update.apply();
+        }
+
+        return totalFailedBatches;
+    }
+
+
+    public static class BatchWriteRequests {
+        private Map<String, List<WriteRequest>> requestItems;
+        private List<ValueUpdate> inMemoryUpdates;
+
+        public BatchWriteRequests(Map<String, List<WriteRequest>> requestItems) {
+            this(requestItems, new ArrayList<ValueUpdate>());
+        }
+
+        public BatchWriteRequests(Map<String, List<WriteRequest>> requestItems, List<ValueUpdate> inMemoryUpdates) {
+            this.requestItems = requestItems;
+            this.inMemoryUpdates = inMemoryUpdates;
+        }
+
+        public void add(BatchWriteRequests requests) {
+            for(Entry<String, List<WriteRequest>> entry : requests.requestItems.entrySet()) {
+                if (requestItems.containsKey(entry.getKey())) {
+                    // add to existing list
+                    requestItems.get(entry.getKey()).addAll(entry.getValue());
+                } else {
+                    requestItems.put(entry.getKey(), entry.getValue());
+                }
+            }
+        }
+
+        public Map<String, List<WriteRequest>> getRequestItems() {
+            return requestItems;
+        }
+
+        public List<ValueUpdate> getInMemoryUpdates() {
+            return inMemoryUpdates;
+        }
+    }
+
+    public BatchWriteRequests createBatchWriteRequests(List<?> objectsToWrite, List<?> objectsToDelete, DynamoDBMapperConfig config) {
         HashMap<String, List<WriteRequest>> requestItems = new HashMap<String, List<WriteRequest>>();
+
 
         ItemConverter converter = getConverter(config);
 
@@ -1400,59 +1499,7 @@ public class DynamoDBMapper extends AbstractDynamoDBMapper {
                     new WriteRequest().withDeleteRequest(new DeleteRequest().withKey(key)));
         }
 
-        // Break into chunks of 25 items and make service requests to DynamoDB
-        while ( !requestItems.isEmpty() ) {
-
-            HashMap<String, List<WriteRequest>> batch =
-                    new HashMap<String, List<WriteRequest>>();
-
-            int i = 0;
-
-            Iterator<Entry<String, List<WriteRequest>>> tableIter = requestItems.entrySet().iterator();
-            while ( tableIter.hasNext() && i < MAX_ITEMS_PER_BATCH ) {
-
-                Entry<String, List<WriteRequest>> tableRequest = tableIter.next();
-
-                batch.put(tableRequest.getKey(), new LinkedList<WriteRequest>());
-                Iterator<WriteRequest> writeRequestIter = tableRequest.getValue().iterator();
-
-                while ( writeRequestIter.hasNext() && i++ < MAX_ITEMS_PER_BATCH ) {
-                    WriteRequest writeRequest = writeRequestIter.next();
-                    batch.get(tableRequest.getKey()).add(writeRequest);
-                    writeRequestIter.remove();
-                }
-
-                // If we've processed all the write requests for this table,
-                // remove it from the parent iterator.
-                if ( !writeRequestIter.hasNext() ) {
-                    tableIter.remove();
-                }
-            }
-
-            List<FailedBatch> failedBatches = writeOneBatch(batch, config.getBatchWriteRetryStrategy());
-            if (failedBatches != null) {
-                totalFailedBatches.addAll(failedBatches);
-
-                // If contains throttling exception, we do a backoff
-                if (containsThrottlingException(failedBatches)) {
-                    try {
-                        Thread.sleep(1000 * 2);
-                    } catch (InterruptedException e) {
-                        Thread.currentThread().interrupt();
-                        throw new AmazonClientException(e.getMessage(), e);
-                    }
-                }
-            }
-        }
-
-
-
-        // Once the entire batch is processed, update assigned keys in memory
-        for ( ValueUpdate update : inMemoryUpdates ) {
-            update.apply();
-        }
-
-        return totalFailedBatches;
+        return new BatchWriteRequests(requestItems, inMemoryUpdates);
     }
 
     /**
