@@ -1,1 +1,8 @@
 target/
+
+# intellij stuff
+*.iml
+.idea/
+
+# mvn versions backup files:
+*.versionsBackup
